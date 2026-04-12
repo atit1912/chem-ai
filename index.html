@@ -157,7 +157,7 @@
     <!-- Gradient Casing Title -->
     <h1 class="text-4xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-white to-purple-300 tracking-tight mb-2 drop-shadow-lg">ChemNexus AI 1.0</h1>
     
-    <!-- Developer Name -->
+    <!-- Developer Name with same gradient -->
     <p class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-white to-purple-300 font-black text-xs md:text-sm uppercase tracking-[0.4em] mb-4">Developed by ATIT CHIMNAN</p>
     
     <p class="text-slate-400 font-medium text-xs md:text-sm lang-text tracking-wide" data-th="ระบบวิเคราะห์การจัดเก็บสารเคมีและวัตถุอันตรายอัจฉริยะ" data-en="Intelligent Chemical Storage Matrix">ระบบวิเคราะห์การจัดเก็บสารเคมีและวัตถุอันตรายอัจฉริยะ</p>
@@ -337,8 +337,8 @@
       <h3 class="text-white font-bold text-lg mb-2 tracking-wide uppercase">Confirm Erasure</h3>
       <p id="deleteItemName" class="text-rose-300 text-sm mb-6 bg-rose-500/10 p-3 rounded-xl font-bold"></p>
       <div class="flex gap-3 text-white font-bold">
-        <button onclick="closeModal('deleteConfirmModal')" class="flex-1 py-3 bg-slate-800 rounded-xl">ไม่ลบ</button>
-        <button onclick="executeDelete()" class="flex-1 py-3 bg-rose-600 rounded-xl shadow-lg font-black">ยืนยัน</button>
+        <button onclick="closeModal('deleteConfirmModal')" class="flex-1 py-3 bg-slate-800 rounded-xl hover:bg-slate-700">ไม่ลบ</button>
+        <button onclick="executeDelete()" class="flex-1 py-3 bg-rose-600 rounded-xl shadow-lg font-black hover:brightness-110">ยืนยัน</button>
       </div>
     </div>
   </div>
@@ -359,7 +359,7 @@
         </div>
         <div class="pt-4 space-y-3">
           <button id="btnAiAutoFill" onclick="aiAutoFill()" class="w-full py-3 bg-slate-800 border border-cyan-500/30 text-cyan-400 font-bold rounded-xl text-xs flex items-center justify-center gap-2 transition-all hover:bg-slate-700 shadow-inner"><i class="ph-duotone ph-magic-wand text-lg"></i> AI Auto-Fill</button>
-          <button onclick="saveCustomChemical()" class="w-full py-4 bg-gradient-to-r from-cyan-600 to-blue-600 font-black rounded-xl flex items-center justify-center gap-2 shadow-lg transition-transform"><i class="ph-bold ph-floppy-disk text-lg"></i> บันทึกข้อมูล</button>
+          <button onclick="saveCustomChemical()" class="w-full py-4 bg-gradient-to-r from-cyan-600 to-blue-600 text-white font-black rounded-xl flex items-center justify-center gap-2 shadow-lg transition-transform hover:brightness-110"><i class="ph-bold ph-floppy-disk text-lg"></i> บันทึกข้อมูล</button>
         </div>
       </div>
     </div>
@@ -369,7 +369,7 @@
     <div class="glass-card rounded-3xl w-full max-w-5xl max-h-[90vh] overflow-hidden flex flex-col shadow-2xl border border-white/10">
       <div class="p-4 flex justify-between items-center bg-slate-800/50 text-white">
         <h3 class="font-bold flex items-center gap-2"><i class="ph-duotone ph-table text-cyan-400"></i> ตารางอ้างอิง DIW</h3>
-        <button onclick="closeModal('matrixModal')" class="text-slate-400 hover:text-rose-400 bg-slate-900 p-2 rounded-full transition-colors"><i class="ph-bold ph-x text-sm"></i></button>
+        <button onclick="closeModal('matrixModal')" class="text-slate-400 bg-slate-900 p-2 rounded-full transition-colors"><i class="ph-bold ph-x text-sm"></i></button>
       </div>
       <div class="p-4 overflow-y-auto flex-1 bg-slate-900/50 text-center">
         <img src="01.jpg" alt="Matrix" class="max-w-full h-auto rounded-lg mx-auto shadow-2xl border border-white/5" onerror="this.src='https://raw.githubusercontent.com/atit1912/chem-ai/main/01.jpg'">
@@ -388,7 +388,6 @@ var chemicalDatabase = [];
 var state = { classA: null, classB: null, nameA: null, nameB: null };
 var targetIndex = null; 
 
-// กำหนดลำดับที่แท้จริงเพื่อให้ตรรกะ Matrix มีความสมมาตร 100% (หลีกเลี่ยงการจัดเรียงคีย์แบบออโต้ของ JS)
 const CLASS_ORDER = [
   "1", "2A", "2B", "3A", "3B", "4.1A", "4.1B", "4.2", "4.3", "5.1A", 
   "5.1B", "5.1C", "5.2", "6.1A", "6.1B", "6.2", "7", "8A", "8B", "10", 
@@ -449,11 +448,27 @@ const matrixRows = {
 };
 
 const defaultChemicalDB = [
-    { name: "LPG", class: "2A", cas: "68476-85-7", un: "1075" },
-    { name: "Sodium Nitrite", class: "5.1B", cas: "7632-00-0", un: "1500" },
-    { name: "NaOH", class: "8B", cas: "1310-73-2", un: "1823" },
-    { name: "Ethanol", class: "3A", cas: "64-17-5", un: "1170" },
-    { name: "HCl", class: "8B", cas: "7647-01-0", un: "1789" }
+  { name: "LPG (ก๊าซหุงต้ม)", class: "2A", cas: "68476-85-7", un: "1075" },
+  { name: "สเปรย์แอลกอฮอล์", class: "2B", cas: "64-17-5", un: "1950" },
+  { name: "Nitroglycerin", class: "1", cas: "55-63-0", un: "0143" },
+  { name: "เอทานอล 95%", class: "3A", cas: "64-17-5", un: "1170" },
+  { name: "อควาบราวน์", class: "11", cas: "-", un: "-" },
+  { name: "โพวิโดน ไอโอดีน", class: "12", cas: "25655-41-8", un: "-" },
+  { name: "EDTA", class: "12", cas: "60-00-4", un: "-" },
+  { name: "ซันไล", class: "12", cas: "-", un: "-" },
+  { name: "โซเดียมไทโอซัลเฟต", class: "12", cas: "7772-98-7", un: "-" },
+  { name: "แคลเซียมคลอไรด์", class: "12", cas: "10043-52-4", un: "-" },
+  { name: "แคลเซียมคลอไรต์", class: "12", cas: "39475-21-3", un: "-" },
+  { name: "โซเดียมไนไตรท์", class: "5.1B", cas: "7632-00-0", un: "1500" },
+  { name: "ไฮโดรเจนเปอร์ออกไซด์ (30%)", class: "5.1B", cas: "7722-84-1", un: "2014" },
+  { name: "คลอรีนผง", class: "5.1A", cas: "7778-54-3", un: "1748" },
+  { name: "คลอรีนน้ำ", class: "8B", cas: "7681-52-9", un: "1791" },
+  { name: "ไบโอซอล 300", class: "8B", cas: "-", un: "-" },
+  { name: "กรดเกลือ (HCl)", class: "8B", cas: "7647-01-0", un: "1789" },
+  { name: "โซเดียมไฮดรอกไซด์ (โซดาไฟ)", class: "8B", cas: "1310-73-2", un: "1823" },
+  { name: "โซเดียมไบคาร์บอเนต", class: "13", cas: "144-55-8", un: "-" },
+  { name: "แมกนีเซียมคลอไรด์", class: "13", cas: "7786-30-3", un: "-" },
+  { name: "ปูนขาว", class: "13", cas: "1305-62-0", un: "1910" }
 ];
 
 // --- [3] CORE FUNCTIONS & LOGIC ---
@@ -604,7 +619,6 @@ function initDropdown(side) {
     const input = document.getElementById(`search${side}`), list = document.getElementById(`list${side}`);
     function render(f = "") {
         const cf = f.replace(/-/g, '').toLowerCase();
-        // ใช้ CLASS_ORDER เพื่อรักษาระเบียบที่ถูกต้อง
         const opts = [...chemicalDatabase, ...CLASS_ORDER.map(k => ({ name: hazardClasses[k].title, class: k }))];
         const filtered = opts.filter(o => o.name.toLowerCase().includes(f.toLowerCase()) || (o.cas && o.cas.replace(/-/g,'').includes(cf)));
         list.innerHTML = filtered.map(o => `<li onclick="selectItem('${side}', '${o.class}', '${o.name}', '${o.cas||''}', '${o.un||''}')" class="px-5 py-4 hover:bg-slate-800 cursor-pointer border-b border-white/5 flex items-center gap-4">
@@ -646,8 +660,6 @@ function toggleLang() { currentLang = currentLang === 'th' ? 'en' : 'th'; docume
 
 function autoAnalyze() {
     const c1 = state.classA, c2 = state.classB;
-    
-    // ดึงข้อมูลจาก Matrix โดยใช้ดัชนีจาก CLASS_ORDER ที่ล็อคไว้ตายตัว (รับประกันความสมมาตร)
     const idxB = CLASS_ORDER.indexOf(c2);
     let val = matrixRows[c1][idxB];
     let decision = (val === "0" || !val) ? { color: "RED" } : (val === "00" ? { color: "GREEN" } : { color: "YELLOW", code: val });
