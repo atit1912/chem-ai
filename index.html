@@ -14,6 +14,9 @@
   <!-- Phosphor Icons -->
   <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
+  <!-- html2pdf.js สำหรับดาวน์โหลด PDF โดยตรง -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
   <style>
     body { 
       font-family: 'Prompt', sans-serif; 
@@ -69,12 +72,21 @@
       border: 1px solid #334155; 
       box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
     }
+
+    .print-only { display: none; }
+    @media print {
+      body { background: white !important; color: black !important; padding: 0; }
+      .no-print { display: none !important; }
+      .print-only { display: block !important; }
+      .glass-card { background: white; border: 1px solid #ccc; backdrop-filter: none; box-shadow: none; color: black; }
+      * { color: black !important; text-shadow: none !important; }
+    }
   </style>
 </head>
 <body class="min-h-screen p-4 md:p-8 flex flex-col items-center transition-colors duration-300 pb-20">
 
   <!-- Floating Mobile-Friendly Admin Bar -->
-  <div class="w-full max-w-5xl flex flex-col md:flex-row flex-wrap justify-between items-center gap-3 mb-8 z-50 relative">
+  <div class="no-print w-full max-w-5xl flex flex-col md:flex-row flex-wrap justify-between items-center gap-3 mb-8 z-50 relative">
     <div class="text-[11px] md:text-sm text-cyan-400/80 font-medium tracking-wide text-center md:text-left w-full md:w-auto uppercase">
       พัฒนาโดย Atit chimnan • ธุรกิจพันธุ์กุ้งทะเล 2
     </div>
@@ -89,7 +101,7 @@
   </div>
 
   <!-- Header Section -->
-  <div class="text-center mb-10 max-w-3xl relative z-10 w-full">
+  <div class="text-center mb-10 max-w-3xl no-print relative z-10 w-full">
     <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-cyan-400 to-blue-600 text-white shadow-[0_0_30px_rgba(6,182,212,0.4)] mb-6 transform rotate-3 hover:rotate-0 transition-transform">
       <i class="ph-duotone ph-atom text-4xl"></i>
     </div>
@@ -113,7 +125,7 @@
         </div>
         
         <!-- Search Input State A -->
-        <div id="searchStateA" class="relative">
+        <div id="searchStateA" class="relative no-print">
           <i class="ph ph-scan absolute left-4 top-1/2 transform -translate-y-1/2 text-cyan-400 text-xl animate-pulse"></i>
           <input type="text" id="searchA" autocomplete="off" placeholder="ค้นหาชื่อสาร, Class, CAS No..." 
             class="w-full pl-12 pr-4 py-4 glass-input rounded-2xl outline-none transition-all placeholder-slate-500 text-sm md:text-base">
@@ -122,7 +134,7 @@
 
         <!-- Selected Card State A -->
         <div id="selectedStateA" class="hidden relative overflow-hidden bg-slate-800/80 backdrop-blur-md border border-slate-700/50 rounded-2xl p-5 shadow-lg">
-          <button onclick="clearSelection('A')" class="absolute top-3 right-3 text-slate-400 hover:text-rose-400 transition-colors p-2 bg-slate-900/80 rounded-full btn-clear">
+          <button onclick="clearSelection('A')" class="no-print absolute top-3 right-3 text-slate-400 hover:text-rose-400 transition-colors p-2 bg-slate-900/80 rounded-full btn-clear">
             <i class="ph-bold ph-x"></i>
           </button>
           <div class="flex items-start gap-4">
@@ -140,7 +152,7 @@
       </div>
 
       <!-- VS Icon -->
-      <div class="hidden md:flex absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 w-12 h-12 glass-card rounded-full items-center justify-center text-cyan-400 font-black shadow-[0_0_20px_rgba(6,182,212,0.2)] text-xl">
+      <div class="hidden md:flex absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 w-12 h-12 glass-card rounded-full items-center justify-center text-cyan-400 font-black shadow-[0_0_20px_rgba(6,182,212,0.2)] text-xl no-print">
         <i class="ph-bold ph-arrows-left-right"></i>
       </div>
 
@@ -154,7 +166,7 @@
         </div>
         
         <!-- Search Input State B -->
-        <div id="searchStateB" class="relative">
+        <div id="searchStateB" class="relative no-print">
           <i class="ph ph-scan absolute left-4 top-1/2 transform -translate-y-1/2 text-purple-400 text-xl animate-pulse"></i>
           <input type="text" id="searchB" autocomplete="off" placeholder="ค้นหาชื่อสาร, Class, CAS No..." 
             class="w-full pl-12 pr-4 py-4 glass-input rounded-2xl outline-none transition-all placeholder-slate-500 text-sm md:text-base focus:border-purple-500/50 focus:shadow-[0_0_15px_rgba(168,85,247,0.2)]">
@@ -163,7 +175,7 @@
 
         <!-- Selected Card State B -->
         <div id="selectedStateB" class="hidden relative overflow-hidden bg-slate-800/80 backdrop-blur-md border border-slate-700/50 rounded-2xl p-5 shadow-lg">
-          <button onclick="clearSelection('B')" class="absolute top-3 right-3 text-slate-400 hover:text-rose-400 transition-colors p-2 bg-slate-900/80 rounded-full btn-clear">
+          <button onclick="clearSelection('B')" class="no-print absolute top-3 right-3 text-slate-400 hover:text-rose-400 transition-colors p-2 bg-slate-900/80 rounded-full btn-clear">
             <i class="ph-bold ph-x"></i>
           </button>
           <div class="flex items-start gap-4">
@@ -181,7 +193,7 @@
       </div>
     </div>
 
-    <!-- แอนิเมชัน Fusion AI (ปรับสมูท) -->
+    <!-- แอนิเมชัน Fusion AI -->
     <div id="fusionContainer" class="hidden relative z-10 w-full mt-8 p-10 glass-card rounded-3xl border border-cyan-500/30 overflow-hidden text-center shadow-[0_0_40px_rgba(6,182,212,0.15)] transition-opacity duration-500 opacity-100">
       <div class="absolute inset-0 bg-cyan-500/5 animate-pulse"></div>
       <div class="relative flex justify-center items-center gap-2 md:gap-8">
@@ -254,50 +266,71 @@
       </div>
       
       <!-- Feature 2: New Scan / Reset Button -->
-      <div class="mt-8 flex justify-center pb-8">
-        <button onclick="resetScan()" class="group relative px-8 py-4 bg-gradient-to-r from-cyan-600 to-blue-600 rounded-full text-white font-bold tracking-widest uppercase shadow-[0_0_20px_rgba(6,182,212,0.4)] hover:shadow-[0_0_30px_rgba(6,182,212,0.6)] hover:scale-105 transition-all flex items-center gap-2">
+      <div class="mt-8 flex flex-col md:flex-row justify-center items-center gap-4 no-print pb-8">
+        <button onclick="resetScan()" class="group relative px-8 py-4 bg-gradient-to-r from-cyan-600 to-blue-600 rounded-full text-white font-bold tracking-widest uppercase shadow-[0_0_20px_rgba(6,182,212,0.4)] hover:shadow-[0_0_30px_rgba(6,182,212,0.6)] hover:scale-105 transition-all flex items-center gap-2 w-full md:w-auto justify-center">
           <i class="ph-bold ph-arrows-clockwise text-xl group-hover:rotate-180 transition-transform duration-500"></i>
           <span class="lang-text" data-th="ตรวจสอบคู่ใหม่ (New Scan)" data-en="Start New Scan">ตรวจสอบคู่ใหม่ (New Scan)</span>
         </button>
+        <button onclick="openModal('matrixModal')" class="group relative px-8 py-4 glass-card rounded-full text-cyan-300 font-bold tracking-widest uppercase hover:bg-slate-800/80 hover:text-cyan-200 transition-all flex items-center gap-2 border border-cyan-500/30 hover:border-cyan-500/60 shadow-[0_0_15px_rgba(6,182,212,0.1)] w-full md:w-auto justify-center">
+          <i class="ph-duotone ph-table text-xl group-hover:scale-110 transition-transform duration-300"></i>
+          <span class="lang-text" data-th="ดูตารางอ้างอิง" data-en="View Reference">ดูตารางอ้างอิง</span>
+        </button>
       </div>
+
     </div>
   </div>
 
   <!-- ปุ่มแอบ (Floating Button) ไว้ดูตาราง Matrix -->
-  <button onclick="openModal('matrixModal')" class="fixed bottom-6 right-6 z-[9000] w-14 h-14 glass-card rounded-full flex items-center justify-center text-cyan-400 hover:text-white hover:bg-cyan-500/20 shadow-[0_0_20px_rgba(6,182,212,0.3)] transition-all group" title="ดูตารางอ้างอิง">
+  <button onclick="openModal('matrixModal')" class="fixed bottom-6 right-6 z-[9000] w-14 h-14 glass-card rounded-full flex items-center justify-center text-cyan-400 hover:text-white hover:bg-cyan-500/20 shadow-[0_0_20px_rgba(6,182,212,0.3)] transition-all group no-print" title="ดูตารางอ้างอิง">
     <i class="ph-duotone ph-table text-2xl group-hover:scale-110 transition-transform"></i>
   </button>
 
   <!-- Modals -->
-  <!-- 1. Add Custom Chemical Modal -->
-  <div id="customDbModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-[9999] hidden flex items-center justify-center p-4">
-    <div class="glass-card rounded-3xl w-full max-w-md shadow-[0_0_40px_rgba(0,0,0,0.5)] overflow-hidden slide-up border border-slate-700">
-      <div class="p-6 border-b border-slate-700/50 flex justify-between items-center bg-slate-800/50">
+  <!-- 1. Add Custom Chemical Modal with AI Auto-Fill -->
+  <div id="customDbModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-[9999] hidden flex items-center justify-center p-4 overflow-y-auto pt-20 pb-20">
+    <div class="glass-card rounded-3xl w-full max-w-md shadow-[0_0_40px_rgba(0,0,0,0.5)] slide-up border border-slate-700 m-auto">
+      <div class="p-6 border-b border-slate-700/50 flex justify-between items-center bg-slate-800/50 rounded-t-3xl">
         <h3 class="font-bold text-lg text-white flex items-center gap-2"><i class="ph-duotone ph-database text-cyan-400 text-2xl"></i> เพิ่มข้อมูลฐานสารเคมี</h3>
         <button onclick="closeModal('customDbModal')" class="text-slate-400 hover:text-rose-400 bg-slate-900 p-2 rounded-full"><i class="ph-bold ph-x text-sm"></i></button>
       </div>
       <div class="p-6 space-y-5">
-        <div>
-          <label class="block text-xs font-bold text-cyan-400 mb-2 uppercase tracking-wide">ชื่อสารเคมี (Chemical Name) *</label>
-          <input type="text" id="newChemName" class="w-full px-4 py-3 glass-input rounded-xl text-sm focus:ring-0">
+        
+        <!-- คำแนะนำการใช้งาน -->
+        <div class="text-xs text-slate-300 bg-slate-900/50 p-4 rounded-xl border border-slate-700/50 leading-relaxed shadow-inner">
+          💡 <strong class="text-cyan-400">เคล็ดลับ:</strong> กรอกข้อมูลเพียงช่องเดียว (ชื่อสาร <u>หรือ</u> CAS แบบไม่ต้องพิมพ์ขีด <u>หรือ</u> UN) แล้วกดปุ่ม <b>AI Auto-Fill</b> ด้านล่างสุด ระบบจะค้นหาและเติมข้อมูลที่เหลือให้ครบถ้วนครับ!
         </div>
+
         <div>
-          <label class="block text-xs font-bold text-cyan-400 mb-2 uppercase tracking-wide">กลุ่มความเสี่ยง (Hazard Class) *</label>
+          <label class="block text-xs font-bold text-cyan-400 mb-2 uppercase tracking-wide">ชื่อสารเคมี / สูตรเคมี (Name/Formula)</label>
+          <input type="text" id="newChemName" placeholder="เช่น NaOH, โซเดียมไนไตรท์" class="w-full px-4 py-3 glass-input rounded-xl text-sm focus:ring-0 placeholder-slate-500">
+        </div>
+        
+        <div>
+          <label class="block text-xs font-bold text-cyan-400 mb-2 uppercase tracking-wide">กลุ่มความเสี่ยง (Hazard Class)</label>
           <select id="newChemClass" class="w-full px-4 py-3 glass-input rounded-xl text-sm focus:ring-0 [&>option]:bg-slate-800 [&>option]:text-white"></select>
         </div>
+        
         <div class="grid grid-cols-2 gap-4">
           <div>
             <label class="block text-xs font-bold text-cyan-400 mb-2 uppercase tracking-wide">CAS No.</label>
-            <input type="text" id="newChemCas" placeholder="ex. 7732-18-5" class="w-full px-4 py-3 glass-input rounded-xl text-sm focus:ring-0">
+            <input type="text" id="newChemCas" placeholder="เช่น 7632000" class="w-full px-4 py-3 glass-input rounded-xl text-sm focus:ring-0 placeholder-slate-500">
           </div>
           <div>
             <label class="block text-xs font-bold text-cyan-400 mb-2 uppercase tracking-wide">UN Number</label>
-            <input type="text" id="newChemUn" placeholder="ex. 1993" class="w-full px-4 py-3 glass-input rounded-xl text-sm focus:ring-0">
+            <input type="text" id="newChemUn" placeholder="เช่น 1500" class="w-full px-4 py-3 glass-input rounded-xl text-sm focus:ring-0 placeholder-slate-500">
           </div>
         </div>
-        <button onclick="saveCustomChemical()" class="w-full mt-6 py-4 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-bold rounded-xl transition-all shadow-[0_0_20px_rgba(6,182,212,0.3)]">
-          บันทึกเข้าสู่ระบบ AI
-        </button>
+
+        <div class="pt-4 border-t border-slate-700/50 mt-6 space-y-3">
+          <button id="btnAiAutoFill" onclick="aiAutoFill()" class="w-full py-3.5 bg-slate-800 hover:bg-slate-700 border border-cyan-500/50 text-cyan-300 font-bold rounded-xl transition-all shadow-[0_0_15px_rgba(6,182,212,0.1)] hover:shadow-[0_0_20px_rgba(6,182,212,0.3)] flex items-center justify-center gap-2 text-sm">
+            <i class="ph-duotone ph-magic-wand text-xl"></i> AI Auto-Fill (ค้นหาและเติมข้อมูลครบทุกช่อง)
+          </button>
+
+          <button onclick="saveCustomChemical()" class="w-full py-4 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-bold rounded-xl transition-all shadow-[0_0_20px_rgba(6,182,212,0.3)] flex justify-center items-center gap-2">
+            <i class="ph-bold ph-floppy-disk text-lg"></i> บันทึกเข้าสู่ระบบ
+          </button>
+        </div>
+
       </div>
     </div>
   </div>
@@ -312,6 +345,9 @@
       <div class="p-2 md:p-4 overflow-y-auto custom-scrollbar flex-1 flex justify-center items-start bg-slate-900/50" id="matrixImageContainer">
          <img src="01.jpg" alt="DIW Matrix" class="max-w-full h-auto rounded-xl border border-slate-700 shadow-2xl" onerror="handleImageError(this)">
       </div>
+      <div class="p-4 border-t border-slate-700/50 bg-slate-800/80 flex-shrink-0 text-center">
+         <p class="text-sm md:text-base font-semibold text-cyan-300 tracking-wide">ตารางอ้างอิงการจัดเก็บสารเคมี</p>
+      </div>
     </div>
   </div>
 
@@ -320,10 +356,8 @@
 function handleImageError(img) {
   if (!img.dataset.retried) {
     img.dataset.retried = 'true';
-    // ลองพยายามดึงภาพโดยตรงจากฐานข้อมูล GitHub กรณี Path ผิดเพี้ยน
     img.src = 'https://raw.githubusercontent.com/atit1912/chem-ai/main/01.jpg';
   } else {
-    // ถ้ายังไม่เจออีก ให้แสดงข้อความเตือนวิธีแก้ไข
     const container = document.getElementById('matrixImageContainer');
     if (container) {
       container.innerHTML = `
@@ -334,7 +368,7 @@ function handleImageError(img) {
             <p class="font-bold text-white mb-2">วิธีแก้ไข:</p>
             <ol class="list-decimal pl-5 space-y-1">
               <li>ตรวจสอบว่าคุณได้อัปโหลดไฟล์ภาพเข้าไปใน GitHub แล้ว</li>
-              <li>ตรวจสอบชื่อและนามสกุลไฟล์ ต้องเป็นตัวพิมพ์เล็กทั้งหมด <b>01.jpg</b> (ถ้าเป็น <span class="text-rose-400">01.JPG</span> หรือ <span class="text-rose-400">01.jpeg</span> ภาพจะไม่แสดง)</li>
+              <li>ตรวจสอบชื่อและนามสกุลไฟล์ ต้องเป็นตัวพิมพ์เล็กทั้งหมด <b>01.jpg</b> (ถ้าเป็น <span class="text-rose-400">01.JPG</span> ภาพจะไม่แสดง)</li>
               <li>กด Refresh หรือรอประมาณ 1-2 นาทีเพื่อให้เซิร์ฟเวอร์อัปเดต</li>
             </ol>
           </div>
@@ -342,6 +376,132 @@ function handleImageError(img) {
       `;
     }
   }
+}
+
+// ===== Feature: Hybrid AI Auto-Fill Engine (Supercharged) =====
+const aiKnowledgeBase = [
+  { keywords: ["naoh", "โซดาไฟ", "sodium hydroxide", "คอสติกโซดา"], class: "8B", cas: "1310-73-2", un: "1823", name: "Sodium Hydroxide (โซดาไฟ)" },
+  { keywords: ["h2so4", "กรดกำมะถัน", "sulfuric acid", "sulphuric acid"], class: "8A", cas: "7664-93-9", un: "1830", name: "Sulfuric Acid (กรดกำมะถัน)" },
+  { keywords: ["hcl", "กรดเกลือ", "hydrochloric acid", "hydrogen chloride"], class: "8B", cas: "7647-01-0", un: "1789", name: "Hydrochloric Acid (กรดเกลือ)" },
+  { keywords: ["hno3", "กรดดินประสิว", "nitric acid", "กรดไนตริก"], class: "8A", cas: "7697-37-2", un: "2031", name: "Nitric Acid (กรดไนตริก)" },
+  { keywords: ["nh3", "แอมโมเนีย", "ammonia"], class: "2A", cas: "7664-41-7", un: "1005", name: "Ammonia (แอมโมเนีย)" },
+  { keywords: ["h2o2", "ไฮโดรเจนเปอร์ออกไซด์", "hydrogen peroxide"], class: "5.1B", cas: "7722-84-1", un: "2014", name: "Hydrogen Peroxide (30%)" },
+  { keywords: ["c2h5oh", "เอทานอล", "ethanol", "ethyl alcohol", "แอลกอฮอล์", "alcohol"], class: "3A", cas: "64-17-5", un: "1170", name: "Ethanol (เอทานอล)" },
+  { keywords: ["ch3oh", "เมทานอล", "methanol", "methyl alcohol"], class: "3A", cas: "67-56-1", un: "1230", name: "Methanol (เมทานอล)" },
+  { keywords: ["lpg", "ก๊าซหุงต้ม", "liquefied petroleum gas"], class: "2A", cas: "68476-85-7", un: "1075", name: "LPG (ก๊าซหุงต้ม)" },
+  { keywords: ["คลอรีน", "chlorine", "cl2", "chlorine gas"], class: "2A", cas: "7782-50-5", un: "1017", name: "Chlorine Gas (ก๊าซคลอรีน)" }
+];
+
+async function aiAutoFill() {
+  const inputName = document.getElementById('newChemName');
+  const inputCas = document.getElementById('newChemCas');
+  const inputUn = document.getElementById('newChemUn');
+  const inputClass = document.getElementById('newChemClass');
+  const btn = document.getElementById('btnAiAutoFill');
+
+  const nameVal = inputName.value.trim().toLowerCase();
+  const casVal = inputCas.value.trim().toLowerCase();
+  
+  // ทำความสะอาดรหัส CAS ให้เหลือแต่ตัวเลขและตัวอักษร (ลบขีดออกอัตโนมัติ) เพื่อให้พิมพ์แบบง่ายๆ ได้
+  const cleanSearchCas = casVal.replace(/-/g, ''); 
+  const unVal = inputUn.value.trim();
+
+  // ตรวจสอบว่ากรอกข้อมูลมาอย่างน้อย 1 ช่องหรือไม่
+  if (!nameVal && !cleanSearchCas && !unVal) {
+    alert(currentLang === 'en' ? "Please enter at least Name, CAS, or UN number." : "กรุณากรอกข้อมูลอย่างน้อย 1 ช่อง (ชื่อ, CAS หรือ UN) เพื่อให้ AI ค้นหาครับ");
+    return;
+  }
+
+  const originalHtml = btn.innerHTML;
+  btn.innerHTML = '<i class="ph-bold ph-spinner animate-spin text-lg"></i> <span>กำลังค้นหาข้อมูลเชื่อมโยง...</span>';
+  btn.disabled = true;
+
+  // 1. รวมฐานข้อมูล Local ทั้งหมด (chemicalDatabase + aiKnowledgeBase)
+  const combinedDB = [
+    ...chemicalDatabase,
+    ...aiKnowledgeBase.map(item => ({
+      name: item.name,
+      class: item.class,
+      cas: item.cas,
+      un: item.un,
+      keywords: item.keywords
+    }))
+  ];
+
+  let foundInKb = null;
+  
+  // ค้นหาแบบฉลาด (หาจาก CAS -> UN -> ชื่อสาร)
+  if (cleanSearchCas) {
+    foundInKb = combinedDB.find(item => item.cas && item.cas.replace(/-/g, '').toLowerCase() === cleanSearchCas);
+  }
+  if (!foundInKb && unVal) {
+    foundInKb = combinedDB.find(item => item.un && item.un === unVal);
+  }
+  if (!foundInKb && nameVal) {
+    foundInKb = combinedDB.find(item => {
+      if (item.name.toLowerCase().includes(nameVal)) return true;
+      if (item.keywords && item.keywords.some(kw => nameVal === kw || nameVal.includes(kw))) return true;
+      return false;
+    });
+  }
+
+  // หากพบในฐานข้อมูลที่เรียนรู้ไว้ ให้เติมข้อมูลแบบครบทุกช่องทันที
+  if (foundInKb) {
+    setTimeout(() => {
+      inputName.value = foundInKb.name;
+      inputClass.value = foundInKb.class;
+      inputCas.value = foundInKb.cas; // แสดงผล CAS แบบมีขีดให้อย่างถูกต้อง
+      inputUn.value = foundInKb.un;
+      
+      btn.innerHTML = '<i class="ph-fill ph-check-circle text-emerald-400 text-lg"></i> <span>ดึงข้อมูลครบทุกช่องสำเร็จ!</span>';
+      btn.classList.replace('border-cyan-500/50', 'border-emerald-500/50');
+      btn.classList.replace('text-cyan-300', 'text-emerald-300');
+      
+      setTimeout(() => { 
+        btn.innerHTML = originalHtml; 
+        btn.disabled = false; 
+        btn.classList.replace('border-emerald-500/50', 'border-cyan-500/50');
+        btn.classList.replace('text-emerald-300', 'text-cyan-300');
+      }, 2000);
+    }, 500); 
+    return;
+  }
+
+  // 2. ถ้าไม่พบใน Local ให้วิเคราะห์ผ่าน PubChem API
+  let apiSearchTerm = cleanSearchCas || nameVal;
+  
+  if (!apiSearchTerm && unVal) {
+     alert("❌ ฐานข้อมูลโลก (PubChem) ไม่รองรับการค้นหาด้วย UN Number อย่างเดียวครับ\nกรุณาระบุ 'ชื่อสาร' หรือ 'CAS No.' เพิ่มเติมครับ");
+     btn.innerHTML = originalHtml;
+     btn.disabled = false;
+     return;
+  }
+
+  try {
+    btn.innerHTML = '<i class="ph-bold ph-globe-hemisphere-west animate-spin text-lg"></i> <span>กำลังเชื่อมต่อฐานข้อมูลโลก...</span>';
+    
+    const response = await fetch(`https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/${encodeURIComponent(apiSearchTerm)}/property/IUPACName,MolecularFormula/JSON`);
+    
+    if (response.ok) {
+      const data = await response.json();
+      const props = data.PropertyTable.Properties[0];
+      
+      if(!inputName.value) inputName.value = props.IUPACName || apiSearchTerm;
+      
+      alert(`🌐 ดึงข้อมูลจาก PubChem API สำเร็จ!\nสูตรเคมี: ${props.MolecularFormula || '-'}\nชื่อทางการ: ${props.IUPACName || '-'}\n\n* หมายเหตุ: ฐานข้อมูลโลกไม่ระบุ Class และ UN Number กรุณาเลือก Class ด้วยตนเองครับ`);
+      
+      btn.innerHTML = '<i class="ph-fill ph-info text-cyan-400 text-lg"></i> <span>พบข้อมูลบางส่วน</span>';
+    } else {
+      alert("❌ ระบบ AI และ PubChem API ไม่รู้จักสารเคมีนี้\nกรุณากรอกข้อมูลด้วยตนเองครับ");
+      btn.innerHTML = originalHtml;
+    }
+  } catch (error) {
+    console.error(error);
+    alert("❌ ไม่สามารถเชื่อมต่อ API ฐานข้อมูลโลกได้ (โปรดตรวจสอบอินเทอร์เน็ต)");
+    btn.innerHTML = originalHtml;
+  }
+  
+  setTimeout(() => { btn.innerHTML = originalHtml; btn.disabled = false; }, 2000);
 }
 
 // ===== Feature 4: Audio Engine (Web Audio API) =====
@@ -367,7 +527,7 @@ function playFusionSound() {
   
   osc.type = 'sine';
   osc.frequency.setValueAtTime(100, ctx.currentTime);
-  osc.frequency.exponentialRampToValueAtTime(800, ctx.currentTime + 2.0); // สมูทขึ้น
+  osc.frequency.exponentialRampToValueAtTime(800, ctx.currentTime + 2.0); 
   
   gainNode.gain.setValueAtTime(0, ctx.currentTime);
   gainNode.gain.linearRampToValueAtTime(0.15, ctx.currentTime + 0.8);
@@ -475,7 +635,7 @@ const hazardClasses = {
           fire: ["Use suitable for surrounding"], ppe: ["Standard PPE"], erg: "กวาดเก็บและนำไปทิ้งตามระเบียบ" }
 };
 
-// ข้อมูลเริ่มต้น
+// ข้อมูลเริ่มต้นที่เรียนรู้ไว้ล่วงหน้า
 const defaultChemicalDatabase = [
   { name: "LPG (ก๊าซหุงต้ม)", class: "2A", cas: "68476-85-7", un: "1075" },
   { name: "สเปรย์แอลกอฮอล์", class: "2B", cas: "64-17-5", un: "1950" },
@@ -579,10 +739,14 @@ function initDropdown(side) {
     ];
     
     list.innerHTML = "";
+    
+    // ค้นหาใน Dropdown ให้อ่าน CAS แบบไม่ต้องมีขีดด้วย
+    const cleanFilter = filter.replace(/-/g, '').toLowerCase();
+    
     const filtered = allOptions.filter(o => 
       o.text.toLowerCase().includes(filter.toLowerCase()) || 
       o.classId.toLowerCase().includes(filter.toLowerCase()) ||
-      (o.cas && o.cas.includes(filter)) || 
+      (o.cas && o.cas.replace(/-/g, '').includes(cleanFilter)) || 
       (o.un && o.un.includes(filter))
     );
 
