@@ -69,21 +69,12 @@
       border: 1px solid #334155; 
       box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
     }
-
-    .print-only { display: none; }
-    @media print {
-      body { background: white !important; color: black !important; padding: 0; }
-      .no-print { display: none !important; }
-      .print-only { display: block !important; }
-      .glass-card { background: white; border: 1px solid #ccc; backdrop-filter: none; box-shadow: none; color: black; }
-      * { color: black !important; text-shadow: none !important; }
-    }
   </style>
 </head>
-<body class="min-h-screen p-4 md:p-8 flex flex-col items-center transition-colors duration-300">
+<body class="min-h-screen p-4 md:p-8 flex flex-col items-center transition-colors duration-300 pb-20">
 
   <!-- Floating Mobile-Friendly Admin Bar -->
-  <div class="no-print w-full max-w-5xl flex flex-col md:flex-row flex-wrap justify-between items-center gap-3 mb-8 z-50 relative">
+  <div class="w-full max-w-5xl flex flex-col md:flex-row flex-wrap justify-between items-center gap-3 mb-8 z-50 relative">
     <div class="text-[11px] md:text-sm text-cyan-400/80 font-medium tracking-wide text-center md:text-left w-full md:w-auto uppercase">
       พัฒนาโดย Atit chimnan • ธุรกิจพันธุ์กุ้งทะเล 2
     </div>
@@ -98,7 +89,7 @@
   </div>
 
   <!-- Header Section -->
-  <div class="text-center mb-10 max-w-3xl no-print relative z-10 w-full">
+  <div class="text-center mb-10 max-w-3xl relative z-10 w-full">
     <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-cyan-400 to-blue-600 text-white shadow-[0_0_30px_rgba(6,182,212,0.4)] mb-6 transform rotate-3 hover:rotate-0 transition-transform">
       <i class="ph-duotone ph-atom text-4xl"></i>
     </div>
@@ -122,7 +113,7 @@
         </div>
         
         <!-- Search Input State A -->
-        <div id="searchStateA" class="relative no-print">
+        <div id="searchStateA" class="relative">
           <i class="ph ph-scan absolute left-4 top-1/2 transform -translate-y-1/2 text-cyan-400 text-xl animate-pulse"></i>
           <input type="text" id="searchA" autocomplete="off" placeholder="ค้นหาชื่อสาร, Class, CAS No..." 
             class="w-full pl-12 pr-4 py-4 glass-input rounded-2xl outline-none transition-all placeholder-slate-500 text-sm md:text-base">
@@ -131,7 +122,7 @@
 
         <!-- Selected Card State A -->
         <div id="selectedStateA" class="hidden relative overflow-hidden bg-slate-800/80 backdrop-blur-md border border-slate-700/50 rounded-2xl p-5 shadow-lg">
-          <button onclick="clearSelection('A')" class="no-print absolute top-3 right-3 text-slate-400 hover:text-rose-400 transition-colors p-2 bg-slate-900/80 rounded-full btn-clear">
+          <button onclick="clearSelection('A')" class="absolute top-3 right-3 text-slate-400 hover:text-rose-400 transition-colors p-2 bg-slate-900/80 rounded-full btn-clear">
             <i class="ph-bold ph-x"></i>
           </button>
           <div class="flex items-start gap-4">
@@ -149,7 +140,7 @@
       </div>
 
       <!-- VS Icon -->
-      <div class="hidden md:flex absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 w-12 h-12 glass-card rounded-full items-center justify-center text-cyan-400 font-black shadow-[0_0_20px_rgba(6,182,212,0.2)] text-xl no-print">
+      <div class="hidden md:flex absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 w-12 h-12 glass-card rounded-full items-center justify-center text-cyan-400 font-black shadow-[0_0_20px_rgba(6,182,212,0.2)] text-xl">
         <i class="ph-bold ph-arrows-left-right"></i>
       </div>
 
@@ -163,7 +154,7 @@
         </div>
         
         <!-- Search Input State B -->
-        <div id="searchStateB" class="relative no-print">
+        <div id="searchStateB" class="relative">
           <i class="ph ph-scan absolute left-4 top-1/2 transform -translate-y-1/2 text-purple-400 text-xl animate-pulse"></i>
           <input type="text" id="searchB" autocomplete="off" placeholder="ค้นหาชื่อสาร, Class, CAS No..." 
             class="w-full pl-12 pr-4 py-4 glass-input rounded-2xl outline-none transition-all placeholder-slate-500 text-sm md:text-base focus:border-purple-500/50 focus:shadow-[0_0_15px_rgba(168,85,247,0.2)]">
@@ -172,7 +163,7 @@
 
         <!-- Selected Card State B -->
         <div id="selectedStateB" class="hidden relative overflow-hidden bg-slate-800/80 backdrop-blur-md border border-slate-700/50 rounded-2xl p-5 shadow-lg">
-          <button onclick="clearSelection('B')" class="no-print absolute top-3 right-3 text-slate-400 hover:text-rose-400 transition-colors p-2 bg-slate-900/80 rounded-full btn-clear">
+          <button onclick="clearSelection('B')" class="absolute top-3 right-3 text-slate-400 hover:text-rose-400 transition-colors p-2 bg-slate-900/80 rounded-full btn-clear">
             <i class="ph-bold ph-x"></i>
           </button>
           <div class="flex items-start gap-4">
@@ -190,7 +181,7 @@
       </div>
     </div>
 
-    <!-- แอนิเมชัน Fusion AI -->
+    <!-- แอนิเมชัน Fusion AI (ปรับสมูท) -->
     <div id="fusionContainer" class="hidden relative z-10 w-full mt-8 p-10 glass-card rounded-3xl border border-cyan-500/30 overflow-hidden text-center shadow-[0_0_40px_rgba(6,182,212,0.15)] transition-opacity duration-500 opacity-100">
       <div class="absolute inset-0 bg-cyan-500/5 animate-pulse"></div>
       <div class="relative flex justify-center items-center gap-2 md:gap-8">
@@ -213,7 +204,7 @@
       <div id="resultCard" class="rounded-3xl overflow-hidden shadow-2xl transition-all duration-500 transform glass-card border-none">
         <div id="resultHeader" class="p-6 md:px-8 md:py-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-5 relative overflow-hidden">
           <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent skew-x-12 translate-x-[-100%] animate-[shimmer_2s_infinite]"></div>
-          <div class="flex items-center gap-5 relative z-10 w-full md:w-auto">
+          <div class="flex items-center gap-5 relative z-10 w-full">
             <div id="resultIconWrapper" class="w-16 h-16 rounded-2xl flex items-center justify-center text-4xl bg-black/20 backdrop-blur-md text-white flex-shrink-0 shadow-lg border border-white/10"></div>
             <div class="flex-1">
               <span id="resultBadge" class="inline-block text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest bg-black/30 text-white mb-2 backdrop-blur-md border border-white/10"></span>
@@ -263,17 +254,22 @@
       </div>
       
       <!-- Feature 2: New Scan / Reset Button -->
-      <div class="mt-8 flex justify-center no-print pb-8">
+      <div class="mt-8 flex justify-center pb-8">
         <button onclick="resetScan()" class="group relative px-8 py-4 bg-gradient-to-r from-cyan-600 to-blue-600 rounded-full text-white font-bold tracking-widest uppercase shadow-[0_0_20px_rgba(6,182,212,0.4)] hover:shadow-[0_0_30px_rgba(6,182,212,0.6)] hover:scale-105 transition-all flex items-center gap-2">
           <i class="ph-bold ph-arrows-clockwise text-xl group-hover:rotate-180 transition-transform duration-500"></i>
           <span class="lang-text" data-th="ตรวจสอบคู่ใหม่ (New Scan)" data-en="Start New Scan">ตรวจสอบคู่ใหม่ (New Scan)</span>
         </button>
       </div>
-
     </div>
   </div>
 
+  <!-- ปุ่มแอบ (Floating Button) ไว้ดูตาราง Matrix -->
+  <button onclick="openModal('matrixModal')" class="fixed bottom-6 right-6 z-[9000] w-14 h-14 glass-card rounded-full flex items-center justify-center text-cyan-400 hover:text-white hover:bg-cyan-500/20 shadow-[0_0_20px_rgba(6,182,212,0.3)] transition-all group" title="ดูตารางอ้างอิง">
+    <i class="ph-duotone ph-table text-2xl group-hover:scale-110 transition-transform"></i>
+  </button>
+
   <!-- Modals -->
+  <!-- 1. Add Custom Chemical Modal -->
   <div id="customDbModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-[9999] hidden flex items-center justify-center p-4">
     <div class="glass-card rounded-3xl w-full max-w-md shadow-[0_0_40px_rgba(0,0,0,0.5)] overflow-hidden slide-up border border-slate-700">
       <div class="p-6 border-b border-slate-700/50 flex justify-between items-center bg-slate-800/50">
@@ -306,7 +302,48 @@
     </div>
   </div>
 
+  <!-- 2. Reference Matrix Modal (ป๊อปอัปตาราง 01.jpg) -->
+  <div id="matrixModal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-md z-[9999] hidden flex items-center justify-center p-2 md:p-6">
+    <div class="glass-card rounded-3xl w-full max-w-5xl max-h-[95vh] shadow-[0_0_50px_rgba(0,0,0,0.7)] overflow-hidden slide-up border border-slate-700 flex flex-col">
+      <div class="p-4 md:p-6 border-b border-slate-700/50 flex justify-between items-center bg-slate-800/80 flex-shrink-0">
+        <h3 class="font-bold text-base md:text-lg text-white flex items-center gap-2"><i class="ph-duotone ph-table text-cyan-400 text-2xl"></i> ตารางอ้างอิงการจัดเก็บสารเคมี (DIW Matrix)</h3>
+        <button onclick="closeModal('matrixModal')" class="text-slate-400 hover:text-rose-400 bg-slate-900 p-2 rounded-full transition-colors"><i class="ph-bold ph-x text-sm"></i></button>
+      </div>
+      <div class="p-2 md:p-4 overflow-y-auto custom-scrollbar flex-1 flex justify-center items-start bg-slate-900/50" id="matrixImageContainer">
+         <img src="01.jpg" alt="DIW Matrix" class="max-w-full h-auto rounded-xl border border-slate-700 shadow-2xl" onerror="handleImageError(this)">
+      </div>
+    </div>
+  </div>
+
 <script>
+// ===== Image Error Handler =====
+function handleImageError(img) {
+  if (!img.dataset.retried) {
+    img.dataset.retried = 'true';
+    // ลองพยายามดึงภาพโดยตรงจากฐานข้อมูล GitHub กรณี Path ผิดเพี้ยน
+    img.src = 'https://raw.githubusercontent.com/atit1912/chem-ai/main/01.jpg';
+  } else {
+    // ถ้ายังไม่เจออีก ให้แสดงข้อความเตือนวิธีแก้ไข
+    const container = document.getElementById('matrixImageContainer');
+    if (container) {
+      container.innerHTML = `
+        <div class="text-center text-rose-400 p-10">
+          <i class="ph-duotone ph-warning-circle text-5xl mb-3"></i>
+          <p class="font-bold text-lg">ไม่พบไฟล์ภาพตารางอ้างอิง</p>
+          <div class="text-sm text-slate-300 mt-4 text-left bg-slate-800 p-4 rounded-lg border border-slate-700">
+            <p class="font-bold text-white mb-2">วิธีแก้ไข:</p>
+            <ol class="list-decimal pl-5 space-y-1">
+              <li>ตรวจสอบว่าคุณได้อัปโหลดไฟล์ภาพเข้าไปใน GitHub แล้ว</li>
+              <li>ตรวจสอบชื่อและนามสกุลไฟล์ ต้องเป็นตัวพิมพ์เล็กทั้งหมด <b>01.jpg</b> (ถ้าเป็น <span class="text-rose-400">01.JPG</span> หรือ <span class="text-rose-400">01.jpeg</span> ภาพจะไม่แสดง)</li>
+              <li>กด Refresh หรือรอประมาณ 1-2 นาทีเพื่อให้เซิร์ฟเวอร์อัปเดต</li>
+            </ol>
+          </div>
+        </div>
+      `;
+    }
+  }
+}
+
 // ===== Feature 4: Audio Engine (Web Audio API) =====
 let audioCtx = null;
 
@@ -330,7 +367,7 @@ function playFusionSound() {
   
   osc.type = 'sine';
   osc.frequency.setValueAtTime(100, ctx.currentTime);
-  osc.frequency.exponentialRampToValueAtTime(800, ctx.currentTime + 2.0);
+  osc.frequency.exponentialRampToValueAtTime(800, ctx.currentTime + 2.0); // สมูทขึ้น
   
   gainNode.gain.setValueAtTime(0, ctx.currentTime);
   gainNode.gain.linearRampToValueAtTime(0.15, ctx.currentTime + 0.8);
@@ -511,7 +548,7 @@ const matrixRows = {
   "4.2":  ["0",  "0",  "0",  "0",  "4",  "0",  "4",  "00", "4",  "0",  "0",  "0",  "0",  "0",  "0",  "0",  "18", "4",  "4",  "4",  "4",  "4",  "00"],
   "4.3":  ["0",  "0",  "0",  "0",  "4",  "0",  "4",  "4",  "00", "0",  "0",  "0",  "0",  "0",  "0",  "0",  "18", "4",  "4",  "4",  "4",  "4",  "00"],
   "5.1A": ["0",  "0",  "0",  "0",  "0",  "0",  "4",  "0",  "0",  "00", "00", "00", "0",  "0",  "0",  "0",  "18", "4",  "4",  "4",  "4",  "4",  "0" ],
-  "5.1B": ["0",  "0",  "0",  "0",  "0",  "0",  "0",  "0",  "0",  "00", "10", "15", "0",  "15", "15", "0",  "18", "11", "0",  "11", "11", "00", "00"],
+  "5.1B": ["0",  "0",  "0",  "0",  "0",  "0",  "0",  "0",  "0",  "00", "10", "15", "0",  "15", "15", "0",  "18", "11", "00", "11", "11", "00", "00"],
   "5.1C": ["0",  "10", "10", "0",  "0",  "0",  "0",  "0",  "0",  "00", "15", "17", "0",  "0",  "0",  "0",  "18", "10", "10", "10", "10", "10", "10"],
   "5.2":  ["0",  "0",  "0",  "0",  "7",  "14", "13", "0",  "0",  "0",  "0",  "0",  "17", "0",  "0",  "0",  "0",  "0",  "0",  "16", "16", "16", "16"],
   "6.1A": ["0",  "0",  "2",  "18", "00", "0",  "8",  "0",  "0",  "0",  "15", "0",  "0",  "17", "17", "0",  "18", "0",  "0",  "3",  "3",  "3",  "3" ],
@@ -519,7 +556,7 @@ const matrixRows = {
   "6.2":  ["0",  "0",  "0",  "0",  "0",  "0",  "0",  "0",  "0",  "0",  "0",  "0",  "0",  "0",  "0",  "00", "0",  "0",  "0",  "0",  "0",  "0",  "0" ],
   "7":    ["0",  "18", "18", "18", "18", "18", "18", "18", "18", "18", "18", "18", "0",  "18", "18", "0",  "18", "18", "18", "18", "18", "18", "18"],
   "8A":   ["0",  "5",  "4",  "3",  "00", "12", "00", "4",  "4",  "4",  "11", "10", "0",  "0",  "0",  "0",  "18", "00", "00", "10", "10", "10", "00"],
-  "8B":   ["0",  "00", "4",  "9",  "00", "12", "00", "4",  "4",  "4",  "0",  "10", "0",  "0",  "0",  "0",  "18", "00", "00", "10", "10", "00", "00"],
+  "8B":   ["0",  "00", "4",  "9",  "00", "12", "00", "4",  "4",  "4",  "00", "10", "0",  "0",  "0",  "0",  "18", "00", "00", "10", "10", "00", "00"],
   "10":   ["0",  "0",  "6",  "00", "00", "12", "00", "4",  "4",  "4",  "11", "10", "16", "3",  "3",  "0",  "18", "10", "10", "00", "00", "00", "00"],
   "11":   ["0",  "5",  "6",  "3",  "00", "12", "00", "4",  "4",  "4",  "11", "10", "16", "3",  "3",  "0",  "18", "10", "10", "00", "00", "00", "00" ],
   "12":   ["0",  "00", "6",  "00", "00", "12", "00", "4",  "4",  "4",  "00", "10", "16", "3",  "3",  "0",  "18", "10", "00", "00", "00", "00", "00"],
@@ -594,7 +631,6 @@ function selectItem(side, classId, displayName, cas, un) {
     }, 200);
   }
 
-  // เรียกใช้ระบบวิเคราะห์ถ้าเลือกครบ 2 ตัว
   if (state.classA && state.classB) {
     autoAnalyze();
   }
@@ -609,7 +645,6 @@ function clearSelection(side) {
   document.getElementById("fusionContainer").classList.add("hidden");
 }
 
-// Feature 2: ฟังก์ชันเริ่มสแกนใหม่ทั้งหมด
 function resetScan() {
   clearSelection('A');
   clearSelection('B');
@@ -637,13 +672,11 @@ function autoAnalyze() {
     classB: c2
   };
 
-  // ซ่อนผลลัพธ์เก่า (ถ้ามี)
   document.getElementById("resultContainer").classList.add("hidden");
   
-  // แสดงแอนิเมชัน Fusion
   const fusionContainer = document.getElementById("fusionContainer");
   fusionContainer.classList.remove("hidden");
-  fusionContainer.classList.remove("opacity-0"); // ให้มันชัดเต็ม 100% ก่อนเฟดออก
+  fusionContainer.classList.remove("opacity-0"); 
   
   document.getElementById("fusionAnimIconA").textContent = hazardClasses[c1].icon;
   document.getElementById("fusionAnimIconB").textContent = hazardClasses[c2].icon;
@@ -652,27 +685,22 @@ function autoAnalyze() {
     fusionContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }, 100);
 
-  // เล่นเสียงชาร์จพลังงาน Fusion แบบสมูทขึ้น
   playFusionSound();
 
-  // หน่วงเวลาเพิ่มเป็น 2.8 วินาทีให้ภาพดูลื่นไหลขึ้น
   setTimeout(() => {
-    // เฟดออกก่อนหายไป (เพิ่มความสมูท)
     fusionContainer.classList.add("opacity-0");
     
     setTimeout(() => {
         fusionContainer.classList.add("hidden");
-        fusionContainer.classList.remove("opacity-0"); // รีเซ็ตไว้ใช้รอบหน้า
+        fusionContainer.classList.remove("opacity-0"); 
         renderResult(res);
         
-        // เล่นเสียงเตือนผลลัพธ์ตามระดับความเสี่ยง
         playResultSound(res.status);
 
         setTimeout(() => {
-          // เปลี่ยนเป็น block: 'start' เพื่อให้ผลลัพธ์โชว์ครบถ้วนพอดีจอ
           document.getElementById('resultContainer').scrollIntoView({ behavior: 'smooth', block: 'start' });
         }, 100);
-    }, 500); // ระยะเวลาเฟดของ CSS (500ms)
+    }, 500); 
   }, 2800);
 }
 
@@ -783,7 +811,7 @@ function saveCustomChemical() {
 }
 
 window.onload = () => { 
-  initDatabase(); // โหลดข้อมูลสารเคมีจาก Local Storage ตอนเปิดหน้าเว็บ
+  initDatabase(); 
   populateClassSelect();
   initDropdown("A"); 
   initDropdown("B"); 
