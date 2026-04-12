@@ -25,6 +25,7 @@
         radial-gradient(at 50% 50%, rgba(15, 23, 42, 1) 0px, transparent 100%);
       background-attachment: fixed;
       color: #e2e8f0;
+      scroll-behavior: smooth; /* Smooth scrolling for the whole page */
     }
     
     /* Smooth Animations */
@@ -68,6 +69,13 @@
       box-shadow: 0 0 15px rgba(6, 182, 212, 0.2);
     }
 
+    /* Dropdown Reset - Make it opaque to fix overlap readability */
+    .opaque-dropdown {
+      background-color: #0f172a; /* Solid slate-900 */
+      border: 1px solid #334155; /* slate-700 */
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+    }
+
     /* Print Styles */
     @media print {
       body { background: white !important; color: black !important; padding: 0; }
@@ -96,7 +104,7 @@
     </div>
   </div>
 
-  <!-- Header Section (Futuristic) -->
+  <!-- Header Section -->
   <div class="text-center mb-10 max-w-3xl no-print relative z-10 w-full">
     <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-cyan-400 to-blue-600 text-white shadow-[0_0_30px_rgba(6,182,212,0.4)] mb-6 transform rotate-3 hover:rotate-0 transition-transform">
       <i class="ph-duotone ph-atom text-4xl"></i>
@@ -112,13 +120,13 @@
   </div>
 
   <!-- Main App Container -->
-  <div class="w-full max-w-5xl space-y-6 md:space-y-8">
+  <div class="w-full max-w-5xl space-y-6 md:space-y-8 pb-10">
     
     <!-- Selection Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 relative z-20">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 relative">
       
-      <!-- Slot A -->
-      <div id="containerA" class="glass-card rounded-3xl p-5 md:p-6 transition-all hover:border-cyan-500/30 group">
+      <!-- Slot A (Z-index higher to overlap B) -->
+      <div id="containerA" class="glass-card rounded-3xl p-5 md:p-6 transition-all hover:border-cyan-500/30 group relative z-[100]">
         <div class="flex items-center justify-between mb-4">
           <div class="flex items-center gap-3">
             <div class="w-8 h-8 rounded-full bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 flex items-center justify-center text-sm font-black shadow-[0_0_10px_rgba(6,182,212,0.2)]">A</div>
@@ -131,18 +139,19 @@
           <i class="ph ph-scan absolute left-4 top-1/2 transform -translate-y-1/2 text-cyan-400 text-xl animate-pulse"></i>
           <input type="text" id="searchA" autocomplete="off" placeholder="ค้นหาชื่อสาร, Class, CAS No..." 
             class="w-full pl-12 pr-4 py-4 glass-input rounded-2xl outline-none transition-all placeholder-slate-500 text-sm md:text-base">
-          <ul id="listA" class="absolute z-50 w-full mt-2 glass-card border border-slate-700 rounded-2xl shadow-2xl max-h-64 overflow-y-auto custom-scrollbar hidden"></ul>
+          <!-- Dropdown List A (Opaque to prevent blending) -->
+          <ul id="listA" class="absolute z-[110] w-full mt-2 opaque-dropdown rounded-2xl max-h-56 overflow-y-auto custom-scrollbar hidden"></ul>
         </div>
 
         <!-- Selected Card State A -->
-        <div id="selectedStateA" class="hidden relative overflow-hidden bg-slate-800/80 backdrop-blur-md border border-slate-700/50 rounded-2xl p-5">
-          <button onclick="clearSelection('A')" class="no-print absolute top-3 right-3 text-slate-400 hover:text-rose-400 transition-colors p-1.5 bg-slate-900/50 rounded-full btn-clear">
+        <div id="selectedStateA" class="hidden relative overflow-hidden bg-slate-800/80 backdrop-blur-md border border-slate-700/50 rounded-2xl p-5 shadow-lg">
+          <button onclick="clearSelection('A')" class="no-print absolute top-3 right-3 text-slate-400 hover:text-rose-400 transition-colors p-2 bg-slate-900/80 rounded-full btn-clear">
             <i class="ph-bold ph-x"></i>
           </button>
           <div class="flex items-start gap-4">
             <div id="iconA" class="w-14 h-14 rounded-2xl flex items-center justify-center text-3xl bg-slate-900 border border-slate-700 shadow-inner flex-shrink-0 mt-1"></div>
             <div class="flex-1">
-              <p id="nameA" class="font-bold text-white text-lg"></p>
+              <p id="nameA" class="font-bold text-white text-lg pr-6"></p>
               <p id="casUnA" class="text-xs text-cyan-400 font-mono mt-1 opacity-80"></p>
               <div class="flex flex-wrap items-center gap-2 mt-3">
                 <span id="classA" class="text-xs font-bold px-2.5 py-1 rounded-lg bg-slate-700 text-white"></span>
@@ -153,13 +162,13 @@
         </div>
       </div>
 
-      <!-- VS / Link Icon (Mobile & Desktop) -->
+      <!-- VS / Link Icon -->
       <div class="hidden md:flex absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 w-12 h-12 glass-card rounded-full items-center justify-center text-cyan-400 font-black shadow-[0_0_20px_rgba(6,182,212,0.2)] text-xl no-print">
         <i class="ph-bold ph-arrows-left-right"></i>
       </div>
 
-      <!-- Slot B -->
-      <div id="containerB" class="glass-card rounded-3xl p-5 md:p-6 transition-all hover:border-purple-500/30 group">
+      <!-- Slot B (Z-index lower than A) -->
+      <div id="containerB" class="glass-card rounded-3xl p-5 md:p-6 transition-all hover:border-purple-500/30 group relative z-[90]">
         <div class="flex items-center justify-between mb-4">
           <div class="flex items-center gap-3">
             <div class="w-8 h-8 rounded-full bg-purple-500/20 text-purple-400 border border-purple-500/30 flex items-center justify-center text-sm font-black shadow-[0_0_10px_rgba(168,85,247,0.2)]">B</div>
@@ -172,18 +181,19 @@
           <i class="ph ph-scan absolute left-4 top-1/2 transform -translate-y-1/2 text-purple-400 text-xl animate-pulse"></i>
           <input type="text" id="searchB" autocomplete="off" placeholder="ค้นหาชื่อสาร, Class, CAS No..." 
             class="w-full pl-12 pr-4 py-4 glass-input rounded-2xl outline-none transition-all placeholder-slate-500 text-sm md:text-base focus:border-purple-500/50 focus:shadow-[0_0_15px_rgba(168,85,247,0.2)]">
-          <ul id="listB" class="absolute z-50 w-full mt-2 glass-card border border-slate-700 rounded-2xl shadow-2xl max-h-64 overflow-y-auto custom-scrollbar hidden"></ul>
+          <!-- Dropdown List B (Opaque to prevent blending) -->
+          <ul id="listB" class="absolute z-[110] w-full mt-2 opaque-dropdown rounded-2xl max-h-56 overflow-y-auto custom-scrollbar hidden"></ul>
         </div>
 
         <!-- Selected Card State B -->
-        <div id="selectedStateB" class="hidden relative overflow-hidden bg-slate-800/80 backdrop-blur-md border border-slate-700/50 rounded-2xl p-5">
-          <button onclick="clearSelection('B')" class="no-print absolute top-3 right-3 text-slate-400 hover:text-rose-400 transition-colors p-1.5 bg-slate-900/50 rounded-full btn-clear">
+        <div id="selectedStateB" class="hidden relative overflow-hidden bg-slate-800/80 backdrop-blur-md border border-slate-700/50 rounded-2xl p-5 shadow-lg">
+          <button onclick="clearSelection('B')" class="no-print absolute top-3 right-3 text-slate-400 hover:text-rose-400 transition-colors p-2 bg-slate-900/80 rounded-full btn-clear">
             <i class="ph-bold ph-x"></i>
           </button>
           <div class="flex items-start gap-4">
             <div id="iconB" class="w-14 h-14 rounded-2xl flex items-center justify-center text-3xl bg-slate-900 border border-slate-700 shadow-inner flex-shrink-0 mt-1"></div>
             <div class="flex-1">
-              <p id="nameB" class="font-bold text-white text-lg"></p>
+              <p id="nameB" class="font-bold text-white text-lg pr-6"></p>
               <p id="casUnB" class="text-xs text-purple-400 font-mono mt-1 opacity-80"></p>
               <div class="flex flex-wrap items-center gap-2 mt-3">
                 <span id="classB" class="text-xs font-bold px-2.5 py-1 rounded-lg bg-slate-700 text-white"></span>
@@ -197,7 +207,7 @@
     </div>
 
     <!-- AI Result Banner -->
-    <div id="resultContainer" class="hidden relative z-10 w-full">
+    <div id="resultContainer" class="hidden relative z-10 w-full mt-6">
       <div id="resultCard" class="rounded-3xl overflow-hidden shadow-2xl transition-all duration-500 transform glass-card border-none">
         <!-- Banner Head (Dynamic via JS) -->
         <div id="resultHeader" class="p-6 md:px-8 md:py-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-5 relative overflow-hidden">
@@ -216,13 +226,13 @@
         </div>
         
         <!-- Content Body -->
-        <div class="p-6 md:p-8 bg-slate-900/60 backdrop-blur-xl">
+        <div class="p-6 md:p-8 bg-slate-900/80 backdrop-blur-xl">
           <p id="resultDesc" class="text-slate-300 font-medium text-base md:text-lg mb-8 leading-relaxed"></p>
           
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
             <!-- Left Col: Conditions & Smart Alternatives -->
             <div class="space-y-6">
-              <div id="actionArea" class="bg-slate-800/50 rounded-2xl p-6 border border-slate-700/50 h-full shadow-inner">
+              <div id="actionArea" class="bg-slate-800/80 rounded-2xl p-6 border border-slate-700 h-full shadow-inner">
                 <h4 class="font-bold text-sm mb-5 flex items-center gap-2 text-white">
                   <i class="ph-duotone ph-cpu text-cyan-400 text-xl"></i> 
                   <span class="lang-text tracking-wide" data-th="เงื่อนไขจากระบบ AI" data-en="AI Storage Guidelines">เงื่อนไขจากระบบ AI</span>
@@ -232,27 +242,27 @@
               </div>
             </div>
 
-            <!-- Right Col: Safety Guide (Features 11, 12, 13) -->
-            <div class="bg-slate-800/50 rounded-2xl p-6 border border-slate-700/50 space-y-6 h-full shadow-inner">
+            <!-- Right Col: Safety Guide -->
+            <div class="bg-slate-800/80 rounded-2xl p-6 border border-slate-700 space-y-6 h-full shadow-inner">
               <h4 class="font-bold text-sm flex items-center gap-2 text-white mb-2">
                 <i class="ph-duotone ph-shield-plus text-emerald-400 text-xl"></i> 
                 <span class="lang-text tracking-wide" data-th="คู่มือตอบโต้ฉุกเฉิน (ERG Guide)" data-en="Emergency Response Guide">คู่มือตอบโต้ฉุกเฉิน (ERG Guide)</span>
               </h4>
               
               <!-- Fire Extinguisher -->
-              <div class="bg-slate-900/50 p-4 rounded-xl border border-slate-700">
+              <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-700/50">
                 <h5 class="text-[10px] font-black text-rose-400 uppercase tracking-widest mb-3 flex items-center gap-1"><i class="ph-fill ph-fire"></i> Extinguishing Media</h5>
                 <div id="fireGuide" class="flex flex-wrap gap-2"></div>
               </div>
 
               <!-- PPE -->
-              <div class="bg-slate-900/50 p-4 rounded-xl border border-slate-700">
+              <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-700/50">
                 <h5 class="text-[10px] font-black text-cyan-400 uppercase tracking-widest mb-3 flex items-center gap-1"><i class="ph-fill ph-mask-helmet"></i> Required PPE</h5>
                 <div id="ppeGuide" class="flex flex-wrap gap-2 text-sm"></div>
               </div>
 
               <!-- ERG -->
-              <div class="bg-slate-900/50 p-4 rounded-xl border border-slate-700">
+              <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-700/50">
                 <h5 class="text-[10px] font-black text-amber-400 uppercase tracking-widest mb-3 flex items-center gap-1"><i class="ph-fill ph-warning-circle"></i> Initial Action</h5>
                 <p id="ergGuide" class="text-xs text-slate-300 leading-relaxed"></p>
               </div>
@@ -487,13 +497,14 @@ function initDropdown(side) {
 
     if(!filtered.length) { list.innerHTML = `<li class="px-5 py-4 text-slate-400 text-sm italic bg-slate-800/80 rounded-2xl">ไม่พบข้อมูลในฐานข้อมูล AI...</li>`; return; }
     
+    // Increased padding for mobile fat fingers
     filtered.forEach(opt => {
       const li = document.createElement("li");
       const hClass = hazardClasses[opt.classId];
-      li.className = "px-4 py-3 hover:bg-slate-700/80 cursor-pointer border-b border-slate-700/50 flex items-center gap-4 transition-colors last:border-0";
+      li.className = "px-5 py-4 hover:bg-slate-700/80 cursor-pointer border-b border-slate-700/50 flex items-center gap-4 transition-colors last:border-0";
       let extraInfo = opt.cas || opt.un ? ` | CAS: ${opt.cas || '-'} UN: ${opt.un || '-'}` : '';
-      li.innerHTML = `<span class="text-2xl bg-slate-800 w-10 h-10 flex items-center justify-center rounded-xl border border-slate-600 shadow-inner">${hClass.icon}</span> 
-        <div class="flex-1 text-left"><p class="text-sm font-bold text-white">${opt.text}</p><p class="text-[10px] text-cyan-400 opacity-80">${opt.subtitle}${extraInfo}</p></div>`;
+      li.innerHTML = `<span class="text-2xl bg-slate-800 w-12 h-12 flex items-center justify-center rounded-xl border border-slate-600 shadow-inner flex-shrink-0">${hClass.icon}</span> 
+        <div class="flex-1 text-left"><p class="text-base font-bold text-white">${opt.text}</p><p class="text-[11px] text-cyan-400 opacity-80 mt-1">${opt.subtitle}${extraInfo}</p></div>`;
       li.onclick = () => selectItem(side, opt.classId, opt.text, opt.cas, opt.un);
       list.appendChild(li);
     });
@@ -525,6 +536,17 @@ function selectItem(side, classId, displayName, cas, un) {
   else riskBadge.className = "text-[10px] uppercase font-black px-2.5 py-1 rounded-lg border border-emerald-500/50 bg-emerald-500/10 text-emerald-400";
   
   autoAnalyze();
+
+  // Smart Auto-Scroll UX for Mobile
+  setTimeout(() => {
+    if (side === 'A' && !state.classB) {
+      // Scroll to Box B
+      document.getElementById('containerB').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    } else if (state.classA && state.classB) {
+      // Scroll to Result
+      document.getElementById('resultContainer').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }, 200);
 }
 
 function clearSelection(side) {
