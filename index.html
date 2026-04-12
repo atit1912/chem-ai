@@ -95,7 +95,11 @@
         <i class="ph ph-translate text-lg text-cyan-400"></i> <span id="langBtnText">EN/TH</span>
       </button>
       <button onclick="openModal('customDbModal')" class="flex-1 md:flex-none flex items-center justify-center gap-1.5 px-4 py-2.5 bg-gradient-to-r from-cyan-600 to-blue-600 rounded-xl text-xs md:text-sm font-semibold text-white hover:from-cyan-500 hover:to-blue-500 shadow-[0_0_15px_rgba(6,182,212,0.3)] transition-all">
-        <i class="ph ph-plus-circle text-lg"></i> <span class="lang-text" data-th="เพิ่มข้อมูลสารเคมี" data-en="Add Chemical">เพิ่มข้อมูลสารเคมี</span>
+        <i class="ph ph-plus-circle text-lg"></i> <span class="lang-text" data-th="เพิ่มข้อมูล" data-en="Add Data">เพิ่มข้อมูล</span>
+      </button>
+      <!-- ปุ่มจัดการข้อมูล (ต้องใส่รหัส) -->
+      <button onclick="openPasswordModal()" class="flex-1 md:flex-none flex items-center justify-center gap-1.5 px-4 py-2.5 bg-gradient-to-r from-rose-600 to-red-600 rounded-xl text-xs md:text-sm font-semibold text-white hover:from-rose-500 hover:to-red-500 shadow-[0_0_15px_rgba(225,29,72,0.3)] transition-all">
+        <i class="ph ph-database text-lg"></i> <span class="lang-text" data-th="จัดการข้อมูล" data-en="Manage Data">จัดการข้อมูล</span>
       </button>
     </div>
   </div>
@@ -286,6 +290,58 @@
   </button>
 
   <!-- Modals -->
+  
+  <!-- 0. Password Modal (ป้องกันการลบ/แก้ไข) -->
+  <div id="passwordModal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-md z-[9999] hidden flex items-center justify-center p-4">
+    <div class="glass-card rounded-3xl w-full max-w-sm shadow-[0_0_40px_rgba(225,29,72,0.4)] overflow-hidden slide-up border border-rose-500/50 text-center p-8">
+      <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-rose-500/20 text-rose-400 mb-6 border border-rose-500/30">
+        <i class="ph-duotone ph-lock-key text-4xl"></i>
+      </div>
+      <h3 class="font-black text-xl text-white mb-2 tracking-wide">ฮั่นแน่ จะลบข้อมูลเหรอ!</h3>
+      <p class="text-rose-300/80 text-sm mb-6">ไม่ง่ายนักหรอก... กรุณายืนยันรหัสผ่านเพื่อเข้าสู่ระบบจัดการ</p>
+      
+      <input type="password" id="adminPasswordInput" placeholder="•••" onkeydown="if(event.key === 'Enter') verifyPassword()" class="w-full px-4 py-4 glass-input rounded-xl text-center tracking-[0.5em] text-xl font-bold mb-6 focus:border-rose-500 focus:shadow-[0_0_15px_rgba(225,29,72,0.3)] transition-all outline-none">
+      
+      <div class="flex gap-3">
+        <button onclick="closeModal('passwordModal')" class="flex-1 py-3.5 bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold rounded-xl transition-all border border-slate-600">ยกเลิก</button>
+        <button onclick="verifyPassword()" class="flex-1 py-3.5 bg-gradient-to-r from-rose-600 to-red-600 hover:from-rose-500 hover:to-red-500 text-white font-bold rounded-xl transition-all shadow-[0_0_15px_rgba(225,29,72,0.4)]">ยืนยัน</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 0.5. Manage Database Modal -->
+  <div id="manageDbModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-[9999] hidden flex items-center justify-center p-4 overflow-y-auto pt-20 pb-20">
+    <div class="glass-card rounded-3xl w-full max-w-2xl shadow-[0_0_40px_rgba(0,0,0,0.5)] slide-up border border-slate-700 m-auto flex flex-col max-h-[80vh]">
+      <div class="p-6 border-b border-slate-700/50 flex justify-between items-center bg-slate-800/50 rounded-t-3xl shrink-0">
+        <h3 class="font-bold text-lg text-white flex items-center gap-2"><i class="ph-duotone ph-folder-open text-rose-400 text-2xl"></i> จัดการฐานข้อมูลสารเคมี</h3>
+        <button onclick="closeModal('manageDbModal')" class="text-slate-400 hover:text-rose-400 bg-slate-900 p-2 rounded-full"><i class="ph-bold ph-x text-sm"></i></button>
+      </div>
+      <div class="p-6 overflow-y-auto custom-scrollbar flex-1" id="manageDbList">
+        <!-- รายการสารเคมีจะถูกแสดงที่นี่ผ่าน JavaScript -->
+      </div>
+    </div>
+  </div>
+
+  <!-- 0.75. Confirm Delete Modal (ป๊อปอัปยืนยันการลบแบบเท่ๆ) -->
+  <div id="deleteConfirmModal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-md z-[9999] hidden flex items-center justify-center p-4">
+    <div class="glass-card rounded-3xl w-full max-w-sm shadow-[0_0_40px_rgba(225,29,72,0.4)] overflow-hidden slide-up border border-rose-500/50 text-center p-8">
+      <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-rose-500/20 text-rose-400 mb-6 border border-rose-500/30">
+        <i class="ph-duotone ph-warning-octagon text-4xl"></i>
+      </div>
+      <h3 class="font-black text-xl text-white mb-2 tracking-wide">ยืนยันการลบข้อมูล</h3>
+      <p class="text-rose-300/80 text-sm mb-4">คุณแน่ใจหรือไม่ว่าต้องการลบข้อมูลนี้ทิ้งอย่างถาวร?</p>
+      
+      <div id="deleteChemNameDisplay" class="text-white font-bold text-base mb-6 py-3 px-4 bg-slate-900/50 border border-slate-700 rounded-xl mx-auto break-words">
+        <!-- ชื่อสารเคมีจะมาแสดงตรงนี้ -->
+      </div>
+      
+      <div class="flex gap-3">
+        <button onclick="closeModal('deleteConfirmModal')" class="flex-1 py-3.5 bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold rounded-xl transition-all border border-slate-600 shadow-inner">ยกเลิก</button>
+        <button onclick="executeDelete()" class="flex-1 py-3.5 bg-gradient-to-r from-rose-600 to-red-600 hover:from-rose-500 hover:to-red-500 text-white font-bold rounded-xl transition-all shadow-[0_0_15px_rgba(225,29,72,0.4)]">ยืนยันลบ</button>
+      </div>
+    </div>
+  </div>
+
   <!-- 1. Add Custom Chemical Modal with AI Auto-Fill -->
   <div id="customDbModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-[9999] hidden flex items-center justify-center p-4 overflow-y-auto pt-20 pb-20">
     <div class="glass-card rounded-3xl w-full max-w-md shadow-[0_0_40px_rgba(0,0,0,0.5)] slide-up border border-slate-700 m-auto">
@@ -352,6 +408,113 @@
   </div>
 
 <script>
+// ===== Feature: Database Management & Password =====
+function openPasswordModal() {
+  document.getElementById('adminPasswordInput').value = '';
+  openModal('passwordModal');
+  setTimeout(() => document.getElementById('adminPasswordInput').focus(), 100);
+}
+
+function verifyPassword() {
+  const pwd = document.getElementById('adminPasswordInput').value;
+  if (pwd === "007") {
+    closeModal('passwordModal');
+    openManageDbModal();
+  } else {
+    alert("❌ รหัสผ่านไม่ถูกต้อง! สายลับตัวปลอมรึเปล่าเนี่ย?");
+    document.getElementById('adminPasswordInput').value = '';
+    document.getElementById('adminPasswordInput').focus();
+  }
+}
+
+function openManageDbModal() {
+  renderManageDbList();
+  openModal('manageDbModal');
+}
+
+function renderManageDbList() {
+  const container = document.getElementById('manageDbList');
+  if (chemicalDatabase.length === 0) {
+    container.innerHTML = '<p class="text-center text-slate-400 py-10 font-medium">ไม่มีข้อมูลสารเคมีในระบบ</p>';
+    return;
+  }
+  
+  let html = '<div class="space-y-3">';
+  // สร้างรายการข้อมูลทั้งหมดที่มีในระบบ
+  chemicalDatabase.forEach((chem, index) => {
+    html += `
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between p-4 bg-slate-900/60 rounded-xl border border-slate-700/50 hover:border-cyan-500/40 transition-colors gap-4 shadow-sm">
+        <div class="flex-1 min-w-0">
+          <p class="font-bold text-white text-base">${chem.name}</p>
+          <p class="text-xs text-slate-400 mt-1.5 flex flex-wrap gap-2">
+            <span class="bg-slate-800 px-2 py-0.5 rounded border border-slate-700">Class <span class="text-cyan-400 font-bold">${chem.class}</span></span>
+            <span class="bg-slate-800 px-2 py-0.5 rounded border border-slate-700">CAS: <span class="text-slate-300">${chem.cas || '-'}</span></span>
+            <span class="bg-slate-800 px-2 py-0.5 rounded border border-slate-700">UN: <span class="text-slate-300">${chem.un || '-'}</span></span>
+          </p>
+        </div>
+        <div class="flex gap-2 shrink-0">
+          <button onclick="editChemical(${index})" class="w-10 h-10 rounded-lg bg-amber-500/10 text-amber-400 hover:bg-amber-500 hover:text-white border border-amber-500/30 flex items-center justify-center transition-all shadow-sm" title="แก้ไข">
+            <i class="ph-bold ph-pencil-simple text-lg"></i>
+          </button>
+          <button onclick="deleteChemical(${index})" class="w-10 h-10 rounded-lg bg-rose-500/10 text-rose-400 hover:bg-rose-500 hover:text-white border border-rose-500/30 flex items-center justify-center transition-all shadow-sm" title="ลบ">
+            <i class="ph-bold ph-trash text-lg"></i>
+          </button>
+        </div>
+      </div>
+    `;
+  });
+  html += '</div>';
+  container.innerHTML = html;
+}
+
+let deleteIndexTarget = null; // ตัวแปรเก็บตำแหน่งข้อมูลที่ต้องการลบ
+
+function deleteChemical(index) {
+  deleteIndexTarget = index;
+  const chemName = chemicalDatabase[index].name;
+  
+  // แสดงชื่อสารเคมีในป๊อปอัปยืนยัน
+  document.getElementById('deleteChemNameDisplay').textContent = chemName;
+  openModal('deleteConfirmModal');
+}
+
+function executeDelete() {
+  if(deleteIndexTarget !== null) {
+    chemicalDatabase.splice(deleteIndexTarget, 1);
+    localStorage.setItem('chemNexusDB', JSON.stringify(chemicalDatabase));
+    renderManageDbList();
+    
+    // อัปเดต dropdown ค้นหาให้เป็นข้อมูลล่าสุด
+    initDropdown('A');
+    initDropdown('B');
+    
+    closeModal('deleteConfirmModal');
+    deleteIndexTarget = null; // ล้างค่าทิ้งเพื่อความปลอดภัย
+  }
+}
+
+function editChemical(index) {
+  const chem = chemicalDatabase[index];
+  
+  // นำข้อมูลเดิมไปใส่รอไว้ในหน้าต่าง "เพิ่มข้อมูล"
+  document.getElementById('newChemName').value = chem.name;
+  document.getElementById('newChemClass').value = chem.class;
+  document.getElementById('newChemCas').value = chem.cas || '';
+  document.getElementById('newChemUn').value = chem.un || '';
+  
+  // ลบข้อมูลเดิมออกจากระบบชั่วคราว เพื่อเตรียมรับข้อมูลใหม่ตอนกดบันทึก
+  chemicalDatabase.splice(index, 1);
+  localStorage.setItem('chemNexusDB', JSON.stringify(chemicalDatabase));
+  
+  closeModal('manageDbModal');
+  openModal('customDbModal');
+  
+  alert("โหมดแก้ไข ✏️\nดึงข้อมูลเดิมมาเตรียมไว้ให้แล้ว กรุณาแก้ไขและกด 'บันทึกเข้าสู่ระบบ' เมื่อเสร็จสิ้นครับ");
+  
+  initDropdown('A');
+  initDropdown('B');
+}
+
 // ===== Image Error Handler =====
 function handleImageError(img) {
   if (!img.dataset.retried) {
