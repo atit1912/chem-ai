@@ -14,6 +14,9 @@
   <!-- Phosphor Icons -->
   <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
+  <!-- html2pdf.js สำหรับดาวน์โหลด PDF โดยตรง -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
   <style>
     body { 
       font-family: 'Prompt', sans-serif; 
@@ -25,7 +28,7 @@
         radial-gradient(at 50% 50%, rgba(15, 23, 42, 1) 0px, transparent 100%);
       background-attachment: fixed;
       color: #e2e8f0;
-      scroll-behavior: smooth; /* Smooth scrolling for the whole page */
+      scroll-behavior: smooth;
     }
     
     /* Smooth Animations */
@@ -40,6 +43,18 @@
       from { opacity: 0; transform: translateY(20px) scale(0.98); }
       to { opacity: 1; transform: translateY(0) scale(1); }
     }
+
+    /* Fusion Animations */
+    @keyframes moveRight {
+      0% { transform: translateX(-30px); opacity: 0.5; }
+      100% { transform: translateX(15px); opacity: 1; }
+    }
+    @keyframes moveLeft {
+      0% { transform: translateX(30px); opacity: 0.5; }
+      100% { transform: translateX(-15px); opacity: 1; }
+    }
+    .animate-fusion-a { animation: moveRight 0.8s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate; }
+    .animate-fusion-b { animation: moveLeft 0.8s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate; }
 
     /* Custom Glass Scrollbar */
     .custom-scrollbar::-webkit-scrollbar { width: 4px; }
@@ -69,22 +84,28 @@
       box-shadow: 0 0 15px rgba(6, 182, 212, 0.2);
     }
 
-    /* Dropdown Reset - Make it opaque to fix overlap readability */
     .opaque-dropdown {
-      background-color: #0f172a; /* Solid slate-900 */
-      border: 1px solid #334155; /* slate-700 */
+      background-color: #0f172a; 
+      border: 1px solid #334155; 
       box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
     }
 
-    /* Print Styles */
-    @media print {
-      body { background: white !important; color: black !important; padding: 0; }
-      .no-print { display: none !important; }
-      .print-only { display: block !important; }
-      .glass-card { background: white; border: 1px solid #ccc; backdrop-filter: none; box-shadow: none; color: black; }
-      * { color: black !important; text-shadow: none !important; }
-    }
+    /* Print & PDF Export Styles */
     .print-only { display: none; }
+    body.pdf-export-mode, body.pdf-export-mode * { color: black !important; text-shadow: none !important; }
+    body.pdf-export-mode { background: white !important; background-image: none !important; padding: 0 !important; }
+    body.pdf-export-mode .no-print { display: none !important; }
+    body.pdf-export-mode .print-only { display: block !important; padding-bottom: 15px; }
+    body.pdf-export-mode .glass-card, 
+    body.pdf-export-mode [class*="bg-slate-"],
+    body.pdf-export-mode [class*="bg-gradient-"] {
+      background: white !important; box-shadow: none !important; border: 1px solid #cbd5e1 !important; backdrop-filter: none !important;
+    }
+    body.pdf-export-mode #resultHeader { border-bottom: 2px solid #cbd5e1 !important; }
+    body.pdf-export-mode [class*="bg-rose-"], body.pdf-export-mode [class*="bg-amber-"],
+    body.pdf-export-mode [class*="bg-emerald-"], body.pdf-export-mode [class*="bg-cyan-"] {
+       background: #f8fafc !important; border: 1px solid #cbd5e1 !important;
+    }
   </style>
 </head>
 <body class="min-h-screen p-4 md:p-8 flex flex-col items-center transition-colors duration-300">
@@ -98,11 +119,9 @@
       <button onclick="toggleLang()" class="flex-1 md:flex-none flex items-center justify-center gap-1.5 px-4 py-2.5 glass-card rounded-xl text-xs md:text-sm font-semibold text-slate-300 hover:text-white hover:bg-white/10 transition-all">
         <i class="ph ph-translate text-lg text-cyan-400"></i> <span id="langBtnText">EN/TH</span>
       </button>
-      <button onclick="openModal('dashboardModal')" class="flex-1 md:flex-none flex items-center justify-center gap-1.5 px-4 py-2.5 glass-card rounded-xl text-xs md:text-sm font-semibold text-slate-300 hover:text-white hover:bg-white/10 transition-all">
-        <i class="ph ph-chart-polar text-lg text-purple-400"></i> <span class="lang-text" data-th="แดชบอร์ด" data-en="Dashboard">แดชบอร์ด</span>
-      </button>
+      <!-- ตัดปุ่ม Dashboard ออกเพื่อลดความซับซ้อน -->
       <button onclick="openModal('customDbModal')" class="flex-1 md:flex-none flex items-center justify-center gap-1.5 px-4 py-2.5 bg-gradient-to-r from-cyan-600 to-blue-600 rounded-xl text-xs md:text-sm font-semibold text-white hover:from-cyan-500 hover:to-blue-500 shadow-[0_0_15px_rgba(6,182,212,0.3)] transition-all">
-        <i class="ph ph-plus-circle text-lg"></i> <span class="lang-text" data-th="เพิ่มข้อมูล" data-en="Add Data">เพิ่มข้อมูล</span>
+        <i class="ph ph-plus-circle text-lg"></i> <span class="lang-text" data-th="เพิ่มข้อมูลสารเคมี" data-en="Add Chemical">เพิ่มข้อมูลสารเคมี</span>
       </button>
     </div>
   </div>
@@ -112,8 +131,8 @@
     <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-cyan-400 to-blue-600 text-white shadow-[0_0_30px_rgba(6,182,212,0.4)] mb-6 transform rotate-3 hover:rotate-0 transition-transform">
       <i class="ph-duotone ph-atom text-4xl"></i>
     </div>
-    <h1 class="text-4xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-white to-purple-300 tracking-tight mb-2">ChemNexus AI</h1>
-    <p class="text-cyan-200/70 font-medium text-sm md:text-base lang-text tracking-wide" data-th="ระบบวิเคราะห์การจัดเก็บสารเคมีและวัตถุอันตรายอัจฉริยะ" data-en="Intelligent Chemical Storage Matrix">ระบบวิเคราะห์การจัดเก็บสารเคมีและวัตถุอันตรายอัจฉริยะ</p>
+    <h1 class="text-3xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-white to-purple-300 tracking-tight mb-2">ChemNexus AI</h1>
+    <p class="text-cyan-200/70 font-medium text-xs md:text-base lang-text tracking-wide" data-th="ระบบวิเคราะห์การจัดเก็บสารเคมีและวัตถุอันตรายอัจฉริยะ" data-en="Intelligent Chemical Storage Matrix">ระบบวิเคราะห์การจัดเก็บสารเคมีและวัตถุอันตรายอัจฉริยะ</p>
   </div>
 
   <!-- Print Header -->
@@ -128,12 +147,12 @@
     <!-- Selection Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 relative">
       
-      <!-- Slot A (Z-index higher to overlap B) -->
+      <!-- Slot A -->
       <div id="containerA" class="glass-card rounded-3xl p-5 md:p-6 transition-all hover:border-cyan-500/30 group relative z-[100]">
         <div class="flex items-center justify-between mb-4">
           <div class="flex items-center gap-3">
-            <div class="w-8 h-8 rounded-full bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 flex items-center justify-center text-sm font-black shadow-[0_0_10px_rgba(6,182,212,0.2)]">A</div>
-            <h2 class="text-sm md:text-base font-semibold text-slate-200 lang-text tracking-wider" data-th="วิเคราะห์สารเคมีชนิดที่ 1" data-en="Select Chemical A">วิเคราะห์สารเคมีชนิดที่ 1</h2>
+            <div class="w-8 h-8 rounded-full bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 flex items-center justify-center text-sm font-black shadow-[0_0_10px_rgba(6,182,212,0.2)]">1</div>
+            <h2 class="text-sm md:text-base font-semibold text-slate-200 lang-text tracking-wider" data-th="วิเคราะห์สารเคมีชนิดที่ 1" data-en="Select Chemical 1">วิเคราะห์สารเคมีชนิดที่ 1</h2>
           </div>
         </div>
         
@@ -142,7 +161,6 @@
           <i class="ph ph-scan absolute left-4 top-1/2 transform -translate-y-1/2 text-cyan-400 text-xl animate-pulse"></i>
           <input type="text" id="searchA" autocomplete="off" placeholder="ค้นหาชื่อสาร, Class, CAS No..." 
             class="w-full pl-12 pr-4 py-4 glass-input rounded-2xl outline-none transition-all placeholder-slate-500 text-sm md:text-base">
-          <!-- Dropdown List A (Opaque to prevent blending) -->
           <ul id="listA" class="absolute z-[110] w-full mt-2 opaque-dropdown rounded-2xl max-h-56 overflow-y-auto custom-scrollbar hidden"></ul>
         </div>
 
@@ -152,7 +170,7 @@
             <i class="ph-bold ph-x"></i>
           </button>
           <div class="flex items-start gap-4">
-            <div id="iconA" class="w-14 h-14 rounded-2xl flex items-center justify-center text-3xl bg-slate-900 border border-slate-700 shadow-inner flex-shrink-0 mt-1"></div>
+            <div id="iconA" class="w-14 h-14 rounded-2xl flex items-center justify-center text-3xl bg-slate-900 border border-slate-700 shadow-inner flex-shrink-0 mt-1 text-white"></div>
             <div class="flex-1">
               <p id="nameA" class="font-bold text-white text-lg pr-6"></p>
               <p id="casUnA" class="text-xs text-cyan-400 font-mono mt-1 opacity-80"></p>
@@ -165,17 +183,17 @@
         </div>
       </div>
 
-      <!-- VS / Link Icon -->
+      <!-- VS Icon -->
       <div class="hidden md:flex absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 w-12 h-12 glass-card rounded-full items-center justify-center text-cyan-400 font-black shadow-[0_0_20px_rgba(6,182,212,0.2)] text-xl no-print">
         <i class="ph-bold ph-arrows-left-right"></i>
       </div>
 
-      <!-- Slot B (Z-index lower than A) -->
+      <!-- Slot B -->
       <div id="containerB" class="glass-card rounded-3xl p-5 md:p-6 transition-all hover:border-purple-500/30 group relative z-[90]">
         <div class="flex items-center justify-between mb-4">
           <div class="flex items-center gap-3">
-            <div class="w-8 h-8 rounded-full bg-purple-500/20 text-purple-400 border border-purple-500/30 flex items-center justify-center text-sm font-black shadow-[0_0_10px_rgba(168,85,247,0.2)]">B</div>
-            <h2 class="text-sm md:text-base font-semibold text-slate-200 lang-text tracking-wider" data-th="วิเคราะห์สารเคมีชนิดที่ 2" data-en="Select Chemical B">วิเคราะห์สารเคมีชนิดที่ 2</h2>
+            <div class="w-8 h-8 rounded-full bg-purple-500/20 text-purple-400 border border-purple-500/30 flex items-center justify-center text-sm font-black shadow-[0_0_10px_rgba(168,85,247,0.2)]">2</div>
+            <h2 class="text-sm md:text-base font-semibold text-slate-200 lang-text tracking-wider" data-th="วิเคราะห์สารเคมีชนิดที่ 2" data-en="Select Chemical 2">วิเคราะห์สารเคมีชนิดที่ 2</h2>
           </div>
         </div>
         
@@ -184,7 +202,6 @@
           <i class="ph ph-scan absolute left-4 top-1/2 transform -translate-y-1/2 text-purple-400 text-xl animate-pulse"></i>
           <input type="text" id="searchB" autocomplete="off" placeholder="ค้นหาชื่อสาร, Class, CAS No..." 
             class="w-full pl-12 pr-4 py-4 glass-input rounded-2xl outline-none transition-all placeholder-slate-500 text-sm md:text-base focus:border-purple-500/50 focus:shadow-[0_0_15px_rgba(168,85,247,0.2)]">
-          <!-- Dropdown List B (Opaque to prevent blending) -->
           <ul id="listB" class="absolute z-[110] w-full mt-2 opaque-dropdown rounded-2xl max-h-56 overflow-y-auto custom-scrollbar hidden"></ul>
         </div>
 
@@ -194,7 +211,7 @@
             <i class="ph-bold ph-x"></i>
           </button>
           <div class="flex items-start gap-4">
-            <div id="iconB" class="w-14 h-14 rounded-2xl flex items-center justify-center text-3xl bg-slate-900 border border-slate-700 shadow-inner flex-shrink-0 mt-1"></div>
+            <div id="iconB" class="w-14 h-14 rounded-2xl flex items-center justify-center text-3xl bg-slate-900 border border-slate-700 shadow-inner flex-shrink-0 mt-1 text-white"></div>
             <div class="flex-1">
               <p id="nameB" class="font-bold text-white text-lg pr-6"></p>
               <p id="casUnB" class="text-xs text-purple-400 font-mono mt-1 opacity-80"></p>
@@ -206,13 +223,37 @@
           </div>
         </div>
       </div>
+    </div>
 
+    <!-- แอนิเมชัน Fusion AI (โชว์ก่อนแสดงผลลัพธ์) -->
+    <div id="fusionContainer" class="hidden relative z-10 w-full mt-8 p-10 glass-card rounded-3xl border border-cyan-500/30 overflow-hidden text-center shadow-[0_0_40px_rgba(6,182,212,0.15)]">
+      <div class="absolute inset-0 bg-cyan-500/5 animate-pulse"></div>
+      <div class="relative flex justify-center items-center gap-2 md:gap-8">
+        
+        <!-- สารตัวที่ 1 วิ่งเข้า -->
+        <div class="animate-fusion-a">
+          <div id="fusionAnimIconA" class="w-16 h-16 md:w-20 md:h-20 rounded-2xl flex items-center justify-center text-4xl bg-slate-900 border border-cyan-500/50 shadow-[0_0_20px_rgba(6,182,212,0.4)] text-white"></div>
+        </div>
+        
+        <!-- แกนพลังงานตรงกลาง -->
+        <div class="z-10 text-cyan-400 text-5xl md:text-6xl animate-spin relative">
+           <div class="absolute inset-0 bg-cyan-400 blur-xl opacity-30 rounded-full"></div>
+           <i class="ph-duotone ph-atom"></i>
+        </div>
+        
+        <!-- สารตัวที่ 2 วิ่งเข้า -->
+        <div class="animate-fusion-b">
+          <div id="fusionAnimIconB" class="w-16 h-16 md:w-20 md:h-20 rounded-2xl flex items-center justify-center text-4xl bg-slate-900 border border-purple-500/50 shadow-[0_0_20px_rgba(168,85,247,0.4)] text-white"></div>
+        </div>
+        
+      </div>
+      <h3 class="mt-8 text-sm md:text-lg font-bold text-cyan-300 tracking-widest uppercase animate-pulse lang-text" data-th="AI กำลังประมวลผลปฏิกิริยาโครงข่าย..." data-en="AI is synthesizing data...">AI กำลังประมวลผลปฏิกิริยาโครงข่าย...</h3>
     </div>
 
     <!-- AI Result Banner -->
     <div id="resultContainer" class="hidden relative z-10 w-full mt-6">
       <div id="resultCard" class="rounded-3xl overflow-hidden shadow-2xl transition-all duration-500 transform glass-card border-none">
-        <!-- Banner Head (Dynamic via JS) -->
+        <!-- Banner Head -->
         <div id="resultHeader" class="p-6 md:px-8 md:py-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-5 relative overflow-hidden">
           <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent skew-x-12 translate-x-[-100%] animate-[shimmer_2s_infinite]"></div>
           <div class="flex items-center gap-5 relative z-10 w-full md:w-auto">
@@ -222,9 +263,9 @@
               <h3 id="resultTitle" class="text-2xl md:text-3xl font-black text-white tracking-wide"></h3>
             </div>
           </div>
-          <!-- Feature 15: Print Button -->
-          <button onclick="printReport()" class="no-print relative z-10 w-full md:w-auto flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 backdrop-blur-md text-white px-5 py-3 rounded-xl font-semibold text-sm transition-all border border-white/20 shadow-lg">
-            <i class="ph-bold ph-printer text-lg"></i> <span class="lang-text" data-th="ออกรายงาน (PDF)" data-en="Export Report">ออกรายงาน (PDF)</span>
+          <!-- Feature 15: Download PDF directly -->
+          <button id="btnExportPDF" onclick="printReport()" class="no-print relative z-10 w-full md:w-auto flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 backdrop-blur-md text-white px-5 py-3 rounded-xl font-semibold text-sm transition-all border border-white/20 shadow-lg">
+            <i class="ph-bold ph-download-simple text-lg"></i> <span class="lang-text" data-th="ดาวน์โหลด (PDF)" data-en="Download PDF">ดาวน์โหลด (PDF)</span>
           </button>
         </div>
         
@@ -277,8 +318,8 @@
   </div>
 
   <!-- Modals -->
-  <!-- Add Custom Chemical Modal -->
-  <div id="customDbModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+  <!-- แก้ไข z-index เป็น z-[9999] เพื่อให้ลอยอยู่บนสุดเสมอ -->
+  <div id="customDbModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-[9999] hidden flex items-center justify-center p-4">
     <div class="glass-card rounded-3xl w-full max-w-md shadow-[0_0_40px_rgba(0,0,0,0.5)] overflow-hidden slide-up border border-slate-700">
       <div class="p-6 border-b border-slate-700/50 flex justify-between items-center bg-slate-800/50">
         <h3 class="font-bold text-lg text-white flex items-center gap-2"><i class="ph-duotone ph-database text-cyan-400 text-2xl"></i> เพิ่มข้อมูลฐานสารเคมี</h3>
@@ -306,34 +347,6 @@
         <button onclick="saveCustomChemical()" class="w-full mt-6 py-4 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-bold rounded-xl transition-all shadow-[0_0_20px_rgba(6,182,212,0.3)]">
           บันทึกเข้าสู่ระบบ AI
         </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Dashboard Modal -->
-  <div id="dashboardModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
-    <div class="glass-card rounded-3xl w-full max-w-lg shadow-[0_0_40px_rgba(0,0,0,0.5)] overflow-hidden slide-up border border-slate-700">
-      <div class="p-6 border-b border-slate-700/50 flex justify-between items-center bg-slate-800/50">
-        <h3 class="font-bold text-lg text-white flex items-center gap-2"><i class="ph-duotone ph-chart-polar text-purple-400 text-2xl"></i> แดชบอร์ดสรุปฐานข้อมูล</h3>
-        <button onclick="closeModal('dashboardModal')" class="text-slate-400 hover:text-rose-400 bg-slate-900 p-2 rounded-full"><i class="ph-bold ph-x text-sm"></i></button>
-      </div>
-      <div class="p-6">
-        <div class="grid grid-cols-3 gap-3 md:gap-4 mb-8 text-center">
-          <div class="bg-slate-800/80 rounded-2xl p-4 border border-cyan-500/30 shadow-[0_0_15px_rgba(6,182,212,0.1)]">
-            <p class="text-2xl md:text-3xl font-black text-cyan-400" id="dashTotal">0</p>
-            <p class="text-[10px] md:text-xs font-bold text-slate-400 mt-2 uppercase">Total</p>
-          </div>
-          <div class="bg-slate-800/80 rounded-2xl p-4 border border-rose-500/30 shadow-[0_0_15px_rgba(244,63,94,0.1)]">
-            <p class="text-2xl md:text-3xl font-black text-rose-400" id="dashHigh">0</p>
-            <p class="text-[10px] md:text-xs font-bold text-slate-400 mt-2 uppercase">High Risk</p>
-          </div>
-          <div class="bg-slate-800/80 rounded-2xl p-4 border border-amber-500/30 shadow-[0_0_15px_rgba(245,158,11,0.1)]">
-            <p class="text-2xl md:text-3xl font-black text-amber-400" id="dashMed">0</p>
-            <p class="text-[10px] md:text-xs font-bold text-slate-400 mt-2 uppercase">Low/Med Risk</p>
-          </div>
-        </div>
-        <h4 class="text-xs font-bold text-slate-400 mb-4 uppercase tracking-wider">Classification Breakdown</h4>
-        <div id="dashList" class="max-h-56 overflow-y-auto custom-scrollbar space-y-2.5 pr-2"></div>
       </div>
     </div>
   </div>
@@ -500,7 +513,6 @@ function initDropdown(side) {
 
     if(!filtered.length) { list.innerHTML = `<li class="px-5 py-4 text-slate-400 text-sm italic bg-slate-800/80 rounded-2xl">ไม่พบข้อมูลในฐานข้อมูล AI...</li>`; return; }
     
-    // Increased padding for mobile fat fingers
     filtered.forEach(opt => {
       const li = document.createElement("li");
       const hClass = hazardClasses[opt.classId];
@@ -538,18 +550,17 @@ function selectItem(side, classId, displayName, cas, un) {
   else if(data.color === 'amber') riskBadge.className = "text-[10px] uppercase font-black px-2.5 py-1 rounded-lg border border-amber-500/50 bg-amber-500/10 text-amber-400";
   else riskBadge.className = "text-[10px] uppercase font-black px-2.5 py-1 rounded-lg border border-emerald-500/50 bg-emerald-500/10 text-emerald-400";
   
-  autoAnalyze();
-
-  // Smart Auto-Scroll UX for Mobile
-  setTimeout(() => {
-    if (side === 'A' && !state.classB) {
-      // Scroll to Box B
+  if (side === 'A' && !state.classB) {
+    // เลื่อนลงไปกล่องที่ 2 อัตโนมัติ
+    setTimeout(() => {
       document.getElementById('containerB').scrollIntoView({ behavior: 'smooth', block: 'center' });
-    } else if (state.classA && state.classB) {
-      // Scroll to Result
-      document.getElementById('resultContainer').scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
-  }, 200);
+    }, 200);
+  }
+
+  // เรียกใช้ระบบวิเคราะห์ถ้าเลือกครบ 2 ตัว
+  if (state.classA && state.classB) {
+    autoAnalyze();
+  }
 }
 
 function clearSelection(side) {
@@ -558,6 +569,7 @@ function clearSelection(side) {
   document.getElementById(`selectedState${side}`).classList.add("hidden");
   document.getElementById(`searchState${side}`).classList.remove("hidden");
   document.getElementById("resultContainer").classList.add("hidden");
+  document.getElementById("fusionContainer").classList.add("hidden");
 }
 
 function getStorageDecision(code) {
@@ -567,7 +579,6 @@ function getStorageDecision(code) {
 }
 
 function autoAnalyze() {
-  if(!state.classA || !state.classB) return;
   const c1 = state.classA;
   const c2 = state.classB;
   const idxB = classOrder.indexOf(c2);
@@ -581,7 +592,32 @@ function autoAnalyze() {
     classA: c1,
     classB: c2
   };
-  renderResult(res);
+
+  // ซ่อนผลลัพธ์เก่า (ถ้ามี)
+  document.getElementById("resultContainer").classList.add("hidden");
+  
+  // แสดงแอนิเมชัน Fusion
+  const fusionContainer = document.getElementById("fusionContainer");
+  fusionContainer.classList.remove("hidden");
+  
+  // ตั้งค่าไอคอนในตัว Fusion
+  document.getElementById("fusionAnimIconA").textContent = hazardClasses[c1].icon;
+  document.getElementById("fusionAnimIconB").textContent = hazardClasses[c2].icon;
+  
+  // เลื่อนจอมาตรงกลางแอนิเมชัน
+  setTimeout(() => {
+    fusionContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }, 100);
+
+  // หน่วงเวลา 2 วินาทีเพื่อให้แอนิเมชันทำงานเสร็จ
+  setTimeout(() => {
+    fusionContainer.classList.add("hidden");
+    renderResult(res);
+    // เลื่อนจอไปที่ผลลัพธ์
+    setTimeout(() => {
+      document.getElementById('resultContainer').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 100);
+  }, 2000);
 }
 
 function renderResult(res) {
@@ -661,15 +697,43 @@ function renderResult(res) {
   }
 }
 
+// ===== Feature 15: สร้างและดาวน์โหลด PDF อัตโนมัติ =====
 function printReport() {
   const d = new Date();
   document.getElementById('printDate').textContent = `${d.toLocaleDateString('th-TH')} ${d.toLocaleTimeString('th-TH')}`;
-  window.print();
+  
+  const btn = document.getElementById('btnExportPDF');
+  const originalHTML = btn.innerHTML;
+  btn.innerHTML = '<i class="ph-bold ph-spinner animate-spin text-lg"></i> <span>กำลังบันทึก PDF...</span>';
+  btn.disabled = true;
+
+  document.body.classList.add('pdf-export-mode');
+
+  setTimeout(() => {
+    const element = document.body;
+    const opt = {
+      margin:       [10, 10, 10, 10], 
+      filename:     `ChemNexus_Report_Class${state.classA}_vs_Class${state.classB}.pdf`,
+      image:        { type: 'jpeg', quality: 0.98 },
+      html2canvas:  { scale: 2, useCORS: true, windowWidth: 1024 },
+      jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    };
+
+    html2pdf().set(opt).from(element).save().then(() => {
+      document.body.classList.remove('pdf-export-mode');
+      btn.innerHTML = originalHTML;
+      btn.disabled = false;
+    }).catch(err => {
+      console.error(err);
+      document.body.classList.remove('pdf-export-mode');
+      btn.innerHTML = originalHTML;
+      btn.disabled = false;
+    });
+  }, 400);
 }
 
 function openModal(id) { 
   document.getElementById(id).classList.remove('hidden'); 
-  if(id === 'dashboardModal') renderDashboard();
 }
 function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
 
@@ -690,30 +754,6 @@ function saveCustomChemical() {
   closeModal('customDbModal');
   
   initDropdown('A'); initDropdown('B');
-}
-
-function renderDashboard() {
-  let high = 0, med = 0, total = chemicalDatabase.length;
-  let classCounts = {};
-  
-  chemicalDatabase.forEach(c => {
-    let risk = hazardClasses[c.class].risk;
-    if(risk === "High") high++;
-    else med++;
-    classCounts[c.class] = (classCounts[c.class] || 0) + 1;
-  });
-
-  document.getElementById('dashTotal').textContent = total;
-  document.getElementById('dashHigh').textContent = high;
-  document.getElementById('dashMed').textContent = med;
-
-  const dashList = document.getElementById('dashList');
-  dashList.innerHTML = Object.keys(classCounts).sort().map(k => `
-    <div class="flex justify-between items-center bg-slate-900/50 p-3 rounded-xl border border-slate-700/50 shadow-inner">
-      <span class="text-xs font-bold text-slate-300">Class ${k}</span>
-      <span class="text-[10px] bg-cyan-500/20 border border-cyan-500/30 text-cyan-400 px-2.5 py-1 rounded-lg font-black tracking-wider">${classCounts[k]} ITEMS</span>
-    </div>
-  `).join('');
 }
 
 window.onload = () => { 
