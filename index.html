@@ -14,9 +14,6 @@
   <!-- Phosphor Icons -->
   <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
-  <!-- html2pdf.js สำหรับดาวน์โหลด PDF โดยตรง -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-
   <style>
     body { 
       font-family: 'Prompt', sans-serif; 
@@ -30,16 +27,39 @@
       scroll-behavior: smooth;
     }
     
+    /* Base Animations */
     .fade-in { animation: fadeIn 0.4s ease-out forwards; }
     .slide-up { animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
     
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     @keyframes slideUp { from { opacity: 0; transform: translateY(20px) scale(0.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
 
+    /* Fusion Effects */
     @keyframes moveRight { 0% { transform: translateX(-30px); opacity: 0.5; } 100% { transform: translateX(15px); opacity: 1; } }
     @keyframes moveLeft { 0% { transform: translateX(30px); opacity: 0.5; } 100% { transform: translateX(-15px); opacity: 1; } }
     .animate-fusion-a { animation: moveRight 1.2s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate; }
     .animate-fusion-b { animation: moveLeft 1.2s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate; }
+
+    /* --- NEW: Science Ring Animations --- */
+    @keyframes orbit1 { from { transform: rotateX(70deg) rotateZ(0deg); } to { transform: rotateX(70deg) rotateZ(360deg); } }
+    @keyframes orbit2 { from { transform: rotateY(70deg) rotateZ(0deg); } to { transform: rotateY(70deg) rotateZ(360deg); } }
+    @keyframes orbit3 { from { transform: rotateX(45deg) rotateY(45deg) rotateZ(0deg); } to { transform: rotateX(45deg) rotateY(45deg) rotateZ(360deg); } }
+
+    .ring-orbit {
+      position: absolute;
+      border: 1.5px solid rgba(6, 182, 212, 0.4);
+      border-radius: 50%;
+      pointer-events: none;
+      box-shadow: 0 0 10px rgba(6, 182, 212, 0.2);
+    }
+
+    @keyframes floatAround {
+      0% { transform: translate(0, 0) rotate(0deg); }
+      33% { transform: translate(10px, -15px) rotate(5deg); }
+      66% { transform: translate(-10px, 10px) rotate(-5deg); }
+      100% { transform: translate(0, 0) rotate(0deg); }
+    }
+    .floating-ambient { animation: floatAround 4s ease-in-out infinite; }
 
     .custom-scrollbar::-webkit-scrollbar { width: 4px; }
     .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
@@ -72,81 +92,78 @@
       border: 1px solid #334155; 
       box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
     }
-
+    .no-print { display: flex; }
     .print-only { display: none; }
-    @media print {
-      body { background: white !important; color: black !important; padding: 0; }
-      .no-print { display: none !important; }
-      .print-only { display: block !important; }
-      .glass-card { background: white; border: 1px solid #ccc; backdrop-filter: none; box-shadow: none; color: black; }
-      * { color: black !important; text-shadow: none !important; }
-    }
   </style>
 </head>
-<body class="min-h-screen p-4 md:p-8 flex flex-col items-center transition-colors duration-300 pb-20">
+<body class="min-h-screen p-4 md:p-8 flex flex-col items-center transition-colors duration-300 pb-24">
 
-  <!-- Floating Mobile-Friendly Admin Bar -->
+  <!-- Admin Bar -->
   <div class="no-print w-full max-w-5xl flex flex-col md:flex-row flex-wrap justify-between items-center gap-3 mb-8 z-50 relative">
-    <div class="text-[11px] md:text-sm text-cyan-400/80 font-medium tracking-wide text-center md:text-left w-full md:w-auto uppercase">
-      พัฒนาโดย Atit chimnan • ธุรกิจพันธุ์กุ้งทะเล 2
+    <div class="text-[10px] md:text-sm text-cyan-400/80 font-medium tracking-wide text-center md:text-left w-full md:w-auto uppercase">
+      Atit chimnan • ธุรกิจพันธุ์กุ้งทะเล 2
     </div>
     <div class="flex gap-2 w-full md:w-auto">
-      <button onclick="toggleLang()" class="flex-1 md:flex-none flex items-center justify-center gap-1.5 px-4 py-2.5 glass-card rounded-xl text-xs md:text-sm font-semibold text-slate-300 hover:text-white hover:bg-white/10 transition-all">
+      <button onclick="toggleLang()" class="flex-1 md:flex-none flex items-center justify-center gap-1.5 px-3 py-2 glass-card rounded-xl text-xs md:text-sm font-semibold text-slate-300 hover:text-white transition-all">
         <i class="ph ph-translate text-lg text-cyan-400"></i> <span id="langBtnText">EN/TH</span>
       </button>
-      <button onclick="openModal('customDbModal')" class="flex-1 md:flex-none flex items-center justify-center gap-1.5 px-4 py-2.5 bg-gradient-to-r from-cyan-600 to-blue-600 rounded-xl text-xs md:text-sm font-semibold text-white hover:from-cyan-500 hover:to-blue-500 shadow-[0_0_15px_rgba(6,182,212,0.3)] transition-all">
-        <i class="ph ph-plus-circle text-lg"></i> <span class="lang-text" data-th="เพิ่มข้อมูล" data-en="Add Data">เพิ่มข้อมูล</span>
+      <button onclick="openModal('customDbModal')" class="flex-1 md:flex-none flex items-center justify-center gap-1.5 px-3 py-2 bg-gradient-to-r from-cyan-600 to-blue-600 rounded-xl text-xs md:text-sm font-semibold text-white shadow-lg transition-all">
+        <i class="ph ph-plus-circle text-lg"></i> <span class="lang-text" data-th="เพิ่มข้อมูล" data-en="Add">เพิ่มข้อมูล</span>
       </button>
-      <!-- ปุ่มจัดการข้อมูล (ต้องใส่รหัส) -->
-      <button onclick="openPasswordModal()" class="flex-1 md:flex-none flex items-center justify-center gap-1.5 px-4 py-2.5 bg-gradient-to-r from-rose-600 to-red-600 rounded-xl text-xs md:text-sm font-semibold text-white hover:from-rose-500 hover:to-red-500 shadow-[0_0_15px_rgba(225,29,72,0.3)] transition-all">
-        <i class="ph ph-database text-lg"></i> <span class="lang-text" data-th="จัดการข้อมูล" data-en="Manage Data">จัดการข้อมูล</span>
+      <button onclick="openPasswordModal()" class="flex-1 md:flex-none flex items-center justify-center gap-1.5 px-3 py-2 bg-gradient-to-r from-rose-600 to-red-600 rounded-xl text-xs md:text-sm font-semibold text-white shadow-lg transition-all">
+        <i class="ph ph-database text-lg"></i> <span class="lang-text" data-th="จัดการ" data-en="Manage">จัดการ</span>
       </button>
     </div>
   </div>
 
-  <!-- Header Section -->
-  <div class="text-center mb-10 max-w-3xl no-print relative z-10 w-full">
-    <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-cyan-400 to-blue-600 text-white shadow-[0_0_30px_rgba(6,182,212,0.4)] mb-6 transform rotate-3 hover:rotate-0 transition-transform">
-      <i class="ph-duotone ph-atom text-4xl"></i>
+  <!-- Header & Ambient Reactor -->
+  <div class="text-center mb-8 max-w-3xl no-print relative z-10 w-full flex flex-col items-center">
+    
+    <!-- Ambient Reactor Container -->
+    <div class="relative w-full h-32 flex items-center justify-center mb-4 overflow-visible">
+       <!-- Science Rings -->
+       <div class="ring-orbit w-20 h-20 animate-[orbit1_1.2s_linear_infinite]"></div>
+       <div class="ring-orbit w-24 h-24 animate-[orbit2_1.5s_linear_infinite] border-purple-500/40"></div>
+       <div class="ring-orbit w-16 h-16 animate-[orbit3_0.8s_linear_infinite] border-cyan-300/60"></div>
+       
+       <!-- Particle Center -->
+       <div class="absolute w-12 h-12 bg-cyan-500/20 rounded-full blur-xl animate-pulse"></div>
+       <div class="z-10 text-cyan-400 text-5xl relative floating-ambient">
+          <i class="ph-duotone ph-atom"></i>
+       </div>
+       
+       <!-- Flying Chemicals -->
+       <div id="ambient-item-1" class="absolute text-2xl transition-all duration-[2000ms] ease-in-out opacity-0 z-20">🧪</div>
+       <div id="ambient-item-2" class="absolute text-2xl transition-all duration-[2000ms] ease-in-out opacity-0 z-20">🧬</div>
     </div>
+
     <h1 class="text-3xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-white to-purple-300 tracking-tight mb-2">ChemNexus AI</h1>
     <p class="text-cyan-200/70 font-medium text-xs md:text-base lang-text tracking-wide" data-th="ระบบวิเคราะห์การจัดเก็บสารเคมีและวัตถุอันตรายอัจฉริยะ" data-en="Intelligent Chemical Storage Matrix">ระบบวิเคราะห์การจัดเก็บสารเคมีและวัตถุอันตรายอัจฉริยะ</p>
   </div>
 
-  <!-- Main App Container -->
+  <!-- Main Container -->
   <div class="w-full max-w-5xl space-y-6 md:space-y-8 pb-10">
     
-    <!-- Selection Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 relative">
-      
       <!-- Slot A -->
-      <div id="containerA" class="glass-card rounded-3xl p-5 md:p-6 transition-all hover:border-cyan-500/30 group relative z-[100]">
-        <div class="flex items-center justify-between mb-4">
-          <div class="flex items-center gap-3">
-            <div class="w-8 h-8 rounded-full bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 flex items-center justify-center text-sm font-black shadow-[0_0_10px_rgba(6,182,212,0.2)]">1</div>
-            <h2 class="text-sm md:text-base font-semibold text-slate-200 lang-text tracking-wider" data-th="วิเคราะห์สารเคมีชนิดที่ 1" data-en="Select Chemical 1">วิเคราะห์สารเคมีชนิดที่ 1</h2>
-          </div>
+      <div id="containerA" class="glass-card rounded-3xl p-5 md:p-6 transition-all hover:border-cyan-500/30 relative z-[100]">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-8 h-8 rounded-full bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 flex items-center justify-center text-sm font-black">1</div>
+          <h2 class="text-sm md:text-base font-semibold text-slate-200 lang-text" data-th="วิเคราะห์สารเคมีชนิดที่ 1" data-en="Chemical 1">วิเคราะห์สารเคมีชนิดที่ 1</h2>
         </div>
-        
-        <!-- Search Input State A -->
-        <div id="searchStateA" class="relative no-print">
-          <i class="ph ph-scan absolute left-4 top-1/2 transform -translate-y-1/2 text-cyan-400 text-xl animate-pulse"></i>
-          <input type="text" id="searchA" autocomplete="off" placeholder="ค้นหาชื่อสาร, Class, CAS No..." 
-            class="w-full pl-12 pr-4 py-4 glass-input rounded-2xl outline-none transition-all placeholder-slate-500 text-sm md:text-base">
+        <div id="searchStateA" class="relative">
+          <i class="ph ph-scan absolute left-4 top-1/2 -translate-y-1/2 text-cyan-400 text-xl animate-pulse"></i>
+          <input type="text" id="searchA" autocomplete="off" placeholder="ค้นหาชื่อสาร, CAS..." class="w-full pl-12 pr-4 py-4 glass-input rounded-2xl outline-none text-sm md:text-base">
           <ul id="listA" class="absolute z-[110] w-full mt-2 opaque-dropdown rounded-2xl max-h-56 overflow-y-auto custom-scrollbar hidden"></ul>
         </div>
-
-        <!-- Selected Card State A -->
-        <div id="selectedStateA" class="hidden relative overflow-hidden bg-slate-800/80 backdrop-blur-md border border-slate-700/50 rounded-2xl p-5 shadow-lg">
-          <button onclick="clearSelection('A')" class="no-print absolute top-3 right-3 text-slate-400 hover:text-rose-400 transition-colors p-2 bg-slate-900/80 rounded-full btn-clear">
-            <i class="ph-bold ph-x"></i>
-          </button>
+        <div id="selectedStateA" class="hidden relative bg-slate-800/80 backdrop-blur-md border border-slate-700/50 rounded-2xl p-5 shadow-lg">
+          <button onclick="clearSelection('A')" class="absolute top-3 right-3 text-slate-400 hover:text-rose-400 transition-colors p-2 bg-slate-900/80 rounded-full btn-clear"><i class="ph-bold ph-x"></i></button>
           <div class="flex items-start gap-4">
-            <div id="iconA" class="w-14 h-14 rounded-2xl flex items-center justify-center text-3xl bg-slate-900 border border-slate-700 shadow-inner flex-shrink-0 mt-1 text-white"></div>
+            <div id="iconA" class="w-14 h-14 rounded-2xl flex items-center justify-center text-3xl bg-slate-900 border border-slate-700 shadow-inner flex-shrink-0 text-white"></div>
             <div class="flex-1">
               <p id="nameA" class="font-bold text-white text-lg pr-6"></p>
               <p id="casUnA" class="text-xs text-cyan-400 font-mono mt-1 opacity-80"></p>
-              <div class="flex flex-wrap items-center gap-2 mt-3">
+              <div class="flex gap-2 mt-3">
                 <span id="classA" class="text-xs font-bold px-2.5 py-1 rounded-lg bg-slate-700 text-white"></span>
                 <span id="riskA" class="text-[10px] uppercase font-black px-2.5 py-1 rounded-lg border"></span>
               </div>
@@ -155,39 +172,29 @@
         </div>
       </div>
 
-      <!-- VS Icon -->
-      <div class="hidden md:flex absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 w-12 h-12 glass-card rounded-full items-center justify-center text-cyan-400 font-black shadow-[0_0_20px_rgba(6,182,212,0.2)] text-xl no-print">
+      <div class="hidden md:flex absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 w-12 h-12 glass-card rounded-full items-center justify-center text-cyan-400 font-black shadow-lg">
         <i class="ph-bold ph-arrows-left-right"></i>
       </div>
 
       <!-- Slot B -->
-      <div id="containerB" class="glass-card rounded-3xl p-5 md:p-6 transition-all hover:border-purple-500/30 group relative z-[90]">
-        <div class="flex items-center justify-between mb-4">
-          <div class="flex items-center gap-3">
-            <div class="w-8 h-8 rounded-full bg-purple-500/20 text-purple-400 border border-purple-500/30 flex items-center justify-center text-sm font-black shadow-[0_0_10px_rgba(168,85,247,0.2)]">2</div>
-            <h2 class="text-sm md:text-base font-semibold text-slate-200 lang-text tracking-wider" data-th="วิเคราะห์สารเคมีชนิดที่ 2" data-en="Select Chemical 2">วิเคราะห์สารเคมีชนิดที่ 2</h2>
-          </div>
+      <div id="containerB" class="glass-card rounded-3xl p-5 md:p-6 transition-all hover:border-purple-500/30 relative z-[90]">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-8 h-8 rounded-full bg-purple-500/20 text-purple-400 border border-purple-500/30 flex items-center justify-center text-sm font-black">2</div>
+          <h2 class="text-sm md:text-base font-semibold text-slate-200 lang-text" data-th="วิเคราะห์สารเคมีชนิดที่ 2" data-en="Chemical 2">วิเคราะห์สารเคมีชนิดที่ 2</h2>
         </div>
-        
-        <!-- Search Input State B -->
-        <div id="searchStateB" class="relative no-print">
-          <i class="ph ph-scan absolute left-4 top-1/2 transform -translate-y-1/2 text-purple-400 text-xl animate-pulse"></i>
-          <input type="text" id="searchB" autocomplete="off" placeholder="ค้นหาชื่อสาร, Class, CAS No..." 
-            class="w-full pl-12 pr-4 py-4 glass-input rounded-2xl outline-none transition-all placeholder-slate-500 text-sm md:text-base focus:border-purple-500/50 focus:shadow-[0_0_15px_rgba(168,85,247,0.2)]">
+        <div id="searchStateB" class="relative">
+          <i class="ph ph-scan absolute left-4 top-1/2 -translate-y-1/2 text-purple-400 text-xl animate-pulse"></i>
+          <input type="text" id="searchB" autocomplete="off" placeholder="ค้นหาชื่อสาร, CAS..." class="w-full pl-12 pr-4 py-4 glass-input rounded-2xl outline-none text-sm md:text-base">
           <ul id="listB" class="absolute z-[110] w-full mt-2 opaque-dropdown rounded-2xl max-h-56 overflow-y-auto custom-scrollbar hidden"></ul>
         </div>
-
-        <!-- Selected Card State B -->
-        <div id="selectedStateB" class="hidden relative overflow-hidden bg-slate-800/80 backdrop-blur-md border border-slate-700/50 rounded-2xl p-5 shadow-lg">
-          <button onclick="clearSelection('B')" class="no-print absolute top-3 right-3 text-slate-400 hover:text-rose-400 transition-colors p-2 bg-slate-900/80 rounded-full btn-clear">
-            <i class="ph-bold ph-x"></i>
-          </button>
+        <div id="selectedStateB" class="hidden relative bg-slate-800/80 backdrop-blur-md border border-slate-700/50 rounded-2xl p-5 shadow-lg">
+          <button onclick="clearSelection('B')" class="absolute top-3 right-3 text-slate-400 hover:text-rose-400 transition-colors p-2 bg-slate-900/80 rounded-full btn-clear"><i class="ph-bold ph-x"></i></button>
           <div class="flex items-start gap-4">
             <div id="iconB" class="w-14 h-14 rounded-2xl flex items-center justify-center text-3xl bg-slate-900 border border-slate-700 shadow-inner flex-shrink-0 mt-1 text-white"></div>
             <div class="flex-1">
               <p id="nameB" class="font-bold text-white text-lg pr-6"></p>
               <p id="casUnB" class="text-xs text-purple-400 font-mono mt-1 opacity-80"></p>
-              <div class="flex flex-wrap items-center gap-2 mt-3">
+              <div class="flex gap-2 mt-3">
                 <span id="classB" class="text-xs font-bold px-2.5 py-1 rounded-lg bg-slate-700 text-white"></span>
                 <span id="riskB" class="text-[10px] uppercase font-black px-2.5 py-1 rounded-lg border"></span>
               </div>
@@ -197,952 +204,404 @@
       </div>
     </div>
 
-    <!-- แอนิเมชัน Fusion AI -->
-    <div id="fusionContainer" class="hidden relative z-10 w-full mt-8 p-10 glass-card rounded-3xl border border-cyan-500/30 overflow-hidden text-center shadow-[0_0_40px_rgba(6,182,212,0.15)] transition-opacity duration-500 opacity-100">
+    <!-- Analytics Fusion Animation -->
+    <div id="fusionContainer" class="hidden relative z-10 w-full mt-8 p-10 glass-card rounded-3xl border border-cyan-500/30 text-center shadow-xl transition-opacity duration-500 opacity-100">
       <div class="absolute inset-0 bg-cyan-500/5 animate-pulse"></div>
-      <div class="relative flex justify-center items-center gap-2 md:gap-8">
-        <div class="animate-fusion-a">
-          <div id="fusionAnimIconA" class="w-16 h-16 md:w-20 md:h-20 rounded-2xl flex items-center justify-center text-4xl bg-slate-900 border border-cyan-500/50 shadow-[0_0_20px_rgba(6,182,212,0.4)] text-white"></div>
-        </div>
-        <div class="z-10 text-cyan-400 text-5xl md:text-6xl animate-spin relative">
-           <div class="absolute inset-0 bg-cyan-400 blur-xl opacity-30 rounded-full"></div>
-           <i class="ph-duotone ph-atom"></i>
-        </div>
-        <div class="animate-fusion-b">
-          <div id="fusionAnimIconB" class="w-16 h-16 md:w-20 md:h-20 rounded-2xl flex items-center justify-center text-4xl bg-slate-900 border border-purple-500/50 shadow-[0_0_20px_rgba(168,85,247,0.4)] text-white"></div>
-        </div>
+      <div class="relative flex justify-center items-center gap-4 md:gap-8">
+        <div class="animate-fusion-a"><div id="fusionAnimIconA" class="w-16 h-16 rounded-2xl flex items-center justify-center text-4xl bg-slate-900 border border-cyan-500/50 shadow-lg text-white"></div></div>
+        <div class="z-10 text-cyan-400 text-5xl md:text-6xl animate-spin"><i class="ph-duotone ph-atom"></i></div>
+        <div class="animate-fusion-b"><div id="fusionAnimIconB" class="w-16 h-16 rounded-2xl flex items-center justify-center text-4xl bg-slate-900 border border-purple-500/50 shadow-lg text-white"></div></div>
       </div>
-      <h3 class="mt-8 text-sm md:text-lg font-bold text-cyan-300 tracking-widest uppercase animate-pulse lang-text" data-th="AI กำลังประมวลผลปฏิกิริยาโครงข่าย..." data-en="AI is synthesizing data...">AI กำลังประมวลผลปฏิกิริยาโครงข่าย...</h3>
+      <h3 class="mt-8 text-sm md:text-lg font-bold text-cyan-300 tracking-widest uppercase animate-pulse lang-text" data-th="AI กำลังประมวลผล..." data-en="AI Synthesizing...">AI กำลังประมวลผล...</h3>
     </div>
 
-    <!-- AI Result Banner -->
+    <!-- Result Area -->
     <div id="resultContainer" class="hidden relative z-10 w-full mt-6">
-      <div id="resultCard" class="rounded-3xl overflow-hidden shadow-2xl transition-all duration-500 transform glass-card border-none">
+      <div id="resultCard" class="rounded-3xl overflow-hidden shadow-2xl glass-card border-none">
         <div id="resultHeader" class="p-6 md:px-8 md:py-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-5 relative overflow-hidden">
-          <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent skew-x-12 translate-x-[-100%] animate-[shimmer_2s_infinite]"></div>
-          <div class="flex items-center gap-5 relative z-10 w-full">
-            <div id="resultIconWrapper" class="w-16 h-16 rounded-2xl flex items-center justify-center text-4xl bg-black/20 backdrop-blur-md text-white flex-shrink-0 shadow-lg border border-white/10"></div>
-            <div class="flex-1">
-              <span id="resultBadge" class="inline-block text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest bg-black/30 text-white mb-2 backdrop-blur-md border border-white/10"></span>
-              <h3 id="resultTitle" class="text-2xl md:text-3xl font-black text-white tracking-wide"></h3>
-            </div>
+          <div id="resultIconWrapper" class="w-16 h-16 rounded-2xl flex items-center justify-center text-4xl bg-black/20 text-white shadow-lg border border-white/10"></div>
+          <div class="flex-1">
+            <span id="resultBadge" class="inline-block text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest bg-black/30 text-white mb-2"></span>
+            <h3 id="resultTitle" class="text-2xl md:text-3xl font-black text-white tracking-wide"></h3>
           </div>
         </div>
-        
         <div class="p-6 md:p-8 bg-slate-900/80 backdrop-blur-xl">
-          <p id="resultDesc" class="text-slate-300 font-medium text-base md:text-lg mb-8 leading-relaxed"></p>
-          
-          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
-            <div class="space-y-6">
-              <div id="actionArea" class="bg-slate-800/80 rounded-2xl p-6 border border-slate-700 h-full shadow-inner">
-                <h4 class="font-bold text-sm mb-5 flex items-center gap-2 text-white">
-                  <i class="ph-duotone ph-cpu text-cyan-400 text-xl"></i> 
-                  <span class="lang-text tracking-wide" data-th="เงื่อนไขจากระบบ AI" data-en="AI Storage Guidelines">เงื่อนไขจากระบบ AI</span>
-                </h4>
-                <ul id="resultActions" class="list-none space-y-4 text-sm text-slate-300"></ul>
-                <div id="smartAlternatives" class="mt-6 hidden"></div>
-              </div>
-            </div>
-
-            <div class="bg-slate-800/80 rounded-2xl p-6 border border-slate-700 space-y-6 h-full shadow-inner">
-              <h4 class="font-bold text-sm flex items-center gap-2 text-white mb-2">
-                <i class="ph-duotone ph-shield-plus text-emerald-400 text-xl"></i> 
-                <span class="lang-text tracking-wide" data-th="คู่มือตอบโต้ฉุกเฉิน (ERG Guide)" data-en="Emergency Response Guide">คู่มือตอบโต้ฉุกเฉิน (ERG Guide)</span>
-              </h4>
-              
+          <p id="resultDesc" class="text-slate-300 text-base md:text-lg mb-8"></p>
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div class="bg-slate-800/80 rounded-2xl p-6 border border-slate-700"><ul id="resultActions" class="space-y-4 text-sm text-slate-300"></ul></div>
+            <div class="bg-slate-800/80 rounded-2xl p-6 border border-slate-700 space-y-6">
               <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-700/50">
-                <h5 class="text-[10px] font-black text-rose-400 uppercase tracking-widest mb-3 flex items-center gap-1"><i class="ph-fill ph-fire"></i> Extinguishing Media</h5>
-                <div id="fireGuide" class="flex flex-wrap gap-2"></div>
+                <h5 class="text-[10px] font-black text-rose-400 uppercase mb-3">🔥 Extinguishing Media</h5><div id="fireGuide" class="flex flex-wrap gap-2"></div>
               </div>
-
               <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-700/50">
-                <h5 class="text-[10px] font-black text-cyan-400 uppercase tracking-widest mb-3 flex items-center gap-1"><i class="ph-fill ph-mask-helmet"></i> Required PPE</h5>
-                <div id="ppeGuide" class="flex flex-wrap gap-2 text-sm"></div>
+                <h5 class="text-[10px] font-black text-cyan-400 uppercase mb-3">🛡️ Required PPE</h5><div id="ppeGuide" class="flex flex-wrap gap-2 text-sm"></div>
               </div>
-
               <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-700/50">
-                <h5 class="text-[10px] font-black text-amber-400 uppercase tracking-widest mb-3 flex items-center gap-1"><i class="ph-fill ph-warning-circle"></i> Initial Action</h5>
-                <p id="ergGuide" class="text-xs text-slate-300 leading-relaxed"></p>
+                <h5 class="text-[10px] font-black text-amber-400 uppercase mb-3">⚠️ Initial Action</h5><p id="ergGuide" class="text-xs text-slate-300 leading-relaxed"></p>
               </div>
             </div>
           </div>
         </div>
       </div>
-      
-      <!-- Feature 2: New Scan / Reset Button -->
-      <div class="mt-8 flex flex-col md:flex-row justify-center items-center gap-4 no-print pb-8">
-        <button onclick="resetScan()" class="group relative px-8 py-4 bg-gradient-to-r from-cyan-600 to-blue-600 rounded-full text-white font-bold tracking-widest uppercase shadow-[0_0_20px_rgba(6,182,212,0.4)] hover:shadow-[0_0_30px_rgba(6,182,212,0.6)] hover:scale-105 transition-all flex items-center gap-2 w-full md:w-auto justify-center">
-          <i class="ph-bold ph-arrows-clockwise text-xl group-hover:rotate-180 transition-transform duration-500"></i>
-          <span class="lang-text" data-th="ตรวจสอบคู่ใหม่ (New Scan)" data-en="Start New Scan">ตรวจสอบคู่ใหม่ (New Scan)</span>
-        </button>
-        <button onclick="openModal('matrixModal')" class="group relative px-8 py-4 glass-card rounded-full text-cyan-300 font-bold tracking-widest uppercase hover:bg-slate-800/80 hover:text-cyan-200 transition-all flex items-center gap-2 border border-cyan-500/30 hover:border-cyan-500/60 shadow-[0_0_15px_rgba(6,182,212,0.1)] w-full md:w-auto justify-center">
-          <i class="ph-duotone ph-table text-xl group-hover:scale-110 transition-transform duration-300"></i>
-          <span class="lang-text" data-th="ดูตารางอ้างอิง" data-en="View Reference">ดูตารางอ้างอิง</span>
-        </button>
-      </div>
-
+      <div class="mt-8 flex justify-center pb-8"><button onclick="resetScan()" class="px-8 py-4 bg-gradient-to-r from-cyan-600 to-blue-600 rounded-full text-white font-bold uppercase shadow-xl transition-all flex items-center gap-2 hover:scale-105"><i class="ph-bold ph-arrows-clockwise"></i> <span class="lang-text" data-th="ตรวจสอบคู่ใหม่" data-en="New Scan">ตรวจสอบคู่ใหม่</span></button></div>
     </div>
   </div>
 
-  <!-- ปุ่มแอบ (Floating Button) ไว้ดูตาราง Matrix -->
-  <button onclick="openModal('matrixModal')" class="fixed bottom-6 right-6 z-[9000] w-14 h-14 glass-card rounded-full flex items-center justify-center text-cyan-400 hover:text-white hover:bg-cyan-500/20 shadow-[0_0_20px_rgba(6,182,212,0.3)] transition-all group no-print" title="ดูตารางอ้างอิง">
-    <i class="ph-duotone ph-table text-2xl group-hover:scale-110 transition-transform"></i>
+  <!-- Reference Toggle Button (Floating) -->
+  <button onclick="openModal('matrixModal')" class="fixed bottom-6 right-6 z-[9000] w-14 h-14 glass-card rounded-full flex items-center justify-center text-cyan-400 shadow-xl no-print hover:bg-cyan-500/20 transition-all">
+    <i class="ph-duotone ph-table text-2xl"></i>
   </button>
 
   <!-- Modals -->
-  
-  <!-- 0. Password Modal (ป้องกันการลบ/แก้ไข) -->
+  <!-- Matrix Modal -->
+  <div id="matrixModal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-md z-[9999] hidden flex items-center justify-center p-4">
+    <div class="glass-card rounded-3xl w-full max-w-5xl max-h-[90vh] overflow-hidden flex flex-col">
+      <div class="p-4 flex justify-between items-center bg-slate-800/50">
+        <h3 class="font-bold text-white flex items-center gap-2"><i class="ph-duotone ph-table text-cyan-400"></i> ตารางอ้างอิง DIW</h3>
+        <button onclick="closeModal('matrixModal')" class="text-slate-400 hover:text-rose-400 bg-slate-900 p-2 rounded-full"><i class="ph-bold ph-x text-sm"></i></button>
+      </div>
+      <div class="p-4 overflow-y-auto flex-1 bg-slate-900/50 text-center" id="matrixImgContainer">
+        <img src="01.jpg" alt="Matrix" class="max-w-full h-auto rounded-lg mx-auto" onerror="this.src='https://raw.githubusercontent.com/atit1912/chem-ai/main/01.jpg'">
+        <p class="mt-4 text-cyan-300 font-bold">ตารางอ้างอิงการจัดเก็บสารเคมี</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Password Modal -->
   <div id="passwordModal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-md z-[9999] hidden flex items-center justify-center p-4">
-    <div class="glass-card rounded-3xl w-full max-w-sm shadow-[0_0_40px_rgba(225,29,72,0.4)] overflow-hidden slide-up border border-rose-500/50 text-center p-8">
-      <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-rose-500/20 text-rose-400 mb-6 border border-rose-500/30">
-        <i class="ph-duotone ph-lock-key text-4xl"></i>
-      </div>
-      <h3 class="font-black text-xl text-white mb-2 tracking-wide">ฮั่นแน่ จะลบข้อมูลเหรอ!</h3>
-      <p class="text-rose-300/80 text-sm mb-6">ไม่ง่ายนักหรอก... กรุณายืนยันรหัสผ่านเพื่อเข้าสู่ระบบจัดการ</p>
-      
-      <input type="password" id="adminPasswordInput" placeholder="•••" onkeydown="if(event.key === 'Enter') verifyPassword()" class="w-full px-4 py-4 glass-input rounded-xl text-center tracking-[0.5em] text-xl font-bold mb-6 focus:border-rose-500 focus:shadow-[0_0_15px_rgba(225,29,72,0.3)] transition-all outline-none">
-      
+    <div class="glass-card rounded-3xl w-full max-w-sm text-center p-8 border border-rose-500/30">
+      <i class="ph-duotone ph-lock-key text-4xl text-rose-400 mb-4"></i>
+      <h3 class="font-black text-white text-xl mb-2">ฮั่นแน่ จะลบข้อมูลเหรอ!</h3>
+      <p class="text-rose-300/70 text-sm mb-6">ไม่ง่ายนักหรอก... ใส่รหัสสายลับมาก่อน</p>
+      <input type="password" id="adminPwd" placeholder="•••" class="w-full p-4 glass-input rounded-xl text-center text-2xl font-bold tracking-widest mb-6 outline-none">
       <div class="flex gap-3">
-        <button onclick="closeModal('passwordModal')" class="flex-1 py-3.5 bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold rounded-xl transition-all border border-slate-600">ยกเลิก</button>
-        <button onclick="verifyPassword()" class="flex-1 py-3.5 bg-gradient-to-r from-rose-600 to-red-600 hover:from-rose-500 hover:to-red-500 text-white font-bold rounded-xl transition-all shadow-[0_0_15px_rgba(225,29,72,0.4)]">ยืนยัน</button>
+        <button onclick="closeModal('passwordModal')" class="flex-1 py-3 glass-card text-slate-300 rounded-xl">ยกเลิก</button>
+        <button onclick="verifyAccess()" class="flex-1 py-3 bg-gradient-to-r from-rose-600 to-red-600 text-white font-bold rounded-xl">ยืนยัน</button>
       </div>
     </div>
   </div>
 
-  <!-- 0.5. Manage Database Modal -->
-  <div id="manageDbModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-[9999] hidden flex items-center justify-center p-4 overflow-y-auto pt-20 pb-20">
-    <div class="glass-card rounded-3xl w-full max-w-2xl shadow-[0_0_40px_rgba(0,0,0,0.5)] slide-up border border-slate-700 m-auto flex flex-col max-h-[80vh]">
-      <div class="p-6 border-b border-slate-700/50 flex justify-between items-center bg-slate-800/50 rounded-t-3xl shrink-0">
-        <h3 class="font-bold text-lg text-white flex items-center gap-2"><i class="ph-duotone ph-folder-open text-rose-400 text-2xl"></i> จัดการฐานข้อมูลสารเคมี</h3>
-        <button onclick="closeModal('manageDbModal')" class="text-slate-400 hover:text-rose-400 bg-slate-900 p-2 rounded-full"><i class="ph-bold ph-x text-sm"></i></button>
+  <!-- Manage DB Modal -->
+  <div id="manageDbModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-[9999] hidden flex items-center justify-center p-4">
+    <div class="glass-card rounded-3xl w-full max-w-2xl max-h-[80vh] flex flex-col">
+      <div class="p-6 border-b border-white/10 flex justify-between items-center bg-slate-800/50">
+        <h3 class="font-bold text-white flex items-center gap-2"><i class="ph-duotone ph-folder-open text-rose-400"></i> จัดการฐานข้อมูล</h3>
+        <button onclick="closeModal('manageDbModal')" class="text-slate-400 bg-slate-900 p-2 rounded-full"><i class="ph-bold ph-x text-sm"></i></button>
       </div>
-      <div class="p-6 overflow-y-auto custom-scrollbar flex-1" id="manageDbList">
-        <!-- รายการสารเคมีจะถูกแสดงที่นี่ผ่าน JavaScript -->
-      </div>
+      <div class="p-6 overflow-y-auto custom-scrollbar flex-1" id="dbList"></div>
     </div>
   </div>
 
-  <!-- 0.75. Confirm Delete Modal (ป๊อปอัปยืนยันการลบแบบเท่ๆ) -->
-  <div id="deleteConfirmModal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-md z-[9999] hidden flex items-center justify-center p-4">
-    <div class="glass-card rounded-3xl w-full max-w-sm shadow-[0_0_40px_rgba(225,29,72,0.4)] overflow-hidden slide-up border border-rose-500/50 text-center p-8">
-      <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-rose-500/20 text-rose-400 mb-6 border border-rose-500/30">
-        <i class="ph-duotone ph-warning-octagon text-4xl"></i>
-      </div>
-      <h3 class="font-black text-xl text-white mb-2 tracking-wide">ยืนยันการลบข้อมูล</h3>
-      <p class="text-rose-300/80 text-sm mb-4">คุณแน่ใจหรือไม่ว่าต้องการลบข้อมูลนี้ทิ้งอย่างถาวร?</p>
-      
-      <div id="deleteChemNameDisplay" class="text-white font-bold text-base mb-6 py-3 px-4 bg-slate-900/50 border border-slate-700 rounded-xl mx-auto break-words">
-        <!-- ชื่อสารเคมีจะมาแสดงตรงนี้ -->
-      </div>
-      
+  <!-- Delete Confirm Modal -->
+  <div id="deleteConfirmModal" class="fixed inset-0 bg-slate-950/95 backdrop-blur-xl z-[10000] hidden flex items-center justify-center p-4 text-center">
+    <div class="glass-card rounded-3xl w-full max-w-xs p-8 border border-rose-500/50">
+      <i class="ph-duotone ph-warning-octagon text-5xl text-rose-500 mb-4 animate-bounce"></i>
+      <h3 class="text-white font-bold text-lg mb-2">ยืนยันการลบ?</h3>
+      <p id="deleteItemName" class="text-rose-300 text-sm mb-6 bg-rose-500/10 p-2 rounded-lg"></p>
       <div class="flex gap-3">
-        <button onclick="closeModal('deleteConfirmModal')" class="flex-1 py-3.5 bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold rounded-xl transition-all border border-slate-600 shadow-inner">ยกเลิก</button>
-        <button onclick="executeDelete()" class="flex-1 py-3.5 bg-gradient-to-r from-rose-600 to-red-600 hover:from-rose-500 hover:to-red-500 text-white font-bold rounded-xl transition-all shadow-[0_0_15px_rgba(225,29,72,0.4)]">ยืนยันลบ</button>
+        <button onclick="closeModal('deleteConfirmModal')" class="flex-1 py-3 bg-slate-800 text-white rounded-xl">ไม่ลบ</button>
+        <button onclick="executeDelete()" class="flex-1 py-3 bg-rose-600 text-white font-bold rounded-xl">ยืนยัน</button>
       </div>
     </div>
   </div>
 
-  <!-- 1. Add Custom Chemical Modal with AI Auto-Fill -->
+  <!-- Add Data Modal -->
   <div id="customDbModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-[9999] hidden flex items-center justify-center p-4 overflow-y-auto pt-20 pb-20">
-    <div class="glass-card rounded-3xl w-full max-w-md shadow-[0_0_40px_rgba(0,0,0,0.5)] slide-up border border-slate-700 m-auto">
-      <div class="p-6 border-b border-slate-700/50 flex justify-between items-center bg-slate-800/50 rounded-t-3xl">
-        <h3 class="font-bold text-lg text-white flex items-center gap-2"><i class="ph-duotone ph-database text-cyan-400 text-2xl"></i> เพิ่มข้อมูลฐานสารเคมี</h3>
-        <button onclick="closeModal('customDbModal')" class="text-slate-400 hover:text-rose-400 bg-slate-900 p-2 rounded-full"><i class="ph-bold ph-x text-sm"></i></button>
+    <div class="glass-card rounded-3xl w-full max-w-md border border-slate-700 m-auto">
+      <div class="p-6 border-b border-white/10 flex justify-between items-center bg-slate-800/50">
+        <h3 class="font-bold text-white flex items-center gap-2"><i class="ph-duotone ph-database text-cyan-400"></i> เพิ่มข้อมูลฐานสารเคมี</h3>
+        <button onclick="closeModal('customDbModal')" class="text-slate-400 bg-slate-900 p-2 rounded-full"><i class="ph-bold ph-x text-sm"></i></button>
       </div>
       <div class="p-6 space-y-5">
-        
-        <!-- คำแนะนำการใช้งาน -->
-        <div class="text-xs text-slate-300 bg-slate-900/50 p-4 rounded-xl border border-slate-700/50 leading-relaxed shadow-inner">
-          💡 <strong class="text-cyan-400">เคล็ดลับ:</strong> กรอกข้อมูลเพียงช่องเดียว (ชื่อสาร <u>หรือ</u> CAS แบบไม่ต้องพิมพ์ขีด <u>หรือ</u> UN) แล้วกดปุ่ม <b>AI Auto-Fill</b> ด้านล่างสุด ระบบจะค้นหาและเติมข้อมูลที่เหลือให้ครบถ้วนครับ!
+        <div class="bg-cyan-500/5 p-4 rounded-xl text-[11px] text-cyan-200 border border-cyan-500/10 leading-relaxed italic text-center">
+          💡 กรอกช่องเดียวแล้วกด AI Auto-Fill เพื่อดึงข้อมูลอัตโนมัติ
         </div>
-
         <div>
-          <label class="block text-xs font-bold text-cyan-400 mb-2 uppercase tracking-wide">ชื่อสารเคมี / สูตรเคมี (Name/Formula)</label>
-          <input type="text" id="newChemName" placeholder="เช่น NaOH, โซเดียมไนไตรท์" class="w-full px-4 py-3 glass-input rounded-xl text-sm focus:ring-0 placeholder-slate-500">
+          <label class="block text-[10px] font-bold text-cyan-400 mb-1 uppercase">ชื่อสารเคมี / สูตรเคมี</label>
+          <input type="text" id="newChemName" placeholder="เช่น NaOH, โซดาไฟ" class="w-full p-3 glass-input rounded-xl text-sm">
         </div>
-        
         <div>
-          <label class="block text-xs font-bold text-cyan-400 mb-2 uppercase tracking-wide">กลุ่มความเสี่ยง (Hazard Class)</label>
-          <select id="newChemClass" class="w-full px-4 py-3 glass-input rounded-xl text-sm focus:ring-0 [&>option]:bg-slate-800 [&>option]:text-white"></select>
+          <label class="block text-[10px] font-bold text-cyan-400 mb-1 uppercase">Hazard Class</label>
+          <select id="newChemClass" class="w-full p-3 glass-input rounded-xl text-sm [&>option]:bg-slate-900"></select>
         </div>
-        
         <div class="grid grid-cols-2 gap-4">
-          <div>
-            <label class="block text-xs font-bold text-cyan-400 mb-2 uppercase tracking-wide">CAS No.</label>
-            <input type="text" id="newChemCas" placeholder="เช่น 7632000" class="w-full px-4 py-3 glass-input rounded-xl text-sm focus:ring-0 placeholder-slate-500">
-          </div>
-          <div>
-            <label class="block text-xs font-bold text-cyan-400 mb-2 uppercase tracking-wide">UN Number</label>
-            <input type="text" id="newChemUn" placeholder="เช่น 1500" class="w-full px-4 py-3 glass-input rounded-xl text-sm focus:ring-0 placeholder-slate-500">
-          </div>
+          <div><label class="block text-[10px] font-bold text-cyan-400 mb-1 uppercase">CAS No.</label><input type="text" id="newChemCas" class="w-full p-3 glass-input rounded-xl text-sm"></div>
+          <div><label class="block text-[10px] font-bold text-cyan-400 mb-1 uppercase">UN Number</label><input type="text" id="newChemUn" class="w-full p-3 glass-input rounded-xl text-sm"></div>
         </div>
-
-        <div class="pt-4 border-t border-slate-700/50 mt-6 space-y-3">
-          <button id="btnAiAutoFill" onclick="aiAutoFill()" class="w-full py-3.5 bg-slate-800 hover:bg-slate-700 border border-cyan-500/50 text-cyan-300 font-bold rounded-xl transition-all shadow-[0_0_15px_rgba(6,182,212,0.1)] hover:shadow-[0_0_20px_rgba(6,182,212,0.3)] flex items-center justify-center gap-2 text-sm">
-            <i class="ph-duotone ph-magic-wand text-xl"></i> AI Auto-Fill (ค้นหาและเติมข้อมูลครบทุกช่อง)
+        <div class="pt-4 space-y-3">
+          <button id="btnAiAutoFill" onclick="aiAutoFill()" class="w-full py-3 bg-slate-800 border border-cyan-500/30 text-cyan-400 font-bold rounded-xl text-xs flex items-center justify-center gap-2 transition-all hover:bg-slate-700">
+            <i class="ph-duotone ph-magic-wand text-lg"></i> AI Auto-Fill (เติมอัตโนมัติ)
           </button>
-
-          <button onclick="saveCustomChemical()" class="w-full py-4 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-bold rounded-xl transition-all shadow-[0_0_20px_rgba(6,182,212,0.3)] flex justify-center items-center gap-2">
+          <button onclick="saveCustomChemical()" class="w-full py-4 bg-gradient-to-r from-cyan-600 to-blue-600 text-white font-bold rounded-xl flex items-center justify-center gap-2">
             <i class="ph-bold ph-floppy-disk text-lg"></i> บันทึกเข้าสู่ระบบ
           </button>
         </div>
-
-      </div>
-    </div>
-  </div>
-
-  <!-- 2. Reference Matrix Modal (ป๊อปอัปตาราง 01.jpg) -->
-  <div id="matrixModal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-md z-[9999] hidden flex items-center justify-center p-2 md:p-6">
-    <div class="glass-card rounded-3xl w-full max-w-5xl max-h-[95vh] shadow-[0_0_50px_rgba(0,0,0,0.7)] overflow-hidden slide-up border border-slate-700 flex flex-col">
-      <div class="p-4 md:p-6 border-b border-slate-700/50 flex justify-between items-center bg-slate-800/80 flex-shrink-0">
-        <h3 class="font-bold text-base md:text-lg text-white flex items-center gap-2"><i class="ph-duotone ph-table text-cyan-400 text-2xl"></i> ตารางอ้างอิงการจัดเก็บสารเคมี (DIW Matrix)</h3>
-        <button onclick="closeModal('matrixModal')" class="text-slate-400 hover:text-rose-400 bg-slate-900 p-2 rounded-full transition-colors"><i class="ph-bold ph-x text-sm"></i></button>
-      </div>
-      <div class="p-2 md:p-4 overflow-y-auto custom-scrollbar flex-1 flex justify-center items-start bg-slate-900/50" id="matrixImageContainer">
-         <img src="01.jpg" alt="DIW Matrix" class="max-w-full h-auto rounded-xl border border-slate-700 shadow-2xl" onerror="handleImageError(this)">
-      </div>
-      <div class="p-4 border-t border-slate-700/50 bg-slate-800/80 flex-shrink-0 text-center">
-         <p class="text-sm md:text-base font-semibold text-cyan-300 tracking-wide">ตารางอ้างอิงการจัดเก็บสารเคมี</p>
       </div>
     </div>
   </div>
 
 <script>
-// ===== Feature: Database Management & Password =====
-function openPasswordModal() {
-  document.getElementById('adminPasswordInput').value = '';
-  openModal('passwordModal');
-  setTimeout(() => document.getElementById('adminPasswordInput').focus(), 100);
-}
+// ===== Feature: Ambient Lab Reactor (Science Ring Logic) =====
+const reactorIcons = ["🧪", "⚗️", "🧬", "🧊", "🫧", "💧", "🔥", "💥", "☢️", "☣️", "⭕", "🔋"];
 
-function verifyPassword() {
-  const pwd = document.getElementById('adminPasswordInput').value;
-  if (pwd === "007") {
-    closeModal('passwordModal');
-    openManageDbModal();
-  } else {
-    alert("❌ รหัสผ่านไม่ถูกต้อง! สายลับตัวปลอมรึเปล่าเนี่ย?");
-    document.getElementById('adminPasswordInput').value = '';
-    document.getElementById('adminPasswordInput').focus();
-  }
-}
-
-function openManageDbModal() {
-  renderManageDbList();
-  openModal('manageDbModal');
-}
-
-function renderManageDbList() {
-  const container = document.getElementById('manageDbList');
-  if (chemicalDatabase.length === 0) {
-    container.innerHTML = '<p class="text-center text-slate-400 py-10 font-medium">ไม่มีข้อมูลสารเคมีในระบบ</p>';
-    return;
-  }
+function runAmbientReactor() {
+  const item1 = document.getElementById('ambient-item-1');
+  const item2 = document.getElementById('ambient-item-2');
   
-  let html = '<div class="space-y-3">';
-  // สร้างรายการข้อมูลทั้งหมดที่มีในระบบ
-  chemicalDatabase.forEach((chem, index) => {
-    html += `
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between p-4 bg-slate-900/60 rounded-xl border border-slate-700/50 hover:border-cyan-500/40 transition-colors gap-4 shadow-sm">
-        <div class="flex-1 min-w-0">
-          <p class="font-bold text-white text-base">${chem.name}</p>
-          <p class="text-xs text-slate-400 mt-1.5 flex flex-wrap gap-2">
-            <span class="bg-slate-800 px-2 py-0.5 rounded border border-slate-700">Class <span class="text-cyan-400 font-bold">${chem.class}</span></span>
-            <span class="bg-slate-800 px-2 py-0.5 rounded border border-slate-700">CAS: <span class="text-slate-300">${chem.cas || '-'}</span></span>
-            <span class="bg-slate-800 px-2 py-0.5 rounded border border-slate-700">UN: <span class="text-slate-300">${chem.un || '-'}</span></span>
-          </p>
-        </div>
-        <div class="flex gap-2 shrink-0">
-          <button onclick="editChemical(${index})" class="w-10 h-10 rounded-lg bg-amber-500/10 text-amber-400 hover:bg-amber-500 hover:text-white border border-amber-500/30 flex items-center justify-center transition-all shadow-sm" title="แก้ไข">
-            <i class="ph-bold ph-pencil-simple text-lg"></i>
-          </button>
-          <button onclick="deleteChemical(${index})" class="w-10 h-10 rounded-lg bg-rose-500/10 text-rose-400 hover:bg-rose-500 hover:text-white border border-rose-500/30 flex items-center justify-center transition-all shadow-sm" title="ลบ">
-            <i class="ph-bold ph-trash text-lg"></i>
-          </button>
-        </div>
-      </div>
-    `;
-  });
-  html += '</div>';
-  container.innerHTML = html;
-}
+  function nextReaction() {
+    if (!item1 || !item2) return;
+    item1.textContent = reactorIcons[Math.floor(Math.random() * reactorIcons.length)];
+    item2.textContent = reactorIcons[Math.floor(Math.random() * reactorIcons.length)];
+    item1.style.left = '20%';
+    item2.style.left = '70%';
+    item1.style.opacity = '1';
+    item2.style.opacity = '1';
+    item1.style.transform = 'scale(1) rotate(0deg)';
+    item2.style.transform = 'scale(1) rotate(0deg)';
 
-let deleteIndexTarget = null; // ตัวแปรเก็บตำแหน่งข้อมูลที่ต้องการลบ
-
-function deleteChemical(index) {
-  deleteIndexTarget = index;
-  const chemName = chemicalDatabase[index].name;
-  
-  // แสดงชื่อสารเคมีในป๊อปอัปยืนยัน
-  document.getElementById('deleteChemNameDisplay').textContent = chemName;
-  openModal('deleteConfirmModal');
-}
-
-function executeDelete() {
-  if(deleteIndexTarget !== null) {
-    chemicalDatabase.splice(deleteIndexTarget, 1);
-    localStorage.setItem('chemNexusDB', JSON.stringify(chemicalDatabase));
-    renderManageDbList();
-    
-    // อัปเดต dropdown ค้นหาให้เป็นข้อมูลล่าสุด
-    initDropdown('A');
-    initDropdown('B');
-    
-    closeModal('deleteConfirmModal');
-    deleteIndexTarget = null; // ล้างค่าทิ้งเพื่อความปลอดภัย
-  }
-}
-
-function editChemical(index) {
-  const chem = chemicalDatabase[index];
-  
-  // นำข้อมูลเดิมไปใส่รอไว้ในหน้าต่าง "เพิ่มข้อมูล"
-  document.getElementById('newChemName').value = chem.name;
-  document.getElementById('newChemClass').value = chem.class;
-  document.getElementById('newChemCas').value = chem.cas || '';
-  document.getElementById('newChemUn').value = chem.un || '';
-  
-  // ลบข้อมูลเดิมออกจากระบบชั่วคราว เพื่อเตรียมรับข้อมูลใหม่ตอนกดบันทึก
-  chemicalDatabase.splice(index, 1);
-  localStorage.setItem('chemNexusDB', JSON.stringify(chemicalDatabase));
-  
-  closeModal('manageDbModal');
-  openModal('customDbModal');
-  
-  alert("โหมดแก้ไข ✏️\nดึงข้อมูลเดิมมาเตรียมไว้ให้แล้ว กรุณาแก้ไขและกด 'บันทึกเข้าสู่ระบบ' เมื่อเสร็จสิ้นครับ");
-  
-  initDropdown('A');
-  initDropdown('B');
-}
-
-// ===== Image Error Handler =====
-function handleImageError(img) {
-  if (!img.dataset.retried) {
-    img.dataset.retried = 'true';
-    img.src = 'https://raw.githubusercontent.com/atit1912/chem-ai/main/01.jpg';
-  } else {
-    const container = document.getElementById('matrixImageContainer');
-    if (container) {
-      container.innerHTML = `
-        <div class="text-center text-rose-400 p-10">
-          <i class="ph-duotone ph-warning-circle text-5xl mb-3"></i>
-          <p class="font-bold text-lg">ไม่พบไฟล์ภาพตารางอ้างอิง</p>
-          <div class="text-sm text-slate-300 mt-4 text-left bg-slate-800 p-4 rounded-lg border border-slate-700">
-            <p class="font-bold text-white mb-2">วิธีแก้ไข:</p>
-            <ol class="list-decimal pl-5 space-y-1">
-              <li>ตรวจสอบว่าคุณได้อัปโหลดไฟล์ภาพเข้าไปใน GitHub แล้ว</li>
-              <li>ตรวจสอบชื่อและนามสกุลไฟล์ ต้องเป็นตัวพิมพ์เล็กทั้งหมด <b>01.jpg</b> (ถ้าเป็น <span class="text-rose-400">01.JPG</span> ภาพจะไม่แสดง)</li>
-              <li>กด Refresh หรือรอประมาณ 1-2 นาทีเพื่อให้เซิร์ฟเวอร์อัปเดต</li>
-            </ol>
-          </div>
-        </div>
-      `;
-    }
-  }
-}
-
-// ===== Feature: Hybrid AI Auto-Fill Engine (Supercharged) =====
-const aiKnowledgeBase = [
-  { keywords: ["naoh", "โซดาไฟ", "sodium hydroxide", "คอสติกโซดา"], class: "8B", cas: "1310-73-2", un: "1823", name: "Sodium Hydroxide (โซดาไฟ)" },
-  { keywords: ["h2so4", "กรดกำมะถัน", "sulfuric acid", "sulphuric acid"], class: "8A", cas: "7664-93-9", un: "1830", name: "Sulfuric Acid (กรดกำมะถัน)" },
-  { keywords: ["hcl", "กรดเกลือ", "hydrochloric acid", "hydrogen chloride"], class: "8B", cas: "7647-01-0", un: "1789", name: "Hydrochloric Acid (กรดเกลือ)" },
-  { keywords: ["hno3", "กรดดินประสิว", "nitric acid", "กรดไนตริก"], class: "8A", cas: "7697-37-2", un: "2031", name: "Nitric Acid (กรดไนตริก)" },
-  { keywords: ["nh3", "แอมโมเนีย", "ammonia"], class: "2A", cas: "7664-41-7", un: "1005", name: "Ammonia (แอมโมเนีย)" },
-  { keywords: ["h2o2", "ไฮโดรเจนเปอร์ออกไซด์", "hydrogen peroxide"], class: "5.1B", cas: "7722-84-1", un: "2014", name: "Hydrogen Peroxide (30%)" },
-  { keywords: ["c2h5oh", "เอทานอล", "ethanol", "ethyl alcohol", "แอลกอฮอล์", "alcohol"], class: "3A", cas: "64-17-5", un: "1170", name: "Ethanol (เอทานอล)" },
-  { keywords: ["ch3oh", "เมทานอล", "methanol", "methyl alcohol"], class: "3A", cas: "67-56-1", un: "1230", name: "Methanol (เมทานอล)" },
-  { keywords: ["lpg", "ก๊าซหุงต้ม", "liquefied petroleum gas"], class: "2A", cas: "68476-85-7", un: "1075", name: "LPG (ก๊าซหุงต้ม)" },
-  { keywords: ["คลอรีน", "chlorine", "cl2", "chlorine gas"], class: "2A", cas: "7782-50-5", un: "1017", name: "Chlorine Gas (ก๊าซคลอรีน)" }
-];
-
-async function aiAutoFill() {
-  const inputName = document.getElementById('newChemName');
-  const inputCas = document.getElementById('newChemCas');
-  const inputUn = document.getElementById('newChemUn');
-  const inputClass = document.getElementById('newChemClass');
-  const btn = document.getElementById('btnAiAutoFill');
-
-  const nameVal = inputName.value.trim().toLowerCase();
-  const casVal = inputCas.value.trim().toLowerCase();
-  
-  // ทำความสะอาดรหัส CAS ให้เหลือแต่ตัวเลขและตัวอักษร (ลบขีดออกอัตโนมัติ) เพื่อให้พิมพ์แบบง่ายๆ ได้
-  const cleanSearchCas = casVal.replace(/-/g, ''); 
-  const unVal = inputUn.value.trim();
-
-  // ตรวจสอบว่ากรอกข้อมูลมาอย่างน้อย 1 ช่องหรือไม่
-  if (!nameVal && !cleanSearchCas && !unVal) {
-    alert(currentLang === 'en' ? "Please enter at least Name, CAS, or UN number." : "กรุณากรอกข้อมูลอย่างน้อย 1 ช่อง (ชื่อ, CAS หรือ UN) เพื่อให้ AI ค้นหาครับ");
-    return;
-  }
-
-  const originalHtml = btn.innerHTML;
-  btn.innerHTML = '<i class="ph-bold ph-spinner animate-spin text-lg"></i> <span>กำลังค้นหาข้อมูลเชื่อมโยง...</span>';
-  btn.disabled = true;
-
-  // 1. รวมฐานข้อมูล Local ทั้งหมด (chemicalDatabase + aiKnowledgeBase)
-  const combinedDB = [
-    ...chemicalDatabase,
-    ...aiKnowledgeBase.map(item => ({
-      name: item.name,
-      class: item.class,
-      cas: item.cas,
-      un: item.un,
-      keywords: item.keywords
-    }))
-  ];
-
-  let foundInKb = null;
-  
-  // ค้นหาแบบฉลาด (หาจาก CAS -> UN -> ชื่อสาร)
-  if (cleanSearchCas) {
-    foundInKb = combinedDB.find(item => item.cas && item.cas.replace(/-/g, '').toLowerCase() === cleanSearchCas);
-  }
-  if (!foundInKb && unVal) {
-    foundInKb = combinedDB.find(item => item.un && item.un === unVal);
-  }
-  if (!foundInKb && nameVal) {
-    foundInKb = combinedDB.find(item => {
-      if (item.name.toLowerCase().includes(nameVal)) return true;
-      if (item.keywords && item.keywords.some(kw => nameVal === kw || nameVal.includes(kw))) return true;
-      return false;
-    });
-  }
-
-  // หากพบในฐานข้อมูลที่เรียนรู้ไว้ ให้เติมข้อมูลแบบครบทุกช่องทันที
-  if (foundInKb) {
     setTimeout(() => {
-      inputName.value = foundInKb.name;
-      inputClass.value = foundInKb.class;
-      inputCas.value = foundInKb.cas; // แสดงผล CAS แบบมีขีดให้อย่างถูกต้อง
-      inputUn.value = foundInKb.un;
-      
-      btn.innerHTML = '<i class="ph-fill ph-check-circle text-emerald-400 text-lg"></i> <span>ดึงข้อมูลครบทุกช่องสำเร็จ!</span>';
-      btn.classList.replace('border-cyan-500/50', 'border-emerald-500/50');
-      btn.classList.replace('text-cyan-300', 'text-emerald-300');
-      
-      setTimeout(() => { 
-        btn.innerHTML = originalHtml; 
-        btn.disabled = false; 
-        btn.classList.replace('border-emerald-500/50', 'border-cyan-500/50');
-        btn.classList.replace('text-emerald-300', 'text-cyan-300');
+      item1.style.left = '45%';
+      item2.style.left = '45%';
+      setTimeout(() => {
+        item1.style.transform = 'scale(2) rotate(45deg)';
+        item2.style.transform = 'scale(0)';
+        item1.style.opacity = '0';
+        item1.textContent = "✨";
+        setTimeout(nextReaction, 1500);
       }, 2000);
-    }, 500); 
-    return;
+    }, 100);
   }
-
-  // 2. ถ้าไม่พบใน Local ให้วิเคราะห์ผ่าน PubChem API
-  let apiSearchTerm = cleanSearchCas || nameVal;
-  
-  if (!apiSearchTerm && unVal) {
-     alert("❌ ฐานข้อมูลโลก (PubChem) ไม่รองรับการค้นหาด้วย UN Number อย่างเดียวครับ\nกรุณาระบุ 'ชื่อสาร' หรือ 'CAS No.' เพิ่มเติมครับ");
-     btn.innerHTML = originalHtml;
-     btn.disabled = false;
-     return;
-  }
-
-  try {
-    btn.innerHTML = '<i class="ph-bold ph-globe-hemisphere-west animate-spin text-lg"></i> <span>กำลังเชื่อมต่อฐานข้อมูลโลก...</span>';
-    
-    const response = await fetch(`https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/${encodeURIComponent(apiSearchTerm)}/property/IUPACName,MolecularFormula/JSON`);
-    
-    if (response.ok) {
-      const data = await response.json();
-      const props = data.PropertyTable.Properties[0];
-      
-      if(!inputName.value) inputName.value = props.IUPACName || apiSearchTerm;
-      
-      alert(`🌐 ดึงข้อมูลจาก PubChem API สำเร็จ!\nสูตรเคมี: ${props.MolecularFormula || '-'}\nชื่อทางการ: ${props.IUPACName || '-'}\n\n* หมายเหตุ: ฐานข้อมูลโลกไม่ระบุ Class และ UN Number กรุณาเลือก Class ด้วยตนเองครับ`);
-      
-      btn.innerHTML = '<i class="ph-fill ph-info text-cyan-400 text-lg"></i> <span>พบข้อมูลบางส่วน</span>';
-    } else {
-      alert("❌ ระบบ AI และ PubChem API ไม่รู้จักสารเคมีนี้\nกรุณากรอกข้อมูลด้วยตนเองครับ");
-      btn.innerHTML = originalHtml;
-    }
-  } catch (error) {
-    console.error(error);
-    alert("❌ ไม่สามารถเชื่อมต่อ API ฐานข้อมูลโลกได้ (โปรดตรวจสอบอินเทอร์เน็ต)");
-    btn.innerHTML = originalHtml;
-  }
-  
-  setTimeout(() => { btn.innerHTML = originalHtml; btn.disabled = false; }, 2000);
+  nextReaction();
 }
 
-// ===== Feature 4: Audio Engine (Web Audio API) =====
-let audioCtx = null;
-
-function getAudioCtx() {
-  if (!audioCtx) {
-    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-  }
-  if (audioCtx.state === 'suspended') {
-    audioCtx.resume();
-  }
-  return audioCtx;
-}
-
-function playFusionSound() {
-  const ctx = getAudioCtx();
-  const osc = ctx.createOscillator();
-  const gainNode = ctx.createGain();
-  
-  osc.connect(gainNode);
-  gainNode.connect(ctx.destination);
-  
-  osc.type = 'sine';
-  osc.frequency.setValueAtTime(100, ctx.currentTime);
-  osc.frequency.exponentialRampToValueAtTime(800, ctx.currentTime + 2.0); 
-  
-  gainNode.gain.setValueAtTime(0, ctx.currentTime);
-  gainNode.gain.linearRampToValueAtTime(0.15, ctx.currentTime + 0.8);
-  gainNode.gain.linearRampToValueAtTime(0, ctx.currentTime + 2.5);
-  
-  osc.start(ctx.currentTime);
-  osc.stop(ctx.currentTime + 2.8);
-}
-
-function playResultSound(type) {
-  const ctx = getAudioCtx();
-  const osc = ctx.createOscillator();
-  const gainNode = ctx.createGain();
-  
-  osc.connect(gainNode);
-  gainNode.connect(ctx.destination);
-  
-  if(type === 'GREEN') {
-    osc.type = 'sine';
-    osc.frequency.setValueAtTime(600, ctx.currentTime);
-    osc.frequency.setValueAtTime(800, ctx.currentTime + 0.1);
-    gainNode.gain.setValueAtTime(0.2, ctx.currentTime);
-    gainNode.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.3);
-    osc.start(ctx.currentTime);
-    osc.stop(ctx.currentTime + 0.3);
-  } else if(type === 'YELLOW') {
-    osc.type = 'triangle';
-    osc.frequency.setValueAtTime(400, ctx.currentTime);
-    osc.frequency.setValueAtTime(300, ctx.currentTime + 0.2);
-    gainNode.gain.setValueAtTime(0.2, ctx.currentTime);
-    gainNode.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.4);
-    osc.start(ctx.currentTime);
-    osc.stop(ctx.currentTime + 0.4);
-  } else if(type === 'RED') {
-    osc.type = 'sawtooth';
-    osc.frequency.setValueAtTime(150, ctx.currentTime);
-    gainNode.gain.setValueAtTime(0.3, ctx.currentTime);
-    gainNode.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.8);
-    osc.start(ctx.currentTime);
-    osc.stop(ctx.currentTime + 0.8);
-  }
-}
-
-// ===== Language State =====
-let currentLang = 'th';
-function toggleLang() {
-  currentLang = currentLang === 'th' ? 'en' : 'th';
-  document.getElementById('langBtnText').textContent = currentLang === 'th' ? 'EN / TH' : 'TH / EN';
-  document.querySelectorAll('.lang-text').forEach(el => {
-    el.textContent = el.getAttribute(`data-${currentLang}`);
-  });
-  if (state.classA && state.classB) autoAnalyze(); 
-}
-
-// ===== State =====
+// ===== Database & Logic =====
 let state = { classA: null, classB: null };
-
-// ===== Master Data =====
-const hazardClasses = {
-  "1": { title: "Class 1: วัตถุระเบิด", desc: "Explosives", icon: "💥", risk: "High", color: "rose",
-         fire: ["Water (Large Amount)"], ppe: ["🚫 Keep Distance"], erg: "อพยพทันที ห้ามดับไฟหากไฟลามถึงวัตถุระเบิด" },
-  "2A": { title: "Class 2A: ก๊าซอัด ก๊าซเหลวฯ", desc: "ก๊าซภายใต้ความดัน", icon: "💨", risk: "Medium", color: "blue",
-          fire: ["Dry Chemical", "CO2"], ppe: ["Goggles", "Leather Gloves"], erg: "ปิดวาล์วหากทำได้ปลอดภัย ใช้น้ำฉีดหล่อเย็นถัง" },
-  "2B": { title: "Class 2B: ก๊าซสเปรย์", desc: "ก๊าซภายใต้ความดันภาชนะเล็ก", icon: "💨", risk: "Low", color: "blue",
-          fire: ["Dry Chemical", "CO2"], ppe: ["Goggles"], erg: "เคลื่อนย้ายกระป๋องออกจากแหล่งความร้อน" },
-  "3A": { title: "Class 3A: ของเหลวไวไฟ (ต่ำ)", desc: "Flash Point < 23°C", icon: "🔥", risk: "High", color: "rose",
-          fire: ["Foam", "Dry Chemical", "CO2"], ppe: ["Flame-Resistant", "Goggles"], erg: "กำจัดแหล่งกำเนิดประกายไฟ ใช้ทรายหรือดินดูดซับ" },
-  "3B": { title: "Class 3B: ของเหลวไวไฟ (สูง)", desc: "Flash Point > 60°C", icon: "🔥", risk: "Medium", color: "amber",
-          fire: ["Foam", "Dry Chemical"], ppe: ["Goggles", "Gloves"], erg: "ปิดกั้นทางระบายน้ำ ใช้โฟมคลุมป้องกันไอระเหย" },
-  "4.1A": { title: "Class 4.1A: ของแข็งไวไฟระเบิด", desc: "ของแข็งที่เสี่ยงระเบิด", icon: "🔥", risk: "High", color: "rose",
-            fire: ["Water Spray"], ppe: ["Flame-Resistant", "Respirator"], erg: "หลีกเลี่ยงการเสียดสีหรือกระแทก อพยพ" },
-  "4.1B": { title: "Class 4.1B: ของแข็งไวไฟ", desc: "Flammable Solids", icon: "🔥", risk: "Medium", color: "amber",
-            fire: ["Water", "Dry Sand"], ppe: ["Dust Mask", "Gloves"], erg: "กวาดเก็บอย่างระมัดระวังไม่ให้ฟุ้งกระจาย" },
-  "4.2": { title: "Class 4.2: สารลุกไหม้ได้เอง", icon: "🔥", risk: "High", color: "rose",
-           fire: ["Dry Sand", "Class D"], ppe: ["Fire Suit", "Respirator"], erg: "ระวังการสัมผัสอากาศ ห้ามใช้น้ำในบางกรณี" },
-  "4.3": { title: "Class 4.3: สัมผัสน้ำให้ก๊าซไวไฟ", icon: "💧", risk: "High", color: "rose",
-           fire: ["Class D (Dry Powder)"], ppe: ["Goggles", "Gloves"], erg: "ห้ามใช้น้ำเด็ดขาด! ใช้ทรายแห้งเท่านั้น" },
-  "5.1A": { title: "Class 5.1A: สารออกซิไดซ์แรง", icon: "⭕", risk: "High", color: "rose",
-            fire: ["Water (Large Amount)"], ppe: ["Face Shield", "Chemical Suit"], erg: "แยกจากสารติดไฟทันที อาจเร่งปฏิกิริยาเพลิงไหม้" },
-  "5.1B": { title: "Class 5.1B: สารออกซิไดซ์", icon: "⭕", risk: "Medium", color: "amber",
-            fire: ["Water Spray"], ppe: ["Goggles", "Gloves"], erg: "ป้องกันการปนเปื้อนกับสารอินทรีย์" },
-  "5.1C": { title: "Class 5.1C: สารออกซิไดซ์อื่นๆ", icon: "⭕", risk: "Low", color: "amber",
-            fire: ["Water Spray"], ppe: ["Goggles"], erg: "กวาดเก็บด้วยวัสดุที่ไม่ติดไฟ" },
-  "5.2": { title: "Class 5.2: สารเปอร์ออกไซด์อินทรีย์", icon: "⭕", risk: "High", color: "rose",
-           fire: ["Water Spray", "Foam"], ppe: ["Chemical Suit", "Respirator"], erg: "รักษาระดับอุณหภูมิให้เย็น ระวังการระเบิดเมื่อร้อน" },
-  "6.1A": { title: "Class 6.1A: สารพิษ (ติดไฟ)", icon: "☣️", risk: "High", color: "rose",
-            fire: ["Foam", "Dry Chemical"], ppe: ["SCBA", "Chemical Suit"], erg: "อพยพเหนือลม สวมชุด SCBA ห้ามสูดดมไอระเหย" },
-  "6.1B": { title: "Class 6.1B: สารพิษ (ไม่ติดไฟ)", icon: "☣️", risk: "Medium", color: "amber",
-            fire: ["Use suitable for surrounding"], ppe: ["Respirator", "Chemical Gloves"], erg: "ระบายอากาศ กั้นพื้นที่รั่วไหล" },
-  "6.2": { title: "Class 6.2: สารติดเชื้อ", icon: "☣️", risk: "High", color: "rose",
-           fire: ["Use suitable for surrounding"], ppe: ["Biohazard Suit", "Gloves", "Mask"], erg: "ห้ามสัมผัสโดยตรง ใช้น้ำยาฆ่าเชื้อทำความสะอาด" },
-  "7": { title: "Class 7: วัสดุกัมมันตรังสี", icon: "☢️", risk: "High", color: "rose",
-         fire: ["Use suitable for surrounding"], ppe: ["Hazmat Suit", "Dosimeter"], erg: "กันเขตแดนแจ้งเจ้าหน้าที่ผู้เชี่ยวชาญทันที" },
-  "8A": { title: "Class 8A: สารกัดกร่อน (ติดไฟ)", icon: "🧪", risk: "High", color: "rose",
-          fire: ["Dry Chemical", "Foam"], ppe: ["Acid-Resistant Suit", "Face Shield"], erg: "ระวังการกระเด็นเข้าตา/ผิวหนัง ใช้สารสะเทิน" },
-  "8B": { title: "Class 8B: สารกัดกร่อน (ไม่ติดไฟ)", icon: "🧪", risk: "Medium", color: "amber",
-          fire: ["Use suitable for surrounding"], ppe: ["Goggles", "Rubber Gloves"], erg: "ซับด้วยวัสดุเฉื่อย ล้างด้วยน้ำปริมาณมาก" },
-  "10": { title: "Class 10: ของเหลวติดไฟอื่น", icon: "🛢️", risk: "Low", color: "emerald",
-          fire: ["Foam", "CO2"], ppe: ["Goggles", "Gloves"], erg: "เก็บกวาดด้วยวัสดุดูดซับ" },
-  "11": { title: "Class 11: ของแข็งติดไฟ", icon: "📦", risk: "Low", color: "emerald",
-          fire: ["Water", "Dry Chemical"], ppe: ["Dust Mask"], erg: "กวาดเก็บปกติ ระวังฝุ่น" },
-  "12": { title: "Class 12: ของเหลวไม่ติดไฟ", icon: "💧", risk: "Low", color: "emerald",
-          fire: ["Use suitable for surrounding"], ppe: ["Standard PPE"], erg: "เช็ดทำความสะอาด ป้องกันการลื่น" },
-  "13": { title: "Class 13: ของแข็งไม่ติดไฟ", icon: "📦", risk: "Low", color: "emerald",
-          fire: ["Use suitable for surrounding"], ppe: ["Standard PPE"], erg: "กวาดเก็บและนำไปทิ้งตามระเบียบ" }
-};
-
-// ข้อมูลเริ่มต้นที่เรียนรู้ไว้ล่วงหน้า
-const defaultChemicalDatabase = [
-  { name: "LPG (ก๊าซหุงต้ม)", class: "2A", cas: "68476-85-7", un: "1075" },
-  { name: "สเปรย์แอลกอฮอล์", class: "2B", cas: "64-17-5", un: "1950" },
-  { name: "Nitroglycerin", class: "1", cas: "55-63-0", un: "0143" },
-  { name: "เอทานอล 95%", class: "3A", cas: "64-17-5", un: "1170" },
-  { name: "อควาบราวน์", class: "11", cas: "-", un: "-" },
-  { name: "โพวิโดน ไอโอดีน", class: "12", cas: "25655-41-8", un: "-" },
-  { name: "EDTA", class: "12", cas: "60-00-4", un: "-" },
-  { name: "ซันไล", class: "12", cas: "-", un: "-" },
-  { name: "โซเดียมไทโอซัลเฟต", class: "12", cas: "7772-98-7", un: "-" },
-  { name: "แคลเซียมคลอไรด์", class: "12", cas: "10043-52-4", un: "-" },
-  { name: "แคลเซียมคลอไรต์", class: "12", cas: "39475-21-3", un: "-" },
-  { name: "โซเดียมไนไตรท์", class: "5.1B", cas: "7632-00-0", un: "1500" },
-  { name: "ไฮโดรเจนเปอร์ออกไซด์ (30%)", class: "5.1B", cas: "7722-84-1", un: "2014" },
-  { name: "คลอรีนผง", class: "5.1A", cas: "7778-54-3", un: "1748" },
-  { name: "คลอรีนน้ำ", class: "8B", cas: "7681-52-9", un: "1791" },
-  { name: "ไบโอซอล 300", class: "8B", cas: "-", un: "-" },
-  { name: "กรดเกลือ (HCl)", class: "8B", cas: "7647-01-0", un: "1789" },
-  { name: "โซเดียมไฮดรอกไซด์ (โซดาไฟ)", class: "8B", cas: "1310-73-2", un: "1823" },
-  { name: "โซเดียมไบคาร์บอเนต", class: "13", cas: "144-55-8", un: "-" },
-  { name: "แมกนีเซียมคลอไรด์", class: "13", cas: "7786-30-3", un: "-" },
-  { name: "ปูนขาว", class: "13", cas: "1305-62-0", un: "1910" }
-];
-
-// Feature 1: ระบบจำข้อมูล Local Storage
+let currentLang = 'th';
 let chemicalDatabase = [];
+
 function initDatabase() {
   const storedDB = localStorage.getItem('chemNexusDB');
   if (storedDB) {
-    try {
-      chemicalDatabase = JSON.parse(storedDB);
-    } catch(e) {
-      chemicalDatabase = [...defaultChemicalDatabase];
-    }
-  } else {
-    chemicalDatabase = [...defaultChemicalDatabase];
-  }
+    try { chemicalDatabase = JSON.parse(storedDB); } 
+    catch(e) { chemicalDatabase = [...defaultChemicalDatabase]; }
+  } else { chemicalDatabase = [...defaultChemicalDatabase]; }
 }
 
-const fullConditionTexts = {
-  1: "ต้องจัดให้มีการระบายอากาศ และปริมาณการจัดเก็บสารต้องไม่เกิน 60 เปอร์เซ็นต์ของปริมาณการจัดเก็บทั้งหมด",
-  2: "ห้องผนังทนไฟ < 60 ตร.ม. ปริมาณ < 60% อุณหภูมิ < 50°C มีระบายอากาศและทางออกฉุกเฉิน 2 ทาง",
-  3: "วัสดุที่ลุกติดไฟเร็ว เช่น วัสดุหีบห่อ ควรจัดเก็บแยกบริเวณออกจากสารพิษหรือของเหลวไวไฟ",
-  4: "ผลิตภัณฑ์ที่ไม่ทำปฏิกิริยากัน สามารถเก็บคละได้โดยการจัดเก็บแบบแยกห่าง (กำแพงกั้น/ระยะห่าง/บ่อแยก)",
-  5: "จัดเก็บก๊าซได้ไม่เกิน 50 ท่อ (ไวไฟ/ออกซิไดส์/พิษ รวมไม่เกิน 25 ท่อ) สารกัดกร่อน/ของแข็งติดไฟ แยกห่างด้วยผนังไม่ติดไฟสูง >= 2 ม. และห่าง >= 5 ม.",
-  6: "อนุญาตให้เก็บคละได้ ถ้ามีข้อกำหนดความปลอดภัยสำหรับสินค้าทั้งหมดตามมาตรฐาน 2B",
-  7: "อนุญาตให้เก็บคละกับไวไฟที่มีจุดวาบไฟ > 60°C ได้ถ้าไม่ทำให้เกิดปฏิกิริยาอันตราย หากมีโอกาสเกิดอันตรายให้เว้นระยะ 5 ม.",
-  8: "สารติดไฟที่มีคุณสมบัติเป็นพิษเก็บคละกับของแข็งไวไฟ (ประเภท 4.1B) ได้",
-  9: "ห้ามเก็บของเหลวไวไฟคละกับสารกัดกร่อนในภาชนะแตกง่าย ยกเว้นมีมาตรการป้องกันปฏิกิริยา",
-  10: "อนุญาตให้เก็บคละกันได้ ยกเว้นก๊าซไวไฟ",
-  11: "ต้องจัดทำมาตรการป้องกันเพิ่มเติมเพื่อให้เกิดความปลอดภัยในการเก็บรักษาโดยได้รับความเห็นชอบจากกรมโรงงานอุตสาหกรรม",
-  12: "ของแข็งไวไฟระเบิด อาจเก็บคละกับกลุ่มความเสี่ยงต่ำได้ถ้าระยะห่างที่ปลอดภัยมีเพียงพอและตรวจสอบเป็นกรณีๆ ไป",
-  13: "อนุญาตให้เก็บเปอร์ออกไซด์อินทรีย์ (5.2) คละกับของแข็งไวไฟ (4.1B) ได้",
-  14: "อนุญาตให้เก็บคละกับดินขับและตัวจุดชนวนได้ถ้าสารนั้นไม่มีส่วนผสมของโลหะหนัก",
-  15: "เก็บออกซิไดส์ (5.1B) คละกับสารพิษได้ถึง 20 ตัน แต่ต้องมีระบบแจ้งเหตุ ดับเพลิงอัตโนมัติ และทีมผจญเพลิงบริษัท",
-  16: "จำเป็นต้องออกแบบและตรวจสอบระยะห่างปลอดภัยระหว่างอาคารคลังสินค้าและชุมชนเป็นกรณีพิเศษ",
-  17: "ให้พิจารณาตามข้อกำหนดด้านความปลอดภัยเฉพาะของวัตถุอันตรายแต่ละประเภท",
-  18: "กัมมันตรังสี ควรแยกจัดเก็บตามข้อกำหนด IAEA และได้รับการอนุมัติจากหน่วยงานรัฐ"
+const hazardClasses = {
+  "1": { title: "Class 1: วัตถุระเบิด", icon: "💥", risk: "High", color: "rose", erg: "อพยพทันที ห้ามดับไฟหากไฟลามถึงวัตถุระเบิด", fire: ["Water (Large)"], ppe: ["🚫 Distance"] },
+  "2A": { title: "Class 2A: ก๊าซอัด", icon: "💨", risk: "Medium", color: "blue", erg: "ใช้น้ำฉีดหล่อเย็นถัง ปิดวาล์วหากปลอดภัย", fire: ["Dry Chem", "CO2"], ppe: ["Goggles"] },
+  "2B": { title: "Class 2B: ก๊าซสเปรย์", icon: "💨", risk: "Low", color: "blue", erg: "เคลื่อนย้ายออกจากแหล่งความร้อน", fire: ["Dry Chem"], ppe: ["Goggles"] },
+  "3A": { title: "Class 3A: ของเหลวไวไฟ (ต่ำ)", icon: "🔥", risk: "High", color: "rose", erg: "กำจัดแหล่งประกายไฟ ใช้ทรายดูดซับ", fire: ["Foam", "CO2"], ppe: ["Flame-Resist"] },
+  "3B": { title: "Class 3B: ของเหลวไวไฟ (สูง)", icon: "🔥", risk: "Medium", color: "amber", erg: "ปิดกั้นทางน้ำ ใช้โฟมคลุมไอระเหย", fire: ["Foam"], ppe: ["Gloves"] },
+  "4.1A": { title: "Class 4.1A: ของแข็งไวไฟระเบิด", icon: "🔥", risk: "High", color: "rose", erg: "หลีกเลี่ยงการเสียดสี อพยพ", fire: ["Water Spray"], ppe: ["Respirator"] },
+  "4.1B": { title: "Class 4.1B: ของแข็งไวไฟ", icon: "🔥", risk: "Medium", color: "amber", erg: "กวาดเก็บระวังการฟุ้งกระจาย", fire: ["Water"], ppe: ["Dust Mask"] },
+  "4.2": { title: "Class 4.2: สารลุกไหม้เอง", icon: "🔥", risk: "High", color: "rose", erg: "ระวังการสัมผัสอากาศ ห้ามใช้น้ำ", fire: ["Dry Sand"], ppe: ["Fire Suit"] },
+  "4.3": { title: "Class 4.3: สัมผัสน้ำให้ก๊าซไวไฟ", icon: "💧", risk: "High", color: "rose", erg: "ห้ามใช้น้ำเด็ดขาด! ใช้ทรายแห้งเท่านั้น", fire: ["Class D Powder"], ppe: ["Goggles"] },
+  "5.1A": { title: "Class 5.1A: สารออกซิไดซ์แรง", icon: "⭕", risk: "High", color: "rose", erg: "แยกจากสารติดไฟทันที เร่งปฏิกิริยาเพลิงไหม้", fire: ["Water (Large)"], ppe: ["Face Shield"] },
+  "5.1B": { title: "Class 5.1B: สารออกซิไดซ์", icon: "⭕", risk: "Medium", color: "amber", erg: "ป้องกันการปนเปื้อนสารอินทรีย์", fire: ["Water Spray"], ppe: ["Gloves"] },
+  "5.1C": { title: "Class 5.1C: สารออกซิไดซ์อื่นๆ", icon: "⭕", risk: "Low", color: "amber", erg: "กวาดเก็บด้วยวัสดุไม่ติดไฟ", fire: ["Water Spray"], ppe: ["Goggles"] },
+  "5.2": { title: "Class 5.2: เปอร์ออกไซด์อินทรีย์", icon: "⭕", risk: "High", color: "rose", erg: "เก็บให้เย็น ระวังระเบิดเมื่อร้อน", fire: ["Water Spray"], ppe: ["Chem Suit"] },
+  "6.1A": { title: "Class 6.1A: สารพิษ (ติดไฟ)", icon: "☣️", risk: "High", color: "rose", erg: "อพยพเหนือลม ห้ามสูดดมไอ", fire: ["Foam"], ppe: ["SCBA"] },
+  "6.1B": { title: "Class 6.1B: สารพิษ (ไม่ติดไฟ)", icon: "☣️", risk: "Medium", color: "amber", erg: "ระบายอากาศ กั้นพื้นที่รั่ว", fire: ["Suitable for env"], ppe: ["Respirator"] },
+  "6.2": { title: "Class 6.2: สารติดเชื้อ", icon: "☣️", risk: "High", color: "rose", erg: "ห้ามสัมผัส ใช้น้ำยาฆ่าเชื้อ", fire: ["Suitable for env"], ppe: ["Bio Suit"] },
+  "7": { title: "Class 7: กัมมันตรังสี", icon: "☢️", risk: "High", color: "rose", erg: "กันเขตแจ้งเจ้าหน้าที่ทันที", fire: ["Suitable for env"], ppe: ["Dosimeter"] },
+  "8A": { title: "Class 8A: สารกัดกร่อน (ติดไฟ)", icon: "🧪", risk: "High", color: "rose", erg: "ระวังกระเด็น ใช้สารสะเทิน", fire: ["Dry Chem"], ppe: ["Acid Suit"] },
+  "8B": { title: "Class 8B: สารกัดกร่อน (ไม่ติดไฟ)", icon: "🧪", risk: "Medium", color: "amber", erg: "ซับด้วยวัสดุเฉื่อย ล้างน้ำมาก", fire: ["Suitable for env"], ppe: ["Rubber Gloves"] },
+  "10": { title: "Class 10: ของเหลวติดไฟอื่น", icon: "🛢️", risk: "Low", color: "emerald", erg: "เก็บกวาดด้วยวัสดุดูดซับ", fire: ["Foam"], ppe: ["Gloves"] },
+  "11": { title: "Class 11: ของแข็งติดไฟ", icon: "📦", risk: "Low", color: "emerald", erg: "กวาดเก็บปกติ ระวังฝุ่น", fire: ["Water"], ppe: ["Dust Mask"] },
+  "12": { title: "Class 12: ของเหลวไม่ติดไฟ", icon: "💧", risk: "Low", color: "emerald", erg: "เช็ดทำความสะอาด ป้องกันลื่น", fire: ["Suitable for env"], ppe: ["Standard"] },
+  "13": { title: "Class 13: ของแข็งไม่ติดไฟ", icon: "📦", risk: "Low", color: "emerald", erg: "กวาดเก็บทิ้งตามระเบียบ", fire: ["Suitable for env"], ppe: ["Standard"] }
 };
 
-const classOrder = ["1", "2A", "2B", "3A", "3B", "4.1A", "4.1B", "4.2", "4.3", "5.1A", "5.1B", "5.1C", "5.2", "6.1A", "6.1B", "6.2", "7", "8A", "8B", "10", "11", "12", "13"];
 const matrixRows = {
-  "1":    ["17", "0",  "0",  "0",  "0",  "0",  "0",  "0",  "0",  "0",  "0",  "0",  "0",  "0",  "0",  "0",  "0",  "0",  "0",  "0",  "0",  "0",  "0" ],
-  "2A":   ["0",  "17", "4",  "0",  "0",  "0",  "0",  "0",  "0",  "0",  "0",  "10", "0",  "0",  "0",  "0",  "18", "5",  "00", "0",  "5",  "00", "00"],
-  "2B":   ["0",  "4",  "00", "1",  "1",  "0",  "0",  "0",  "0",  "0",  "0",  "10", "0",  "2",  "2",  "0",  "18", "4",  "4",  "6",  "6",  "6",  "6" ],
-  "3A":   ["0",  "0",  "1",  "17", "00", "0",  "0",  "0",  "0",  "0",  "0",  "0",  "0",  "18", "9",  "0",  "18", "3",  "9",  "00", "3",  "00", "00"],
-  "3B":   ["0",  "0",  "1",  "00", "17", "12", "4",  "4",  "4",  "0",  "0",  "0",  "7",  "00", "00", "0",  "18", "00", "00", "00", "00", "00", "00"],
-  "4.1A": ["0",  "0",  "0",  "0",  "12", "17", "12", "0",  "0",  "0",  "0",  "0",  "14", "0",  "0",  "0",  "18", "12", "12", "12", "12", "12", "12"],
-  "4.1B": ["0",  "0",  "0",  "0",  "4",  "12", "00", "4",  "4",  "4",  "0",  "0",  "13", "8",  "0",  "0",  "18", "00", "00", "00", "00", "00", "00"],
-  "4.2":  ["0",  "0",  "0",  "0",  "4",  "0",  "4",  "00", "4",  "0",  "0",  "0",  "0",  "0",  "0",  "0",  "18", "4",  "4",  "4",  "4",  "4",  "00"],
-  "4.3":  ["0",  "0",  "0",  "0",  "4",  "0",  "4",  "4",  "00", "0",  "0",  "0",  "0",  "0",  "0",  "0",  "18", "4",  "4",  "4",  "4",  "4",  "00"],
-  "5.1A": ["0",  "0",  "0",  "0",  "0",  "0",  "4",  "0",  "0",  "00", "00", "00", "0",  "0",  "0",  "0",  "18", "4",  "4",  "4",  "4",  "4",  "0" ],
-  "5.1B": ["0",  "0",  "0",  "0",  "0",  "0",  "0",  "0",  "0",  "00", "10", "15", "0",  "15", "15", "0",  "18", "11", "00", "11", "11", "00", "00"],
-  "5.1C": ["0",  "10", "10", "0",  "0",  "0",  "0",  "0",  "0",  "00", "15", "17", "0",  "0",  "0",  "0",  "18", "10", "10", "10", "10", "10", "10"],
-  "5.2":  ["0",  "0",  "0",  "0",  "7",  "14", "13", "0",  "0",  "0",  "0",  "0",  "17", "0",  "0",  "0",  "0",  "0",  "0",  "16", "16", "16", "16"],
-  "6.1A": ["0",  "0",  "2",  "18", "00", "0",  "8",  "0",  "0",  "0",  "15", "0",  "0",  "17", "17", "0",  "18", "0",  "0",  "3",  "3",  "3",  "3" ],
-  "6.1B": ["0",  "0",  "2",  "9",  "00", "0",  "0",  "0",  "0",  "0",  "15", "0",  "0",  "17", "17", "0",  "18", "0",  "0",  "3",  "3",  "3",  "3" ],
-  "6.2":  ["0",  "0",  "0",  "0",  "0",  "0",  "0",  "0",  "0",  "0",  "0",  "0",  "0",  "0",  "0",  "00", "0",  "0",  "0",  "0",  "0",  "0",  "0" ],
-  "7":    ["0",  "18", "18", "18", "18", "18", "18", "18", "18", "18", "18", "18", "0",  "18", "18", "0",  "18", "18", "18", "18", "18", "18", "18"],
-  "8A":   ["0",  "5",  "4",  "3",  "00", "12", "00", "4",  "4",  "4",  "11", "10", "0",  "0",  "0",  "0",  "18", "00", "00", "10", "10", "10", "00"],
-  "8B":   ["0",  "00", "4",  "9",  "00", "12", "00", "4",  "4",  "4",  "00", "10", "0",  "0",  "0",  "0",  "18", "00", "00", "10", "10", "00", "00"],
-  "10":   ["0",  "0",  "6",  "00", "00", "12", "00", "4",  "4",  "4",  "11", "10", "16", "3",  "3",  "0",  "18", "10", "10", "00", "00", "00", "00"],
-  "11":   ["0",  "5",  "6",  "3",  "00", "12", "00", "4",  "4",  "4",  "11", "10", "16", "3",  "3",  "0",  "18", "10", "10", "00", "00", "00", "00" ],
-  "12":   ["0",  "00", "6",  "00", "00", "12", "00", "4",  "4",  "4",  "00", "10", "16", "3",  "3",  "0",  "18", "10", "00", "00", "00", "00", "00"],
-  "13":   ["0",  "00", "6",  "00", "00", "12", "00", "00", "00", "0",  "00", "10", "16", "3",  "3",  "0",  "18", "00", "00", "00", "00", "00", "00"]
+  "1": ["17", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"],
+  "2A": ["0", "17", "4", "0", "0", "0", "0", "0", "0", "0", "0", "10", "0", "0", "0", "0", "18", "5", "00", "0", "5", "00", "00"],
+  "2B": ["0", "4", "00", "1", "1", "0", "0", "0", "0", "0", "0", "10", "0", "2", "2", "0", "18", "4", "4", "6", "6", "6", "6"],
+  "3A": ["0", "0", "1", "17", "00", "0", "0", "0", "0", "0", "0", "0", "0", "18", "9", "0", "18", "3", "9", "00", "3", "00", "00"],
+  "3B": ["0", "0", "1", "00", "17", "12", "4", "4", "4", "0", "0", "0", "7", "00", "00", "0", "18", "00", "00", "00", "00", "00", "00"],
+  "4.1A": ["0", "0", "0", "0", "12", "17", "12", "0", "0", "0", "0", "0", "14", "0", "0", "0", "18", "12", "12", "12", "12", "12", "12"],
+  "4.1B": ["0", "0", "0", "0", "4", "12", "00", "4", "4", "4", "0", "0", "13", "8", "0", "0", "18", "00", "00", "00", "00", "00", "00"],
+  "4.2": ["0", "0", "0", "0", "4", "0", "4", "00", "4", "0", "0", "0", "0", "0", "0", "0", "18", "4", "4", "4", "4", "4", "00"],
+  "4.3": ["0", "0", "0", "0", "4", "0", "4", "4", "00", "0", "0", "0", "0", "0", "0", "0", "18", "4", "4", "4", "4", "4", "00"],
+  "5.1A": ["0", "0", "0", "0", "0", "0", "4", "0", "0", "00", "00", "00", "0", "0", "0", "0", "18", "4", "4", "4", "4", "4", "0"],
+  "5.1B": ["0", "0", "0", "0", "0", "0", "0", "0", "0", "00", "10", "15", "0", "15", "15", "0", "18", "11", "00", "11", "11", "00", "00"],
+  "5.1C": ["0", "10", "10", "0", "0", "0", "0", "0", "0", "00", "15", "17", "0", "0", "0", "0", "18", "10", "10", "10", "10", "10", "10"],
+  "5.2": ["0", "0", "0", "0", "7", "14", "13", "0", "0", "0", "0", "0", "17", "0", "0", "0", "0", "0", "0", "16", "16", "16", "16"],
+  "6.1A": ["0", "0", "2", "18", "00", "0", "8", "0", "0", "0", "15", "0", "0", "17", "17", "0", "18", "0", "0", "3", "3", "3", "3"],
+  "6.1B": ["0", "0", "2", "9", "00", "0", "0", "0", "0", "0", "15", "0", "0", "17", "17", "0", "18", "0", "0", "3", "3", "3", "3"],
+  "6.2": ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "00", "0", "0", "0", "0", "0", "0", "0"],
+  "7": ["0", "18", "18", "18", "18", "18", "18", "18", "18", "18", "18", "18", "0", "18", "18", "0", "18", "18", "18", "18", "18", "18", "18"],
+  "8A": ["0", "5", "4", "3", "00", "12", "00", "4", "4", "4", "11", "10", "0", "0", "0", "0", "18", "00", "00", "10", "10", "10", "00"],
+  "8B": ["0", "00", "4", "9", "00", "12", "00", "4", "4", "4", "00", "10", "0", "0", "0", "0", "18", "00", "00", "10", "10", "00", "00"],
+  "10": ["0", "0", "6", "00", "00", "12", "00", "4", "4", "4", "11", "10", "16", "3", "3", "0", "18", "10", "10", "00", "00", "00", "00"],
+  "11": ["0", "5", "6", "3", "00", "12", "00", "4", "4", "4", "11", "10", "16", "3", "3", "0", "18", "10", "10", "00", "00", "00", "00"],
+  "12": ["0", "00", "6", "00", "00", "12", "00", "4", "4", "4", "00", "10", "16", "3", "3", "0", "18", "10", "00", "00", "00", "00", "00"],
+  "13": ["0", "00", "6", "00", "00", "12", "00", "00", "00", "0", "00", "10", "16", "3", "3", "0", "18", "00", "00", "00", "00", "00", "00"]
 };
 
-function populateClassSelect() {
-  const select = document.getElementById("newChemClass");
-  select.innerHTML = classOrder.map(c => `<option value="${c}">${hazardClasses[c].title}</option>`).join('');
+const defaultChemicalDatabase = [
+  { name: "LPG (ก๊าซหุงต้ม)", class: "2A", cas: "68476-85-7", un: "1075" },
+  { name: "เอทานอล 95%", class: "3A", cas: "64-17-5", un: "1170" },
+  { name: "โซเดียมไนไตรท์", class: "5.1B", cas: "7632-00-0", un: "1500" },
+  { name: "คลอรีนน้ำ", class: "8B", cas: "7681-52-9", un: "1791" },
+  { name: "กรดเกลือ (HCl)", class: "8B", cas: "7647-01-0", un: "1789" },
+  { name: "โซเดียมไฮดรอกไซด์ (โซดาไฟ)", class: "8B", cas: "1310-73-2", un: "1823" }
+];
+
+// Feature: Audio
+let audioCtx = null;
+function getAudioCtx() { if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)(); if (audioCtx.state === 'suspended') audioCtx.resume(); return audioCtx; }
+function playSound(type) {
+  const ctx = getAudioCtx(); const osc = ctx.createOscillator(); const gain = ctx.createGain(); osc.connect(gain); gain.connect(ctx.destination);
+  if(type === 'warn') { osc.type = 'sawtooth'; osc.frequency.setValueAtTime(300, ctx.currentTime); osc.frequency.linearRampToValueAtTime(150, ctx.currentTime + 0.2); gain.gain.setValueAtTime(0.2, ctx.currentTime); gain.gain.linearRampToValueAtTime(0, ctx.currentTime + 0.3); osc.start(); osc.stop(ctx.currentTime + 0.3); }
+  else if(type === 'zap') { osc.type = 'square'; osc.frequency.setValueAtTime(800, ctx.currentTime); osc.frequency.exponentialRampToValueAtTime(40, ctx.currentTime + 0.3); gain.gain.setValueAtTime(0.2, ctx.currentTime); gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.3); osc.start(); osc.stop(ctx.currentTime + 0.3); }
+  else if(type === 'fusion') { osc.type = 'sine'; osc.frequency.setValueAtTime(100, ctx.currentTime); osc.frequency.exponentialRampToValueAtTime(800, ctx.currentTime + 2.0); gain.gain.setValueAtTime(0, ctx.currentTime); gain.gain.linearRampToValueAtTime(0.15, ctx.currentTime + 0.8); gain.gain.linearRampToValueAtTime(0, ctx.currentTime + 2.5); osc.start(); osc.stop(ctx.currentTime + 2.8); }
 }
 
+// Verification & Database Management
+function openPasswordModal() { document.getElementById('adminPwd').value = ''; openModal('passwordModal'); }
+function verifyAccess() { if(document.getElementById('adminPwd').value === "007") { closeModal('passwordModal'); renderDbList(); openModal('manageDbModal'); } else alert("รหัสผ่านไม่ถูกต้อง!"); }
+function renderDbList() {
+  const container = document.getElementById('dbList');
+  if(chemicalDatabase.length === 0) { container.innerHTML = '<p class="text-center py-10">ไม่มีข้อมูลในระบบ</p>'; return; }
+  container.innerHTML = chemicalDatabase.map((c, i) => `
+    <div class="flex items-center justify-between p-4 bg-slate-900/60 rounded-xl border border-white/10 mb-3">
+      <div class="flex-1">
+        <p class="font-bold text-white">${c.name}</p>
+        <p class="text-[10px] text-slate-400 mt-1">Class: ${c.class} | CAS: ${c.cas || '-'} | UN: ${c.un || '-'}</p>
+      </div>
+      <div class="flex gap-2">
+        <button onclick="editChem(${i})" class="p-2 bg-amber-500/10 text-amber-500 rounded-lg"><i class="ph ph-pencil"></i></button>
+        <button onclick="confirmDel(${i})" class="p-2 bg-rose-500/10 text-rose-500 rounded-lg"><i class="ph ph-trash"></i></button>
+      </div>
+    </div>
+  `).join('');
+}
+
+let targetIndex = null;
+function confirmDel(i) { targetIndex = i; document.getElementById('deleteItemName').textContent = chemicalDatabase[i].name; playSound('warn'); openModal('deleteConfirmModal'); }
+function executeDelete() { chemicalDatabase.splice(targetIndex, 1); localStorage.setItem('chemNexusDB', JSON.stringify(chemicalDatabase)); renderDbList(); initDropdown('A'); initDropdown('B'); closeModal('deleteConfirmModal'); playSound('zap'); }
+function editChem(i) { const c = chemicalDatabase[i]; document.getElementById('newChemName').value = c.name; document.getElementById('newChemClass').value = c.class; document.getElementById('newChemCas').value = c.cas; document.getElementById('newChemUn').value = c.un; chemicalDatabase.splice(i, 1); closeModal('manageDbModal'); openModal('customDbModal'); }
+
+// AI Auto-Fill
+const aiKnowledgeBase = [
+  { keywords: ["naoh", "โซดาไฟ", "sodium hydroxide", "คอสติกโซดา"], class: "8B", cas: "1310-73-2", un: "1823", name: "Sodium Hydroxide (โซดาไฟ)" },
+  { keywords: ["h2so4", "กรดกำมะถัน", "sulfuric acid"], class: "8A", cas: "7664-93-9", un: "1830", name: "Sulfuric Acid (กรดกำมะถัน)" },
+  { keywords: ["hcl", "กรดเกลือ", "hydrochloric acid"], class: "8B", cas: "7647-01-0", un: "1789", name: "Hydrochloric Acid (กรดเกลือ)" },
+  { keywords: ["sodium nitrite", "โซเดียมไนไตรท์"], class: "5.1B", cas: "7632-00-0", un: "1500", name: "Sodium Nitrite (โซเดียมไนไตรท์)" }
+];
+
+async function aiAutoFill() {
+  const n = document.getElementById('newChemName'), cas = document.getElementById('newChemCas'), un = document.getElementById('newChemUn'), cl = document.getElementById('newChemClass'), btn = document.getElementById('btnAiAutoFill');
+  const nVal = n.value.trim().toLowerCase(), casVal = cas.value.replace(/-/g, '').trim(), unVal = un.value.trim();
+  if(!nVal && !casVal && !unVal) return alert("กรุณากรอกข้อมูลอย่างน้อย 1 ช่อง");
+  const orig = btn.innerHTML; btn.innerHTML = '<i class="ph ph-spinner animate-spin"></i> ค้นหา...'; btn.disabled = true;
+  
+  const combinedDB = [...chemicalDatabase, ...aiKnowledgeBase];
+  const found = combinedDB.find(c => (casVal && (c.cas||"").replace(/-/g,'') === casVal) || (unVal && c.un === unVal) || (nVal && c.name.toLowerCase().includes(nVal)));
+  
+  if(found) { 
+    setTimeout(() => { n.value = found.name; cl.value = found.class; cas.value = found.cas; un.value = found.un; btn.innerHTML = "ดึงข้อมูลสำเร็จ!"; setTimeout(() => { btn.innerHTML = orig; btn.disabled = false; }, 1500); }, 500);
+    return;
+  }
+  
+  try {
+    const res = await fetch(`https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/${encodeURIComponent(casVal || nVal)}/property/IUPACName,MolecularFormula/JSON`);
+    if(res.ok) { const d = await res.json(); const p = d.PropertyTable.Properties[0]; n.value = p.IUPACName || nVal; alert("พบข้อมูลจาก PubChem กรุณาเลือก Class ด้วยตนเอง"); }
+    else alert("ไม่พบข้อมูลสารเคมีนี้");
+  } catch(e) { alert("อินเทอร์เน็ตมีปัญหา"); }
+  btn.innerHTML = orig; btn.disabled = false;
+}
+
+// UI Dropdown Logic
 function initDropdown(side) {
-  const input = document.getElementById(`search${side}`);
-  const list = document.getElementById(`list${side}`);
-  
-  function render(filter = "") {
-    const allOptions = [
-      ...chemicalDatabase.map(c => ({ text: c.name, classId: c.class, subtitle: `Class ${c.class}`, cas: c.cas, un: c.un })),
-      ...Object.keys(hazardClasses).sort().map(k => ({ text: hazardClasses[k].title, classId: k, subtitle: `หมวดหลัก Class ${k}`, cas: "", un: "" }))
-    ];
-    
-    list.innerHTML = "";
-    
-    // ค้นหาใน Dropdown ให้อ่าน CAS แบบไม่ต้องมีขีดด้วย
-    const cleanFilter = filter.replace(/-/g, '').toLowerCase();
-    
-    const filtered = allOptions.filter(o => 
-      o.text.toLowerCase().includes(filter.toLowerCase()) || 
-      o.classId.toLowerCase().includes(filter.toLowerCase()) ||
-      (o.cas && o.cas.replace(/-/g, '').includes(cleanFilter)) || 
-      (o.un && o.un.includes(filter))
-    );
-
-    if(!filtered.length) { list.innerHTML = `<li class="px-5 py-4 text-slate-400 text-sm italic bg-slate-800/80 rounded-2xl">ไม่พบข้อมูลในฐานข้อมูล AI...</li>`; return; }
-    
-    filtered.forEach(opt => {
-      const li = document.createElement("li");
-      const hClass = hazardClasses[opt.classId];
-      li.className = "px-5 py-4 hover:bg-slate-700/80 cursor-pointer border-b border-slate-700/50 flex items-center gap-4 transition-colors last:border-0";
-      let extraInfo = opt.cas || opt.un ? ` | CAS: ${opt.cas || '-'} UN: ${opt.un || '-'}` : '';
-      li.innerHTML = `<span class="text-2xl bg-slate-800 w-12 h-12 flex items-center justify-center rounded-xl border border-slate-600 shadow-inner flex-shrink-0">${hClass.icon}</span> 
-        <div class="flex-1 text-left"><p class="text-base font-bold text-white">${opt.text}</p><p class="text-[11px] text-cyan-400 opacity-80 mt-1">${opt.subtitle}${extraInfo}</p></div>`;
-      li.onclick = () => selectItem(side, opt.classId, opt.text, opt.cas, opt.un);
-      list.appendChild(li);
-    });
+  const input = document.getElementById(`search${side}`), list = document.getElementById(`list${side}`);
+  function render(f = "") {
+    const cf = f.replace(/-/g, '').toLowerCase();
+    const opts = [...chemicalDatabase, ...Object.keys(hazardClasses).map(k => ({ name: hazardClasses[k].title, class: k }))];
+    const filtered = opts.filter(o => o.name.toLowerCase().includes(f.toLowerCase()) || (o.cas && o.cas.replace(/-/g,'').includes(cf)));
+    list.innerHTML = filtered.map(o => `
+      <li onclick="selectItem('${side}', '${o.class}', '${o.name}', '${o.cas||''}', '${o.un||''}')" class="px-5 py-4 hover:bg-slate-800 cursor-pointer border-b border-white/5 flex items-center gap-4">
+        <span class="text-2xl">${hazardClasses[o.class].icon}</span>
+        <div><p class="font-bold text-white">${o.name}</p><p class="text-[10px] text-cyan-400">Class ${o.class} ${o.cas ? '| CAS: '+o.cas : ''}</p></div>
+      </li>
+    `).join('');
+    list.classList.toggle('hidden', filtered.length === 0);
   }
-  input.addEventListener("focus", () => { render(input.value); list.classList.remove("hidden"); getAudioCtx(); }); 
-  input.addEventListener("input", (e) => render(e.target.value));
-  document.addEventListener("click", (e) => { if (!document.getElementById(`searchState${side}`).contains(e.target)) list.classList.add("hidden"); });
+  input.addEventListener("focus", () => { render(input.value); list.classList.remove("hidden"); getAudioCtx(); });
+  input.addEventListener("input", e => render(e.target.value));
+  document.addEventListener("click", e => { if(!document.getElementById(`searchState${side}`).contains(e.target)) list.classList.add("hidden"); });
 }
 
-function selectItem(side, classId, displayName, cas, un) {
-  state[`class${side}`] = classId;
-  const data = hazardClasses[classId];
-  document.getElementById(`searchState${side}`).classList.add("hidden");
-  const card = document.getElementById(`selectedState${side}`);
-  card.classList.remove("hidden"); card.classList.add("fade-in");
-  
-  document.getElementById(`icon${side}`).textContent = data.icon;
-  document.getElementById(`name${side}`).textContent = displayName;
-  document.getElementById(`class${side}`).textContent = `Class ${classId}`;
-  
-  const casUnEl = document.getElementById(`casUn${side}`);
-  if(cas || un) { casUnEl.textContent = `CAS: ${cas || '-'} | UN: ${un || '-'}`; } 
-  else { casUnEl.textContent = ''; }
-
-  const riskBadge = document.getElementById(`risk${side}`);
-  riskBadge.textContent = `${data.risk} RISK`;
-  if(data.color === 'rose') riskBadge.className = "text-[10px] uppercase font-black px-2.5 py-1 rounded-lg border border-rose-500/50 bg-rose-500/10 text-rose-400";
-  else if(data.color === 'amber') riskBadge.className = "text-[10px] uppercase font-black px-2.5 py-1 rounded-lg border border-amber-500/50 bg-amber-500/10 text-amber-400";
-  else riskBadge.className = "text-[10px] uppercase font-black px-2.5 py-1 rounded-lg border border-emerald-500/50 bg-emerald-500/10 text-emerald-400";
-  
-  if (side === 'A' && !state.classB) {
-    setTimeout(() => {
-      document.getElementById('containerB').scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }, 200);
-  }
-
-  if (state.classA && state.classB) {
-    autoAnalyze();
-  }
+function selectItem(s, cl, name, cas, un) {
+  state[`class${s}`] = cl; document.getElementById(`searchState${s}`).classList.add("hidden");
+  const card = document.getElementById(`selectedState${s}`); card.classList.remove("hidden"); card.classList.add("fade-in");
+  document.getElementById(`icon${s}`).textContent = hazardClasses[cl].icon;
+  document.getElementById(`name${s}`).textContent = name;
+  document.getElementById(`class${s}`).textContent = `Class ${cl}`;
+  document.getElementById(`casUn${s}`).textContent = cas || un ? `CAS: ${cas||'-'} | UN: ${un||'-'}` : '';
+  const risk = document.getElementById(`risk${s}`), d = hazardClasses[cl]; risk.textContent = `${d.risk} RISK`;
+  risk.className = `text-[10px] font-black px-2 py-1 rounded border border-${d.color}-500/50 bg-${d.color}-500/10 text-${d.color}-400`;
+  if(s === 'A' && !state.classB) setTimeout(() => document.getElementById('containerB').scrollIntoView({ behavior: 'smooth', block: 'center' }), 200);
+  if(state.classA && state.classB) autoAnalyze();
 }
 
-function clearSelection(side) {
-  state[`class${side}`] = null;
-  document.getElementById(`search${side}`).value = "";
-  document.getElementById(`selectedState${side}`).classList.add("hidden");
-  document.getElementById(`searchState${side}`).classList.remove("hidden");
-  document.getElementById("resultContainer").classList.add("hidden");
-  document.getElementById("fusionContainer").classList.add("hidden");
-}
-
-function resetScan() {
-  clearSelection('A');
-  clearSelection('B');
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-function getStorageDecision(code) {
-  if (code === "0" || code === "-" || !code) return { color: "RED", actionEN: "Incompatible (Do not store together)", actionTH: "อันตราย ห้ามจัดเก็บร่วมกันเด็ดขาด (Incompatible)" };
-  if (code === "00") return { color: "GREEN", actionEN: "Safe to store together", actionTH: "ปลอดภัย อนุญาตให้จัดเก็บร่วมกันได้ตามปกติ" };
-  return { color: "YELLOW", actionEN: "Conditional storage allowed", actionTH: "จัดเก็บคละได้โดยมีเงื่อนไขตามตาราง DIW", condition_code: code };
-}
+function clearSelection(s) { state[`class${s}`] = null; document.getElementById(`search${s}`).value = ""; document.getElementById(`selectedState${s}`).classList.add("hidden"); document.getElementById(`searchState${s}`).classList.remove("hidden"); document.getElementById("resultContainer").classList.add("hidden"); }
+function resetScan() { clearSelection('A'); clearSelection('B'); window.scrollTo({ top: 0, behavior: 'smooth' }); }
+function openModal(id) { document.getElementById(id).classList.remove('hidden'); }
+function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
+function toggleLang() { currentLang = currentLang === 'th' ? 'en' : 'th'; document.getElementById('langBtnText').textContent = currentLang.toUpperCase(); document.querySelectorAll('.lang-text').forEach(el => el.textContent = el.getAttribute(`data-${currentLang}`)); if(state.classA && state.classB) autoAnalyze(); }
 
 function autoAnalyze() {
-  const c1 = state.classA;
-  const c2 = state.classB;
-  const idxB = classOrder.indexOf(c2);
-  let val = matrixRows[c1][idxB];
-  const decision = getStorageDecision(val);
-
-  const res = { 
-    reason: currentLang === 'en' ? decision.actionEN : decision.actionTH, 
-    status: decision.color, 
-    conditionNo: decision.condition_code,
-    classA: c1,
-    classB: c2
-  };
-
+  const c1 = state.classA, c2 = state.classB;
+  const classOrderKeys = Object.keys(hazardClasses);
+  let val = matrixRows[c1][classOrderKeys.indexOf(c2)];
+  let decision = (val === "0" || !val) ? { color: "RED" } : (val === "00" ? { color: "GREEN" } : { color: "YELLOW", code: val });
   document.getElementById("resultContainer").classList.add("hidden");
-  
-  const fusionContainer = document.getElementById("fusionContainer");
-  fusionContainer.classList.remove("hidden");
-  fusionContainer.classList.remove("opacity-0"); 
-  
+  const fusion = document.getElementById("fusionContainer"); fusion.classList.remove("hidden", "opacity-0");
   document.getElementById("fusionAnimIconA").textContent = hazardClasses[c1].icon;
   document.getElementById("fusionAnimIconB").textContent = hazardClasses[c2].icon;
-  
+  setTimeout(() => fusion.scrollIntoView({ behavior: 'smooth', block: 'center' }), 100);
+  playSound('fusion');
   setTimeout(() => {
-    fusionContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  }, 100);
-
-  playFusionSound();
-
-  setTimeout(() => {
-    fusionContainer.classList.add("opacity-0");
-    
+    fusion.classList.add("opacity-0");
     setTimeout(() => {
-        fusionContainer.classList.add("hidden");
-        fusionContainer.classList.remove("opacity-0"); 
-        renderResult(res);
-        
-        playResultSound(res.status);
-
-        setTimeout(() => {
-          document.getElementById('resultContainer').scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }, 100);
-    }, 500); 
+      fusion.classList.add("hidden"); renderResult(decision, c1, c2);
+      document.getElementById('resultContainer').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 500);
   }, 2800);
 }
 
-function renderResult(res) {
-  const container = document.getElementById("resultContainer");
-  const header = document.getElementById("resultHeader");
-  const iconWrap = document.getElementById("resultIconWrapper");
-  const title = document.getElementById("resultTitle");
-  const badge = document.getElementById("resultBadge");
-  const desc = document.getElementById("resultDesc");
-  const actionsList = document.getElementById("resultActions");
-  const smartAlt = document.getElementById("smartAlternatives");
-  
-  const hA = hazardClasses[res.classA];
-  const hB = hazardClasses[res.classB];
-  
-  const fires = [...new Set([...hA.fire, ...hB.fire])];
-  document.getElementById("fireGuide").innerHTML = fires.map(f => `<span class="bg-rose-500/20 text-rose-300 px-2.5 py-1.5 rounded-lg text-xs font-bold border border-rose-500/30">${f}</span>`).join('');
-  
-  const ppes = [...new Set([...hA.ppe, ...hB.ppe])];
-  document.getElementById("ppeGuide").innerHTML = ppes.map(p => `<span class="bg-cyan-500/20 text-cyan-300 px-2.5 py-1.5 rounded-lg text-xs font-bold border border-cyan-500/30">${p}</span>`).join('');
-  
-  document.getElementById("ergGuide").innerHTML = `<span class="font-bold text-amber-400">Class ${res.classA}:</span> ${hA.erg}<br><br><span class="font-bold text-amber-400">Class ${res.classB}:</span> ${hB.erg}`;
-
-  container.classList.remove("hidden", "slide-up");
-  void container.offsetWidth;
-  container.classList.add("slide-up");
-  actionsList.innerHTML = "";
-  smartAlt.classList.add("hidden");
-
-  if(res.status === "RED") {
-    header.className = "p-6 md:px-8 md:py-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-5 relative overflow-hidden bg-gradient-to-r from-rose-900/90 to-rose-800/90 border-b border-rose-500/50";
-    iconWrap.innerHTML = '<i class="ph-bold ph-warning-octagon text-rose-400"></i>';
-    badge.textContent = "Critical alert - Separation Required";
-    title.className = "text-2xl md:text-3xl font-black text-rose-100 tracking-wide";
-    title.textContent = currentLang === 'en' ? "Incompatible Matrix" : "ไม่อนุญาตให้จัดเก็บร่วมกัน";
-    desc.innerHTML = `<span class='text-rose-400 font-bold'>${res.reason}</span>`;
-    
-    actionsList.innerHTML = `<li class="flex items-start gap-3"><div class="p-1 bg-rose-500/20 rounded mt-0.5"><i class="ph-fill ph-prohibit text-rose-400 text-lg"></i></div> <span class="font-bold text-slate-200 mt-1">${currentLang === 'en' ? 'Requires 100% Physical Segregation' : 'ต้องแยกพื้นที่จัดเก็บเด็ดขาด (100% Segregation)'}</span></li>`;
-    
-    smartAlt.classList.remove("hidden");
-    smartAlt.innerHTML = `
-      <div class="p-5 border border-rose-500/30 rounded-xl bg-rose-900/20 shadow-[0_0_15px_rgba(244,63,94,0.1)]">
-        <h5 class="text-xs font-bold text-rose-400 uppercase mb-4 tracking-wider flex items-center gap-2"><i class="ph-duotone ph-wall text-lg"></i> Recommended Separation Plan</h5>
-        <div class="flex items-center justify-center gap-3 p-4 bg-slate-900/50 rounded-xl border border-slate-700/50">
-           <div class="w-1/3 bg-slate-800 p-3 rounded-xl text-center border border-slate-600 shadow-lg">
-             <div class="text-2xl">${hA.icon}</div><div class="text-[10px] font-bold text-white mt-2">Class ${res.classA}</div>
-           </div>
-           <div class="flex-1 flex flex-col items-center justify-center">
-             <div class="w-full h-1.5 bg-gradient-to-r from-rose-600 via-rose-400 to-rose-600 rounded-full shadow-[0_0_10px_rgba(244,63,94,0.5)]"></div>
-             <span class="text-[9px] font-bold text-rose-300 mt-2 uppercase text-center">${currentLang === 'en' ? 'Firewall / Min 5M Dist.' : 'กำแพงทนไฟ / ห่าง > 5 เมตร'}</span>
-           </div>
-           <div class="w-1/3 bg-slate-800 p-3 rounded-xl text-center border border-slate-600 shadow-lg">
-             <div class="text-2xl">${hB.icon}</div><div class="text-[10px] font-bold text-white mt-2">Class ${res.classB}</div>
-           </div>
-        </div>
-        <p class="text-[11px] text-cyan-300 mt-4 leading-relaxed"><i class="ph-duotone ph-lightbulb text-cyan-400 text-lg align-text-bottom mr-1"></i> <b>AI Suggestion:</b> ${currentLang === 'en' ? `Store Class ${res.classB} in a dedicated safety cabinet or separate storage room.` : `พิจารณาย้าย Class ${res.classB} ไปจัดเก็บในตู้ทนไฟเฉพาะสาร หรือห้องจัดเก็บแยกส่วน.`}</p>
-      </div>
-    `;
-
-  } else if(res.status === "YELLOW") {
-    header.className = "p-6 md:px-8 md:py-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-5 relative overflow-hidden bg-gradient-to-r from-amber-900/90 to-amber-800/90 border-b border-amber-500/50";
-    iconWrap.innerHTML = '<i class="ph-bold ph-warning text-amber-400"></i>';
-    badge.textContent = "Caution - Conditional Storage";
-    title.className = "text-2xl md:text-3xl font-black text-amber-100 tracking-wide";
-    title.textContent = currentLang === 'en' ? "Conditional Storage" : "เก็บร่วมกันได้ (มีเงื่อนไข)";
-    desc.innerHTML = `<span class='text-amber-400 font-bold'>${res.reason}</span>`;
-    let txt = fullConditionTexts[res.conditionNo];
-    actionsList.innerHTML = `<li class="flex items-start gap-3 p-4 bg-amber-900/20 rounded-xl border border-amber-500/30 shadow-[0_0_15px_rgba(245,158,11,0.1)]"><div class="p-1 bg-amber-500/20 rounded mt-0.5"><i class="ph-fill ph-push-pin text-amber-400 text-lg"></i></div> <span class="font-medium text-amber-100 leading-relaxed mt-1"><strong class="text-amber-400">${currentLang === 'en' ? 'Condition' : 'เงื่อนไขข้อที่'} ${res.conditionNo}:</strong> ${txt}</span></li>`;
-  } else {
-    header.className = "p-6 md:px-8 md:py-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-5 relative overflow-hidden bg-gradient-to-r from-emerald-900/90 to-emerald-800/90 border-b border-emerald-500/50";
-    iconWrap.innerHTML = '<i class="ph-bold ph-check-circle text-emerald-400"></i>';
-    badge.textContent = "Safe - Optimal Compatibility";
-    title.className = "text-2xl md:text-3xl font-black text-emerald-100 tracking-wide";
-    title.textContent = currentLang === 'en' ? "Safe Compatibility" : "สามารถจัดเก็บร่วมกันได้";
-    desc.innerHTML = `<span class='text-emerald-400 font-bold'>${res.reason}</span>`;
-    actionsList.innerHTML = `<li class="flex items-start gap-3"><div class="p-1 bg-emerald-500/20 rounded mt-0.5"><i class="ph-fill ph-check text-emerald-400 text-lg"></i></div> <span class="font-bold text-slate-200 mt-1">${currentLang === 'en' ? 'Store according to General Warehousing Practices (GWP).' : 'จัดเก็บตามมาตรฐานคลังสินค้าที่ดี (GWP)'}</span></li>`;
-  }
+function renderResult(res, c1, c2) {
+  const hA = hazardClasses[c1], hB = hazardClasses[c2], container = document.getElementById("resultContainer");
+  container.classList.remove("hidden");
+  document.getElementById("resultBadge").textContent = res.color + " STATUS";
+  document.getElementById("resultTitle").textContent = res.color === "RED" ? "อันตราย ห้ามเก็บร่วมกัน" : (res.color === "YELLOW" ? "เก็บร่วมกันได้ (มีเงื่อนไข)" : "ปลอดภัย เก็บร่วมกันได้");
+  document.getElementById("resultIconWrapper").innerHTML = `<i class="ph ph-${res.color === 'RED' ? 'warning-octagon' : (res.color === 'YELLOW' ? 'warning' : 'check-circle')}"></i>`;
+  document.getElementById("resultHeader").className = `p-8 flex items-center gap-5 bg-gradient-to-r from-${hA.color}-900/80 to-${hB.color}-900/80`;
+  const fires = [...new Set([...hA.fire, ...hB.fire])], ppes = [...new Set([...hA.ppe, ...hB.ppe])];
+  document.getElementById("fireGuide").innerHTML = fires.map(f => `<span class="bg-rose-500/20 text-rose-300 px-2 py-1 rounded border border-rose-500/30">${f}</span>`).join('');
+  document.getElementById("ppeGuide").innerHTML = ppes.map(p => `<span class="bg-cyan-500/20 text-cyan-300 px-2 py-1 rounded border border-cyan-500/30">${p}</span>`).join('');
+  document.getElementById("ergGuide").textContent = `Class ${c1}: ${hA.erg} | Class ${c2}: ${hB.erg}`;
 }
 
-function openModal(id) { 
-  document.getElementById(id).classList.remove('hidden'); 
-}
-function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
-
-// Feature 1: บันทึกข้อมูลพร้อมจัดเก็บลง Local Storage
 function saveCustomChemical() {
-  const name = document.getElementById('newChemName').value;
-  const cClass = document.getElementById('newChemClass').value;
-  const cas = document.getElementById('newChemCas').value;
-  const un = document.getElementById('newChemUn').value;
-  
-  if(!name || !cClass) return alert(currentLang === 'en' ? "Name and Class are required" : "กรุณากรอกชื่อสารและ Class ให้ครบถ้วน");
-  
-  chemicalDatabase.unshift({ name: name, class: cClass, cas: cas, un: un });
-  
-  // จัดเก็บลงหน่วยความจำของเบราว์เซอร์
+  const n = document.getElementById('newChemName').value, cl = document.getElementById('newChemClass').value, cas = document.getElementById('newChemCas').value, un = document.getElementById('newChemUn').value;
+  if(!n || !cl) return alert("กรุณาระบุชื่อและกลุ่มสาร");
+  chemicalDatabase.unshift({ name: n, class: cl, cas: cas, un: un });
   localStorage.setItem('chemNexusDB', JSON.stringify(chemicalDatabase));
-  
-  alert(currentLang === 'en' ? "Data Synced to AI!" : "ซิงค์ข้อมูลเคมีเข้าสู่ระบบ AI สำเร็จ");
-  
-  document.getElementById('newChemName').value = '';
-  document.getElementById('newChemCas').value = '';
-  document.getElementById('newChemUn').value = '';
-  closeModal('customDbModal');
-  
-  initDropdown('A'); initDropdown('B');
+  alert("บันทึกสำเร็จ!"); closeModal('customDbModal'); initDropdown('A'); initDropdown('B');
 }
 
 window.onload = () => { 
   initDatabase(); 
-  populateClassSelect();
-  initDropdown("A"); 
-  initDropdown("B"); 
+  const classOrderKeys = Object.keys(hazardClasses);
+  document.getElementById("newChemClass").innerHTML = classOrderKeys.map(c => `<option value="${c}">${hazardClasses[c].title}</option>`).join('');
+  initDropdown("A"); initDropdown("B"); 
+  runAmbientReactor(); 
 };
+
+function handleImageError(img) { if (!img.dataset.retried) { img.dataset.retried = 'true'; img.src = 'https://raw.githubusercontent.com/atit1912/chem-ai/main/01.jpg'; } }
 </script>
 </body>
 </html>
