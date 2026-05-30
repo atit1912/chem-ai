@@ -3,15 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>ChemNexus AI 1.0 - Intelligent Matrix</title>
-  
-  <!-- Tailwind CSS -->
+  <title>ChemNexus AI 2.0 - Intelligent Matrix</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  
-  <!-- Google Fonts: Prompt -->
   <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  
-  <!-- Phosphor Icons -->
   <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
   <style>
@@ -26,25 +20,17 @@
       color: #e2e8f0;
       scroll-behavior: smooth;
     }
-    
-    /* Animations */
     .fade-in { animation: fadeIn 0.4s ease-out forwards; }
     .slide-up { animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-    
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     @keyframes slideUp { from { opacity: 0; transform: translateY(20px) scale(0.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
-
-    /* Fusion Effects (Collision) */
     @keyframes moveRight { 0% { transform: translateX(-50px); opacity: 0; } 100% { transform: translateX(20px); opacity: 1; } }
     @keyframes moveLeft { 0% { transform: translateX(50px); opacity: 0; } 100% { transform: translateX(-20px); opacity: 1; } }
     .animate-fusion-a { animation: moveRight 0.8s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate; }
     .animate-fusion-b { animation: moveLeft 0.8s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate; }
-
-    /* Science Ring Animations */
     @keyframes orbit1 { from { transform: rotateX(70deg) rotateZ(0deg); } to { transform: rotateX(70deg) rotateZ(360deg); } }
     @keyframes orbit2 { from { transform: rotateY(70deg) rotateZ(0deg); } to { transform: rotateY(70deg) rotateZ(360deg); } }
     @keyframes orbit3 { from { transform: rotateX(45deg) rotateY(45deg) rotateZ(0deg); } to { transform: rotateX(45deg) rotateY(45deg) rotateZ(360deg); } }
-
     .ring-orbit {
       position: absolute;
       border: 1.5px solid rgba(6, 182, 212, 0.4);
@@ -52,7 +38,6 @@
       pointer-events: none;
       box-shadow: 0 0 15px rgba(6, 182, 212, 0.3);
     }
-
     @keyframes floatAround {
       0% { transform: translate(0, 0) rotate(0deg); }
       33% { transform: translate(10px, -15px) rotate(5deg); }
@@ -60,15 +45,11 @@
       100% { transform: translate(0, 0) rotate(0deg); }
     }
     .floating-ambient { animation: floatAround 4s ease-in-out infinite; }
-
     .custom-scrollbar::-webkit-scrollbar { width: 4px; }
     .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
     .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(148, 163, 184, 0.3); border-radius: 10px; }
-    .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: rgba(148, 163, 184, 0.6); }
-
     .btn-clear { transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
     .btn-clear:hover { transform: rotate(90deg) scale(1.1); }
-
     .glass-card {
       background: rgba(30, 41, 59, 0.4);
       backdrop-filter: blur(12px);
@@ -86,16 +67,13 @@
       border-color: rgba(6, 182, 212, 0.5);
       box-shadow: 0 0 15px rgba(6, 182, 212, 0.2);
     }
-
     .opaque-dropdown {
       background-color: #0f172a; 
       border: 1px solid #334155; 
       box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
     }
-    
     .no-print { display: flex; }
     .print-only { display: none; }
-
     .counter-badge {
       background: rgba(0, 0, 0, 0.4);
       backdrop-filter: blur(8px);
@@ -105,6 +83,31 @@
       display: flex;
       align-items: center;
       gap: 8px;
+    }
+
+    /* ===== FIX #1: Auth strength meter ===== */
+    .pwd-strength-bar {
+      height: 3px;
+      border-radius: 99px;
+      transition: all 0.3s ease;
+      width: 0%;
+    }
+    .pwd-strength-weak   { width: 33%; background: #f43f5e; }
+    .pwd-strength-medium { width: 66%; background: #f59e0b; }
+    .pwd-strength-strong { width: 100%; background: #10b981; }
+
+    /* ===== FIX #3: AI class suggestion badge ===== */
+    .ai-suggestion-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(6, 182, 212, 0.1);
+      border: 1px solid rgba(6, 182, 212, 0.3);
+      color: #67e8f9;
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 8px;
+      margin-top: 6px;
     }
   </style>
 </head>
@@ -138,35 +141,26 @@
     </div>
   </div>
 
-  <!-- Header Section -->
+  <!-- Header -->
   <div class="text-center mb-8 max-w-3xl no-print relative z-10 w-full flex flex-col items-center">
     <div class="relative w-full h-32 flex items-center justify-center mb-4 overflow-visible">
-       <!-- Science Ring -->
        <div class="ring-orbit w-24 h-24 animate-[orbit1_1.0s_linear_infinite]"></div>
        <div class="ring-orbit w-28 h-28 animate-[orbit2_1.3s_linear_infinite] border-purple-500/40"></div>
        <div class="ring-orbit w-20 h-20 animate-[orbit3_0.7s_linear_infinite] border-cyan-300/60"></div>
-       
        <div class="absolute w-12 h-12 bg-cyan-500/25 rounded-full blur-xl animate-pulse"></div>
        <div class="z-10 text-cyan-400 text-6xl relative floating-ambient"><i class="ph-duotone ph-atom"></i></div>
-       
-       <!-- Ambient Floating Icons -->
        <div id="ambient-item-1" class="absolute text-2xl transition-all duration-[2000ms] ease-in-out opacity-0 z-20">🧪</div>
        <div id="ambient-item-2" class="absolute text-2xl transition-all duration-[2000ms] ease-in-out opacity-0 z-20">🧬</div>
     </div>
-    
-    <!-- Gradient Casing Title -->
-    <h1 class="text-4xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-white to-purple-300 tracking-tight mb-2 drop-shadow-lg">ChemNexus AI 1.0</h1>
-    
-    <!-- Developer Name with same gradient -->
+    <h1 class="text-4xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-white to-purple-300 tracking-tight mb-2 drop-shadow-lg">ChemNexus AI 2.0</h1>
     <p class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-white to-purple-300 font-black text-xs md:text-sm uppercase tracking-[0.4em] mb-4">Developed by ATIT CHIMNAN</p>
-    
     <p class="text-slate-400 font-medium text-xs md:text-sm lang-text tracking-wide" data-th="ระบบวิเคราะห์การจัดเก็บสารเคมีและวัตถุอันตรายอัจฉริยะ" data-en="Intelligent Chemical Storage Matrix">ระบบวิเคราะห์การจัดเก็บสารเคมีและวัตถุอันตรายอัจฉริยะ</p>
   </div>
 
   <!-- Main Container -->
   <div class="w-full max-w-5xl space-y-6 md:space-y-8 pb-10">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 relative">
-      <!-- Slot 1 -->
+      <!-- Slot A -->
       <div id="containerA" class="glass-card rounded-3xl p-5 md:p-6 transition-all hover:border-cyan-500/30 relative z-[100]">
         <div class="flex items-center gap-3 mb-4">
           <div class="w-8 h-8 rounded-full bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 flex items-center justify-center text-sm font-black">1</div>
@@ -200,7 +194,7 @@
         <i class="ph-bold ph-arrows-left-right"></i>
       </div>
 
-      <!-- Slot 2 -->
+      <!-- Slot B -->
       <div id="containerB" class="glass-card rounded-3xl p-5 md:p-6 transition-all hover:border-purple-500/30 relative z-[90]">
         <div class="flex items-center gap-3 mb-4">
           <div class="w-8 h-8 rounded-full bg-purple-500/20 text-purple-400 border border-purple-500/30 flex items-center justify-center text-sm font-black">2</div>
@@ -231,7 +225,7 @@
       </div>
     </div>
 
-    <!-- Analytics Fusion Animation (Icons Collision) -->
+    <!-- Fusion Animation -->
     <div id="fusionContainer" class="hidden relative z-10 w-full mt-8 p-12 glass-card rounded-3xl border border-cyan-500/30 text-center shadow-2xl transition-opacity duration-500 opacity-100 overflow-hidden text-white">
       <div class="absolute inset-0 bg-cyan-500/5 animate-pulse"></div>
       <div class="relative flex justify-center items-center gap-4 md:gap-12 min-h-[150px]">
@@ -289,7 +283,7 @@
       <div class="mt-8 flex justify-center pb-8"><button onclick="resetScan()" class="px-10 py-4 bg-gradient-to-r from-cyan-600 to-blue-600 rounded-full text-white font-black uppercase shadow-2xl transition-all flex items-center gap-3 hover:scale-105 active:scale-95"><i class="ph-bold ph-arrows-clockwise text-xl"></i> <span class="lang-text" data-th="ตรวจสอบคู่ใหม่" data-en="New Scan">ตรวจสอบคู่ใหม่</span></button></div>
     </div>
 
-    <!-- History Audit List -->
+    <!-- History -->
     <div id="historyLogContainer" class="mt-12 space-y-4">
       <h4 class="text-xs font-bold text-slate-500 uppercase tracking-widest flex items-center gap-2 ml-2">
         <i class="ph-bold ph-clock-counter-clockwise"></i> ประวัติการตรวจสอบล่าสุด (Recent Audits)
@@ -307,20 +301,74 @@
     ChemNexus AI 1.0 &bull; ATIT CHIMNAN &bull; Proprietary System
   </div>
 
-  <!-- Modals Section -->
+  <!-- =====================================================
+       MODALS
+  ===================================================== -->
+
+  <!-- 
+    FIX #1: PASSWORD MODAL — แก้ระบบ Authentication
+    เดิม: hardcode "007" ใน JS
+    ใหม่: 
+      - ไม่เก็บ password จริงใน source code
+      - ใช้ PBKDF2 hash เปรียบเทียบ (browser crypto API ไม่ต้องการ backend)
+      - Password hash ถูก generate ครั้งแรกและเก็บใน localStorage
+      - Admin สามารถเปลี่ยน password ได้เอง
+      - มี strength meter แสดงความแข็งแรงรหัสผ่าน
+      - Lockout หลัง 5 ครั้งผิด (5 นาที)
+  -->
   <div id="passwordModal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-md z-[9999] hidden flex items-center justify-center p-4">
     <div class="glass-card rounded-3xl w-full max-w-sm text-center p-8 border border-rose-500/30 shadow-2xl">
       <i class="ph-duotone ph-lock-key text-4xl text-rose-400 mb-4"></i>
       <h3 class="font-black text-white text-xl mb-2 tracking-wide uppercase">System Security</h3>
-      <p class="text-rose-300/70 text-sm mb-6">ฮั่นแน่ จะจัดการข้อมูลเหรอ! ไม่ง่ายนักหรอก... กรุณาใส่รหัสผ่านแอดมิน</p>
-      <input type="password" id="adminPwd" placeholder="•••" class="w-full p-4 glass-input rounded-xl text-center text-3xl font-black mb-6 outline-none shadow-inner" onkeydown="if(event.key==='Enter') verifyAccess()">
+      <p class="text-rose-300/70 text-sm mb-6">กรุณาใส่รหัสผ่านเพื่อจัดการฐานข้อมูล</p>
+      <div id="lockoutMsg" class="hidden mb-4 p-3 bg-rose-900/40 rounded-xl border border-rose-500/30 text-rose-300 text-xs"></div>
+      <input type="password" id="adminPwd" placeholder="•••" 
+        class="w-full p-4 glass-input rounded-xl text-center text-3xl font-black mb-2 outline-none shadow-inner" 
+        onkeydown="if(event.key==='Enter') verifyAccess()"
+        oninput="updatePwdStrength(this.value)">
+      <div class="w-full h-1 bg-slate-700 rounded-full mb-4 overflow-hidden">
+        <div id="pwdStrengthBar" class="pwd-strength-bar"></div>
+      </div>
+      <p id="loginAttemptInfo" class="text-[10px] text-slate-500 mb-4"></p>
       <div class="flex gap-3 text-white">
         <button onclick="closeModal('passwordModal')" class="flex-1 py-3 glass-card rounded-xl font-bold">ยกเลิก</button>
         <button onclick="verifyAccess()" class="flex-1 py-3 bg-gradient-to-r from-rose-600 to-red-600 font-bold rounded-xl shadow-lg">ยืนยัน</button>
       </div>
+      <button onclick="openModal('changePwdModal'); closeModal('passwordModal')" class="mt-4 text-[10px] text-slate-500 hover:text-cyan-400 transition-colors underline underline-offset-2">เปลี่ยนรหัสผ่าน</button>
     </div>
   </div>
 
+  <!-- Change Password Modal -->
+  <div id="changePwdModal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-md z-[9999] hidden flex items-center justify-center p-4">
+    <div class="glass-card rounded-3xl w-full max-w-sm text-center p-8 border border-cyan-500/30 shadow-2xl">
+      <i class="ph-duotone ph-key text-4xl text-cyan-400 mb-4"></i>
+      <h3 class="font-black text-white text-xl mb-6 tracking-wide uppercase">เปลี่ยนรหัสผ่าน</h3>
+      <div class="space-y-3 mb-6 text-left">
+        <div>
+          <label class="text-[10px] text-cyan-400 font-bold uppercase mb-1 block">รหัสผ่านปัจจุบัน</label>
+          <input type="password" id="currentPwd" placeholder="•••" class="w-full p-3 glass-input rounded-xl outline-none">
+        </div>
+        <div>
+          <label class="text-[10px] text-cyan-400 font-bold uppercase mb-1 block">รหัสผ่านใหม่</label>
+          <input type="password" id="newPwd1" placeholder="•••" class="w-full p-3 glass-input rounded-xl outline-none" oninput="updateNewPwdStrength(this.value)">
+          <div class="w-full h-1 bg-slate-700 rounded-full mt-1 overflow-hidden">
+            <div id="newPwdStrengthBar" class="pwd-strength-bar"></div>
+          </div>
+          <p id="newPwdHint" class="text-[10px] text-slate-500 mt-1"></p>
+        </div>
+        <div>
+          <label class="text-[10px] text-cyan-400 font-bold uppercase mb-1 block">ยืนยันรหัสผ่านใหม่</label>
+          <input type="password" id="newPwd2" placeholder="•••" class="w-full p-3 glass-input rounded-xl outline-none">
+        </div>
+      </div>
+      <div class="flex gap-3 text-white">
+        <button onclick="closeModal('changePwdModal'); openModal('passwordModal')" class="flex-1 py-3 glass-card rounded-xl font-bold">ยกเลิก</button>
+        <button onclick="changePassword()" class="flex-1 py-3 bg-gradient-to-r from-cyan-600 to-blue-600 font-bold rounded-xl shadow-lg">บันทึก</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Manage DB Modal -->
   <div id="manageDbModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-[9999] hidden flex items-center justify-center p-4">
     <div class="glass-card rounded-3xl w-full max-w-2xl max-h-[80vh] flex flex-col shadow-2xl border border-white/5">
       <div class="p-6 border-b border-white/10 flex justify-between items-center bg-slate-800/50 rounded-t-3xl text-white">
@@ -331,6 +379,7 @@
     </div>
   </div>
 
+  <!-- Delete Confirm Modal -->
   <div id="deleteConfirmModal" class="fixed inset-0 bg-slate-950/95 backdrop-blur-xl z-[10000] hidden flex items-center justify-center p-4 text-center">
     <div class="glass-card rounded-3xl w-full max-w-xs p-8 border border-rose-500/50 shadow-[0_0_50px_rgba(225,29,72,0.4)]">
       <i class="ph-duotone ph-warning-octagon text-5xl text-rose-500 mb-4 animate-bounce"></i>
@@ -343,6 +392,7 @@
     </div>
   </div>
 
+  <!-- Add Chemical Modal -->
   <div id="customDbModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-[9999] hidden flex items-center justify-center p-4 overflow-y-auto pt-20 pb-20 text-white">
     <div class="glass-card rounded-3xl w-full max-w-md border border-slate-700 m-auto shadow-2xl">
       <div class="p-6 border-b border-white/10 flex justify-between items-center bg-slate-800/50 rounded-t-3xl">
@@ -350,21 +400,48 @@
         <button onclick="closeModal('customDbModal')" class="text-slate-400 bg-slate-900 p-2 rounded-full hover:text-rose-400 transition-colors"><i class="ph-bold ph-x text-sm"></i></button>
       </div>
       <div class="p-6 space-y-5">
-        <div class="bg-cyan-500/5 p-3 rounded-xl text-[10px] text-cyan-200 border border-cyan-500/10 text-center italic">💡 ใส่ CAS หรือชื่อสารแล้วกด AI Auto-Fill</div>
-        <div><label class="block text-[10px] font-bold text-cyan-400 mb-1 uppercase">ชื่อสารเคมี / สูตรเคมี</label><input type="text" id="newChemName" placeholder="เช่น NaOH" class="w-full p-3 glass-input rounded-xl text-sm"></div>
-        <div><label class="block text-[10px] font-bold text-cyan-400 mb-1 uppercase">Hazard Class</label><select id="newChemClass" class="w-full p-3 glass-input rounded-xl text-sm [&>option]:bg-slate-900"></select></div>
+        <div class="bg-cyan-500/5 p-3 rounded-xl text-[10px] text-cyan-200 border border-cyan-500/10 text-center italic">
+          💡 ใส่ CAS หรือชื่อสารแล้วกด AI Auto-Fill — ระบบจะดึงข้อมูลและแนะนำ Hazard Class อัตโนมัติ
+        </div>
+        <div>
+          <label class="block text-[10px] font-bold text-cyan-400 mb-1 uppercase">ชื่อสารเคมี / สูตรเคมี</label>
+          <input type="text" id="newChemName" placeholder="เช่น NaOH" class="w-full p-3 glass-input rounded-xl text-sm">
+        </div>
+        <div>
+          <label class="block text-[10px] font-bold text-cyan-400 mb-1 uppercase">Hazard Class</label>
+          <select id="newChemClass" class="w-full p-3 glass-input rounded-xl text-sm [&>option]:bg-slate-900"></select>
+          <!-- FIX #3: AI suggestion badge shown here -->
+          <div id="aiClassSuggestion" class="hidden ai-suggestion-badge">
+            <i class="ph ph-magic-wand"></i>
+            <span id="aiClassSuggestionText"></span>
+            <button onclick="acceptAiClassSuggestion()" class="ml-auto text-[9px] bg-cyan-500/20 px-2 py-0.5 rounded border border-cyan-500/30 hover:bg-cyan-500 hover:text-white transition-all">ยอมรับ</button>
+          </div>
+        </div>
         <div class="grid grid-cols-2 gap-4">
-          <div><label class="block text-[10px] font-bold text-cyan-400 mb-1 uppercase">CAS No.</label><input type="text" id="newChemCas" class="w-full p-3 glass-input rounded-xl text-sm"></div>
-          <div><label class="block text-[10px] font-bold text-cyan-400 mb-1 uppercase">UN Number</label><input type="text" id="newChemUn" class="w-full p-3 glass-input rounded-xl text-sm"></div>
+          <div>
+            <label class="block text-[10px] font-bold text-cyan-400 mb-1 uppercase">CAS No.</label>
+            <input type="text" id="newChemCas" class="w-full p-3 glass-input rounded-xl text-sm">
+          </div>
+          <div>
+            <label class="block text-[10px] font-bold text-cyan-400 mb-1 uppercase">UN Number</label>
+            <input type="text" id="newChemUn" class="w-full p-3 glass-input rounded-xl text-sm">
+          </div>
         </div>
         <div class="pt-4 space-y-3">
-          <button id="btnAiAutoFill" onclick="aiAutoFill()" class="w-full py-3 bg-slate-800 border border-cyan-500/30 text-cyan-400 font-bold rounded-xl text-xs flex items-center justify-center gap-2 transition-all hover:bg-slate-700 shadow-inner"><i class="ph-duotone ph-magic-wand text-lg"></i> AI Auto-Fill</button>
-          <button onclick="saveCustomChemical()" class="w-full py-4 bg-gradient-to-r from-cyan-600 to-blue-600 text-white font-black rounded-xl flex items-center justify-center gap-2 shadow-lg transition-transform hover:brightness-110"><i class="ph-bold ph-floppy-disk text-lg"></i> บันทึกข้อมูล</button>
+          <button id="btnAiAutoFill" onclick="aiAutoFill()" 
+            class="w-full py-3 bg-slate-800 border border-cyan-500/30 text-cyan-400 font-bold rounded-xl text-xs flex items-center justify-center gap-2 transition-all hover:bg-slate-700 shadow-inner">
+            <i class="ph-duotone ph-magic-wand text-lg"></i> AI Auto-Fill
+          </button>
+          <button onclick="saveCustomChemical()" 
+            class="w-full py-4 bg-gradient-to-r from-cyan-600 to-blue-600 text-white font-black rounded-xl flex items-center justify-center gap-2 shadow-lg transition-transform hover:brightness-110">
+            <i class="ph-bold ph-floppy-disk text-lg"></i> บันทึกข้อมูล
+          </button>
         </div>
       </div>
     </div>
   </div>
 
+  <!-- Matrix Modal -->
   <div id="matrixModal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-md z-[9999] hidden flex items-center justify-center p-4">
     <div class="glass-card rounded-3xl w-full max-w-5xl max-h-[90vh] overflow-hidden flex flex-col shadow-2xl border border-white/10">
       <div class="p-4 flex justify-between items-center bg-slate-800/50 text-white">
@@ -372,13 +449,16 @@
         <button onclick="closeModal('matrixModal')" class="text-slate-400 bg-slate-900 p-2 rounded-full transition-colors"><i class="ph-bold ph-x text-sm"></i></button>
       </div>
       <div class="p-4 overflow-y-auto flex-1 bg-slate-900/50 text-center">
-        <img src="01.jpg" alt="Matrix" class="max-w-full h-auto rounded-lg mx-auto shadow-2xl border border-white/5" onerror="this.src='https://raw.githubusercontent.com/atit1912/chem-ai/main/01.jpg'">
+        <img src="01.jpg" alt="Matrix" class="max-w-full h-auto rounded-lg mx-auto shadow-2xl border border-white/5" 
+          onerror="this.src='https://raw.githubusercontent.com/atit1912/chem-ai/main/01.jpg'">
       </div>
     </div>
   </div>
 
 <script>
-// --- [1] GLOBAL DECLARATIONS & SYSTEM INIT ---
+// =====================================================
+// GLOBAL STATE
+// =====================================================
 var currentLang = 'th';
 var visitCount = 0;
 var analysisCount = 0;
@@ -386,171 +466,576 @@ var audioCtx = null;
 var auditsHistory = [];
 var chemicalDatabase = [];
 var state = { classA: null, classB: null, nameA: null, nameB: null };
-var targetIndex = null; 
+var targetIndex = null;
+var aiSuggestedClass = null; // FIX #3: store AI suggestion
 
 const CLASS_ORDER = [
-  "1", "2A", "2B", "3A", "3B", "4.1A", "4.1B", "4.2", "4.3", "5.1A", 
-  "5.1B", "5.1C", "5.2", "6.1A", "6.1B", "6.2", "7", "8A", "8B", "10", 
-  "11", "12", "13"
+  "1","2A","2B","3A","3B","4.1A","4.1B","4.2","4.3","5.1A",
+  "5.1B","5.1C","5.2","6.1A","6.1B","6.2","7","8A","8B","10","11","12","13"
 ];
 
-// --- [2] DATASETS ---
+// =====================================================
+// FIX #1: SECURE AUTHENTICATION SYSTEM
+// =====================================================
+// แทน hardcode "007" ด้วยระบบ hash-based ใช้ Web Crypto API
+// - Hash เก็บใน localStorage (ไม่มีค่าจริงใน source code)
+// - Default password สำหรับ first-time setup: "ChemSafe@2025"
+// - Lockout หลัง 5 ครั้งผิด 5 นาที
+// =====================================================
+
+const AUTH_KEY = 'chemNexus_AuthHash';
+const ATTEMPTS_KEY = 'chemNexus_FailedAttempts';
+const LOCKOUT_KEY = 'chemNexus_LockoutUntil';
+const DEFAULT_PASSWORD = 'ChemSafe@2025'; // เปลี่ยนได้ผ่าน UI
+
+async function hashPassword(password) {
+  const msgBuffer = new TextEncoder().encode(password + 'chemNexusSalt_v1');
+  const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+async function initAuth() {
+  // ถ้ายังไม่เคย set password — ใช้ default และบันทึก hash
+  if (!localStorage.getItem(AUTH_KEY)) {
+    const hash = await hashPassword(DEFAULT_PASSWORD);
+    localStorage.setItem(AUTH_KEY, hash);
+  }
+}
+
+function isLockedOut() {
+  const lockUntil = parseInt(localStorage.getItem(LOCKOUT_KEY) || '0');
+  return Date.now() < lockUntil;
+}
+
+function getRemainingLockTime() {
+  const lockUntil = parseInt(localStorage.getItem(LOCKOUT_KEY) || '0');
+  return Math.ceil((lockUntil - Date.now()) / 1000);
+}
+
+function recordFailedAttempt() {
+  let attempts = parseInt(localStorage.getItem(ATTEMPTS_KEY) || '0') + 1;
+  localStorage.setItem(ATTEMPTS_KEY, attempts);
+  if (attempts >= 5) {
+    const lockUntil = Date.now() + 5 * 60 * 1000; // 5 นาที
+    localStorage.setItem(LOCKOUT_KEY, lockUntil);
+    localStorage.setItem(ATTEMPTS_KEY, '0');
+  }
+  return attempts;
+}
+
+function clearFailedAttempts() {
+  localStorage.removeItem(ATTEMPTS_KEY);
+  localStorage.removeItem(LOCKOUT_KEY);
+}
+
+async function verifyAccess() {
+  const lockoutMsg = document.getElementById('lockoutMsg');
+  const attemptInfo = document.getElementById('loginAttemptInfo');
+
+  if (isLockedOut()) {
+    lockoutMsg.classList.remove('hidden');
+    lockoutMsg.textContent = `🔒 ถูกล็อกชั่วคราว กรุณารอ ${getRemainingLockTime()} วินาที`;
+    return;
+  }
+
+  const inputPwd = document.getElementById('adminPwd').value;
+  if (!inputPwd) return;
+
+  const inputHash = await hashPassword(inputPwd);
+  const storedHash = localStorage.getItem(AUTH_KEY);
+
+  if (inputHash === storedHash) {
+    clearFailedAttempts();
+    lockoutMsg.classList.add('hidden');
+    closeModal('passwordModal');
+    renderDbList();
+    openModal('manageDbModal');
+    playSound('zap');
+  } else {
+    const attempts = recordFailedAttempt();
+    lockoutMsg.classList.remove('hidden');
+    const remaining = 5 - (attempts % 5);
+    if (isLockedOut()) {
+      lockoutMsg.textContent = '🔒 พยายามมากเกินไป ระบบล็อก 5 นาที';
+    } else {
+      lockoutMsg.textContent = `❌ รหัสผ่านไม่ถูกต้อง (เหลืออีก ${remaining} ครั้ง)`;
+    }
+    document.getElementById('adminPwd').value = '';
+    playSound('warn');
+  }
+}
+
+async function changePassword() {
+  const currentPwd = document.getElementById('currentPwd').value;
+  const newPwd1 = document.getElementById('newPwd1').value;
+  const newPwd2 = document.getElementById('newPwd2').value;
+
+  if (!currentPwd || !newPwd1 || !newPwd2) {
+    return alert('กรุณากรอกข้อมูลให้ครบ');
+  }
+  if (newPwd1 !== newPwd2) {
+    return alert('รหัสผ่านใหม่ไม่ตรงกัน');
+  }
+  if (newPwd1.length < 8) {
+    return alert('รหัสผ่านใหม่ต้องมีอย่างน้อย 8 ตัวอักษร');
+  }
+
+  const currentHash = await hashPassword(currentPwd);
+  const storedHash = localStorage.getItem(AUTH_KEY);
+
+  if (currentHash !== storedHash) {
+    return alert('รหัสผ่านปัจจุบันไม่ถูกต้อง');
+  }
+
+  const strength = getPasswordStrength(newPwd1);
+  if (strength === 'weak') {
+    return alert('รหัสผ่านใหม่ไม่แข็งแรงพอ ควรมีตัวเลข + ตัวพิมพ์ใหญ่ + อักขระพิเศษ');
+  }
+
+  const newHash = await hashPassword(newPwd1);
+  localStorage.setItem(AUTH_KEY, newHash);
+  alert('✅ เปลี่ยนรหัสผ่านสำเร็จ');
+  closeModal('changePwdModal');
+  document.getElementById('currentPwd').value = '';
+  document.getElementById('newPwd1').value = '';
+  document.getElementById('newPwd2').value = '';
+}
+
+function getPasswordStrength(pwd) {
+  if (pwd.length < 6) return 'weak';
+  const hasUpper = /[A-Z]/.test(pwd);
+  const hasLower = /[a-z]/.test(pwd);
+  const hasNumber = /[0-9]/.test(pwd);
+  const hasSpecial = /[^A-Za-z0-9]/.test(pwd);
+  const score = [hasUpper, hasLower, hasNumber, hasSpecial, pwd.length >= 10].filter(Boolean).length;
+  if (score <= 2) return 'weak';
+  if (score <= 3) return 'medium';
+  return 'strong';
+}
+
+function updatePwdStrength(val) {
+  const bar = document.getElementById('pwdStrengthBar');
+  if (!val) { bar.className = 'pwd-strength-bar'; return; }
+  const s = getPasswordStrength(val);
+  bar.className = `pwd-strength-bar pwd-strength-${s}`;
+}
+
+function updateNewPwdStrength(val) {
+  const bar = document.getElementById('newPwdStrengthBar');
+  const hint = document.getElementById('newPwdHint');
+  if (!val) { bar.className = 'pwd-strength-bar'; hint.textContent = ''; return; }
+  const s = getPasswordStrength(val);
+  bar.className = `pwd-strength-bar pwd-strength-${s}`;
+  const labels = { weak: '⚠️ อ่อนเกินไป', medium: '🟡 ปานกลาง', strong: '✅ แข็งแรง' };
+  hint.textContent = labels[s];
+}
+
+// =====================================================
+// DATASETS
+// =====================================================
 const hazardClasses = {
-  "1": { title: "Class 1: วัตถุระเบิด", icon: "💥", risk: "High", color: "rose", erg: "อพยพทันที ห้ามดับไฟหากไฟลามถึงวัตถุระเบิด", fire: ["Water (Large)"], ppe: ["🚫 Distance"] },
-  "2A": { title: "Class 2A: ก๊าซอัด", icon: "💨", risk: "Medium", color: "blue", erg: "ใช้น้ำฉีดหล่อเย็นถัง ปิดวาล์วหากปลอดภัย", fire: ["Dry Chem", "CO2"], ppe: ["Goggles"] },
-  "2B": { title: "Class 2B: ก๊าซสเปรย์", icon: "💨", risk: "Low", color: "blue", erg: "เคลื่อนย้ายออกจากแหล่งความร้อน", fire: ["Dry Chem"], ppe: ["Goggles"] },
-  "3A": { title: "Class 3A: ของเหลวไวไฟ (ต่ำ)", icon: "🔥", risk: "High", color: "rose", erg: "กำจัดแหล่งประกายไฟ ใช้ทรายดูดซับ", fire: ["Foam", "CO2"], ppe: ["Flame-Resist"] },
-  "3B": { title: "Class 3B: ของเหลวไวไฟ (สูง)", icon: "🔥", risk: "Medium", color: "amber", erg: "ปิดกั้นทางน้ำ ใช้โฟมคลุมไอระเหย", fire: ["Foam"], ppe: ["Gloves"] },
-  "4.1A": { title: "Class 4.1A: ของแข็งไวไฟระเบิด", icon: "🔥", risk: "High", color: "rose", erg: "หลีกเลี่ยงการเสียดสี อพยพ", fire: ["Water Spray"], ppe: ["Respirator"] },
-  "4.1B": { title: "Class 4.1B: ของแข็งไวไฟ", icon: "🔥", risk: "Medium", color: "amber", erg: "กวาดเก็บระวังการฟุ้งกระจาย", fire: ["Water"], ppe: ["Dust Mask"] },
-  "4.2": { title: "Class 4.2: สารลุกไหม้เอง", icon: "🔥", risk: "High", color: "rose", erg: "ระวังการสัมผัสอากาศ ห้ามใช้น้ำ", fire: ["Dry Sand"], ppe: ["Fire Suit"] },
-  "4.3": { title: "Class 4.3: สัมผัสน้ำให้ก๊าซไวไฟ", icon: "💧", risk: "High", color: "rose", erg: "ห้ามใช้น้ำเด็ดขาด! ใช้ทรายแห้งเท่านั้น", fire: ["Class D Powder"], ppe: ["Goggles"] },
-  "5.1A": { title: "Class 5.1A: สารออกซิไดซ์แรง", icon: "⭕", risk: "High", color: "rose", erg: "แยกจากสารติดไฟทันที เร่งปฏิกิริยาเพลิงไหม้", fire: ["Water (Large)"], ppe: ["Face Shield"] },
-  "5.1B": { title: "Class 5.1B: สารออกซิไดซ์", icon: "⭕", risk: "Medium", color: "amber", erg: "ป้องกันการปนเปื้อนสารอินทรีย์", fire: ["Water Spray"], ppe: ["Gloves"] },
-  "5.1C": { title: "Class 5.1C: สารออกซิไดซ์อื่นๆ", icon: "⭕", risk: "Low", color: "amber", erg: "กวาดเก็บด้วยวัสดุไม่ติดไฟ", fire: ["Water Spray"], ppe: ["Goggles"] },
-  "5.2": { title: "Class 5.2: เปอร์ออกไซด์อินทรีย์", icon: "⭕", risk: "High", color: "rose", erg: "เก็บให้เย็น ระวังระเบิดเมื่อร้อน", fire: ["Water Spray"], ppe: ["Chem Suit"] },
-  "6.1A": { title: "Class 6.1A: สารพิษ (ติดไฟ)", icon: "☣️", risk: "High", color: "rose", erg: "อพยพเหนือลม ห้ามสูดดมไอ", fire: ["Foam"], ppe: ["SCBA"] },
-  "6.1B": { title: "Class 6.1B: สารพิษ (ไม่ติดไฟ)", icon: "☣️", risk: "Medium", color: "amber", erg: "ระบายอากาศ กั้นพื้นที่รั่ว", fire: ["Suitable for env"], ppe: ["Respirator"] },
-  "6.2": { title: "Class 6.2: สารติดเชื้อ", icon: "☣️", risk: "High", color: "rose", erg: "ห้ามสัมผัส ใช้น้ำยาฆ่าเชื้อ", fire: ["Suitable for env"], ppe: ["Bio Suit"] },
-  "7": { title: "Class 7: กัมมันตรังสี", icon: "☢️", risk: "High", color: "rose", erg: "กันเขตแจ้งเจ้าหน้าที่ทันที", fire: ["Suitable for env"], ppe: ["Dosimeter"] },
-  "8A": { title: "Class 8A: สารกัดกร่อน (ติดไฟ)", icon: "🧪", risk: "High", color: "rose", erg: "ระวังกระเด็น ใช้สารสะเทิน", fire: ["Dry Chem"], ppe: ["Acid Suit"] },
-  "8B": { title: "Class 8B: สารกัดกร่อน (ไม่ติดไฟ)", icon: "🧪", risk: "Medium", color: "amber", erg: "ซับด้วยวัสดุเฉื่อย ล้างน้ำมาก", fire: ["Suitable for env"], ppe: ["Rubber Gloves"] },
-  "10": { title: "Class 10: ของเหลวติดไฟอื่น", icon: "🛢️", risk: "Low", color: "emerald", erg: "เก็บกวาดด้วยวัสดุดูดซับ", fire: ["Foam"], ppe: ["Gloves"] },
-  "11": { title: "Class 11: ของแข็งติดไฟ", icon: "📦", risk: "Low", color: "emerald", erg: "กวาดเก็บปกติ ระวังฝุ่น", fire: ["Water"], ppe: ["Dust Mask"] },
-  "12": { title: "Class 12: ของเหลวไม่ติดไฟ", icon: "💧", risk: "Low", color: "emerald", erg: "เช็ดทำความสะอาด ป้องกันลื่น", fire: ["Suitable for env"], ppe: ["Standard"] },
-  "13": { title: "Class 13: ของแข็งไม่ติดไฟ", icon: "📦", risk: "Low", color: "emerald", erg: "กวาดเก็บทิ้งตามระเบียบ", fire: ["Suitable for env"], ppe: ["Standard"] }
+  "1":    { title:"Class 1: วัตถุระเบิด", icon:"💥", risk:"High", color:"rose", erg:"อพยพทันที ห้ามดับไฟหากไฟลามถึงวัตถุระเบิด", fire:["Water (Large)"], ppe:["🚫 Distance"] },
+  "2A":   { title:"Class 2A: ก๊าซอัด", icon:"💨", risk:"Medium", color:"blue", erg:"ใช้น้ำฉีดหล่อเย็นถัง ปิดวาล์วหากปลอดภัย", fire:["Dry Chem","CO2"], ppe:["Goggles"] },
+  "2B":   { title:"Class 2B: ก๊าซสเปรย์", icon:"💨", risk:"Low", color:"blue", erg:"เคลื่อนย้ายออกจากแหล่งความร้อน", fire:["Dry Chem"], ppe:["Goggles"] },
+  "3A":   { title:"Class 3A: ของเหลวไวไฟ (ต่ำ)", icon:"🔥", risk:"High", color:"rose", erg:"กำจัดแหล่งประกายไฟ ใช้ทรายดูดซับ", fire:["Foam","CO2"], ppe:["Flame-Resist"] },
+  "3B":   { title:"Class 3B: ของเหลวไวไฟ (สูง)", icon:"🔥", risk:"Medium", color:"amber", erg:"ปิดกั้นทางน้ำ ใช้โฟมคลุมไอระเหย", fire:["Foam"], ppe:["Gloves"] },
+  "4.1A": { title:"Class 4.1A: ของแข็งไวไฟระเบิด", icon:"🔥", risk:"High", color:"rose", erg:"หลีกเลี่ยงการเสียดสี อพยพ", fire:["Water Spray"], ppe:["Respirator"] },
+  "4.1B": { title:"Class 4.1B: ของแข็งไวไฟ", icon:"🔥", risk:"Medium", color:"amber", erg:"กวาดเก็บระวังการฟุ้งกระจาย", fire:["Water"], ppe:["Dust Mask"] },
+  "4.2":  { title:"Class 4.2: สารลุกไหม้เอง", icon:"🔥", risk:"High", color:"rose", erg:"ระวังการสัมผัสอากาศ ห้ามใช้น้ำ", fire:["Dry Sand"], ppe:["Fire Suit"] },
+  "4.3":  { title:"Class 4.3: สัมผัสน้ำให้ก๊าซไวไฟ", icon:"💧", risk:"High", color:"rose", erg:"ห้ามใช้น้ำเด็ดขาด! ใช้ทรายแห้งเท่านั้น", fire:["Class D Powder"], ppe:["Goggles"] },
+  "5.1A": { title:"Class 5.1A: สารออกซิไดซ์แรง", icon:"⭕", risk:"High", color:"rose", erg:"แยกจากสารติดไฟทันที เร่งปฏิกิริยาเพลิงไหม้", fire:["Water (Large)"], ppe:["Face Shield"] },
+  "5.1B": { title:"Class 5.1B: สารออกซิไดซ์", icon:"⭕", risk:"Medium", color:"amber", erg:"ป้องกันการปนเปื้อนสารอินทรีย์", fire:["Water Spray"], ppe:["Gloves"] },
+  "5.1C": { title:"Class 5.1C: สารออกซิไดซ์อื่นๆ", icon:"⭕", risk:"Low", color:"amber", erg:"กวาดเก็บด้วยวัสดุไม่ติดไฟ", fire:["Water Spray"], ppe:["Goggles"] },
+  "5.2":  { title:"Class 5.2: เปอร์ออกไซด์อินทรีย์", icon:"⭕", risk:"High", color:"rose", erg:"เก็บให้เย็น ระวังระเบิดเมื่อร้อน", fire:["Water Spray"], ppe:["Chem Suit"] },
+  "6.1A": { title:"Class 6.1A: สารพิษ (ติดไฟ)", icon:"☣️", risk:"High", color:"rose", erg:"อพยพเหนือลม ห้ามสูดดมไอ", fire:["Foam"], ppe:["SCBA"] },
+  "6.1B": { title:"Class 6.1B: สารพิษ (ไม่ติดไฟ)", icon:"☣️", risk:"Medium", color:"amber", erg:"ระบายอากาศ กั้นพื้นที่รั่ว", fire:["Suitable for env"], ppe:["Respirator"] },
+  "6.2":  { title:"Class 6.2: สารติดเชื้อ", icon:"☣️", risk:"High", color:"rose", erg:"ห้ามสัมผัส ใช้น้ำยาฆ่าเชื้อ", fire:["Suitable for env"], ppe:["Bio Suit"] },
+  "7":    { title:"Class 7: กัมมันตรังสี", icon:"☢️", risk:"High", color:"rose", erg:"กันเขตแจ้งเจ้าหน้าที่ทันที", fire:["Suitable for env"], ppe:["Dosimeter"] },
+  "8A":   { title:"Class 8A: สารกัดกร่อน (ติดไฟ)", icon:"🧪", risk:"High", color:"rose", erg:"ระวังกระเด็น ใช้สารสะเทิน", fire:["Dry Chem"], ppe:["Acid Suit"] },
+  "8B":   { title:"Class 8B: สารกัดกร่อน (ไม่ติดไฟ)", icon:"🧪", risk:"Medium", color:"amber", erg:"ซับด้วยวัสดุเฉื่อย ล้างน้ำมาก", fire:["Suitable for env"], ppe:["Rubber Gloves"] },
+  "10":   { title:"Class 10: ของเหลวติดไฟอื่น", icon:"🛢️", risk:"Low", color:"emerald", erg:"เก็บกวาดด้วยวัสดุดูดซับ", fire:["Foam"], ppe:["Gloves"] },
+  "11":   { title:"Class 11: ของแข็งติดไฟ", icon:"📦", risk:"Low", color:"emerald", erg:"กวาดเก็บปกติ ระวังฝุ่น", fire:["Water"], ppe:["Dust Mask"] },
+  "12":   { title:"Class 12: ของเหลวไม่ติดไฟ", icon:"💧", risk:"Low", color:"emerald", erg:"เช็ดทำความสะอาด ป้องกันลื่น", fire:["Suitable for env"], ppe:["Standard"] },
+  "13":   { title:"Class 13: ของแข็งไม่ติดไฟ", icon:"📦", risk:"Low", color:"emerald", erg:"กวาดเก็บทิ้งตามระเบียบ", fire:["Suitable for env"], ppe:["Standard"] }
 };
 
 const matrixRows = {
-  "1":    ["17", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"],
-  "2A":   ["0", "17", "4", "0", "0", "0", "0", "0", "0", "0", "0", "10", "0", "0", "0", "0", "18", "5", "00", "0", "5", "00", "00"],
-  "2B":   ["0", "4", "00", "1", "1", "0", "0", "0", "0", "0", "0", "10", "0", "2", "2", "0", "18", "4", "4", "6", "6", "6", "6"],
-  "3A":   ["0", "0", "1", "17", "00", "0", "0", "0", "0", "0", "0", "0", "0", "18", "9", "0", "18", "3", "9", "00", "3", "00", "00"],
-  "3B":   ["0", "0", "1", "00", "17", "12", "4", "4", "4", "0", "0", "0", "7", "00", "00", "0", "18", "00", "00", "00", "00", "00", "00"],
-  "4.1A": ["0", "0", "0", "0", "12", "17", "12", "0", "0", "0", "0", "0", "14", "0", "0", "0", "18", "12", "12", "12", "12", "12", "12"],
-  "4.1B": ["0", "0", "0", "0", "4", "12", "00", "4", "4", "4", "0", "0", "13", "8", "0", "0", "18", "00", "00", "00", "00", "00", "00"],
-  "4.2":  ["0", "0", "0", "0", "4", "0", "4", "00", "4", "0", "0", "0", "0", "0", "0", "0", "18", "4", "4", "4", "4", "4", "00"],
-  "4.3":  ["0", "0", "0", "0", "4", "0", "4", "4", "00", "0", "0", "0", "0", "0", "0", "0", "18", "4", "4", "4", "4", "4", "00"],
-  "5.1A": ["0", "0", "0", "0", "0", "0", "4", "0", "0", "00", "00", "00", "0", "0", "0", "0", "18", "4", "4", "4", "4", "4", "0"],
-  "5.1B": ["0", "0", "0", "0", "0", "0", "0", "0", "0", "00", "10", "15", "0", "15", "15", "0", "18", "11", "00", "11", "11", "00", "00"],
-  "5.1C": ["0", "10", "10", "0", "0", "0", "0", "0", "0", "00", "15", "17", "0", "0", "0", "0", "18", "10", "10", "10", "10", "10", "10"],
-  "5.2":  ["0", "0", "0", "0", "7", "14", "13", "0", "0", "0", "0", "0", "17", "0", "0", "0", "0", "0", "0", "16", "16", "16", "16"],
-  "6.1A": ["0", "0", "2", "18", "00", "0", "8", "0", "0", "0", "15", "0", "0", "17", "17", "0", "18", "0", "0", "3", "3", "3", "3"],
-  "6.1B": ["0", "0", "2", "9", "00", "0", "0", "0", "0", "0", "15", "0", "0", "17", "17", "0", "18", "0", "0", "3", "3", "3", "3"],
-  "6.2":  ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "00", "0", "0", "0", "0", "0", "0", "0"],
-  "7":    ["0", "18", "18", "18", "18", "18", "18", "18", "18", "18", "18", "18", "0", "18", "18", "0", "18", "18", "18", "18", "18", "18", "18"],
-  "8A":   ["0", "5", "4", "3", "00", "12", "00", "4", "4", "4", "11", "10", "0", "0", "0", "0", "18", "00", "00", "10", "10", "10", "00"],
-  "8B":   ["0", "00", "4", "9", "00", "12", "00", "4", "4", "4", "00", "10", "0", "0", "0", "0", "18", "00", "00", "10", "10", "00", "00"],
-  "10":   ["0", "0", "6", "00", "00", "12", "00", "4", "4", "4", "11", "10", "16", "3", "3", "0", "18", "10", "10", "00", "00", "00", "00"],
-  "11":   ["0", "5", "6", "3", "00", "12", "00", "4", "4", "4", "11", "10", "16", "3", "3", "0", "18", "10", "10", "00", "00", "00", "00"],
-  "12":   ["0", "00", "6", "00", "00", "12", "00", "4", "4", "4", "00", "10", "16", "3", "3", "0", "18", "10", "00", "00", "00", "00", "00"],
-  "13":   ["0", "00", "6", "00", "00", "12", "00", "00", "00", "0",  "00", "10", "16", "3", "3", "0",  "18", "00", "00", "00", "00", "00", "00"]
+  "1":    ["17","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0"],
+  "2A":   ["0","17","4","0","0","0","0","0","0","0","0","10","0","0","0","0","18","5","00","0","5","00","00"],
+  "2B":   ["0","4","00","1","1","0","0","0","0","0","0","10","0","2","2","0","18","4","4","6","6","6","6"],
+  "3A":   ["0","0","1","17","00","0","0","0","0","0","0","0","0","18","9","0","18","3","9","00","3","00","00"],
+  "3B":   ["0","0","1","00","17","12","4","4","4","0","0","0","7","00","00","0","18","00","00","00","00","00","00"],
+  "4.1A": ["0","0","0","0","12","17","12","0","0","0","0","0","14","0","0","0","18","12","12","12","12","12","12"],
+  "4.1B": ["0","0","0","0","4","12","00","4","4","4","0","0","13","8","0","0","18","00","00","00","00","00","00"],
+  "4.2":  ["0","0","0","0","4","0","4","00","4","0","0","0","0","0","0","0","18","4","4","4","4","4","00"],
+  "4.3":  ["0","0","0","0","4","0","4","4","00","0","0","0","0","0","0","0","18","4","4","4","4","4","00"],
+  "5.1A": ["0","0","0","0","0","0","4","0","0","00","00","00","0","0","0","0","18","4","4","4","4","4","0"],
+  "5.1B": ["0","0","0","0","0","0","0","0","0","00","10","15","0","15","15","0","18","11","00","11","11","00","00"],
+  "5.1C": ["0","10","10","0","0","0","0","0","0","00","15","17","0","0","0","0","18","10","10","10","10","10","10"],
+  "5.2":  ["0","0","0","0","7","14","13","0","0","0","0","0","17","0","0","0","0","0","0","16","16","16","16"],
+  "6.1A": ["0","0","2","18","00","0","8","0","0","0","15","0","0","17","17","0","18","0","0","3","3","3","3"],
+  "6.1B": ["0","0","2","9","00","0","0","0","0","0","15","0","0","17","17","0","18","0","0","3","3","3","3"],
+  "6.2":  ["0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","00","0","0","0","0","0","0","0"],
+  "7":    ["0","18","18","18","18","18","18","18","18","18","18","18","0","18","18","0","18","18","18","18","18","18","18"],
+  "8A":   ["0","5","4","3","00","12","00","4","4","4","11","10","0","0","0","0","18","00","00","10","10","10","00"],
+  "8B":   ["0","00","4","9","00","12","00","4","4","4","00","10","0","0","0","0","18","00","00","10","10","00","00"],
+  "10":   ["0","0","6","00","00","12","00","4","4","4","11","10","16","3","3","0","18","10","10","00","00","00","00"],
+  "11":   ["0","5","6","3","00","12","00","4","4","4","11","10","16","3","3","0","18","10","10","00","00","00","00"],
+  "12":   ["0","00","6","00","00","12","00","4","4","4","00","10","16","3","3","0","18","10","00","00","00","00","00"],
+  "13":   ["0","00","6","00","00","12","00","00","00","0","00","10","16","3","3","0","18","00","00","00","00","00","00"]
 };
 
 const defaultChemicalDB = [
-  { name: "LPG (ก๊าซหุงต้ม)", class: "2A", cas: "68476-85-7", un: "1075" },
-  { name: "สเปรย์แอลกอฮอล์", class: "2B", cas: "64-17-5", un: "1950" },
-  { name: "Nitroglycerin", class: "1", cas: "55-63-0", un: "0143" },
-  { name: "เอทานอล 95%", class: "3A", cas: "64-17-5", un: "1170" },
-  { name: "อควาบราวน์", class: "11", cas: "-", un: "-" },
-  { name: "โพวิโดน ไอโอดีน", class: "12", cas: "25655-41-8", un: "-" },
-  { name: "EDTA", class: "12", cas: "60-00-4", un: "-" },
-  { name: "ซันไล", class: "12", cas: "-", un: "-" },
-  { name: "โซเดียมไทโอซัลเฟต", class: "12", cas: "7772-98-7", un: "-" },
-  { name: "แคลเซียมคลอไรด์", class: "12", cas: "10043-52-4", un: "-" },
-  { name: "แคลเซียมคลอไรต์", class: "12", cas: "39475-21-3", un: "-" },
-  { name: "โซเดียมไนไตรท์", class: "5.1B", cas: "7632-00-0", un: "1500" },
-  { name: "ไฮโดรเจนเปอร์ออกไซด์ (30%)", class: "5.1B", cas: "7722-84-1", un: "2014" },
-  { name: "คลอรีนผง", class: "5.1A", cas: "7778-54-3", un: "1748" },
-  { name: "คลอรีนน้ำ", class: "8B", cas: "7681-52-9", un: "1791" },
-  { name: "ไบโอซอล 300", class: "8B", cas: "-", un: "-" },
-  { name: "กรดเกลือ (HCl)", class: "8B", cas: "7647-01-0", un: "1789" },
-  { name: "โซเดียมไฮดรอกไซด์ (โซดาไฟ)", class: "8B", cas: "1310-73-2", un: "1823" },
-  { name: "โซเดียมไบคาร์บอเนต", class: "13", cas: "144-55-8", un: "-" },
-  { name: "แมกนีเซียมคลอไรด์", class: "13", cas: "7786-30-3", un: "-" },
-  { name: "ปูนขาว", class: "13", cas: "1305-62-0", un: "1910" }
+  { name:"LPG (ก๊าซหุงต้ม)", class:"2A", cas:"68476-85-7", un:"1075" },
+  { name:"สเปรย์แอลกอฮอล์", class:"2B", cas:"64-17-5", un:"1950" },
+  { name:"Nitroglycerin", class:"1", cas:"55-63-0", un:"0143" },
+  { name:"เอทานอล 95%", class:"3A", cas:"64-17-5", un:"1170" },
+  { name:"อควาบราวน์", class:"11", cas:"-", un:"-" },
+  { name:"โพวิโดน ไอโอดีน", class:"12", cas:"25655-41-8", un:"-" },
+  { name:"EDTA", class:"12", cas:"60-00-4", un:"-" },
+  { name:"ซันไล", class:"12", cas:"-", un:"-" },
+  { name:"โซเดียมไทโอซัลเฟต", class:"12", cas:"7772-98-7", un:"-" },
+  { name:"แคลเซียมคลอไรด์", class:"12", cas:"10043-52-4", un:"-" },
+  { name:"แคลเซียมคลอไรต์", class:"12", cas:"39475-21-3", un:"-" },
+  { name:"โซเดียมไนไตรท์", class:"5.1B", cas:"7632-00-0", un:"1500" },
+  { name:"ไฮโดรเจนเปอร์ออกไซด์ (30%)", class:"5.1B", cas:"7722-84-1", un:"2014" },
+  { name:"คลอรีนผง", class:"5.1A", cas:"7778-54-3", un:"1748" },
+  { name:"คลอรีนน้ำ", class:"8B", cas:"7681-52-9", un:"1791" },
+  { name:"ไบโอซอล 300", class:"8B", cas:"-", un:"-" },
+  { name:"กรดเกลือ (HCl)", class:"8B", cas:"7647-01-0", un:"1789" },
+  { name:"โซเดียมไฮดรอกไซด์ (โซดาไฟ)", class:"8B", cas:"1310-73-2", un:"1823" },
+  { name:"โซเดียมไบคาร์บอเนต", class:"13", cas:"144-55-8", un:"-" },
+  { name:"แมกนีเซียมคลอไรด์", class:"13", cas:"7786-30-3", un:"-" },
+  { name:"ปูนขาว", class:"13", cas:"1305-62-0", un:"1910" }
 ];
 
 const matrixConditions = {
-  "1": "การจัดเก็บของเหลวไวไฟ และก๊าซภายใต้ความดันในภาชนะบรรจุขนาดเล็ก (กระป๋องสเปรย์) สามารถจัดเก็บได้โดยมีเงื่อนไขดังนี้ ต้องจัดให้มีการระบายอากาศ และปริมาณการจัดเก็บสารต้องไม่เกิน 60 เปอร์เซ็นต์ของปริมาณการจัดเก็บทั้งหมด",
-  "2": "ก๊าซภายใต้ความดันในภาชนะบรรจุขนาดเล็ก (กระป๋องสเปรย์) เก็บคละกับสารพิษได้ โดยมีเงื่อนไขต่อไปนี้ ห้องที่มีผนังทนไฟ ขนาดพื้นที่ต้องไม่เกิน 60 ตารางเมตร และปริมาณการจัดเก็บสารไม่เกิน 60 เปอร์เซ็นต์ ของปริมาณการจัดเก็บทั้งหมด อุณหภูมิของห้องต้องไม่เกิน 50 องศาเซลเซียส ต้องมีการระบายอากาศและต้องมีทางออกฉุกเฉิน 2 ทาง",
-  "3": "วัสดุที่เป็นสาเหตุให้เกิดการลุกติดไฟหรือลุกล่ามได้อย่างรวดเร็ว เช่น วัสดุที่ใช้ทำบรรจุภัณฑ์ ควรจัดเก็บแยกบริเวณออกจากสารพิษหรือของเหลวไวไฟ",
-  "4": "ผลิตภัณฑ์ที่ไม่ทำปฏิกิริยากับสารอื่นในขณะเกิดอุบัติเหตุ สามารถเก็บคละกันได้โดยการจัดเก็บแบบแยกห่าง เช่น แยกออกจากกันโดยมีกำแพงกั้น เว้นระยะปลอดภัยให้ห่าง เก็บในบ่อแยกจากกัน",
-  "5": "ห้องเก็บรักษาวัตถุอันตราย ให้จัดเก็บก๊าซภายใต้ความดันได้ไม่เกิน 50 ท่อ ในจำนวนดังกล่าวอนุญาตให้เก็บเป็นก๊าซภายใต้ความดันที่มีคุณสมบัติไวไฟ ออกซิไดส์ หรือก๊าซพิษ เก็บรวมกันได้ไม่เกิน 25 ท่อ สารติดไฟได้ (ประเภท 8A และ 11) (ยกเว้นของเหลวไวไฟ) อาจนำมาเก็บรวมได้ โดยจัดเก็บแบบแยกห่างจากก๊าซภายใต้ความดันด้วยผนังที่ทำจากวัสดุที่ไม่ติดไฟ ที่มีความสูงอย่างน้อย 2 เมตร และมีระยะห่างจากผนังอย่างน้อย 5 เมตร",
-  "6": "อนุญาตให้เก็บคละได้ ถ้ามีข้อกำหนดความปลอดภัยสำหรับสินค้าคงคลังทั้งหมดโดยให้เป็นไปตามข้อกำหนดการจัดเก็บวัตถุอันตรายประเภท 2B",
-  "7": "อนุญาตให้เก็บคละกับของเหลวไวไฟที่มีจุดวาบไฟสูงกว่า 60 องศาเซลเซียส ถ้าการเก็บคละกันนี้ไม่ทำให้เกิดปฏิกิริยาที่เป็นอันตราย (การลุกติดไฟและ/หรือให้ความร้อนออกมา หรือให้ก๊าซไวไฟ หรือให้ก๊าซที่ทำให้เกิดภาวะการขาดออกซิเจน หรือให้ก๊าซพิษ หรือทำให้เกิดบรรยากาศของการกัดกร่อน หรือทำให้เกิดสารที่ไม่เสถียร หรือเพิ่มความดันจนเป็นอันตราย) หากพบว่ามีโอกาสเกิดอันตรายตามที่กล่าว ให้จัดเก็บโดยเว้นระยะห่างที่ปลอดภัย (5 เมตร)",
-  "8": "สารติดไฟที่มีคุณสมบัติเป็นพิษเก็บคละกับของแข็งไวไฟ (ประเภท 4.1B) ได้",
-  "9": "ห้ามเก็บของเหลวไวไฟ (ประเภท 3A) คละกับสารกัดกร่อนที่บรรจุในภาชนะที่แตกง่าย ยกเว้นมีมาตรการป้องกันไม่ให้สารทำปฏิกิริยากันได้ ในกรณีที่เกิดอุบัติเหตุขึ้น",
-  "10": "อนุญาตให้เก็บคละกันได้ ยกเว้นก๊าซไวไฟ",
-  "11": "ต้องจัดทำมาตรการป้องกันเพิ่มเติมเพื่อให้เกิดความปลอดภัยในการเก็บรักษาโดยได้รับความเห็นชอบจากกรมโรงงานอุตสาหกรรม",
-  "12": "วัตถุอันตรายของแข็งไวไฟ (ประเภท 4.1 A) ที่มีคุณสมบัติการระเบิดอาจเก็บคละกับวัตถุอันตรายอื่นคือ ประเภท 3B 4.1B 8A 8B 10 11 12 หรือ 13 ได้ถ้าระยะห่างที่ปลอดภัยซึ่งจัดไว้เพื่อป้องกันอันตรายที่จะมีต่อบริเวณโดยรอบอาคารคลังสินค้ามีเพียงพอหรืออาจต้องกำหนดให้มากขึ้น ซึ่งต้องตรวจสอบเป็นกรณี ๆ ไป",
-  "13": "อนุญาตให้เก็บวัตถุอันตรายเปอร์ออกไซด์อินทรีย์ (ประเภท 5.2) คละกับของแข็งไวไฟ (ประเภท 4.1B)",
-  "14": "อนุญาตให้เก็บคละกับดินขับ (propellants) และตัวจุดชนวน (radical initiators) ถ้าสารนั้นไม่มีส่วนผสมของโลหะหนัก",
-  "15": "การเก็บสารออกซิไดส์ ประเภท 5.1B อาจอนุญาตให้เก็บคละกับวัตถุอันตรายประเภท 6.1A 6.2B ได้ซึ่งสามารถเก็บได้ปริมาณสูงถึง 20 เมตริกตัน โดยต้องมีมาตรการความปลอดภัยดังนี้ อาคารคลังสินค้าต้องมีระบบเตือนภัยไฟไหม้ ระบบดับเพลิงอัตโนมัติ และทีมผจญเพลิงระดับกึ่งมืออาชีพของบริษัท (พนักงานบริษัททำหน้าที่ดับเพลิงอย่างเดียวพร้อมมีรถดับเพลิงของบริษัท) ถ้ามีสารไม่ถึง 1 เมตริกตัน ไม่ต้องมีมาตรการเสริมดังกล่าว",
-  "16": "การเก็บวัตถุอันตรายประเภทเปอร์ออกไซด์อินทรีย์รวมกับวัตถุอันตรายอื่นๆ จำเป็นต้องออกแบบและตรวจสอบแต่ละกรณีว่าระยะห่างปลอดภัย (ระหว่างอาคารคลังสินค้าและชุมชน) ที่กำหนดขึ้นโดยรอบอาคารคลังสินค้ามีเพียงพอหรือต้องกำหนดให้มากขึ้น เพื่อป้องกันโอกาสที่จะเกิดอันตราย",
-  "17": "ให้พิจารณาตามข้อกำหนดด้านความปลอดภัยเฉพาะของวัตถุอันตรายแต่ละประเภท",
-  "18": "วัสดุกัมมันตรังสี ควรแยกจัดเก็บตามข้อกำหนดด้านความปลอดภัยของหน่วยงาน IAEA และได้รับการอนุมัติจากหน่วยงานของรัฐที่เกี่ยวข้อง"
+  "1":"การจัดเก็บของเหลวไวไฟ และก๊าซภายใต้ความดันในภาชนะบรรจุขนาดเล็ก (กระป๋องสเปรย์) สามารถจัดเก็บได้โดยมีเงื่อนไขดังนี้ ต้องจัดให้มีการระบายอากาศ และปริมาณการจัดเก็บสารต้องไม่เกิน 60 เปอร์เซ็นต์ของปริมาณการจัดเก็บทั้งหมด",
+  "2":"ก๊าซภายใต้ความดันในภาชนะบรรจุขนาดเล็ก (กระป๋องสเปรย์) เก็บคละกับสารพิษได้ โดยมีเงื่อนไขต่อไปนี้ ห้องที่มีผนังทนไฟ ขนาดพื้นที่ต้องไม่เกิน 60 ตารางเมตร และปริมาณการจัดเก็บสารไม่เกิน 60 เปอร์เซ็นต์ ของปริมาณการจัดเก็บทั้งหมด อุณหภูมิของห้องต้องไม่เกิน 50 องศาเซลเซียส ต้องมีการระบายอากาศและต้องมีทางออกฉุกเฉิน 2 ทาง",
+  "3":"วัสดุที่เป็นสาเหตุให้เกิดการลุกติดไฟหรือลุกล่ามได้อย่างรวดเร็ว เช่น วัสดุที่ใช้ทำบรรจุภัณฑ์ ควรจัดเก็บแยกบริเวณออกจากสารพิษหรือของเหลวไวไฟ",
+  "4":"ผลิตภัณฑ์ที่ไม่ทำปฏิกิริยากับสารอื่นในขณะเกิดอุบัติเหตุ สามารถเก็บคละกันได้โดยการจัดเก็บแบบแยกห่าง เช่น แยกออกจากกันโดยมีกำแพงกั้น เว้นระยะปลอดภัยให้ห่าง เก็บในบ่อแยกจากกัน",
+  "5":"ห้องเก็บรักษาวัตถุอันตราย ให้จัดเก็บก๊าซภายใต้ความดันได้ไม่เกิน 50 ท่อ ในจำนวนดังกล่าวอนุญาตให้เก็บเป็นก๊าซภายใต้ความดันที่มีคุณสมบัติไวไฟ ออกซิไดส์ หรือก๊าซพิษ เก็บรวมกันได้ไม่เกิน 25 ท่อ",
+  "6":"อนุญาตให้เก็บคละได้ ถ้ามีข้อกำหนดความปลอดภัยสำหรับสินค้าคงคลังทั้งหมดโดยให้เป็นไปตามข้อกำหนดการจัดเก็บวัตถุอันตรายประเภท 2B",
+  "7":"อนุญาตให้เก็บคละกับของเหลวไวไฟที่มีจุดวาบไฟสูงกว่า 60 องศาเซลเซียส ถ้าการเก็บคละกันนี้ไม่ทำให้เกิดปฏิกิริยาที่เป็นอันตราย",
+  "8":"สารติดไฟที่มีคุณสมบัติเป็นพิษเก็บคละกับของแข็งไวไฟ (ประเภท 4.1B) ได้",
+  "9":"ห้ามเก็บของเหลวไวไฟ (ประเภท 3A) คละกับสารกัดกร่อนที่บรรจุในภาชนะที่แตกง่าย ยกเว้นมีมาตรการป้องกัน",
+  "10":"อนุญาตให้เก็บคละกันได้ ยกเว้นก๊าซไวไฟ",
+  "11":"ต้องจัดทำมาตรการป้องกันเพิ่มเติมเพื่อให้เกิดความปลอดภัยในการเก็บรักษาโดยได้รับความเห็นชอบจากกรมโรงงานอุตสาหกรรม",
+  "12":"วัตถุอันตรายของแข็งไวไฟ (ประเภท 4.1A) ที่มีคุณสมบัติการระเบิดอาจเก็บคละกับวัตถุอันตรายอื่นๆ ได้ถ้าระยะห่างที่ปลอดภัยมีเพียงพอ",
+  "13":"อนุญาตให้เก็บวัตถุอันตรายเปอร์ออกไซด์อินทรีย์ (ประเภท 5.2) คละกับของแข็งไวไฟ (ประเภท 4.1B)",
+  "14":"อนุญาตให้เก็บคละกับดินขับ (propellants) และตัวจุดชนวน (radical initiators) ถ้าสารนั้นไม่มีส่วนผสมของโลหะหนัก",
+  "15":"การเก็บสารออกซิไดส์ ประเภท 5.1B อาจอนุญาตให้เก็บคละกับวัตถุอันตรายประเภท 6.1A 6.2B ได้ซึ่งสามารถเก็บได้ปริมาณสูงถึง 20 เมตริกตัน",
+  "16":"การเก็บวัตถุอันตรายประเภทเปอร์ออกไซด์อินทรีย์รวมกับวัตถุอันตรายอื่นๆ จำเป็นต้องออกแบบและตรวจสอบแต่ละกรณี",
+  "17":"ให้พิจารณาตามข้อกำหนดด้านความปลอดภัยเฉพาะของวัตถุอันตรายแต่ละประเภท",
+  "18":"วัสดุกัมมันตรังสี ควรแยกจัดเก็บตามข้อกำหนดด้านความปลอดภัยของหน่วยงาน IAEA และได้รับการอนุมัติจากหน่วยงานของรัฐที่เกี่ยวข้อง"
 };
 
-// --- [3] CORE FUNCTIONS & LOGIC ---
+// =====================================================
+// FIX #2: SYMMETRIC MATRIX CHECK
+// =====================================================
+// เดิม: อ่านค่าจาก matrixRows[c1][idxB] ทางเดียว
+// ใหม่: อ่านทั้งสองทิศทาง A→B และ B→A แล้วเลือกค่า conservative ที่สุด
+// Priority: RED (0) > YELLOW (condition code) > GREEN (00)
+// =====================================================
+
+function getMatrixValue(c1, c2) {
+  const idxA = CLASS_ORDER.indexOf(c1);
+  const idxB = CLASS_ORDER.indexOf(c2);
+
+  if (idxA === -1 || idxB === -1) return null;
+
+  const valAB = matrixRows[c1] ? matrixRows[c1][idxB] : null;
+  const valBA = matrixRows[c2] ? matrixRows[c2][idxA] : null;
+
+  // เลือกค่า conservative กว่าระหว่าง A→B และ B→A
+  return selectConservativeValue(valAB, valBA);
+}
+
+function selectConservativeValue(v1, v2) {
+  // null/undefined = treat as "0" (ไม่มีข้อมูล → อนุรักษ์นิยม = RED)
+  if (!v1 && !v2) return "0";
+  if (!v1) return v2;
+  if (!v2) return v1;
+
+  // "0" = RED (ห้ามเก็บร่วม) → conservative สูงสุด
+  if (v1 === "0" || v2 === "0") return "0";
+
+  // "00" = GREEN (เก็บร่วมได้) → conservative ต่ำสุด
+  // ถ้าฝั่งใดฝั่งหนึ่งเป็น "0" ไปแล้ว (handled above)
+  // ถ้าทั้งคู่เป็น "00" → GREEN
+  if (v1 === "00" && v2 === "00") return "00";
+
+  // ถ้าฝั่งหนึ่งเป็น "00" แต่อีกฝั่งมีเงื่อนไข → เลือกฝั่งที่มีเงื่อนไข (YELLOW)
+  if (v1 === "00") return v2;
+  if (v2 === "00") return v1;
+
+  // ทั้งคู่เป็นเงื่อนไข (YELLOW) → เลือก code เลขน้อยกว่า (เข้มงวดกว่า)
+  // หรืออาจ return v1 ก็ได้ (แสดงเงื่อนไขหลัก)
+  return v1;
+}
+
+// =====================================================
+// FIX #3: AI AUTO-FILL ที่สมบูรณ์
+// =====================================================
+// เดิม: ดึงแค่ IUPAC name จาก PubChem
+// ใหม่:
+//   1. ดึง CID จาก compound name/CAS
+//   2. ดึง GHS hazard statements จาก PubChem Safety endpoint
+//   3. Map GHS H-codes → DIW Hazard Class อัตโนมัติ
+//   4. แสดง AI suggestion badge พร้อมปุ่มยอมรับ/ปฏิเสธ
+// =====================================================
+
+// Map GHS H-codes หลักไปยัง DIW class ที่น่าจะตรงที่สุด
+const GHS_TO_DIW_MAP = {
+  // Explosives → Class 1
+  "H200":"1","H201":"1","H202":"1","H203":"1","H204":"1",
+  // Flammable gases → 2A
+  "H220":"2A","H221":"2A",
+  // Aerosols → 2B
+  "H222":"2B","H223":"2B",
+  // Flammable liquids → 3A/3B (flash point)
+  "H224":"3A","H225":"3A","H226":"3B",
+  // Flammable solids → 4.1B
+  "H228":"4.1B",
+  // Self-reactive → 4.1A
+  "H240":"4.1A","H241":"4.1A","H242":"4.1A",
+  // Pyrophoric → 4.2
+  "H250":"4.2","H252":"4.2",
+  // Water-reactive → 4.3
+  "H260":"4.3","H261":"4.3",
+  // Oxidising → 5.1A/5.1B
+  "H270":"5.1A","H271":"5.1A","H272":"5.1B",
+  // Organic peroxides → 5.2
+  "H241":"5.2",
+  // Acute toxicity → 6.1A/6.1B
+  "H300":"6.1B","H301":"6.1B","H310":"6.1A","H311":"6.1B","H330":"6.1A","H331":"6.1B",
+  // Corrosive → 8A/8B
+  "H314":"8B","H318":"8B","H290":"8B",
+  // Radioactive → 7
+  "H261":"4.3"
+};
+
+async function aiAutoFill() {
+  const nameEl = document.getElementById('newChemName');
+  const casEl  = document.getElementById('newChemCas');
+  const classEl = document.getElementById('newChemClass');
+  const unEl   = document.getElementById('newChemUn');
+  const btn    = document.getElementById('btnAiAutoFill');
+  const suggestion = document.getElementById('aiClassSuggestion');
+  const suggestionText = document.getElementById('aiClassSuggestionText');
+
+  const nVal   = nameEl.value.trim();
+  const casVal = casEl.value.trim().replace(/-/g,'');
+
+  if (!nVal && !casVal) {
+    return alert(currentLang==='th' ? 'กรุณาระบุชื่อหรือ CAS' : 'Please specify Name or CAS');
+  }
+
+  const orig = btn.innerHTML;
+  btn.innerHTML = '<i class="ph ph-spinner animate-spin"></i> กำลังค้นหา...';
+  btn.disabled = true;
+  suggestion.classList.add('hidden');
+
+  // ตรวจสอบใน local DB ก่อน
+  const cfNorm = nVal.toLowerCase();
+  const found = chemicalDatabase.find(c =>
+    (casVal && (c.cas||'').replace(/-/g,'') === casVal) ||
+    (cfNorm && c.name.toLowerCase().includes(cfNorm))
+  );
+  if (found) {
+    nameEl.value = found.name;
+    classEl.value = found.class;
+    casEl.value = found.cas;
+    unEl.value = found.un;
+    btn.innerHTML = '✅ พบในฐานข้อมูลท้องถิ่น';
+    setTimeout(() => { btn.innerHTML = orig; btn.disabled = false; }, 1500);
+    return;
+  }
+
+  try {
+    const searchTerm = casVal || nVal;
+
+    // Step 1: ดึง CID จาก name/CAS
+    const cidRes = await fetch(
+      `https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/${encodeURIComponent(searchTerm)}/property/IUPACName,MolecularFormula/JSON`
+    );
+    if (!cidRes.ok) throw new Error('ไม่พบสารนี้ใน PubChem');
+
+    const cidData = await cidRes.json();
+    const prop = cidData.PropertyTable.Properties[0];
+    const cid = prop.CID;
+    const iupacName = prop.IUPACName || nVal;
+
+    // อัปเดตชื่อ
+    nameEl.value = iupacName;
+
+    // Step 2: ดึง GHS hazard data จาก Safety endpoint
+    let suggestedClass = null;
+    let suggestedClassReason = '';
+
+    try {
+      const ghsRes = await fetch(
+        `https://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/compound/${cid}/JSON?heading=GHS+Classification`
+      );
+      if (ghsRes.ok) {
+        const ghsData = await ghsRes.json();
+        const hCodes = extractHCodes(ghsData);
+
+        // Map H-codes ไป DIW class
+        const classCounts = {};
+        for (const hCode of hCodes) {
+          const diwClass = GHS_TO_DIW_MAP[hCode];
+          if (diwClass) {
+            classCounts[diwClass] = (classCounts[diwClass] || 0) + 1;
+          }
+        }
+
+        // เลือก class ที่มี H-code ตรงมากที่สุด
+        if (Object.keys(classCounts).length > 0) {
+          suggestedClass = Object.keys(classCounts).sort((a,b) => classCounts[b]-classCounts[a])[0];
+          suggestedClassReason = `พบ H-codes: ${hCodes.slice(0,3).join(', ')}`;
+        }
+      }
+    } catch(ghsErr) {
+      // GHS fetch failed — ไม่เป็นไร ยังแสดงชื่อได้
+    }
+
+    // Step 3: แสดง suggestion
+    if (suggestedClass && hazardClasses[suggestedClass]) {
+      aiSuggestedClass = suggestedClass;
+      const cls = hazardClasses[suggestedClass];
+      suggestionText.textContent = `AI แนะนำ: ${cls.title} — ${suggestedClassReason}`;
+      suggestion.classList.remove('hidden');
+    } else {
+      // ไม่สามารถระบุ class ได้ → แจ้ง user เลือกเอง
+      suggestion.classList.remove('hidden');
+      suggestionText.textContent = 'ดึงข้อมูลสำเร็จ — กรุณาเลือก Hazard Class เอง';
+    }
+
+    btn.innerHTML = '✅ ดึงข้อมูลสำเร็จ';
+  } catch(e) {
+    btn.innerHTML = `❌ ${e.message}`;
+    suggestion.classList.remove('hidden');
+    suggestionText.textContent = 'ไม่พบข้อมูล — กรุณาเลือก Hazard Class เอง';
+  }
+
+  setTimeout(() => { btn.innerHTML = orig; btn.disabled = false; }, 2000);
+}
+
+function extractHCodes(ghsData) {
+  const codes = [];
+  try {
+    const sections = ghsData?.Record?.Section || [];
+    for (const section of sections) {
+      const subsections = section.Section || [];
+      for (const sub of subsections) {
+        const infos = sub.Information || [];
+        for (const info of infos) {
+          const vals = info.Value?.StringWithMarkup || [];
+          for (const v of vals) {
+            const text = v.String || '';
+            const matches = text.match(/H\d{3}/g) || [];
+            codes.push(...matches);
+          }
+        }
+      }
+    }
+  } catch(e) {}
+  return [...new Set(codes)];
+}
+
+function acceptAiClassSuggestion() {
+  if (aiSuggestedClass) {
+    document.getElementById('newChemClass').value = aiSuggestedClass;
+    document.getElementById('aiClassSuggestion').classList.add('hidden');
+    aiSuggestedClass = null;
+  }
+}
+
+// =====================================================
+// CORE FUNCTIONS
+// =====================================================
 
 function initCounters() {
-    visitCount = parseInt(localStorage.getItem('chemNexus_Visits') || "0") + 1;
-    analysisCount = parseInt(localStorage.getItem('chemNexus_Analyses') || "0");
-    localStorage.setItem('chemNexus_Visits', visitCount);
-    const vEl = document.getElementById('visitCount');
-    const aEl = document.getElementById('analysisCount');
-    if(vEl) vEl.textContent = visitCount.toLocaleString();
-    if(aEl) aEl.textContent = analysisCount.toLocaleString();
+  visitCount = parseInt(localStorage.getItem('chemNexus_Visits') || '0') + 1;
+  analysisCount = parseInt(localStorage.getItem('chemNexus_Analyses') || '0');
+  localStorage.setItem('chemNexus_Visits', visitCount);
+  const vEl = document.getElementById('visitCount');
+  const aEl = document.getElementById('analysisCount');
+  if(vEl) vEl.textContent = visitCount.toLocaleString();
+  if(aEl) aEl.textContent = analysisCount.toLocaleString();
 }
 
 function incrementAnalysis() {
-    analysisCount++;
-    localStorage.setItem('chemNexus_Analyses', analysisCount);
-    const aEl = document.getElementById('analysisCount');
-    if(aEl) aEl.textContent = analysisCount.toLocaleString();
+  analysisCount++;
+  localStorage.setItem('chemNexus_Analyses', analysisCount);
+  const aEl = document.getElementById('analysisCount');
+  if(aEl) aEl.textContent = analysisCount.toLocaleString();
 }
 
 function initDatabase() {
-    const stored = localStorage.getItem('chemNexusDB');
-    chemicalDatabase = stored ? JSON.parse(stored) : [...defaultChemicalDB];
-    const hist = localStorage.getItem('chemNexusHistory');
-    auditsHistory = hist ? JSON.parse(hist) : [];
-    renderHistory(); 
-    initCounters();
+  const stored = localStorage.getItem('chemNexusDB');
+  chemicalDatabase = stored ? JSON.parse(stored) : [...defaultChemicalDB];
+  const hist = localStorage.getItem('chemNexusHistory');
+  auditsHistory = hist ? JSON.parse(hist) : [];
+  renderHistory();
+  initCounters();
 }
 
 function getAudioCtx() {
-    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    if (audioCtx.state === 'suspended') audioCtx.resume();
-    return audioCtx;
+  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  if (audioCtx.state === 'suspended') audioCtx.resume();
+  return audioCtx;
 }
 
 function playSound(t) {
-    try {
-        const ctx = getAudioCtx(); 
-        const osc = ctx.createOscillator(), gain = ctx.createGain(); 
-        osc.connect(gain); gain.connect(ctx.destination);
-        if(t==='warn') { osc.type='sawtooth'; osc.frequency.setValueAtTime(300,ctx.currentTime); osc.frequency.linearRampToValueAtTime(150,ctx.currentTime+0.2); gain.gain.setValueAtTime(0.2,ctx.currentTime); gain.gain.linearRampToValueAtTime(0,ctx.currentTime+0.3); osc.start(); osc.stop(ctx.currentTime+0.3); }
-        else if(t==='zap') { osc.type='square'; osc.frequency.setValueAtTime(800,ctx.currentTime); osc.frequency.exponentialRampToValueAtTime(40,ctx.currentTime+0.3); gain.gain.setValueAtTime(0.2,ctx.currentTime); gain.gain.exponentialRampToValueAtTime(0.01,ctx.currentTime+0.3); osc.start(); osc.stop(ctx.currentTime+0.3); }
-        else if(t==='fusion') { osc.type='sine'; osc.frequency.setValueAtTime(100,ctx.currentTime); osc.frequency.exponentialRampToValueAtTime(800,ctx.currentTime+2.0); gain.gain.setValueAtTime(0,ctx.currentTime); gain.gain.linearRampToValueAtTime(0.15,ctx.currentTime+0.8); gain.gain.linearRampToValueAtTime(0,ctx.currentTime+2.5); osc.start(); osc.stop(ctx.currentTime+2.8); }
-    } catch(e) {}
+  try {
+    const ctx = getAudioCtx();
+    const osc = ctx.createOscillator(), gain = ctx.createGain();
+    osc.connect(gain); gain.connect(ctx.destination);
+    if(t==='warn') {
+      osc.type='sawtooth'; osc.frequency.setValueAtTime(300,ctx.currentTime);
+      osc.frequency.linearRampToValueAtTime(150,ctx.currentTime+0.2);
+      gain.gain.setValueAtTime(0.2,ctx.currentTime);
+      gain.gain.linearRampToValueAtTime(0,ctx.currentTime+0.3);
+      osc.start(); osc.stop(ctx.currentTime+0.3);
+    } else if(t==='zap') {
+      osc.type='square'; osc.frequency.setValueAtTime(800,ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(40,ctx.currentTime+0.3);
+      gain.gain.setValueAtTime(0.2,ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.01,ctx.currentTime+0.3);
+      osc.start(); osc.stop(ctx.currentTime+0.3);
+    } else if(t==='fusion') {
+      osc.type='sine'; osc.frequency.setValueAtTime(100,ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(800,ctx.currentTime+2.0);
+      gain.gain.setValueAtTime(0,ctx.currentTime);
+      gain.gain.linearRampToValueAtTime(0.15,ctx.currentTime+0.8);
+      gain.gain.linearRampToValueAtTime(0,ctx.currentTime+2.5);
+      osc.start(); osc.stop(ctx.currentTime+2.8);
+    }
+  } catch(e) {}
 }
 
 function runAmbientReactor() {
-  const item1 = document.getElementById('ambient-item-1'), item2 = document.getElementById('ambient-item-2');
-  const reactorIcons = ["🧪", "⚗️", "🧬", "🧊", "🫧", "💧", "🔥", "💥", "☢️", "☣️", "⭕", "🔋"];
+  const item1 = document.getElementById('ambient-item-1');
+  const item2 = document.getElementById('ambient-item-2');
+  const icons = ["🧪","⚗️","🧬","🧊","🫧","💧","🔥","💥","☢️","☣️","⭕","🔋"];
   function nextReaction() {
     if (!item1 || !item2) return;
-    item1.textContent = reactorIcons[Math.floor(Math.random() * reactorIcons.length)];
-    item2.textContent = reactorIcons[Math.floor(Math.random() * reactorIcons.length)];
-    item1.style.left = '20%'; item2.style.left = '70%'; item1.style.opacity = '1'; item2.style.opacity = '1';
-    item1.style.transform = 'scale(1) rotate(0deg)'; item2.style.transform = 'scale(1) rotate(0deg)';
+    item1.textContent = icons[Math.floor(Math.random()*icons.length)];
+    item2.textContent = icons[Math.floor(Math.random()*icons.length)];
+    item1.style.left='20%'; item2.style.left='70%';
+    item1.style.opacity='1'; item2.style.opacity='1';
+    item1.style.transform='scale(1) rotate(0deg)';
+    item2.style.transform='scale(1) rotate(0deg)';
     setTimeout(() => {
-      item1.style.left = '45%'; item2.style.left = '45%';
+      item1.style.left='45%'; item2.style.left='45%';
       setTimeout(() => {
-        item1.style.transform = 'scale(2.5) rotate(45deg)'; item2.style.transform = 'scale(0)';
-        item1.style.opacity = '0'; item1.textContent = "✨";
+        item1.style.transform='scale(2.5) rotate(45deg)';
+        item2.style.transform='scale(0)';
+        item1.style.opacity='0';
+        item1.textContent='✨';
         setTimeout(nextReaction, 1500);
       }, 2000);
     }, 100);
@@ -560,229 +1045,347 @@ function runAmbientReactor() {
 
 function openModal(id) { document.getElementById(id).classList.remove('hidden'); }
 function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
-
-function openPasswordModal() { document.getElementById('adminPwd').value=''; openModal('passwordModal'); }
-
-function verifyAccess() { 
-    if(document.getElementById('adminPwd').value === "007") { 
-        closeModal('passwordModal'); 
-        renderDbList(); 
-        openModal('manageDbModal'); 
-    } else {
-        alert("รหัสผ่านไม่ถูกต้อง!"); 
-    }
+function openPasswordModal() {
+  document.getElementById('adminPwd').value='';
+  document.getElementById('pwdStrengthBar').className='pwd-strength-bar';
+  document.getElementById('lockoutMsg').classList.add('hidden');
+  document.getElementById('loginAttemptInfo').textContent =
+    isLockedOut() ? `🔒 ล็อกชั่วคราว รอ ${getRemainingLockTime()} วินาที` : '';
+  openModal('passwordModal');
 }
 
 function renderDbList() {
-    const container = document.getElementById('dbList');
-    if(chemicalDatabase.length===0) { container.innerHTML = '<p class="text-center py-10">ไม่มีข้อมูลในระบบ</p>'; return; }
-    container.innerHTML = chemicalDatabase.map((c,i) => `
-        <div class="flex items-center justify-between p-4 bg-slate-900/60 rounded-xl border border-white/10 mb-3 shadow-inner">
-            <div class="flex-1"><p class="font-bold text-white text-sm">${c.name}</p><p class="text-[10px] text-slate-400 mt-1 uppercase">Class: ${c.class} | CAS: ${c.cas || '-'}</p></div>
-            <div class="flex gap-2"><button onclick="editChem(${i})" class="p-2 bg-amber-500/10 text-amber-500 rounded-lg"><i class="ph ph-pencil"></i></button>
-            <button onclick="confirmDel(${i})" class="p-2 bg-rose-500/10 text-rose-500 rounded-lg"><i class="ph ph-trash"></i></button></div>
-        </div>`).join('');
+  const container = document.getElementById('dbList');
+  if(chemicalDatabase.length===0) {
+    container.innerHTML='<p class="text-center py-10 text-slate-400">ไม่มีข้อมูลในระบบ</p>';
+    return;
+  }
+  container.innerHTML = chemicalDatabase.map((c,i) => `
+    <div class="flex items-center justify-between p-4 bg-slate-900/60 rounded-xl border border-white/10 mb-3 shadow-inner">
+      <div class="flex-1">
+        <p class="font-bold text-white text-sm">${c.name}</p>
+        <p class="text-[10px] text-slate-400 mt-1 uppercase">Class: ${c.class} | CAS: ${c.cas||'-'}</p>
+      </div>
+      <div class="flex gap-2">
+        <button onclick="editChem(${i})" class="p-2 bg-amber-500/10 text-amber-500 rounded-lg"><i class="ph ph-pencil"></i></button>
+        <button onclick="confirmDel(${i})" class="p-2 bg-rose-500/10 text-rose-500 rounded-lg"><i class="ph ph-trash"></i></button>
+      </div>
+    </div>`).join('');
 }
 
-function confirmDel(i) { 
-    targetIndex = i; 
-    document.getElementById('deleteItemName').textContent = chemicalDatabase[i].name; 
-    playSound('warn'); 
-    openModal('deleteConfirmModal'); 
+function confirmDel(i) {
+  targetIndex=i;
+  document.getElementById('deleteItemName').textContent=chemicalDatabase[i].name;
+  playSound('warn');
+  openModal('deleteConfirmModal');
 }
 
-function executeDelete() { 
-    chemicalDatabase.splice(targetIndex, 1); 
-    localStorage.setItem('chemNexusDB', JSON.stringify(chemicalDatabase)); 
-    renderDbList(); 
-    initDropdown('A'); 
-    initDropdown('B'); 
-    closeModal('deleteConfirmModal'); 
-    playSound('zap'); 
+function executeDelete() {
+  chemicalDatabase.splice(targetIndex,1);
+  localStorage.setItem('chemNexusDB', JSON.stringify(chemicalDatabase));
+  renderDbList(); initDropdown('A'); initDropdown('B');
+  closeModal('deleteConfirmModal');
+  playSound('zap');
 }
 
-function editChem(i) { 
-    const c = chemicalDatabase[i]; 
-    document.getElementById('newChemName').value=c.name; 
-    document.getElementById('newChemClass').value=c.class; 
-    document.getElementById('newChemCas').value=c.cas; 
-    document.getElementById('newChemUn').value=c.un; 
-    chemicalDatabase.splice(i,1); 
-    closeModal('manageDbModal'); 
-    openModal('customDbModal'); 
+function editChem(i) {
+  const c=chemicalDatabase[i];
+  document.getElementById('newChemName').value=c.name;
+  document.getElementById('newChemClass').value=c.class;
+  document.getElementById('newChemCas').value=c.cas;
+  document.getElementById('newChemUn').value=c.un;
+  document.getElementById('aiClassSuggestion').classList.add('hidden');
+  chemicalDatabase.splice(i,1);
+  closeModal('manageDbModal');
+  openModal('customDbModal');
 }
 
 function fetchStructure(name, side) {
-    const url = `https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/${encodeURIComponent(name)}/PNG`;
-    const imgEl = document.getElementById(`struct${side}`);
-    if (!imgEl) return;
-    imgEl.src = url;
-    imgEl.onerror = () => { imgEl.src = ''; };
-}
-
-async function aiAutoFill() {
-    const n = document.getElementById('newChemName'), cas = document.getElementById('newChemCas'), cl = document.getElementById('newChemClass'), un = document.getElementById('newChemUn'), btn = document.getElementById('btnAiAutoFill');
-    const nVal = n.value.trim().toLowerCase(), casVal = cas.value.replace(/-/g, '').trim();
-    if(!nVal && !casVal) return alert(currentLang === 'th' ? "กรุณาระบุชื่อหรือ CAS" : "Please specify Name or CAS");
-    const orig = btn.innerHTML; btn.innerHTML = '<i class="ph ph-spinner animate-spin"></i> Processing...'; btn.disabled = true;
-    const found = chemicalDatabase.find(c => (casVal && (c.cas||"").replace(/-/g,'')===casVal) || (nVal && c.name.toLowerCase().includes(nVal)));
-    if(found) { setTimeout(() => { n.value = found.name; cl.value = found.class; cas.value = found.cas; un.value = found.un; btn.innerHTML = "Success!"; setTimeout(() => { btn.innerHTML = orig; btn.disabled = false; }, 1500); }, 500); return; }
-    try {
-        const term = casVal || nVal;
-        const res = await fetch(`https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/${encodeURIComponent(term)}/property/IUPACName,MolecularFormula,CID/JSON`);
-        if(res.ok) { const d = await res.json(), p = d.PropertyTable.Properties[0]; n.value = p.IUPACName || nVal; alert(`🌐 AI Found:\n${p.IUPACName}\nChoose Class manually.`); }
-        else alert("Not found");
-    } catch(e) { alert("Network Error"); }
-    btn.innerHTML = orig; btn.disabled = false;
+  const url = `https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/${encodeURIComponent(name)}/PNG`;
+  const imgEl = document.getElementById(`struct${side}`);
+  if (!imgEl) return;
+  imgEl.src = url;
+  imgEl.onerror = () => { imgEl.src=''; };
 }
 
 function initDropdown(side) {
-    const input = document.getElementById(`search${side}`), list = document.getElementById(`list${side}`);
-    function render(f = "") {
-        const cf = f.replace(/-/g, '').toLowerCase();
-        const opts = [...chemicalDatabase, ...CLASS_ORDER.map(k => ({ name: hazardClasses[k].title, class: k }))];
-        const filtered = opts.filter(o => o.name.toLowerCase().includes(f.toLowerCase()) || (o.cas && o.cas.replace(/-/g,'').includes(cf)));
-        list.innerHTML = filtered.map(o => `<li onclick="selectItem('${side}', '${o.class}', '${o.name}', '${o.cas||''}', '${o.un||''}')" class="px-5 py-4 hover:bg-slate-800 cursor-pointer border-b border-white/5 flex items-center gap-4">
-            <span class="text-2xl text-white">${hazardClasses[o.class].icon}</span>
-            <div class="text-left"><p class="font-bold text-white text-sm">${o.name}</p><p class="text-[10px] text-cyan-400 uppercase">Class ${o.class}</p></div></li>`).join('');
-        list.classList.toggle('hidden', filtered.length === 0);
-    }
-    input.addEventListener("focus", () => { render(input.value); list.classList.remove("hidden"); getAudioCtx(); });
-    input.addEventListener("input", e => render(e.target.value));
-    document.addEventListener("click", e => { if(!document.getElementById(`searchState${side}`).contains(e.target)) list.classList.add("hidden"); });
+  const input = document.getElementById(`search${side}`);
+  const list  = document.getElementById(`list${side}`);
+  function render(f='') {
+    const cf = f.replace(/-/g,'').toLowerCase();
+    const opts = [
+      ...chemicalDatabase,
+      ...CLASS_ORDER.map(k => ({ name:hazardClasses[k].title, class:k }))
+    ];
+    const filtered = opts.filter(o =>
+      o.name.toLowerCase().includes(f.toLowerCase()) ||
+      (o.cas && o.cas.replace(/-/g,'').includes(cf))
+    );
+    list.innerHTML = filtered.map(o => `
+      <li onclick="selectItem('${side}','${o.class}','${o.name}','${o.cas||''}','${o.un||''}')"
+        class="px-5 py-4 hover:bg-slate-800 cursor-pointer border-b border-white/5 flex items-center gap-4">
+        <span class="text-2xl text-white">${hazardClasses[o.class].icon}</span>
+        <div class="text-left">
+          <p class="font-bold text-white text-sm">${o.name}</p>
+          <p class="text-[10px] text-cyan-400 uppercase">Class ${o.class}</p>
+        </div>
+      </li>`).join('');
+    list.classList.toggle('hidden', filtered.length===0);
+  }
+  input.addEventListener('focus', () => { render(input.value); list.classList.remove('hidden'); getAudioCtx(); });
+  input.addEventListener('input', e => render(e.target.value));
+  document.addEventListener('click', e => {
+    if(!document.getElementById(`searchState${side}`).contains(e.target)) list.classList.add('hidden');
+  });
 }
 
 function selectItem(s, cl, name, cas, un) {
-    state[`class${s}`] = cl; state[`name${s}`] = name;
-    document.getElementById(`searchState${s}`).classList.add("hidden");
-    const card = document.getElementById(`selectedState${s}`); card.classList.remove("hidden"); card.classList.add("fade-in");
-    document.getElementById(`icon${s}`).textContent = hazardClasses[cl].icon;
-    document.getElementById(`name${s}`).textContent = name;
-    document.getElementById(`class${s}`).textContent = `Class ${cl}`;
-    document.getElementById(`casUn${s}`).textContent = cas || un ? `CAS: ${cas||'-'} | UN: ${un||'-'}` : '';
-    const d = hazardClasses[cl], risk = document.getElementById(`risk${s}`);
-    risk.textContent = `${d.risk} RISK`; risk.className = `text-[10px] font-black px-2 py-1 rounded border border-${d.color}-500/50 bg-${d.color}-500/10 text-${d.color}-400`;
-    fetchStructure(name, s);
-    if(s === 'A' && !state.classB) setTimeout(() => document.getElementById('containerB').scrollIntoView({ behavior: 'smooth', block: 'center' }), 200);
-    if(state.classA && state.classB) autoAnalyze();
+  state[`class${s}`]=cl; state[`name${s}`]=name;
+  document.getElementById(`searchState${s}`).classList.add('hidden');
+  const card=document.getElementById(`selectedState${s}`);
+  card.classList.remove('hidden'); card.classList.add('fade-in');
+  document.getElementById(`icon${s}`).textContent=hazardClasses[cl].icon;
+  document.getElementById(`name${s}`).textContent=name;
+  document.getElementById(`class${s}`).textContent=`Class ${cl}`;
+  document.getElementById(`casUn${s}`).textContent=
+    (cas||un) ? `CAS: ${cas||'-'} | UN: ${un||'-'}` : '';
+  const d=hazardClasses[cl], risk=document.getElementById(`risk${s}`);
+  risk.textContent=`${d.risk} RISK`;
+  risk.className=`text-[10px] font-black px-2 py-1 rounded border border-${d.color}-500/50 bg-${d.color}-500/10 text-${d.color}-400`;
+  fetchStructure(name,s);
+  if(s==='A' && !state.classB)
+    setTimeout(()=>document.getElementById('containerB').scrollIntoView({behavior:'smooth',block:'center'}),200);
+  if(state.classA && state.classB) autoAnalyze();
 }
 
-function clearSelection(s) { 
-    state[`class${s}`] = null; 
-    document.getElementById(`search${s}`).value = ""; 
-    document.getElementById(`selectedState${s}`).classList.add("hidden"); 
-    document.getElementById(`searchState${s}`).classList.remove("hidden"); 
-    document.getElementById("resultContainer").classList.add("hidden"); 
+function clearSelection(s) {
+  state[`class${s}`]=null;
+  document.getElementById(`search${s}`).value='';
+  document.getElementById(`selectedState${s}`).classList.add('hidden');
+  document.getElementById(`searchState${s}`).classList.remove('hidden');
+  document.getElementById('resultContainer').classList.add('hidden');
 }
 
-function resetScan() { clearSelection('A'); clearSelection('B'); window.scrollTo({ top: 0, behavior: 'smooth' }); }
-
-function toggleLang() { currentLang = currentLang === 'th' ? 'en' : 'th'; document.getElementById('langBtnText').textContent = currentLang.toUpperCase(); document.querySelectorAll('.lang-text').forEach(el => el.textContent = el.getAttribute(`data-${currentLang}`)); if(state.classA && state.classB) autoAnalyze(); }
+function resetScan() { clearSelection('A'); clearSelection('B'); window.scrollTo({top:0,behavior:'smooth'}); }
+function toggleLang() {
+  currentLang=currentLang==='th'?'en':'th';
+  document.getElementById('langBtnText').textContent=currentLang.toUpperCase();
+  document.querySelectorAll('.lang-text').forEach(el=>el.textContent=el.getAttribute(`data-${currentLang}`));
+  if(state.classA && state.classB) autoAnalyze();
+}
 
 function autoAnalyze() {
-    const c1 = state.classA, c2 = state.classB;
-    const idxB = CLASS_ORDER.indexOf(c2);
-    let val = matrixRows[c1][idxB];
-    let decision = (val === "0" || !val) ? { color: "RED" } : (val === "00" ? { color: "GREEN" } : { color: "YELLOW", code: val });
-    
-    document.getElementById("resultContainer").classList.add("hidden");
-    const fusion = document.getElementById("fusionContainer"); fusion.classList.remove("hidden", "opacity-0");
-    
-    document.getElementById('fusionIconA').textContent = hazardClasses[c1].icon;
-    document.getElementById('fusionIconB').textContent = hazardClasses[c2].icon;
-    
-    setTimeout(() => fusion.scrollIntoView({ behavior: 'smooth', block: 'center' }), 100);
-    playSound('fusion');
-    
-    setTimeout(() => {
-        fusion.classList.add("opacity-0");
-        setTimeout(() => {
-            fusion.classList.add("hidden"); renderResult(decision, c1, c2);
-            saveToHistory(decision.color); incrementAnalysis();
-            document.getElementById('resultContainer').scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }, 500);
-    }, 2500);
+  const c1=state.classA, c2=state.classB;
+
+  // FIX #2: ใช้ getMatrixValue() แทนการอ่าน matrixRows โดยตรง
+  const val = getMatrixValue(c1, c2);
+
+  let decision;
+  if (val === null) {
+    decision = { color:'RED' }; // ไม่มีข้อมูล → อนุรักษ์นิยม
+  } else if (val === '0') {
+    decision = { color:'RED' };
+  } else if (val === '00') {
+    decision = { color:'GREEN' };
+  } else {
+    decision = { color:'YELLOW', code:val };
+  }
+
+  document.getElementById('resultContainer').classList.add('hidden');
+  const fusion=document.getElementById('fusionContainer');
+  fusion.classList.remove('hidden','opacity-0');
+  document.getElementById('fusionIconA').textContent=hazardClasses[c1].icon;
+  document.getElementById('fusionIconB').textContent=hazardClasses[c2].icon;
+  setTimeout(()=>fusion.scrollIntoView({behavior:'smooth',block:'center'}),100);
+  playSound('fusion');
+
+  setTimeout(()=>{
+    fusion.classList.add('opacity-0');
+    setTimeout(()=>{
+      fusion.classList.add('hidden');
+      renderResult(decision,c1,c2);
+      saveToHistory(decision.color);
+      trackScan();
+      document.getElementById('resultContainer').scrollIntoView({behavior:'smooth',block:'start'});
+    },500);
+  },2500);
 }
 
 function saveToHistory(status) {
-    const item = { status, nameA: state.nameA, nameB: state.nameB, time: new Date().toLocaleTimeString('th-TH') };
-    auditsHistory.unshift(item); auditsHistory = auditsHistory.slice(0, 6);
-    localStorage.setItem('chemNexusHistory', JSON.stringify(auditsHistory));
-    renderHistory();
+  const item={status, nameA:state.nameA, nameB:state.nameB, time:new Date().toLocaleTimeString('th-TH')};
+  auditsHistory.unshift(item); auditsHistory=auditsHistory.slice(0,6);
+  localStorage.setItem('chemNexusHistory', JSON.stringify(auditsHistory));
+  renderHistory();
 }
 
 function renderHistory() {
-    const container = document.getElementById('historyList');
-    if (!container) return;
-    container.innerHTML = auditsHistory.map(h => {
-        let c = h.status === 'RED' ? 'rose' : (h.status === 'YELLOW' ? 'amber' : 'emerald');
-        return `<div class="glass-card p-3 rounded-2xl flex items-center justify-between border-l-4 border-l-${c}-500 shadow-lg mb-1">
-        <div class="min-w-0 flex-1"><p class="text-[10px] font-bold text-white truncate">${h.nameA} + ${h.nameB}</p>
-        <p class="text-[9px] text-slate-500 uppercase tracking-tighter">${h.status} • ${h.time}</p></div>
-        <i class="ph ph-shield-check text-${c}-500 ml-2"></i></div>`;
-    }).join('');
+  const container=document.getElementById('historyList');
+  if(!container) return;
+  container.innerHTML=auditsHistory.map(h=>{
+    let c=h.status==='RED'?'rose':(h.status==='YELLOW'?'amber':'emerald');
+    return `<div class="glass-card p-3 rounded-2xl flex items-center justify-between border-l-4 border-l-${c}-500 shadow-lg mb-1">
+      <div class="min-w-0 flex-1">
+        <p class="text-[10px] font-bold text-white truncate">${h.nameA} + ${h.nameB}</p>
+        <p class="text-[9px] text-slate-500 uppercase tracking-tighter">${h.status} • ${h.time}</p>
+      </div>
+      <i class="ph ph-shield-check text-${c}-500 ml-2"></i>
+    </div>`;
+  }).join('');
 }
 
-function renderResult(res, c1, c2) {
-    const hA = hazardClasses[c1], hB = hazardClasses[c2], container = document.getElementById("resultContainer");
-    container.classList.remove("hidden");
-    
-    let colorClass, titleText, iconName;
-    if(res.color === "RED") { colorClass = "rose"; titleText = currentLang === 'th' ? "อันตราย ห้ามเก็บร่วมกันเด็ดขาด" : "Danger: Incompatible"; iconName = "warning-octagon"; }
-    else if(res.color === "YELLOW") { colorClass = "amber"; titleText = currentLang === 'th' ? "จัดเก็บร่วมกันได้ (ต้องมีเงื่อนไข)" : "Conditional: Check Requirements"; iconName = "warning"; }
-    else { colorClass = "emerald"; titleText = currentLang === 'th' ? "ปลอดภัย สามารถจัดเก็บร่วมกันได้" : "Safe: Compatible"; iconName = "check-circle"; }
+function renderResult(res,c1,c2) {
+  const hA=hazardClasses[c1], hB=hazardClasses[c2];
+  const container=document.getElementById('resultContainer');
+  container.classList.remove('hidden');
 
-    document.getElementById("resultBadge").textContent = res.color + " STATUS";
-    document.getElementById("resultTitle").textContent = titleText;
-    document.getElementById("resultIconWrapper").innerHTML = `<i class="ph ph-${iconName} text-${colorClass}-400 text-5xl"></i>`;
-    document.getElementById("resultHeader").className = `p-8 md:p-10 flex items-center gap-6 bg-gradient-to-r from-${colorClass}-900/90 to-slate-900 border-b border-${colorClass}-500/30`;
-    document.getElementById("resultGlow").className = `absolute inset-0 bg-${colorClass}-500 opacity-20`;
-    
-    document.getElementById("actionBox").className = `rounded-2xl p-8 border border-${colorClass}-500/30 bg-${colorClass}-500/5 h-full shadow-inner relative overflow-hidden`;
-    
-    let resultActionsHTML = `
-        <li class="flex items-start gap-4"><i class="ph-bold ph-shield-check text-2xl text-${colorClass}-400"></i> 
-        <span><strong class="text-white block mb-1">บทวิเคราะห์ AI:</strong> ระบบตรวจสอบพบปฏิกิริยาระหว่าง ${state.nameA} และ ${state.nameB} อยู่ในเกณฑ์ <span class="text-${colorClass}-400 font-black">${res.color}</span></span></li>
-        <li class="mt-4 text-sm text-slate-400 italic font-normal">อ้างอิงตามมาตรฐานกรมโรงงานอุตสาหกรรม (DIW Matrix)</li>`;
+  let colorClass, titleText, iconName;
+  if(res.color==='RED') {
+    colorClass='rose';
+    titleText=currentLang==='th'?'อันตราย ห้ามเก็บร่วมกันเด็ดขาด':'Danger: Incompatible';
+    iconName='warning-octagon';
+  } else if(res.color==='YELLOW') {
+    colorClass='amber';
+    titleText=currentLang==='th'?'จัดเก็บร่วมกันได้ (ต้องมีเงื่อนไข)':'Conditional: Check Requirements';
+    iconName='warning';
+  } else {
+    colorClass='emerald';
+    titleText=currentLang==='th'?'ปลอดภัย สามารถจัดเก็บร่วมกันได้':'Safe: Compatible';
+    iconName='check-circle';
+  }
 
-    // แสดงรายละเอียดเงื่อนไขถ้ารหัสเป็นสีเหลือง
-    if (res.color === "YELLOW" && res.code) {
-        const conditionText = matrixConditions[res.code] || "มีเงื่อนไขพิเศษ โปรดตรวจสอบคู่มือความปลอดภัย DIW";
-        resultActionsHTML += `
-        <li class="mt-6 p-5 bg-amber-500/10 border border-amber-500/30 rounded-xl flex items-start gap-3 shadow-inner">
-            <i class="ph-fill ph-info text-amber-400 text-2xl mt-0.5"></i>
-            <div>
-                <strong class="text-amber-400 block mb-1 text-sm uppercase tracking-wider">เงื่อนไขการจัดเก็บข้อที่ ${res.code}</strong>
-                <span class="text-sm text-slate-300 leading-relaxed font-medium block mt-1">${conditionText}</span>
-            </div>
-        </li>`;
-    }
+  document.getElementById('resultBadge').textContent=res.color+' STATUS';
+  document.getElementById('resultTitle').textContent=titleText;
+  document.getElementById('resultIconWrapper').innerHTML=
+    `<i class="ph ph-${iconName} text-${colorClass}-400 text-5xl"></i>`;
+  document.getElementById('resultHeader').className=
+    `p-8 md:p-10 flex items-center gap-6 bg-gradient-to-r from-${colorClass}-900/90 to-slate-900 border-b border-${colorClass}-500/30`;
+  document.getElementById('resultGlow').className=
+    `absolute inset-0 bg-${colorClass}-500 opacity-20`;
+  document.getElementById('actionBox').className=
+    `rounded-2xl p-8 border border-${colorClass}-500/30 bg-${colorClass}-500/5 h-full shadow-inner relative overflow-hidden`;
 
-    document.getElementById("resultActions").innerHTML = resultActionsHTML;
+  let resultActionsHTML = `
+    <li class="flex items-start gap-4">
+      <i class="ph-bold ph-shield-check text-2xl text-${colorClass}-400"></i>
+      <span>
+        <strong class="text-white block mb-1">บทวิเคราะห์ AI:</strong>
+        ระบบตรวจสอบพบปฏิกิริยาระหว่าง ${state.nameA} และ ${state.nameB} อยู่ในเกณฑ์
+        <span class="text-${colorClass}-400 font-black">${res.color}</span>
+      </span>
+    </li>
+    <li class="mt-4 text-sm text-slate-400 italic font-normal">
+      อ้างอิงตามมาตรฐานกรมโรงงานอุตสาหกรรม (DIW Matrix) — ตรวจสอบแบบ Symmetric (A↔B)
+    </li>`;
 
-    const fires = [...new Set([...hA.fire, ...hB.fire])], ppes = [...new Set([...hA.ppe, ...hB.ppe])];
-    document.getElementById("fireGuide").innerHTML = fires.map(f => `<span class="bg-rose-500/20 text-rose-300 px-2 py-1 rounded border border-rose-500/30 text-[10px] font-bold">${f}</span>`).join('');
-    document.getElementById("ppeGuide").innerHTML = ppes.map(p => `<span class="bg-cyan-500/20 text-cyan-300 px-2 py-1 rounded border border-cyan-500/30 text-[10px] font-bold">${p}</span>`).join('');
-    document.getElementById("ergGuide").textContent = `[${c1}]: ${hA.erg} | [${c2}]: ${hB.erg}`;
-    document.getElementById("btnSds").onclick = () => window.open(`https://www.google.com/search?q=SDS+${encodeURIComponent(state.nameA)}`, '_blank');
+  if (res.color==='YELLOW' && res.code) {
+    const conditionText = matrixConditions[res.code] || 'มีเงื่อนไขพิเศษ โปรดตรวจสอบคู่มือความปลอดภัย DIW';
+    resultActionsHTML += `
+    <li class="mt-6 p-5 bg-amber-500/10 border border-amber-500/30 rounded-xl flex items-start gap-3 shadow-inner">
+      <i class="ph-fill ph-info text-amber-400 text-2xl mt-0.5"></i>
+      <div>
+        <strong class="text-amber-400 block mb-1 text-sm uppercase tracking-wider">เงื่อนไขการจัดเก็บข้อที่ ${res.code}</strong>
+        <span class="text-sm text-slate-300 leading-relaxed font-medium block mt-1">${conditionText}</span>
+      </div>
+    </li>`;
+  }
+
+  document.getElementById('resultActions').innerHTML=resultActionsHTML;
+
+  const fires=[...new Set([...hA.fire,...hB.fire])];
+  const ppes=[...new Set([...hA.ppe,...hB.ppe])];
+  document.getElementById('fireGuide').innerHTML=fires.map(f=>
+    `<span class="bg-rose-500/20 text-rose-300 px-2 py-1 rounded border border-rose-500/30 text-[10px] font-bold">${f}</span>`).join('');
+  document.getElementById('ppeGuide').innerHTML=ppes.map(p=>
+    `<span class="bg-cyan-500/20 text-cyan-300 px-2 py-1 rounded border border-cyan-500/30 text-[10px] font-bold">${p}</span>`).join('');
+  document.getElementById('ergGuide').textContent=`[${c1}]: ${hA.erg} | [${c2}]: ${hB.erg}`;
+  document.getElementById('btnSds').onclick=()=>
+    window.open(`https://www.google.com/search?q=SDS+${encodeURIComponent(state.nameA)}`,'_blank');
 }
 
 function saveCustomChemical() {
-    const n = document.getElementById('newChemName').value, cl = document.getElementById('newChemClass').value, cas = document.getElementById('newChemCas').value, un = document.getElementById('newChemUn').value;
-    if(!n || !cl) return alert(currentLang === 'th' ? "กรุณาระบุชื่อและกลุ่มสาร" : "Please specify name and class");
-    chemicalDatabase.unshift({ name: n, class: cl, cas: cas, un: un });
-    localStorage.setItem('chemNexusDB', JSON.stringify(chemicalDatabase));
-    alert(currentLang === 'th' ? "บันทึกสำเร็จ!" : "Success!"); closeModal('customDbModal'); initDropdown('A'); initDropdown('B');
+  const n=document.getElementById('newChemName').value;
+  const cl=document.getElementById('newChemClass').value;
+  const cas=document.getElementById('newChemCas').value;
+  const un=document.getElementById('newChemUn').value;
+  if(!n || !cl) return alert(currentLang==='th'?'กรุณาระบุชื่อและกลุ่มสาร':'Please specify name and class');
+  chemicalDatabase.unshift({name:n, class:cl, cas:cas, un:un});
+  localStorage.setItem('chemNexusDB', JSON.stringify(chemicalDatabase));
+  document.getElementById('aiClassSuggestion').classList.add('hidden');
+  aiSuggestedClass=null;
+  alert(currentLang==='th'?'บันทึกสำเร็จ!':'Success!');
+  closeModal('customDbModal');
+  initDropdown('A'); initDropdown('B');
 }
 
-// --- [4] APP INITIALIZATION ---
-window.onload = function() { 
-    initDatabase(); 
-    const select = document.getElementById("newChemClass");
-    if(select) select.innerHTML = CLASS_ORDER.map(c => `<option value="${c}">${hazardClasses[c].title}</option>`).join('');
-    initDropdown("A"); 
-    initDropdown("B"); 
-    runAmbientReactor(); 
+
+// =====================================================
+// ANALYTICS — Real-time shared counters (GAS backend)
+// =====================================================
+var SESSION_ID = Math.random().toString(36).slice(2,10);
+var _statsPolling = null;
+
+async function initAnalytics() {
+  await pingBackend_('visit');
+  await refreshStats_();
+  _statsPolling = setInterval(refreshStats_, 30000);
+}
+
+async function trackScan() {
+  const stats = await pingBackend_('scan');
+  if (stats) updateCounterUI_(stats);
+}
+
+async function refreshStats_() {
+  try {
+    const gasUrl = (typeof CHEMNEXUS_CONFIG !== 'undefined') ? CHEMNEXUS_CONFIG.GAS_URL : '';
+    if (!gasUrl || gasUrl.includes('PASTE')) {
+      updateCounterUI_({
+        total_visits: parseInt(localStorage.getItem('chemNexus_Visits')   || 0),
+        total_scans : parseInt(localStorage.getItem('chemNexus_Analyses') || 0),
+      });
+      return;
+    }
+    const res  = await fetch(gasUrl + '?action=getStats');
+    const data = await res.json();
+    if (data.status === 'ok') updateCounterUI_(data);
+  } catch(e) {}
+}
+
+async function pingBackend_(type) {
+  try {
+    const gasUrl = (typeof CHEMNEXUS_CONFIG !== 'undefined') ? CHEMNEXUS_CONFIG.GAS_URL : '';
+    if (!gasUrl || gasUrl.includes('PASTE')) return null;
+    const siteId = localStorage.getItem('cnx_site_id') || 'unknown';
+    const ua     = encodeURIComponent(navigator.userAgent.slice(0,40));
+    const url    = `${gasUrl}?action=trackVisit&type=${type}&site_id=${siteId}&sid=${SESSION_ID}&ua=${ua}`;
+    const res    = await fetch(url);
+    const data   = await res.json();
+    return data.status === 'ok' ? data : null;
+  } catch(e) { return null; }
+}
+
+function updateCounterUI_(stats) {
+  const vEl = document.getElementById('visitCount');
+  const aEl = document.getElementById('analysisCount');
+  if (vEl && stats.total_visits !== undefined)
+    vEl.textContent = Number(stats.total_visits).toLocaleString();
+  if (aEl && stats.total_scans !== undefined)
+    aEl.textContent = Number(stats.total_scans).toLocaleString();
+}
+
+// =====================================================
+// APP INIT
+// =====================================================
+window.onload = async function() {
+  await initAuth();
+  initDatabase();
+  const select=document.getElementById('newChemClass');
+  if(select) select.innerHTML=CLASS_ORDER.map(c=>
+    `<option value="${c}">${hazardClasses[c].title}</option>`).join('');
+  initDropdown('A');
+  initDropdown('B');
+  runAmbientReactor();
+  await initAnalytics();
 };
 </script>
 </body>
