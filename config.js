@@ -8,7 +8,7 @@ const CHEMNEXUS_CONFIG = {
 
   // ── ใส่ URL หลัง deploy GAS Web App ─────────────────────
   // ตัวอย่าง: https://script.google.com/macros/s/AKfy.../exec
-  GAS_URL: 'PASTE_YOUR_GAS_URL_HERE',
+  GAS_URL: 'https://script.google.com/macros/s/AKfycbx_lrWgNW-cYpghDSCGLBBcuUWPwO5MCvuA4UwuaFDHbIMzFI1JtWQatjZOwywz_dcs/exec',
 
   // ── App info ──────────────────────────────────────────────
   APP_NAME    : 'ChemNexus AI',
