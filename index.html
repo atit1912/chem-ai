@@ -1,1803 +1,789 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Smart Operations 2.0</title>
-<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
-<style>
-*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-html,body{height:100%;width:100%;overflow-x:hidden}
-body{font-family:'Sarabun',sans-serif;background:#F0F2F5;color:#1a1a1a;font-size:15px;min-height:100vh}
-:root{
-  --blue:#1A3A6B;--blue-mid:#2563A8;--blue-light:#E6F1FB;
-  --green:#2E7D32;--green-light:#E8F5E9;
-  --red:#C62828;--red-light:#FFEBEE;
-  --amber:#E65100;--amber-light:#FFF3E0;
-  --teal:#00695C;--teal-light:#E0F2F1;
-  --purple:#6A1B9A;--purple-light:#F3E5F5;
-  --gray:#757575;--border:#E0E0E0;--bg:#F0F2F5;
-  --white:#FFFFFF;--text:#1a1a1a;--muted:#616161
-}
-#app{width:100%;max-width:430px;margin:0 auto;min-height:100vh;position:relative;background:#F0F2F5}
-.page{display:none;flex-direction:column;min-height:100vh;padding-bottom:68px;background:#F0F2F5}
-.page.on{display:flex}
-.bar{background:var(--blue);color:#fff;height:52px;display:flex;align-items:center;padding:0 8px 0 4px;position:sticky;top:0;z-index:50}
-.bar-back{background:none;border:none;color:#fff;width:44px;height:44px;display:flex;align-items:center;justify-content:center;cursor:pointer;border-radius:8px}
-.bar-back svg{width:22px;height:22px;stroke:#fff;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
-.bar-title{flex:1;font-size:17px;font-weight:600;padding-left:4px}
-.bar-btn{background:none;border:none;color:#fff;width:40px;height:40px;display:flex;align-items:center;justify-content:center;cursor:pointer;border-radius:8px}
-.bar-btn svg{width:20px;height:20px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-#splash{position:fixed;inset:0;background:var(--blue);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;z-index:9999;transition:opacity .5s}
-#splash.hide{opacity:0;pointer-events:none}
-.splash-icon{width:88px;height:88px;border-radius:50%;background:rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;font-size:44px;animation:pulse 1.5s ease-in-out infinite}
-.splash-bar-wrap{width:180px;height:4px;background:rgba(255,255,255,.2);border-radius:4px;overflow:hidden}
-.splash-bar{height:100%;background:#fff;border-radius:4px;animation:load 2s ease-in-out forwards}
-@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
-@keyframes load{0%{width:0}100%{width:100%}}
-.nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;background:#fff;border-top:1px solid var(--border);display:flex;z-index:50;height:58px}
-.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer;color:var(--gray);background:none;border:none;font-family:'Sarabun',sans-serif;font-size:10px;padding:6px 0}
-.nav-item svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-.nav-item.on{color:var(--blue)}
-.body{padding:14px;flex:1}
-.card{background:#fff;border-radius:16px;margin-bottom:12px;overflow:hidden;border:1px solid var(--border)}
-.card-p{padding:14px}
-.sec{font-size:13px;font-weight:600;color:var(--muted);margin-bottom:10px;text-transform:uppercase;letter-spacing:.5px}
-.tag{display:inline-flex;align-items:center;padding:3px 10px;border-radius:20px;font-size:12px;font-weight:500}
-.t-wait{background:#FAEEDA;color:#633806}
-.t-apv{background:#E8F5E9;color:#2E7D32}
-.t-no{background:#FFEBEE;color:#C62828}
-.t-pr{background:#E6F1FB;color:#1A3A6B}
-.t-po{background:#E6F1FB;color:#1A3A6B}
-.t-ship{background:#F3E5F5;color:#6A1B9A}
-.t-recv{background:#E0F2F1;color:#00695C}
-.t-done{background:#E8F5E9;color:#2E7D32}
-.t-issue{background:#FFEBEE;color:#C62828}
-.fg{margin-bottom:13px}
-.fl{display:block;font-size:13px;font-weight:500;color:#424242;margin-bottom:5px}
-.req{color:var(--red)}
-.fc{width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:8px;font-size:15px;font-family:'Sarabun',sans-serif;color:var(--text);background:#fff;outline:none;transition:border .15s}
-.fc:focus{border-color:var(--blue-mid)}
-textarea.fc{resize:none;min-height:72px;line-height:1.5}
-select.fc{appearance:none;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23666' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat right 12px center;padding-right:36px}
-.fc[readonly]{background:#F5F5F5;color:var(--muted)}
-.btn{display:flex;align-items:center;justify-content:center;gap:7px;width:100%;padding:12px;border-radius:8px;font-size:15px;font-family:'Sarabun',sans-serif;font-weight:600;cursor:pointer;border:none;transition:opacity .15s}
-.btn:active{opacity:.8}.btn:disabled{opacity:.45;pointer-events:none}
-.btn-navy{background:var(--blue);color:#fff}
-.btn-green{background:var(--green);color:#fff}
-.btn-red{background:var(--red);color:#fff}
-.btn-amber{background:var(--amber);color:#fff}
-.btn-ghost{background:#fff;color:var(--blue);border:1.5px solid var(--blue)}
-.btn-ghost-red{background:#fff;color:var(--red);border:1.5px solid var(--red)}
-.btn-gray{background:#EEE;color:#424242}
-.btn-row{display:flex;gap:10px}
-.btn-row .btn{flex:1}
-.sgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
-.scard{background:#fff;border-radius:16px;padding:12px 8px;text-align:center;border:1px solid var(--border);cursor:pointer}
-.scard:active{opacity:.7}
-.snum{font-size:28px;font-weight:700;line-height:1}
-.slbl{font-size:11px;color:var(--muted);margin-top:3px}
-.scard.s0 .snum{color:var(--blue-mid)}
-.scard.s1 .snum{color:var(--green)}
-.scard.s2 .snum{color:var(--red)}
-.scard.s3 .snum{color:var(--amber)}
-.scard.s4 .snum{color:var(--teal)}
-.scard.s5 .snum{color:var(--purple)}
-.mgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
-.mitem{background:#fff;border-radius:16px;padding:16px 8px;display:flex;flex-direction:column;align-items:center;gap:7px;cursor:pointer;border:1px solid var(--border);font-family:'Sarabun',sans-serif}
-.mitem:active{background:#F5F5F5}
-.mitem svg{width:28px;height:28px;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;fill:none}
-.mitem span{font-size:11px;color:#424242;text-align:center}
-.ri{background:#fff;border-radius:16px;padding:14px;margin-bottom:9px;border:1px solid var(--border);border-left-width:4px;cursor:pointer}
-.ri:active{background:#FAFAFA}
-.ri-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:5px}
-.ri-id{font-size:13px;font-weight:600;color:var(--blue-mid)}
-.ri-title{font-size:15px;font-weight:500;margin-bottom:5px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
-.ri-meta{font-size:12px;color:var(--muted);display:flex;gap:10px;flex-wrap:wrap}
-.srch{display:flex;align-items:center;background:#fff;border:1.5px solid var(--border);border-radius:8px;padding:8px 12px;gap:8px;margin-bottom:12px}
-.srch svg{width:18px;height:18px;stroke:var(--muted);fill:none;stroke-width:2;flex-shrink:0;stroke-linecap:round;stroke-linejoin:round}
-.srch input{flex:1;border:none;outline:none;font-size:14px;font-family:'Sarabun',sans-serif;color:var(--text);background:none}
-.tabs{display:flex;background:#fff;border-radius:8px;padding:3px;margin-bottom:12px;border:1px solid var(--border);gap:2px}
-.tab{flex:1;text-align:center;padding:7px 4px;border-radius:6px;font-size:12px;cursor:pointer;color:var(--muted);font-family:'Sarabun',sans-serif;border:none;background:none;font-weight:500}
-.tab.on{background:var(--blue);color:#fff}
-.dr{display:flex;padding:9px 0;border-bottom:1px solid #F5F5F5}
-.dr:last-child{border:none}
-.dk{width:110px;font-size:13px;color:var(--muted);flex-shrink:0}
-.dv{font-size:14px;flex:1;word-break:break-word}
-.img-area{border:2px dashed var(--border);border-radius:8px;padding:24px 16px;text-align:center;cursor:pointer;background:#FAFAFA}
-.img-area:hover{border-color:var(--blue-mid)}
-.img-area svg{width:32px;height:32px;stroke:#BDBDBD;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;margin:0 auto 8px;display:block}
-.img-area p{font-size:13px;color:var(--muted)}
-.preview-img{width:100%;max-height:200px;object-fit:cover;border-radius:8px;margin-top:8px;display:block}
-.login-wrap{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:32px 20px;background:#fff;width:100%;max-width:430px;margin:0 auto}
-.login-logo{text-align:center;margin-bottom:32px}
-.login-logo h1{font-size:22px;font-weight:700;color:var(--blue);margin-top:10px}
-.login-logo p{font-size:13px;color:var(--muted);margin-top:4px}
-.pbanner{background:var(--blue);color:#fff;border-radius:10px;padding:14px;margin-bottom:14px;display:flex;align-items:center;gap:12px}
-.pav{width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
-.pname{font-size:16px;font-weight:600}
-.prole{font-size:12px;opacity:.85;margin-top:2px}
-.alert{padding:11px 13px;border-radius:8px;font-size:14px;margin-bottom:12px;border-left:3px solid}
-.alert-info{background:var(--blue-light);color:var(--blue);border-color:var(--blue-mid)}
-.alert-ok{background:var(--green-light);color:var(--green);border-color:var(--green)}
-.alert-err{background:var(--red-light);color:var(--red);border-color:var(--red)}
-.empty{display:flex;flex-direction:column;align-items:center;padding:48px 24px;color:var(--muted);gap:10px}
-.empty svg{width:48px;height:48px;stroke:#BDBDBD;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
-.empty p{font-size:14px}
-.divider{height:1px;background:var(--border);margin:12px 0}
-/* stepper */
-.stepper{display:flex;align-items:flex-start;padding:4px 0 8px;overflow-x:auto}
-.st-item{display:flex;flex-direction:column;align-items:center;flex:1;min-width:52px;position:relative}
-.st-item:not(:last-child)::after{content:'';position:absolute;top:13px;left:calc(50% + 12px);right:calc(-50% + 12px);height:2px;background:#E0E0E0;z-index:0}
-.st-item.done:not(:last-child)::after{background:var(--teal)}
-.st-item.active:not(:last-child)::after{background:#E0E0E0}
-.st-dot{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;border:2px solid #E0E0E0;background:#fff;color:var(--muted);z-index:1;position:relative}
-.st-item.done .st-dot{background:var(--teal);border-color:var(--teal);color:#fff}
-.st-item.active .st-dot{background:#fff;border-color:var(--blue-mid);color:var(--blue);box-shadow:0 0 0 3px var(--blue-light)}
-.st-item.reject .st-dot{background:var(--red);border-color:var(--red);color:#fff}
-.st-lbl{font-size:9px;color:var(--muted);margin-top:5px;text-align:center;line-height:1.3}
-.st-item.done .st-lbl{color:var(--teal)}
-.st-item.active .st-lbl{color:var(--blue);font-weight:600}
-.st-item.reject .st-lbl{color:var(--red);font-weight:600}
-/* timeline */
-.tl-item{display:flex;gap:12px;margin-bottom:4px}
-.tl-item:not(:last-child) .tl-line{width:2px;flex:1;min-height:28px;margin:2px auto 0;background:var(--border)}
-.tl-ico{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;z-index:1}
-.tl-body{padding-bottom:14px;flex:1}
-.tl-act{font-size:14px;font-weight:600}
-.tl-meta{font-size:12px;color:var(--muted);margin-top:2px}
-.tl-note{margin-top:6px;background:var(--blue-light);border-radius:8px;padding:8px 10px;font-size:13px}
-/* item-row */
-.item-card{background:#F8FAFF;border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:8px;position:relative}
-.item-del{position:absolute;top:10px;right:10px;background:none;border:none;cursor:pointer;color:var(--red);font-size:20px;line-height:1}
-/* PO row */
-.po-row{background:#fff;border:1px solid var(--border);border-radius:10px;padding:12px 14px;margin-bottom:8px}
-/* loading */
-#ld{position:fixed;inset:0;background:rgba(255,255,255,.88);display:none;align-items:center;justify-content:center;z-index:999;flex-direction:column;gap:12px}
-.spin{width:36px;height:36px;border:3px solid #E0E0E0;border-top-color:var(--blue-mid);border-radius:50%;animation:sp .65s linear infinite}
-@keyframes sp{to{transform:rotate(360deg)}}
-#ld p{font-size:14px;color:var(--muted)}
-#toast{position:fixed;bottom:72px;left:50%;transform:translateX(-50%) translateY(10px);background:#212121;color:#fff;padding:10px 20px;border-radius:20px;font-size:14px;opacity:0;transition:all .25s;z-index:998;pointer-events:none;white-space:nowrap;max-width:calc(100vw - 40px);text-align:center}
-#toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
-#toast.ok{background:var(--green)}
-#toast.er{background:var(--red)}
-.mt8{margin-top:8px}.mt12{margin-top:12px}.mb8{margin-bottom:8px}.mb12{margin-bottom:12px}
-/* ── DARK MODE ── */
-body.dark{background:#121212;color:#E0E0E0}
-body.dark #app{background:#121212}
-body.dark .page{background:#121212}
-body.dark .body{background:#121212}
-body.dark .card,.dark .ri,.dark .mitem,.dark .scard,.dark .po-row,.dark .item-card{background:#1E1E1E;border-color:#333}
-body.dark .nav{background:#1E1E1E;border-color:#333}
-body.dark .nav-item{color:#9E9E9E}
-body.dark .nav-item.on{color:#64B5F6}
-body.dark .bar{background:#1256A0}
-body.dark .fc{background:#2C2C2C;border-color:#444;color:#E0E0E0}
-body.dark select.fc{background-color:#2C2C2C}
-body.dark .fl{color:#BDBDBD}
-body.dark .sec{color:#9E9E9E}
-body.dark .login-wrap{background:#1E1E1E}
-body.dark .login-logo h1{color:#64B5F6}
-body.dark .login-logo p{color:#9E9E9E}
-body.dark .ri-title{color:#E0E0E0}
-body.dark .ri-meta{color:#9E9E9E}
-body.dark .ri-id{color:#64B5F6}
-body.dark .dv{color:#E0E0E0}
-body.dark .dk{color:#9E9E9E}
-body.dark .slbl{color:#9E9E9E}
-body.dark .alert-info{background:#1A3A5C;color:#90CAF9;border-color:#1976D2}
-body.dark .alert-err{background:#3B1A1A;color:#EF9A9A;border-color:#C62828}
-body.dark .alert-ok{background:#1A2E1A;color:#81C784;border-color:#2E7D32}
-body.dark .btn-gray{background:#333;color:#E0E0E0}
-body.dark .btn-ghost{background:#1E1E1E;color:#64B5F6;border-color:#1976D2}
-body.dark .tl-note{background:#1E2D3D;color:#E0E0E0}
-body.dark .tabs{background:#1E1E1E;border-color:#333}
-body.dark .tab{color:#9E9E9E}
-body.dark .tab.on{background:#1256A0;color:#fff}
-body.dark .srch{background:#1E1E1E;border-color:#333}
-body.dark .srch input{color:#E0E0E0;background:none}
-body.dark .pbanner{background:#1256A0}
-body.dark .img-area{background:#2C2C2C;border-color:#444}
-body.dark #ld{background:rgba(0,0,0,.88)}
-body.dark #ld p{color:#9E9E9E}
-body.dark .st-dot{background:#1E1E1E;border-color:#444;color:#9E9E9E}
-body.dark .st-item.done .st-dot{background:var(--teal);border-color:var(--teal);color:#fff}
-body.dark .st-item.active .st-dot{background:#1E1E1E;border-color:#64B5F6;color:#64B5F6}
-body.dark .st-item::after{background:#333}
-body.dark .t-wait{background:#2A1A0D;color:#FFB74D}
-body.dark .t-apv{background:#0D2A1A;color:#81C784}
-body.dark .t-no{background:#2A0D0D;color:#EF9A9A}
-body.dark .t-pr,.dark .t-po{background:#0D1A2A;color:#64B5F6}
-body.dark .t-ship{background:#1A0D2A;color:#CE93D8}
-body.dark .t-recv{background:#0D1F1D;color:#80CBC4}
-body.dark .t-done{background:#0D2A1A;color:#81C784}
-body.dark .t-issue{background:#2A0D0D;color:#EF9A9A}
-body.dark #toast{background:#333}
-body.dark .scard{background:#1E1E1E;border-color:#333}
-body.dark .scard.s0 .snum{color:#64B5F6}
-body.dark .scard.s1 .snum{color:#81C784}
-body.dark .scard.s2 .snum{color:#EF9A9A}
-body.dark .scard.s3 .snum{color:#FFB74D}
-body.dark .scard.s4 .snum{color:#80CBC4}
-body.dark .scard.s5 .snum{color:#CE93D8}
-body.dark .mitem{background:#1E1E1E;border-color:#333}
-body.dark .mitem span{color:#E0E0E0}
-body.dark .empty p{color:#757575}
-body.dark .empty svg{stroke:#444}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>ChemNexus AI 1.0 - Intelligent Matrix</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts: Prompt -->
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Phosphor Icons -->
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+  <style>
+    body { 
+      font-family: 'Prompt', sans-serif; 
+      background-color: #0b1120;
+      background-image: 
+        radial-gradient(at 0% 0%, rgba(30, 27, 75, 0.8) 0px, transparent 50%), 
+        radial-gradient(at 100% 100%, rgba(6, 78, 59, 0.4) 0px, transparent 50%),
+        radial-gradient(at 50% 50%, rgba(15, 23, 42, 1) 0px, transparent 100%);
+      background-attachment: fixed;
+      color: #e2e8f0;
+      scroll-behavior: smooth;
+    }
+    
+    /* Animations */
+    .fade-in { animation: fadeIn 0.4s ease-out forwards; }
+    .slide-up { animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+    
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes slideUp { from { opacity: 0; transform: translateY(20px) scale(0.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
+
+    /* Fusion Effects (Collision) */
+    @keyframes moveRight { 0% { transform: translateX(-50px); opacity: 0; } 100% { transform: translateX(20px); opacity: 1; } }
+    @keyframes moveLeft { 0% { transform: translateX(50px); opacity: 0; } 100% { transform: translateX(-20px); opacity: 1; } }
+    .animate-fusion-a { animation: moveRight 0.8s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate; }
+    .animate-fusion-b { animation: moveLeft 0.8s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate; }
+
+    /* Science Ring Animations */
+    @keyframes orbit1 { from { transform: rotateX(70deg) rotateZ(0deg); } to { transform: rotateX(70deg) rotateZ(360deg); } }
+    @keyframes orbit2 { from { transform: rotateY(70deg) rotateZ(0deg); } to { transform: rotateY(70deg) rotateZ(360deg); } }
+    @keyframes orbit3 { from { transform: rotateX(45deg) rotateY(45deg) rotateZ(0deg); } to { transform: rotateX(45deg) rotateY(45deg) rotateZ(360deg); } }
+
+    .ring-orbit {
+      position: absolute;
+      border: 1.5px solid rgba(6, 182, 212, 0.4);
+      border-radius: 50%;
+      pointer-events: none;
+      box-shadow: 0 0 15px rgba(6, 182, 212, 0.3);
+    }
+
+    @keyframes floatAround {
+      0% { transform: translate(0, 0) rotate(0deg); }
+      33% { transform: translate(10px, -15px) rotate(5deg); }
+      66% { transform: translate(-10px, 10px) rotate(-5deg); }
+      100% { transform: translate(0, 0) rotate(0deg); }
+    }
+    .floating-ambient { animation: floatAround 4s ease-in-out infinite; }
+
+    .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+    .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(148, 163, 184, 0.3); border-radius: 10px; }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: rgba(148, 163, 184, 0.6); }
+
+    .btn-clear { transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+    .btn-clear:hover { transform: rotate(90deg) scale(1.1); }
+
+    .glass-card {
+      background: rgba(30, 41, 59, 0.4);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    }
+    .glass-input {
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: white;
+    }
+    .glass-input:focus {
+      background: rgba(15, 23, 42, 0.8);
+      border-color: rgba(6, 182, 212, 0.5);
+      box-shadow: 0 0 15px rgba(6, 182, 212, 0.2);
+    }
+
+    .opaque-dropdown {
+      background-color: #0f172a; 
+      border: 1px solid #334155; 
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+    }
+    
+    .no-print { display: flex; }
+    .print-only { display: none; }
+
+    .counter-badge {
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 6px 14px;
+      border-radius: 99px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+  </style>
 </head>
-<body>
+<body class="min-h-screen p-4 md:p-8 flex flex-col items-center transition-colors duration-300 pb-24">
 
-<!-- SPLASH -->
-<div id="splash">
-  <div class="splash-icon">🦐</div>
-  <div style="text-align:center">
-    <div style="color:#fff;font-size:20px;font-weight:700;letter-spacing:1px">Smart Operations 2.0</div>
-    <div style="color:rgba(255,255,255,.7);font-size:13px;margin-top:4px">Procurement Hub · ศูนย์วิจัยเพชรบุรี</div>
-  </div>
-  <div class="splash-bar-wrap"><div class="splash-bar"></div></div>
-  <div style="color:rgba(255,255,255,.5);font-size:12px">กำลังโหลด...</div>
-</div>
-
-<div id="app">
-
-<!-- ════════════ LOGIN ════════════ -->
-<div class="login-wrap" id="pg-login">
-  <div class="login-logo">
-    <div style="font-size:56px">🦐</div>
-    <h1>Smart Operations 2.0</h1>
-    <p>ระบบติดตามการจัดซื้อ ศูนย์วิจัยเพชรบุรี</p>
-  </div>
-  <div class="fg">
-    <label class="fl">ชื่อผู้ใช้</label>
-    <input id="lu" type="text" class="fc" placeholder="กรอก username" autocomplete="username">
-  </div>
-  <div class="fg">
-    <label class="fl">รหัสผ่าน</label>
-    <div style="position:relative">
-      <input id="lp" type="password" class="fc" placeholder="กรอกรหัสผ่าน" style="padding-right:44px" autocomplete="current-password">
-      <button onclick="togglePw()" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;padding:4px">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#9E9E9E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-      </button>
-    </div>
-  </div>
-  <div id="lerr" style="display:none" class="alert alert-err"></div>
-  <button class="btn btn-navy" onclick="doLogin()" id="btn-login">เข้าสู่ระบบ</button>
-  <div style="text-align:center;margin-top:24px;padding-top:16px;border-top:1px solid var(--border)">
-    <span style="font-size:11px;color:var(--blue);font-weight:500">Developed by Atit Chimnan</span>
-  </div>
-</div>
-
-<div id="main" style="display:none">
-
-<!-- ════════════ DASHBOARD ════════════ -->
-<div class="page on" id="pg-dash">
-  <div class="bar">
-    <div style="width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:22px;cursor:pointer;margin-right:4px" id="hd-av">🦐</div>
-    <span class="bar-title" id="hd-title">Dashboard</span>
-    <button class="bar-btn" id="btn-dark" onclick="toggleDark()">
-      <svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
-    </button>
-    <button class="bar-btn" onclick="doLogout()">
-      <svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
-    </button>
-  </div>
-  <div class="body">
-    <div class="pbanner">
-      <div class="pav" id="d-av">🦐</div>
-      <div>
-        <div class="pname" id="d-name">-</div>
-        <div class="prole" id="d-role">-</div>
+  <!-- Statistics Panel -->
+  <div class="no-print w-full max-w-5xl flex flex-col md:flex-row flex-wrap justify-between items-center gap-4 mb-8 z-50 relative">
+    <div class="flex gap-3 order-2 md:order-1">
+      <div class="counter-badge shadow-lg border-cyan-500/20">
+        <div class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse shadow-[0_0_8px_rgba(34,211,238,0.8)]"></div>
+        <span class="text-[10px] font-bold text-cyan-400/80 uppercase tracking-widest">Visitors</span>
+        <span id="visitCount" class="text-sm font-black text-white tabular-nums">0</span>
+      </div>
+      <div class="counter-badge shadow-lg border-amber-500/20">
+        <div class="w-2 h-2 rounded-full bg-amber-400 animate-pulse shadow-[0_0_8px_rgba(251,191,36,0.8)]"></div>
+        <span class="text-[10px] font-bold text-amber-400/80 uppercase tracking-widest">Scans</span>
+        <span id="analysisCount" class="text-sm font-black text-white tabular-nums">0</span>
       </div>
     </div>
-    <div class="sec">สรุปสถานะ</div>
-    <div class="sgrid">
-      <div class="scard s0" onclick="goList('')"><div class="snum" id="s-total">0</div><div class="slbl">ทั้งหมด</div></div>
-      <div class="scard s2" onclick="goList('รออนุมัติ')"><div class="snum" id="s-pend">0</div><div class="slbl">รออนุมัติ</div></div>
-      <div class="scard s1" onclick="goList('อนุมัติแล้ว')"><div class="snum" id="s-apv">0</div><div class="slbl">อนุมัติแล้ว</div></div>
-      <div class="scard s2" onclick="goList('ไม่อนุมัติ')"><div class="snum" id="s-rej" style="color:var(--red)">0</div><div class="slbl">ไม่อนุมัติ</div></div>
-      <div class="scard s3" onclick="goList('รอส่งของ')"><div class="snum" id="s-ship">0</div><div class="slbl">รอส่งของ</div></div>
-      <div class="scard s4" onclick="goList('รับครบแล้ว')"><div class="snum" id="s-done">0</div><div class="slbl">รับครบแล้ว</div></div>
-      <div class="scard s5" style="cursor:default"><div class="snum" id="s-val" style="font-size:15px">0</div><div class="slbl">มูลค่ารวม (฿)</div></div>
+
+    <div class="flex gap-2 w-full md:w-auto order-1 md:order-2">
+      <button onclick="toggleLang()" class="flex-1 md:flex-none flex items-center justify-center gap-1.5 px-4 py-2 glass-card rounded-xl text-xs md:text-sm font-semibold text-slate-300 hover:text-white transition-all">
+        <i class="ph ph-translate text-lg text-cyan-400"></i> <span id="langBtnText">EN/TH</span>
+      </button>
+      <button onclick="openModal('customDbModal')" class="flex-1 md:flex-none flex items-center justify-center gap-1.5 px-4 py-2 bg-gradient-to-r from-cyan-600 to-blue-600 rounded-xl text-xs md:text-sm font-semibold text-white shadow-lg transition-all">
+        <i class="ph ph-plus-circle text-lg"></i> <span class="lang-text" data-th="เพิ่มข้อมูล" data-en="Add">เพิ่มข้อมูล</span>
+      </button>
+      <button onclick="openPasswordModal()" class="flex-1 md:flex-none flex items-center justify-center gap-1.5 px-4 py-2 bg-gradient-to-r from-rose-600 to-red-600 rounded-xl text-xs md:text-sm font-semibold text-white shadow-lg transition-all">
+        <i class="ph ph-database text-lg"></i> <span class="lang-text" data-th="จัดการ" data-en="Manage">จัดการ</span>
+      </button>
     </div>
-    <div class="sec">เมนู</div>
-    <div class="mgrid">
-      <button class="mitem" onclick="go('pg-new')">
-        <svg viewBox="0 0 24 24" stroke="var(--blue-mid)"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
-        <span>ยื่นคำขอ</span>
-      </button>
-      <button class="mitem" onclick="goList('')">
-        <svg viewBox="0 0 24 24" stroke="var(--teal)"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
-        <span>ใบขอซื้อ</span>
-      </button>
-      <button class="mitem" id="m-apv" style="display:none" onclick="goList('รออนุมัติ')">
-        <div style="position:relative">
-          <svg viewBox="0 0 24 24" stroke="var(--green)" width="28" height="28" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
-          <div id="badge-apv" style="display:none;position:absolute;top:-6px;right:-6px;background:var(--red);color:#fff;font-size:9px;font-weight:700;width:16px;height:16px;border-radius:50%;align-items:center;justify-content:center;line-height:1">0</div>
+  </div>
+
+  <!-- Header Section -->
+  <div class="text-center mb-8 max-w-3xl no-print relative z-10 w-full flex flex-col items-center">
+    <div class="relative w-full h-32 flex items-center justify-center mb-4 overflow-visible">
+       <!-- Science Ring -->
+       <div class="ring-orbit w-24 h-24 animate-[orbit1_1.0s_linear_infinite]"></div>
+       <div class="ring-orbit w-28 h-28 animate-[orbit2_1.3s_linear_infinite] border-purple-500/40"></div>
+       <div class="ring-orbit w-20 h-20 animate-[orbit3_0.7s_linear_infinite] border-cyan-300/60"></div>
+       
+       <div class="absolute w-12 h-12 bg-cyan-500/25 rounded-full blur-xl animate-pulse"></div>
+       <div class="z-10 text-cyan-400 text-6xl relative floating-ambient"><i class="ph-duotone ph-atom"></i></div>
+       
+       <!-- Ambient Floating Icons -->
+       <div id="ambient-item-1" class="absolute text-2xl transition-all duration-[2000ms] ease-in-out opacity-0 z-20">🧪</div>
+       <div id="ambient-item-2" class="absolute text-2xl transition-all duration-[2000ms] ease-in-out opacity-0 z-20">🧬</div>
+    </div>
+    
+    <!-- Gradient Casing Title -->
+    <h1 class="text-4xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-white to-purple-300 tracking-tight mb-2 drop-shadow-lg">ChemNexus AI 1.0</h1>
+    
+    <!-- Developer Name with same gradient -->
+    <p class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-white to-purple-300 font-black text-xs md:text-sm uppercase tracking-[0.4em] mb-4">Developed by ATIT CHIMNAN</p>
+    
+    <p class="text-slate-400 font-medium text-xs md:text-sm lang-text tracking-wide" data-th="ระบบวิเคราะห์การจัดเก็บสารเคมีและวัตถุอันตรายอัจฉริยะ" data-en="Intelligent Chemical Storage Matrix">ระบบวิเคราะห์การจัดเก็บสารเคมีและวัตถุอันตรายอัจฉริยะ</p>
+  </div>
+
+  <!-- Main Container -->
+  <div class="w-full max-w-5xl space-y-6 md:space-y-8 pb-10">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 relative">
+      <!-- Slot 1 -->
+      <div id="containerA" class="glass-card rounded-3xl p-5 md:p-6 transition-all hover:border-cyan-500/30 relative z-[100]">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-8 h-8 rounded-full bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 flex items-center justify-center text-sm font-black">1</div>
+          <h2 class="text-sm md:text-base font-semibold text-slate-200 lang-text" data-th="วิเคราะห์สารเคมีชนิดที่ 1" data-en="Chemical 1">วิเคราะห์สารเคมีชนิดที่ 1</h2>
         </div>
-        <span>รออนุมัติ</span>
-      </button>
-      <button class="mitem" id="m-po" style="display:none" onclick="go('pg-po')">
-        <div style="position:relative">
-          <svg viewBox="0 0 24 24" stroke="var(--amber)" width="28" height="28" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-          <div id="badge-po" style="display:none;position:absolute;top:-6px;right:-6px;background:var(--red);color:#fff;font-size:9px;font-weight:700;width:16px;height:16px;border-radius:50%;align-items:center;justify-content:center;line-height:1">0</div>
+        <div id="searchStateA" class="relative">
+          <i class="ph ph-scan absolute left-4 top-1/2 -translate-y-1/2 text-cyan-400 text-xl animate-pulse"></i>
+          <input type="text" id="searchA" autocomplete="off" placeholder="ค้นหาชื่อสาร, CAS..." class="w-full pl-12 pr-4 py-4 glass-input rounded-2xl outline-none text-sm md:text-base">
+          <ul id="listA" class="absolute z-[110] w-full mt-2 opaque-dropdown rounded-2xl max-h-56 overflow-y-auto custom-scrollbar hidden"></ul>
         </div>
-        <span>PR / PO</span>
-      </button>
-      <button class="mitem" id="m-recv" style="display:none" onclick="go('pg-recv')">
-        <svg viewBox="0 0 24 24" stroke="var(--teal)"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-        <span>ตรวจรับ</span>
-      </button>
-      <button class="mitem" onclick="go('pg-rpt')">
-        <svg viewBox="0 0 24 24" stroke="var(--purple)"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-        <span>รายงาน</span>
-      </button>
-      <button class="mitem" id="m-usr" style="display:none" onclick="go('pg-usr')">
-        <svg viewBox="0 0 24 24" stroke="var(--gray)"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
-        <span>ผู้ใช้งาน</span>
-      </button>
-      <button class="mitem" id="m-del" style="display:none" onclick="go('pg-del')">
-        <svg viewBox="0 0 24 24" stroke="var(--red)"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg>
-        <span style="color:var(--red)">ลบข้อมูล</span>
-      </button>
-    </div>
-    <div class="sec">รายการล่าสุด</div>
-    <div id="dash-recent"></div>
-  </div>
-</div>
-
-<!-- ════════════ REQUEST LIST ════════════ -->
-<div class="page" id="pg-list">
-  <div class="bar">
-    <button class="bar-back" onclick="back()"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
-    <span class="bar-title" id="list-title">ใบขอซื้อ</span>
-    <button class="bar-btn" onclick="loadList()"><svg viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg></button>
-  </div>
-  <div class="body">
-    <!-- Filter bar -->
-    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:10px">
-      <select id="fl-month" class="fc" style="font-size:13px" onchange="loadList()">
-        <option value="">ทุกเดือน</option>
-        <option value="01">มกราคม</option><option value="02">กุมภาพันธ์</option>
-        <option value="03">มีนาคม</option><option value="04">เมษายน</option>
-        <option value="05">พฤษภาคม</option><option value="06">มิถุนายน</option>
-        <option value="07">กรกฎาคม</option><option value="08">สิงหาคม</option>
-        <option value="09">กันยายน</option><option value="10">ตุลาคม</option>
-        <option value="11">พฤศจิกายน</option><option value="12">ธันวาคม</option>
-      </select>
-      <select id="fl-year" class="fc" style="font-size:13px" onchange="loadList()">
-        <option value="">ทุกปี</option>
-      </select>
-      <select id="fl-dept" class="fc" style="font-size:13px" onchange="filterList()">
-        <option value="">ทุกหน่วยงาน</option>
-      </select>
-    </div>
-    <div class="srch">
-      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-      <input type="text" id="sch-list" placeholder="ค้นหา REQ-ID, วัตถุประสงค์..." oninput="filterList()">
-    </div>
-    <div class="tabs" id="tabs-list">
-      <button class="tab on" onclick="setListTab('',this)">ทั้งหมด</button>
-      <button class="tab" onclick="setListTab('รออนุมัติ',this)">รออนุมัติ</button>
-      <button class="tab" onclick="setListTab('อนุมัติแล้ว',this)">อนุมัติ</button>
-      <button class="tab" onclick="setListTab('รับครบแล้ว',this)">รับครบ</button>
-    </div>
-    <div id="ls-list"></div>
-  </div>
-</div>
-
-<!-- ════════════ REQUEST DETAIL ════════════ -->
-<div class="page" id="pg-det">
-  <div class="bar">
-    <button class="bar-back" onclick="back()"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
-    <span class="bar-title" id="det-title">รายละเอียด</span>
-  </div>
-  <div class="body" id="det-body"></div>
-</div>
-
-<!-- ════════════ NEW REQUEST ════════════ -->
-<div class="page" id="pg-new">
-  <div class="bar">
-    <button class="bar-back" onclick="back()"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
-    <span class="bar-title">ยื่นคำขอจัดซื้อ</span>
-    <button class="bar-btn" id="btn-clear-form" style="display:none" onclick="clearNewForm()" title="ล้างข้อมูลฟอร์ม">
-      <svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg>
-    </button>
-  </div>
-  <div class="body">
-    <div class="card card-p">
-      <div class="sec">ข้อมูลทั่วไป</div>
-      <div class="fg"><label class="fl">ผู้ขอ</label><input id="nr-who" type="text" class="fc" readonly></div>
-      <div class="fg">
-        <label class="fl">วันที่ต้องการใช้ <span class="req">*</span></label>
-        <input id="nr-date" type="date" class="fc">
-      </div>
-      <div class="fg">
-        <label class="fl">เอกสารแนบ</label>
-        <select id="nr-attach" class="fc">
-          <option value="ไม่มีเอกสารแนบ">ไม่มีเอกสารแนบ</option>
-          <option value="มีเอกสารแนบ">มีเอกสารแนบ</option>
-        </select>
-      </div>
-      <div class="fg">
-        <label class="fl">หมายเหตุ</label>
-        <input id="nr-remark" type="text" class="fc" placeholder="(ถ้ามี)">
-      </div>
-    </div>
-
-    <div class="card card-p">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
-        <div class="sec" style="margin:0">รายการสินค้า</div>
-        <button onclick="addItem()" style="background:var(--blue);color:#fff;border:none;border-radius:8px;padding:5px 12px;font-size:13px;font-family:'Sarabun',sans-serif;cursor:pointer">+ เพิ่ม</button>
-      </div>
-      <div id="items-wrap"></div>
-      <div style="display:flex;justify-content:flex-end;padding-top:8px;border-top:1px solid var(--border);font-size:15px;font-weight:600;color:var(--blue)">
-        รวม ฿<span id="nr-total">0.00</span>
-      </div>
-    </div>
-
-    <div class="btn-row mt12">
-      <button class="btn btn-gray" onclick="clearNewForm()">ล้าง</button>
-      <button class="btn btn-navy" onclick="submitNew()" id="btn-nr">ยืนยันการยื่น</button>
-    </div>
-  </div>
-</div>
-
-<!-- ════════════ APPROVAL ════════════ -->
-<div class="page" id="pg-apv">
-  <div class="bar">
-    <button class="bar-back" onclick="back()"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
-    <span class="bar-title" id="apv-title">พิจารณาคำขอ</span>
-  </div>
-  <div class="body">
-    <div class="card card-p" id="apv-summary"></div>
-    <div class="card card-p mt8">
-      <div class="sec">การพิจารณา</div>
-      <div style="display:flex;gap:10px;margin-bottom:14px">
-        <button onclick="setDecision('approve')" id="btn-apv-yes"
-          style="flex:1;padding:14px;border-radius:12px;border:2px solid var(--border);background:#fff;font-size:14px;font-family:'Sarabun',sans-serif;cursor:pointer;font-weight:600;color:var(--muted)">
-          ✅ อนุมัติ
-        </button>
-        <button onclick="setDecision('reject')" id="btn-apv-no"
-          style="flex:1;padding:14px;border-radius:12px;border:2px solid var(--border);background:#fff;font-size:14px;font-family:'Sarabun',sans-serif;cursor:pointer;font-weight:600;color:var(--muted)">
-          ❌ ไม่อนุมัติ
-        </button>
-      </div>
-      <div id="apv-approve-fields" style="display:none">
-        <div class="fg">
-          <label class="fl">CCA</label>
-          <select id="apv-cca" class="fc">
-            <option value="">-- เลือก CCA --</option>
-            <option value="1196142012">1196142012 · Broodstock Shrimp</option>
-            <option value="1196142013">1196142013 · Freshwater Tolerance</option>
-            <option value="1196142030">1196142030 · Production Support</option>
-            <option value="1196142002">1196142002 · Farm Administration</option>
-          </select>
-        </div>
-        <div class="fg">
-          <label class="fl">IO Number</label>
-          <input id="apv-io" type="text" class="fc" placeholder="IO-2026-XXX">
+        <div id="selectedStateA" class="hidden relative bg-slate-800/80 backdrop-blur-md border border-slate-700/50 rounded-2xl p-5 shadow-lg overflow-hidden">
+          <div class="absolute inset-0 flex items-center justify-center opacity-15 grayscale invert pointer-events-none">
+            <img id="structA" src="" alt="" class="w-44 h-44 object-contain">
+          </div>
+          <button onclick="clearSelection('A')" class="absolute top-3 right-3 text-slate-400 hover:text-rose-400 p-2 bg-slate-900/80 rounded-full btn-clear relative z-10"><i class="ph-bold ph-x"></i></button>
+          <div class="flex items-start gap-4 relative z-10">
+            <div id="iconA" class="w-14 h-14 rounded-2xl flex items-center justify-center text-3xl bg-slate-900 border border-slate-700 shadow-inner flex-shrink-0 text-white"></div>
+            <div class="flex-1">
+              <p id="nameA" class="font-bold text-white text-lg pr-6"></p>
+              <p id="casUnA" class="text-xs text-cyan-400 font-mono mt-1 opacity-80"></p>
+              <div class="flex gap-2 mt-3">
+                <span id="classA" class="text-xs font-bold px-2.5 py-1 rounded-lg bg-slate-700 text-white"></span>
+                <span id="riskA" class="text-[10px] uppercase font-black px-2.5 py-1 rounded-lg border"></span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      <div id="apv-reject-fields" style="display:none">
-        <div class="fg">
-          <label class="fl">เหตุผลที่ไม่อนุมัติ <span class="req">*</span></label>
-          <textarea id="apv-remark" class="fc" placeholder="ระบุเหตุผล..."></textarea>
+
+      <div class="hidden md:flex absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 w-12 h-12 glass-card rounded-full items-center justify-center text-cyan-400 font-black shadow-lg">
+        <i class="ph-bold ph-arrows-left-right"></i>
+      </div>
+
+      <!-- Slot 2 -->
+      <div id="containerB" class="glass-card rounded-3xl p-5 md:p-6 transition-all hover:border-purple-500/30 relative z-[90]">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-8 h-8 rounded-full bg-purple-500/20 text-purple-400 border border-purple-500/30 flex items-center justify-center text-sm font-black">2</div>
+          <h2 class="text-sm md:text-base font-semibold text-slate-200 lang-text" data-th="วิเคราะห์สารเคมีชนิดที่ 2" data-en="Chemical 2">วิเคราะห์สารเคมีชนิดที่ 2</h2>
+        </div>
+        <div id="searchStateB" class="relative">
+          <i class="ph ph-scan absolute left-4 top-1/2 -translate-y-1/2 text-purple-400 text-xl animate-pulse"></i>
+          <input type="text" id="searchB" autocomplete="off" placeholder="ค้นหาชื่อสาร, CAS..." class="w-full pl-12 pr-4 py-4 glass-input rounded-2xl outline-none text-sm md:text-base focus:border-purple-500/50">
+          <ul id="listB" class="absolute z-[110] w-full mt-2 opaque-dropdown rounded-2xl max-h-56 overflow-y-auto custom-scrollbar hidden"></ul>
+        </div>
+        <div id="selectedStateB" class="hidden relative bg-slate-800/80 backdrop-blur-md border border-slate-700/50 rounded-2xl p-5 shadow-lg overflow-hidden">
+          <div class="absolute inset-0 flex items-center justify-center opacity-15 grayscale invert pointer-events-none">
+            <img id="structB" src="" alt="" class="w-44 h-44 object-contain">
+          </div>
+          <button onclick="clearSelection('B')" class="absolute top-3 right-3 text-slate-400 hover:text-rose-400 p-2 bg-slate-900/80 rounded-full btn-clear relative z-10"><i class="ph-bold ph-x"></i></button>
+          <div class="flex items-start gap-4 relative z-10">
+            <div id="iconB" class="w-14 h-14 rounded-2xl flex items-center justify-center text-3xl bg-slate-900 border border-slate-700 shadow-inner flex-shrink-0 text-white"></div>
+            <div class="flex-1">
+              <p id="nameB" class="font-bold text-white text-lg pr-6"></p>
+              <p id="casUnB" class="text-xs text-purple-400 font-mono mt-1 opacity-80"></p>
+              <div class="flex gap-2 mt-3">
+                <span id="classB" class="text-xs font-bold px-2.5 py-1 rounded-lg bg-slate-700 text-white"></span>
+                <span id="riskB" class="text-[10px] uppercase font-black px-2.5 py-1 rounded-lg border"></span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      <input type="hidden" id="apv-decision">
-      <input type="hidden" id="apv-req-id">
-      <button class="btn btn-navy" onclick="submitApproval()" id="btn-apv-submit" disabled>บันทึก</button>
     </div>
-  </div>
-</div>
 
-<!-- ════════════ PR/PO UPDATE ════════════ -->
-<div class="page" id="pg-po">
-  <div class="bar">
-    <button class="bar-back" onclick="back()"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
-    <span class="bar-title">จัดการ PR / PO</span>
-    <button class="bar-btn" onclick="loadPOList()"><svg viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg></button>
-  </div>
-  <div class="body">
-    <div class="tabs">
-      <button class="tab on" onclick="setPoTab('pending',this)">รอดำเนินการ</button>
-      <button class="tab" onclick="setPoTab('all',this)">ทั้งหมด</button>
-    </div>
-    <div id="ls-po"></div>
-  </div>
-</div>
-
-<!-- ════════════ PR/PO FORM ════════════ -->
-<div class="page" id="pg-po-form">
-  <div class="bar">
-    <button class="bar-back" onclick="back()"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
-    <span class="bar-title" id="poform-title">อัพเดท PR/PO</span>
-  </div>
-  <div class="body">
-    <div class="alert alert-info" id="poform-info"></div>
-    <div class="card card-p">
-      <div class="sec">สถานะใหม่</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px" id="status-btns"></div>
-    </div>
-    <div class="card card-p">
-      <div class="sec">ข้อมูล PR</div>
-      <div class="fg"><label class="fl">เลข PR</label><input id="pf-pr" type="text" class="fc" placeholder="PR-XXXXXXXXXX"></div>
-      <div class="fg"><label class="fl">วันที่เปิด PR</label><input id="pf-prdate" type="date" class="fc"></div>
-      <div class="sec mt8">ข้อมูล PO</div>
-      <div class="fg"><label class="fl">เลข PO</label><input id="pf-po" type="text" class="fc" placeholder="PO-XXXX-XXX"></div>
-      <div class="fg"><label class="fl">วันที่สร้าง PO</label><input id="pf-podate" type="date" class="fc"></div>
-      <div class="fg"><label class="fl">Supplier</label><input id="pf-supplier" type="text" class="fc" placeholder="ชื่อบริษัท / ร้านค้า"></div>
-      <div class="fg"><label class="fl">กำหนดส่งของ</label><input id="pf-delivery" type="date" class="fc"></div>
-      <div class="fg"><label class="fl">หมายเหตุ</label><input id="pf-remark" type="text" class="fc" placeholder="(ถ้ามี)"></div>
-    </div>
-    <input type="hidden" id="pf-req-id">
-    <button class="btn btn-navy mt8" onclick="submitPOForm()" id="btn-pf">บันทึก</button>
-  </div>
-</div>
-
-<!-- ════════════ RECEIVING ════════════ -->
-<div class="page" id="pg-recv">
-  <div class="bar">
-    <button class="bar-back" onclick="back()"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
-    <span class="bar-title">ตรวจรับสินค้า</span>
-    <button class="bar-btn" onclick="loadRecvList()"><svg viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg></button>
-  </div>
-  <div class="body">
-    <div id="ls-recv"></div>
-  </div>
-</div>
-
-<!-- ════════════ RECEIVING FORM ════════════ -->
-<div class="page" id="pg-recv-form">
-  <div class="bar">
-    <button class="bar-back" onclick="back()"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
-    <span class="bar-title">บันทึกการตรวจรับ</span>
-  </div>
-  <div class="body">
-    <div class="alert alert-info" id="rf-info"></div>
-    <div class="card card-p">
-      <div class="fg"><label class="fl">วันที่รับของ <span class="req">*</span></label><input id="rf-date" type="date" class="fc"></div>
-      <div class="fg"><label class="fl">จำนวนที่รับได้จริง</label><input id="rf-qty" type="number" class="fc" placeholder="0"></div>
-      <div class="fg">
-        <label class="fl">สภาพสินค้า</label>
-        <select id="rf-cond" class="fc">
-          <option>ดี</option><option>ชำรุด</option><option>ขาดหาย</option><option>หมดอายุ</option>
-        </select>
+    <!-- Analytics Fusion Animation (Icons Collision) -->
+    <div id="fusionContainer" class="hidden relative z-10 w-full mt-8 p-12 glass-card rounded-3xl border border-cyan-500/30 text-center shadow-2xl transition-opacity duration-500 opacity-100 overflow-hidden text-white">
+      <div class="absolute inset-0 bg-cyan-500/5 animate-pulse"></div>
+      <div class="relative flex justify-center items-center gap-4 md:gap-12 min-h-[150px]">
+        <div class="animate-fusion-a">
+          <div id="fusionIconA" class="w-24 h-24 md:w-32 md:h-32 bg-slate-900/80 rounded-3xl flex items-center justify-center text-6xl border border-white/10 shadow-lg p-2"></div>
+        </div>
+        <div class="z-10 text-cyan-400 text-6xl md:text-7xl animate-spin drop-shadow-[0_0_15px_rgba(34,211,238,0.5)]">
+            <i class="ph-duotone ph-atom"></i>
+        </div>
+        <div class="animate-fusion-b">
+          <div id="fusionIconB" class="w-24 h-24 md:w-32 md:h-32 bg-slate-900/80 rounded-3xl flex items-center justify-center text-6xl border border-white/10 shadow-lg p-2"></div>
+        </div>
       </div>
-      <div class="fg">
-        <label class="fl">สถานะการรับ</label>
-        <select id="rf-status" class="fc">
-          <option value="รับครบแล้ว">รับครบแล้ว</option>
-          <option value="รับบางส่วน">รับบางส่วน</option>
-          <option value="พบปัญหา">พบปัญหา</option>
-        </select>
+      <h3 class="mt-8 text-sm md:text-lg font-bold text-cyan-300 tracking-widest uppercase animate-pulse lang-text" data-th="AI กำลังจำลองปฏิกิริยาโครงข่าย..." data-en="AI Simulating Chemical Interaction...">AI กำลังจำลองปฏิกิริยาโครงข่าย...</h3>
+    </div>
+
+    <!-- Result Banner -->
+    <div id="resultContainer" class="hidden relative z-10 w-full mt-6">
+      <div id="resultCard" class="rounded-3xl overflow-hidden shadow-2xl glass-card border-none text-white">
+        <div id="resultHeader" class="p-8 md:px-10 md:py-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 relative overflow-hidden">
+          <div id="resultGlow" class="absolute inset-0 opacity-20"></div>
+          <div id="resultIconWrapper" class="w-16 h-16 rounded-2xl flex items-center justify-center text-4xl bg-black/20 shadow-lg border border-white/10 relative z-10"></div>
+          <div class="flex-1 relative z-10">
+            <span id="resultBadge" class="inline-block text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest bg-black/30 text-white mb-2 shadow-sm border border-white/5"></span>
+            <h3 id="resultTitle" class="text-3xl md:text-4xl font-black tracking-wide"></h3>
+          </div>
+        </div>
+        <div class="p-6 md:p-10 bg-slate-900/80 backdrop-blur-xl">
+          <p id="resultDesc" class="text-slate-300 text-lg md:text-xl font-medium mb-10 leading-relaxed"></p>
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div id="actionBox" class="rounded-2xl p-8 border h-full shadow-inner relative overflow-hidden">
+                <div id="actionBg" class="absolute inset-0 opacity-5"></div>
+                <ul id="resultActions" class="relative z-10 space-y-5 text-sm md:text-base font-medium"></ul>
+            </div>
+            <div class="bg-slate-800/80 rounded-2xl p-6 border border-slate-700 space-y-6 shadow-xl">
+              <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-700/50">
+                <h5 class="text-[10px] font-black text-rose-400 uppercase mb-3 flex items-center gap-2"><i class="ph-fill ph-fire"></i> Extinguishing Media</h5>
+                <div id="fireGuide" class="flex flex-wrap gap-2"></div>
+              </div>
+              <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-700/50">
+                <h5 class="text-[10px] font-black text-cyan-400 uppercase mb-3 flex items-center gap-2"><i class="ph-fill ph-shield-check"></i> Required PPE</h5>
+                <div id="ppeGuide" class="flex flex-wrap gap-2 text-sm"></div>
+              </div>
+              <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-700/50 relative">
+                <h5 class="text-[10px] font-black text-amber-400 uppercase mb-3 flex items-center justify-between">
+                  <span class="flex items-center gap-2"><i class="ph-fill ph-warning-circle"></i> Initial Action</span>
+                  <button id="btnSds" class="text-[9px] bg-cyan-500/20 text-cyan-400 px-2 py-0.5 rounded border border-cyan-500/30 hover:bg-cyan-500 hover:text-white transition-all font-bold uppercase">SDS Search</button>
+                </h5>
+                <p id="ergGuide" class="text-xs text-slate-300 leading-relaxed italic"></p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="fg"><label class="fl">หมายเหตุ</label><textarea id="rf-remark" class="fc" placeholder="รายละเอียดเพิ่มเติม..."></textarea></div>
+      <div class="mt-8 flex justify-center pb-8"><button onclick="resetScan()" class="px-10 py-4 bg-gradient-to-r from-cyan-600 to-blue-600 rounded-full text-white font-black uppercase shadow-2xl transition-all flex items-center gap-3 hover:scale-105 active:scale-95"><i class="ph-bold ph-arrows-clockwise text-xl"></i> <span class="lang-text" data-th="ตรวจสอบคู่ใหม่" data-en="New Scan">ตรวจสอบคู่ใหม่</span></button></div>
     </div>
-    <div class="card card-p">
-      <div class="sec">รูปภาพ (<span id="rf-photo-count">0</span> รูป)</div>
-      <div id="rf-previews" style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px"></div>
-      <label class="img-area">
-        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-        <p>แตะเพื่อถ่ายรูปหรืออัพโหลด</p>
-        <small>รองรับหลายรูป · JPG, PNG</small>
-        <input type="file" accept="image/*" multiple capture="environment" style="display:none" onchange="addPhotos(event)">
-      </label>
-    </div>
-    <input type="hidden" id="rf-po-id">
-    <input type="hidden" id="rf-req-id">
-    <input type="hidden" id="rf-supplier">
-    <button class="btn btn-green mt8" onclick="submitRecv()" id="btn-rf">✓ บันทึกการตรวจรับ</button>
-  </div>
-</div>
 
-<!-- ════════════ REPORT ════════════ -->
-<div class="page" id="pg-rpt">
-  <div class="bar">
-    <button class="bar-back" onclick="back()"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
-    <span class="bar-title">รายงาน</span>
-    <button class="bar-btn" onclick="window.print()">
-      <svg viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
-    </button>
-  </div>
-  <div class="body">
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px">
-      <div>
-        <label class="fl" style="font-size:12px">สถานะ</label>
-        <select id="rpt-status" class="fc" onchange="loadRpt()">
-          <option value="">ทั้งหมด</option>
-          <option>รออนุมัติ</option><option>อนุมัติแล้ว</option><option>เปิด PR แล้ว</option>
-          <option>สร้าง PO แล้ว</option><option>รอส่งของ</option><option>รับครบแล้ว</option><option>ปิดงาน</option>
-        </select>
-      </div>
-      <div>
-        <label class="fl" style="font-size:12px">CCA</label>
-        <select id="rpt-cca" class="fc" onchange="loadRpt()">
-          <option value="">ทั้งหมด</option>
-          <option>1196142012</option><option>1196142013</option><option>1196142030</option><option>1196142002</option>
-        </select>
-      </div>
+    <!-- History Audit List -->
+    <div id="historyLogContainer" class="mt-12 space-y-4">
+      <h4 class="text-xs font-bold text-slate-500 uppercase tracking-widest flex items-center gap-2 ml-2">
+        <i class="ph-bold ph-clock-counter-clockwise"></i> ประวัติการตรวจสอบล่าสุด (Recent Audits)
+      </h4>
+      <div id="historyList" class="grid grid-cols-1 md:grid-cols-2 gap-3"></div>
     </div>
-    <div id="rpt-kpi" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px"></div>
-    <div id="rpt-list"></div>
   </div>
-</div>
 
-<!-- ════════════ USERS ════════════ -->
-<div class="page" id="pg-usr">
-  <div class="bar">
-    <button class="bar-back" onclick="back()"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
-    <span class="bar-title">ผู้ใช้งาน</span>
-    <button class="bar-btn" onclick="openUserForm(null)">
-      <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-    </button>
-  </div>
-  <div class="body">
-    <div class="srch">
-      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-      <input type="text" id="sch-usr" placeholder="ค้นหาชื่อ, username, แผนก..." oninput="filterUsers()">
-    </div>
-    <div id="ls-usr"></div></div>
-</div>
-
-<!-- ════════════ USER FORM ════════════ -->
-<div class="page" id="pg-uf">
-  <div class="bar">
-    <button class="bar-back" onclick="back()"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
-    <span class="bar-title" id="uf-title">เพิ่มผู้ใช้</span>
-  </div>
-  <div class="body">
-    <input type="hidden" id="uf-id">
-    <div class="fg"><label class="fl">ชื่อ-สกุล <span class="req">*</span></label><input id="uf-name" type="text" class="fc"></div>
-    <div class="fg"><label class="fl">Username <span class="req">*</span></label><input id="uf-un" type="text" class="fc"></div>
-    <div class="fg"><label class="fl">Password</label><input id="uf-pw" type="password" class="fc" placeholder="เว้นว่างถ้าไม่เปลี่ยน"></div>
-    <div class="fg">
-      <label class="fl">Role <span class="req">*</span></label>
-      <select id="uf-role" class="fc">
-        <option value="Employee">Employee</option>
-        <option value="Farm Manager">Farm Manager</option>
-        <option value="Administration">Administration</option>
-        <option value="Administrator">Administrator</option>
-      </select>
-    </div>
-    <div class="fg">
-      <label class="fl">CCA</label>
-      <select id="uf-cca" class="fc">
-        <option value="">-</option>
-        <option>1196142012</option><option>1196142013</option><option>1196142030</option><option>1196142002</option>
-      </select>
-    </div>
-    <div class="fg"><label class="fl">แผนก</label><input id="uf-dept" type="text" class="fc"></div>
-    <div class="fg">
-      <label class="fl">สถานะ</label>
-      <select id="uf-active" class="fc">
-        <option value="active">Active</option>
-        <option value="inactive">Inactive</option>
-      </select>
-    </div>
-    <button class="btn btn-navy" onclick="submitUser()" id="btn-uf">บันทึก</button>
-  </div>
-</div>
-
-<!-- BOTTOM NAV -->
-<nav class="nav" id="bnav">
-  <button class="nav-item on" onclick="go('pg-dash',this)">
-    <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-    <span>หน้าหลัก</span>
+  <!-- Floating Matrix Toggle -->
+  <button onclick="openModal('matrixModal')" class="fixed bottom-6 right-6 z-[9000] w-14 h-14 glass-card rounded-full flex items-center justify-center text-cyan-400 shadow-xl no-print border border-white/5 hover:bg-cyan-500/20 transition-all group">
+    <i class="ph-duotone ph-table text-2xl group-hover:scale-110 transition-transform"></i>
   </button>
-  <button class="nav-item" onclick="go('pg-new',this)">
-    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
-    <span>ยื่นคำขอ</span>
-  </button>
-  <button class="nav-item" onclick="goList('');setNavOn(this)">
-    <svg viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/></svg>
-    <span>คำขอ</span>
-  </button>
-  <button class="nav-item" onclick="go('pg-rpt',this)">
-    <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-    <span>รายงาน</span>
-  </button>
-</nav>
 
-<!-- ════════════ DELETE DATA ════════════ -->
-<div class="page" id="pg-del">
-  <div class="bar" style="background:var(--red)">
-    <button class="bar-back" onclick="back()"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
-    <span class="bar-title">🗑 ลบข้อมูล (Admin)</span>
-    <button class="bar-btn" onclick="loadDelList()"><svg viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg></button>
+  <div class="text-center mt-12 text-slate-500 text-[10px] uppercase tracking-[0.5em] pb-10">
+    ChemNexus AI 1.0 &bull; ATIT CHIMNAN &bull; Proprietary System
   </div>
-  <div class="body">
-    <div class="alert alert-err">⚠️ เฉพาะช่วงทดสอบระบบ — การลบไม่สามารถกู้คืนได้</div>
 
-    <!-- ล้าง Audit Log -->
-    <div class="card card-p mb12">
-      <div class="sec" style="color:var(--gray)">ล้าง Audit Log</div>
-      <p style="font-size:13px;color:var(--muted);margin-bottom:12px">ลบประวัติกิจกรรมทั้งหมด ข้อมูลคำขอจะยังอยู่ครบ</p>
-      <button class="btn btn-ghost-red" onclick="clearAuditLog()">🗂 ล้าง Audit Log</button>
-    </div>
-
-    <!-- ลบทั้งหมด -->
-    <div class="card card-p mb12">
-      <div class="sec" style="color:var(--red)">ลบทั้งหมด</div>
-      <p style="font-size:13px;color:var(--muted);margin-bottom:12px">ลบคำขอทุกรายการออกจากระบบ รวมถึงรายการสินค้าที่เกี่ยวข้องทั้งหมด</p>
-      <button class="btn btn-red" onclick="deleteAll()">🗑 ลบข้อมูลทั้งหมด</button>
-    </div>
-
-    <!-- เลือกลบ -->
-    <div class="card card-p">
-      <div class="sec" style="color:var(--red)">เลือกลบเฉพาะบางงาน</div>
-      <p style="font-size:13px;color:var(--muted);margin-bottom:10px">เลือกรายการที่ต้องการลบ แล้วกดปุ่มลบที่เลือก</p>
-      <div style="display:flex;gap:8px;margin-bottom:12px">
-        <button onclick="selectAllDel(true)" style="flex:1;padding:8px;border-radius:8px;border:1.5px solid var(--border);background:#fff;font-size:13px;font-family:'Sarabun',sans-serif;cursor:pointer">เลือกทั้งหมด</button>
-        <button onclick="selectAllDel(false)" style="flex:1;padding:8px;border-radius:8px;border:1.5px solid var(--border);background:#fff;font-size:13px;font-family:'Sarabun',sans-serif;cursor:pointer">ยกเลิกทั้งหมด</button>
+  <!-- Modals Section -->
+  <div id="passwordModal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-md z-[9999] hidden flex items-center justify-center p-4">
+    <div class="glass-card rounded-3xl w-full max-w-sm text-center p-8 border border-rose-500/30 shadow-2xl">
+      <i class="ph-duotone ph-lock-key text-4xl text-rose-400 mb-4"></i>
+      <h3 class="font-black text-white text-xl mb-2 tracking-wide uppercase">System Security</h3>
+      <p class="text-rose-300/70 text-sm mb-6">ฮั่นแน่ จะจัดการข้อมูลเหรอ! ไม่ง่ายนักหรอก... กรุณาใส่รหัสผ่านแอดมิน</p>
+      <input type="password" id="adminPwd" placeholder="•••" class="w-full p-4 glass-input rounded-xl text-center text-3xl font-black mb-6 outline-none shadow-inner" onkeydown="if(event.key==='Enter') verifyAccess()">
+      <div class="flex gap-3 text-white">
+        <button onclick="closeModal('passwordModal')" class="flex-1 py-3 glass-card rounded-xl font-bold">ยกเลิก</button>
+        <button onclick="verifyAccess()" class="flex-1 py-3 bg-gradient-to-r from-rose-600 to-red-600 font-bold rounded-xl shadow-lg">ยืนยัน</button>
       </div>
-      <div id="del-list" style="margin-bottom:12px"></div>
-      <button class="btn btn-red" onclick="deleteSelected()" id="btn-del-selected" disabled>
-        🗑 ลบที่เลือก (<span id="del-count">0</span> รายการ)
-      </button>
     </div>
   </div>
-</div>
 
-</div><!-- /main -->
-</div><!-- /app -->
+  <div id="manageDbModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-[9999] hidden flex items-center justify-center p-4">
+    <div class="glass-card rounded-3xl w-full max-w-2xl max-h-[80vh] flex flex-col shadow-2xl border border-white/5">
+      <div class="p-6 border-b border-white/10 flex justify-between items-center bg-slate-800/50 rounded-t-3xl text-white">
+        <h3 class="font-bold flex items-center gap-2"><i class="ph-duotone ph-folder-open text-rose-400"></i> จัดการฐานข้อมูล</h3>
+        <button onclick="closeModal('manageDbModal')" class="text-slate-400 bg-slate-900 p-2 rounded-full hover:text-rose-400 transition-colors"><i class="ph-bold ph-x text-sm"></i></button>
+      </div>
+      <div class="p-6 overflow-y-auto custom-scrollbar flex-1" id="dbList"></div>
+    </div>
+  </div>
 
-<div id="ld"><div class="spin"></div><p id="ld-txt">กำลังโหลด...</p></div>
-<div id="toast"></div>
+  <div id="deleteConfirmModal" class="fixed inset-0 bg-slate-950/95 backdrop-blur-xl z-[10000] hidden flex items-center justify-center p-4 text-center">
+    <div class="glass-card rounded-3xl w-full max-w-xs p-8 border border-rose-500/50 shadow-[0_0_50px_rgba(225,29,72,0.4)]">
+      <i class="ph-duotone ph-warning-octagon text-5xl text-rose-500 mb-4 animate-bounce"></i>
+      <h3 class="text-white font-bold text-lg mb-2 tracking-wide uppercase">Confirm Erasure</h3>
+      <p id="deleteItemName" class="text-rose-300 text-sm mb-6 bg-rose-500/10 p-3 rounded-xl font-bold"></p>
+      <div class="flex gap-3 text-white font-bold">
+        <button onclick="closeModal('deleteConfirmModal')" class="flex-1 py-3 bg-slate-800 rounded-xl hover:bg-slate-700">ไม่ลบ</button>
+        <button onclick="executeDelete()" class="flex-1 py-3 bg-rose-600 rounded-xl shadow-lg font-black hover:brightness-110">ยืนยัน</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="customDbModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-[9999] hidden flex items-center justify-center p-4 overflow-y-auto pt-20 pb-20 text-white">
+    <div class="glass-card rounded-3xl w-full max-w-md border border-slate-700 m-auto shadow-2xl">
+      <div class="p-6 border-b border-white/10 flex justify-between items-center bg-slate-800/50 rounded-t-3xl">
+        <h3 class="font-bold flex items-center gap-2"><i class="ph-duotone ph-database text-cyan-400"></i> เพิ่มข้อมูลฐานสารเคมี</h3>
+        <button onclick="closeModal('customDbModal')" class="text-slate-400 bg-slate-900 p-2 rounded-full hover:text-rose-400 transition-colors"><i class="ph-bold ph-x text-sm"></i></button>
+      </div>
+      <div class="p-6 space-y-5">
+        <div class="bg-cyan-500/5 p-3 rounded-xl text-[10px] text-cyan-200 border border-cyan-500/10 text-center italic">💡 ใส่ CAS หรือชื่อสารแล้วกด AI Auto-Fill</div>
+        <div><label class="block text-[10px] font-bold text-cyan-400 mb-1 uppercase">ชื่อสารเคมี / สูตรเคมี</label><input type="text" id="newChemName" placeholder="เช่น NaOH" class="w-full p-3 glass-input rounded-xl text-sm"></div>
+        <div><label class="block text-[10px] font-bold text-cyan-400 mb-1 uppercase">Hazard Class</label><select id="newChemClass" class="w-full p-3 glass-input rounded-xl text-sm [&>option]:bg-slate-900"></select></div>
+        <div class="grid grid-cols-2 gap-4">
+          <div><label class="block text-[10px] font-bold text-cyan-400 mb-1 uppercase">CAS No.</label><input type="text" id="newChemCas" class="w-full p-3 glass-input rounded-xl text-sm"></div>
+          <div><label class="block text-[10px] font-bold text-cyan-400 mb-1 uppercase">UN Number</label><input type="text" id="newChemUn" class="w-full p-3 glass-input rounded-xl text-sm"></div>
+        </div>
+        <div class="pt-4 space-y-3">
+          <button id="btnAiAutoFill" onclick="aiAutoFill()" class="w-full py-3 bg-slate-800 border border-cyan-500/30 text-cyan-400 font-bold rounded-xl text-xs flex items-center justify-center gap-2 transition-all hover:bg-slate-700 shadow-inner"><i class="ph-duotone ph-magic-wand text-lg"></i> AI Auto-Fill</button>
+          <button onclick="saveCustomChemical()" class="w-full py-4 bg-gradient-to-r from-cyan-600 to-blue-600 text-white font-black rounded-xl flex items-center justify-center gap-2 shadow-lg transition-transform hover:brightness-110"><i class="ph-bold ph-floppy-disk text-lg"></i> บันทึกข้อมูล</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="matrixModal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-md z-[9999] hidden flex items-center justify-center p-4">
+    <div class="glass-card rounded-3xl w-full max-w-5xl max-h-[90vh] overflow-hidden flex flex-col shadow-2xl border border-white/10">
+      <div class="p-4 flex justify-between items-center bg-slate-800/50 text-white">
+        <h3 class="font-bold flex items-center gap-2"><i class="ph-duotone ph-table text-cyan-400"></i> ตารางอ้างอิง DIW</h3>
+        <button onclick="closeModal('matrixModal')" class="text-slate-400 bg-slate-900 p-2 rounded-full transition-colors"><i class="ph-bold ph-x text-sm"></i></button>
+      </div>
+      <div class="p-4 overflow-y-auto flex-1 bg-slate-900/50 text-center">
+        <img src="01.jpg" alt="Matrix" class="max-w-full h-auto rounded-lg mx-auto shadow-2xl border border-white/5" onerror="this.src='https://raw.githubusercontent.com/atit1912/chem-ai/main/01.jpg'">
+      </div>
+    </div>
+  </div>
 
 <script>
-// ── CONFIG ───────────────────────────────────────────────────
-const GAS_URL = 'https://script.google.com/macros/s/AKfycbyhj7IQB861Cs3SL3HvZ9ZtmJ7rQE9l8YkEjqpMvrhMyHcTeBdd039T2YmSlvZkgTY/exec'
+// --- [1] GLOBAL DECLARATIONS & SYSTEM INIT ---
+var currentLang = 'th';
+var visitCount = 0;
+var analysisCount = 0;
+var audioCtx = null;
+var auditsHistory = [];
+var chemicalDatabase = [];
+var state = { classA: null, classB: null, nameA: null, nameB: null };
+var targetIndex = null; 
 
-// ── CORE ─────────────────────────────────────────────────────
-let sess = null, listData = [], listTab = '', poTab = 'pending'
-let recvPhotos = [], poFormStatus = ''
-const HIST = []
+const CLASS_ORDER = [
+  "1", "2A", "2B", "3A", "3B", "4.1A", "4.1B", "4.2", "4.3", "5.1A", 
+  "5.1B", "5.1C", "5.2", "6.1A", "6.1B", "6.2", "7", "8A", "8B", "10", 
+  "11", "12", "13"
+];
 
-async function api(p) {
-  if (sess?.token) p.token = sess.token
-  const r = await fetch(GAS_URL, { method: 'POST', body: JSON.stringify(p) })
-  return r.json()
+// --- [2] DATASETS ---
+const hazardClasses = {
+  "1": { title: "Class 1: วัตถุระเบิด", icon: "💥", risk: "High", color: "rose", erg: "อพยพทันที ห้ามดับไฟหากไฟลามถึงวัตถุระเบิด", fire: ["Water (Large)"], ppe: ["🚫 Distance"] },
+  "2A": { title: "Class 2A: ก๊าซอัด", icon: "💨", risk: "Medium", color: "blue", erg: "ใช้น้ำฉีดหล่อเย็นถัง ปิดวาล์วหากปลอดภัย", fire: ["Dry Chem", "CO2"], ppe: ["Goggles"] },
+  "2B": { title: "Class 2B: ก๊าซสเปรย์", icon: "💨", risk: "Low", color: "blue", erg: "เคลื่อนย้ายออกจากแหล่งความร้อน", fire: ["Dry Chem"], ppe: ["Goggles"] },
+  "3A": { title: "Class 3A: ของเหลวไวไฟ (ต่ำ)", icon: "🔥", risk: "High", color: "rose", erg: "กำจัดแหล่งประกายไฟ ใช้ทรายดูดซับ", fire: ["Foam", "CO2"], ppe: ["Flame-Resist"] },
+  "3B": { title: "Class 3B: ของเหลวไวไฟ (สูง)", icon: "🔥", risk: "Medium", color: "amber", erg: "ปิดกั้นทางน้ำ ใช้โฟมคลุมไอระเหย", fire: ["Foam"], ppe: ["Gloves"] },
+  "4.1A": { title: "Class 4.1A: ของแข็งไวไฟระเบิด", icon: "🔥", risk: "High", color: "rose", erg: "หลีกเลี่ยงการเสียดสี อพยพ", fire: ["Water Spray"], ppe: ["Respirator"] },
+  "4.1B": { title: "Class 4.1B: ของแข็งไวไฟ", icon: "🔥", risk: "Medium", color: "amber", erg: "กวาดเก็บระวังการฟุ้งกระจาย", fire: ["Water"], ppe: ["Dust Mask"] },
+  "4.2": { title: "Class 4.2: สารลุกไหม้เอง", icon: "🔥", risk: "High", color: "rose", erg: "ระวังการสัมผัสอากาศ ห้ามใช้น้ำ", fire: ["Dry Sand"], ppe: ["Fire Suit"] },
+  "4.3": { title: "Class 4.3: สัมผัสน้ำให้ก๊าซไวไฟ", icon: "💧", risk: "High", color: "rose", erg: "ห้ามใช้น้ำเด็ดขาด! ใช้ทรายแห้งเท่านั้น", fire: ["Class D Powder"], ppe: ["Goggles"] },
+  "5.1A": { title: "Class 5.1A: สารออกซิไดซ์แรง", icon: "⭕", risk: "High", color: "rose", erg: "แยกจากสารติดไฟทันที เร่งปฏิกิริยาเพลิงไหม้", fire: ["Water (Large)"], ppe: ["Face Shield"] },
+  "5.1B": { title: "Class 5.1B: สารออกซิไดซ์", icon: "⭕", risk: "Medium", color: "amber", erg: "ป้องกันการปนเปื้อนสารอินทรีย์", fire: ["Water Spray"], ppe: ["Gloves"] },
+  "5.1C": { title: "Class 5.1C: สารออกซิไดซ์อื่นๆ", icon: "⭕", risk: "Low", color: "amber", erg: "กวาดเก็บด้วยวัสดุไม่ติดไฟ", fire: ["Water Spray"], ppe: ["Goggles"] },
+  "5.2": { title: "Class 5.2: เปอร์ออกไซด์อินทรีย์", icon: "⭕", risk: "High", color: "rose", erg: "เก็บให้เย็น ระวังระเบิดเมื่อร้อน", fire: ["Water Spray"], ppe: ["Chem Suit"] },
+  "6.1A": { title: "Class 6.1A: สารพิษ (ติดไฟ)", icon: "☣️", risk: "High", color: "rose", erg: "อพยพเหนือลม ห้ามสูดดมไอ", fire: ["Foam"], ppe: ["SCBA"] },
+  "6.1B": { title: "Class 6.1B: สารพิษ (ไม่ติดไฟ)", icon: "☣️", risk: "Medium", color: "amber", erg: "ระบายอากาศ กั้นพื้นที่รั่ว", fire: ["Suitable for env"], ppe: ["Respirator"] },
+  "6.2": { title: "Class 6.2: สารติดเชื้อ", icon: "☣️", risk: "High", color: "rose", erg: "ห้ามสัมผัส ใช้น้ำยาฆ่าเชื้อ", fire: ["Suitable for env"], ppe: ["Bio Suit"] },
+  "7": { title: "Class 7: กัมมันตรังสี", icon: "☢️", risk: "High", color: "rose", erg: "กันเขตแจ้งเจ้าหน้าที่ทันที", fire: ["Suitable for env"], ppe: ["Dosimeter"] },
+  "8A": { title: "Class 8A: สารกัดกร่อน (ติดไฟ)", icon: "🧪", risk: "High", color: "rose", erg: "ระวังกระเด็น ใช้สารสะเทิน", fire: ["Dry Chem"], ppe: ["Acid Suit"] },
+  "8B": { title: "Class 8B: สารกัดกร่อน (ไม่ติดไฟ)", icon: "🧪", risk: "Medium", color: "amber", erg: "ซับด้วยวัสดุเฉื่อย ล้างน้ำมาก", fire: ["Suitable for env"], ppe: ["Rubber Gloves"] },
+  "10": { title: "Class 10: ของเหลวติดไฟอื่น", icon: "🛢️", risk: "Low", color: "emerald", erg: "เก็บกวาดด้วยวัสดุดูดซับ", fire: ["Foam"], ppe: ["Gloves"] },
+  "11": { title: "Class 11: ของแข็งติดไฟ", icon: "📦", risk: "Low", color: "emerald", erg: "กวาดเก็บปกติ ระวังฝุ่น", fire: ["Water"], ppe: ["Dust Mask"] },
+  "12": { title: "Class 12: ของเหลวไม่ติดไฟ", icon: "💧", risk: "Low", color: "emerald", erg: "เช็ดทำความสะอาด ป้องกันลื่น", fire: ["Suitable for env"], ppe: ["Standard"] },
+  "13": { title: "Class 13: ของแข็งไม่ติดไฟ", icon: "📦", risk: "Low", color: "emerald", erg: "กวาดเก็บทิ้งตามระเบียบ", fire: ["Suitable for env"], ppe: ["Standard"] }
+};
+
+const matrixRows = {
+  "1":    ["17", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"],
+  "2A":   ["0", "17", "4", "0", "0", "0", "0", "0", "0", "0", "0", "10", "0", "0", "0", "0", "18", "5", "00", "0", "5", "00", "00"],
+  "2B":   ["0", "4", "00", "1", "1", "0", "0", "0", "0", "0", "0", "10", "0", "2", "2", "0", "18", "4", "4", "6", "6", "6", "6"],
+  "3A":   ["0", "0", "1", "17", "00", "0", "0", "0", "0", "0", "0", "0", "0", "18", "9", "0", "18", "3", "9", "00", "3", "00", "00"],
+  "3B":   ["0", "0", "1", "00", "17", "12", "4", "4", "4", "0", "0", "0", "7", "00", "00", "0", "18", "00", "00", "00", "00", "00", "00"],
+  "4.1A": ["0", "0", "0", "0", "12", "17", "12", "0", "0", "0", "0", "0", "14", "0", "0", "0", "18", "12", "12", "12", "12", "12", "12"],
+  "4.1B": ["0", "0", "0", "0", "4", "12", "00", "4", "4", "4", "0", "0", "13", "8", "0", "0", "18", "00", "00", "00", "00", "00", "00"],
+  "4.2":  ["0", "0", "0", "0", "4", "0", "4", "00", "4", "0", "0", "0", "0", "0", "0", "0", "18", "4", "4", "4", "4", "4", "00"],
+  "4.3":  ["0", "0", "0", "0", "4", "0", "4", "4", "00", "0", "0", "0", "0", "0", "0", "0", "18", "4", "4", "4", "4", "4", "00"],
+  "5.1A": ["0", "0", "0", "0", "0", "0", "4", "0", "0", "00", "00", "00", "0", "0", "0", "0", "18", "4", "4", "4", "4", "4", "0"],
+  "5.1B": ["0", "0", "0", "0", "0", "0", "0", "0", "0", "00", "10", "15", "0", "15", "15", "0", "18", "11", "00", "11", "11", "00", "00"],
+  "5.1C": ["0", "10", "10", "0", "0", "0", "0", "0", "0", "00", "15", "17", "0", "0", "0", "0", "18", "10", "10", "10", "10", "10", "10"],
+  "5.2":  ["0", "0", "0", "0", "7", "14", "13", "0", "0", "0", "0", "0", "17", "0", "0", "0", "0", "0", "0", "16", "16", "16", "16"],
+  "6.1A": ["0", "0", "2", "18", "00", "0", "8", "0", "0", "0", "15", "0", "0", "17", "17", "0", "18", "0", "0", "3", "3", "3", "3"],
+  "6.1B": ["0", "0", "2", "9", "00", "0", "0", "0", "0", "0", "15", "0", "0", "17", "17", "0", "18", "0", "0", "3", "3", "3", "3"],
+  "6.2":  ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "00", "0", "0", "0", "0", "0", "0", "0"],
+  "7":    ["0", "18", "18", "18", "18", "18", "18", "18", "18", "18", "18", "18", "0", "18", "18", "0", "18", "18", "18", "18", "18", "18", "18"],
+  "8A":   ["0", "5", "4", "3", "00", "12", "00", "4", "4", "4", "11", "10", "0", "0", "0", "0", "18", "00", "00", "10", "10", "10", "00"],
+  "8B":   ["0", "00", "4", "9", "00", "12", "00", "4", "4", "4", "00", "10", "0", "0", "0", "0", "18", "00", "00", "10", "10", "00", "00"],
+  "10":   ["0", "0", "6", "00", "00", "12", "00", "4", "4", "4", "11", "10", "16", "3", "3", "0", "18", "10", "10", "00", "00", "00", "00"],
+  "11":   ["0", "5", "6", "3", "00", "12", "00", "4", "4", "4", "11", "10", "16", "3", "3", "0", "18", "10", "10", "00", "00", "00", "00"],
+  "12":   ["0", "00", "6", "00", "00", "12", "00", "4", "4", "4", "00", "10", "16", "3", "3", "0", "18", "10", "00", "00", "00", "00", "00"],
+  "13":   ["0", "00", "6", "00", "00", "12", "00", "00", "00", "0",  "00", "10", "16", "3", "3", "0",  "18", "00", "00", "00", "00", "00", "00"]
+};
+
+const defaultChemicalDB = [
+  { name: "LPG (ก๊าซหุงต้ม)", class: "2A", cas: "68476-85-7", un: "1075" },
+  { name: "สเปรย์แอลกอฮอล์", class: "2B", cas: "64-17-5", un: "1950" },
+  { name: "Nitroglycerin", class: "1", cas: "55-63-0", un: "0143" },
+  { name: "เอทานอล 95%", class: "3A", cas: "64-17-5", un: "1170" },
+  { name: "อควาบราวน์", class: "11", cas: "-", un: "-" },
+  { name: "โพวิโดน ไอโอดีน", class: "12", cas: "25655-41-8", un: "-" },
+  { name: "EDTA", class: "12", cas: "60-00-4", un: "-" },
+  { name: "ซันไล", class: "12", cas: "-", un: "-" },
+  { name: "โซเดียมไทโอซัลเฟต", class: "12", cas: "7772-98-7", un: "-" },
+  { name: "แคลเซียมคลอไรด์", class: "12", cas: "10043-52-4", un: "-" },
+  { name: "แคลเซียมคลอไรต์", class: "12", cas: "39475-21-3", un: "-" },
+  { name: "โซเดียมไนไตรท์", class: "5.1B", cas: "7632-00-0", un: "1500" },
+  { name: "ไฮโดรเจนเปอร์ออกไซด์ (30%)", class: "5.1B", cas: "7722-84-1", un: "2014" },
+  { name: "คลอรีนผง", class: "5.1A", cas: "7778-54-3", un: "1748" },
+  { name: "คลอรีนน้ำ", class: "8B", cas: "7681-52-9", un: "1791" },
+  { name: "ไบโอซอล 300", class: "8B", cas: "-", un: "-" },
+  { name: "กรดเกลือ (HCl)", class: "8B", cas: "7647-01-0", un: "1789" },
+  { name: "โซเดียมไฮดรอกไซด์ (โซดาไฟ)", class: "8B", cas: "1310-73-2", un: "1823" },
+  { name: "โซเดียมไบคาร์บอเนต", class: "13", cas: "144-55-8", un: "-" },
+  { name: "แมกนีเซียมคลอไรด์", class: "13", cas: "7786-30-3", un: "-" },
+  { name: "ปูนขาว", class: "13", cas: "1305-62-0", un: "1910" }
+];
+
+const matrixConditions = {
+  "1": "การจัดเก็บของเหลวไวไฟ และก๊าซภายใต้ความดันในภาชนะบรรจุขนาดเล็ก (กระป๋องสเปรย์) สามารถจัดเก็บได้โดยมีเงื่อนไขดังนี้ ต้องจัดให้มีการระบายอากาศ และปริมาณการจัดเก็บสารต้องไม่เกิน 60 เปอร์เซ็นต์ของปริมาณการจัดเก็บทั้งหมด",
+  "2": "ก๊าซภายใต้ความดันในภาชนะบรรจุขนาดเล็ก (กระป๋องสเปรย์) เก็บคละกับสารพิษได้ โดยมีเงื่อนไขต่อไปนี้ ห้องที่มีผนังทนไฟ ขนาดพื้นที่ต้องไม่เกิน 60 ตารางเมตร และปริมาณการจัดเก็บสารไม่เกิน 60 เปอร์เซ็นต์ ของปริมาณการจัดเก็บทั้งหมด อุณหภูมิของห้องต้องไม่เกิน 50 องศาเซลเซียส ต้องมีการระบายอากาศและต้องมีทางออกฉุกเฉิน 2 ทาง",
+  "3": "วัสดุที่เป็นสาเหตุให้เกิดการลุกติดไฟหรือลุกล่ามได้อย่างรวดเร็ว เช่น วัสดุที่ใช้ทำบรรจุภัณฑ์ ควรจัดเก็บแยกบริเวณออกจากสารพิษหรือของเหลวไวไฟ",
+  "4": "ผลิตภัณฑ์ที่ไม่ทำปฏิกิริยากับสารอื่นในขณะเกิดอุบัติเหตุ สามารถเก็บคละกันได้โดยการจัดเก็บแบบแยกห่าง เช่น แยกออกจากกันโดยมีกำแพงกั้น เว้นระยะปลอดภัยให้ห่าง เก็บในบ่อแยกจากกัน",
+  "5": "ห้องเก็บรักษาวัตถุอันตราย ให้จัดเก็บก๊าซภายใต้ความดันได้ไม่เกิน 50 ท่อ ในจำนวนดังกล่าวอนุญาตให้เก็บเป็นก๊าซภายใต้ความดันที่มีคุณสมบัติไวไฟ ออกซิไดส์ หรือก๊าซพิษ เก็บรวมกันได้ไม่เกิน 25 ท่อ สารติดไฟได้ (ประเภท 8A และ 11) (ยกเว้นของเหลวไวไฟ) อาจนำมาเก็บรวมได้ โดยจัดเก็บแบบแยกห่างจากก๊าซภายใต้ความดันด้วยผนังที่ทำจากวัสดุที่ไม่ติดไฟ ที่มีความสูงอย่างน้อย 2 เมตร และมีระยะห่างจากผนังอย่างน้อย 5 เมตร",
+  "6": "อนุญาตให้เก็บคละได้ ถ้ามีข้อกำหนดความปลอดภัยสำหรับสินค้าคงคลังทั้งหมดโดยให้เป็นไปตามข้อกำหนดการจัดเก็บวัตถุอันตรายประเภท 2B",
+  "7": "อนุญาตให้เก็บคละกับของเหลวไวไฟที่มีจุดวาบไฟสูงกว่า 60 องศาเซลเซียส ถ้าการเก็บคละกันนี้ไม่ทำให้เกิดปฏิกิริยาที่เป็นอันตราย (การลุกติดไฟและ/หรือให้ความร้อนออกมา หรือให้ก๊าซไวไฟ หรือให้ก๊าซที่ทำให้เกิดภาวะการขาดออกซิเจน หรือให้ก๊าซพิษ หรือทำให้เกิดบรรยากาศของการกัดกร่อน หรือทำให้เกิดสารที่ไม่เสถียร หรือเพิ่มความดันจนเป็นอันตราย) หากพบว่ามีโอกาสเกิดอันตรายตามที่กล่าว ให้จัดเก็บโดยเว้นระยะห่างที่ปลอดภัย (5 เมตร)",
+  "8": "สารติดไฟที่มีคุณสมบัติเป็นพิษเก็บคละกับของแข็งไวไฟ (ประเภท 4.1B) ได้",
+  "9": "ห้ามเก็บของเหลวไวไฟ (ประเภท 3A) คละกับสารกัดกร่อนที่บรรจุในภาชนะที่แตกง่าย ยกเว้นมีมาตรการป้องกันไม่ให้สารทำปฏิกิริยากันได้ ในกรณีที่เกิดอุบัติเหตุขึ้น",
+  "10": "อนุญาตให้เก็บคละกันได้ ยกเว้นก๊าซไวไฟ",
+  "11": "ต้องจัดทำมาตรการป้องกันเพิ่มเติมเพื่อให้เกิดความปลอดภัยในการเก็บรักษาโดยได้รับความเห็นชอบจากกรมโรงงานอุตสาหกรรม",
+  "12": "วัตถุอันตรายของแข็งไวไฟ (ประเภท 4.1 A) ที่มีคุณสมบัติการระเบิดอาจเก็บคละกับวัตถุอันตรายอื่นคือ ประเภท 3B 4.1B 8A 8B 10 11 12 หรือ 13 ได้ถ้าระยะห่างที่ปลอดภัยซึ่งจัดไว้เพื่อป้องกันอันตรายที่จะมีต่อบริเวณโดยรอบอาคารคลังสินค้ามีเพียงพอหรืออาจต้องกำหนดให้มากขึ้น ซึ่งต้องตรวจสอบเป็นกรณี ๆ ไป",
+  "13": "อนุญาตให้เก็บวัตถุอันตรายเปอร์ออกไซด์อินทรีย์ (ประเภท 5.2) คละกับของแข็งไวไฟ (ประเภท 4.1B)",
+  "14": "อนุญาตให้เก็บคละกับดินขับ (propellants) และตัวจุดชนวน (radical initiators) ถ้าสารนั้นไม่มีส่วนผสมของโลหะหนัก",
+  "15": "การเก็บสารออกซิไดส์ ประเภท 5.1B อาจอนุญาตให้เก็บคละกับวัตถุอันตรายประเภท 6.1A 6.2B ได้ซึ่งสามารถเก็บได้ปริมาณสูงถึง 20 เมตริกตัน โดยต้องมีมาตรการความปลอดภัยดังนี้ อาคารคลังสินค้าต้องมีระบบเตือนภัยไฟไหม้ ระบบดับเพลิงอัตโนมัติ และทีมผจญเพลิงระดับกึ่งมืออาชีพของบริษัท (พนักงานบริษัททำหน้าที่ดับเพลิงอย่างเดียวพร้อมมีรถดับเพลิงของบริษัท) ถ้ามีสารไม่ถึง 1 เมตริกตัน ไม่ต้องมีมาตรการเสริมดังกล่าว",
+  "16": "การเก็บวัตถุอันตรายประเภทเปอร์ออกไซด์อินทรีย์รวมกับวัตถุอันตรายอื่นๆ จำเป็นต้องออกแบบและตรวจสอบแต่ละกรณีว่าระยะห่างปลอดภัย (ระหว่างอาคารคลังสินค้าและชุมชน) ที่กำหนดขึ้นโดยรอบอาคารคลังสินค้ามีเพียงพอหรือต้องกำหนดให้มากขึ้น เพื่อป้องกันโอกาสที่จะเกิดอันตราย",
+  "17": "ให้พิจารณาตามข้อกำหนดด้านความปลอดภัยเฉพาะของวัตถุอันตรายแต่ละประเภท",
+  "18": "วัสดุกัมมันตรังสี ควรแยกจัดเก็บตามข้อกำหนดด้านความปลอดภัยของหน่วยงาน IAEA และได้รับการอนุมัติจากหน่วยงานของรัฐที่เกี่ยวข้อง"
+};
+
+// --- [3] CORE FUNCTIONS & LOGIC ---
+
+function initCounters() {
+    visitCount = parseInt(localStorage.getItem('chemNexus_Visits') || "0") + 1;
+    analysisCount = parseInt(localStorage.getItem('chemNexus_Analyses') || "0");
+    localStorage.setItem('chemNexus_Visits', visitCount);
+    const vEl = document.getElementById('visitCount');
+    const aEl = document.getElementById('analysisCount');
+    if(vEl) vEl.textContent = visitCount.toLocaleString();
+    if(aEl) aEl.textContent = analysisCount.toLocaleString();
 }
 
-const $   = id => document.getElementById(id)
-const fmt = n => (parseFloat(n)||0).toLocaleString('th-TH', {minimumFractionDigits:2})
-const ld  = (m='กำลังโหลด...') => { const e=$('ld-txt'); if(e) e.textContent=m; const d=$('ld'); if(d) d.style.display='flex' }
-const ul  = () => { const d=$('ld'); if(d) d.style.display='none' }
-
-function toast(m, t='') {
-  const e = $('toast'); e.textContent = m
-  e.className = 'on' + (t ? ' ' + t : '')
-  setTimeout(() => e.className = '', 3000)
+function incrementAnalysis() {
+    analysisCount++;
+    localStorage.setItem('chemNexus_Analyses', analysisCount);
+    const aEl = document.getElementById('analysisCount');
+    if(aEl) aEl.textContent = analysisCount.toLocaleString();
 }
 
-// ── NAV ──────────────────────────────────────────────────────
-function go(id, navEl) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('on'))
-  $(id).classList.add('on')
-  if (id !== 'pg-dash') HIST.push(id)
-  else HIST.length = 0
-  const noNav = ['pg-new','pg-det','pg-apv','pg-po-form','pg-recv-form','pg-uf']
-  $('bnav').style.display = noNav.includes(id) ? 'none' : 'flex'
-  if (navEl) setNavOn(navEl)
-  if (id === 'pg-dash')   loadDash()
-  if (id === 'pg-new')    initNewForm()
-  if (id === 'pg-po')     loadPOList()
-  if (id === 'pg-recv')   loadRecvList()
-  if (id === 'pg-usr')    loadUsers()
-  if (id === 'pg-del')    loadDelList()
-  if (id === 'pg-rpt')    loadRpt()
+function initDatabase() {
+    const stored = localStorage.getItem('chemNexusDB');
+    chemicalDatabase = stored ? JSON.parse(stored) : [...defaultChemicalDB];
+    const hist = localStorage.getItem('chemNexusHistory');
+    auditsHistory = hist ? JSON.parse(hist) : [];
+    renderHistory(); 
+    initCounters();
 }
-function back() {
-  HIST.pop()
-  const prev = HIST[HIST.length-1] || 'pg-dash'
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('on'))
-  $(prev).classList.add('on')
-  const noNav = ['pg-new','pg-det','pg-apv','pg-po-form','pg-recv-form','pg-uf']
-  $('bnav').style.display = noNav.includes(prev) ? 'none' : 'flex'
-  if (prev === 'pg-po') loadPOList()
-}
-function setNavOn(el) {
-  document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('on'))
-  el.classList.add('on')
-}
-function goList(status) {
-  listTab = status
-  $('list-title').textContent = status || 'ใบขอซื้อทั้งหมด'
-  go('pg-list')
-  loadList()
-}
-function togglePw() { const i=$('lp'); i.type = i.type==='password' ? 'text' : 'password' }
 
-// ── AUTH ─────────────────────────────────────────────────────
-async function doLogin() {
-  const u = $('lu').value.trim(), p = $('lp').value
-  $('lerr').style.display = 'none'
-  if (!u || !p) { $('lerr').textContent='กรุณากรอกให้ครบ'; $('lerr').style.display='block'; return }
-  $('btn-login').disabled = true; $('btn-login').textContent = 'กำลังเข้าสู่ระบบ...'
-  try {
-    const r = await api({ action:'login', username:u, password:p })
-    if (r.success) {
-      sess = r; sess.loginTime = Date.now()
-      localStorage.setItem('sop_sess', JSON.stringify(sess))
-      startApp()
+function getAudioCtx() {
+    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    if (audioCtx.state === 'suspended') audioCtx.resume();
+    return audioCtx;
+}
+
+function playSound(t) {
+    try {
+        const ctx = getAudioCtx(); 
+        const osc = ctx.createOscillator(), gain = ctx.createGain(); 
+        osc.connect(gain); gain.connect(ctx.destination);
+        if(t==='warn') { osc.type='sawtooth'; osc.frequency.setValueAtTime(300,ctx.currentTime); osc.frequency.linearRampToValueAtTime(150,ctx.currentTime+0.2); gain.gain.setValueAtTime(0.2,ctx.currentTime); gain.gain.linearRampToValueAtTime(0,ctx.currentTime+0.3); osc.start(); osc.stop(ctx.currentTime+0.3); }
+        else if(t==='zap') { osc.type='square'; osc.frequency.setValueAtTime(800,ctx.currentTime); osc.frequency.exponentialRampToValueAtTime(40,ctx.currentTime+0.3); gain.gain.setValueAtTime(0.2,ctx.currentTime); gain.gain.exponentialRampToValueAtTime(0.01,ctx.currentTime+0.3); osc.start(); osc.stop(ctx.currentTime+0.3); }
+        else if(t==='fusion') { osc.type='sine'; osc.frequency.setValueAtTime(100,ctx.currentTime); osc.frequency.exponentialRampToValueAtTime(800,ctx.currentTime+2.0); gain.gain.setValueAtTime(0,ctx.currentTime); gain.gain.linearRampToValueAtTime(0.15,ctx.currentTime+0.8); gain.gain.linearRampToValueAtTime(0,ctx.currentTime+2.5); osc.start(); osc.stop(ctx.currentTime+2.8); }
+    } catch(e) {}
+}
+
+function runAmbientReactor() {
+  const item1 = document.getElementById('ambient-item-1'), item2 = document.getElementById('ambient-item-2');
+  const reactorIcons = ["🧪", "⚗️", "🧬", "🧊", "🫧", "💧", "🔥", "💥", "☢️", "☣️", "⭕", "🔋"];
+  function nextReaction() {
+    if (!item1 || !item2) return;
+    item1.textContent = reactorIcons[Math.floor(Math.random() * reactorIcons.length)];
+    item2.textContent = reactorIcons[Math.floor(Math.random() * reactorIcons.length)];
+    item1.style.left = '20%'; item2.style.left = '70%'; item1.style.opacity = '1'; item2.style.opacity = '1';
+    item1.style.transform = 'scale(1) rotate(0deg)'; item2.style.transform = 'scale(1) rotate(0deg)';
+    setTimeout(() => {
+      item1.style.left = '45%'; item2.style.left = '45%';
+      setTimeout(() => {
+        item1.style.transform = 'scale(2.5) rotate(45deg)'; item2.style.transform = 'scale(0)';
+        item1.style.opacity = '0'; item1.textContent = "✨";
+        setTimeout(nextReaction, 1500);
+      }, 2000);
+    }, 100);
+  }
+  nextReaction();
+}
+
+function openModal(id) { document.getElementById(id).classList.remove('hidden'); }
+function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
+
+function openPasswordModal() { document.getElementById('adminPwd').value=''; openModal('passwordModal'); }
+
+function verifyAccess() { 
+    if(document.getElementById('adminPwd').value === "007") { 
+        closeModal('passwordModal'); 
+        renderDbList(); 
+        openModal('manageDbModal'); 
     } else {
-      $('lerr').textContent = r.message; $('lerr').style.display = 'block'
+        alert("รหัสผ่านไม่ถูกต้อง!"); 
     }
-  } catch(e) { $('lerr').textContent='เชื่อมต่อไม่ได้'; $('lerr').style.display='block' }
-  finally { $('btn-login').disabled=false; $('btn-login').textContent='เข้าสู่ระบบ' }
 }
 
-function doLogout() {
-  if (!confirm('ออกจากระบบ?')) return
-  sess = null; localStorage.removeItem('sop_sess'); location.reload()
+function renderDbList() {
+    const container = document.getElementById('dbList');
+    if(chemicalDatabase.length===0) { container.innerHTML = '<p class="text-center py-10">ไม่มีข้อมูลในระบบ</p>'; return; }
+    container.innerHTML = chemicalDatabase.map((c,i) => `
+        <div class="flex items-center justify-between p-4 bg-slate-900/60 rounded-xl border border-white/10 mb-3 shadow-inner">
+            <div class="flex-1"><p class="font-bold text-white text-sm">${c.name}</p><p class="text-[10px] text-slate-400 mt-1 uppercase">Class: ${c.class} | CAS: ${c.cas || '-'}</p></div>
+            <div class="flex gap-2"><button onclick="editChem(${i})" class="p-2 bg-amber-500/10 text-amber-500 rounded-lg"><i class="ph ph-pencil"></i></button>
+            <button onclick="confirmDel(${i})" class="p-2 bg-rose-500/10 text-rose-500 rounded-lg"><i class="ph ph-trash"></i></button></div>
+        </div>`).join('');
 }
 
-function checkSess() {
-  const s = localStorage.getItem('sop_sess')
-  if (s) {
-    sess = JSON.parse(s)
-    if (Date.now() - (sess.loginTime||0) > 8*60*60*1000) {
-      sess = null; localStorage.removeItem('sop_sess'); return
+function confirmDel(i) { 
+    targetIndex = i; 
+    document.getElementById('deleteItemName').textContent = chemicalDatabase[i].name; 
+    playSound('warn'); 
+    openModal('deleteConfirmModal'); 
+}
+
+function executeDelete() { 
+    chemicalDatabase.splice(targetIndex, 1); 
+    localStorage.setItem('chemNexusDB', JSON.stringify(chemicalDatabase)); 
+    renderDbList(); 
+    initDropdown('A'); 
+    initDropdown('B'); 
+    closeModal('deleteConfirmModal'); 
+    playSound('zap'); 
+}
+
+function editChem(i) { 
+    const c = chemicalDatabase[i]; 
+    document.getElementById('newChemName').value=c.name; 
+    document.getElementById('newChemClass').value=c.class; 
+    document.getElementById('newChemCas').value=c.cas; 
+    document.getElementById('newChemUn').value=c.un; 
+    chemicalDatabase.splice(i,1); 
+    closeModal('manageDbModal'); 
+    openModal('customDbModal'); 
+}
+
+function fetchStructure(name, side) {
+    const url = `https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/${encodeURIComponent(name)}/PNG`;
+    const imgEl = document.getElementById(`struct${side}`);
+    if (!imgEl) return;
+    imgEl.src = url;
+    imgEl.onerror = () => { imgEl.src = ''; };
+}
+
+async function aiAutoFill() {
+    const n = document.getElementById('newChemName'), cas = document.getElementById('newChemCas'), cl = document.getElementById('newChemClass'), un = document.getElementById('newChemUn'), btn = document.getElementById('btnAiAutoFill');
+    const nVal = n.value.trim().toLowerCase(), casVal = cas.value.replace(/-/g, '').trim();
+    if(!nVal && !casVal) return alert(currentLang === 'th' ? "กรุณาระบุชื่อหรือ CAS" : "Please specify Name or CAS");
+    const orig = btn.innerHTML; btn.innerHTML = '<i class="ph ph-spinner animate-spin"></i> Processing...'; btn.disabled = true;
+    const found = chemicalDatabase.find(c => (casVal && (c.cas||"").replace(/-/g,'')===casVal) || (nVal && c.name.toLowerCase().includes(nVal)));
+    if(found) { setTimeout(() => { n.value = found.name; cl.value = found.class; cas.value = found.cas; un.value = found.un; btn.innerHTML = "Success!"; setTimeout(() => { btn.innerHTML = orig; btn.disabled = false; }, 1500); }, 500); return; }
+    try {
+        const term = casVal || nVal;
+        const res = await fetch(`https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/${encodeURIComponent(term)}/property/IUPACName,MolecularFormula,CID/JSON`);
+        if(res.ok) { const d = await res.json(), p = d.PropertyTable.Properties[0]; n.value = p.IUPACName || nVal; alert(`🌐 AI Found:\n${p.IUPACName}\nChoose Class manually.`); }
+        else alert("Not found");
+    } catch(e) { alert("Network Error"); }
+    btn.innerHTML = orig; btn.disabled = false;
+}
+
+function initDropdown(side) {
+    const input = document.getElementById(`search${side}`), list = document.getElementById(`list${side}`);
+    function render(f = "") {
+        const cf = f.replace(/-/g, '').toLowerCase();
+        const opts = [...chemicalDatabase, ...CLASS_ORDER.map(k => ({ name: hazardClasses[k].title, class: k }))];
+        const filtered = opts.filter(o => o.name.toLowerCase().includes(f.toLowerCase()) || (o.cas && o.cas.replace(/-/g,'').includes(cf)));
+        list.innerHTML = filtered.map(o => `<li onclick="selectItem('${side}', '${o.class}', '${o.name}', '${o.cas||''}', '${o.un||''}')" class="px-5 py-4 hover:bg-slate-800 cursor-pointer border-b border-white/5 flex items-center gap-4">
+            <span class="text-2xl text-white">${hazardClasses[o.class].icon}</span>
+            <div class="text-left"><p class="font-bold text-white text-sm">${o.name}</p><p class="text-[10px] text-cyan-400 uppercase">Class ${o.class}</p></div></li>`).join('');
+        list.classList.toggle('hidden', filtered.length === 0);
     }
-    startApp()
-  }
+    input.addEventListener("focus", () => { render(input.value); list.classList.remove("hidden"); getAudioCtx(); });
+    input.addEventListener("input", e => render(e.target.value));
+    document.addEventListener("click", e => { if(!document.getElementById(`searchState${side}`).contains(e.target)) list.classList.add("hidden"); });
 }
 
-function startApp() {
-  $('pg-login').style.display = 'none'; $('main').style.display = 'block'
-  setupMenus(); go('pg-dash')
+function selectItem(s, cl, name, cas, un) {
+    state[`class${s}`] = cl; state[`name${s}`] = name;
+    document.getElementById(`searchState${s}`).classList.add("hidden");
+    const card = document.getElementById(`selectedState${s}`); card.classList.remove("hidden"); card.classList.add("fade-in");
+    document.getElementById(`icon${s}`).textContent = hazardClasses[cl].icon;
+    document.getElementById(`name${s}`).textContent = name;
+    document.getElementById(`class${s}`).textContent = `Class ${cl}`;
+    document.getElementById(`casUn${s}`).textContent = cas || un ? `CAS: ${cas||'-'} | UN: ${un||'-'}` : '';
+    const d = hazardClasses[cl], risk = document.getElementById(`risk${s}`);
+    risk.textContent = `${d.risk} RISK`; risk.className = `text-[10px] font-black px-2 py-1 rounded border border-${d.color}-500/50 bg-${d.color}-500/10 text-${d.color}-400`;
+    fetchStructure(name, s);
+    if(s === 'A' && !state.classB) setTimeout(() => document.getElementById('containerB').scrollIntoView({ behavior: 'smooth', block: 'center' }), 200);
+    if(state.classA && state.classB) autoAnalyze();
 }
 
-function hasRole(r) {
-  const role = sess?.user?.role || ''
-  if (r === 'admin')   return ['Administration','Administrator'].includes(role)
-  if (r === 'manager') return ['Farm Manager','Administrator'].includes(role)
-  if (r === 'super')   return role === 'Administrator'
-  return false
+function clearSelection(s) { 
+    state[`class${s}`] = null; 
+    document.getElementById(`search${s}`).value = ""; 
+    document.getElementById(`selectedState${s}`).classList.add("hidden"); 
+    document.getElementById(`searchState${s}`).classList.remove("hidden"); 
+    document.getElementById("resultContainer").classList.add("hidden"); 
 }
 
-function setupMenus() {
-  const u = sess?.user
-  $('d-name').textContent = u?.name || '-'
-  $('d-role').textContent = 'สิทธิ์: ' + (u?.role || '-')
-  $('d-av').textContent   = u?.name?.[0]?.toUpperCase() || '🦐'
-  // ตั้ง KPI เป็น 0 ก่อน
-  ;['s-total','s-pend','s-apv','s-rej','s-ship','s-done'].forEach(id => { const e=$(id); if(e) e.textContent='0' })
-  const sv = $('s-val'); if(sv) sv.textContent = '0'
-  if (hasRole('manager')) { $('m-apv').style.display='flex' }
-  if (hasRole('admin'))   { $('m-po').style.display='flex'; $('m-recv').style.display='flex' }
-  if (hasRole('super'))   { $('m-usr').style.display='flex'; $('m-del').style.display='flex' }
+function resetScan() { clearSelection('A'); clearSelection('B'); window.scrollTo({ top: 0, behavior: 'smooth' }); }
+
+function toggleLang() { currentLang = currentLang === 'th' ? 'en' : 'th'; document.getElementById('langBtnText').textContent = currentLang.toUpperCase(); document.querySelectorAll('.lang-text').forEach(el => el.textContent = el.getAttribute(`data-${currentLang}`)); if(state.classA && state.classB) autoAnalyze(); }
+
+function autoAnalyze() {
+    const c1 = state.classA, c2 = state.classB;
+    const idxB = CLASS_ORDER.indexOf(c2);
+    let val = matrixRows[c1][idxB];
+    let decision = (val === "0" || !val) ? { color: "RED" } : (val === "00" ? { color: "GREEN" } : { color: "YELLOW", code: val });
+    
+    document.getElementById("resultContainer").classList.add("hidden");
+    const fusion = document.getElementById("fusionContainer"); fusion.classList.remove("hidden", "opacity-0");
+    
+    document.getElementById('fusionIconA').textContent = hazardClasses[c1].icon;
+    document.getElementById('fusionIconB').textContent = hazardClasses[c2].icon;
+    
+    setTimeout(() => fusion.scrollIntoView({ behavior: 'smooth', block: 'center' }), 100);
+    playSound('fusion');
+    
+    setTimeout(() => {
+        fusion.classList.add("opacity-0");
+        setTimeout(() => {
+            fusion.classList.add("hidden"); renderResult(decision, c1, c2);
+            saveToHistory(decision.color); incrementAnalysis();
+            document.getElementById('resultContainer').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 500);
+    }, 2500);
 }
 
-// ── DASHBOARD ────────────────────────────────────────────────
-async function loadDash() {
-  try {
-    const r = await api({ action:'getDashboard' })
-    if (!r.success) return
-    const s = r.stats
-    $('s-total').textContent = s.total    ?? 0
-    $('s-pend').textContent  = s.pending  ?? 0
-    $('s-apv').textContent   = s.approved ?? 0
-    $('s-rej').textContent   = s.rejected ?? 0
-    $('s-ship').textContent  = s.delivery ?? 0
-    $('s-done').textContent  = s.done     ?? 0
-    $('s-val').textContent   = s.totalValue >= 1000000
-      ? (s.totalValue/1000000).toFixed(1)+'M'
-      : s.totalValue >= 1000 ? (s.totalValue/1000).toFixed(0)+'k'
-      : (s.totalValue || 0).toString()
-    updateBadges(s)
-
-    const el = $('dash-recent')
-    if (!r.recent?.length) { el.innerHTML='<div class="empty"><p>ยังไม่มีคำขอ</p></div>'; return }
-    el.innerHTML = r.recent.map(req => `
-      <div class="ri" style="border-left-color:${statusColor(req.status)}" onclick="openDet('${req.id}')">
-        <div class="ri-top">
-          <span class="ri-id">${req.id}</span>
-          <span class="tag ${statusTag(req.status)}">${req.status}</span>
-        </div>
-        <div class="ri-title">${req.purpose || '-'}</div>
-        <div class="ri-meta">
-          <span>👤 ${req.requester}</span>
-          <span>📅 ${fdate(req.date)}</span>
-          <span style="font-weight:600">฿${fmt(req.amount)}</span>
-        </div>
-      </div>`).join('')
-  } catch(e) {}
+function saveToHistory(status) {
+    const item = { status, nameA: state.nameA, nameB: state.nameB, time: new Date().toLocaleTimeString('th-TH') };
+    auditsHistory.unshift(item); auditsHistory = auditsHistory.slice(0, 6);
+    localStorage.setItem('chemNexusHistory', JSON.stringify(auditsHistory));
+    renderHistory();
 }
 
-// ── REQUEST LIST ──────────────────────────────────────────────
-async function loadList() {
-  ld()
-  try {
-    const r = await api({ action:'getRequests', status: listTab })
-    if (r.success) {
-      listData = r.data
-      // init year dropdown จากข้อมูลจริง
-      const yearEl = $('fl-year')
-      if (yearEl && yearEl.options.length <= 1) {
-        const years = [...new Set(listData.map(d => d.date?.substring(0,4)).filter(Boolean))].sort().reverse()
-        years.forEach(y => {
-          const opt = document.createElement('option')
-          opt.value = y; opt.textContent = parseInt(y) + 543
-          yearEl.appendChild(opt)
-        })
-      }
-      // init dept dropdown
-      const deptEl = $('fl-dept')
-      if (deptEl && deptEl.options.length <= 1) {
-        const depts = [...new Set(listData.map(d => d.department).filter(Boolean))].sort()
-        depts.forEach(dep => {
-          const opt = document.createElement('option')
-          opt.value = dep; opt.textContent = dep
-          deptEl.appendChild(opt)
-        })
-      }
-      filterList()
+function renderHistory() {
+    const container = document.getElementById('historyList');
+    if (!container) return;
+    container.innerHTML = auditsHistory.map(h => {
+        let c = h.status === 'RED' ? 'rose' : (h.status === 'YELLOW' ? 'amber' : 'emerald');
+        return `<div class="glass-card p-3 rounded-2xl flex items-center justify-between border-l-4 border-l-${c}-500 shadow-lg mb-1">
+        <div class="min-w-0 flex-1"><p class="text-[10px] font-bold text-white truncate">${h.nameA} + ${h.nameB}</p>
+        <p class="text-[9px] text-slate-500 uppercase tracking-tighter">${h.status} • ${h.time}</p></div>
+        <i class="ph ph-shield-check text-${c}-500 ml-2"></i></div>`;
+    }).join('');
+}
+
+function renderResult(res, c1, c2) {
+    const hA = hazardClasses[c1], hB = hazardClasses[c2], container = document.getElementById("resultContainer");
+    container.classList.remove("hidden");
+    
+    let colorClass, titleText, iconName;
+    if(res.color === "RED") { colorClass = "rose"; titleText = currentLang === 'th' ? "อันตราย ห้ามเก็บร่วมกันเด็ดขาด" : "Danger: Incompatible"; iconName = "warning-octagon"; }
+    else if(res.color === "YELLOW") { colorClass = "amber"; titleText = currentLang === 'th' ? "จัดเก็บร่วมกันได้ (ต้องมีเงื่อนไข)" : "Conditional: Check Requirements"; iconName = "warning"; }
+    else { colorClass = "emerald"; titleText = currentLang === 'th' ? "ปลอดภัย สามารถจัดเก็บร่วมกันได้" : "Safe: Compatible"; iconName = "check-circle"; }
+
+    document.getElementById("resultBadge").textContent = res.color + " STATUS";
+    document.getElementById("resultTitle").textContent = titleText;
+    document.getElementById("resultIconWrapper").innerHTML = `<i class="ph ph-${iconName} text-${colorClass}-400 text-5xl"></i>`;
+    document.getElementById("resultHeader").className = `p-8 md:p-10 flex items-center gap-6 bg-gradient-to-r from-${colorClass}-900/90 to-slate-900 border-b border-${colorClass}-500/30`;
+    document.getElementById("resultGlow").className = `absolute inset-0 bg-${colorClass}-500 opacity-20`;
+    
+    document.getElementById("actionBox").className = `rounded-2xl p-8 border border-${colorClass}-500/30 bg-${colorClass}-500/5 h-full shadow-inner relative overflow-hidden`;
+    
+    let resultActionsHTML = `
+        <li class="flex items-start gap-4"><i class="ph-bold ph-shield-check text-2xl text-${colorClass}-400"></i> 
+        <span><strong class="text-white block mb-1">บทวิเคราะห์ AI:</strong> ระบบตรวจสอบพบปฏิกิริยาระหว่าง ${state.nameA} และ ${state.nameB} อยู่ในเกณฑ์ <span class="text-${colorClass}-400 font-black">${res.color}</span></span></li>
+        <li class="mt-4 text-sm text-slate-400 italic font-normal">อ้างอิงตามมาตรฐานกรมโรงงานอุตสาหกรรม (DIW Matrix)</li>`;
+
+    // แสดงรายละเอียดเงื่อนไขถ้ารหัสเป็นสีเหลือง
+    if (res.color === "YELLOW" && res.code) {
+        const conditionText = matrixConditions[res.code] || "มีเงื่อนไขพิเศษ โปรดตรวจสอบคู่มือความปลอดภัย DIW";
+        resultActionsHTML += `
+        <li class="mt-6 p-5 bg-amber-500/10 border border-amber-500/30 rounded-xl flex items-start gap-3 shadow-inner">
+            <i class="ph-fill ph-info text-amber-400 text-2xl mt-0.5"></i>
+            <div>
+                <strong class="text-amber-400 block mb-1 text-sm uppercase tracking-wider">เงื่อนไขการจัดเก็บข้อที่ ${res.code}</strong>
+                <span class="text-sm text-slate-300 leading-relaxed font-medium block mt-1">${conditionText}</span>
+            </div>
+        </li>`;
     }
-  } catch(e) { toast('โหลดล้มเหลว','er') }
-  finally { ul() }
-}
-function setListTab(s, el) {
-  listTab = s
-  document.querySelectorAll('#tabs-list .tab').forEach(t => t.classList.remove('on'))
-  el.classList.add('on')
-  loadList()
-}
-function filterList() {
-  const q     = ($('sch-list')?.value||'').toLowerCase()
-  const month = $('fl-month')?.value || ''
-  const year  = $('fl-year')?.value  || ''
-  const dept  = $('fl-dept')?.value  || ''
 
-  let filtered = listData
+    document.getElementById("resultActions").innerHTML = resultActionsHTML;
 
-  // กรองตามสถานะ tab
-  if (listTab) filtered = filtered.filter(r => r.status === listTab)
-
-  // กรองเดือน (date format: YYYY-MM-DD)
-  if (month) filtered = filtered.filter(r => r.date?.substring(5,7) === month)
-
-  // กรองปี
-  if (year) filtered = filtered.filter(r => r.date?.substring(0,4) === year)
-
-  // กรองหน่วยงาน
-  if (dept) filtered = filtered.filter(r => r.department === dept)
-
-  // ค้นหา
-  if (q) filtered = filtered.filter(r =>
-    r.id?.toLowerCase().includes(q) ||
-    r.purpose?.toLowerCase().includes(q) ||
-    r.requester?.toLowerCase().includes(q)
-  )
-
-  // แสดงจำนวนผลลัพธ์
-  const titleEl = $('list-title')
-  if (titleEl) titleEl.textContent = (listTab || 'ใบขอซื้อทั้งหมด') + ` (${filtered.length})`
-
-  renderListData(filtered)
-}
-function renderList() { renderListData(listData) }
-function renderListData(data) {
-  const el = $('ls-list')
-  if (!el) return
-  if (!data?.length) {
-    el.innerHTML = '<div class="empty"><svg viewBox="0 0 24 24"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg><p>ไม่มีข้อมูล</p></div>'
-    return
-  }
-  el.innerHTML = data.map(r => `
-    <div class="ri" style="border-left-color:${statusColor(r.status)}" onclick="openDet('${r.id}')">
-      <div class="ri-top">
-        <span class="ri-id">${r.id}</span>
-        <span class="tag ${statusTag(r.status)}">${r.status}</span>
-      </div>
-      <div class="ri-title">${r.purpose || '-'}</div>
-      <div class="ri-meta">
-        <span>👤 ${r.requester}</span>
-        <span>📅 ${fdate(r.date)}</span>
-        <span>🗓 ต้องการ ${fdate(r.requiredDate)}</span>
-        <span style="font-weight:600">฿${fmt(r.amount)}</span>
-      </div>
-    </div>`).join('')
+    const fires = [...new Set([...hA.fire, ...hB.fire])], ppes = [...new Set([...hA.ppe, ...hB.ppe])];
+    document.getElementById("fireGuide").innerHTML = fires.map(f => `<span class="bg-rose-500/20 text-rose-300 px-2 py-1 rounded border border-rose-500/30 text-[10px] font-bold">${f}</span>`).join('');
+    document.getElementById("ppeGuide").innerHTML = ppes.map(p => `<span class="bg-cyan-500/20 text-cyan-300 px-2 py-1 rounded border border-cyan-500/30 text-[10px] font-bold">${p}</span>`).join('');
+    document.getElementById("ergGuide").textContent = `[${c1}]: ${hA.erg} | [${c2}]: ${hB.erg}`;
+    document.getElementById("btnSds").onclick = () => window.open(`https://www.google.com/search?q=SDS+${encodeURIComponent(state.nameA)}`, '_blank');
 }
 
-// ── REQUEST DETAIL ────────────────────────────────────────────
-async function openDet(id) {
-  ld('กำลังโหลด...')
-  try {
-    const r = await api({ action:'getRequestById', req_id:id })
-    if (!r.success) { toast(r.message,'er'); return }
-    renderDet(r.data); go('pg-det')
-  } catch(e) { toast('โหลดล้มเหลว','er') }
-  finally { ul() }
+function saveCustomChemical() {
+    const n = document.getElementById('newChemName').value, cl = document.getElementById('newChemClass').value, cas = document.getElementById('newChemCas').value, un = document.getElementById('newChemUn').value;
+    if(!n || !cl) return alert(currentLang === 'th' ? "กรุณาระบุชื่อและกลุ่มสาร" : "Please specify name and class");
+    chemicalDatabase.unshift({ name: n, class: cl, cas: cas, un: un });
+    localStorage.setItem('chemNexusDB', JSON.stringify(chemicalDatabase));
+    alert(currentLang === 'th' ? "บันทึกสำเร็จ!" : "Success!"); closeModal('customDbModal'); initDropdown('A'); initDropdown('B');
 }
 
-const STEPS = ['ยื่นคำขอ','อนุมัติ','เปิด PR','สร้าง PO','รอส่งของ','ตรวจรับ','ปิดงาน']
-const STEP_MAP = {
-  'รออนุมัติ':1,'อนุมัติแล้ว':2,'ไม่อนุมัติ':2,
-  'เปิด PR แล้ว':3,'สร้าง PO แล้ว':4,
-  'รอส่งของ':5,'อยู่ระหว่างจัดส่ง':5,'รับบางส่วน':5,
-  'รับครบแล้ว':6,'พบปัญหา':6,'ปิดงาน':7
-}
-
-function renderDet(d) {
-  $('det-title').textContent = d.id
-  const step = STEP_MAP[d.status] || 1
-  const isRej = d.status === 'ไม่อนุมัติ'
-
-  // stepper
-  const stepHtml = STEPS.map((lbl,i) => {
-    const n      = i + 1
-    const done   = !isRej && n < step
-    const active = !isRej && n === step
-    const reject = isRej && n === 2
-    return `<div class="st-item ${reject?'reject':done?'done':active?'active':''}">
-      <div class="st-dot">${reject?'✕':done?'✓':n}</div>
-      <div class="st-lbl">${reject?'ไม่อนุมัติ':lbl}</div>
-    </div>`
-  }).join('')
-
-  // action buttons
-  let actions = ''
-  if (hasRole('manager') && d.status === 'รออนุมัติ') {
-    actions += `<button class="btn btn-navy mb12" onclick="openApproval('${d.id}')">พิจารณา / อนุมัติ →</button>`
-  }
-  if (hasRole('admin') && ['อนุมัติแล้ว','เปิด PR แล้ว'].includes(d.status)) {
-    actions += `<button class="btn btn-amber mb12" onclick="openPOForm('${d.id}')">อัพเดท PR/PO →</button>`
-  }
-
-  // items table
-  const itemsHtml = d.items?.length ? `
-    <div class="card"><div class="card-p">
-      <div class="sec">รายการสินค้า (${d.items.length} รายการ)</div>
-      ${d.items.map(it => `
-        <div class="dr">
-          <div class="dk" style="width:auto;flex:1">${it.matCode ? '<span style="font-size:11px;color:var(--muted)">'+it.matCode+'</span><br>':''}<b>${it.description}</b><br><span style="font-size:12px;color:var(--muted)">${it.qty} ${it.unit} × ฿${fmt(it.unitPrice)}</span></div>
-          <div class="dv" style="text-align:right;font-weight:600">฿${fmt(it.total)}</div>
-        </div>`).join('')}
-      <div style="display:flex;justify-content:flex-end;padding-top:8px;font-weight:700;color:var(--blue)">รวม ฿${fmt(d.amount)}</div>
-    </div></div>` : ''
-
-  // PO list
-  const poHtml = d.pos?.length ? `
-    <div class="card"><div class="card-p">
-      <div class="sec">ใบสั่งซื้อ (PO)</div>
-      ${d.pos.map(p => `
-        <div class="po-row">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
-            <span style="font-family:monospace;font-weight:600;color:var(--purple)">${p.id}</span>
-            <span class="tag ${statusTag(p.deliveryStatus)}">${p.deliveryStatus||'-'}</span>
-          </div>
-          <div style="font-size:12px;color:var(--muted)">${p.supplier||'-'} · ส่ง ${fdate(p.deliveryDate)}</div>
-          ${hasRole('admin') && p.deliveryStatus && p.deliveryStatus !== 'รับครบแล้ว' ?
-            `<button onclick="openRecvForm('${p.id}','${d.id}','${p.supplier||''}')" style="margin-top:8px;background:var(--teal);color:#fff;border:none;border-radius:8px;padding:6px 14px;font-size:13px;font-family:'Sarabun',sans-serif;cursor:pointer">ตรวจรับ →</button>` : ''}
-        </div>`).join('')}
-    </div></div>` : ''
-
-  // timeline
-  const tlHtml = d.logs?.length ? `
-    <div class="card"><div class="card-p">
-      <div class="sec">Timeline ประวัติดำเนินงาน</div>
-      ${d.logs.map((l,i) => `
-        <div class="tl-item">
-          <div style="display:flex;flex-direction:column;align-items:center;width:36px;flex-shrink:0">
-            <div class="tl-ico" style="background:${tlBg(l.action)}">${tlIcon(l.action)}</div>
-            ${i < d.logs.length-1 ? '<div style="width:2px;flex:1;min-height:24px;margin:2px auto 0;background:var(--border)"></div>' : ''}
-          </div>
-          <div class="tl-body" style="padding-bottom:${i < d.logs.length-1 ? '12px' : '0'}">
-            <div class="tl-act" style="color:${tlColor(l.action)}">${tlLabel(l.action)}</div>
-            <div class="tl-meta">👤 ${l.by||'-'} · 🕐 ${fdatetime(l.timestamp)||'-'}</div>
-            ${l.after ? `<div class="tl-note" style="margin-top:6px">${l.after}</div>` : ''}
-          </div>
-        </div>`).join('')}
-    </div></div>` : `
-    <div class="card"><div class="card-p">
-      <div class="sec">Timeline ประวัติดำเนินงาน</div>
-      <div class="empty" style="padding:24px"><p>ยังไม่มีบันทึกกิจกรรม</p></div>
-    </div></div>`
-
-  $('det-body').innerHTML = `
-    ${actions}
-    <div class="card"><div class="card-p">
-      <div class="sec">สถานะดำเนินการ</div>
-      <div class="stepper">${stepHtml}</div>
-    </div></div>
-    <div class="card"><div class="card-p">
-      <div class="sec">ข้อมูลคำขอ</div>
-      <div class="dr"><div class="dk">ผู้ขอ</div><div class="dv">${d.requester}</div></div>
-      <div class="dr"><div class="dk">วันที่ยื่น</div><div class="dv">${fdate(d.date)}</div></div>
-      <div class="dr"><div class="dk">วันที่ต้องการ</div><div class="dv">${fdate(d.requiredDate)}</div></div>
-      <div class="dr"><div class="dk">CCA</div><div class="dv">${d.cca||'-'}</div></div>
-      <div class="dr"><div class="dk">IO Number</div><div class="dv">${d.io||'-'}</div></div>
-      <div class="dr"><div class="dk">มูลค่ารวม</div><div class="dv" style="font-weight:700;color:var(--blue)">฿${fmt(d.amount)}</div></div>
-      <div class="dr"><div class="dk">อนุมัติโดย</div><div class="dv">${d.approvedBy||'-'}</div></div>
-      <div class="dr"><div class="dk">วัตถุประสงค์</div><div class="dv">${d.purpose||'-'}</div></div>
-      ${d.remark ? `<div class="dr"><div class="dk">หมายเหตุ</div><div class="dv">${d.remark}</div></div>` : ''}
-    </div></div>
-    ${itemsHtml}${poHtml}${tlHtml}
-    ${hasRole('super') ? `
-    <div class="card" style="border-color:var(--red);margin-top:8px"><div class="card-p">
-      <div class="sec" style="color:var(--red);margin-bottom:8px">⚠️ Admin Zone</div>
-      <p style="font-size:13px;color:var(--muted);margin-bottom:10px">การลบจะไม่สามารถกู้คืนได้ ใช้เฉพาะกรณีข้อมูลผิดพลาดเท่านั้น</p>
-      <button class="btn btn-ghost-red" onclick="deleteRequest('${d.id}')">
-        🗑 ลบงาน ${d.id} ออกจากระบบ
-      </button>
-    </div></div>` : ''}`
-}
-
-// ── NEW REQUEST ───────────────────────────────────────────────
-let nrItems = []
-function initNewForm() {
-  $('nr-who').value = sess?.user?.name || ''
-  const today = new Date(); today.setDate(today.getDate()+7)
-  $('nr-date').value = today.toISOString().split('T')[0]
-  $('nr-remark').value = ''
-  nrItems = []; addItem(); calcTotal()
-  // แสดงปุ่มถังขยะเฉพาะ Admin
-  const btnClear = $('btn-clear-form')
-  if (btnClear) btnClear.style.display = hasRole('super') || hasRole('admin') ? 'flex' : 'none'
-}
-function addItem() {
-  nrItems.push({ matCode:'', description:'', purpose:'', qty:'', unit:'ชิ้น', unitPrice:'', stock:'' })
-  renderItems()
-}
-function removeItem(idx) { nrItems.splice(idx,1); renderItems(); calcTotal() }
-function updateItem(idx, field, val) {
-  nrItems[idx][field] = val
-  // อัพเดทช่อง "รวม" ของรายการนั้นโดยตรง ไม่ต้อง re-render ทั้งหมด
-  const totalInput = document.querySelector(`#item-total-${idx}`)
-  if (totalInput) {
-    const t = (parseFloat(nrItems[idx].qty)||0) * (parseFloat(nrItems[idx].unitPrice)||0)
-    totalInput.value = fmt(t)
-  }
-  calcTotal()
-}
-function renderItems() {
-  const units = ['ชิ้น','อัน','ชุด','กล่อง','ถุง','ขวด','ม้วน','เมตร','กิโลกรัม','ลิตร','ถัง','โหล','รีม','เส้น','ถัง']
-  $('items-wrap').innerHTML = nrItems.map((it,i) => `
-    <div class="item-card">
-      <button class="item-del" onclick="removeItem(${i})">✕</button>
-      <div style="font-size:12px;font-weight:600;color:var(--muted);margin-bottom:8px">รายการที่ ${i+1}</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
-        <div><label class="fl" style="font-size:12px">Mat Code</label>
-          <input class="fc" style="font-size:14px" placeholder="MAT-001" value="${it.matCode}"
-            oninput="updateItem(${i},'matCode',this.value)"></div>
-        <div><label class="fl" style="font-size:12px">สต็อกปัจจุบัน</label>
-          <input type="number" class="fc" style="font-size:14px" placeholder="0" value="${it.stock}"
-            oninput="updateItem(${i},'stock',this.value)"></div>
-      </div>
-      <div class="fg mt8"><label class="fl" style="font-size:12px">รายการสินค้า <span class="req">*</span></label>
-        <input class="fc" placeholder="ชื่อสินค้า / รายละเอียด" value="${it.description}"
-          oninput="updateItem(${i},'description',this.value)"></div>
-      <div class="fg mt8"><label class="fl" style="font-size:12px">วัตถุประสงค์/การนำไปใช้ <span class="req">*</span></label>
-        <input class="fc" placeholder="เช่น ใช้ในโครงการ, ซ่อมอุปกรณ์..." value="${it.purpose||''}"
-          oninput="updateItem(${i},'purpose',this.value)"></div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
-        <div><label class="fl" style="font-size:12px">จำนวน <span class="req">*</span></label>
-          <input type="number" class="fc" style="font-size:14px" placeholder="0" value="${it.qty}"
-            oninput="updateItem(${i},'qty',this.value);calcTotal()"></div>
-        <div><label class="fl" style="font-size:12px">หน่วย</label>
-          <select class="fc" style="font-size:14px" onchange="updateItem(${i},'unit',this.value)">
-            ${units.map(u=>`<option ${u===it.unit?'selected':''}>${u}</option>`).join('')}
-          </select></div>
-        <div><label class="fl" style="font-size:12px">ราคา/หน่วย <span class="req">*</span></label>
-          <input type="number" class="fc" style="font-size:14px" placeholder="0.00" value="${it.unitPrice}"
-            oninput="updateItem(${i},'unitPrice',this.value);calcTotal()"></div>
-        <div><label class="fl" style="font-size:12px">รวม</label>
-          <input id="item-total-${i}" class="fc" style="font-size:14px;font-weight:600;background:#f5f5f5" readonly
-            value="${fmt((parseFloat(it.qty)||0)*(parseFloat(it.unitPrice)||0))}"></div>
-      </div>
-    </div>`).join('')
-}
-function calcTotal() {
-  const t = nrItems.reduce((s,it)=>s+(parseFloat(it.qty)||0)*(parseFloat(it.unitPrice)||0),0)
-  $('nr-total').textContent = fmt(t)
-}
-function clearNewForm() {
-  if (nrItems.some(it=>it.description||it.qty||it.purpose) || $('nr-remark')?.value) {
-    if (!confirm('ล้างข้อมูลทั้งหมดในฟอร์ม?')) return
-  }
-  initNewForm()
-  toast('ล้างข้อมูลแล้ว')
-}
-async function submitNew() {
-  if (!$('nr-date').value) { toast('กรุณาระบุวันที่ต้องการ','er'); return }
-  if (!nrItems.length) { toast('กรุณาเพิ่มรายการสินค้าอย่างน้อย 1 รายการ','er'); return }
-  if (nrItems.some(it=>!it.description||!it.qty||!it.unitPrice||!it.purpose)) { toast('กรุณากรอกรายการสินค้าและวัตถุประสงค์ให้ครบ','er'); return }
-  const total = nrItems.reduce((s,it)=>s+(parseFloat(it.qty)||0)*(parseFloat(it.unitPrice)||0),0)
-  // ใช้วัตถุประสงค์จากสินค้าทุกรายการรวมกัน
-  const purposeSummary = nrItems.map(it=>it.purpose).filter(Boolean).join(' / ')
-  $('btn-nr').disabled = true; ld('กำลังบันทึก...')
-  try {
-    const r = await api({ action:'createRequest', purpose: purposeSummary,
-      requiredDate:$('nr-date').value, remark:$('nr-remark').value,
-      attachment:$('nr-attach').value, items:nrItems, totalAmount:total })
-    if (r.success) { toast('ยื่นคำขอสำเร็จ · '+r.reqId,'ok'); clearNewForm(); back() }
-    else toast(r.message,'er')
-  } catch(e) { toast('เกิดข้อผิดพลาด','er') }
-  finally { ul(); $('btn-nr').disabled=false }
-}
-
-async function deleteRequest(id) {
-  if (!confirm(`⚠️ ลบงาน ${id} ?\n\nข้อมูลจะถูกลบถาวร ไม่สามารถกู้คืนได้`)) return
-  if (!confirm(`ยืนยันอีกครั้ง — ลบถาวร!\nงาน: ${id}`)) return
-  ld('กำลังลบ...')
-  try {
-    const r = await api({ action:'deleteRequest', req_id:id })
-    toast(r.message, r.success?'ok':'er')
-    if (r.success) { back(); loadDash() }
-  } catch(e) { toast('เกิดข้อผิดพลาด','er') }
-  finally { ul() }
-}
-
-// ── APPROVAL ──────────────────────────────────────────────────
-async function openApproval(id) {
-  ld()
-  try {
-    const r = await api({ action:'getRequestById', req_id:id })
-    if (!r.success) { toast(r.message,'er'); return }
-    const d = r.data
-    $('apv-req-id').value = id; $('apv-decision').value = ''
-    $('btn-apv-submit').disabled = true
-    $('apv-approve-fields').style.display='none'; $('apv-reject-fields').style.display='none'
-    document.querySelectorAll('#btn-apv-yes,#btn-apv-no').forEach(b=>{b.style.borderColor='var(--border)';b.style.background='#fff';b.style.color='var(--muted)'})
-    $('apv-cca').value=''; $('apv-io').value=''; $('apv-remark').value=''
-    $('apv-title').textContent = 'พิจารณา · ' + id
-    $('apv-summary').innerHTML = `
-      <div class="dr"><div class="dk">ผู้ขอ</div><div class="dv">${d.requester}</div></div>
-      <div class="dr"><div class="dk">วัตถุประสงค์</div><div class="dv">${d.purpose}</div></div>
-      <div class="dr"><div class="dk">วันที่ต้องการ</div><div class="dv">${fdate(d.requiredDate)}</div></div>
-      <div class="dr"><div class="dk">มูลค่า</div><div class="dv" style="font-weight:700">฿${fmt(d.amount)}</div></div>
-      <div class="dr"><div class="dk">รายการ</div><div class="dv">${d.items?.map(it=>it.description+' ('+it.qty+' '+it.unit+')').join(', ')}</div></div>`
-    go('pg-apv')
-  } catch(e) { toast('โหลดล้มเหลว','er') }
-  finally { ul() }
-}
-
-function setDecision(d) {
-  $('apv-decision').value = d
-  const yes = $('btn-apv-yes'), no = $('btn-apv-no')
-  if (d === 'approve') {
-    yes.style.borderColor='var(--green)'; yes.style.background='#E8F5E9'; yes.style.color='var(--green)'
-    no.style.borderColor='var(--border)';  no.style.background='#fff'; no.style.color='var(--muted)'
-    $('apv-approve-fields').style.display='block'; $('apv-reject-fields').style.display='none'
-  } else {
-    no.style.borderColor='var(--red)'; no.style.background='#FFEBEE'; no.style.color='var(--red)'
-    yes.style.borderColor='var(--border)'; yes.style.background='#fff'; yes.style.color='var(--muted)'
-    $('apv-approve-fields').style.display='none'; $('apv-reject-fields').style.display='block'
-  }
-  $('btn-apv-submit').disabled = false
-}
-
-async function submitApproval() {
-  const decision = $('apv-decision').value
-  const id = $('apv-req-id').value
-  if (!decision) return
-  if (decision==='reject' && !$('apv-remark').value.trim()) { toast('กรุณาระบุเหตุผล','er'); return }
-  $('btn-apv-submit').disabled = true; ld('กำลังบันทึก...')
-  try {
-    let r
-    if (decision === 'approve') {
-      r = await api({ action:'approveRequest', req_id:id, cca:$('apv-cca').value, io:$('apv-io').value })
-    } else {
-      r = await api({ action:'rejectRequest', req_id:id, remark:$('apv-remark').value })
-    }
-    toast(r.message, r.success?'ok':'er')
-    if (r.success) { back(); back() }
-  } catch(e) { toast('เกิดข้อผิดพลาด','er') }
-  finally { ul(); $('btn-apv-submit').disabled=false }
-}
-
-// ── PR/PO ─────────────────────────────────────────────────────
-const PO_STATUSES = [
-  {v:'เปิด PR แล้ว',    l:'📂 เปิด PR'},
-  {v:'สร้าง PO แล้ว',  l:'🛒 สร้าง PO'},
-  {v:'รอส่งของ',       l:'📦 รอส่งของ'},
-  {v:'อยู่ระหว่างจัดส่ง',l:'🚚 กำลังส่ง'},
-  {v:'รับบางส่วน',     l:'📬 รับบางส่วน'},
-  {v:'รับครบแล้ว',    l:'✅ รับครบ'},
-  {v:'พบปัญหา',       l:'⚠️ พบปัญหา'},
-  {v:'ปิดงาน',        l:'🔒 ปิดงาน'},
-]
-
-async function loadPOList() {
-  ld()
-  try {
-    const r = await api({ action:'getRequests', status:'' })
-    if (!r.success) return
-    const PENDING = ['อนุมัติแล้ว','เปิด PR แล้ว','สร้าง PO แล้ว','รอส่งของ','อยู่ระหว่างจัดส่ง','รับบางส่วน']
-    let data = r.data
-    if (poTab === 'pending') data = data.filter(d=>PENDING.includes(d.status))
-    const el = $('ls-po')
-    if (!data.length) { el.innerHTML='<div class="empty"><p>ไม่มีรายการ</p></div>'; return }
-    el.innerHTML = data.map(d => `
-      <div class="ri" style="border-left-color:${statusColor(d.status)}">
-        <div class="ri-top">
-          <span class="ri-id">${d.id}</span>
-          <span class="tag ${statusTag(d.status)}">${d.status}</span>
-        </div>
-        <div class="ri-title">${d.purpose}</div>
-        <div class="ri-meta"><span>👤 ${d.requester}</span><span>฿${fmt(d.amount)}</span></div>
-        <button onclick="openPOForm('${d.id}')" style="margin-top:8px;background:var(--blue);color:#fff;border:none;border-radius:8px;padding:7px 16px;font-size:13px;font-family:'Sarabun',sans-serif;cursor:pointer">อัพเดท →</button>
-      </div>`).join('')
-  } catch(e) {}
-  finally { ul() }
-}
-
-function setPoTab(t, el) {
-  poTab = t
-  document.querySelectorAll('#pg-po .tab').forEach(b=>b.classList.remove('on'))
-  el.classList.add('on')
-  loadPOList()
-}
-
-async function openPOForm(reqId) {
-  $('pf-req-id').value = reqId; poFormStatus = ''
-  $('poform-title').textContent = 'อัพเดท · ' + reqId
-  $('poform-info').textContent = reqId + ' — เลือกสถานะและกรอกข้อมูล'
-  $('pf-pr').value=''; $('pf-prdate').value=''; $('pf-po').value=''
-  $('pf-podate').value=''; $('pf-supplier').value=''; $('pf-delivery').value=''; $('pf-remark').value=''
-  // render status buttons
-  $('status-btns').innerHTML = PO_STATUSES.map(s=>`
-    <button onclick="selectPoStatus('${s.v}',this)"
-      style="padding:10px 6px;border-radius:10px;border:2px solid var(--border);background:#fff;font-size:13px;font-family:'Sarabun',sans-serif;cursor:pointer;font-weight:500;color:var(--muted)">
-      ${s.l}
-    </button>`).join('')
-  go('pg-po-form')
-}
-
-function selectPoStatus(v, el) {
-  poFormStatus = v
-  document.querySelectorAll('#status-btns button').forEach(b=>{b.style.borderColor='var(--border)';b.style.background='#fff';b.style.color='var(--muted)'})
-  el.style.borderColor = statusColor(v); el.style.background = statusBg(v); el.style.color = statusColor(v)
-}
-
-async function submitPOForm() {
-  if (!poFormStatus) { toast('กรุณาเลือกสถานะ','er'); return }
-  $('btn-pf').disabled=true; ld('กำลังบันทึก...')
-  try {
-    const r = await api({ action:'updatePRPO',
-      req_id: $('pf-req-id').value, newStatus: poFormStatus,
-      prNumber: $('pf-pr').value, prDate: $('pf-prdate').value,
-      poNumber: $('pf-po').value, poDate: $('pf-podate').value,
-      supplier: $('pf-supplier').value, deliveryDate: $('pf-delivery').value,
-    })
-    toast(r.message, r.success?'ok':'er')
-    if (r.success) { back(); loadPOList() }
-  } catch(e) { toast('เกิดข้อผิดพลาด','er') }
-  finally { ul(); $('btn-pf').disabled=false }
-}
-
-// ── RECEIVING ─────────────────────────────────────────────────
-async function loadRecvList() {
-  ld()
-  try {
-    const r = await api({ action:'getRequests', status:'' })
-    if (!r.success) return
-    const SHIP = ['รอส่งของ','อยู่ระหว่างจัดส่ง','รับบางส่วน','สร้าง PO แล้ว']
-    const data = r.data.filter(d => SHIP.includes(d.status) && d.pos?.length)
-    const el = $('ls-recv')
-    if (!data.length) { el.innerHTML='<div class="empty"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><p>ไม่มี PO รอรับสินค้า</p></div>'; return }
-    el.innerHTML = data.map(d => d.pos.map(p => `
-      <div class="ri" style="border-left-color:var(--teal)" onclick="openRecvForm('${p.id}','${d.id}','${p.supplier||''}')">
-        <div class="ri-top">
-          <span class="ri-id" style="color:var(--purple)">${p.id}</span>
-          <span class="tag ${statusTag(p.deliveryStatus)}">${p.deliveryStatus||'-'}</span>
-        </div>
-        <div class="ri-title">${p.supplier||'-'}</div>
-        <div class="ri-meta"><span>📋 ${d.id}</span><span>🗓 ส่ง ${fdate(p.deliveryDate)}</span></div>
-      </div>`).join('')).join('')
-  } catch(e) {}
-  finally { ul() }
-}
-
-function openRecvForm(poId, reqId, supplier) {
-  $('rf-po-id').value=poId; $('rf-req-id').value=reqId; $('rf-supplier').value=supplier
-  $('rf-info').textContent = poId + ' · ' + supplier
-  $('rf-date').value = new Date().toISOString().split('T')[0]
-  $('rf-qty').value=''; $('rf-remark').value=''
-  $('rf-cond').selectedIndex=0; $('rf-status').selectedIndex=0
-  recvPhotos=[]; $('rf-previews').innerHTML=''; $('rf-photo-count').textContent=0
-  go('pg-recv-form')
-}
-
-function addPhotos(e) {
-  const files = Array.from(e.target.files)
-  const prev = $('rf-previews')
-  files.forEach(f => {
-    recvPhotos.push(f)
-    const reader = new FileReader()
-    reader.onload = ev => {
-      const div = document.createElement('div')
-      div.style.cssText='position:relative;aspect-ratio:1'
-      div.innerHTML=`<img src="${ev.target.result}" style="width:100%;height:100%;object-fit:cover;border-radius:8px;border:1px solid var(--border)">`
-      prev.appendChild(div)
-    }
-    reader.readAsDataURL(f)
-  })
-  $('rf-photo-count').textContent = recvPhotos.length
-}
-
-async function submitRecv() {
-  if (!$('rf-date').value) { toast('กรุณาระบุวันที่','er'); return }
-  $('btn-rf').disabled=true; ld('กำลังบันทึก...')
-  try {
-    // อัพโหลดรูปก่อน
-    const urls = []
-    for (const file of recvPhotos) {
-      try {
-        const b64 = await fileToBase64(file)
-        const r = await api({ action:'uploadImage', image_data:b64, mime_type:file.type, file_name:file.name })
-        if (r.success) urls.push(r.url)
-      } catch(e) {}
-    }
-    const r = await api({ action:'saveReceiving',
-      po_id: $('rf-po-id').value, req_id: $('rf-req-id').value, supplier: $('rf-supplier').value,
-      receivedDate: $('rf-date').value, receivedQty: $('rf-qty').value,
-      condition: $('rf-cond').value, status: $('rf-status').value,
-      remark: $('rf-remark').value, photoUrls: urls.join(', ')
-    })
-    toast(r.message, r.success?'ok':'er')
-    if (r.success) { back(); loadRecvList() }
-  } catch(e) { toast('เกิดข้อผิดพลาด','er') }
-  finally { ul(); $('btn-rf').disabled=false }
-}
-
-function fileToBase64(file) {
-  return new Promise((res,rej) => {
-    const reader = new FileReader()
-    reader.onload = e => {
-      const img = new Image()
-      img.onload = () => {
-        const MAX=1200; let w=img.width, h=img.height
-        if(w>MAX||h>MAX){if(w>h){h=Math.round(h*MAX/w);w=MAX}else{w=Math.round(w*MAX/h);h=MAX}}
-        const cv=document.createElement('canvas'); cv.width=w; cv.height=h
-        cv.getContext('2d').drawImage(img,0,0,w,h)
-        res(cv.toDataURL('image/jpeg',0.8).split(',')[1])
-      }
-      img.src = e.target.result
-    }
-    reader.onerror = rej
-    reader.readAsDataURL(file)
-  })
-}
-
-// ── REPORT ────────────────────────────────────────────────────
-async function loadRpt() {
-  ld()
-  try {
-    const r = await api({ action:'getRequests', status:'' })
-    if (!r.success) { ul(); return }
-    let data = r.data || []
-    const statusFilter = $('rpt-status')?.value || ''
-    const ccaFilter    = $('rpt-cca')?.value    || ''
-    if (statusFilter) data = data.filter(d => d.status === statusFilter)
-    if (ccaFilter)    data = data.filter(d => d.cca === ccaFilter)
-
-    const total   = data.length
-    const totalV  = data.reduce((s,d) => s+(parseFloat(d.amount)||0), 0)
-    const approved= data.filter(d => !['รออนุมัติ','ไม่อนุมัติ'].includes(d.status)).length
-    const done    = data.filter(d => d.status==='รับครบแล้ว' || d.status==='ปิดงาน').length
-
-    const kpiEl = $('rpt-kpi')
-    if (kpiEl) kpiEl.innerHTML = `
-      <div class="scard s0" style="cursor:default"><div class="snum">${total}</div><div class="slbl">คำขอทั้งหมด</div></div>
-      <div class="scard s1" style="cursor:default"><div class="snum">${approved}</div><div class="slbl">ดำเนินการแล้ว</div></div>
-      <div class="scard s4" style="cursor:default"><div class="snum">${done}</div><div class="slbl">เสร็จสิ้น</div></div>
-      <div class="scard" style="cursor:default"><div class="snum" style="font-size:16px;color:var(--amber)">${totalV>=1000000?(totalV/1000000).toFixed(1)+'M':fmt(totalV)}</div><div class="slbl">มูลค่ารวม (฿)</div></div>`
-
-    const listEl = $('rpt-list')
-    if (listEl) listEl.innerHTML = data.length ? data.map(d=>`
-      <div class="ri" style="border-left-color:${statusColor(d.status)}" onclick="openDet('${d.id}')">
-        <div class="ri-top"><span class="ri-id">${d.id}</span><span class="tag ${statusTag(d.status)}">${d.status}</span></div>
-        <div class="ri-title">${d.purpose}</div>
-        <div class="ri-meta"><span>${d.requester}</span><span>${fdate(d.date)}</span><span>฿${fmt(d.amount)}</span></div>
-      </div>`).join('')
-      : '<div class="empty"><p>ไม่มีข้อมูล</p></div>'
-  } catch(e) { console.error(e) }
-  finally { ul() }
-}
-
-// ── DELETE DATA (Admin) ───────────────────────────────────────
-let delData = []
-
-async function loadDelList() {
-  ld()
-  try {
-    const r = await api({ action:'getRequests', status:'' })
-    if (!r.success) return
-    delData = r.data || []
-    renderDelList()
-  } catch(e) {}
-  finally { ul() }
-}
-
-function renderDelList() {
-  const el = $('del-list')
-  if (!el) return
-  if (!delData.length) { el.innerHTML='<div class="empty"><p>ไม่มีข้อมูล</p></div>'; return }
-  el.innerHTML = delData.map((d,i) => `
-    <label style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);cursor:pointer">
-      <input type="checkbox" data-idx="${i}" style="width:18px;height:18px;accent-color:var(--red);flex-shrink:0" onchange="updateDelCount()">
-      <div style="flex:1;min-width:0">
-        <div style="font-size:13px;font-weight:600;color:var(--blue-mid)">${d.id}</div>
-        <div style="font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${d.requester} · ${d.purpose||'-'}</div>
-        <div style="font-size:11px;color:var(--muted)">${fdate(d.date)} · <span class="tag ${statusTag(d.status)}" style="font-size:10px;padding:1px 6px">${d.status}</span></div>
-      </div>
-    </label>`).join('')
-  updateDelCount()
-}
-
-function updateDelCount() {
-  const checked = document.querySelectorAll('#del-list input[type=checkbox]:checked')
-  const count   = checked.length
-  const el      = $('del-count'); if(el) el.textContent = count
-  const btn     = $('btn-del-selected'); if(btn) btn.disabled = count === 0
-}
-
-function selectAllDel(val) {
-  document.querySelectorAll('#del-list input[type=checkbox]').forEach(cb => cb.checked = val)
-  updateDelCount()
-}
-
-async function clearAuditLog() {
-  if (!confirm('ล้าง Audit Log ทั้งหมด?\n\nข้อมูลคำขอจะไม่ถูกลบ')) return
-  ld('กำลังล้าง Log...')
-  try {
-    const r = await api({ action:'clearAuditLog' })
-    toast(r.message, r.success?'ok':'er')
-  } catch(e) { toast('เกิดข้อผิดพลาด','er') }
-  finally { ul() }
-}
-
-async function deleteAll() {
-  if (!confirm(`⚠️ ลบคำขอทั้งหมด ${delData.length} รายการ?\n\nไม่สามารถกู้คืนได้`)) return
-  if (!confirm('ยืนยันอีกครั้ง — ลบถาวรทั้งหมด!')) return
-  ld('กำลังลบทั้งหมด...')
-  try {
-    const r = await api({ action:'deleteAllRequests' })
-    toast(r.message, r.success?'ok':'er')
-    if (r.success) { delData=[]; renderDelList(); loadDash() }
-  } catch(e) { toast('เกิดข้อผิดพลาด','er') }
-  finally { ul() }
-}
-
-async function deleteSelected() {
-  const checked = Array.from(document.querySelectorAll('#del-list input[type=checkbox]:checked'))
-  const ids     = checked.map(cb => delData[parseInt(cb.dataset.idx)]?.id).filter(Boolean)
-  if (!ids.length) return
-  if (!confirm(`ลบ ${ids.length} รายการที่เลือก?\n${ids.join(', ')}\n\nไม่สามารถกู้คืนได้`)) return
-  ld(`กำลังลบ ${ids.length} รายการ...`)
-  try {
-    let ok = 0
-    for (const id of ids) {
-      const r = await api({ action:'deleteRequest', req_id:id })
-      if (r.success) ok++
-    }
-    toast(`ลบสำเร็จ ${ok}/${ids.length} รายการ`, 'ok')
-    await loadDelList()
-    loadDash()
-  } catch(e) { toast('เกิดข้อผิดพลาด','er') }
-  finally { ul() }
-}
-
-// ── USERS ─────────────────────────────────────────────────────
-let usersData = []
-
-async function loadUsers() {
-  ld()
-  try {
-    const r = await api({ action:'getUsers' })
-    if (!r.success) { toast(r.message,'er'); return }
-    usersData = r.data || []
-    renderUsers(usersData)
-  } catch(e) {}
-  finally { ul() }
-}
-
-function filterUsers() {
-  const q = ($('sch-usr')?.value||'').toLowerCase()
-  if (!q) { renderUsers(usersData); return }
-  renderUsers(usersData.filter(u =>
-    u.name?.toLowerCase().includes(q) ||
-    u.username?.toLowerCase().includes(q) ||
-    u.department?.toLowerCase().includes(q) ||
-    u.role?.toLowerCase().includes(q)
-  ))
-}
-
-function renderUsers(list) {
-  const el = $('ls-usr')
-  if (!el) return
-  if (!list?.length) { el.innerHTML='<div class="empty"><p>ไม่พบผู้ใช้</p></div>'; return }
-  el.innerHTML = list.map(u => `
-    <div class="ri" style="border-left-color:${u.active==='active'?'var(--green)':'var(--muted)'}" onclick="openUserForm('${u.id}')">
-      <div class="ri-top">
-        <span class="ri-id">${u.username}</span>
-        <span class="tag ${u.active==='active'?'t-apv':'t-no'}">${u.active==='active'?'ใช้งาน':'ระงับ'}</span>
-      </div>
-      <div class="ri-title">${u.name}</div>
-      <div class="ri-meta">
-        <span>👤 ${u.role}</span>
-        <span>🏢 ${u.department||'-'}</span>
-        ${u.cca ? `<span>📋 ${u.cca}</span>` : ''}
-      </div>
-    </div>`).join('')
-}
-
-function openUserForm(id) {
-  $('uf-id').value = id||''
-  $('uf-title').textContent = id ? 'แก้ไขผู้ใช้' : 'เพิ่มผู้ใช้'
-  if (!id) {
-    ['uf-name','uf-un','uf-pw','uf-dept'].forEach(i=>$(i).value='')
-    $('uf-role').value='Employee'; $('uf-cca').value=''; $('uf-active').value='active'
-  }
-  go('pg-uf')
-}
-
-async function submitUser() {
-  if (!$('uf-name').value.trim()||!$('uf-un').value.trim()) { toast('กรุณากรอกให้ครบ','er'); return }
-  $('btn-uf').disabled=true; ld('กำลังบันทึก...')
-  try {
-    const r = await api({ action:'saveUser',
-      user_id:$('uf-id').value, name:$('uf-name').value, username:$('uf-un').value,
-      password:$('uf-pw').value, role:$('uf-role').value, cca:$('uf-cca').value,
-      department:$('uf-dept').value, active:$('uf-active').value,
-    })
-    toast(r.message,r.success?'ok':'er')
-    if(r.success){ back(); loadUsers() }
-  } catch(e){ toast('เกิดข้อผิดพลาด','er') }
-  finally{ ul(); $('btn-uf').disabled=false }
-}
-
-// ── HELPERS ───────────────────────────────────────────────────
-function fdate(d) {
-  if (!d) return '-'
-  try {
-    // ถ้าเป็น dd/MM/yyyy HH:mm:ss จาก GAS → แยก parse
-    if (/^\d{2}\/\d{2}\/\d{4}/.test(String(d))) {
-      const parts = String(d).split(/[/ :]/)
-      const dt = new Date(parts[2], parts[1]-1, parts[0])
-      return dt.toLocaleDateString('th-TH', {day:'2-digit', month:'short', year:'2-digit'})
-    }
-    // ISO หรือ format อื่น
-    const dt = new Date(d)
-    if (isNaN(dt)) return String(d)
-    return dt.toLocaleDateString('th-TH', {day:'2-digit', month:'short', year:'2-digit'})
-  } catch(e) { return String(d) }
-}
-
-function fdatetime(d) {
-  if (!d) return '-'
-  try {
-    const s = String(d).trim()
-    // dd/MM/yyyy HH:mm:ss จาก GAS
-    if (/^\d{2}\/\d{2}\/\d{4}/.test(s)) {
-      const [datePart, timePart] = s.split(' ')
-      const [day, month, year]  = datePart.split('/')
-      const dt = new Date(year, month-1, day)
-      const dateStr = dt.toLocaleDateString('th-TH', {day:'2-digit', month:'short', year:'2-digit'})
-      return timePart ? `${dateStr} ${timePart.substring(0,5)} น.` : dateStr
-    }
-    // ISO format เช่น 2026-06-02T05:33:01.000Z
-    const dt = new Date(s)
-    if (isNaN(dt)) return s.replace('T',' ').replace(/\.000Z$/,'').replace('Z','')
-    return dt.toLocaleString('th-TH', {
-      day:'2-digit', month:'short', year:'2-digit',
-      hour:'2-digit', minute:'2-digit', timeZone:'Asia/Bangkok'
-    })
-  } catch(e) { return String(d).replace('T',' ').replace(/\.000Z$/,'').replace('Z','') }
-}
-
-const STATUS_COLORS = {
-  'รออนุมัติ':'#E65100','อนุมัติแล้ว':'#2E7D32','ไม่อนุมัติ':'#C62828',
-  'เปิด PR แล้ว':'#1A3A6B','สร้าง PO แล้ว':'#1A3A6B',
-  'รอส่งของ':'#6A1B9A','อยู่ระหว่างจัดส่ง':'#6A1B9A','รับบางส่วน':'#E65100',
-  'รับครบแล้ว':'#00695C','พบปัญหา':'#C62828','ปิดงาน':'#2E7D32',
-}
-const STATUS_BG = {
-  'รออนุมัติ':'#FFF3E0','อนุมัติแล้ว':'#E8F5E9','ไม่อนุมัติ':'#FFEBEE',
-  'เปิด PR แล้ว':'#E6F1FB','สร้าง PO แล้ว':'#E6F1FB',
-  'รอส่งของ':'#F3E5F5','รับครบแล้ว':'#E0F2F1','ปิดงาน':'#E8F5E9',
-}
-const STATUS_TAGS = {
-  'รออนุมัติ':'t-wait','อนุมัติแล้ว':'t-apv','ไม่อนุมัติ':'t-no',
-  'เปิด PR แล้ว':'t-pr','สร้าง PO แล้ว':'t-po',
-  'รอส่งของ':'t-ship','อยู่ระหว่างจัดส่ง':'t-ship','รับบางส่วน':'t-ship',
-  'รับครบแล้ว':'t-recv','พบปัญหา':'t-issue','ปิดงาน':'t-done',
-}
-function statusColor(s){ return STATUS_COLORS[s]||'#9E9E9E' }
-function statusBg(s)   { return STATUS_BG[s]||'#F5F5F5' }
-function statusTag(s)  { return STATUS_TAGS[s]||'t-wait' }
-
-function tlBg(a){
-  if(a?.includes('APPROVE')) return '#E8F5E9'
-  if(a?.includes('REJECT'))  return '#FFEBEE'
-  if(a?.includes('RECEIVE')) return '#E0F2F1'
-  if(a?.includes('DELETE'))  return '#FFEBEE'
-  if(a?.includes('PO')||a?.includes('PR')) return '#F3E5F5'
-  return '#E6F1FB'
-}
-function tlColor(a){
-  if(a?.includes('APPROVE')) return '#2E7D32'
-  if(a?.includes('REJECT'))  return '#C62828'
-  if(a?.includes('RECEIVE')) return '#00695C'
-  if(a?.includes('DELETE'))  return '#C62828'
-  if(a?.includes('PO')||a?.includes('PR')) return '#6A1B9A'
-  return '#1A3A6B'
-}
-function tlIcon(a){
-  if(a?.includes('CREATE'))  return '📝'
-  if(a?.includes('APPROVE')) return '✅'
-  if(a?.includes('REJECT'))  return '❌'
-  if(a?.includes('PO')||a?.includes('PR')) return '🛒'
-  if(a?.includes('RECEIVE')) return '📦'
-  if(a?.includes('DELETE'))  return '🗑'
-  if(a?.includes('UPDATE'))  return '✏️'
-  return '📌'
-}
-function tlLabel(a){
-  const map = {
-    'CREATE_REQUEST':  'ยื่นคำขอจัดซื้อ',
-    'APPROVE_REQUEST': 'อนุมัติคำขอ',
-    'REJECT_REQUEST':  'ไม่อนุมัติคำขอ',
-    'UPDATE_PRPO':     'อัพเดทข้อมูล PR/PO',
-    'UPDATE_PO_STATUS':'อัพเดทสถานะ PO',
-    'RECEIVE_GOODS':   'ตรวจรับสินค้า',
-    'DELETE_REQUEST':  'ลบคำขอ',
-    'UPDATE_STATUS':   'อัพเดทสถานะ',
-  }
-  return map[a] || (a?.replace(/_/g,' ') || '-')
-}
-
-// ── BADGES ────────────────────────────────────────────────────
-function updateBadges(stats) {
-  // badge รออนุมัติ
-  const bApv = $('badge-apv')
-  if (bApv) {
-    const n = stats.pending || 0
-    bApv.textContent = n > 9 ? '9+' : n
-    bApv.style.display = n > 0 ? 'flex' : 'none'
-  }
-  // badge PO ค้างอยู่ (อนุมัติแล้วแต่ยังไม่มี PO)
-  const bPo = $('badge-po')
-  if (bPo) {
-    const n = stats.approved || 0
-    bPo.textContent = n > 9 ? '9+' : n
-    bPo.style.display = n > 0 ? 'flex' : 'none'
-  }
-}
-
-// ── DARK MODE ─────────────────────────────────────────────────
-function toggleDark() {
-  document.body.classList.toggle('dark')
-  localStorage.setItem('sop_dark', document.body.classList.contains('dark') ? '1' : '0')
-  updateDarkBtn()
-}
-function loadDarkMode() {
-  if (localStorage.getItem('sop_dark') === '1') document.body.classList.add('dark')
-  updateDarkBtn()
-}
-function updateDarkBtn() {
-  const dark = document.body.classList.contains('dark')
-  const btn  = $('btn-dark'); if (!btn) return
-  btn.innerHTML = dark
-    ? `<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>`
-    : `<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>`
-}
-
-// ── BOOT ─────────────────────────────────────────────────────
-window.addEventListener('load', () => {
-  setTimeout(() => {
-    const s = $('splash'); if(s){ s.classList.add('hide'); setTimeout(()=>s.remove(),500) }
-  }, 2000)
-  loadDarkMode()
-  checkSess()
-  $('lp').addEventListener('keydown', e => { if(e.key==='Enter') doLogin() })
-  // init new form items default
-  addItem()
-})
+// --- [4] APP INITIALIZATION ---
+window.onload = function() { 
+    initDatabase(); 
+    const select = document.getElementById("newChemClass");
+    if(select) select.innerHTML = CLASS_ORDER.map(c => `<option value="${c}">${hazardClasses[c].title}</option>`).join('');
+    initDropdown("A"); 
+    initDropdown("B"); 
+    runAmbientReactor(); 
+};
 </script>
 </body>
 </html>
