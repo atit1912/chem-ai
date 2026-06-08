@@ -1,789 +1,603 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>ChemNexus AI 1.0 - Intelligent Matrix</title>
-  
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  
-  <!-- Google Fonts: Prompt -->
-  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  
-  <!-- Phosphor Icons -->
-  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>ChemNexus AI 2.0</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Prompt:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/@phosphor-icons/web"></script>
+<style>
+:root{
+  --bg:#05080f;--bg2:#080c16;--s1:rgba(255,255,255,0.03);--s2:rgba(255,255,255,0.06);--s3:rgba(255,255,255,0.1);
+  --bd:rgba(255,255,255,0.07);--bd2:rgba(255,255,255,0.13);
+  --tx:#eef2ff;--tx2:#8492b0;--tx3:#404968;
+  --lime:#b8ff3a;--lime2:#8fd42a;--lb:rgba(184,255,58,0.07);--lbd:rgba(184,255,58,0.22);
+  --red:#ff3838;--rb:rgba(255,56,56,0.09);--rbd:rgba(255,56,56,0.26);
+  --amb:#ffaa00;--ab:rgba(255,170,0,0.09);--abd:rgba(255,170,0,0.26);
+  --grn:#00e87a;--gb:rgba(0,232,122,0.09);--gbd:rgba(0,232,122,0.26);
+  --nav:70px;--hdr:58px;--r:13px;--rs:8px;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;overflow:hidden;background:var(--bg);font-family:'Prompt',sans-serif;color:var(--tx)}
 
-  <style>
-    body { 
-      font-family: 'Prompt', sans-serif; 
-      background-color: #0b1120;
-      background-image: 
-        radial-gradient(at 0% 0%, rgba(30, 27, 75, 0.8) 0px, transparent 50%), 
-        radial-gradient(at 100% 100%, rgba(6, 78, 59, 0.4) 0px, transparent 50%),
-        radial-gradient(at 50% 50%, rgba(15, 23, 42, 1) 0px, transparent 100%);
-      background-attachment: fixed;
-      color: #e2e8f0;
-      scroll-behavior: smooth;
-    }
-    
-    /* Animations */
-    .fade-in { animation: fadeIn 0.4s ease-out forwards; }
-    .slide-up { animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-    
-    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-    @keyframes slideUp { from { opacity: 0; transform: translateY(20px) scale(0.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
+#app{width:100%;max-width:430px;height:100dvh;margin:0 auto;position:relative;overflow:hidden;background:var(--bg)}
+#app::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(184,255,58,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(184,255,58,0.025) 1px,transparent 1px);background-size:44px 44px;pointer-events:none;z-index:0}
 
-    /* Fusion Effects (Collision) */
-    @keyframes moveRight { 0% { transform: translateX(-50px); opacity: 0; } 100% { transform: translateX(20px); opacity: 1; } }
-    @keyframes moveLeft { 0% { transform: translateX(50px); opacity: 0; } 100% { transform: translateX(-20px); opacity: 1; } }
-    .animate-fusion-a { animation: moveRight 0.8s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate; }
-    .animate-fusion-b { animation: moveLeft 0.8s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate; }
+.page{position:absolute;inset:0;bottom:var(--nav);overflow-y:auto;overflow-x:hidden;display:none;flex-direction:column;background:var(--bg);scrollbar-width:none;z-index:1}
+.page::-webkit-scrollbar{display:none}
+.page.active{display:flex}
+.pc{flex:1;padding-bottom:20px}
 
-    /* Science Ring Animations */
-    @keyframes orbit1 { from { transform: rotateX(70deg) rotateZ(0deg); } to { transform: rotateX(70deg) rotateZ(360deg); } }
-    @keyframes orbit2 { from { transform: rotateY(70deg) rotateZ(0deg); } to { transform: rotateY(70deg) rotateZ(360deg); } }
-    @keyframes orbit3 { from { transform: rotateX(45deg) rotateY(45deg) rotateZ(0deg); } to { transform: rotateX(45deg) rotateY(45deg) rotateZ(360deg); } }
+@keyframes sR{from{transform:translateX(24px);opacity:0}to{transform:translateX(0);opacity:1}}
+@keyframes sL{from{transform:translateX(-24px);opacity:0}to{transform:translateX(0);opacity:1}}
+.er{animation:sR .26s cubic-bezier(.4,0,.2,1) forwards}
+.el{animation:sL .26s cubic-bezier(.4,0,.2,1) forwards}
 
-    .ring-orbit {
-      position: absolute;
-      border: 1.5px solid rgba(6, 182, 212, 0.4);
-      border-radius: 50%;
-      pointer-events: none;
-      box-shadow: 0 0 15px rgba(6, 182, 212, 0.3);
-    }
+.hdr{height:var(--hdr);display:flex;align-items:center;padding:0 16px;gap:10px;background:rgba(5,8,15,0.94);backdrop-filter:blur(20px);border-bottom:1px solid var(--bd2);position:sticky;top:0;z-index:10;flex-shrink:0}
+.hdr-t{font-size:16px;font-weight:800;flex:1;letter-spacing:-.02em}
+.ib2{width:33px;height:33px;border-radius:7px;background:var(--s2);border:1px solid var(--bd2);color:var(--tx2);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;transition:background .15s}
+.ib2:active{background:var(--s3)}
+.bb{width:33px;height:33px;border-radius:7px;background:var(--s2);border:1px solid var(--bd2);color:var(--tx2);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px}
 
-    @keyframes floatAround {
-      0% { transform: translate(0, 0) rotate(0deg); }
-      33% { transform: translate(10px, -15px) rotate(5deg); }
-      66% { transform: translate(-10px, 10px) rotate(-5deg); }
-      100% { transform: translate(0, 0) rotate(0deg); }
-    }
-    .floating-ambient { animation: floatAround 4s ease-in-out infinite; }
+#nav{position:absolute;bottom:0;left:0;right:0;height:var(--nav);background:rgba(5,8,15,0.97);backdrop-filter:blur(24px);border-top:1px solid var(--bd2);display:flex;align-items:center;justify-content:space-around;padding:0 4px;z-index:100}
+.nb{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:5px 0;cursor:pointer;border-radius:7px;transition:all .2s;color:var(--tx3)}
+.nb i{font-size:20px;transition:all .2s}
+.nb span{font-size:8px;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+.nb.active{color:var(--lime)}
+.nb.active i{filter:drop-shadow(0 0 7px rgba(184,255,58,.65))}
+.nb.cx{flex:0 0 54px;height:54px;border-radius:13px;margin-top:-15px;background:var(--lime);color:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 0 22px rgba(184,255,58,.5);border:none;gap:2px}
+.nb.cx i{font-size:22px;color:var(--bg)}
+.nb.cx span{font-size:7px;color:var(--bg);font-weight:900}
+.nb.cx.active{background:var(--lime);color:var(--bg)}
+.nb.cx.active i{filter:none}
 
-    .custom-scrollbar::-webkit-scrollbar { width: 4px; }
-    .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
-    .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(148, 163, 184, 0.3); border-radius: 10px; }
-    .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: rgba(148, 163, 184, 0.6); }
+.card{background:var(--s1);border:1px solid var(--bd);border-radius:var(--r);overflow:hidden}
+.chip{display:inline-flex;align-items:center;gap:3px;padding:2px 8px;border-radius:4px;font-size:9px;font-weight:800;letter-spacing:.05em;text-transform:uppercase}
+.cl{background:var(--lb);border:1px solid var(--lbd);color:var(--lime)}
+.cr{background:var(--rb);border:1px solid var(--rbd);color:#ff7070}
+.ca{background:var(--ab);border:1px solid var(--abd);color:#ffcc55}
+.cg{background:var(--gb);border:1px solid var(--gbd);color:#33ff99}
+.cgr{background:var(--s2);border:1px solid var(--bd2);color:var(--tx2)}
 
-    .btn-clear { transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-    .btn-clear:hover { transform: rotate(90deg) scale(1.1); }
+.sl{padding:14px 16px 7px;font-size:8px;font-weight:800;color:var(--tx3);text-transform:uppercase;letter-spacing:.14em}
 
-    .glass-card {
-      background: rgba(30, 41, 59, 0.4);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    }
-    .glass-input {
-      background: rgba(15, 23, 42, 0.6);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      color: white;
-    }
-    .glass-input:focus {
-      background: rgba(15, 23, 42, 0.8);
-      border-color: rgba(6, 182, 212, 0.5);
-      box-shadow: 0 0 15px rgba(6, 182, 212, 0.2);
-    }
+.btn{width:100%;padding:13px;background:var(--lime);border:none;border-radius:var(--rs);color:var(--bg);font-family:'Prompt',sans-serif;font-size:13px;font-weight:800;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:7px;letter-spacing:.01em}
+.btn:active{transform:scale(.97);filter:brightness(.9)}
+.bg{background:var(--s2);border:1px solid var(--bd2);color:var(--tx2)}
+.bd3{background:linear-gradient(135deg,#c01818,#7a0000);color:#fff;box-shadow:0 4px 18px rgba(192,24,24,.4)}
 
-    .opaque-dropdown {
-      background-color: #0f172a; 
-      border: 1px solid #334155; 
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
-    }
-    
-    .no-print { display: flex; }
-    .print-only { display: none; }
+.sw{position:relative;margin:12px 16px}
+.sw .il{position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:16px;color:var(--lime);pointer-events:none}
+.si{width:100%;padding:11px 13px 11px 40px;background:var(--s2);border:1px solid var(--bd2);border-radius:var(--rs);color:var(--tx);font-family:'Prompt',sans-serif;font-size:13px;outline:none;transition:border-color .2s,box-shadow .2s}
+.si:focus{border-color:var(--lbd);box-shadow:0 0 0 3px rgba(184,255,58,.05)}
+.si::placeholder{color:var(--tx3)}
+.dd{position:absolute;top:calc(100% + 4px);left:0;right:0;background:#090e1c;border:1px solid var(--bd2);border-radius:var(--rs);max-height:220px;overflow-y:auto;z-index:200;display:none;scrollbar-width:none;box-shadow:0 18px 44px rgba(0,0,0,.85)}
+.dd.open{display:block}
+.ddi{padding:9px 13px;cursor:pointer;display:flex;align-items:center;gap:9px;border-bottom:1px solid var(--bd);transition:background .1s}
+.ddi:last-child{border-bottom:none}
+.ddi:active,.ddi:hover{background:rgba(184,255,58,.04)}
+.dic{font-size:18px;width:28px;text-align:center;flex-shrink:0}
+.dn{font-size:12px;font-weight:700;color:var(--tx)}
+.dc{font-size:8px;color:var(--tx3);font-family:'Space Grotesk',monospace;margin-top:1px}
+.dcs{font-size:8px;font-weight:800;color:var(--lime)}
 
-    .counter-badge {
-      background: rgba(0, 0, 0, 0.4);
-      backdrop-filter: blur(8px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      padding: 6px 14px;
-      border-radius: 99px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-  </style>
+.fr{display:flex;gap:5px;padding:7px 16px 9px;overflow-x:auto;scrollbar-width:none}
+.fr::-webkit-scrollbar{display:none}
+.fc{padding:4px 11px;border-radius:4px;font-size:9px;font-weight:800;background:var(--s2);border:1px solid var(--bd2);color:var(--tx3);cursor:pointer;white-space:nowrap;transition:all .2s;text-transform:uppercase;letter-spacing:.04em}
+.fc.active{background:var(--lb);border-color:var(--lbd);color:var(--lime)}
+
+.cli{display:flex;align-items:center;gap:11px;padding:11px 16px;border-bottom:1px solid var(--bd);cursor:pointer;transition:background .1s}
+.cli:active{background:rgba(184,255,58,.03)}
+.clic{font-size:19px;width:34px;height:34px;display:flex;align-items:center;justify-content:center;background:var(--s2);border-radius:7px;flex-shrink:0}
+.clin{font-size:12px;font-weight:700}
+.clis{font-size:8px;color:var(--tx3);font-family:'Space Grotesk',monospace;margin-top:2px}
+
+.sln{font-size:8px;font-weight:800;color:var(--tx3);text-transform:uppercase;letter-spacing:.1em;padding:13px 16px 6px;display:flex;align-items:center;gap:6px}
+.snn{width:16px;height:16px;border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:900}
+.sna{background:var(--lb);border:1px solid var(--lbd);color:var(--lime)}
+.snb{background:rgba(255,100,200,.09);border:1px solid rgba(255,100,200,.22);color:#ff64c8}
+
+.se{margin:0 16px;background:var(--s1);border:1.5px dashed var(--bd2);border-radius:var(--r);padding:18px;display:flex;flex-direction:column;align-items:center;gap:7px;cursor:pointer;transition:border-color .2s,background .2s}
+.se:active{background:rgba(184,255,58,.03);border-color:var(--lbd)}
+.se i{font-size:20px;color:var(--tx3)}
+.se span{font-size:11px;color:var(--tx3);font-weight:500}
+.ss{margin:0 16px;background:var(--s2);border:1px solid var(--bd2);border-radius:var(--r);padding:13px;display:flex;align-items:center;gap:11px;position:relative}
+.ssic{font-size:24px;width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.3);border-radius:8px;flex-shrink:0}
+.ssnm{font-size:12px;font-weight:800}
+.sssb{font-size:8px;color:var(--tx3);font-family:'Space Grotesk',monospace;margin-top:2px}
+.sx{position:absolute;top:9px;right:9px;width:20px;height:20px;border-radius:4px;background:rgba(255,255,255,.06);border:none;color:var(--tx3);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:10px}
+
+.vr{display:flex;align-items:center;gap:9px;padding:7px 16px}
+.vl{flex:1;height:1px;background:var(--bd)}
+.vb{width:26px;height:26px;border-radius:5px;background:var(--s2);border:1px solid var(--bd2);display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:900;color:var(--tx3)}
+
+.rb{margin:13px 16px;border-radius:var(--r);overflow:hidden}
+.rbh{padding:16px;display:flex;align-items:center;gap:13px}
+.rbi{font-size:30px;flex-shrink:0}
+.rbt{font-size:14px;font-weight:900;letter-spacing:-.01em}
+.rbs{font-size:8px;margin-top:2px;opacity:.7;font-weight:800;text-transform:uppercase;letter-spacing:.09em}
+.rb.red .rbh{background:linear-gradient(135deg,rgba(150,18,18,.85),rgba(80,0,0,.7));border:1px solid rgba(255,56,56,.32)}
+.rb.amb .rbh{background:linear-gradient(135deg,rgba(130,75,0,.85),rgba(75,45,0,.7));border:1px solid rgba(255,170,0,.32)}
+.rb.grn .rbh{background:linear-gradient(135deg,rgba(0,90,55,.85),rgba(0,55,32,.7));border:1px solid rgba(0,232,122,.32)}
+
+.rds{display:flex;gap:3px}
+.rd{width:8px;height:8px;border-radius:2px;background:rgba(255,255,255,.07)}
+.rd.on.red{background:var(--red);box-shadow:0 0 5px rgba(255,56,56,.65)}
+.rd.on.amb{background:var(--amb);box-shadow:0 0 5px rgba(255,170,0,.65)}
+.rd.on.grn{background:var(--grn);box-shadow:0 0 5px rgba(0,232,122,.65)}
+
+.ib{margin:0 16px 9px;padding:12px;border-radius:var(--rs);display:flex;gap:9px;align-items:flex-start}
+.ib.red{background:var(--rb);border:1px solid var(--rbd)}
+.ib.amb{background:var(--ab);border:1px solid var(--abd)}
+.ib.grn{background:var(--gb);border:1px solid var(--gbd)}
+.ib.lm{background:var(--lb);border:1px solid var(--lbd)}
+.ib i{font-size:17px;flex-shrink:0;margin-top:1px}
+.ib.red i{color:#ff7070}.ib.amb i{color:#ffcc55}.ib.grn i{color:#33ff99}.ib.lm i{color:var(--lime)}
+.ibt{font-size:8px;font-weight:900;text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px}
+.ib.red .ibt{color:#ff7070}.ib.amb .ibt{color:#ffcc55}.ib.grn .ibt{color:#33ff99}.ib.lm .ibt{color:var(--lime)}
+.ibb{font-size:11px;color:var(--tx2);line-height:1.65}
+
+.tbb{display:flex;border-bottom:1px solid var(--bd)}
+.tbtn{flex:1;padding:10px 7px;font-size:10px;font-weight:700;color:var(--tx3);background:none;border:none;cursor:pointer;border-bottom:2px solid transparent;font-family:'Prompt',sans-serif;transition:all .2s;text-align:center;text-transform:uppercase;letter-spacing:.05em}
+.tbtn.active{color:var(--lime);border-bottom-color:var(--lime)}
+.tp{display:none}.tp.active{display:block}
+
+.pr{display:flex;justify-content:space-between;align-items:center;padding:10px 16px;border-bottom:1px solid var(--bd);font-size:12px}
+.pr:last-child{border-bottom:none}
+.prk{color:var(--tx3)}
+.prv{font-weight:700;font-family:'Space Grotesk',monospace;font-size:11px;color:var(--lime)}
+
+.sg{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin:0 16px}
+.sc{background:var(--s2);border:1px solid var(--bd);border-radius:var(--rs);padding:13px}
+.scn{font-size:26px;font-weight:900;line-height:1;font-family:'Space Grotesk',sans-serif}
+.scl{font-size:8px;color:var(--tx3);font-weight:700;text-transform:uppercase;letter-spacing:.07em;margin-top:4px}
+
+.al{display:flex;align-items:flex-start;gap:9px;padding:10px 16px;border-bottom:1px solid var(--bd)}
+.ad{width:6px;height:6px;border-radius:1px;flex-shrink:0;margin-top:5px}
+.at{font-size:12px;font-weight:700}
+.as{font-size:9px;color:var(--tx3);margin-top:1px}
+
+.hi{display:flex;align-items:center;gap:9px;padding:9px 16px;border-bottom:1px solid var(--bd);cursor:pointer;transition:background .1s}
+.hi:active{background:rgba(184,255,58,.025)}
+.hd{width:7px;height:7px;border-radius:1px;flex-shrink:0}
+
+.pg{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:0 16px}
+.pi{background:var(--s2);border:1px solid var(--bd);border-radius:var(--rs);padding:13px 7px;display:flex;flex-direction:column;align-items:center;gap:6px;position:relative;transition:border-color .2s}
+.pi.rq{border-color:var(--lbd);background:var(--lb)}
+.pic{font-size:24px}
+.pin{font-size:8px;font-weight:800;color:var(--tx2);text-align:center;line-height:1.4;text-transform:uppercase;letter-spacing:.03em}
+.pck{position:absolute;top:4px;right:4px;width:14px;height:14px;border-radius:2px;background:var(--lime);display:flex;align-items:center;justify-content:center;font-size:7px;color:var(--bg);font-weight:900}
+
+.emb{margin:11px 16px;background:linear-gradient(135deg,rgba(150,18,18,.7),rgba(80,0,0,.5));border:1px solid rgba(255,56,56,.32);border-radius:var(--r);padding:13px 15px;display:flex;align-items:center;gap:11px}
+.sti{display:flex;align-items:flex-start;gap:11px;padding:10px 16px;border-bottom:1px solid var(--bd)}
+.stn{width:22px;height:22px;border-radius:4px;background:var(--lb);border:1px solid var(--lbd);color:var(--lime);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900;flex-shrink:0;font-family:'Space Grotesk',sans-serif}
+.stt{font-size:11px;color:var(--tx2);line-height:1.55;padding-top:3px}
+.cb{margin:9px 16px;background:linear-gradient(135deg,#be1515,#780000);border:none;border-radius:var(--r);padding:15px;display:flex;align-items:center;justify-content:center;gap:9px;cursor:pointer;width:calc(100% - 32px);color:#fff;font-family:'Prompt',sans-serif;font-size:19px;font-weight:900;box-shadow:0 4px 22px rgba(190,21,21,.42);transition:all .2s}
+.cb:active{transform:scale(.97)}
+
+.gw{position:relative;width:108px;height:63px;flex-shrink:0}
+.gs{position:absolute;bottom:0;left:50%;transform:translateX(-50%);text-align:center}
+.gs .gn{font-size:22px;font-weight:900;color:var(--lime);font-family:'Space Grotesk',sans-serif;line-height:1}
+.gs .gd{font-size:8px;color:var(--tx3)}
+
+.sb{margin:13px 16px;background:linear-gradient(135deg,rgba(184,255,58,.07),rgba(0,0,0,0));border:1px solid var(--lbd);border-radius:var(--r);padding:15px;display:flex;align-items:center;gap:15px;position:relative;overflow:hidden}
+.sb::after{content:'';position:absolute;right:-16px;top:-16px;width:110px;height:110px;border-radius:50%;background:radial-gradient(circle,rgba(184,255,58,.11),transparent 70%);pointer-events:none}
+
+#toast{position:absolute;bottom:calc(var(--nav) + 9px);left:50%;transform:translateX(-50%);background:rgba(8,12,22,.98);border:1px solid var(--bd2);border-radius:6px;padding:6px 15px;font-size:10px;font-weight:700;color:var(--tx);z-index:9999;opacity:0;transition:opacity .22s;white-space:nowrap;backdrop-filter:blur(16px);pointer-events:none}
+#toast.show{opacity:1}
+
+.dh{padding:18px 16px;background:linear-gradient(160deg,rgba(184,255,58,.055),transparent);display:flex;align-items:center;gap:15px;border-bottom:1px solid var(--bd)}
+.dhic{font-size:42px}
+.dhnm{font-size:16px;font-weight:900;letter-spacing:-.02em}
+.dhlat{font-size:10px;color:var(--tx3);margin-top:2px;font-family:'Space Grotesk',monospace}
+.dhbd{display:flex;gap:5px;margin-top:7px;flex-wrap:wrap}
+
+#sso{display:none;position:absolute;inset:0;bottom:var(--nav);background:var(--bg);z-index:500;flex-direction:column}
+
+@keyframes pls{0%,100%{opacity:1}50%{opacity:.25}}
+@keyframes spn{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+.pls{animation:pls 1.2s ease-in-out infinite}
+.spn{animation:spn 2s linear infinite}
+
+.crd{padding:16px 16px 4px;text-align:center;font-size:8px;color:var(--tx3);letter-spacing:.06em;text-transform:uppercase}
+.crd strong{color:var(--lime);font-weight:900;font-size:9px;display:block;margin-bottom:2px;letter-spacing:.14em}
+.vt{display:inline-flex;align-items:center;gap:3px;padding:1px 6px;border-radius:3px;background:var(--lb);border:1px solid var(--lbd);color:var(--lime);font-size:8px;font-weight:900;letter-spacing:.06em;text-transform:uppercase}
+.gt{background:linear-gradient(90deg,var(--lime),#e0ff8a,var(--lime));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+</style>
 </head>
-<body class="min-h-screen p-4 md:p-8 flex flex-col items-center transition-colors duration-300 pb-24">
+<body>
+<div id="app">
 
-  <!-- Statistics Panel -->
-  <div class="no-print w-full max-w-5xl flex flex-col md:flex-row flex-wrap justify-between items-center gap-4 mb-8 z-50 relative">
-    <div class="flex gap-3 order-2 md:order-1">
-      <div class="counter-badge shadow-lg border-cyan-500/20">
-        <div class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse shadow-[0_0_8px_rgba(34,211,238,0.8)]"></div>
-        <span class="text-[10px] font-bold text-cyan-400/80 uppercase tracking-widest">Visitors</span>
-        <span id="visitCount" class="text-sm font-black text-white tabular-nums">0</span>
-      </div>
-      <div class="counter-badge shadow-lg border-amber-500/20">
-        <div class="w-2 h-2 rounded-full bg-amber-400 animate-pulse shadow-[0_0_8px_rgba(251,191,36,0.8)]"></div>
-        <span class="text-[10px] font-bold text-amber-400/80 uppercase tracking-widest">Scans</span>
-        <span id="analysisCount" class="text-sm font-black text-white tabular-nums">0</span>
-      </div>
+<!-- DASHBOARD -->
+<div id="page-dashboard" class="page active">
+  <div class="hdr">
+    <div style="flex:1">
+      <div style="display:flex;align-items:center;gap:5px;margin-bottom:2px"><span class="vt">v2.0</span></div>
+      <div class="hdr-t gt" style="font-size:17px">ChemNexus AI</div>
     </div>
-
-    <div class="flex gap-2 w-full md:w-auto order-1 md:order-2">
-      <button onclick="toggleLang()" class="flex-1 md:flex-none flex items-center justify-center gap-1.5 px-4 py-2 glass-card rounded-xl text-xs md:text-sm font-semibold text-slate-300 hover:text-white transition-all">
-        <i class="ph ph-translate text-lg text-cyan-400"></i> <span id="langBtnText">EN/TH</span>
-      </button>
-      <button onclick="openModal('customDbModal')" class="flex-1 md:flex-none flex items-center justify-center gap-1.5 px-4 py-2 bg-gradient-to-r from-cyan-600 to-blue-600 rounded-xl text-xs md:text-sm font-semibold text-white shadow-lg transition-all">
-        <i class="ph ph-plus-circle text-lg"></i> <span class="lang-text" data-th="เพิ่มข้อมูล" data-en="Add">เพิ่มข้อมูล</span>
-      </button>
-      <button onclick="openPasswordModal()" class="flex-1 md:flex-none flex items-center justify-center gap-1.5 px-4 py-2 bg-gradient-to-r from-rose-600 to-red-600 rounded-xl text-xs md:text-sm font-semibold text-white shadow-lg transition-all">
-        <i class="ph ph-database text-lg"></i> <span class="lang-text" data-th="จัดการ" data-en="Manage">จัดการ</span>
-      </button>
+    <div class="ib2" style="position:relative" onclick="toast('ไม่มีการแจ้งเตือนใหม่')">
+      <i class="ph ph-bell"></i>
+      <div style="position:absolute;top:4px;right:4px;width:6px;height:6px;border-radius:1px;background:var(--red);border:1.5px solid var(--bg)"></div>
     </div>
   </div>
-
-  <!-- Header Section -->
-  <div class="text-center mb-8 max-w-3xl no-print relative z-10 w-full flex flex-col items-center">
-    <div class="relative w-full h-32 flex items-center justify-center mb-4 overflow-visible">
-       <!-- Science Ring -->
-       <div class="ring-orbit w-24 h-24 animate-[orbit1_1.0s_linear_infinite]"></div>
-       <div class="ring-orbit w-28 h-28 animate-[orbit2_1.3s_linear_infinite] border-purple-500/40"></div>
-       <div class="ring-orbit w-20 h-20 animate-[orbit3_0.7s_linear_infinite] border-cyan-300/60"></div>
-       
-       <div class="absolute w-12 h-12 bg-cyan-500/25 rounded-full blur-xl animate-pulse"></div>
-       <div class="z-10 text-cyan-400 text-6xl relative floating-ambient"><i class="ph-duotone ph-atom"></i></div>
-       
-       <!-- Ambient Floating Icons -->
-       <div id="ambient-item-1" class="absolute text-2xl transition-all duration-[2000ms] ease-in-out opacity-0 z-20">🧪</div>
-       <div id="ambient-item-2" class="absolute text-2xl transition-all duration-[2000ms] ease-in-out opacity-0 z-20">🧬</div>
+  <div class="pc">
+    <div class="sb">
+      <div class="gw">
+        <svg viewBox="0 0 108 63" width="108" height="63">
+          <path d="M7,60 A49,49 0 0,1 101,60" fill="none" stroke="rgba(255,255,255,0.055)" stroke-width="8" stroke-linecap="round"/>
+          <path d="M7,60 A49,49 0 0,1 101,60" fill="none" stroke="url(#gg)" stroke-width="8" stroke-linecap="round" stroke-dasharray="153.9" stroke-dashoffset="30.8"/>
+          <defs><linearGradient id="gg" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#8fd42a"/><stop offset="100%" stop-color="#b8ff3a"/></linearGradient></defs>
+        </svg>
+        <div class="gs"><div class="gn">87</div><div class="gd">/100</div></div>
+      </div>
+      <div style="flex:1">
+        <div style="font-size:8px;color:var(--tx3);font-weight:700;text-transform:uppercase;letter-spacing:.09em">Chemical Safety Score</div>
+        <div style="margin-top:6px"><span class="chip cg">ระดับความปลอดภัยสูง</span></div>
+        <div style="font-size:8px;color:var(--tx3);margin-top:5px">อัปเดตล่าสุด: วันนี้</div>
+      </div>
     </div>
-    
-    <!-- Gradient Casing Title -->
-    <h1 class="text-4xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-white to-purple-300 tracking-tight mb-2 drop-shadow-lg">ChemNexus AI 1.0</h1>
-    
-    <!-- Developer Name with same gradient -->
-    <p class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-white to-purple-300 font-black text-xs md:text-sm uppercase tracking-[0.4em] mb-4">Developed by ATIT CHIMNAN</p>
-    
-    <p class="text-slate-400 font-medium text-xs md:text-sm lang-text tracking-wide" data-th="ระบบวิเคราะห์การจัดเก็บสารเคมีและวัตถุอันตรายอัจฉริยะ" data-en="Intelligent Chemical Storage Matrix">ระบบวิเคราะห์การจัดเก็บสารเคมีและวัตถุอันตรายอัจฉริยะ</p>
+
+    <div class="sg">
+      <div class="sc"><div class="scn" style="color:var(--lime)" id="dt">21</div><div class="scl">สารเคมีทั้งหมด</div></div>
+      <div class="sc"><div class="scn" style="color:#ff7070">3</div><div class="scl">สารเสี่ยงสูง</div></div>
+      <div class="sc"><div class="scn" style="color:#33ff99" id="ds">0</div><div class="scl">การวิเคราะห์</div></div>
+      <div class="sc"><div class="scn" style="color:#ffcc55" id="dh">0</div><div class="scl">ประวัติล่าสุด</div></div>
+    </div>
+
+    <div class="sl" style="margin-top:10px">การแจ้งเตือน <span style="color:var(--red);background:var(--rb);padding:1px 6px;border-radius:3px;font-size:8px;margin-left:3px;border:1px solid var(--rbd)">3</span></div>
+    <div class="card" style="margin:0 16px">
+      <div class="al"><div class="ad" style="background:var(--red);box-shadow:0 0 5px rgba(255,56,56,.55)"></div><div style="flex:1"><div class="at">กรดเกลือ (HCl)</div><div class="as">ใกล้หมดอายุภายใน 30 วัน • Class 8B</div></div><div style="font-size:8px;color:var(--tx3);flex-shrink:0">2 ชม.</div></div>
+      <div class="al"><div class="ad" style="background:var(--amb)"></div><div style="flex:1"><div class="at">ตรวจพบการจัดเก็บไม่ปลอดภัย</div><div class="as">โซเดียมไฮโปคลอไรต์ ใกล้ กรดเกลือ</div></div><div style="font-size:8px;color:var(--tx3);flex-shrink:0">5 ชม.</div></div>
+      <div class="al" style="border-bottom:none"><div class="ad" style="background:var(--amb)"></div><div style="flex:1"><div class="at">ยังไม่ได้ตรวจสอบสต็อก</div><div class="as">ถึงกำหนดตรวจสอบรายสัปดาห์</div></div><div style="font-size:8px;color:var(--tx3);flex-shrink:0">1 วัน</div></div>
+    </div>
+
+    <div class="sl" style="margin-top:10px">ประวัติการวิเคราะห์</div>
+    <div class="card" style="margin:0 16px" id="dhl">
+      <div style="padding:22px;text-align:center;color:var(--tx3);font-size:10px"><i class="ph ph-clock-counter-clockwise" style="font-size:22px;display:block;margin-bottom:7px;opacity:.22"></i>ยังไม่มีประวัติ</div>
+    </div>
+
+    <div style="margin:11px 16px 3px"><button class="btn" onclick="go('analyze')"><i class="ph-bold ph-atom" style="font-size:16px"></i>เริ่มวิเคราะห์สารเคมี</button></div>
+    <div class="crd"><strong>DEVELOPED BY ATIT CHIMNAN</strong>ระบบวิเคราะห์การจัดเก็บสารเคมี • DIW Standard</div>
   </div>
+</div>
 
-  <!-- Main Container -->
-  <div class="w-full max-w-5xl space-y-6 md:space-y-8 pb-10">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 relative">
-      <!-- Slot 1 -->
-      <div id="containerA" class="glass-card rounded-3xl p-5 md:p-6 transition-all hover:border-cyan-500/30 relative z-[100]">
-        <div class="flex items-center gap-3 mb-4">
-          <div class="w-8 h-8 rounded-full bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 flex items-center justify-center text-sm font-black">1</div>
-          <h2 class="text-sm md:text-base font-semibold text-slate-200 lang-text" data-th="วิเคราะห์สารเคมีชนิดที่ 1" data-en="Chemical 1">วิเคราะห์สารเคมีชนิดที่ 1</h2>
-        </div>
-        <div id="searchStateA" class="relative">
-          <i class="ph ph-scan absolute left-4 top-1/2 -translate-y-1/2 text-cyan-400 text-xl animate-pulse"></i>
-          <input type="text" id="searchA" autocomplete="off" placeholder="ค้นหาชื่อสาร, CAS..." class="w-full pl-12 pr-4 py-4 glass-input rounded-2xl outline-none text-sm md:text-base">
-          <ul id="listA" class="absolute z-[110] w-full mt-2 opaque-dropdown rounded-2xl max-h-56 overflow-y-auto custom-scrollbar hidden"></ul>
-        </div>
-        <div id="selectedStateA" class="hidden relative bg-slate-800/80 backdrop-blur-md border border-slate-700/50 rounded-2xl p-5 shadow-lg overflow-hidden">
-          <div class="absolute inset-0 flex items-center justify-center opacity-15 grayscale invert pointer-events-none">
-            <img id="structA" src="" alt="" class="w-44 h-44 object-contain">
-          </div>
-          <button onclick="clearSelection('A')" class="absolute top-3 right-3 text-slate-400 hover:text-rose-400 p-2 bg-slate-900/80 rounded-full btn-clear relative z-10"><i class="ph-bold ph-x"></i></button>
-          <div class="flex items-start gap-4 relative z-10">
-            <div id="iconA" class="w-14 h-14 rounded-2xl flex items-center justify-center text-3xl bg-slate-900 border border-slate-700 shadow-inner flex-shrink-0 text-white"></div>
-            <div class="flex-1">
-              <p id="nameA" class="font-bold text-white text-lg pr-6"></p>
-              <p id="casUnA" class="text-xs text-cyan-400 font-mono mt-1 opacity-80"></p>
-              <div class="flex gap-2 mt-3">
-                <span id="classA" class="text-xs font-bold px-2.5 py-1 rounded-lg bg-slate-700 text-white"></span>
-                <span id="riskA" class="text-[10px] uppercase font-black px-2.5 py-1 rounded-lg border"></span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="hidden md:flex absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 w-12 h-12 glass-card rounded-full items-center justify-center text-cyan-400 font-black shadow-lg">
-        <i class="ph-bold ph-arrows-left-right"></i>
-      </div>
-
-      <!-- Slot 2 -->
-      <div id="containerB" class="glass-card rounded-3xl p-5 md:p-6 transition-all hover:border-purple-500/30 relative z-[90]">
-        <div class="flex items-center gap-3 mb-4">
-          <div class="w-8 h-8 rounded-full bg-purple-500/20 text-purple-400 border border-purple-500/30 flex items-center justify-center text-sm font-black">2</div>
-          <h2 class="text-sm md:text-base font-semibold text-slate-200 lang-text" data-th="วิเคราะห์สารเคมีชนิดที่ 2" data-en="Chemical 2">วิเคราะห์สารเคมีชนิดที่ 2</h2>
-        </div>
-        <div id="searchStateB" class="relative">
-          <i class="ph ph-scan absolute left-4 top-1/2 -translate-y-1/2 text-purple-400 text-xl animate-pulse"></i>
-          <input type="text" id="searchB" autocomplete="off" placeholder="ค้นหาชื่อสาร, CAS..." class="w-full pl-12 pr-4 py-4 glass-input rounded-2xl outline-none text-sm md:text-base focus:border-purple-500/50">
-          <ul id="listB" class="absolute z-[110] w-full mt-2 opaque-dropdown rounded-2xl max-h-56 overflow-y-auto custom-scrollbar hidden"></ul>
-        </div>
-        <div id="selectedStateB" class="hidden relative bg-slate-800/80 backdrop-blur-md border border-slate-700/50 rounded-2xl p-5 shadow-lg overflow-hidden">
-          <div class="absolute inset-0 flex items-center justify-center opacity-15 grayscale invert pointer-events-none">
-            <img id="structB" src="" alt="" class="w-44 h-44 object-contain">
-          </div>
-          <button onclick="clearSelection('B')" class="absolute top-3 right-3 text-slate-400 hover:text-rose-400 p-2 bg-slate-900/80 rounded-full btn-clear relative z-10"><i class="ph-bold ph-x"></i></button>
-          <div class="flex items-start gap-4 relative z-10">
-            <div id="iconB" class="w-14 h-14 rounded-2xl flex items-center justify-center text-3xl bg-slate-900 border border-slate-700 shadow-inner flex-shrink-0 text-white"></div>
-            <div class="flex-1">
-              <p id="nameB" class="font-bold text-white text-lg pr-6"></p>
-              <p id="casUnB" class="text-xs text-purple-400 font-mono mt-1 opacity-80"></p>
-              <div class="flex gap-2 mt-3">
-                <span id="classB" class="text-xs font-bold px-2.5 py-1 rounded-lg bg-slate-700 text-white"></span>
-                <span id="riskB" class="text-[10px] uppercase font-black px-2.5 py-1 rounded-lg border"></span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+<!-- SEARCH -->
+<div id="page-search" class="page">
+  <div class="hdr"><div class="hdr-t">คลังสารเคมี</div></div>
+  <div class="pc">
+    <div class="sw" style="margin-top:11px"><i class="ph ph-magnifying-glass il"></i><input class="si" id="gs" placeholder="ค้นหาชื่อสาร หรือ CAS Number..." oninput="rCL(this.value)"></div>
+    <div class="fr" id="clf">
+      <div class="fc active" onclick="fCls(this,'all')">ทั้งหมด</div>
+      <div class="fc" onclick="fCls(this,'8B')">8B กัดกร่อน</div>
+      <div class="fc" onclick="fCls(this,'3A')">3A ไวไฟ</div>
+      <div class="fc" onclick="fCls(this,'5.1A')">5.1A ออกซิไดซ์</div>
+      <div class="fc" onclick="fCls(this,'5.1B')">5.1B ออกซิไดซ์</div>
+      <div class="fc" onclick="fCls(this,'2A')">2A ก๊าซ</div>
+      <div class="fc" onclick="fCls(this,'12')">12</div>
+      <div class="fc" onclick="fCls(this,'13')">13</div>
     </div>
-
-    <!-- Analytics Fusion Animation (Icons Collision) -->
-    <div id="fusionContainer" class="hidden relative z-10 w-full mt-8 p-12 glass-card rounded-3xl border border-cyan-500/30 text-center shadow-2xl transition-opacity duration-500 opacity-100 overflow-hidden text-white">
-      <div class="absolute inset-0 bg-cyan-500/5 animate-pulse"></div>
-      <div class="relative flex justify-center items-center gap-4 md:gap-12 min-h-[150px]">
-        <div class="animate-fusion-a">
-          <div id="fusionIconA" class="w-24 h-24 md:w-32 md:h-32 bg-slate-900/80 rounded-3xl flex items-center justify-center text-6xl border border-white/10 shadow-lg p-2"></div>
-        </div>
-        <div class="z-10 text-cyan-400 text-6xl md:text-7xl animate-spin drop-shadow-[0_0_15px_rgba(34,211,238,0.5)]">
-            <i class="ph-duotone ph-atom"></i>
-        </div>
-        <div class="animate-fusion-b">
-          <div id="fusionIconB" class="w-24 h-24 md:w-32 md:h-32 bg-slate-900/80 rounded-3xl flex items-center justify-center text-6xl border border-white/10 shadow-lg p-2"></div>
-        </div>
-      </div>
-      <h3 class="mt-8 text-sm md:text-lg font-bold text-cyan-300 tracking-widest uppercase animate-pulse lang-text" data-th="AI กำลังจำลองปฏิกิริยาโครงข่าย..." data-en="AI Simulating Chemical Interaction...">AI กำลังจำลองปฏิกิริยาโครงข่าย...</h3>
-    </div>
-
-    <!-- Result Banner -->
-    <div id="resultContainer" class="hidden relative z-10 w-full mt-6">
-      <div id="resultCard" class="rounded-3xl overflow-hidden shadow-2xl glass-card border-none text-white">
-        <div id="resultHeader" class="p-8 md:px-10 md:py-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 relative overflow-hidden">
-          <div id="resultGlow" class="absolute inset-0 opacity-20"></div>
-          <div id="resultIconWrapper" class="w-16 h-16 rounded-2xl flex items-center justify-center text-4xl bg-black/20 shadow-lg border border-white/10 relative z-10"></div>
-          <div class="flex-1 relative z-10">
-            <span id="resultBadge" class="inline-block text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest bg-black/30 text-white mb-2 shadow-sm border border-white/5"></span>
-            <h3 id="resultTitle" class="text-3xl md:text-4xl font-black tracking-wide"></h3>
-          </div>
-        </div>
-        <div class="p-6 md:p-10 bg-slate-900/80 backdrop-blur-xl">
-          <p id="resultDesc" class="text-slate-300 text-lg md:text-xl font-medium mb-10 leading-relaxed"></p>
-          <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <div id="actionBox" class="rounded-2xl p-8 border h-full shadow-inner relative overflow-hidden">
-                <div id="actionBg" class="absolute inset-0 opacity-5"></div>
-                <ul id="resultActions" class="relative z-10 space-y-5 text-sm md:text-base font-medium"></ul>
-            </div>
-            <div class="bg-slate-800/80 rounded-2xl p-6 border border-slate-700 space-y-6 shadow-xl">
-              <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-700/50">
-                <h5 class="text-[10px] font-black text-rose-400 uppercase mb-3 flex items-center gap-2"><i class="ph-fill ph-fire"></i> Extinguishing Media</h5>
-                <div id="fireGuide" class="flex flex-wrap gap-2"></div>
-              </div>
-              <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-700/50">
-                <h5 class="text-[10px] font-black text-cyan-400 uppercase mb-3 flex items-center gap-2"><i class="ph-fill ph-shield-check"></i> Required PPE</h5>
-                <div id="ppeGuide" class="flex flex-wrap gap-2 text-sm"></div>
-              </div>
-              <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-700/50 relative">
-                <h5 class="text-[10px] font-black text-amber-400 uppercase mb-3 flex items-center justify-between">
-                  <span class="flex items-center gap-2"><i class="ph-fill ph-warning-circle"></i> Initial Action</span>
-                  <button id="btnSds" class="text-[9px] bg-cyan-500/20 text-cyan-400 px-2 py-0.5 rounded border border-cyan-500/30 hover:bg-cyan-500 hover:text-white transition-all font-bold uppercase">SDS Search</button>
-                </h5>
-                <p id="ergGuide" class="text-xs text-slate-300 leading-relaxed italic"></p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="mt-8 flex justify-center pb-8"><button onclick="resetScan()" class="px-10 py-4 bg-gradient-to-r from-cyan-600 to-blue-600 rounded-full text-white font-black uppercase shadow-2xl transition-all flex items-center gap-3 hover:scale-105 active:scale-95"><i class="ph-bold ph-arrows-clockwise text-xl"></i> <span class="lang-text" data-th="ตรวจสอบคู่ใหม่" data-en="New Scan">ตรวจสอบคู่ใหม่</span></button></div>
-    </div>
-
-    <!-- History Audit List -->
-    <div id="historyLogContainer" class="mt-12 space-y-4">
-      <h4 class="text-xs font-bold text-slate-500 uppercase tracking-widest flex items-center gap-2 ml-2">
-        <i class="ph-bold ph-clock-counter-clockwise"></i> ประวัติการตรวจสอบล่าสุด (Recent Audits)
-      </h4>
-      <div id="historyList" class="grid grid-cols-1 md:grid-cols-2 gap-3"></div>
-    </div>
+    <div id="clc"></div>
+    <div class="crd"><strong>ATIT CHIMNAN</strong>ChemNexus AI 2.0 • DIW</div>
   </div>
+</div>
 
-  <!-- Floating Matrix Toggle -->
-  <button onclick="openModal('matrixModal')" class="fixed bottom-6 right-6 z-[9000] w-14 h-14 glass-card rounded-full flex items-center justify-center text-cyan-400 shadow-xl no-print border border-white/5 hover:bg-cyan-500/20 transition-all group">
-    <i class="ph-duotone ph-table text-2xl group-hover:scale-110 transition-transform"></i>
-  </button>
-
-  <div class="text-center mt-12 text-slate-500 text-[10px] uppercase tracking-[0.5em] pb-10">
-    ChemNexus AI 1.0 &bull; ATIT CHIMNAN &bull; Proprietary System
-  </div>
-
-  <!-- Modals Section -->
-  <div id="passwordModal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-md z-[9999] hidden flex items-center justify-center p-4">
-    <div class="glass-card rounded-3xl w-full max-w-sm text-center p-8 border border-rose-500/30 shadow-2xl">
-      <i class="ph-duotone ph-lock-key text-4xl text-rose-400 mb-4"></i>
-      <h3 class="font-black text-white text-xl mb-2 tracking-wide uppercase">System Security</h3>
-      <p class="text-rose-300/70 text-sm mb-6">ฮั่นแน่ จะจัดการข้อมูลเหรอ! ไม่ง่ายนักหรอก... กรุณาใส่รหัสผ่านแอดมิน</p>
-      <input type="password" id="adminPwd" placeholder="•••" class="w-full p-4 glass-input rounded-xl text-center text-3xl font-black mb-6 outline-none shadow-inner" onkeydown="if(event.key==='Enter') verifyAccess()">
-      <div class="flex gap-3 text-white">
-        <button onclick="closeModal('passwordModal')" class="flex-1 py-3 glass-card rounded-xl font-bold">ยกเลิก</button>
-        <button onclick="verifyAccess()" class="flex-1 py-3 bg-gradient-to-r from-rose-600 to-red-600 font-bold rounded-xl shadow-lg">ยืนยัน</button>
-      </div>
+<!-- ANALYZE -->
+<div id="page-analyze" class="page">
+  <div class="hdr"><div class="hdr-t">วิเคราะห์ความเข้ากัน</div><button class="ib2" onclick="rAna()" title="Reset"><i class="ph ph-arrows-clockwise"></i></button></div>
+  <div class="pc">
+    <div class="sln"><span class="snn sna">1</span>สารเคมีชนิดที่ 1</div>
+    <div id="sAe" class="se" onclick="oSSO('A')"><i class="ph ph-plus-circle"></i><span>เลือกหรือค้นหาสาร A</span></div>
+    <div id="sAs" class="ss" style="display:none">
+      <div class="ssic" id="sAic"></div>
+      <div style="flex:1;min-width:0"><div class="ssnm" id="sAnm"></div><div class="sssb" id="sAsb"></div><div style="margin-top:5px"><span class="chip cl" id="sAcl"></span></div></div>
+      <button class="sx" onclick="cSl('A')"><i class="ph-bold ph-x"></i></button>
     </div>
-  </div>
-
-  <div id="manageDbModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-[9999] hidden flex items-center justify-center p-4">
-    <div class="glass-card rounded-3xl w-full max-w-2xl max-h-[80vh] flex flex-col shadow-2xl border border-white/5">
-      <div class="p-6 border-b border-white/10 flex justify-between items-center bg-slate-800/50 rounded-t-3xl text-white">
-        <h3 class="font-bold flex items-center gap-2"><i class="ph-duotone ph-folder-open text-rose-400"></i> จัดการฐานข้อมูล</h3>
-        <button onclick="closeModal('manageDbModal')" class="text-slate-400 bg-slate-900 p-2 rounded-full hover:text-rose-400 transition-colors"><i class="ph-bold ph-x text-sm"></i></button>
-      </div>
-      <div class="p-6 overflow-y-auto custom-scrollbar flex-1" id="dbList"></div>
+    <div class="vr"><div class="vl"></div><div class="vb">VS</div><div class="vl"></div></div>
+    <div class="sln" style="padding-top:0"><span class="snn snb">2</span>สารเคมีชนิดที่ 2</div>
+    <div id="sBe" class="se" onclick="oSSO('B')"><i class="ph ph-plus-circle"></i><span>เลือกหรือค้นหาสาร B</span></div>
+    <div id="sBs" class="ss" style="display:none">
+      <div class="ssic" id="sBic"></div>
+      <div style="flex:1;min-width:0"><div class="ssnm" id="sBnm"></div><div class="sssb" id="sBsb"></div><div style="margin-top:5px"><span class="chip" style="background:rgba(255,100,200,.08);border:1px solid rgba(255,100,200,.22);color:#ff64c8" id="sBcl"></span></div></div>
+      <button class="sx" onclick="cSl('B')"><i class="ph-bold ph-x"></i></button>
     </div>
-  </div>
-
-  <div id="deleteConfirmModal" class="fixed inset-0 bg-slate-950/95 backdrop-blur-xl z-[10000] hidden flex items-center justify-center p-4 text-center">
-    <div class="glass-card rounded-3xl w-full max-w-xs p-8 border border-rose-500/50 shadow-[0_0_50px_rgba(225,29,72,0.4)]">
-      <i class="ph-duotone ph-warning-octagon text-5xl text-rose-500 mb-4 animate-bounce"></i>
-      <h3 class="text-white font-bold text-lg mb-2 tracking-wide uppercase">Confirm Erasure</h3>
-      <p id="deleteItemName" class="text-rose-300 text-sm mb-6 bg-rose-500/10 p-3 rounded-xl font-bold"></p>
-      <div class="flex gap-3 text-white font-bold">
-        <button onclick="closeModal('deleteConfirmModal')" class="flex-1 py-3 bg-slate-800 rounded-xl hover:bg-slate-700">ไม่ลบ</button>
-        <button onclick="executeDelete()" class="flex-1 py-3 bg-rose-600 rounded-xl shadow-lg font-black hover:brightness-110">ยืนยัน</button>
+    <div id="abw" style="margin:15px 16px 7px;display:none"><button class="btn" onclick="doAna()"><i class="ph-bold ph-atom" style="font-size:16px"></i>วิเคราะห์ความเข้ากันได้</button></div>
+    <div id="fus" style="display:none;margin:15px;text-align:center;padding:26px;background:var(--s2);border:1px solid var(--lbd);border-radius:var(--r)">
+      <div style="display:flex;align-items:center;justify-content:center;gap:18px;margin-bottom:13px">
+        <div id="fia" style="font-size:32px"></div>
+        <i class="ph-duotone ph-atom spn" style="font-size:26px;color:var(--lime)"></i>
+        <div id="fib" style="font-size:32px"></div>
       </div>
+      <div style="font-size:9px;color:var(--lime);font-weight:800;letter-spacing:.1em;text-transform:uppercase" class="pls">กำลังวิเคราะห์ปฏิกิริยา...</div>
     </div>
+    <div class="crd"><strong>ATIT CHIMNAN</strong>ChemNexus AI 2.0</div>
   </div>
+</div>
 
-  <div id="customDbModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-[9999] hidden flex items-center justify-center p-4 overflow-y-auto pt-20 pb-20 text-white">
-    <div class="glass-card rounded-3xl w-full max-w-md border border-slate-700 m-auto shadow-2xl">
-      <div class="p-6 border-b border-white/10 flex justify-between items-center bg-slate-800/50 rounded-t-3xl">
-        <h3 class="font-bold flex items-center gap-2"><i class="ph-duotone ph-database text-cyan-400"></i> เพิ่มข้อมูลฐานสารเคมี</h3>
-        <button onclick="closeModal('customDbModal')" class="text-slate-400 bg-slate-900 p-2 rounded-full hover:text-rose-400 transition-colors"><i class="ph-bold ph-x text-sm"></i></button>
-      </div>
-      <div class="p-6 space-y-5">
-        <div class="bg-cyan-500/5 p-3 rounded-xl text-[10px] text-cyan-200 border border-cyan-500/10 text-center italic">💡 ใส่ CAS หรือชื่อสารแล้วกด AI Auto-Fill</div>
-        <div><label class="block text-[10px] font-bold text-cyan-400 mb-1 uppercase">ชื่อสารเคมี / สูตรเคมี</label><input type="text" id="newChemName" placeholder="เช่น NaOH" class="w-full p-3 glass-input rounded-xl text-sm"></div>
-        <div><label class="block text-[10px] font-bold text-cyan-400 mb-1 uppercase">Hazard Class</label><select id="newChemClass" class="w-full p-3 glass-input rounded-xl text-sm [&>option]:bg-slate-900"></select></div>
-        <div class="grid grid-cols-2 gap-4">
-          <div><label class="block text-[10px] font-bold text-cyan-400 mb-1 uppercase">CAS No.</label><input type="text" id="newChemCas" class="w-full p-3 glass-input rounded-xl text-sm"></div>
-          <div><label class="block text-[10px] font-bold text-cyan-400 mb-1 uppercase">UN Number</label><input type="text" id="newChemUn" class="w-full p-3 glass-input rounded-xl text-sm"></div>
-        </div>
-        <div class="pt-4 space-y-3">
-          <button id="btnAiAutoFill" onclick="aiAutoFill()" class="w-full py-3 bg-slate-800 border border-cyan-500/30 text-cyan-400 font-bold rounded-xl text-xs flex items-center justify-center gap-2 transition-all hover:bg-slate-700 shadow-inner"><i class="ph-duotone ph-magic-wand text-lg"></i> AI Auto-Fill</button>
-          <button onclick="saveCustomChemical()" class="w-full py-4 bg-gradient-to-r from-cyan-600 to-blue-600 text-white font-black rounded-xl flex items-center justify-center gap-2 shadow-lg transition-transform hover:brightness-110"><i class="ph-bold ph-floppy-disk text-lg"></i> บันทึกข้อมูล</button>
-        </div>
-      </div>
-    </div>
-  </div>
+<!-- RESULT -->
+<div id="page-result" class="page">
+  <div class="hdr"><button class="bb" onclick="back()"><i class="ph-bold ph-caret-left"></i></button><div class="hdr-t">ผลการวิเคราะห์</div><button class="ib2" onclick="toast('คัดลอกแล้ว')"><i class="ph ph-share-network"></i></button></div>
+  <div class="pc" id="rb"></div>
+</div>
 
-  <div id="matrixModal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-md z-[9999] hidden flex items-center justify-center p-4">
-    <div class="glass-card rounded-3xl w-full max-w-5xl max-h-[90vh] overflow-hidden flex flex-col shadow-2xl border border-white/10">
-      <div class="p-4 flex justify-between items-center bg-slate-800/50 text-white">
-        <h3 class="font-bold flex items-center gap-2"><i class="ph-duotone ph-table text-cyan-400"></i> ตารางอ้างอิง DIW</h3>
-        <button onclick="closeModal('matrixModal')" class="text-slate-400 bg-slate-900 p-2 rounded-full transition-colors"><i class="ph-bold ph-x text-sm"></i></button>
-      </div>
-      <div class="p-4 overflow-y-auto flex-1 bg-slate-900/50 text-center">
-        <img src="01.jpg" alt="Matrix" class="max-w-full h-auto rounded-lg mx-auto shadow-2xl border border-white/5" onerror="this.src='https://raw.githubusercontent.com/atit1912/chem-ai/main/01.jpg'">
-      </div>
-    </div>
+<!-- DETAIL -->
+<div id="page-detail" class="page">
+  <div class="hdr"><button class="bb" onclick="back()"><i class="ph-bold ph-caret-left"></i></button><div class="hdr-t" id="dh">รายละเอียด</div><button onclick="a2A()" style="padding:4px 10px;border-radius:4px;background:var(--lb);border:1px solid var(--lbd);color:var(--lime);font-size:9px;font-weight:900;cursor:pointer;font-family:'Prompt',sans-serif;letter-spacing:.05em">+ วิเคราะห์</button></div>
+  <div class="pc" id="db"></div>
+</div>
+
+<!-- PPE -->
+<div id="page-ppe" class="page">
+  <div class="hdr"><div class="hdr-t">อุปกรณ์ป้องกัน PPE</div></div>
+  <div class="pc" id="pb"></div>
+</div>
+
+<!-- EMERGENCY -->
+<div id="page-emergency" class="page">
+  <div class="hdr"><div class="hdr-t" style="color:var(--red)">⚠ กรณีฉุกเฉิน</div></div>
+  <div class="pc" id="eb"></div>
+</div>
+
+<!-- NAV -->
+<div id="nav">
+  <div class="nb active" id="nb-dashboard" onclick="go('dashboard')"><i class="ph ph-house"></i><span>หน้าหลัก</span></div>
+  <div class="nb" id="nb-search" onclick="go('search')"><i class="ph ph-flask"></i><span>สารเคมี</span></div>
+  <div class="nb cx" id="nb-analyze" onclick="go('analyze')"><i class="ph ph-atom"></i><span>วิเคราะห์</span></div>
+  <div class="nb" id="nb-ppe" onclick="go('ppe')"><i class="ph ph-shield-check"></i><span>PPE</span></div>
+  <div class="nb" id="nb-emergency" onclick="go('emergency')"><i class="ph ph-warning-octagon"></i><span>ฉุกเฉิน</span></div>
+</div>
+
+<!-- SLOT SEARCH OVERLAY -->
+<div id="sso">
+  <div style="padding:9px 15px 7px;border-bottom:1px solid var(--bd2);display:flex;align-items:center;gap:9px">
+    <button class="ib2" onclick="cSSO()"><i class="ph-bold ph-x"></i></button>
+    <input class="si" id="ssoi" style="margin:0;flex:1" placeholder="ค้นหา..." oninput="rSSO(this.value)">
   </div>
+  <div id="ssor" style="overflow-y:auto;flex:1;scrollbar-width:none"></div>
+</div>
+
+<div id="toast"></div>
+</div>
 
 <script>
-// --- [1] GLOBAL DECLARATIONS & SYSTEM INIT ---
-var currentLang = 'th';
-var visitCount = 0;
-var analysisCount = 0;
-var audioCtx = null;
-var auditsHistory = [];
-var chemicalDatabase = [];
-var state = { classA: null, classB: null, nameA: null, nameB: null };
-var targetIndex = null; 
+// DATA
+const CO=["1","2A","2B","3A","3B","4.1A","4.1B","4.2","4.3","5.1A","5.1B","5.1C","5.2","6.1A","6.1B","6.2","7","8A","8B","10","11","12","13"];
+const HC={"1":{t:"วัตถุระเบิด",ic:"💥",r:"EXTREME",fi:["Water (Large)"],pp:["ระยะปลอดภัย","หมวก"],eg:"อพยพทันที ห้ามดับไฟ"},"2A":{t:"ก๊าซอัด",ic:"💨",r:"MEDIUM",fi:["Dry Chem","CO2"],pp:["แว่นตา","ถุงมือ"],eg:"หล่อเย็นถัง ปิดวาล์ว"},"2B":{t:"ก๊าซสเปรย์",ic:"💨",r:"LOW",fi:["Dry Chem"],pp:["แว่นตา"],eg:"เคลื่อนออกจากความร้อน"},"3A":{t:"ของเหลวไวไฟ(ต่ำ)",ic:"🔥",r:"HIGH",fi:["Foam","CO2"],pp:["ชุดทนไฟ","แว่นตา","ถุงมือ"],eg:"กำจัดประกายไฟ ใช้ทราย"},"3B":{t:"ของเหลวไวไฟ(สูง)",ic:"🔥",r:"MEDIUM",fi:["Foam"],pp:["ถุงมือ","แว่นตา"],eg:"ปิดกั้นน้ำ ใช้โฟม"},"4.1A":{t:"ของแข็งไวไฟ-ระเบิด",ic:"🔥",r:"HIGH",fi:["Water Spray"],pp:["หน้ากาก","แว่นตา"],eg:"หลีกเลี่ยงการเสียดสี"},"4.1B":{t:"ของแข็งไวไฟ",ic:"🔥",r:"MEDIUM",fi:["Water"],pp:["หน้ากากกรอง","แว่นตา"],eg:"กวาดเก็บระวังฝุ่น"},"4.2":{t:"สารลุกไหม้เอง",ic:"🔥",r:"HIGH",fi:["Dry Sand"],pp:["ชุดป้องกัน","ถุงมือ"],eg:"ห้ามใช้น้ำ ระวังอากาศ"},"4.3":{t:"สัมผัสน้ำ→ก๊าซไวไฟ",ic:"💧",r:"HIGH",fi:["Class D"],pp:["แว่นตา","ถุงมือแห้ง"],eg:"ห้ามใช้น้ำเด็ดขาด!"},"5.1A":{t:"สารออกซิไดซ์แรง",ic:"⭕",r:"HIGH",fi:["Water (Large)"],pp:["Face Shield","ถุงมือ"],eg:"แยกจากสารติดไฟทันที"},"5.1B":{t:"สารออกซิไดซ์",ic:"⭕",r:"MEDIUM",fi:["Water Spray"],pp:["ถุงมือ","แว่นตา"],eg:"ป้องกันสารอินทรีย์"},"5.1C":{t:"สารออกซิไดซ์อื่นๆ",ic:"⭕",r:"LOW",fi:["Water Spray"],pp:["แว่นตา"],eg:"กวาดด้วยวัสดุไม่ติดไฟ"},"5.2":{t:"เปอร์ออกไซด์อินทรีย์",ic:"⭕",r:"HIGH",fi:["Water Spray"],pp:["ชุดเคมี","Face Shield"],eg:"เก็บเย็น ระวังระเบิด"},"6.1A":{t:"สารพิษ(ติดไฟ)",ic:"☣️",r:"HIGH",fi:["Foam"],pp:["SCBA","ชุดป้องกัน"],eg:"อพยพเหนือลม"},"6.1B":{t:"สารพิษ(ไม่ติดไฟ)",ic:"☣️",r:"MEDIUM",fi:["เหมาะสม"],pp:["หน้ากาก P100","ถุงมือ"],eg:"ระบายอากาศ กั้นพื้นที่"},"6.2":{t:"สารติดเชื้อ",ic:"☣️",r:"HIGH",fi:["เหมาะสม"],pp:["ชุด Biohazard"],eg:"ห้ามสัมผัส น้ำยาฆ่าเชื้อ"},"7":{t:"กัมมันตรังสี",ic:"☢️",r:"EXTREME",fi:["เหมาะสม"],pp:["Dosimeter","Lead Shield"],eg:"กันเขต แจ้งเจ้าหน้าที่"},"8A":{t:"สารกัดกร่อน(ติดไฟ)",ic:"🧪",r:"HIGH",fi:["Dry Chem"],pp:["ชุดกรด","Face Shield"],eg:"ระวังกระเด็น สารสะเทิน"},"8B":{t:"สารกัดกร่อน",ic:"🧪",r:"MEDIUM",fi:["เหมาะสม"],pp:["ถุงมือยาง","แว่นตา","เสื้อคลุม"],eg:"ซับเฉื่อย ล้างน้ำมาก"},"10":{t:"ของเหลวติดไฟอื่น",ic:"🛢️",r:"LOW",fi:["Foam"],pp:["ถุงมือ"],eg:"กวาดด้วยวัสดุดูดซับ"},"11":{t:"ของแข็งติดไฟ",ic:"📦",r:"LOW",fi:["Water"],pp:["หน้ากากกรอง"],eg:"กวาดระวังฝุ่น"},"12":{t:"ของเหลวไม่ติดไฟ",ic:"💧",r:"LOW",fi:["เหมาะสม"],pp:["ถุงมือ"],eg:"เช็ดทำความสะอาด"},"13":{t:"ของแข็งไม่ติดไฟ",ic:"📦",r:"LOW",fi:["เหมาะสม"],pp:["มาตรฐาน"],eg:"กวาดทิ้งตามระเบียบ"}};
+const MX={"1":["17","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0"],"2A":["0","17","4","0","0","0","0","0","0","0","0","10","0","0","0","0","18","5","00","0","5","00","00"],"2B":["0","4","00","1","1","0","0","0","0","0","0","10","0","2","2","0","18","4","4","6","6","6","6"],"3A":["0","0","1","17","00","0","0","0","0","0","0","0","0","18","9","0","18","3","9","00","3","00","00"],"3B":["0","0","1","00","17","12","4","4","4","0","0","0","7","00","00","0","18","00","00","00","00","00","00"],"4.1A":["0","0","0","0","12","17","12","0","0","0","0","0","14","0","0","0","18","12","12","12","12","12","12"],"4.1B":["0","0","0","0","4","12","00","4","4","4","0","0","13","8","0","0","18","00","00","00","00","00","00"],"4.2":["0","0","0","0","4","0","4","00","4","0","0","0","0","0","0","0","18","4","4","4","4","4","00"],"4.3":["0","0","0","0","4","0","4","4","00","0","0","0","0","0","0","0","18","4","4","4","4","4","00"],"5.1A":["0","0","0","0","0","0","4","0","0","00","00","00","0","0","0","0","18","4","4","4","4","4","0"],"5.1B":["0","0","0","0","0","0","0","0","0","00","10","15","0","15","15","0","18","11","00","11","11","00","00"],"5.1C":["0","10","10","0","0","0","0","0","0","00","15","17","0","0","0","0","18","10","10","10","10","10","10"],"5.2":["0","0","0","0","7","14","13","0","0","0","0","0","17","0","0","0","0","0","0","16","16","16","16"],"6.1A":["0","0","2","18","00","0","8","0","0","0","15","0","0","17","17","0","18","0","0","3","3","3","3"],"6.1B":["0","0","2","9","00","0","0","0","0","0","15","0","0","17","17","0","18","0","0","3","3","3","3"],"6.2":["0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","00","0","0","0","0","0","0","0"],"7":["0","18","18","18","18","18","18","18","18","18","18","18","0","18","18","0","18","18","18","18","18","18","18"],"8A":["0","5","4","3","00","12","00","4","4","4","11","10","0","0","0","0","18","00","00","10","10","10","00"],"8B":["0","00","4","9","00","12","00","4","4","4","00","10","0","0","0","0","18","00","00","10","10","00","00"],"10":["0","0","6","00","00","12","00","4","4","4","11","10","16","3","3","0","18","10","10","00","00","00","00"],"11":["0","5","6","3","00","12","00","4","4","4","11","10","16","3","3","0","18","10","10","00","00","00","00"],"12":["0","00","6","00","00","12","00","4","4","4","00","10","16","3","3","0","18","10","00","00","00","00","00"],"13":["0","00","6","00","00","12","00","00","00","0","00","10","16","3","3","0","18","00","00","00","00","00","00"]};
+const CD={"1":"ของเหลวไวไฟ+ก๊าซสเปรย์ เก็บได้โดยต้องมีระบายอากาศ และปริมาณไม่เกิน 60%","2":"ก๊าซสเปรย์+สารพิษ ต้องการ: ผนังทนไฟ พื้นที่ ≤60ม² ปริมาณ ≤60% อุณหภูมิ ≤50°C ระบายอากาศ ทางออกฉุกเฉิน 2 ทาง","3":"วัสดุลุกไฟได้เร็ว ควรแยกออกจากสารพิษหรือของเหลวไวไฟ","4":"สามารถเก็บคละได้โดยการแยกห่าง: กำแพงกั้น เว้นระยะ หรือบ่อแยก","5":"ก๊าซอัด ≤50 ท่อ (ก๊าซไวไฟ/ออกซิไดส์/พิษ ≤25 ท่อ) แยกด้วยผนังไม่ติดไฟ ≥2ม. ระยะห่าง ≥5ม.","6":"เก็บคละได้ตามข้อกำหนดประเภท 2B","7":"เก็บกับของเหลวไวไฟ จุดวาบไฟ >60°C หากไม่ก่อปฏิกิริยาอันตราย","8":"สารติดไฟ+พิษ เก็บกับของแข็งไวไฟ 4.1B ได้","9":"ห้ามเก็บ 3A คละกับสารกัดกร่อนในภาชนะแตกง่าย ยกเว้นมีมาตรการป้องกัน","10":"เก็บคละได้ ยกเว้นก๊าซไวไฟ","11":"ต้องมีมาตรการเพิ่มเติม รับความเห็นชอบจากกรมโรงงานอุตสาหกรรม","12":"4.1A อาจเก็บคละได้หากระยะห่างปลอดภัยรอบคลังเพียงพอ ตรวจสอบแต่ละกรณี","13":"5.2 เก็บกับ 4.1B ได้","14":"เก็บกับ propellants และ initiators ได้หากไม่มีโลหะหนัก","15":"5.1B กับ 6.1A/6.1B ≤20 ตัน โดยต้องมีระบบเตือนไฟ ดับเพลิงอัตโนมัติ และทีมดับเพลิงบริษัท","16":"5.2 กับสารอื่น ต้องตรวจสอบระยะห่างปลอดภัยรอบคลังแต่ละกรณี","17":"พิจารณาตามข้อกำหนดเฉพาะของวัตถุอันตรายแต่ละประเภท","18":"กัมมันตรังสี แยกจัดเก็บตามข้อกำหนด IAEA และได้รับอนุมัติจากหน่วยงานรัฐ"};
+const PR={"8B-5.1A":{g:"ก๊าซคลอรีน (Cl₂)",rx:"กรด (8B) ทำปฏิกิริยากับสารออกซิไดซ์แรง เช่น คลอรีนผง จะปล่อยก๊าซ Cl₂ พิษร้ายแรงต่อระบบทางเดินหายใจ"},"8B-5.1B":{g:"ก๊าซพิษ/ความร้อน",rx:"H₂O₂/NaNO₂ กับกรด/เบส เกิดปฏิกิริยา exothermic ปล่อยก๊าซออกซิเจนหรือก๊าซพิษ เสี่ยงเพลิงไหม้"},"3A-5.1A":{g:"เพลิงไหม้/ระเบิด",rx:"สารออกซิไดซ์แรงสัมผัสของเหลวไวไฟ เร่งการเผาไหม้รุนแรง เสี่ยงระเบิดทันที"},"3A-5.1B":{g:"เพลิงไหม้",rx:"สารออกซิไดซ์เร่งการเผาไหม้ของเหลวไวไฟ เช่น เอทานอล ควบคุมไม่ได้"},"3A-5.2":{g:"เพลิงไหม้/ระเบิด",rx:"เปอร์ออกไซด์อินทรีย์+ของเหลวไวไฟ อันตรายระเบิดสูงมาก"},"4.3-8B":{g:"ก๊าซไฮโดรเจน (H₂)",rx:"สาร 4.3 สัมผัสน้ำในสารกัดกร่อน เกิดก๊าซ H₂ ไวไฟรุนแรงและระเบิดได้"},"1-2A":{g:"ระเบิด",rx:"วัตถุระเบิด+ก๊าซอัด คลื่นระเบิดอาจทำให้ถังก๊าซแตก เสี่ยงหายนะ"},"1-3A":{g:"ระเบิด/เพลิงไหม้",rx:"วัตถุระเบิด+ของเหลวไวไฟ ความร้อนจากเพลิงอาจจุดวัตถุระเบิด"},"4.2-4.3":{g:"เพลิงไหม้ทันที",rx:"สารลุกไหม้เอง+สารทำปฏิกิริยากับน้ำ อันตรายสูงมากหากมีความชื้น"},"3A-8A":{g:"ไอพิษ/เพลิงไหม้",rx:"สารกัดกร่อนติดไฟ+ของเหลวไวไฟ เสี่ยงเพลิงไหม้และปล่อยไอพิษ"}};
+const DB=[{n:"LPG (ก๊าซหุงต้ม)",c:"2A",cs:"68476-85-7",u:"1075"},{n:"สเปรย์แอลกอฮอล์",c:"2B",cs:"64-17-5",u:"1950"},{n:"Nitroglycerin",c:"1",cs:"55-63-0",u:"0143"},{n:"เอทานอล 95%",c:"3A",cs:"64-17-5",u:"1170"},{n:"อะซิโตน",c:"3A",cs:"67-64-1",u:"1090"},{n:"โทลูอีน",c:"3A",cs:"108-88-3",u:"1294"},{n:"ไซลีน",c:"3A",cs:"1330-20-7",u:"1307"},{n:"แคลเซียมคาร์ไบด์",c:"4.3",cs:"75-20-7",u:"1402"},{n:"คลอรีนผง",c:"5.1A",cs:"7778-54-3",u:"1748"},{n:"โซเดียมไนไตรท์",c:"5.1B",cs:"7632-00-0",u:"1500"},{n:"ไฮโดรเจนเปอร์ออกไซด์ (30%)",c:"5.1B",cs:"7722-84-1",u:"2014"},{n:"ฟอร์มาลดีไฮด์",c:"6.1A",cs:"50-00-0",u:"1198"},{n:"กรดเกลือ (HCl)",c:"8B",cs:"7647-01-0",u:"1789"},{n:"โซเดียมไฮดรอกไซด์ (โซดาไฟ)",c:"8B",cs:"1310-73-2",u:"1823"},{n:"กรดซัลฟิวริก",c:"8B",cs:"7664-93-9",u:"1830"},{n:"อะซิติกแอซิด",c:"8B",cs:"64-19-7",u:"2789"},{n:"คลอรีนน้ำ (โซเดียมไฮโปคลอไรต์)",c:"8B",cs:"7681-52-9",u:"1791"},{n:"ไบโอซอล 300",c:"8B",cs:"-",u:"-"},{n:"EDTA",c:"12",cs:"60-00-4",u:"-"},{n:"โซเดียมไบคาร์บอเนต",c:"13",cs:"144-55-8",u:"-"},{n:"ปูนขาว",c:"13",cs:"1305-62-0",u:"1910"}];
+const PP={"กรดเกลือ (HCl)":{f:"HCl",mw:"36.46 g/mol",st:"ของเหลว กลิ่นฉุน",cn:"30–37%",bp:"–85°C",mp:"–114°C",d:"1.16 g/cm³"},"กรดซัลฟิวริก":{f:"H₂SO₄",mw:"98.08 g/mol",st:"ของเหลว ไม่มีสี",cn:"98%",bp:"337°C",mp:"10°C",d:"1.84 g/cm³"},"โซเดียมไฮดรอกไซด์ (โซดาไฟ)":{f:"NaOH",mw:"40.00 g/mol",st:"ของแข็ง เม็ด/แผ่น",cn:"97%+",bp:"1388°C",mp:"318°C",d:"2.13 g/cm³"},"เอทานอล 95%":{f:"C₂H₅OH",mw:"46.07 g/mol",st:"ของเหลว ไม่มีสี",cn:"95%",bp:"78°C",mp:"–114°C",d:"0.79 g/cm³"},"คลอรีนน้ำ (โซเดียมไฮโปคลอไรต์)":{f:"NaOCl",mw:"74.44 g/mol",st:"ของเหลว เหลืองอ่อน",cn:"5–12%",bp:"101°C",mp:"-",d:"1.1 g/cm³"},"ไฮโดรเจนเปอร์ออกไซด์ (30%)":{f:"H₂O₂",mw:"34.01 g/mol",st:"ของเหลว ไม่มีสี",cn:"30%",bp:"150°C",mp:"-0.43°C",d:"1.11 g/cm³"},"คลอรีนผง":{f:"Ca(OCl)₂",mw:"142.98 g/mol",st:"ของแข็ง สีขาว",cn:"65–70%",bp:"-",mp:"decomposes",d:"2.35 g/cm³"}};
 
-const CLASS_ORDER = [
-  "1", "2A", "2B", "3A", "3B", "4.1A", "4.1B", "4.2", "4.3", "5.1A", 
-  "5.1B", "5.1C", "5.2", "6.1A", "6.1B", "6.2", "7", "8A", "8B", "10", 
-  "11", "12", "13"
-];
+let cp='dashboard',pv=[],st=null,sA=null,sB=null;
+let hs=JSON.parse(localStorage.getItem('cn2h')||'[]');
+let cf='all',cd=null;
 
-// --- [2] DATASETS ---
-const hazardClasses = {
-  "1": { title: "Class 1: วัตถุระเบิด", icon: "💥", risk: "High", color: "rose", erg: "อพยพทันที ห้ามดับไฟหากไฟลามถึงวัตถุระเบิด", fire: ["Water (Large)"], ppe: ["🚫 Distance"] },
-  "2A": { title: "Class 2A: ก๊าซอัด", icon: "💨", risk: "Medium", color: "blue", erg: "ใช้น้ำฉีดหล่อเย็นถัง ปิดวาล์วหากปลอดภัย", fire: ["Dry Chem", "CO2"], ppe: ["Goggles"] },
-  "2B": { title: "Class 2B: ก๊าซสเปรย์", icon: "💨", risk: "Low", color: "blue", erg: "เคลื่อนย้ายออกจากแหล่งความร้อน", fire: ["Dry Chem"], ppe: ["Goggles"] },
-  "3A": { title: "Class 3A: ของเหลวไวไฟ (ต่ำ)", icon: "🔥", risk: "High", color: "rose", erg: "กำจัดแหล่งประกายไฟ ใช้ทรายดูดซับ", fire: ["Foam", "CO2"], ppe: ["Flame-Resist"] },
-  "3B": { title: "Class 3B: ของเหลวไวไฟ (สูง)", icon: "🔥", risk: "Medium", color: "amber", erg: "ปิดกั้นทางน้ำ ใช้โฟมคลุมไอระเหย", fire: ["Foam"], ppe: ["Gloves"] },
-  "4.1A": { title: "Class 4.1A: ของแข็งไวไฟระเบิด", icon: "🔥", risk: "High", color: "rose", erg: "หลีกเลี่ยงการเสียดสี อพยพ", fire: ["Water Spray"], ppe: ["Respirator"] },
-  "4.1B": { title: "Class 4.1B: ของแข็งไวไฟ", icon: "🔥", risk: "Medium", color: "amber", erg: "กวาดเก็บระวังการฟุ้งกระจาย", fire: ["Water"], ppe: ["Dust Mask"] },
-  "4.2": { title: "Class 4.2: สารลุกไหม้เอง", icon: "🔥", risk: "High", color: "rose", erg: "ระวังการสัมผัสอากาศ ห้ามใช้น้ำ", fire: ["Dry Sand"], ppe: ["Fire Suit"] },
-  "4.3": { title: "Class 4.3: สัมผัสน้ำให้ก๊าซไวไฟ", icon: "💧", risk: "High", color: "rose", erg: "ห้ามใช้น้ำเด็ดขาด! ใช้ทรายแห้งเท่านั้น", fire: ["Class D Powder"], ppe: ["Goggles"] },
-  "5.1A": { title: "Class 5.1A: สารออกซิไดซ์แรง", icon: "⭕", risk: "High", color: "rose", erg: "แยกจากสารติดไฟทันที เร่งปฏิกิริยาเพลิงไหม้", fire: ["Water (Large)"], ppe: ["Face Shield"] },
-  "5.1B": { title: "Class 5.1B: สารออกซิไดซ์", icon: "⭕", risk: "Medium", color: "amber", erg: "ป้องกันการปนเปื้อนสารอินทรีย์", fire: ["Water Spray"], ppe: ["Gloves"] },
-  "5.1C": { title: "Class 5.1C: สารออกซิไดซ์อื่นๆ", icon: "⭕", risk: "Low", color: "amber", erg: "กวาดเก็บด้วยวัสดุไม่ติดไฟ", fire: ["Water Spray"], ppe: ["Goggles"] },
-  "5.2": { title: "Class 5.2: เปอร์ออกไซด์อินทรีย์", icon: "⭕", risk: "High", color: "rose", erg: "เก็บให้เย็น ระวังระเบิดเมื่อร้อน", fire: ["Water Spray"], ppe: ["Chem Suit"] },
-  "6.1A": { title: "Class 6.1A: สารพิษ (ติดไฟ)", icon: "☣️", risk: "High", color: "rose", erg: "อพยพเหนือลม ห้ามสูดดมไอ", fire: ["Foam"], ppe: ["SCBA"] },
-  "6.1B": { title: "Class 6.1B: สารพิษ (ไม่ติดไฟ)", icon: "☣️", risk: "Medium", color: "amber", erg: "ระบายอากาศ กั้นพื้นที่รั่ว", fire: ["Suitable for env"], ppe: ["Respirator"] },
-  "6.2": { title: "Class 6.2: สารติดเชื้อ", icon: "☣️", risk: "High", color: "rose", erg: "ห้ามสัมผัส ใช้น้ำยาฆ่าเชื้อ", fire: ["Suitable for env"], ppe: ["Bio Suit"] },
-  "7": { title: "Class 7: กัมมันตรังสี", icon: "☢️", risk: "High", color: "rose", erg: "กันเขตแจ้งเจ้าหน้าที่ทันที", fire: ["Suitable for env"], ppe: ["Dosimeter"] },
-  "8A": { title: "Class 8A: สารกัดกร่อน (ติดไฟ)", icon: "🧪", risk: "High", color: "rose", erg: "ระวังกระเด็น ใช้สารสะเทิน", fire: ["Dry Chem"], ppe: ["Acid Suit"] },
-  "8B": { title: "Class 8B: สารกัดกร่อน (ไม่ติดไฟ)", icon: "🧪", risk: "Medium", color: "amber", erg: "ซับด้วยวัสดุเฉื่อย ล้างน้ำมาก", fire: ["Suitable for env"], ppe: ["Rubber Gloves"] },
-  "10": { title: "Class 10: ของเหลวติดไฟอื่น", icon: "🛢️", risk: "Low", color: "emerald", erg: "เก็บกวาดด้วยวัสดุดูดซับ", fire: ["Foam"], ppe: ["Gloves"] },
-  "11": { title: "Class 11: ของแข็งติดไฟ", icon: "📦", risk: "Low", color: "emerald", erg: "กวาดเก็บปกติ ระวังฝุ่น", fire: ["Water"], ppe: ["Dust Mask"] },
-  "12": { title: "Class 12: ของเหลวไม่ติดไฟ", icon: "💧", risk: "Low", color: "emerald", erg: "เช็ดทำความสะอาด ป้องกันลื่น", fire: ["Suitable for env"], ppe: ["Standard"] },
-  "13": { title: "Class 13: ของแข็งไม่ติดไฟ", icon: "📦", risk: "Low", color: "emerald", erg: "กวาดเก็บทิ้งตามระเบียบ", fire: ["Suitable for env"], ppe: ["Standard"] }
-};
+function go(pg,dr='right'){
+  const pv2=document.getElementById('page-'+cp),nx=document.getElementById('page-'+pg);
+  if(!nx)return;
+  pv2.classList.remove('active');
+  nx.classList.add('active',dr==='left'?'el':'er');
+  setTimeout(()=>nx.classList.remove('er','el'),320);
+  pv.push(cp);cp=pg;
+  uNB(pg);
+  if(pg==='search')rCL('');
+  if(pg==='ppe')rPPE();
+  if(pg==='emergency')rEMG();
+  if(pg==='dashboard')uDash();
+}
+function back(){go(pv.pop()||'dashboard','left');}
+function uNB(pg){document.querySelectorAll('.nb').forEach(b=>b.classList.remove('active'));const a=document.getElementById('nb-'+pg);if(a)a.classList.add('active');}
 
-const matrixRows = {
-  "1":    ["17", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"],
-  "2A":   ["0", "17", "4", "0", "0", "0", "0", "0", "0", "0", "0", "10", "0", "0", "0", "0", "18", "5", "00", "0", "5", "00", "00"],
-  "2B":   ["0", "4", "00", "1", "1", "0", "0", "0", "0", "0", "0", "10", "0", "2", "2", "0", "18", "4", "4", "6", "6", "6", "6"],
-  "3A":   ["0", "0", "1", "17", "00", "0", "0", "0", "0", "0", "0", "0", "0", "18", "9", "0", "18", "3", "9", "00", "3", "00", "00"],
-  "3B":   ["0", "0", "1", "00", "17", "12", "4", "4", "4", "0", "0", "0", "7", "00", "00", "0", "18", "00", "00", "00", "00", "00", "00"],
-  "4.1A": ["0", "0", "0", "0", "12", "17", "12", "0", "0", "0", "0", "0", "14", "0", "0", "0", "18", "12", "12", "12", "12", "12", "12"],
-  "4.1B": ["0", "0", "0", "0", "4", "12", "00", "4", "4", "4", "0", "0", "13", "8", "0", "0", "18", "00", "00", "00", "00", "00", "00"],
-  "4.2":  ["0", "0", "0", "0", "4", "0", "4", "00", "4", "0", "0", "0", "0", "0", "0", "0", "18", "4", "4", "4", "4", "4", "00"],
-  "4.3":  ["0", "0", "0", "0", "4", "0", "4", "4", "00", "0", "0", "0", "0", "0", "0", "0", "18", "4", "4", "4", "4", "4", "00"],
-  "5.1A": ["0", "0", "0", "0", "0", "0", "4", "0", "0", "00", "00", "00", "0", "0", "0", "0", "18", "4", "4", "4", "4", "4", "0"],
-  "5.1B": ["0", "0", "0", "0", "0", "0", "0", "0", "0", "00", "10", "15", "0", "15", "15", "0", "18", "11", "00", "11", "11", "00", "00"],
-  "5.1C": ["0", "10", "10", "0", "0", "0", "0", "0", "0", "00", "15", "17", "0", "0", "0", "0", "18", "10", "10", "10", "10", "10", "10"],
-  "5.2":  ["0", "0", "0", "0", "7", "14", "13", "0", "0", "0", "0", "0", "17", "0", "0", "0", "0", "0", "0", "16", "16", "16", "16"],
-  "6.1A": ["0", "0", "2", "18", "00", "0", "8", "0", "0", "0", "15", "0", "0", "17", "17", "0", "18", "0", "0", "3", "3", "3", "3"],
-  "6.1B": ["0", "0", "2", "9", "00", "0", "0", "0", "0", "0", "15", "0", "0", "17", "17", "0", "18", "0", "0", "3", "3", "3", "3"],
-  "6.2":  ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "00", "0", "0", "0", "0", "0", "0", "0"],
-  "7":    ["0", "18", "18", "18", "18", "18", "18", "18", "18", "18", "18", "18", "0", "18", "18", "0", "18", "18", "18", "18", "18", "18", "18"],
-  "8A":   ["0", "5", "4", "3", "00", "12", "00", "4", "4", "4", "11", "10", "0", "0", "0", "0", "18", "00", "00", "10", "10", "10", "00"],
-  "8B":   ["0", "00", "4", "9", "00", "12", "00", "4", "4", "4", "00", "10", "0", "0", "0", "0", "18", "00", "00", "10", "10", "00", "00"],
-  "10":   ["0", "0", "6", "00", "00", "12", "00", "4", "4", "4", "11", "10", "16", "3", "3", "0", "18", "10", "10", "00", "00", "00", "00"],
-  "11":   ["0", "5", "6", "3", "00", "12", "00", "4", "4", "4", "11", "10", "16", "3", "3", "0", "18", "10", "10", "00", "00", "00", "00"],
-  "12":   ["0", "00", "6", "00", "00", "12", "00", "4", "4", "4", "00", "10", "16", "3", "3", "0", "18", "10", "00", "00", "00", "00", "00"],
-  "13":   ["0", "00", "6", "00", "00", "12", "00", "00", "00", "0",  "00", "10", "16", "3", "3", "0",  "18", "00", "00", "00", "00", "00", "00"]
-};
-
-const defaultChemicalDB = [
-  { name: "LPG (ก๊าซหุงต้ม)", class: "2A", cas: "68476-85-7", un: "1075" },
-  { name: "สเปรย์แอลกอฮอล์", class: "2B", cas: "64-17-5", un: "1950" },
-  { name: "Nitroglycerin", class: "1", cas: "55-63-0", un: "0143" },
-  { name: "เอทานอล 95%", class: "3A", cas: "64-17-5", un: "1170" },
-  { name: "อควาบราวน์", class: "11", cas: "-", un: "-" },
-  { name: "โพวิโดน ไอโอดีน", class: "12", cas: "25655-41-8", un: "-" },
-  { name: "EDTA", class: "12", cas: "60-00-4", un: "-" },
-  { name: "ซันไล", class: "12", cas: "-", un: "-" },
-  { name: "โซเดียมไทโอซัลเฟต", class: "12", cas: "7772-98-7", un: "-" },
-  { name: "แคลเซียมคลอไรด์", class: "12", cas: "10043-52-4", un: "-" },
-  { name: "แคลเซียมคลอไรต์", class: "12", cas: "39475-21-3", un: "-" },
-  { name: "โซเดียมไนไตรท์", class: "5.1B", cas: "7632-00-0", un: "1500" },
-  { name: "ไฮโดรเจนเปอร์ออกไซด์ (30%)", class: "5.1B", cas: "7722-84-1", un: "2014" },
-  { name: "คลอรีนผง", class: "5.1A", cas: "7778-54-3", un: "1748" },
-  { name: "คลอรีนน้ำ", class: "8B", cas: "7681-52-9", un: "1791" },
-  { name: "ไบโอซอล 300", class: "8B", cas: "-", un: "-" },
-  { name: "กรดเกลือ (HCl)", class: "8B", cas: "7647-01-0", un: "1789" },
-  { name: "โซเดียมไฮดรอกไซด์ (โซดาไฟ)", class: "8B", cas: "1310-73-2", un: "1823" },
-  { name: "โซเดียมไบคาร์บอเนต", class: "13", cas: "144-55-8", un: "-" },
-  { name: "แมกนีเซียมคลอไรด์", class: "13", cas: "7786-30-3", un: "-" },
-  { name: "ปูนขาว", class: "13", cas: "1305-62-0", un: "1910" }
-];
-
-const matrixConditions = {
-  "1": "การจัดเก็บของเหลวไวไฟ และก๊าซภายใต้ความดันในภาชนะบรรจุขนาดเล็ก (กระป๋องสเปรย์) สามารถจัดเก็บได้โดยมีเงื่อนไขดังนี้ ต้องจัดให้มีการระบายอากาศ และปริมาณการจัดเก็บสารต้องไม่เกิน 60 เปอร์เซ็นต์ของปริมาณการจัดเก็บทั้งหมด",
-  "2": "ก๊าซภายใต้ความดันในภาชนะบรรจุขนาดเล็ก (กระป๋องสเปรย์) เก็บคละกับสารพิษได้ โดยมีเงื่อนไขต่อไปนี้ ห้องที่มีผนังทนไฟ ขนาดพื้นที่ต้องไม่เกิน 60 ตารางเมตร และปริมาณการจัดเก็บสารไม่เกิน 60 เปอร์เซ็นต์ ของปริมาณการจัดเก็บทั้งหมด อุณหภูมิของห้องต้องไม่เกิน 50 องศาเซลเซียส ต้องมีการระบายอากาศและต้องมีทางออกฉุกเฉิน 2 ทาง",
-  "3": "วัสดุที่เป็นสาเหตุให้เกิดการลุกติดไฟหรือลุกล่ามได้อย่างรวดเร็ว เช่น วัสดุที่ใช้ทำบรรจุภัณฑ์ ควรจัดเก็บแยกบริเวณออกจากสารพิษหรือของเหลวไวไฟ",
-  "4": "ผลิตภัณฑ์ที่ไม่ทำปฏิกิริยากับสารอื่นในขณะเกิดอุบัติเหตุ สามารถเก็บคละกันได้โดยการจัดเก็บแบบแยกห่าง เช่น แยกออกจากกันโดยมีกำแพงกั้น เว้นระยะปลอดภัยให้ห่าง เก็บในบ่อแยกจากกัน",
-  "5": "ห้องเก็บรักษาวัตถุอันตราย ให้จัดเก็บก๊าซภายใต้ความดันได้ไม่เกิน 50 ท่อ ในจำนวนดังกล่าวอนุญาตให้เก็บเป็นก๊าซภายใต้ความดันที่มีคุณสมบัติไวไฟ ออกซิไดส์ หรือก๊าซพิษ เก็บรวมกันได้ไม่เกิน 25 ท่อ สารติดไฟได้ (ประเภท 8A และ 11) (ยกเว้นของเหลวไวไฟ) อาจนำมาเก็บรวมได้ โดยจัดเก็บแบบแยกห่างจากก๊าซภายใต้ความดันด้วยผนังที่ทำจากวัสดุที่ไม่ติดไฟ ที่มีความสูงอย่างน้อย 2 เมตร และมีระยะห่างจากผนังอย่างน้อย 5 เมตร",
-  "6": "อนุญาตให้เก็บคละได้ ถ้ามีข้อกำหนดความปลอดภัยสำหรับสินค้าคงคลังทั้งหมดโดยให้เป็นไปตามข้อกำหนดการจัดเก็บวัตถุอันตรายประเภท 2B",
-  "7": "อนุญาตให้เก็บคละกับของเหลวไวไฟที่มีจุดวาบไฟสูงกว่า 60 องศาเซลเซียส ถ้าการเก็บคละกันนี้ไม่ทำให้เกิดปฏิกิริยาที่เป็นอันตราย (การลุกติดไฟและ/หรือให้ความร้อนออกมา หรือให้ก๊าซไวไฟ หรือให้ก๊าซที่ทำให้เกิดภาวะการขาดออกซิเจน หรือให้ก๊าซพิษ หรือทำให้เกิดบรรยากาศของการกัดกร่อน หรือทำให้เกิดสารที่ไม่เสถียร หรือเพิ่มความดันจนเป็นอันตราย) หากพบว่ามีโอกาสเกิดอันตรายตามที่กล่าว ให้จัดเก็บโดยเว้นระยะห่างที่ปลอดภัย (5 เมตร)",
-  "8": "สารติดไฟที่มีคุณสมบัติเป็นพิษเก็บคละกับของแข็งไวไฟ (ประเภท 4.1B) ได้",
-  "9": "ห้ามเก็บของเหลวไวไฟ (ประเภท 3A) คละกับสารกัดกร่อนที่บรรจุในภาชนะที่แตกง่าย ยกเว้นมีมาตรการป้องกันไม่ให้สารทำปฏิกิริยากันได้ ในกรณีที่เกิดอุบัติเหตุขึ้น",
-  "10": "อนุญาตให้เก็บคละกันได้ ยกเว้นก๊าซไวไฟ",
-  "11": "ต้องจัดทำมาตรการป้องกันเพิ่มเติมเพื่อให้เกิดความปลอดภัยในการเก็บรักษาโดยได้รับความเห็นชอบจากกรมโรงงานอุตสาหกรรม",
-  "12": "วัตถุอันตรายของแข็งไวไฟ (ประเภท 4.1 A) ที่มีคุณสมบัติการระเบิดอาจเก็บคละกับวัตถุอันตรายอื่นคือ ประเภท 3B 4.1B 8A 8B 10 11 12 หรือ 13 ได้ถ้าระยะห่างที่ปลอดภัยซึ่งจัดไว้เพื่อป้องกันอันตรายที่จะมีต่อบริเวณโดยรอบอาคารคลังสินค้ามีเพียงพอหรืออาจต้องกำหนดให้มากขึ้น ซึ่งต้องตรวจสอบเป็นกรณี ๆ ไป",
-  "13": "อนุญาตให้เก็บวัตถุอันตรายเปอร์ออกไซด์อินทรีย์ (ประเภท 5.2) คละกับของแข็งไวไฟ (ประเภท 4.1B)",
-  "14": "อนุญาตให้เก็บคละกับดินขับ (propellants) และตัวจุดชนวน (radical initiators) ถ้าสารนั้นไม่มีส่วนผสมของโลหะหนัก",
-  "15": "การเก็บสารออกซิไดส์ ประเภท 5.1B อาจอนุญาตให้เก็บคละกับวัตถุอันตรายประเภท 6.1A 6.2B ได้ซึ่งสามารถเก็บได้ปริมาณสูงถึง 20 เมตริกตัน โดยต้องมีมาตรการความปลอดภัยดังนี้ อาคารคลังสินค้าต้องมีระบบเตือนภัยไฟไหม้ ระบบดับเพลิงอัตโนมัติ และทีมผจญเพลิงระดับกึ่งมืออาชีพของบริษัท (พนักงานบริษัททำหน้าที่ดับเพลิงอย่างเดียวพร้อมมีรถดับเพลิงของบริษัท) ถ้ามีสารไม่ถึง 1 เมตริกตัน ไม่ต้องมีมาตรการเสริมดังกล่าว",
-  "16": "การเก็บวัตถุอันตรายประเภทเปอร์ออกไซด์อินทรีย์รวมกับวัตถุอันตรายอื่นๆ จำเป็นต้องออกแบบและตรวจสอบแต่ละกรณีว่าระยะห่างปลอดภัย (ระหว่างอาคารคลังสินค้าและชุมชน) ที่กำหนดขึ้นโดยรอบอาคารคลังสินค้ามีเพียงพอหรือต้องกำหนดให้มากขึ้น เพื่อป้องกันโอกาสที่จะเกิดอันตราย",
-  "17": "ให้พิจารณาตามข้อกำหนดด้านความปลอดภัยเฉพาะของวัตถุอันตรายแต่ละประเภท",
-  "18": "วัสดุกัมมันตรังสี ควรแยกจัดเก็บตามข้อกำหนดด้านความปลอดภัยของหน่วยงาน IAEA และได้รับการอนุมัติจากหน่วยงานของรัฐที่เกี่ยวข้อง"
-};
-
-// --- [3] CORE FUNCTIONS & LOGIC ---
-
-function initCounters() {
-    visitCount = parseInt(localStorage.getItem('chemNexus_Visits') || "0") + 1;
-    analysisCount = parseInt(localStorage.getItem('chemNexus_Analyses') || "0");
-    localStorage.setItem('chemNexus_Visits', visitCount);
-    const vEl = document.getElementById('visitCount');
-    const aEl = document.getElementById('analysisCount');
-    if(vEl) vEl.textContent = visitCount.toLocaleString();
-    if(aEl) aEl.textContent = analysisCount.toLocaleString();
+function uDash(){
+  document.getElementById('dt').textContent=DB.length;
+  document.getElementById('ds').textContent=hs.length;
+  document.getElementById('dh').textContent=Math.min(hs.length,6);
+  const c=document.getElementById('dhl');
+  if(!hs.length){c.innerHTML='<div style="padding:22px;text-align:center;color:var(--tx3);font-size:10px"><i class="ph ph-clock-counter-clockwise" style="font-size:20px;display:block;margin-bottom:7px;opacity:.2"></i>ยังไม่มีประวัติ</div>';return;}
+  c.innerHTML=hs.slice(0,6).map(h=>{
+    const col=h.r==='RED'?'var(--red)':h.r==='YELLOW'?'var(--amb)':'var(--grn)';
+    return`<div class="hi" onclick="rplay('${h.a.replace(/'/g,"\\'")}','${h.b.replace(/'/g,"\\'")}')">
+      <div class="hd" style="background:${col};box-shadow:0 0 4px ${col}70"></div>
+      <div style="flex:1;min-width:0"><div style="font-size:11px;font-weight:700">${h.a} + ${h.b}</div><div style="font-size:8px;color:var(--tx3);margin-top:1px">${h.tm}</div></div>
+      <span style="color:${col};font-size:8px;font-weight:900;text-transform:uppercase">${h.r}</span>
+    </div>`;
+  }).join('');
 }
 
-function incrementAnalysis() {
-    analysisCount++;
-    localStorage.setItem('chemNexus_Analyses', analysisCount);
-    const aEl = document.getElementById('analysisCount');
-    if(aEl) aEl.textContent = analysisCount.toLocaleString();
+function rCL(q=''){
+  const c=document.getElementById('clc');
+  let l=DB;
+  if(cf!=='all')l=l.filter(x=>x.c===cf);
+  if(q){const lq=q.toLowerCase();l=l.filter(x=>x.n.toLowerCase().includes(lq)||(x.cs&&x.cs.includes(lq)));}
+  if(!l.length){c.innerHTML='<div style="padding:28px;text-align:center;color:var(--tx3);font-size:11px">ไม่พบสารที่ค้นหา</div>';return;}
+  const rc=r=>r==='EXTREME'||r==='HIGH'?'var(--red)':r==='MEDIUM'?'var(--amb)':'var(--grn)';
+  c.innerHTML=l.map(x=>{
+    const h=HC[x.c]||{};
+    return`<div class="cli" onclick="sDet('${x.n.replace(/'/g,"\\'")}')">
+      <div class="clic">${h.ic||'🧪'}</div>
+      <div style="flex:1;min-width:0"><div class="clin">${x.n}</div><div class="clis">CAS: ${x.cs||'-'} · <span style="color:var(--lime)">${x.c}</span></div></div>
+      <span style="font-size:7px;font-weight:900;color:${rc(h.r)};text-transform:uppercase;margin-right:3px">${h.r||''}</span>
+      <i class="ph ph-caret-right" style="color:var(--tx3);font-size:14px"></i>
+    </div>`;
+  }).join('');
+}
+function fCls(el,cls){cf=cls;document.querySelectorAll('.fc').forEach(c=>c.classList.remove('active'));el.classList.add('active');rCL(document.getElementById('gs')?.value||'');}
+
+function sDet(nm){
+  const ch=DB.find(x=>x.n===nm);if(!ch)return;
+  cd=ch;const h=HC[ch.c]||{},p=PP[nm]||{};
+  document.getElementById('dh').textContent=nm.length>13?nm.slice(0,13)+'…':nm;
+  const rc=h.r==='HIGH'||h.r==='EXTREME'?'cr':h.r==='MEDIUM'?'ca':'cg';
+  document.getElementById('db').innerHTML=`
+    <div class="dh"><div class="dhic">${h.ic||'🧪'}</div><div><div class="dhnm">${nm}</div><div class="dhlat">${p.f||''}</div><div class="dhbd"><span class="chip cl">Class ${ch.c}</span><span class="chip ${rc}">${h.r||''}</span></div></div></div>
+    <div class="tbb"><button class="tbtn active" onclick="swT(this,'ti')">ข้อมูล</button><button class="tbtn" onclick="swT(this,'ts')">ความปลอดภัย</button><button class="tbtn" onclick="swT(this,'tt')">การจัดเก็บ</button></div>
+    <div id="ti" class="tp active">
+      <div class="pr"><span class="prk">CAS</span><span class="prv">${ch.cs||'-'}</span></div>
+      <div class="pr"><span class="prk">UN</span><span class="prv">${ch.u||'-'}</span></div>
+      ${p.f?`<div class="pr"><span class="prk">สูตรเคมี</span><span class="prv">${p.f}</span></div>`:''}
+      ${p.mw?`<div class="pr"><span class="prk">น้ำหนักโมเลกุล</span><span class="prv">${p.mw}</span></div>`:''}
+      ${p.st?`<div class="pr"><span class="prk">ลักษณะ</span><span class="prv">${p.st}</span></div>`:''}
+      ${p.cn?`<div class="pr"><span class="prk">ความเข้มข้น</span><span class="prv">${p.cn}</span></div>`:''}
+      ${p.bp?`<div class="pr"><span class="prk">จุดเดือด</span><span class="prv">${p.bp}</span></div>`:''}
+      ${p.mp?`<div class="pr"><span class="prk">จุดหลอมเหลว</span><span class="prv">${p.mp}</span></div>`:''}
+      ${p.d?`<div class="pr"><span class="prk">ความหนาแน่น</span><span class="prv">${p.d}</span></div>`:''}
+    </div>
+    <div id="ts" class="tp">
+      <div class="sl">วิธีดับเพลิง</div><div style="padding:0 16px 10px;display:flex;gap:4px;flex-wrap:wrap">${(h.fi||[]).map(f=>`<span class="chip cr">${f}</span>`).join('')}</div>
+      <div class="sl">อุปกรณ์ป้องกัน</div><div style="padding:0 16px 10px;display:flex;gap:4px;flex-wrap:wrap">${(h.pp||[]).map(p=>`<span class="chip cl">${p}</span>`).join('')}</div>
+      <div class="ib amb" style="margin-top:4px"><i class="ph-fill ph-warning"></i><div><div class="ibt">Initial Action</div><div class="ibb">${h.eg||'-'}</div></div></div>
+    </div>
+    <div id="tt" class="tp">
+      <div class="ib lm" style="margin-top:13px"><i class="ph-fill ph-info"></i><div><div class="ibt">DIW Class</div><div class="ibb">${h.t||''}</div></div></div>
+      <div style="padding:9px 16px;font-size:10px;color:var(--tx2);line-height:1.7">เก็บในสถานที่เย็น แห้ง ระบายอากาศดี ห่างจากแหล่งความร้อน ตรวจสอบความเข้ากันได้ก่อนเก็บร่วมกัน</div>
+      <button class="btn bg" style="margin:7px 16px;width:calc(100% - 32px)" onclick="window.open('https://www.google.com/search?q=SDS+${encodeURIComponent(nm)}','_blank')"><i class="ph ph-file-text" style="font-size:14px"></i>ดู SDS เต็มรูปแบบ</button>
+    </div>
+    <div class="crd"><strong>ATIT CHIMNAN</strong>ChemNexus AI 2.0 • DIW Standard</div>
+  `;
+  go('detail');
+}
+function swT(btn,id){
+  const root=btn.closest('.pc');
+  root.querySelectorAll('.tbtn').forEach(b=>b.classList.remove('active'));
+  root.querySelectorAll('.tp').forEach(p=>p.classList.remove('active'));
+  btn.classList.add('active');document.getElementById(id)?.classList.add('active');
+}
+function a2A(){
+  if(!cd)return;
+  if(!sA){sA=cd;uSl('A');go('analyze');toast('เพิ่ม '+cd.n+' → ช่อง 1');}
+  else if(!sB){sB=cd;uSl('B');go('analyze');toast('เพิ่ม '+cd.n+' → ช่อง 2');setTimeout(doAna,500);}
+  else toast('ช่องเต็ม กด Reset ก่อน');
 }
 
-function initDatabase() {
-    const stored = localStorage.getItem('chemNexusDB');
-    chemicalDatabase = stored ? JSON.parse(stored) : [...defaultChemicalDB];
-    const hist = localStorage.getItem('chemNexusHistory');
-    auditsHistory = hist ? JSON.parse(hist) : [];
-    renderHistory(); 
-    initCounters();
+function oSSO(side){st=side;const o=document.getElementById('sso');o.style.display='flex';document.getElementById('ssoi').value='';rSSO('');setTimeout(()=>document.getElementById('ssoi').focus(),80);}
+function cSSO(){document.getElementById('sso').style.display='none';}
+function rSSO(q){
+  const c=document.getElementById('ssor');
+  let l=DB;
+  if(q){const lq=q.toLowerCase();l=l.filter(x=>x.n.toLowerCase().includes(lq)||(x.cs&&x.cs.includes(lq)));}
+  c.innerHTML=l.map(x=>{const h=HC[x.c]||{};return`<div class="ddi" onclick="pSl('${x.n.replace(/'/g,"\\'")}')"><div class="dic">${h.ic||'🧪'}</div><div style="flex:1;min-width:0"><div class="dn">${x.n}</div><div class="dc">CAS: ${x.cs||'-'}</div></div><span class="dcs">${x.c}</span></div>`;}).join('');
+}
+function pSl(nm){
+  const ch=DB.find(x=>x.n===nm);if(!ch)return;
+  if(st==='A')sA=ch;else sB=ch;
+  uSl(st);cSSO();
+  if(sA&&sB)setTimeout(doAna,350);
+}
+function uSl(s){
+  const ch=s==='A'?sA:sB;
+  const em=document.getElementById('s'+s+'e'),sl=document.getElementById('s'+s+'s');
+  if(!ch){em.style.display='flex';sl.style.display='none';return;}
+  const h=HC[ch.c]||{};
+  em.style.display='none';sl.style.display='flex';
+  document.getElementById('s'+s+'ic').textContent=h.ic||'🧪';
+  document.getElementById('s'+s+'nm').textContent=ch.n;
+  document.getElementById('s'+s+'sb').textContent='CAS: '+(ch.cs||'-')+' | UN: '+(ch.u||'-');
+  document.getElementById('s'+s+'cl').textContent='Class '+ch.c;
+  if(sA&&sB)document.getElementById('abw').style.display='block';
+}
+function cSl(s){if(s==='A')sA=null;else sB=null;uSl(s);document.getElementById('abw').style.display='none';}
+function rAna(){sA=null;sB=null;uSl('A');uSl('B');document.getElementById('abw').style.display='none';document.getElementById('fus').style.display='none';}
+
+function doAna(){
+  if(!sA||!sB){toast('กรุณาเลือกสารทั้ง 2 ชนิด');return;}
+  let c1=sA.c,c2=sB.c;
+  if(CO.indexOf(c1)>CO.indexOf(c2))[c1,c2]=[c2,c1];
+  const val=MX[c1][CO.indexOf(c2)];
+  const r=(!val||val==='0')?'RED':val==='00'?'GREEN':'YELLOW';
+  const code=r==='YELLOW'?val:null;
+  document.getElementById('fus').style.display='block';
+  document.getElementById('fia').textContent=(HC[sA.c]||{}).ic||'🧪';
+  document.getElementById('fib').textContent=(HC[sB.c]||{}).ic||'🧪';
+  document.getElementById('abw').style.display='none';
+  setTimeout(()=>{
+    document.getElementById('fus').style.display='none';
+    const e={a:sA.n,b:sB.n,cA:sA.c,cB:sB.c,c1,c2,r,code,tm:new Date().toLocaleString('th-TH',{hour:'2-digit',minute:'2-digit',day:'numeric',month:'short'})};
+    hs.unshift(e);if(hs.length>20)hs=hs.slice(0,20);
+    localStorage.setItem('cn2h',JSON.stringify(hs));
+    rRes(e);go('result');
+  },1800);
+}
+function rplay(a,b){const ca=DB.find(x=>x.n===a),cb=DB.find(x=>x.n===b);if(!ca||!cb)return;sA=ca;sB=cb;go('analyze');setTimeout(doAna,200);}
+
+function rRes(e){
+  const{a,b,cA,cB,c1,c2,r,code}=e;
+  const hA=HC[cA]||{},hB=HC[cB]||{};
+  const pr=PR[`${c1}-${c2}`]||PR[`${c2}-${c1}`]||null;
+  const cond=code?(CD[code]||''):'';
+  let bi,bt,bs,bc,rn,rc;
+  if(r==='RED'){bi='⛔';bt='ห้ามจัดเก็บร่วมกันเด็ดขาด';bs='DO NOT STORE TOGETHER';bc='red';rn=5;rc='red';}
+  else if(r==='YELLOW'){bi='⚠️';bt='เก็บร่วมกันได้ (ต้องมีเงื่อนไข)';bs='CONDITIONAL STORAGE';bc='amb';rn=3;rc='amb';}
+  else{bi='✅';bt='ปลอดภัย เก็บร่วมกันได้';bs='SAFE TO STORE TOGETHER';bc='grn';rn=1;rc='grn';}
+  const dots=Array(5).fill(0).map((_,i)=>`<div class="rd ${i<rn?'on '+rc:''}"></div>`).join('');
+  const fi=[...new Set([...hA.fi,...hB.fi])];
+  const pp=[...new Set([...hA.pp,...hB.pp])];
+  document.getElementById('rb').innerHTML=`
+    <div style="display:flex;align-items:center;margin:13px 16px 0;gap:0">
+      <div style="flex:1;background:rgba(184,255,58,.055);border:1px solid var(--lbd);border-radius:var(--r);padding:11px;text-align:center">
+        <div style="font-size:24px">${hA.ic||'🧪'}</div>
+        <div style="font-size:9px;font-weight:800;margin-top:3px;color:var(--tx)">${a}</div>
+        <div style="font-size:7px;color:var(--lime);margin-top:2px;font-weight:800">Class ${cA}</div>
+      </div>
+      <div style="width:32px;text-align:center;font-size:14px;color:var(--tx3);flex-shrink:0">⚡</div>
+      <div style="flex:1;background:rgba(255,100,200,.055);border:1px solid rgba(255,100,200,.18);border-radius:var(--r);padding:11px;text-align:center">
+        <div style="font-size:24px">${hB.ic||'🧪'}</div>
+        <div style="font-size:9px;font-weight:800;margin-top:3px;color:var(--tx)">${b}</div>
+        <div style="font-size:7px;color:#ff64c8;margin-top:2px;font-weight:800">Class ${cB}</div>
+      </div>
+    </div>
+    <div class="rb ${bc}"><div class="rbh"><div class="rbi">${bi}</div><div><div class="rbt">${bt}</div><div class="rbs">${bs}</div></div></div></div>
+    <div style="margin:0 16px 11px;display:flex;align-items:center;justify-content:space-between">
+      <div style="font-size:8px;color:var(--tx3);font-weight:800;text-transform:uppercase;letter-spacing:.09em">ระดับความเสี่ยง</div>
+      <div class="rds">${dots}</div>
+    </div>
+    ${pr?`<div class="ib red"><i class="ph-fill ph-warning-octagon"></i><div><div class="ibt">เหตุผล — เสี่ยงเกิด: ${pr.g}</div><div class="ibb">${pr.rx}</div></div></div>`:''}
+    ${cond?`<div class="ib amb"><i class="ph-fill ph-info"></i><div><div class="ibt">เงื่อนไข DIW ข้อที่ ${code}</div><div class="ibb">${cond}</div></div></div>`:''}
+    ${r==='GREEN'?`<div class="ib grn"><i class="ph-fill ph-check-circle"></i><div><div class="ibt">เก็บร่วมกันได้ปลอดภัย</div><div class="ibb">สารทั้งสองชนิดนี้สามารถจัดเก็บร่วมกันได้ตามมาตรฐาน DIW โดยไม่เกิดปฏิกิริยาอันตราย</div></div></div>`:''}
+    <div class="sl" style="margin-top:3px">วิธีดับเพลิง</div>
+    <div style="padding:0 16px 9px;display:flex;gap:4px;flex-wrap:wrap">${fi.map(f=>`<span class="chip cr">${f}</span>`).join('')}</div>
+    <div class="sl">อุปกรณ์ป้องกัน</div>
+    <div style="padding:0 16px 9px;display:flex;gap:4px;flex-wrap:wrap">${pp.map(p=>`<span class="chip cl">${p}</span>`).join('')}</div>
+    <div style="margin:11px 16px 3px;display:flex;gap:7px">
+      <button class="btn" style="flex:1" onclick="go('emergency')"><i class="ph ph-warning-octagon" style="font-size:14px"></i>ฉุกเฉิน</button>
+      <button class="btn bg" style="flex:1" onclick="window.open('https://www.google.com/search?q=SDS+${encodeURIComponent(a)}','_blank')"><i class="ph ph-file-text" style="font-size:14px"></i>SDS</button>
+    </div>
+    <div class="crd"><strong>ATIT CHIMNAN</strong>ChemNexus AI 2.0 • DIW Matrix • Symmetric Result</div>
+  `;
 }
 
-function getAudioCtx() {
-    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    if (audioCtx.state === 'suspended') audioCtx.resume();
-    return audioCtx;
+const PI=[{ic:'🥽',nm:'แว่นตา\nกันสาร',cl:['8B','8A','5.1A','5.1B','3A']},{ic:'😷',nm:'หน้ากาก\nกันไอ',cl:['3A','6.1A','6.1B','8A','4.3']},{ic:'🧤',nm:'ถุงมือ\nทนสาร',cl:['8B','8A','5.1A','5.1B','3A','4.3']},{ic:'🥼',nm:'เสื้อคลุม\nแล็บ',cl:['8B','12','13']},{ic:'👔',nm:'ผ้ากันเปื้อน\nทนกรด',cl:['8A','8B','5.1A']},{ic:'👢',nm:'รองเท้า\nกันสาร',cl:['8B','8A','3A','4.2','4.3']}];
+function rPPE(){
+  const c=document.getElementById('pb');
+  const us=new Set([sA?.c,sB?.c].filter(Boolean));
+  const note=us.size?`<div style="margin:9px 16px;padding:8px 12px;background:var(--lb);border:1px solid var(--lbd);border-radius:var(--rs);font-size:9px;color:var(--tx2)"><span style="color:var(--lime);font-weight:900">✓ ตามสารที่เลือก:</span> ${[...us].join(', ')}</div>`
+    :`<div style="margin:9px 16px 3px;font-size:9px;color:var(--tx3)">แสดง PPE ทั้งหมด</div>`;
+  c.innerHTML=note+`<div class="pg">`+PI.map(p=>{const q=!us.size||p.cl.some(x=>us.has(x));return`<div class="pi ${q?'rq':''}">${q?`<div class="pck">✓</div>`:''}<div class="pic">${p.ic}</div><div class="pin">${p.nm}</div></div>`;}).join('')+`</div>
+  <div style="margin:13px 16px 0;padding:10px 12px;background:var(--s2);border:1px solid var(--bd);border-radius:var(--rs);font-size:9px;color:var(--tx3);line-height:1.7"><strong style="color:var(--tx2)">หมายเหตุ:</strong> เลือกอุปกรณ์ให้เหมาะสมกับความเข้มข้นและลักษณะการใช้งาน</div>
+  <div class="crd"><strong>ATIT CHIMNAN</strong>ChemNexus AI 2.0</div>`;
 }
 
-function playSound(t) {
-    try {
-        const ctx = getAudioCtx(); 
-        const osc = ctx.createOscillator(), gain = ctx.createGain(); 
-        osc.connect(gain); gain.connect(ctx.destination);
-        if(t==='warn') { osc.type='sawtooth'; osc.frequency.setValueAtTime(300,ctx.currentTime); osc.frequency.linearRampToValueAtTime(150,ctx.currentTime+0.2); gain.gain.setValueAtTime(0.2,ctx.currentTime); gain.gain.linearRampToValueAtTime(0,ctx.currentTime+0.3); osc.start(); osc.stop(ctx.currentTime+0.3); }
-        else if(t==='zap') { osc.type='square'; osc.frequency.setValueAtTime(800,ctx.currentTime); osc.frequency.exponentialRampToValueAtTime(40,ctx.currentTime+0.3); gain.gain.setValueAtTime(0.2,ctx.currentTime); gain.gain.exponentialRampToValueAtTime(0.01,ctx.currentTime+0.3); osc.start(); osc.stop(ctx.currentTime+0.3); }
-        else if(t==='fusion') { osc.type='sine'; osc.frequency.setValueAtTime(100,ctx.currentTime); osc.frequency.exponentialRampToValueAtTime(800,ctx.currentTime+2.0); gain.gain.setValueAtTime(0,ctx.currentTime); gain.gain.linearRampToValueAtTime(0.15,ctx.currentTime+0.8); gain.gain.linearRampToValueAtTime(0,ctx.currentTime+2.5); osc.start(); osc.stop(ctx.currentTime+2.8); }
-    } catch(e) {}
+function rEMG(){
+  const c=document.getElementById('eb');
+  let nm='สารเคมี';
+  if(sA&&sB)nm=sA.n+' / '+sB.n;else if(sA)nm=sA.n;
+  const steps=['อพยพออกจากบริเวณ ออกทางเหนือลมเสมอ','สวม PPE ให้เหมาะสมก่อนเข้าพื้นที่','กั้นพื้นที่ ห้ามบุคคลที่ไม่เกี่ยวข้องเข้าใกล้','ใช้วัสดุดูดซับ ทราย กวาดเก็บเข้าภาชนะมิดชิด','เก็บกวาดกำจัดด้วยน้ำปริมาณมาก'];
+  c.innerHTML=`
+    <div class="emb"><i class="ph-fill ph-warning-octagon" style="font-size:24px;color:#ff7070;flex-shrink:0"></i><div><div style="font-size:12px;font-weight:900;color:#fff">เหตุฉุกเฉิน</div><div style="font-size:9px;color:rgba(255,255,255,.6);margin-top:2px">${nm}</div></div></div>
+    <div class="sl">ขั้นตอนที่ต้องทำทันที</div>
+    <div class="card" style="margin:0 16px">${steps.map((s,i)=>`<div class="sti"><div class="stn">${i+1}</div><div class="stt">${s}</div></div>`).join('')}</div>
+    <div class="sl" style="margin-top:9px">เบอร์ฉุกเฉิน</div>
+    <button class="cb" onclick="window.location='tel:199'"><i class="ph-bold ph-phone" style="font-size:19px"></i>199 / 1669<span style="font-size:9px;font-weight:400;opacity:.65;margin-left:3px">กดเพื่อโทร</span></button>
+    <div style="margin:3px 16px;display:flex;gap:7px">
+      <button onclick="window.location='tel:1650'" style="flex:1;padding:10px;background:var(--s2);border:1px solid var(--bd2);border-radius:var(--rs);color:var(--tx2);font-family:'Prompt',sans-serif;font-size:10px;font-weight:700;cursor:pointer">📞 1650 กรมโรงงาน</button>
+      <button onclick="window.location='tel:191'" style="flex:1;padding:10px;background:var(--s2);border:1px solid var(--bd2);border-radius:var(--rs);color:var(--tx2);font-family:'Prompt',sans-serif;font-size:10px;font-weight:700;cursor:pointer">🚔 191 ตำรวจ</button>
+    </div>
+    <div class="crd"><strong>ATIT CHIMNAN</strong>ERG Guide • กรมโรงงานอุตสาหกรรม</div>
+  `;
 }
 
-function runAmbientReactor() {
-  const item1 = document.getElementById('ambient-item-1'), item2 = document.getElementById('ambient-item-2');
-  const reactorIcons = ["🧪", "⚗️", "🧬", "🧊", "🫧", "💧", "🔥", "💥", "☢️", "☣️", "⭕", "🔋"];
-  function nextReaction() {
-    if (!item1 || !item2) return;
-    item1.textContent = reactorIcons[Math.floor(Math.random() * reactorIcons.length)];
-    item2.textContent = reactorIcons[Math.floor(Math.random() * reactorIcons.length)];
-    item1.style.left = '20%'; item2.style.left = '70%'; item1.style.opacity = '1'; item2.style.opacity = '1';
-    item1.style.transform = 'scale(1) rotate(0deg)'; item2.style.transform = 'scale(1) rotate(0deg)';
-    setTimeout(() => {
-      item1.style.left = '45%'; item2.style.left = '45%';
-      setTimeout(() => {
-        item1.style.transform = 'scale(2.5) rotate(45deg)'; item2.style.transform = 'scale(0)';
-        item1.style.opacity = '0'; item1.textContent = "✨";
-        setTimeout(nextReaction, 1500);
-      }, 2000);
-    }, 100);
-  }
-  nextReaction();
-}
-
-function openModal(id) { document.getElementById(id).classList.remove('hidden'); }
-function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
-
-function openPasswordModal() { document.getElementById('adminPwd').value=''; openModal('passwordModal'); }
-
-function verifyAccess() { 
-    if(document.getElementById('adminPwd').value === "007") { 
-        closeModal('passwordModal'); 
-        renderDbList(); 
-        openModal('manageDbModal'); 
-    } else {
-        alert("รหัสผ่านไม่ถูกต้อง!"); 
-    }
-}
-
-function renderDbList() {
-    const container = document.getElementById('dbList');
-    if(chemicalDatabase.length===0) { container.innerHTML = '<p class="text-center py-10">ไม่มีข้อมูลในระบบ</p>'; return; }
-    container.innerHTML = chemicalDatabase.map((c,i) => `
-        <div class="flex items-center justify-between p-4 bg-slate-900/60 rounded-xl border border-white/10 mb-3 shadow-inner">
-            <div class="flex-1"><p class="font-bold text-white text-sm">${c.name}</p><p class="text-[10px] text-slate-400 mt-1 uppercase">Class: ${c.class} | CAS: ${c.cas || '-'}</p></div>
-            <div class="flex gap-2"><button onclick="editChem(${i})" class="p-2 bg-amber-500/10 text-amber-500 rounded-lg"><i class="ph ph-pencil"></i></button>
-            <button onclick="confirmDel(${i})" class="p-2 bg-rose-500/10 text-rose-500 rounded-lg"><i class="ph ph-trash"></i></button></div>
-        </div>`).join('');
-}
-
-function confirmDel(i) { 
-    targetIndex = i; 
-    document.getElementById('deleteItemName').textContent = chemicalDatabase[i].name; 
-    playSound('warn'); 
-    openModal('deleteConfirmModal'); 
-}
-
-function executeDelete() { 
-    chemicalDatabase.splice(targetIndex, 1); 
-    localStorage.setItem('chemNexusDB', JSON.stringify(chemicalDatabase)); 
-    renderDbList(); 
-    initDropdown('A'); 
-    initDropdown('B'); 
-    closeModal('deleteConfirmModal'); 
-    playSound('zap'); 
-}
-
-function editChem(i) { 
-    const c = chemicalDatabase[i]; 
-    document.getElementById('newChemName').value=c.name; 
-    document.getElementById('newChemClass').value=c.class; 
-    document.getElementById('newChemCas').value=c.cas; 
-    document.getElementById('newChemUn').value=c.un; 
-    chemicalDatabase.splice(i,1); 
-    closeModal('manageDbModal'); 
-    openModal('customDbModal'); 
-}
-
-function fetchStructure(name, side) {
-    const url = `https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/${encodeURIComponent(name)}/PNG`;
-    const imgEl = document.getElementById(`struct${side}`);
-    if (!imgEl) return;
-    imgEl.src = url;
-    imgEl.onerror = () => { imgEl.src = ''; };
-}
-
-async function aiAutoFill() {
-    const n = document.getElementById('newChemName'), cas = document.getElementById('newChemCas'), cl = document.getElementById('newChemClass'), un = document.getElementById('newChemUn'), btn = document.getElementById('btnAiAutoFill');
-    const nVal = n.value.trim().toLowerCase(), casVal = cas.value.replace(/-/g, '').trim();
-    if(!nVal && !casVal) return alert(currentLang === 'th' ? "กรุณาระบุชื่อหรือ CAS" : "Please specify Name or CAS");
-    const orig = btn.innerHTML; btn.innerHTML = '<i class="ph ph-spinner animate-spin"></i> Processing...'; btn.disabled = true;
-    const found = chemicalDatabase.find(c => (casVal && (c.cas||"").replace(/-/g,'')===casVal) || (nVal && c.name.toLowerCase().includes(nVal)));
-    if(found) { setTimeout(() => { n.value = found.name; cl.value = found.class; cas.value = found.cas; un.value = found.un; btn.innerHTML = "Success!"; setTimeout(() => { btn.innerHTML = orig; btn.disabled = false; }, 1500); }, 500); return; }
-    try {
-        const term = casVal || nVal;
-        const res = await fetch(`https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/${encodeURIComponent(term)}/property/IUPACName,MolecularFormula,CID/JSON`);
-        if(res.ok) { const d = await res.json(), p = d.PropertyTable.Properties[0]; n.value = p.IUPACName || nVal; alert(`🌐 AI Found:\n${p.IUPACName}\nChoose Class manually.`); }
-        else alert("Not found");
-    } catch(e) { alert("Network Error"); }
-    btn.innerHTML = orig; btn.disabled = false;
-}
-
-function initDropdown(side) {
-    const input = document.getElementById(`search${side}`), list = document.getElementById(`list${side}`);
-    function render(f = "") {
-        const cf = f.replace(/-/g, '').toLowerCase();
-        const opts = [...chemicalDatabase, ...CLASS_ORDER.map(k => ({ name: hazardClasses[k].title, class: k }))];
-        const filtered = opts.filter(o => o.name.toLowerCase().includes(f.toLowerCase()) || (o.cas && o.cas.replace(/-/g,'').includes(cf)));
-        list.innerHTML = filtered.map(o => `<li onclick="selectItem('${side}', '${o.class}', '${o.name}', '${o.cas||''}', '${o.un||''}')" class="px-5 py-4 hover:bg-slate-800 cursor-pointer border-b border-white/5 flex items-center gap-4">
-            <span class="text-2xl text-white">${hazardClasses[o.class].icon}</span>
-            <div class="text-left"><p class="font-bold text-white text-sm">${o.name}</p><p class="text-[10px] text-cyan-400 uppercase">Class ${o.class}</p></div></li>`).join('');
-        list.classList.toggle('hidden', filtered.length === 0);
-    }
-    input.addEventListener("focus", () => { render(input.value); list.classList.remove("hidden"); getAudioCtx(); });
-    input.addEventListener("input", e => render(e.target.value));
-    document.addEventListener("click", e => { if(!document.getElementById(`searchState${side}`).contains(e.target)) list.classList.add("hidden"); });
-}
-
-function selectItem(s, cl, name, cas, un) {
-    state[`class${s}`] = cl; state[`name${s}`] = name;
-    document.getElementById(`searchState${s}`).classList.add("hidden");
-    const card = document.getElementById(`selectedState${s}`); card.classList.remove("hidden"); card.classList.add("fade-in");
-    document.getElementById(`icon${s}`).textContent = hazardClasses[cl].icon;
-    document.getElementById(`name${s}`).textContent = name;
-    document.getElementById(`class${s}`).textContent = `Class ${cl}`;
-    document.getElementById(`casUn${s}`).textContent = cas || un ? `CAS: ${cas||'-'} | UN: ${un||'-'}` : '';
-    const d = hazardClasses[cl], risk = document.getElementById(`risk${s}`);
-    risk.textContent = `${d.risk} RISK`; risk.className = `text-[10px] font-black px-2 py-1 rounded border border-${d.color}-500/50 bg-${d.color}-500/10 text-${d.color}-400`;
-    fetchStructure(name, s);
-    if(s === 'A' && !state.classB) setTimeout(() => document.getElementById('containerB').scrollIntoView({ behavior: 'smooth', block: 'center' }), 200);
-    if(state.classA && state.classB) autoAnalyze();
-}
-
-function clearSelection(s) { 
-    state[`class${s}`] = null; 
-    document.getElementById(`search${s}`).value = ""; 
-    document.getElementById(`selectedState${s}`).classList.add("hidden"); 
-    document.getElementById(`searchState${s}`).classList.remove("hidden"); 
-    document.getElementById("resultContainer").classList.add("hidden"); 
-}
-
-function resetScan() { clearSelection('A'); clearSelection('B'); window.scrollTo({ top: 0, behavior: 'smooth' }); }
-
-function toggleLang() { currentLang = currentLang === 'th' ? 'en' : 'th'; document.getElementById('langBtnText').textContent = currentLang.toUpperCase(); document.querySelectorAll('.lang-text').forEach(el => el.textContent = el.getAttribute(`data-${currentLang}`)); if(state.classA && state.classB) autoAnalyze(); }
-
-function autoAnalyze() {
-    const c1 = state.classA, c2 = state.classB;
-    const idxB = CLASS_ORDER.indexOf(c2);
-    let val = matrixRows[c1][idxB];
-    let decision = (val === "0" || !val) ? { color: "RED" } : (val === "00" ? { color: "GREEN" } : { color: "YELLOW", code: val });
-    
-    document.getElementById("resultContainer").classList.add("hidden");
-    const fusion = document.getElementById("fusionContainer"); fusion.classList.remove("hidden", "opacity-0");
-    
-    document.getElementById('fusionIconA').textContent = hazardClasses[c1].icon;
-    document.getElementById('fusionIconB').textContent = hazardClasses[c2].icon;
-    
-    setTimeout(() => fusion.scrollIntoView({ behavior: 'smooth', block: 'center' }), 100);
-    playSound('fusion');
-    
-    setTimeout(() => {
-        fusion.classList.add("opacity-0");
-        setTimeout(() => {
-            fusion.classList.add("hidden"); renderResult(decision, c1, c2);
-            saveToHistory(decision.color); incrementAnalysis();
-            document.getElementById('resultContainer').scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }, 500);
-    }, 2500);
-}
-
-function saveToHistory(status) {
-    const item = { status, nameA: state.nameA, nameB: state.nameB, time: new Date().toLocaleTimeString('th-TH') };
-    auditsHistory.unshift(item); auditsHistory = auditsHistory.slice(0, 6);
-    localStorage.setItem('chemNexusHistory', JSON.stringify(auditsHistory));
-    renderHistory();
-}
-
-function renderHistory() {
-    const container = document.getElementById('historyList');
-    if (!container) return;
-    container.innerHTML = auditsHistory.map(h => {
-        let c = h.status === 'RED' ? 'rose' : (h.status === 'YELLOW' ? 'amber' : 'emerald');
-        return `<div class="glass-card p-3 rounded-2xl flex items-center justify-between border-l-4 border-l-${c}-500 shadow-lg mb-1">
-        <div class="min-w-0 flex-1"><p class="text-[10px] font-bold text-white truncate">${h.nameA} + ${h.nameB}</p>
-        <p class="text-[9px] text-slate-500 uppercase tracking-tighter">${h.status} • ${h.time}</p></div>
-        <i class="ph ph-shield-check text-${c}-500 ml-2"></i></div>`;
-    }).join('');
-}
-
-function renderResult(res, c1, c2) {
-    const hA = hazardClasses[c1], hB = hazardClasses[c2], container = document.getElementById("resultContainer");
-    container.classList.remove("hidden");
-    
-    let colorClass, titleText, iconName;
-    if(res.color === "RED") { colorClass = "rose"; titleText = currentLang === 'th' ? "อันตราย ห้ามเก็บร่วมกันเด็ดขาด" : "Danger: Incompatible"; iconName = "warning-octagon"; }
-    else if(res.color === "YELLOW") { colorClass = "amber"; titleText = currentLang === 'th' ? "จัดเก็บร่วมกันได้ (ต้องมีเงื่อนไข)" : "Conditional: Check Requirements"; iconName = "warning"; }
-    else { colorClass = "emerald"; titleText = currentLang === 'th' ? "ปลอดภัย สามารถจัดเก็บร่วมกันได้" : "Safe: Compatible"; iconName = "check-circle"; }
-
-    document.getElementById("resultBadge").textContent = res.color + " STATUS";
-    document.getElementById("resultTitle").textContent = titleText;
-    document.getElementById("resultIconWrapper").innerHTML = `<i class="ph ph-${iconName} text-${colorClass}-400 text-5xl"></i>`;
-    document.getElementById("resultHeader").className = `p-8 md:p-10 flex items-center gap-6 bg-gradient-to-r from-${colorClass}-900/90 to-slate-900 border-b border-${colorClass}-500/30`;
-    document.getElementById("resultGlow").className = `absolute inset-0 bg-${colorClass}-500 opacity-20`;
-    
-    document.getElementById("actionBox").className = `rounded-2xl p-8 border border-${colorClass}-500/30 bg-${colorClass}-500/5 h-full shadow-inner relative overflow-hidden`;
-    
-    let resultActionsHTML = `
-        <li class="flex items-start gap-4"><i class="ph-bold ph-shield-check text-2xl text-${colorClass}-400"></i> 
-        <span><strong class="text-white block mb-1">บทวิเคราะห์ AI:</strong> ระบบตรวจสอบพบปฏิกิริยาระหว่าง ${state.nameA} และ ${state.nameB} อยู่ในเกณฑ์ <span class="text-${colorClass}-400 font-black">${res.color}</span></span></li>
-        <li class="mt-4 text-sm text-slate-400 italic font-normal">อ้างอิงตามมาตรฐานกรมโรงงานอุตสาหกรรม (DIW Matrix)</li>`;
-
-    // แสดงรายละเอียดเงื่อนไขถ้ารหัสเป็นสีเหลือง
-    if (res.color === "YELLOW" && res.code) {
-        const conditionText = matrixConditions[res.code] || "มีเงื่อนไขพิเศษ โปรดตรวจสอบคู่มือความปลอดภัย DIW";
-        resultActionsHTML += `
-        <li class="mt-6 p-5 bg-amber-500/10 border border-amber-500/30 rounded-xl flex items-start gap-3 shadow-inner">
-            <i class="ph-fill ph-info text-amber-400 text-2xl mt-0.5"></i>
-            <div>
-                <strong class="text-amber-400 block mb-1 text-sm uppercase tracking-wider">เงื่อนไขการจัดเก็บข้อที่ ${res.code}</strong>
-                <span class="text-sm text-slate-300 leading-relaxed font-medium block mt-1">${conditionText}</span>
-            </div>
-        </li>`;
-    }
-
-    document.getElementById("resultActions").innerHTML = resultActionsHTML;
-
-    const fires = [...new Set([...hA.fire, ...hB.fire])], ppes = [...new Set([...hA.ppe, ...hB.ppe])];
-    document.getElementById("fireGuide").innerHTML = fires.map(f => `<span class="bg-rose-500/20 text-rose-300 px-2 py-1 rounded border border-rose-500/30 text-[10px] font-bold">${f}</span>`).join('');
-    document.getElementById("ppeGuide").innerHTML = ppes.map(p => `<span class="bg-cyan-500/20 text-cyan-300 px-2 py-1 rounded border border-cyan-500/30 text-[10px] font-bold">${p}</span>`).join('');
-    document.getElementById("ergGuide").textContent = `[${c1}]: ${hA.erg} | [${c2}]: ${hB.erg}`;
-    document.getElementById("btnSds").onclick = () => window.open(`https://www.google.com/search?q=SDS+${encodeURIComponent(state.nameA)}`, '_blank');
-}
-
-function saveCustomChemical() {
-    const n = document.getElementById('newChemName').value, cl = document.getElementById('newChemClass').value, cas = document.getElementById('newChemCas').value, un = document.getElementById('newChemUn').value;
-    if(!n || !cl) return alert(currentLang === 'th' ? "กรุณาระบุชื่อและกลุ่มสาร" : "Please specify name and class");
-    chemicalDatabase.unshift({ name: n, class: cl, cas: cas, un: un });
-    localStorage.setItem('chemNexusDB', JSON.stringify(chemicalDatabase));
-    alert(currentLang === 'th' ? "บันทึกสำเร็จ!" : "Success!"); closeModal('customDbModal'); initDropdown('A'); initDropdown('B');
-}
-
-// --- [4] APP INITIALIZATION ---
-window.onload = function() { 
-    initDatabase(); 
-    const select = document.getElementById("newChemClass");
-    if(select) select.innerHTML = CLASS_ORDER.map(c => `<option value="${c}">${hazardClasses[c].title}</option>`).join('');
-    initDropdown("A"); 
-    initDropdown("B"); 
-    runAmbientReactor(); 
-};
+let tt;
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('show'),2200);}
+window.onload=()=>{uNB('dashboard');uDash();};
 </script>
 </body>
 </html>
