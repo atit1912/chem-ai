@@ -3,6 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#05080f">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="ChemNexus">
+<meta name="description" content="ระบบวิเคราะห์การจัดเก็บสารเคมีตามมาตรฐาน DIW — พัฒนาโดย Atit Chimnan">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
 <title>ChemNexus AI 2.0</title>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Prompt:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/@phosphor-icons/web"></script>
@@ -203,6 +210,105 @@ html,body{height:100%;overflow:hidden;background:var(--bg);font-family:'Prompt',
 .crd strong{color:var(--lime);font-weight:900;font-size:9px;display:block;margin-bottom:2px;letter-spacing:.14em}
 .vt{display:inline-flex;align-items:center;gap:3px;padding:1px 6px;border-radius:3px;background:var(--lb);border:1px solid var(--lbd);color:var(--lime);font-size:8px;font-weight:900;letter-spacing:.06em;text-transform:uppercase}
 .gt{background:linear-gradient(90deg,var(--lime),#e0ff8a,var(--lime));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+/* ── ADMIN ── */
+.fi{width:100%;padding:10px 12px;background:var(--s2);border:1px solid var(--bd2);border-radius:var(--rs);color:var(--tx);font-family:'Prompt',sans-serif;font-size:13px;outline:none;transition:border-color .2s,box-shadow .2s}
+.fi:focus{border-color:var(--lbd);box-shadow:0 0 0 3px rgba(184,255,58,.05)}
+.fi::placeholder{color:var(--tx3)}
+select.fi option{background:#0c1120;color:var(--tx)}
+
+.pkey{padding:14px;background:var(--s2);border:1px solid var(--bd2);border-radius:var(--rs);color:var(--tx);font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;cursor:pointer;transition:all .15s}
+.pkey:active{background:var(--lime);color:var(--bg);transform:scale(.94)}
+.pkdel{font-size:14px}
+.pdot{width:10px;height:10px;border-radius:2px;background:var(--s3);transition:background .15s}
+.pdot.filled{background:var(--lime);box-shadow:0 0 8px rgba(184,255,58,.6)}
+
+.admin-item{display:flex;align-items:center;gap:11px;padding:11px 16px;border-bottom:1px solid var(--bd);transition:background .1s}
+.admin-item:active{background:rgba(184,255,58,.02)}
+.ai-icon{font-size:18px;width:32px;height:32px;display:flex;align-items:center;justify-content:center;background:var(--s2);border-radius:6px;flex-shrink:0}
+.ai-name{font-size:12px;font-weight:700}
+.ai-sub{font-size:8px;color:var(--tx3);font-family:'Space Grotesk',monospace;margin-top:1px}
+.ai-actions{display:flex;gap:5px;flex-shrink:0}
+.ai-btn{width:28px;height:28px;border-radius:5px;border:1px solid var(--bd2);background:var(--s2);color:var(--tx2);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:13px;transition:all .15s}
+.ai-btn:active{transform:scale(.9)}
+.ai-btn.edit:active{background:var(--lb);border-color:var(--lbd);color:var(--lime)}
+.ai-btn.del:active{background:var(--rb);border-color:var(--rbd);color:#ff7070}
+
+.admin-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:0 16px}
+.ast{background:var(--s2);border:1px solid var(--bd);border-radius:var(--rs);padding:10px;text-align:center}
+.ast-n{font-size:18px;font-weight:900;font-family:'Space Grotesk',sans-serif}
+.ast-l{font-size:7px;color:var(--tx3);font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-top:2px}
+
+.sort-row{display:flex;align-items:center;gap:7px;padding:8px 16px;overflow-x:auto;scrollbar-width:none}
+.sort-row::-webkit-scrollbar{display:none}
+/* ── SPLASH ── */
+#splash{position:fixed;inset:0;background:var(--bg);z-index:10000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;transition:opacity .5s ease,transform .5s ease}
+#splash.hide{opacity:0;transform:scale(1.04);pointer-events:none}
+.sp-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(184,255,58,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(184,255,58,0.04) 1px,transparent 1px);background-size:40px 40px}
+.sp-glow{width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(184,255,58,.18),transparent 70%);position:absolute;top:50%;left:50%;transform:translate(-50%,-60%);pointer-events:none}
+.sp-logo{font-size:52px;margin-bottom:14px;position:relative;z-index:1;animation:spPop .6s cubic-bezier(.34,1.56,.64,1) forwards}
+.sp-title{font-size:26px;font-weight:900;letter-spacing:-.03em;position:relative;z-index:1;background:linear-gradient(90deg,var(--lime),#e8ff9a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.sp-sub{font-size:10px;color:var(--tx3);font-weight:600;letter-spacing:.12em;text-transform:uppercase;margin-top:6px;position:relative;z-index:1}
+.sp-ver{margin-top:10px;padding:3px 10px;border-radius:4px;background:var(--lb);border:1px solid var(--lbd);color:var(--lime);font-size:9px;font-weight:900;letter-spacing:.08em;position:relative;z-index:1}
+.sp-bar{width:160px;height:3px;background:rgba(255,255,255,.07);border-radius:99px;margin-top:32px;overflow:hidden;position:relative;z-index:1}
+.sp-fill{height:100%;background:linear-gradient(90deg,var(--lime2),var(--lime));border-radius:99px;animation:spLoad 1.6s ease forwards}
+.sp-by{position:absolute;bottom:28px;font-size:8px;color:var(--tx3);font-weight:700;letter-spacing:.1em;text-transform:uppercase;z-index:1}
+.sp-by strong{color:var(--lime)}
+@keyframes spPop{from{transform:scale(0.5);opacity:0}to{transform:scale(1);opacity:1}}
+@keyframes spLoad{from{width:0}to{width:100%}}
+
+/* ── ONBOARDING ── */
+#onboard{position:fixed;inset:0;background:rgba(0,0,0,.92);backdrop-filter:blur(16px);z-index:9000;display:none;flex-direction:column;align-items:center;justify-content:flex-end;padding:0 0 28px}
+.ob-card{width:calc(100% - 32px);max-width:398px;background:#0c1120;border:1px solid var(--bd2);border-radius:20px 20px 16px 16px;overflow:hidden}
+.ob-img{padding:28px 24px 0;text-align:center}
+.ob-icon{font-size:52px;margin-bottom:10px}
+.ob-title{font-size:17px;font-weight:900;color:var(--tx);margin-bottom:6px;letter-spacing:-.02em}
+.ob-desc{font-size:12px;color:var(--tx2);line-height:1.65;padding:0 4px}
+.ob-dots{display:flex;gap:6px;justify-content:center;padding:18px 0 4px}
+.ob-dot{width:6px;height:6px;border-radius:2px;background:var(--s3);transition:all .2s}
+.ob-dot.active{width:20px;background:var(--lime);box-shadow:0 0 6px rgba(184,255,58,.5)}
+.ob-actions{display:flex;gap:8px;padding:14px 16px 16px;border-top:1px solid var(--bd)}
+.ob-skip{padding:12px 16px;background:none;border:1px solid var(--bd2);border-radius:var(--rs);color:var(--tx3);font-family:'Prompt',sans-serif;font-size:12px;font-weight:700;cursor:pointer;flex-shrink:0}
+.ob-next{flex:1;padding:12px;background:var(--lime);border:none;border-radius:var(--rs);color:var(--bg);font-family:'Prompt',sans-serif;font-size:13px;font-weight:900;cursor:pointer;transition:all .2s}
+.ob-next:active{transform:scale(.97)}
+</style>
+@media print{*{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}body,html{background:#fff!important}#app{max-width:100%!important;height:auto!important;overflow:visible!important;box-shadow:none!important}#app::before,#nav,#sso,#pin-modal,#form-modal,#del-modal,#toast,.page{display:none!important}#pr-wrap{display:block!important}}
+#pr-wrap{display:none;position:absolute;inset:0;background:#fff;z-index:9999;padding:20px 22px;overflow-y:auto;scrollbar-width:none;font-family:'Prompt',sans-serif;color:#111}
+#pr-wrap::-webkit-scrollbar{display:none}
+.prh{display:flex;align-items:center;justify-content:space-between;border-bottom:2.5px solid #111;padding-bottom:10px;margin-bottom:16px}
+.prlogo{font-size:16px;font-weight:900;letter-spacing:-.02em;display:flex;flex-direction:column;gap:2px}
+.prlogo span{font-size:8px;font-weight:500;color:#666;letter-spacing:.04em;text-transform:uppercase}
+.prmeta{font-size:8px;color:#666;text-align:right;line-height:1.7}
+.prpair{display:flex;gap:8px;margin-bottom:14px}
+.prchem{flex:1;border:1.5px solid #e0e0e0;border-radius:8px;padding:11px;text-align:center}
+.prchem-ic{font-size:26px}
+.prchem-nm{font-size:11px;font-weight:800;margin-top:4px;line-height:1.3}
+.prchem-cls{font-size:8px;color:#666;margin-top:2px;font-weight:700}
+.prvs{width:24px;display:flex;align-items:center;justify-content:center;font-size:10px;color:#bbb;font-weight:800}
+.prres{padding:12px 14px;border-radius:8px;margin-bottom:12px;display:flex;align-items:center;gap:11px}
+.prres.red{background:#fff0f0;border:2px solid #ff3838}
+.prres.amb{background:#fffbf0;border:2px solid #ffaa00}
+.prres.grn{background:#f0fff8;border:2px solid #00c26a}
+.prres-ic{font-size:26px;flex-shrink:0}
+.prres-t{font-size:13px;font-weight:900}
+.prres-s{font-size:8px;color:#666;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-top:2px}
+.prsec{margin-bottom:10px}
+.prsec-t{font-size:8px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:#888;border-bottom:1px solid #eee;padding-bottom:3px;margin-bottom:7px}
+.prbox{padding:9px 11px;border-radius:6px;font-size:10px;line-height:1.65;margin-bottom:7px}
+.prbox.red{background:#fff0f0;border:1px solid #ffcccc;color:#c00}
+.prbox.amb{background:#fffbf0;border:1px solid #ffe0aa;color:#996600}
+.prbox.grn{background:#f0fff8;border:1px solid #aaeedd;color:#006633}
+.prrisk{display:flex;align-items:center;gap:5px;margin-bottom:10px}
+.prdot{width:11px;height:11px;border-radius:2px;background:#eee}
+.prdot.on.red{background:#ff3838}
+.prdot.on.amb{background:#ffaa00}
+.prdot.on.grn{background:#00c26a}
+.prchips{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:8px}
+.prchip{padding:2px 8px;border-radius:4px;font-size:8px;font-weight:800;background:#f3f3f3;border:1px solid #ddd;color:#333}
+.prfooter{margin-top:14px;padding-top:8px;border-top:1px solid #ddd;display:flex;justify-content:space-between;align-items:flex-end}
+.prfoot-l{font-size:11px;font-weight:900}
+.prfoot-r{font-size:7px;color:#aaa;text-align:right;line-height:1.6}
+.pr-close{position:sticky;top:0;right:0;z-index:2;display:flex;justify-content:flex-end;margin-bottom:-8px;padding:4px 0}
+.pr-close button{padding:6px 14px;background:#111;border:none;border-radius:5px;color:#b8ff3a;font-size:10px;font-weight:800;cursor:pointer;font-family:'Prompt',sans-serif}
 </style>
 </head>
 <body>
@@ -257,6 +363,7 @@ html,body{height:100%;overflow:hidden;background:var(--bg);font-family:'Prompt',
     </div>
 
     <div style="margin:11px 16px 3px"><button class="btn" onclick="go('analyze')"><i class="ph-bold ph-atom" style="font-size:16px"></i>เริ่มวิเคราะห์สารเคมี</button></div>
+    <div style="margin:7px 16px 3px"><button class="btn bg" onclick="openAdmin()"><i class="ph ph-shield-star" style="font-size:16px"></i>Admin Panel จัดการสารเคมี</button></div>
     <div class="crd"><strong>DEVELOPED BY ATIT CHIMNAN</strong>ระบบวิเคราะห์การจัดเก็บสารเคมี • DIW Standard</div>
   </div>
 </div>
@@ -346,6 +453,107 @@ html,body{height:100%;overflow:hidden;background:var(--bg);font-family:'Prompt',
   <div class="nb" id="nb-emergency" onclick="go('emergency')"><i class="ph ph-warning-octagon"></i><span>ฉุกเฉิน</span></div>
 </div>
 
+<!-- ADMIN PAGE -->
+<div id="page-admin" class="page">
+  <div class="hdr">
+    <button class="bb" onclick="back()"><i class="ph-bold ph-caret-left"></i></button>
+    <div class="hdr-t" style="color:var(--lime)">Admin Panel</div>
+    <button class="ib2" onclick="openAddForm()" id="admin-add-btn" title="เพิ่มสาร"><i class="ph ph-plus"></i></button>
+  </div>
+  <div class="pc" id="admin-body"></div>
+</div>
+
+<!-- PIN MODAL -->
+<div id="pin-modal" style="display:none;position:absolute;inset:0;background:rgba(0,0,0,0.85);backdrop-filter:blur(12px);z-index:800;align-items:center;justify-content:center;padding:24px">
+  <div style="width:100%;max-width:320px;background:#0c1120;border:1px solid var(--lbd);border-radius:16px;padding:28px 24px;text-align:center">
+    <div style="font-size:32px;margin-bottom:12px">🔐</div>
+    <div style="font-size:15px;font-weight:900;color:var(--tx);margin-bottom:4px">Admin Access</div>
+    <div style="font-size:10px;color:var(--tx3);margin-bottom:20px;letter-spacing:.04em">กรอก PIN เพื่อเข้าสู่ระบบจัดการ</div>
+    <div id="pin-dots" style="display:flex;justify-content:center;gap:10px;margin-bottom:20px">
+      <div class="pdot"></div><div class="pdot"></div><div class="pdot"></div><div class="pdot"></div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px">
+      <button class="pkey" onclick="pinKey('1')">1</button><button class="pkey" onclick="pinKey('2')">2</button><button class="pkey" onclick="pinKey('3')">3</button>
+      <button class="pkey" onclick="pinKey('4')">4</button><button class="pkey" onclick="pinKey('5')">5</button><button class="pkey" onclick="pinKey('6')">6</button>
+      <button class="pkey" onclick="pinKey('7')">7</button><button class="pkey" onclick="pinKey('8')">8</button><button class="pkey" onclick="pinKey('9')">9</button>
+      <button class="pkey pkdel" onclick="pinDel()" style="grid-column:1">⌫</button>
+      <button class="pkey" onclick="pinKey('0')">0</button>
+      <button class="pkey pkdel" onclick="closePinModal()" style="background:var(--rb);border-color:var(--rbd);color:#ff7070">✕</button>
+    </div>
+    <div id="pin-err" style="font-size:10px;color:var(--red);min-height:14px;font-weight:700"></div>
+  </div>
+</div>
+
+<!-- ADD / EDIT FORM MODAL -->
+<div id="form-modal" style="display:none;position:absolute;inset:0;background:rgba(0,0,0,0.85);backdrop-filter:blur(12px);z-index:800;align-items:flex-end;justify-content:center">
+  <div style="width:100%;max-width:430px;background:#0c1120;border:1px solid var(--bd2);border-radius:16px 16px 0 0;padding:0 0 20px;max-height:90dvh;overflow-y:auto;scrollbar-width:none">
+    <div style="padding:16px 16px 12px;border-bottom:1px solid var(--bd2);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:#0c1120;z-index:2">
+      <div style="font-size:14px;font-weight:900;color:var(--tx)" id="form-title">เพิ่มสารเคมีใหม่</div>
+      <button class="ib2" onclick="closeFormModal()"><i class="ph-bold ph-x"></i></button>
+    </div>
+    <div style="padding:16px">
+      <input type="hidden" id="f-edit-idx" value="-1">
+
+      <div style="margin-bottom:12px">
+        <div style="font-size:8px;font-weight:800;color:var(--tx3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:5px">ชื่อสารเคมี <span style="color:var(--red)">*</span></div>
+        <input class="fi" id="f-name" placeholder="เช่น กรดเกลือ (HCl)">
+      </div>
+
+      <div style="margin-bottom:12px">
+        <div style="font-size:8px;font-weight:800;color:var(--tx3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:5px">Hazard Class <span style="color:var(--red)">*</span></div>
+        <select class="fi" id="f-class" style="appearance:none;cursor:pointer"></select>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px">
+        <div>
+          <div style="font-size:8px;font-weight:800;color:var(--tx3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:5px">CAS Number</div>
+          <input class="fi" id="f-cas" placeholder="เช่น 7647-01-0">
+        </div>
+        <div>
+          <div style="font-size:8px;font-weight:800;color:var(--tx3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:5px">UN Number</div>
+          <input class="fi" id="f-un" placeholder="เช่น 1789">
+        </div>
+      </div>
+
+      <div style="margin-bottom:16px">
+        <div style="font-size:8px;font-weight:800;color:var(--tx3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:5px">หมายเหตุ (optional)</div>
+        <input class="fi" id="f-note" placeholder="ข้อมูลเพิ่มเติม...">
+      </div>
+
+      <!-- Class preview -->
+      <div id="cls-preview" style="margin-bottom:16px;padding:12px;background:var(--s1);border:1px solid var(--bd);border-radius:var(--rs);display:flex;align-items:center;gap:10px">
+        <div id="cpv-icon" style="font-size:24px">🧪</div>
+        <div>
+          <div id="cpv-cls" style="font-size:9px;color:var(--lime);font-weight:800">เลือก Class ก่อน</div>
+          <div id="cpv-risk" style="font-size:8px;color:var(--tx3);margin-top:2px"></div>
+        </div>
+      </div>
+
+      <div id="form-err" style="font-size:10px;color:var(--red);min-height:14px;font-weight:700;margin-bottom:10px"></div>
+
+      <button class="btn" onclick="saveForm()" id="save-btn">
+        <i class="ph-bold ph-floppy-disk" style="font-size:16px"></i>
+        บันทึกข้อมูล
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- CONFIRM DELETE MODAL -->
+<div id="del-modal" style="display:none;position:absolute;inset:0;background:rgba(0,0,0,0.85);backdrop-filter:blur(12px);z-index:810;align-items:center;justify-content:center;padding:24px">
+  <div style="width:100%;max-width:300px;background:#0c1120;border:1px solid var(--rbd);border-radius:14px;padding:24px;text-align:center">
+    <div style="font-size:28px;margin-bottom:10px">🗑️</div>
+    <div style="font-size:13px;font-weight:900;color:var(--tx);margin-bottom:6px">ลบสารเคมี?</div>
+    <div id="del-name" style="font-size:11px;color:var(--tx3);margin-bottom:20px"></div>
+    <div style="display:flex;gap:8px">
+      <button class="btn bg" style="flex:1;padding:11px" onclick="closeDelModal()">ยกเลิก</button>
+      <button class="btn bd3" style="flex:1;padding:11px" onclick="confirmDel()">
+        <i class="ph-bold ph-trash" style="font-size:14px"></i>ลบ
+      </button>
+    </div>
+  </div>
+</div>
+
 <!-- SLOT SEARCH OVERLAY -->
 <div id="sso">
   <div style="padding:9px 15px 7px;border-bottom:1px solid var(--bd2);display:flex;align-items:center;gap:9px">
@@ -356,6 +564,35 @@ html,body{height:100%;overflow:hidden;background:var(--bg);font-family:'Prompt',
 </div>
 
 <div id="toast"></div>
+<!-- PRINT REPORT -->
+<div id="pr-wrap"></div>
+
+<!-- SPLASH SCREEN -->
+<div id="splash">
+  <div class="sp-grid"></div>
+  <div class="sp-glow"></div>
+  <div class="sp-logo">⚗️</div>
+  <div class="sp-title">ChemNexus AI</div>
+  <div class="sp-sub">Chemical Safety System</div>
+  <div class="sp-ver">v2.0</div>
+  <div class="sp-bar"><div class="sp-fill"></div></div>
+  <div class="sp-by">Developed by <strong>Atit Chimnan</strong></div>
+</div>
+
+<!-- ONBOARDING -->
+<div id="onboard">
+  <div class="ob-card">
+    <div class="ob-img" id="ob-content">
+      <!-- filled by JS -->
+    </div>
+    <div class="ob-dots" id="ob-dots"></div>
+    <div class="ob-actions">
+      <button class="ob-skip" onclick="skipOnboard()">ข้าม</button>
+      <button class="ob-next" id="ob-next-btn" onclick="nextOnboard()">ถัดไป →</button>
+    </div>
+  </div>
+</div>
+
 </div>
 
 <script>
@@ -364,9 +601,69 @@ const CO=["1","2A","2B","3A","3B","4.1A","4.1B","4.2","4.3","5.1A","5.1B","5.1C"
 const HC={"1":{t:"วัตถุระเบิด",ic:"💥",r:"EXTREME",fi:["Water (Large)"],pp:["ระยะปลอดภัย","หมวก"],eg:"อพยพทันที ห้ามดับไฟ"},"2A":{t:"ก๊าซอัด",ic:"💨",r:"MEDIUM",fi:["Dry Chem","CO2"],pp:["แว่นตา","ถุงมือ"],eg:"หล่อเย็นถัง ปิดวาล์ว"},"2B":{t:"ก๊าซสเปรย์",ic:"💨",r:"LOW",fi:["Dry Chem"],pp:["แว่นตา"],eg:"เคลื่อนออกจากความร้อน"},"3A":{t:"ของเหลวไวไฟ(ต่ำ)",ic:"🔥",r:"HIGH",fi:["Foam","CO2"],pp:["ชุดทนไฟ","แว่นตา","ถุงมือ"],eg:"กำจัดประกายไฟ ใช้ทราย"},"3B":{t:"ของเหลวไวไฟ(สูง)",ic:"🔥",r:"MEDIUM",fi:["Foam"],pp:["ถุงมือ","แว่นตา"],eg:"ปิดกั้นน้ำ ใช้โฟม"},"4.1A":{t:"ของแข็งไวไฟ-ระเบิด",ic:"🔥",r:"HIGH",fi:["Water Spray"],pp:["หน้ากาก","แว่นตา"],eg:"หลีกเลี่ยงการเสียดสี"},"4.1B":{t:"ของแข็งไวไฟ",ic:"🔥",r:"MEDIUM",fi:["Water"],pp:["หน้ากากกรอง","แว่นตา"],eg:"กวาดเก็บระวังฝุ่น"},"4.2":{t:"สารลุกไหม้เอง",ic:"🔥",r:"HIGH",fi:["Dry Sand"],pp:["ชุดป้องกัน","ถุงมือ"],eg:"ห้ามใช้น้ำ ระวังอากาศ"},"4.3":{t:"สัมผัสน้ำ→ก๊าซไวไฟ",ic:"💧",r:"HIGH",fi:["Class D"],pp:["แว่นตา","ถุงมือแห้ง"],eg:"ห้ามใช้น้ำเด็ดขาด!"},"5.1A":{t:"สารออกซิไดซ์แรง",ic:"⭕",r:"HIGH",fi:["Water (Large)"],pp:["Face Shield","ถุงมือ"],eg:"แยกจากสารติดไฟทันที"},"5.1B":{t:"สารออกซิไดซ์",ic:"⭕",r:"MEDIUM",fi:["Water Spray"],pp:["ถุงมือ","แว่นตา"],eg:"ป้องกันสารอินทรีย์"},"5.1C":{t:"สารออกซิไดซ์อื่นๆ",ic:"⭕",r:"LOW",fi:["Water Spray"],pp:["แว่นตา"],eg:"กวาดด้วยวัสดุไม่ติดไฟ"},"5.2":{t:"เปอร์ออกไซด์อินทรีย์",ic:"⭕",r:"HIGH",fi:["Water Spray"],pp:["ชุดเคมี","Face Shield"],eg:"เก็บเย็น ระวังระเบิด"},"6.1A":{t:"สารพิษ(ติดไฟ)",ic:"☣️",r:"HIGH",fi:["Foam"],pp:["SCBA","ชุดป้องกัน"],eg:"อพยพเหนือลม"},"6.1B":{t:"สารพิษ(ไม่ติดไฟ)",ic:"☣️",r:"MEDIUM",fi:["เหมาะสม"],pp:["หน้ากาก P100","ถุงมือ"],eg:"ระบายอากาศ กั้นพื้นที่"},"6.2":{t:"สารติดเชื้อ",ic:"☣️",r:"HIGH",fi:["เหมาะสม"],pp:["ชุด Biohazard"],eg:"ห้ามสัมผัส น้ำยาฆ่าเชื้อ"},"7":{t:"กัมมันตรังสี",ic:"☢️",r:"EXTREME",fi:["เหมาะสม"],pp:["Dosimeter","Lead Shield"],eg:"กันเขต แจ้งเจ้าหน้าที่"},"8A":{t:"สารกัดกร่อน(ติดไฟ)",ic:"🧪",r:"HIGH",fi:["Dry Chem"],pp:["ชุดกรด","Face Shield"],eg:"ระวังกระเด็น สารสะเทิน"},"8B":{t:"สารกัดกร่อน",ic:"🧪",r:"MEDIUM",fi:["เหมาะสม"],pp:["ถุงมือยาง","แว่นตา","เสื้อคลุม"],eg:"ซับเฉื่อย ล้างน้ำมาก"},"10":{t:"ของเหลวติดไฟอื่น",ic:"🛢️",r:"LOW",fi:["Foam"],pp:["ถุงมือ"],eg:"กวาดด้วยวัสดุดูดซับ"},"11":{t:"ของแข็งติดไฟ",ic:"📦",r:"LOW",fi:["Water"],pp:["หน้ากากกรอง"],eg:"กวาดระวังฝุ่น"},"12":{t:"ของเหลวไม่ติดไฟ",ic:"💧",r:"LOW",fi:["เหมาะสม"],pp:["ถุงมือ"],eg:"เช็ดทำความสะอาด"},"13":{t:"ของแข็งไม่ติดไฟ",ic:"📦",r:"LOW",fi:["เหมาะสม"],pp:["มาตรฐาน"],eg:"กวาดทิ้งตามระเบียบ"}};
 const MX={"1":["17","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0"],"2A":["0","17","4","0","0","0","0","0","0","0","0","10","0","0","0","0","18","5","00","0","5","00","00"],"2B":["0","4","00","1","1","0","0","0","0","0","0","10","0","2","2","0","18","4","4","6","6","6","6"],"3A":["0","0","1","17","00","0","0","0","0","0","0","0","0","18","9","0","18","3","9","00","3","00","00"],"3B":["0","0","1","00","17","12","4","4","4","0","0","0","7","00","00","0","18","00","00","00","00","00","00"],"4.1A":["0","0","0","0","12","17","12","0","0","0","0","0","14","0","0","0","18","12","12","12","12","12","12"],"4.1B":["0","0","0","0","4","12","00","4","4","4","0","0","13","8","0","0","18","00","00","00","00","00","00"],"4.2":["0","0","0","0","4","0","4","00","4","0","0","0","0","0","0","0","18","4","4","4","4","4","00"],"4.3":["0","0","0","0","4","0","4","4","00","0","0","0","0","0","0","0","18","4","4","4","4","4","00"],"5.1A":["0","0","0","0","0","0","4","0","0","00","00","00","0","0","0","0","18","4","4","4","4","4","0"],"5.1B":["0","0","0","0","0","0","0","0","0","00","10","15","0","15","15","0","18","11","00","11","11","00","00"],"5.1C":["0","10","10","0","0","0","0","0","0","00","15","17","0","0","0","0","18","10","10","10","10","10","10"],"5.2":["0","0","0","0","7","14","13","0","0","0","0","0","17","0","0","0","0","0","0","16","16","16","16"],"6.1A":["0","0","2","18","00","0","8","0","0","0","15","0","0","17","17","0","18","0","0","3","3","3","3"],"6.1B":["0","0","2","9","00","0","0","0","0","0","15","0","0","17","17","0","18","0","0","3","3","3","3"],"6.2":["0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","00","0","0","0","0","0","0","0"],"7":["0","18","18","18","18","18","18","18","18","18","18","18","0","18","18","0","18","18","18","18","18","18","18"],"8A":["0","5","4","3","00","12","00","4","4","4","11","10","0","0","0","0","18","00","00","10","10","10","00"],"8B":["0","00","4","9","00","12","00","4","4","4","00","10","0","0","0","0","18","00","00","10","10","00","00"],"10":["0","0","6","00","00","12","00","4","4","4","11","10","16","3","3","0","18","10","10","00","00","00","00"],"11":["0","5","6","3","00","12","00","4","4","4","11","10","16","3","3","0","18","10","10","00","00","00","00"],"12":["0","00","6","00","00","12","00","4","4","4","00","10","16","3","3","0","18","10","00","00","00","00","00"],"13":["0","00","6","00","00","12","00","00","00","0","00","10","16","3","3","0","18","00","00","00","00","00","00"]};
 const CD={"1":"ของเหลวไวไฟ+ก๊าซสเปรย์ เก็บได้โดยต้องมีระบายอากาศ และปริมาณไม่เกิน 60%","2":"ก๊าซสเปรย์+สารพิษ ต้องการ: ผนังทนไฟ พื้นที่ ≤60ม² ปริมาณ ≤60% อุณหภูมิ ≤50°C ระบายอากาศ ทางออกฉุกเฉิน 2 ทาง","3":"วัสดุลุกไฟได้เร็ว ควรแยกออกจากสารพิษหรือของเหลวไวไฟ","4":"สามารถเก็บคละได้โดยการแยกห่าง: กำแพงกั้น เว้นระยะ หรือบ่อแยก","5":"ก๊าซอัด ≤50 ท่อ (ก๊าซไวไฟ/ออกซิไดส์/พิษ ≤25 ท่อ) แยกด้วยผนังไม่ติดไฟ ≥2ม. ระยะห่าง ≥5ม.","6":"เก็บคละได้ตามข้อกำหนดประเภท 2B","7":"เก็บกับของเหลวไวไฟ จุดวาบไฟ >60°C หากไม่ก่อปฏิกิริยาอันตราย","8":"สารติดไฟ+พิษ เก็บกับของแข็งไวไฟ 4.1B ได้","9":"ห้ามเก็บ 3A คละกับสารกัดกร่อนในภาชนะแตกง่าย ยกเว้นมีมาตรการป้องกัน","10":"เก็บคละได้ ยกเว้นก๊าซไวไฟ","11":"ต้องมีมาตรการเพิ่มเติม รับความเห็นชอบจากกรมโรงงานอุตสาหกรรม","12":"4.1A อาจเก็บคละได้หากระยะห่างปลอดภัยรอบคลังเพียงพอ ตรวจสอบแต่ละกรณี","13":"5.2 เก็บกับ 4.1B ได้","14":"เก็บกับ propellants และ initiators ได้หากไม่มีโลหะหนัก","15":"5.1B กับ 6.1A/6.1B ≤20 ตัน โดยต้องมีระบบเตือนไฟ ดับเพลิงอัตโนมัติ และทีมดับเพลิงบริษัท","16":"5.2 กับสารอื่น ต้องตรวจสอบระยะห่างปลอดภัยรอบคลังแต่ละกรณี","17":"พิจารณาตามข้อกำหนดเฉพาะของวัตถุอันตรายแต่ละประเภท","18":"กัมมันตรังสี แยกจัดเก็บตามข้อกำหนด IAEA และได้รับอนุมัติจากหน่วยงานรัฐ"};
-const PR={"8B-5.1A":{g:"ก๊าซคลอรีน (Cl₂)",rx:"กรด (8B) ทำปฏิกิริยากับสารออกซิไดซ์แรง เช่น คลอรีนผง จะปล่อยก๊าซ Cl₂ พิษร้ายแรงต่อระบบทางเดินหายใจ"},"8B-5.1B":{g:"ก๊าซพิษ/ความร้อน",rx:"H₂O₂/NaNO₂ กับกรด/เบส เกิดปฏิกิริยา exothermic ปล่อยก๊าซออกซิเจนหรือก๊าซพิษ เสี่ยงเพลิงไหม้"},"3A-5.1A":{g:"เพลิงไหม้/ระเบิด",rx:"สารออกซิไดซ์แรงสัมผัสของเหลวไวไฟ เร่งการเผาไหม้รุนแรง เสี่ยงระเบิดทันที"},"3A-5.1B":{g:"เพลิงไหม้",rx:"สารออกซิไดซ์เร่งการเผาไหม้ของเหลวไวไฟ เช่น เอทานอล ควบคุมไม่ได้"},"3A-5.2":{g:"เพลิงไหม้/ระเบิด",rx:"เปอร์ออกไซด์อินทรีย์+ของเหลวไวไฟ อันตรายระเบิดสูงมาก"},"4.3-8B":{g:"ก๊าซไฮโดรเจน (H₂)",rx:"สาร 4.3 สัมผัสน้ำในสารกัดกร่อน เกิดก๊าซ H₂ ไวไฟรุนแรงและระเบิดได้"},"1-2A":{g:"ระเบิด",rx:"วัตถุระเบิด+ก๊าซอัด คลื่นระเบิดอาจทำให้ถังก๊าซแตก เสี่ยงหายนะ"},"1-3A":{g:"ระเบิด/เพลิงไหม้",rx:"วัตถุระเบิด+ของเหลวไวไฟ ความร้อนจากเพลิงอาจจุดวัตถุระเบิด"},"4.2-4.3":{g:"เพลิงไหม้ทันที",rx:"สารลุกไหม้เอง+สารทำปฏิกิริยากับน้ำ อันตรายสูงมากหากมีความชื้น"},"3A-8A":{g:"ไอพิษ/เพลิงไหม้",rx:"สารกัดกร่อนติดไฟ+ของเหลวไวไฟ เสี่ยงเพลิงไหม้และปล่อยไอพิษ"}};
+const PR={
+  // Class 8B (กรด/เบส) คู่
+  "8B-5.1A": {g:"ก๊าซคลอรีน (Cl₂)",         rx:"กรด เช่น HCl ทำปฏิกิริยากับคลอรีนผง Ca(OCl)₂ ปล่อยก๊าซ Cl₂ พิษร้ายแรง ทำลายระบบทางเดินหายใจ LD50 ต่ำมาก"},
+  "8B-5.1B": {g:"ก๊าซพิษ / ความร้อน",        rx:"H₂O₂ หรือ NaNO₂ กับกรด/เบส เกิดปฏิกิริยา exothermic รุนแรง ปล่อย O₂ เสริมการเผาไหม้ หรือเกิด NOₓ พิษ"},
+  "8B-4.3":  {g:"ก๊าซไฮโดรเจน (H₂)",         rx:"สาร Class 4.3 เช่น CaC₂ สัมผัสน้ำในสารกัดกร่อน เกิด H₂ และ C₂H₂ (อะเซทิลีน) ไวไฟรุนแรง ระเบิดได้"},
+  "8B-6.1A": {g:"ไอพิษ",                      rx:"ฟอร์มาลดีไฮด์กับกรดแก่ เร่งการระเหยของ HCHO อย่างรวดเร็ว ไอพิษสูงมาก ก่อมะเร็ง"},
+  "8A-3A":   {g:"ไอพิษ / เพลิงไหม้",          rx:"สารกัดกร่อนติดไฟ เช่น อะซิติกแอซิด + ของเหลวไวไฟ เสี่ยงเพลิงไหม้ขยายวงกว้าง + ไอกรดพิษ"},
+  // Class 3A (ของเหลวไวไฟ) คู่
+  "3A-5.1A": {g:"เพลิงไหม้ / ระเบิด",         rx:"คลอรีนผงเป็นตัวออกซิไดซ์แรง สัมผัสเอทานอล อะซิโตน หรือโทลูอีน จะเร่งการเผาไหม้อย่างรุนแรง เสี่ยงระเบิดทันที"},
+  "3A-5.1B": {g:"เพลิงไหม้",                  rx:"H₂O₂ หรือ NaNO₂ เป็นตัวออกซิไดซ์ เร่งการเผาไหม้ของเหลวไวไฟ ควบคุมไม่ได้ flash point ลดลงมาก"},
+  "3A-5.2":  {g:"เพลิงไหม้ / ระเบิด",         rx:"เปอร์ออกไซด์อินทรีย์ + ของเหลวไวไฟ อันตรายระเบิดสูงมาก ห้ามเก็บใกล้กัน"},
+  "3A-5.1C": {g:"เพลิงไหม้",                  rx:"สารออกซิไดซ์ทั่วไปกับของเหลวไวไฟ เสี่ยงเพลิงไหม้ขยายตัวเร็ว"},
+  "3A-4.2":  {g:"เพลิงไหม้ทันที",              rx:"สารลุกไหม้เองในอากาศ สัมผัสของเหลวไวไฟ เกิดเพลิงไหม้ทันทีโดยไม่ต้องมีประกายไฟ"},
+  // Class 1 (ระเบิด) คู่
+  "1-2A":    {g:"ระเบิด",                      rx:"วัตถุระเบิด + ก๊าซอัด LPG คลื่นระเบิดทำให้ถังก๊าซแตก ความดันสูง → ระเบิดลูกโซ่"},
+  "1-3A":    {g:"ระเบิด / เพลิงไหม้",          rx:"ไนโตรกลีเซอรีน + ของเหลวไวไฟ ความร้อนจากเพลิงหรือแรงกระแทกจุดชนวน เสี่ยงหายนะ"},
+  "1-5.1A":  {g:"ระเบิด",                      rx:"วัตถุระเบิด + ออกซิไดซ์แรง เพิ่มพลังงานการระเบิดมหาศาล ห้ามเก็บร่วมกันเด็ดขาด"},
+  "1-5.1B":  {g:"ระเบิด",                      rx:"วัตถุระเบิด + ออกซิไดซ์ เร่งปฏิกิริยาการระเบิด เสี่ยงระเบิดโดยไม่ตั้งใจ"},
+  "1-4.2":   {g:"ระเบิด / เพลิงไหม้ทันที",    rx:"วัตถุระเบิด + สารลุกไหม้เองในอากาศ อันตรายสูงสุด ห้ามใกล้กันเด็ดขาด"},
+  // Class 4.3 (สัมผัสน้ำ→ก๊าซไวไฟ) คู่
+  "4.3-5.1A":{g:"เพลิงไหม้ / ระเบิด",         rx:"CaC₂ สัมผัสน้ำ → C₂H₂ (อะเซทิลีน) + Ca(OH)₂ อะเซทิลีนระเบิดได้ง่าย เมื่อมีออกซิไดซ์แรงอยู่ด้วย อันตรายมาก"},
+  "4.3-3A":  {g:"ก๊าซไวไฟ / เพลิงไหม้",       rx:"สาร 4.3 ปล่อยก๊าซไวไฟเมื่อสัมผัสความชื้น ก๊าซสะสมใกล้ของเหลวไวไฟ เสี่ยงระเบิด"},
+  "4.3-2A":  {g:"ก๊าซไวไฟ",                   rx:"ก๊าซที่เกิดจาก 4.3 รวมกับก๊าซไวไฟ LPG ความเสี่ยงระเบิดสูงมากในพื้นที่ปิด"},
+  // Class 4.2 (ลุกไหม้เอง) คู่
+  "4.2-4.3": {g:"เพลิงไหม้ทันที",              rx:"สารลุกไหม้เองในอากาศ + สารปล่อยก๊าซไวไฟเมื่อชื้น ปฏิกิริยาลูกโซ่ควบคุมไม่ได้"},
+  "4.2-5.1A":{g:"เพลิงไหม้ระเบิด",            rx:"สารลุกไหม้เอง + ออกซิไดซ์แรง อันตรายสูงสุด เกิดเพลิงและระเบิดทันทีที่สัมผัส"},
+  "4.2-2A":  {g:"เพลิงไหม้",                   rx:"สารลุกไหม้เองในอากาศ + ก๊าซไวไฟอัด อันตรายสูง เปลวไฟขยายตัวเร็ว"},
+  // Class 5.2 (เปอร์ออกไซด์) คู่
+  "5.2-3A":  {g:"เพลิงไหม้ / ระเบิด",         rx:"เปอร์ออกไซด์อินทรีย์ + ของเหลวไวไฟ ระเบิดได้จากความร้อน แรงกระแทก หรือแรงเสียดสี"},
+  "5.2-8A":  {g:"เพลิงไหม้",                   rx:"เปอร์ออกไซด์อินทรีย์ + สารกัดกร่อนติดไฟ ปล่อยออกซิเจนเสริมเพลิง ควบคุมยาก"},
+  "5.2-6.1A":{g:"ไอพิษ / เพลิงไหม้",          rx:"เปอร์ออกไซด์ + สารพิษติดไฟ เช่น ฟอร์มาลดีไฮด์ เสี่ยงทั้งพิษและเพลิงไหม้"},
+  // Class 2A (ก๊าซอัด) คู่
+  "2A-5.1A": {g:"เพลิงไหม้ / ระเบิด",         rx:"LPG + คลอรีนผง (ออกซิไดซ์แรง) เสี่ยงเพลิงไหม้และระเบิดอย่างรุนแรง"},
+  "2A-5.1B": {g:"เพลิงไหม้",                   rx:"LPG + H₂O₂ / NaNO₂ ออกซิไดซ์เร่งการเผาไหม้ก๊าซ เสี่ยงระเบิด"},
+  // Class 6.1 (สารพิษ) คู่
+  "6.1A-5.1A":{g:"ไอพิษ / เพลิงไหม้",         rx:"ฟอร์มาลดีไฮด์ + คลอรีนผง เกิด bis(chloromethyl) ether สารก่อมะเร็งรุนแรง"},
+  "6.1A-8B": {g:"ไอพิษเข้มข้น",               rx:"ฟอร์มาลดีไฮด์ + กรดแก่ เร่งการระเหย ความเข้มข้นไอพิษสูงมาก ก่อมะเร็ง"},
+  "6.1B-5.1B":{g:"ก๊าซพิษ",                   rx:"โซเดียมไนไตรท์ (5.1B) + สารพิษ เกิดปฏิกิริยาที่ปล่อยไนโตรเจนออกไซด์ NOₓ พิษ"},
+};
 const DB=[{n:"LPG (ก๊าซหุงต้ม)",c:"2A",cs:"68476-85-7",u:"1075"},{n:"สเปรย์แอลกอฮอล์",c:"2B",cs:"64-17-5",u:"1950"},{n:"Nitroglycerin",c:"1",cs:"55-63-0",u:"0143"},{n:"เอทานอล 95%",c:"3A",cs:"64-17-5",u:"1170"},{n:"อะซิโตน",c:"3A",cs:"67-64-1",u:"1090"},{n:"โทลูอีน",c:"3A",cs:"108-88-3",u:"1294"},{n:"ไซลีน",c:"3A",cs:"1330-20-7",u:"1307"},{n:"แคลเซียมคาร์ไบด์",c:"4.3",cs:"75-20-7",u:"1402"},{n:"คลอรีนผง",c:"5.1A",cs:"7778-54-3",u:"1748"},{n:"โซเดียมไนไตรท์",c:"5.1B",cs:"7632-00-0",u:"1500"},{n:"ไฮโดรเจนเปอร์ออกไซด์ (30%)",c:"5.1B",cs:"7722-84-1",u:"2014"},{n:"ฟอร์มาลดีไฮด์",c:"6.1A",cs:"50-00-0",u:"1198"},{n:"กรดเกลือ (HCl)",c:"8B",cs:"7647-01-0",u:"1789"},{n:"โซเดียมไฮดรอกไซด์ (โซดาไฟ)",c:"8B",cs:"1310-73-2",u:"1823"},{n:"กรดซัลฟิวริก",c:"8B",cs:"7664-93-9",u:"1830"},{n:"อะซิติกแอซิด",c:"8B",cs:"64-19-7",u:"2789"},{n:"คลอรีนน้ำ (โซเดียมไฮโปคลอไรต์)",c:"8B",cs:"7681-52-9",u:"1791"},{n:"ไบโอซอล 300",c:"8B",cs:"-",u:"-"},{n:"EDTA",c:"12",cs:"60-00-4",u:"-"},{n:"โซเดียมไบคาร์บอเนต",c:"13",cs:"144-55-8",u:"-"},{n:"ปูนขาว",c:"13",cs:"1305-62-0",u:"1910"}];
-const PP={"กรดเกลือ (HCl)":{f:"HCl",mw:"36.46 g/mol",st:"ของเหลว กลิ่นฉุน",cn:"30–37%",bp:"–85°C",mp:"–114°C",d:"1.16 g/cm³"},"กรดซัลฟิวริก":{f:"H₂SO₄",mw:"98.08 g/mol",st:"ของเหลว ไม่มีสี",cn:"98%",bp:"337°C",mp:"10°C",d:"1.84 g/cm³"},"โซเดียมไฮดรอกไซด์ (โซดาไฟ)":{f:"NaOH",mw:"40.00 g/mol",st:"ของแข็ง เม็ด/แผ่น",cn:"97%+",bp:"1388°C",mp:"318°C",d:"2.13 g/cm³"},"เอทานอล 95%":{f:"C₂H₅OH",mw:"46.07 g/mol",st:"ของเหลว ไม่มีสี",cn:"95%",bp:"78°C",mp:"–114°C",d:"0.79 g/cm³"},"คลอรีนน้ำ (โซเดียมไฮโปคลอไรต์)":{f:"NaOCl",mw:"74.44 g/mol",st:"ของเหลว เหลืองอ่อน",cn:"5–12%",bp:"101°C",mp:"-",d:"1.1 g/cm³"},"ไฮโดรเจนเปอร์ออกไซด์ (30%)":{f:"H₂O₂",mw:"34.01 g/mol",st:"ของเหลว ไม่มีสี",cn:"30%",bp:"150°C",mp:"-0.43°C",d:"1.11 g/cm³"},"คลอรีนผง":{f:"Ca(OCl)₂",mw:"142.98 g/mol",st:"ของแข็ง สีขาว",cn:"65–70%",bp:"-",mp:"decomposes",d:"2.35 g/cm³"}};
+const PP={
+  "กรดเกลือ (HCl)":                  {f:"HCl",          mw:"36.46 g/mol",  st:"ของเหลว กลิ่นฉุนรุนแรง",   cn:"30–37%",   bp:"–85°C",    mp:"–114°C",   d:"1.16 g/cm³",  flash:"-",         ghs:"⚠️🧪☠️"},
+  "กรดซัลฟิวริก":                     {f:"H₂SO₄",       mw:"98.08 g/mol",  st:"ของเหลว หนืด ไม่มีสี",      cn:"98%",      bp:"337°C",    mp:"10°C",     d:"1.84 g/cm³",  flash:"-",         ghs:"🧪☠️⚡"},
+  "โซเดียมไฮดรอกไซด์ (โซดาไฟ)":      {f:"NaOH",         mw:"40.00 g/mol",  st:"ของแข็ง เม็ด/แผ่น",         cn:"97%+",     bp:"1388°C",   mp:"318°C",    d:"2.13 g/cm³",  flash:"-",         ghs:"🧪⚠️"},
+  "คลอรีนน้ำ (โซเดียมไฮโปคลอไรต์)":  {f:"NaOCl",        mw:"74.44 g/mol",  st:"ของเหลว สีเหลืองอ่อน",      cn:"5–12%",    bp:"101°C",    mp:"-",        d:"1.10 g/cm³",  flash:"-",         ghs:"🧪⚠️☣️"},
+  "เอทานอล 95%":                      {f:"C₂H₅OH",      mw:"46.07 g/mol",  st:"ของเหลว ไม่มีสี",           cn:"95%",      bp:"78°C",     mp:"–114°C",   d:"0.79 g/cm³",  flash:"13°C",      ghs:"🔥⚠️"},
+  "อะซิโตน":                           {f:"C₃H₆O",       mw:"58.08 g/mol",  st:"ของเหลว ไม่มีสี กลิ่นหวาน", cn:"99.5%+",   bp:"56°C",     mp:"–95°C",    d:"0.79 g/cm³",  flash:"–18°C",     ghs:"🔥⚠️"},
+  "โทลูอีน":                           {f:"C₇H₈",        mw:"92.14 g/mol",  st:"ของเหลว ไม่มีสี กลิ่นหอม",  cn:"99%+",     bp:"111°C",    mp:"–95°C",    d:"0.87 g/cm³",  flash:"4°C",       ghs:"🔥☠️⚠️"},
+  "ไซลีน":                             {f:"C₈H₁₀",       mw:"106.16 g/mol", st:"ของเหลว ไม่มีสี",           cn:"99%+",     bp:"138–144°C",mp:"–47°C",    d:"0.86 g/cm³",  flash:"27–32°C",   ghs:"🔥☠️⚠️"},
+  "LPG (ก๊าซหุงต้ม)":                 {f:"C₃H₈/C₄H₁₀", mw:"44–58 g/mol",  st:"ก๊าซ (บรรจุถัง)",           cn:"น้ำหนัก",  bp:"–42°C",    mp:"–188°C",   d:"1.52 kg/m³",  flash:"–104°C",    ghs:"🔥💥"},
+  "สเปรย์แอลกอฮอล์":                  {f:"C₃H₈O",       mw:"60.10 g/mol",  st:"ของเหลว/ก๊าซ (สเปรย์)",     cn:"70%",      bp:"82°C",     mp:"–89°C",    d:"0.78 g/cm³",  flash:"12°C",      ghs:"🔥⚠️"},
+  "Nitroglycerin":                    {f:"C₃H₅N₃O₉",    mw:"227.09 g/mol", st:"ของเหลว น้ำมัน ไม่มีสี",    cn:"100%",     bp:"50–60°C*", mp:"13°C",     d:"1.59 g/cm³",  flash:"*ระเบิด",   ghs:"💥☠️🔥"},
+  "แคลเซียมคาร์ไบด์":                 {f:"CaC₂",         mw:"64.10 g/mol",  st:"ของแข็ง สีเทา/น้ำตาล",      cn:"80%+",     bp:"2300°C",   mp:"2160°C",   d:"2.22 g/cm³",  flash:"*สัมผัสน้ำ",ghs:"🔥💧⚠️"},
+  "คลอรีนผง":                          {f:"Ca(OCl)₂",     mw:"142.98 g/mol", st:"ของแข็ง สีขาว กลิ่นคลอรีน", cn:"65–70%",   bp:"-",        mp:"decomposes",d:"2.35 g/cm³",  flash:"-",         ghs:"⭕🧪☠️"},
+  "โซเดียมไนไตรท์":                   {f:"NaNO₂",        mw:"69.00 g/mol",  st:"ของแข็ง ผลึกสีขาวเหลือง",   cn:"97%+",     bp:"320°C*",   mp:"271°C",    d:"2.17 g/cm³",  flash:"-",         ghs:"⭕☠️⚠️"},
+  "ไฮโดรเจนเปอร์ออกไซด์ (30%)":       {f:"H₂O₂",         mw:"34.01 g/mol",  st:"ของเหลว ไม่มีสี",           cn:"30%",      bp:"150°C",    mp:"–0.43°C",  d:"1.11 g/cm³",  flash:"-",         ghs:"⭕🧪⚠️"},
+  "ฟอร์มาลดีไฮด์":                    {f:"HCHO",          mw:"30.03 g/mol",  st:"ของเหลว/ก๊าซ กลิ่นฉุน",    cn:"37–40%",   bp:"–19°C",    mp:"–92°C",    d:"1.08 g/cm³",  flash:"50°C",      ghs:"🔥☠️☣️"},
+  "อะซิติกแอซิด":                      {f:"CH₃COOH",      mw:"60.05 g/mol",  st:"ของเหลว กลิ่นน้ำส้มสายชู",  cn:"99%+",     bp:"118°C",    mp:"17°C",     d:"1.05 g/cm³",  flash:"39°C",      ghs:"🔥🧪⚠️"},
+  "ไบโอซอล 300":                       {f:"NaOCl blend",  mw:"-",            st:"ของเหลว สีเหลืองอ่อน",      cn:"3–5%",     bp:"~100°C",   mp:"-",        d:"~1.05 g/cm³", flash:"-",         ghs:"🧪⚠️"},
+  "EDTA":                             {f:"C₁₀H₁₆N₂O₈",  mw:"292.24 g/mol", st:"ของแข็ง ผงสีขาว",            cn:"99%+",     bp:"decomposes",mp:"237°C",   d:"0.86 g/cm³",  flash:"-",         ghs:"⚠️"},
+  "โซเดียมไบคาร์บอเนต":               {f:"NaHCO₃",       mw:"84.01 g/mol",  st:"ของแข็ง ผงสีขาว",            cn:"99%+",     bp:"decomposes",mp:"50°C*",   d:"2.20 g/cm³",  flash:"-",         ghs:"⚠️"},
+  "ปูนขาว":                            {f:"Ca(OH)₂",      mw:"74.09 g/mol",  st:"ของแข็ง ผงสีขาว",            cn:"90%+",     bp:"decomposes",mp:"580°C",   d:"2.21 g/cm³",  flash:"-",         ghs:"🧪⚠️"},
+};
 
 let cp='dashboard',pv=[],st=null,sA=null,sB=null;
 let hs=JSON.parse(localStorage.getItem('cn2h')||'[]');
@@ -406,7 +703,7 @@ function uDash(){
 
 function rCL(q=''){
   const c=document.getElementById('clc');
-  let l=DB;
+  let l=liveDB().map(x=>({...x,n:x.n||x.name,c:x.c||x.cls,cs:x.cs||x.cas,u:x.u||x.un}));
   if(cf!=='all')l=l.filter(x=>x.c===cf);
   if(q){const lq=q.toLowerCase();l=l.filter(x=>x.n.toLowerCase().includes(lq)||(x.cs&&x.cs.includes(lq)));}
   if(!l.length){c.innerHTML='<div style="padding:28px;text-align:center;color:var(--tx3);font-size:11px">ไม่พบสารที่ค้นหา</div>';return;}
@@ -415,7 +712,7 @@ function rCL(q=''){
     const h=HC[x.c]||{};
     return`<div class="cli" onclick="sDet('${x.n.replace(/'/g,"\\'")}')">
       <div class="clic">${h.ic||'🧪'}</div>
-      <div style="flex:1;min-width:0"><div class="clin">${x.n}</div><div class="clis">CAS: ${x.cs||'-'} · <span style="color:var(--lime)">${x.c}</span></div></div>
+      <div style="flex:1;min-width:0"><div class="clin">${x.n}${x._custom?'<span style="color:var(--lime);font-size:7px;font-weight:800;background:var(--lb);padding:1px 4px;border-radius:3px;margin-left:4px">+</span>':''}</div><div class="clis">CAS: ${x.cs||'-'} · <span style="color:var(--lime)">${x.c}</span></div></div>
       <span style="font-size:7px;font-weight:900;color:${rc(h.r)};text-transform:uppercase;margin-right:3px">${h.r||''}</span>
       <i class="ph ph-caret-right" style="color:var(--tx3);font-size:14px"></i>
     </div>`;
@@ -424,7 +721,8 @@ function rCL(q=''){
 function fCls(el,cls){cf=cls;document.querySelectorAll('.fc').forEach(c=>c.classList.remove('active'));el.classList.add('active');rCL(document.getElementById('gs')?.value||'');}
 
 function sDet(nm){
-  const ch=DB.find(x=>x.n===nm);if(!ch)return;
+  const all=liveDB().map(x=>({...x,n:x.n||x.name,c:x.c||x.cls,cs:x.cs||x.cas,u:x.u||x.un}));
+  const ch=all.find(x=>x.n===nm);if(!ch)return;
   cd=ch;const h=HC[ch.c]||{},p=PP[nm]||{};
   document.getElementById('dh').textContent=nm.length>13?nm.slice(0,13)+'…':nm;
   const rc=h.r==='HIGH'||h.r==='EXTREME'?'cr':h.r==='MEDIUM'?'ca':'cg';
@@ -440,7 +738,9 @@ function sDet(nm){
       ${p.cn?`<div class="pr"><span class="prk">ความเข้มข้น</span><span class="prv">${p.cn}</span></div>`:''}
       ${p.bp?`<div class="pr"><span class="prk">จุดเดือด</span><span class="prv">${p.bp}</span></div>`:''}
       ${p.mp?`<div class="pr"><span class="prk">จุดหลอมเหลว</span><span class="prv">${p.mp}</span></div>`:''}
+      ${p.flash?`<div class="pr"><span class="prk">จุดวาบไฟ</span><span class="prv" style="color:${p.flash==='-'?'var(--grn)':'var(--amb)'}">${p.flash}</span></div>`:''}
       ${p.d?`<div class="pr"><span class="prk">ความหนาแน่น</span><span class="prv">${p.d}</span></div>`:''}
+      ${p.ghs?`<div class="pr"><span class="prk">GHS Symbols</span><span class="prv" style="font-size:16px;letter-spacing:2px">${p.ghs}</span></div>`:''}
     </div>
     <div id="ts" class="tp">
       <div class="sl">วิธีดับเพลิง</div><div style="padding:0 16px 10px;display:flex;gap:4px;flex-wrap:wrap">${(h.fi||[]).map(f=>`<span class="chip cr">${f}</span>`).join('')}</div>
@@ -450,6 +750,25 @@ function sDet(nm){
     <div id="tt" class="tp">
       <div class="ib lm" style="margin-top:13px"><i class="ph-fill ph-info"></i><div><div class="ibt">DIW Class</div><div class="ibb">${h.t||''}</div></div></div>
       <div style="padding:9px 16px;font-size:10px;color:var(--tx2);line-height:1.7">เก็บในสถานที่เย็น แห้ง ระบายอากาศดี ห่างจากแหล่งความร้อน ตรวจสอบความเข้ากันได้ก่อนเก็บร่วมกัน</div>
+
+      ${(()=>{
+        // หาคู่ที่อันตราย (RED) กับ class นี้จาก matrix
+        const cls = ch.c;
+        const ci = CO.indexOf(cls);
+        const dangerCls = CO.filter((c2,j)=>{
+          if(c2===cls)return false;
+          let r=cls,c=c2;
+          if(CO.indexOf(r)>CO.indexOf(c)){[r,c]=[c,r];}
+          const v=MX[r]?.[CO.indexOf(c)];
+          return v==='0';
+        }).slice(0,4);
+        if(!dangerCls.length)return '';
+        return `<div class="sl" style="padding-top:4px">⛔ ห้ามเก็บร่วมกับ</div>
+        <div style="padding:0 16px 10px;display:flex;gap:5px;flex-wrap:wrap">
+          ${dangerCls.map(c=>`<span class="chip cr" style="cursor:pointer" onclick="go('analyze')">${(HC[c]||{}).ic||'🧪'} Class ${c}</span>`).join('')}
+        </div>`;
+      })()}
+
       <button class="btn bg" style="margin:7px 16px;width:calc(100% - 32px)" onclick="window.open('https://www.google.com/search?q=SDS+${encodeURIComponent(nm)}','_blank')"><i class="ph ph-file-text" style="font-size:14px"></i>ดู SDS เต็มรูปแบบ</button>
     </div>
     <div class="crd"><strong>ATIT CHIMNAN</strong>ChemNexus AI 2.0 • DIW Standard</div>
@@ -473,12 +792,13 @@ function oSSO(side){st=side;const o=document.getElementById('sso');o.style.displ
 function cSSO(){document.getElementById('sso').style.display='none';}
 function rSSO(q){
   const c=document.getElementById('ssor');
-  let l=DB;
+  let l=liveDB().map(x=>({...x,n:x.n||x.name,c:x.c||x.cls,cs:x.cs||x.cas}));
   if(q){const lq=q.toLowerCase();l=l.filter(x=>x.n.toLowerCase().includes(lq)||(x.cs&&x.cs.includes(lq)));}
   c.innerHTML=l.map(x=>{const h=HC[x.c]||{};return`<div class="ddi" onclick="pSl('${x.n.replace(/'/g,"\\'")}')"><div class="dic">${h.ic||'🧪'}</div><div style="flex:1;min-width:0"><div class="dn">${x.n}</div><div class="dc">CAS: ${x.cs||'-'}</div></div><span class="dcs">${x.c}</span></div>`;}).join('');
 }
 function pSl(nm){
-  const ch=DB.find(x=>x.n===nm);if(!ch)return;
+  const all=liveDB().map(x=>({...x,n:x.n||x.name,c:x.c||x.cls,cs:x.cs||x.cas,u:x.u||x.un}));
+  const ch=all.find(x=>x.n===nm);if(!ch)return;
   if(st==='A')sA=ch;else sB=ch;
   uSl(st);cSSO();
   if(sA&&sB)setTimeout(doAna,350);
@@ -514,10 +834,15 @@ function doAna(){
     const e={a:sA.n,b:sB.n,cA:sA.c,cB:sB.c,c1,c2,r,code,tm:new Date().toLocaleString('th-TH',{hour:'2-digit',minute:'2-digit',day:'numeric',month:'short'})};
     hs.unshift(e);if(hs.length>20)hs=hs.slice(0,20);
     localStorage.setItem('cn2h',JSON.stringify(hs));
+    lastResult=e;
     rRes(e);go('result');
   },1800);
 }
-function rplay(a,b){const ca=DB.find(x=>x.n===a),cb=DB.find(x=>x.n===b);if(!ca||!cb)return;sA=ca;sB=cb;go('analyze');setTimeout(doAna,200);}
+function rplay(a,b){
+  const all=liveDB().map(x=>({...x,n:x.n||x.name,c:x.c||x.cls,cs:x.cs||x.cas,u:x.u||x.un}));
+  const ca=all.find(x=>x.n===a),cb=all.find(x=>x.n===b);
+  if(!ca||!cb)return;sA=ca;sB=cb;go('analyze');setTimeout(doAna,200);
+}
 
 function rRes(e){
   const{a,b,cA,cB,c1,c2,r,code}=e;
@@ -561,6 +886,12 @@ function rRes(e){
       <button class="btn" style="flex:1" onclick="go('emergency')"><i class="ph ph-warning-octagon" style="font-size:14px"></i>ฉุกเฉิน</button>
       <button class="btn bg" style="flex:1" onclick="window.open('https://www.google.com/search?q=SDS+${encodeURIComponent(a)}','_blank')"><i class="ph ph-file-text" style="font-size:14px"></i>SDS</button>
     </div>
+    <div style="margin:0 16px 3px">
+      <button class="btn" style="background:linear-gradient(135deg,#1a3a1a,#0d2210);border:1px solid rgba(184,255,58,.3);color:var(--lime)" onclick="exportPDF()">
+        <i class="ph-bold ph-printer" style="font-size:15px"></i>
+        Export รายงาน PDF
+      </button>
+    </div>
     <div class="crd"><strong>ATIT CHIMNAN</strong>ChemNexus AI 2.0 • DIW Matrix • Symmetric Result</div>
   `;
 }
@@ -595,9 +926,443 @@ function rEMG(){
   `;
 }
 
+
+// ══════════════════════════════════════════
+//  ADMIN — STATE
+// ══════════════════════════════════════════
+const ADMIN_PIN = '2025';
+let pinBuf = '';
+let adminUnlocked = false;
+let delTargetIdx = -1;
+let editingIdx = -1;
+let adminFilter = 'all';
+let adminSort = 'name'; // name | class | date
+
+// userDB = custom chemicals stored in localStorage (layered on top of DB)
+let userDB = JSON.parse(localStorage.getItem('cn2_udb') || '[]');
+
+// combined live DB (DB readonly base + userDB custom)
+function liveDB() {
+  return [...DB, ...userDB];
+}
+
+function saveUserDB() {
+  localStorage.setItem('cn2_udb', JSON.stringify(userDB));
+}
+
+// ── PIN MODAL ──
+function openAdmin() {
+  if (adminUnlocked) { go('admin'); rAdmin(); return; }
+  pinBuf = '';
+  updatePinDots();
+  document.getElementById('pin-err').textContent = '';
+  document.getElementById('pin-modal').style.display = 'flex';
+}
+function closePinModal() {
+  document.getElementById('pin-modal').style.display = 'none';
+  pinBuf = '';
+  updatePinDots();
+}
+function pinKey(k) {
+  if (pinBuf.length >= 4) return;
+  pinBuf += k;
+  updatePinDots();
+  if (pinBuf.length === 4) setTimeout(checkPin, 120);
+}
+function pinDel() {
+  pinBuf = pinBuf.slice(0, -1);
+  updatePinDots();
+  document.getElementById('pin-err').textContent = '';
+}
+function updatePinDots() {
+  document.querySelectorAll('.pdot').forEach((d, i) => {
+    d.classList.toggle('filled', i < pinBuf.length);
+  });
+}
+function checkPin() {
+  if (pinBuf === ADMIN_PIN) {
+    adminUnlocked = true;
+    closePinModal();
+    go('admin');
+    rAdmin();
+  } else {
+    document.getElementById('pin-err').textContent = '❌ PIN ไม่ถูกต้อง';
+    pinBuf = '';
+    updatePinDots();
+    // shake animation
+    const dots = document.getElementById('pin-dots');
+    dots.style.animation = 'none';
+    dots.offsetHeight;
+    dots.style.animation = 'shake .3s ease';
+  }
+}
+
+// ── ADMIN PAGE RENDER ──
+function rAdmin() {
+  const body = document.getElementById('admin-body');
+  const all = liveDB();
+  const custom = userDB.length;
+  const base = DB.length;
+
+  // stats
+  const highRisk = all.filter(x => (HC[x.c || x.cls] || {}).r === 'HIGH' || (HC[x.c || x.cls] || {}).r === 'EXTREME').length;
+
+  let filtered = all;
+  if (adminFilter !== 'all') filtered = filtered.filter(x => (x.c || x.cls) === adminFilter);
+
+  // sort
+  filtered = [...filtered].sort((a, b) => {
+    if (adminSort === 'class') return CO.indexOf(a.c || a.cls) - CO.indexOf(b.c || b.cls);
+    return (a.n || a.name).localeCompare(b.n || b.name, 'th');
+  });
+
+  const rc = r => r === 'EXTREME' || r === 'HIGH' ? 'var(--red)' : r === 'MEDIUM' ? 'var(--amb)' : 'var(--grn)';
+
+  body.innerHTML = `
+    <!-- Stats -->
+    <div class="sl" style="margin-top:12px">สถิติฐานข้อมูล</div>
+    <div class="admin-stats">
+      <div class="ast"><div class="ast-n" style="color:var(--lime)">${all.length}</div><div class="ast-l">ทั้งหมด</div></div>
+      <div class="ast"><div class="ast-n" style="color:#ff7070">${highRisk}</div><div class="ast-l">เสี่ยงสูง</div></div>
+      <div class="ast"><div class="ast-n" style="color:#ffcc55">${custom}</div><div class="ast-l">กำหนดเอง</div></div>
+    </div>
+
+    <!-- Sort & Filter -->
+    <div class="sort-row" style="margin-top:10px">
+      <span style="font-size:8px;color:var(--tx3);font-weight:800;text-transform:uppercase;white-space:nowrap">เรียง:</span>
+      <button class="fc ${adminSort === 'name' ? 'active' : ''}" onclick="setAdminSort('name')">ชื่อ A-Z</button>
+      <button class="fc ${adminSort === 'class' ? 'active' : ''}" onclick="setAdminSort('class')">Class</button>
+    </div>
+    <div class="fr" style="padding-top:4px">
+      <div class="fc ${adminFilter === 'all' ? 'active' : ''}" onclick="setAdminFilter('all')">ทั้งหมด</div>
+      <div class="fc ${adminFilter === '8B' ? 'active' : ''}" onclick="setAdminFilter('8B')">8B</div>
+      <div class="fc ${adminFilter === '3A' ? 'active' : ''}" onclick="setAdminFilter('3A')">3A</div>
+      <div class="fc ${adminFilter === '5.1A' ? 'active' : ''}" onclick="setAdminFilter('5.1A')">5.1A</div>
+      <div class="fc ${adminFilter === '5.1B' ? 'active' : ''}" onclick="setAdminFilter('5.1B')">5.1B</div>
+      <div class="fc ${adminFilter === '2A' ? 'active' : ''}" onclick="setAdminFilter('2A')">2A</div>
+      <div class="fc ${adminFilter === '12' ? 'active' : ''}" onclick="setAdminFilter('12')">12</div>
+      <div class="fc ${adminFilter === '13' ? 'active' : ''}" onclick="setAdminFilter('13')">13</div>
+    </div>
+
+    <!-- Add button prominent -->
+    <div style="margin:10px 16px 2px">
+      <button class="btn" onclick="openAddForm()">
+        <i class="ph-bold ph-plus-circle" style="font-size:16px"></i>
+        เพิ่มสารเคมีใหม่
+      </button>
+    </div>
+
+    <!-- List -->
+    <div class="sl">รายการสารเคมี <span style="color:var(--tx3)">(${filtered.length})</span></div>
+    <div class="card" style="margin:0 16px">
+      ${filtered.length === 0
+        ? '<div style="padding:24px;text-align:center;color:var(--tx3);font-size:11px">ไม่พบสารในหมวดนี้</div>'
+        : filtered.map((x, i) => {
+          const nm = x.n || x.name;
+          const cls = x.c || x.cls;
+          const cas = x.cs || x.cas || '-';
+          const h = HC[cls] || {};
+          const isCustom = x._custom === true;
+          // find real index in userDB if custom
+          const customIdx = isCustom ? userDB.findIndex(u => u.n === nm && u.c === cls) : -1;
+          return `<div class="admin-item">
+            <div class="ai-icon">${h.ic || '🧪'}</div>
+            <div style="flex:1;min-width:0">
+              <div class="ai-name">${nm} ${isCustom ? '<span style="color:var(--lime);font-size:7px;font-weight:800;background:var(--lb);padding:1px 5px;border-radius:3px;margin-left:3px">+</span>' : ''}</div>
+              <div class="ai-sub">Class ${cls} · CAS: ${cas}</div>
+            </div>
+            <div style="font-size:7px;font-weight:900;color:${rc(h.r)};text-transform:uppercase;margin-right:5px">${h.r || ''}</div>
+            <div class="ai-actions">
+              <button class="ai-btn edit" onclick="openEditForm(${isCustom ? customIdx : -1},'${nm.replace(/'/g, "\\'")}','${cls}','${cas}','${x.u || x.un || '-'}','${x.note || ''}')" title="แก้ไข"><i class="ph ph-pencil"></i></button>
+              ${isCustom
+                ? `<button class="ai-btn del" onclick="openDelModal(${customIdx},'${nm.replace(/'/g, "\\'")}')"><i class="ph ph-trash"></i></button>`
+                : `<button class="ai-btn" style="opacity:.3;cursor:not-allowed" title="ข้อมูลพื้นฐาน ไม่สามารถลบได้"><i class="ph ph-lock"></i></button>`
+              }
+            </div>
+          </div>`;
+        }).join('')
+      }
+    </div>
+
+    ${custom > 0 ? `
+    <div style="margin:12px 16px 3px">
+      <button class="btn" style="background:var(--rb);border:1px solid var(--rbd);color:#ff7070" onclick="confirmResetAll()">
+        <i class="ph ph-trash" style="font-size:14px"></i>
+        ลบสารเคมีที่กำหนดเองทั้งหมด (${custom} รายการ)
+      </button>
+    </div>` : ''}
+
+    <div style="margin:8px 16px 3px">
+      <button class="btn bg" onclick="adminLogout()">
+        <i class="ph ph-sign-out" style="font-size:14px"></i>
+        ออกจากระบบ Admin
+      </button>
+    </div>
+    <div class="crd"><strong>ATIT CHIMNAN</strong>ChemNexus AI 2.0 · Admin Panel</div>
+  `;
+}
+
+function setAdminFilter(f) { adminFilter = f; rAdmin(); }
+function setAdminSort(s) { adminSort = s; rAdmin(); }
+function adminLogout() { adminUnlocked = false; back(); toast('ออกจากระบบ Admin แล้ว'); }
+
+// ── ADD / EDIT FORM ──
+function initFormClassSelect() {
+  const sel = document.getElementById('f-class');
+  sel.innerHTML = CO.map(c => `<option value="${c}">${c} — ${(HC[c] || {}).t || ''}</option>`).join('');
+  sel.onchange = () => updateClassPreview(sel.value);
+}
+
+function updateClassPreview(cls) {
+  const h = HC[cls] || {};
+  document.getElementById('cpv-icon').textContent = h.ic || '🧪';
+  document.getElementById('cpv-cls').textContent = `Class ${cls} — ${h.t || ''}`;
+  const rc = h.r === 'HIGH' || h.r === 'EXTREME' ? '#ff7070' : h.r === 'MEDIUM' ? '#ffcc55' : '#33ff99';
+  document.getElementById('cpv-risk').innerHTML = `<span style="color:${rc};font-weight:800">${h.r || ''} RISK</span>`;
+}
+
+function openAddForm() {
+  editingIdx = -1;
+  document.getElementById('form-title').textContent = '+ เพิ่มสารเคมีใหม่';
+  document.getElementById('save-btn').innerHTML = '<i class="ph-bold ph-floppy-disk" style="font-size:16px"></i>บันทึกข้อมูล';
+  document.getElementById('f-name').value = '';
+  document.getElementById('f-cas').value = '';
+  document.getElementById('f-un').value = '';
+  document.getElementById('f-note').value = '';
+  document.getElementById('form-err').textContent = '';
+  initFormClassSelect();
+  updateClassPreview(CO[0]);
+  document.getElementById('form-modal').style.display = 'flex';
+  setTimeout(() => document.getElementById('f-name').focus(), 100);
+}
+
+function openEditForm(customIdx, nm, cls, cas, un, note) {
+  editingIdx = customIdx;
+  document.getElementById('form-title').textContent = '✏️ แก้ไขสารเคมี';
+  document.getElementById('save-btn').innerHTML = '<i class="ph-bold ph-check" style="font-size:16px"></i>บันทึกการแก้ไข';
+  document.getElementById('f-name').value = nm;
+  document.getElementById('f-cas').value = cas === '-' ? '' : cas;
+  document.getElementById('f-un').value = un === '-' ? '' : un;
+  document.getElementById('f-note').value = note || '';
+  document.getElementById('form-err').textContent = '';
+  initFormClassSelect();
+  document.getElementById('f-class').value = cls;
+  updateClassPreview(cls);
+  document.getElementById('form-modal').style.display = 'flex';
+}
+
+function closeFormModal() {
+  document.getElementById('form-modal').style.display = 'none';
+}
+
+function saveForm() {
+  const nm = document.getElementById('f-name').value.trim();
+  const cls = document.getElementById('f-class').value;
+  const cas = document.getElementById('f-cas').value.trim() || '-';
+  const un = document.getElementById('f-un').value.trim() || '-';
+  const note = document.getElementById('f-note').value.trim();
+
+  if (!nm) { document.getElementById('form-err').textContent = '⚠ กรุณากรอกชื่อสาร'; return; }
+  if (!cls) { document.getElementById('form-err').textContent = '⚠ กรุณาเลือก Hazard Class'; return; }
+
+  // check duplicate in base DB (only for new entries)
+  if (editingIdx === -1) {
+    const dup = DB.find(x => (x.n || x.name).toLowerCase() === nm.toLowerCase());
+    if (dup) { document.getElementById('form-err').textContent = '⚠ มีสารนี้ในฐานข้อมูลพื้นฐานแล้ว'; return; }
+    const dupU = userDB.find(x => x.n.toLowerCase() === nm.toLowerCase());
+    if (dupU) { document.getElementById('form-err').textContent = '⚠ มีสารนี้ในรายการกำหนดเองแล้ว'; return; }
+  }
+
+  const entry = { n: nm, c: cls, cs: cas, u: un, note, _custom: true };
+
+  if (editingIdx >= 0) {
+    userDB[editingIdx] = entry;
+    toast('✅ แก้ไขข้อมูลแล้ว');
+  } else {
+    userDB.unshift(entry);
+    toast('✅ เพิ่ม ' + nm + ' แล้ว');
+  }
+
+  saveUserDB();
+  closeFormModal();
+  rAdmin();
+  // update dashboard total
+  document.getElementById('dt').textContent = liveDB().length;
+}
+
+// ── DELETE ──
+function openDelModal(idx, nm) {
+  delTargetIdx = idx;
+  document.getElementById('del-name').textContent = nm;
+  document.getElementById('del-modal').style.display = 'flex';
+}
+function closeDelModal() {
+  document.getElementById('del-modal').style.display = 'none';
+}
+function confirmDel() {
+  if (delTargetIdx < 0) return;
+  const nm = userDB[delTargetIdx]?.n || '';
+  userDB.splice(delTargetIdx, 1);
+  saveUserDB();
+  closeDelModal();
+  toast('🗑️ ลบ ' + nm + ' แล้ว');
+  rAdmin();
+  document.getElementById('dt').textContent = liveDB().length;
+}
+
+function confirmResetAll() {
+  if (!confirm('ลบสารเคมีที่กำหนดเองทั้งหมด ' + userDB.length + ' รายการ?')) return;
+  userDB = [];
+  saveUserDB();
+  toast('🗑️ ลบข้อมูลกำหนดเองทั้งหมดแล้ว');
+  rAdmin();
+  document.getElementById('dt').textContent = liveDB().length;
+}
+
+// inject shake keyframe
+const shakeStyle = document.createElement('style');
+shakeStyle.textContent = '@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}';
+document.head.appendChild(shakeStyle);
+
+// ══════════════════════════════════════════
+//  TOAST
+// ══════════════════════════════════════════
 let tt;
-function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('show'),2200);}
-window.onload=()=>{uNB('dashboard');uDash();};
+function toast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('show'),2200);
+}
+
+// ══════════════════════════════════════════
+//  EXPORT PDF
+// ══════════════════════════════════════════
+let lastResult=null;
+
+function exportPDF(){
+  if(!lastResult){toast('ไม่พบข้อมูลผลการวิเคราะห์');return;}
+  const e=lastResult;
+  const{a,b,cA,cB,c1,c2,r,code,tm}=e;
+  const hA=HC[cA]||{},hB=HC[cB]||{};
+  const pr=PR[`${c1}-${c2}`]||PR[`${c2}-${c1}`]||null;
+  const cond=code?(CD[code]||''):'';
+  const pA=PP[a]||{},pB=PP[b]||{};
+  let bt,bs,rn,rc;
+  if(r==='RED'){bt='ห้ามจัดเก็บร่วมกันเด็ดขาด';bs='DO NOT STORE TOGETHER';rn=5;rc='red';}
+  else if(r==='YELLOW'){bt='เก็บร่วมได้ (ต้องมีเงื่อนไข)';bs='CONDITIONAL STORAGE';rn=3;rc='amb';}
+  else{bt='ปลอดภัย เก็บร่วมกันได้';bs='SAFE TO STORE TOGETHER';rn=1;rc='grn';}
+  const dots=Array(5).fill(0).map((_,i)=>`<div class="prdot ${i<rn?'on '+rc:''}"></div>`).join('');
+  const fi=[...new Set([...hA.fi,...hB.fi])];
+  const pp=[...new Set([...hA.pp,...hB.pp])];
+  const now=new Date().toLocaleString('th-TH',{dateStyle:'full',timeStyle:'short'});
+  const prow=(k,v)=>v&&v!=='-'?`<div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid #f0f0f0;font-size:9px"><span style="color:#888">${k}</span><span style="font-weight:700;font-family:monospace">${v}</span></div>`:'';
+
+  document.getElementById('pr-wrap').innerHTML=`
+    <div style="position:sticky;top:0;z-index:2;display:flex;justify-content:flex-end;margin-bottom:4px">
+      <button onclick="closePDF()" style="padding:5px 12px;background:#111;border:none;border-radius:5px;color:#b8ff3a;font-size:9px;font-weight:800;cursor:pointer;font-family:'Prompt',sans-serif">✕ ปิด</button>
+    </div>
+    <div class="prh">
+      <div class="prlogo">ChemNexus AI
+        <span>รายงานวิเคราะห์ความเข้ากันได้ของสารเคมี</span>
+      </div>
+      <div class="prmeta">วันที่: ${tm}<br>อ้างอิง: DIW Compatibility Matrix<br>Atit Chimnan</div>
+    </div>
+    <div class="prsec-t">สารเคมีที่วิเคราะห์</div>
+    <div class="prpair">
+      <div class="prchem"><div class="prchem-ic">${hA.ic||'🧪'}</div><div class="prchem-nm">${a}</div><div class="prchem-cls">Class ${cA} · ${hA.t||''}</div>${pA.f?`<div style="font-size:7px;color:#999;margin-top:3px;font-family:monospace">${pA.f} · ${pA.mw||''}</div>`:''}</div>
+      <div class="prvs">VS</div>
+      <div class="prchem"><div class="prchem-ic">${hB.ic||'🧪'}</div><div class="prchem-nm">${b}</div><div class="prchem-cls">Class ${cB} · ${hB.t||''}</div>${pB.f?`<div style="font-size:7px;color:#999;margin-top:3px;font-family:monospace">${pB.f} · ${pB.mw||''}</div>`:''}</div>
+    </div>
+    <div class="prsec-t">ผลการวิเคราะห์</div>
+    <div class="prres ${rc}"><div class="prres-ic">${r==='RED'?'⛔':r==='YELLOW'?'⚠️':'✅'}</div><div><div class="prres-t">${bt}</div><div class="prres-s">${bs}</div></div></div>
+    <div style="display:flex;align-items:center;gap:7px;margin-bottom:10px"><span style="font-size:8px;font-weight:800;color:#888;text-transform:uppercase">ระดับความเสี่ยง</span><div class="prrisk">${dots}</div></div>
+    ${pr?`<div class="prbox ${rc}"><strong>⚗️ เหตุผล — เสี่ยงเกิด: ${pr.g}</strong><br>${pr.rx}</div>`:''}
+    ${cond?`<div class="prbox amb"><strong>📋 เงื่อนไข DIW ข้อที่ ${code}</strong><br>${cond}</div>`:''}
+    ${r==='GREEN'?`<div class="prbox grn"><strong>✅ ปลอดภัย</strong><br>สารทั้งสองชนิดสามารถจัดเก็บร่วมกันได้ตามมาตรฐาน DIW โดยไม่เกิดปฏิกิริยาอันตราย</div>`:''}
+    ${(pA.mw||pB.mw)?`
+    <div class="prsec-t" style="margin-top:6px">คุณสมบัติสาร</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px">
+      <div><div style="font-size:9px;font-weight:800;margin-bottom:3px;color:#555">${a.slice(0,16)}</div>${prow('สูตร',pA.f)}${prow('จุดเดือด',pA.bp)}${prow('จุดวาบไฟ',pA.flash)}${prow('ความหนาแน่น',pA.d)}</div>
+      <div><div style="font-size:9px;font-weight:800;margin-bottom:3px;color:#555">${b.slice(0,16)}</div>${prow('สูตร',pB.f)}${prow('จุดเดือด',pB.bp)}${prow('จุดวาบไฟ',pB.flash)}${prow('ความหนาแน่น',pB.d)}</div>
+    </div>`:''}
+    <div class="prsec-t">มาตรการฉุกเฉิน</div>
+    <div style="margin-bottom:5px"><div style="font-size:8px;font-weight:800;color:#888;margin-bottom:3px">วิธีดับเพลิง</div><div class="prchips">${fi.map(f=>`<span class="prchip">🔥 ${f}</span>`).join('')}</div></div>
+    <div style="margin-bottom:9px"><div style="font-size:8px;font-weight:800;color:#888;margin-bottom:3px">อุปกรณ์ป้องกัน (PPE)</div><div class="prchips">${pp.map(p=>`<span class="prchip">🛡️ ${p}</span>`).join('')}</div></div>
+    <div style="font-size:9px;color:#666;background:#f8f8f8;border-radius:6px;padding:8px 10px;margin-bottom:12px"><strong>เบอร์ฉุกเฉิน:</strong> 199 (ดับเพลิง) · 1669 (EMS) · 1650 (กรมโรงงาน) · 191 (ตำรวจ)</div>
+    <div class="prfooter"><div class="prfoot-l">ChemNexus AI 2.0</div><div class="prfoot-r">อ้างอิง: กรมโรงงานอุตสาหกรรม (DIW)<br>Atit Chimnan · ${now}</div></div>
+    <div style="margin-top:12px;display:flex;gap:8px">
+      <button onclick="window.print()" style="flex:1;padding:12px;background:#111;border:none;border-radius:7px;color:#b8ff3a;font-family:'Prompt',sans-serif;font-size:13px;font-weight:800;cursor:pointer">🖨️ พิมพ์ / บันทึก PDF</button>
+      <button onclick="closePDF()" style="padding:12px 18px;background:#f0f0f0;border:none;border-radius:7px;color:#333;font-family:'Prompt',sans-serif;font-size:13px;font-weight:700;cursor:pointer">ปิด</button>
+    </div>
+  `;
+  document.getElementById('pr-wrap').style.display='block';
+  document.getElementById('pr-wrap').scrollTop=0;
+}
+
+function closePDF(){document.getElementById('pr-wrap').style.display='none';}
+
+// ══════════════════════════════════════════
+//  ONBOARDING
+// ══════════════════════════════════════════
+const OB_STEPS=[
+  {icon:'⚗️',title:'ยินดีต้อนรับสู่ ChemNexus AI 2.0',desc:'ระบบวิเคราะห์การจัดเก็บสารเคมีตามมาตรฐานกรมโรงงานอุตสาหกรรม (DIW) พัฒนาโดย Atit Chimnan'},
+  {icon:'🔬',title:'วิเคราะห์ความเข้ากันได้',desc:'เลือกสารเคมี 2 ชนิด กดวิเคราะห์ — ระบบจะตรวจสอบจาก DIW Compatibility Matrix 23×23 class ทันที'},
+  {icon:'⛔',title:'RED / YELLOW / GREEN',desc:'RED = ห้ามเก็บร่วมกัน\nYELLOW = มีเงื่อนไข\nGREEN = ปลอดภัย พร้อมบอกก๊าซที่เกิดและเหตุผลทางวิทยาศาสตร์'},
+  {icon:'🛡️',title:'PPE & ฉุกเฉิน',desc:'ระบบแนะนำอุปกรณ์ป้องกันที่เหมาะสมและแนวทางกรณีฉุกเฉินตามสารที่คุณเลือก'},
+  {icon:'🖨️',title:'Export รายงาน PDF',desc:'หลังวิเคราะห์แล้ว กด "Export PDF" เพื่อสร้างรายงานฉบับเต็มสำหรับส่งฝ่ายความปลอดภัยหรือโรงงาน'},
+];
+let obStep=0;
+
+function showOnboard(){
+  document.getElementById('onboard').style.display='flex';
+  renderObStep();
+}
+function renderObStep(){
+  const s=OB_STEPS[obStep];
+  const total=OB_STEPS.length;
+  document.getElementById('ob-content').innerHTML=`
+    <div class="ob-icon">${s.icon}</div>
+    <div class="ob-title">${s.title}</div>
+    <div class="ob-desc">${s.desc.replace(/\n/g,'<br>')}</div>
+  `;
+  document.getElementById('ob-dots').innerHTML=OB_STEPS.map((_,i)=>`<div class="ob-dot ${i===obStep?'active':''}"></div>`).join('');
+  const btn=document.getElementById('ob-next-btn');
+  btn.textContent=obStep===total-1?'เริ่มใช้งาน ✓':'ถัดไป →';
+}
+function nextOnboard(){
+  if(obStep<OB_STEPS.length-1){obStep++;renderObStep();}
+  else skipOnboard();
+}
+function skipOnboard(){
+  document.getElementById('onboard').style.display='none';
+  localStorage.setItem('cn2_ob','1');
+}
+
+// ══════════════════════════════════════════
+//  SPLASH + INIT
+// ══════════════════════════════════════════
+window.onload=()=>{
+  uNB('dashboard');
+  uDash();
+  // splash → onboard (if first time) → app
+  setTimeout(()=>{
+    const sp=document.getElementById('splash');
+    sp.classList.add('hide');
+    setTimeout(()=>{
+      sp.style.display='none';
+      if(!localStorage.getItem('cn2_ob')){
+        obStep=0;
+        showOnboard();
+      }
+    },520);
+  },2000);
+  // register PWA service worker
+  if('serviceWorker' in navigator){
+    navigator.serviceWorker.register('sw.js')
+      .then(()=>console.log('✅ SW registered'))
+      .catch(e=>console.log('SW error:',e));
+  }
+};
 </script>
 </body>
 </html>

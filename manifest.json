@@ -1,0 +1,51 @@
+{
+  "name": "ChemNexus AI 2.0",
+  "short_name": "ChemNexus",
+  "description": "ระบบวิเคราะห์การจัดเก็บสารเคมีตามมาตรฐาน DIW — พัฒนาโดย Atit Chimnan",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#05080f",
+  "theme_color": "#05080f",
+  "lang": "th",
+  "categories": ["productivity", "utilities"],
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "form_factor": "narrow"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "วิเคราะห์สารเคมี",
+      "short_name": "วิเคราะห์",
+      "description": "เปิดหน้าวิเคราะห์ความเข้ากันได้ทันที",
+      "url": "./index.html#analyze",
+      "icons": [{ "src": "icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "กรณีฉุกเฉิน",
+      "short_name": "ฉุกเฉิน",
+      "description": "เปิดหน้าแนวทางฉุกเฉิน",
+      "url": "./index.html#emergency",
+      "icons": [{ "src": "icon-192.png", "sizes": "192x192" }]
+    }
+  ]
+}
