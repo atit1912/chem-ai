@@ -1291,7 +1291,7 @@ function exportPDF(){
     <div style="font-size:9px;color:#666;background:#f8f8f8;border-radius:6px;padding:8px 10px;margin-bottom:12px"><strong>เบอร์ฉุกเฉิน:</strong> 199 (ดับเพลิง) · 1669 (EMS) · 1650 (กรมโรงงาน) · 191 (ตำรวจ)</div>
     <div class="prfooter"><div class="prfoot-l">ChemNexus AI 2.0</div><div class="prfoot-r">อ้างอิง: กรมโรงงานอุตสาหกรรม (DIW)<br>Atit Chimnan · ${now}</div></div>
     <div style="margin-top:12px;display:flex;gap:8px">
-      <button onclick="window.print()" style="flex:1;padding:12px;background:#111;border:none;border-radius:7px;color:#b8ff3a;font-family:'Prompt',sans-serif;font-size:13px;font-weight:800;cursor:pointer">🖨️ พิมพ์ / บันทึก PDF</button>
+      <button onclick="printReport()" style="flex:1;padding:12px;background:#111;border:none;border-radius:7px;color:#b8ff3a;font-family:'Prompt',sans-serif;font-size:13px;font-weight:800;cursor:pointer">🖨️ พิมพ์ / บันทึก PDF</button>
       <button onclick="closePDF()" style="padding:12px 18px;background:#f0f0f0;border:none;border-radius:7px;color:#333;font-family:'Prompt',sans-serif;font-size:13px;font-weight:700;cursor:pointer">ปิด</button>
     </div>
   `;
@@ -1299,7 +1299,75 @@ function exportPDF(){
   document.getElementById('pr-wrap').scrollTop=0;
 }
 
-function closePDF(){document.getElementById('pr-wrap').style.display='none';}
+function printReport(){
+  const content = document.getElementById('pr-wrap').innerHTML;
+  // build self-contained HTML for iframe
+  const printHTML = `<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<title>ChemNexus AI 2.0 — Report</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+body{font-family:'Prompt',sans-serif;color:#111;background:#fff;padding:24px 22px;font-size:12px}
+/* hide print/close buttons */
+button{display:none!important}
+.pr-close{display:none!important}
+/* layout */
+.prh{display:flex;align-items:center;justify-content:space-between;border-bottom:2.5px solid #111;padding-bottom:10px;margin-bottom:16px}
+.prlogo{font-size:16px;font-weight:900;letter-spacing:-.02em;display:flex;flex-direction:column;gap:2px}
+.prlogo span{font-size:8px;font-weight:500;color:#666;letter-spacing:.04em;text-transform:uppercase}
+.prmeta{font-size:8px;color:#666;text-align:right;line-height:1.7}
+.prpair{display:flex;gap:8px;margin-bottom:14px}
+.prchem{flex:1;border:1.5px solid #e0e0e0;border-radius:8px;padding:11px;text-align:center}
+.prchem-ic{font-size:26px}
+.prchem-nm{font-size:11px;font-weight:800;margin-top:4px;line-height:1.3}
+.prchem-cls{font-size:8px;color:#666;margin-top:2px;font-weight:700}
+.prvs{width:24px;display:flex;align-items:center;justify-content:center;font-size:10px;color:#bbb;font-weight:800}
+.prres{padding:12px 14px;border-radius:8px;margin-bottom:12px;display:flex;align-items:center;gap:11px}
+.prres.red{background:#fff0f0!important;border:2px solid #ff3838!important}
+.prres.amb{background:#fffbf0!important;border:2px solid #ffaa00!important}
+.prres.grn{background:#f0fff8!important;border:2px solid #00c26a!important}
+.prres-ic{font-size:26px;flex-shrink:0}
+.prres-t{font-size:13px;font-weight:900}
+.prres-s{font-size:8px;color:#666;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-top:2px}
+.prsec-t{font-size:8px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:#888;border-bottom:1px solid #eee;padding-bottom:3px;margin-bottom:7px}
+.prbox{padding:9px 11px;border-radius:6px;font-size:10px;line-height:1.65;margin-bottom:7px}
+.prbox.red{background:#fff0f0!important;border:1px solid #ffcccc!important;color:#c00!important}
+.prbox.amb{background:#fffbf0!important;border:1px solid #ffe0aa!important;color:#996600!important}
+.prbox.grn{background:#f0fff8!important;border:1px solid #aaeedd!important;color:#006633!important}
+.prrisk{display:flex;align-items:center;gap:5px;margin-bottom:10px}
+.prdot{width:11px;height:11px;border-radius:2px;background:#eee!important}
+.prdot.on.red{background:#ff3838!important}
+.prdot.on.amb{background:#ffaa00!important}
+.prdot.on.grn{background:#00c26a!important}
+.prchips{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:8px}
+.prchip{padding:2px 8px;border-radius:4px;font-size:8px;font-weight:800;background:#f3f3f3!important;border:1px solid #ddd;color:#333}
+.prfooter{margin-top:14px;padding-top:8px;border-top:1px solid #ddd;display:flex;justify-content:space-between;align-items:flex-end}
+.prfoot-l{font-size:11px;font-weight:900}
+.prfoot-r{font-size:7px;color:#aaa;text-align:right;line-height:1.6}
+</style>
+</head>
+<body>${content}</body>
+</html>`;
+
+  const iframe = document.createElement('iframe');
+  iframe.style.cssText = 'position:fixed;top:-9999px;left:-9999px;width:210mm;height:297mm;border:none';
+  document.body.appendChild(iframe);
+  iframe.contentDocument.open();
+  iframe.contentDocument.write(printHTML);
+  iframe.contentDocument.close();
+  // wait for fonts to load then print
+  iframe.onload = () => {
+    setTimeout(() => {
+      iframe.contentWindow.focus();
+      iframe.contentWindow.print();
+      setTimeout(() => document.body.removeChild(iframe), 2000);
+    }, 600);
+  };
+}
 
 // ══════════════════════════════════════════
 //  ONBOARDING
