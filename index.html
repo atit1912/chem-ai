@@ -17,7 +17,7 @@
 :root{
   --bg:#05080f;--bg2:#080c16;--s1:rgba(255,255,255,0.04);--s2:rgba(255,255,255,0.08);--s3:rgba(255,255,255,0.13);
   --bd:rgba(255,255,255,0.09);--bd2:rgba(255,255,255,0.18);
-  --tx:#f4f7ff;--tx2:#b8c8e8;--tx3:#7888aa;
+  --tx:#ffffff;--tx2:#ccd8f0;--tx3:#8fa0c4;
   --lime:#b8ff3a;--lime2:#8fd42a;--lb:rgba(184,255,58,0.07);--lbd:rgba(184,255,58,0.22);
   --red:#ff3838;--rb:rgba(255,56,56,0.09);--rbd:rgba(255,56,56,0.26);
   --amb:#ffaa00;--ab:rgba(255,170,0,0.09);--abd:rgba(255,170,0,0.26);
@@ -1300,73 +1300,160 @@ function exportPDF(){
 }
 
 function printReport(){
-  const content = document.getElementById('pr-wrap').innerHTML;
-  // build self-contained HTML for iframe
-  const printHTML = `<!DOCTYPE html>
+  if(!lastResult){toast('ไม่พบข้อมูล กรุณาวิเคราะห์ก่อน');return;}
+  const e=lastResult;
+  const{a,b,cA,cB,c1,c2,r,code,tm}=e;
+  const hA=HC[cA]||{},hB=HC[cB]||{};
+  const pr=PR[`${c1}-${c2}`]||PR[`${c2}-${c1}`]||null;
+  const cond=code?(CD[code]||''):'';
+  const pA=PP[a]||{},pB=PP[b]||{};
+  let bt,bs,rn,rc,bgc,bdc;
+  if(r==='RED'){bt='ห้ามจัดเก็บร่วมกันเด็ดขาด';bs='DO NOT STORE TOGETHER';rn=5;rc='red';bgc='#fff0f0';bdc='#ff3838';}
+  else if(r==='YELLOW'){bt='เก็บร่วมได้ (ต้องมีเงื่อนไข)';bs='CONDITIONAL STORAGE';rn=3;rc='amb';bgc='#fffbf0';bdc='#ffaa00';}
+  else{bt='ปลอดภัย เก็บร่วมกันได้';bs='SAFE TO STORE TOGETHER';rn=1;rc='grn';bgc='#f0fff8';bdc='#00c26a';}
+  const dots=Array(5).fill(0).map((_,i)=>`<div style="width:12px;height:12px;border-radius:3px;background:${i<rn?(rc==='red'?'#ff3838':rc==='amb'?'ffaa00':'#00c26a'):'#ddd'}"></div>`).join('');
+  const fi=[...new Set([...hA.fi,...hB.fi])];
+  const pp=[...new Set([...hA.pp,...hB.pp])];
+  const now=new Date().toLocaleString('th-TH',{dateStyle:'full',timeStyle:'short'});
+  const prow=(k,v)=>v&&v!=='-'?`<tr><td style="color:#777;padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:11px;width:45%">${k}</td><td style="font-weight:700;font-family:monospace;padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:11px">${v}</td></tr>`:'';
+
+  const html=`<!DOCTYPE html>
 <html lang="th">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-<title>ChemNexus AI 2.0 — Report</title>
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700;800&display=swap" rel="stylesheet">
+<title>ChemNexus Report — ${a} vs ${b}</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
-body{font-family:'Prompt',sans-serif;color:#111;background:#fff;padding:24px 22px;font-size:12px}
-/* hide print/close buttons */
-button{display:none!important}
-.pr-close{display:none!important}
-/* layout */
-.prh{display:flex;align-items:center;justify-content:space-between;border-bottom:2.5px solid #111;padding-bottom:10px;margin-bottom:16px}
-.prlogo{font-size:16px;font-weight:900;letter-spacing:-.02em;display:flex;flex-direction:column;gap:2px}
-.prlogo span{font-size:8px;font-weight:500;color:#666;letter-spacing:.04em;text-transform:uppercase}
-.prmeta{font-size:8px;color:#666;text-align:right;line-height:1.7}
-.prpair{display:flex;gap:8px;margin-bottom:14px}
-.prchem{flex:1;border:1.5px solid #e0e0e0;border-radius:8px;padding:11px;text-align:center}
-.prchem-ic{font-size:26px}
-.prchem-nm{font-size:11px;font-weight:800;margin-top:4px;line-height:1.3}
-.prchem-cls{font-size:8px;color:#666;margin-top:2px;font-weight:700}
-.prvs{width:24px;display:flex;align-items:center;justify-content:center;font-size:10px;color:#bbb;font-weight:800}
-.prres{padding:12px 14px;border-radius:8px;margin-bottom:12px;display:flex;align-items:center;gap:11px}
-.prres.red{background:#fff0f0!important;border:2px solid #ff3838!important}
-.prres.amb{background:#fffbf0!important;border:2px solid #ffaa00!important}
-.prres.grn{background:#f0fff8!important;border:2px solid #00c26a!important}
-.prres-ic{font-size:26px;flex-shrink:0}
-.prres-t{font-size:13px;font-weight:900}
-.prres-s{font-size:8px;color:#666;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-top:2px}
-.prsec-t{font-size:8px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:#888;border-bottom:1px solid #eee;padding-bottom:3px;margin-bottom:7px}
-.prbox{padding:9px 11px;border-radius:6px;font-size:10px;line-height:1.65;margin-bottom:7px}
-.prbox.red{background:#fff0f0!important;border:1px solid #ffcccc!important;color:#c00!important}
-.prbox.amb{background:#fffbf0!important;border:1px solid #ffe0aa!important;color:#996600!important}
-.prbox.grn{background:#f0fff8!important;border:1px solid #aaeedd!important;color:#006633!important}
-.prrisk{display:flex;align-items:center;gap:5px;margin-bottom:10px}
-.prdot{width:11px;height:11px;border-radius:2px;background:#eee!important}
-.prdot.on.red{background:#ff3838!important}
-.prdot.on.amb{background:#ffaa00!important}
-.prdot.on.grn{background:#00c26a!important}
-.prchips{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:8px}
-.prchip{padding:2px 8px;border-radius:4px;font-size:8px;font-weight:800;background:#f3f3f3!important;border:1px solid #ddd;color:#333}
-.prfooter{margin-top:14px;padding-top:8px;border-top:1px solid #ddd;display:flex;justify-content:space-between;align-items:flex-end}
-.prfoot-l{font-size:11px;font-weight:900}
-.prfoot-r{font-size:7px;color:#aaa;text-align:right;line-height:1.6}
+body{font-family:'Sarabun',sans-serif;background:#fff;color:#111;padding:28px 26px;max-width:680px;margin:0 auto;font-size:13px;line-height:1.6}
+h1{font-size:20px;font-weight:800;margin:0}
+.sub{font-size:10px;color:#888;margin-top:2px;font-weight:600;text-transform:uppercase;letter-spacing:.06em}
+.hdr{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:3px solid #111;padding-bottom:12px;margin-bottom:18px}
+.meta{font-size:10px;color:#777;text-align:right;line-height:1.8}
+.pair{display:flex;gap:10px;margin-bottom:16px}
+.chem{flex:1;border:2px solid #e8e8e8;border-radius:10px;padding:14px;text-align:center}
+.chem-ic{font-size:30px}
+.chem-nm{font-size:13px;font-weight:800;margin-top:6px;line-height:1.3}
+.chem-cls{font-size:10px;color:#777;margin-top:3px;font-weight:700}
+.chem-f{font-size:10px;color:#aaa;font-family:monospace;margin-top:2px}
+.vs{width:30px;display:flex;align-items:center;justify-content:center;font-size:12px;color:#ccc;font-weight:800}
+.result{padding:16px;border-radius:10px;margin-bottom:14px;display:flex;align-items:center;gap:14px;background:${bgc};border:2.5px solid ${bdc}}
+.res-ic{font-size:30px;flex-shrink:0}
+.res-t{font-size:15px;font-weight:900;color:#111}
+.res-s{font-size:9px;color:#777;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-top:3px}
+.risk-row{display:flex;align-items:center;gap:8px;margin-bottom:14px}
+.risk-lbl{font-size:10px;font-weight:800;color:#888;text-transform:uppercase;letter-spacing:.08em}
+.dots{display:flex;gap:4px}
+.sec{margin-bottom:14px}
+.sec-t{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:#999;border-bottom:1px solid #eee;padding-bottom:4px;margin-bottom:8px}
+.box{padding:11px 13px;border-radius:8px;font-size:12px;line-height:1.65;margin-bottom:8px}
+.box-red{background:#fff0f0;border:1.5px solid #ffcccc;color:#c00}
+.box-amb{background:#fffbf0;border:1.5px solid #ffe0aa;color:#885500}
+.box-grn{background:#f0fff8;border:1.5px solid #99ddcc;color:#005533}
+.chips{display:flex;gap:5px;flex-wrap:wrap}
+.chip{padding:3px 10px;border-radius:5px;font-size:10px;font-weight:700;background:#f3f3f3;border:1px solid #ddd;color:#333}
+.props{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.prop-nm{font-size:11px;font-weight:800;color:#555;margin-bottom:4px;padding-bottom:2px;border-bottom:1px solid #eee}
+table{width:100%;border-collapse:collapse}
+.footer{margin-top:18px;padding-top:10px;border-top:1.5px solid #ddd;display:flex;justify-content:space-between;align-items:flex-end}
+.foot-l{font-size:13px;font-weight:900;color:#111}
+.foot-r{font-size:9px;color:#bbb;text-align:right;line-height:1.7}
+.emg{background:#f9f9f9;border:1px solid #eee;border-radius:8px;padding:10px 13px;font-size:11px;color:#555;margin-bottom:14px}
+@media print{body{padding:16px 20px}button,.no-print{display:none!important}}
 </style>
 </head>
-<body>${content}</body>
-</html>`;
+<body>
+<div class="hdr">
+  <div>
+    <h1>⚗️ ChemNexus AI 2.0</h1>
+    <div class="sub">รายงานวิเคราะห์ความเข้ากันได้ของสารเคมี</div>
+  </div>
+  <div class="meta">วันที่: ${tm}<br>อ้างอิง: DIW Compatibility Matrix<br>พัฒนาโดย: Atit Chimnan</div>
+</div>
 
-  const iframe = document.createElement('iframe');
-  iframe.style.cssText = 'position:fixed;top:-9999px;left:-9999px;width:210mm;height:297mm;border:none';
-  document.body.appendChild(iframe);
-  iframe.contentDocument.open();
-  iframe.contentDocument.write(printHTML);
-  iframe.contentDocument.close();
-  // wait for fonts to load then print
-  iframe.onload = () => {
-    setTimeout(() => {
-      iframe.contentWindow.focus();
-      iframe.contentWindow.print();
-      setTimeout(() => document.body.removeChild(iframe), 2000);
-    }, 600);
-  };
+<div class="sec-t">สารเคมีที่วิเคราะห์</div>
+<div class="pair">
+  <div class="chem">
+    <div class="chem-ic">${hA.ic||'🧪'}</div>
+    <div class="chem-nm">${a}</div>
+    <div class="chem-cls">Class ${cA} · ${hA.t||''}</div>
+    ${pA.f?`<div class="chem-f">${pA.f}</div>`:''}
+  </div>
+  <div class="vs">VS</div>
+  <div class="chem">
+    <div class="chem-ic">${hB.ic||'🧪'}</div>
+    <div class="chem-nm">${b}</div>
+    <div class="chem-cls">Class ${cB} · ${hB.t||''}</div>
+    ${pB.f?`<div class="chem-f">${pB.f}</div>`:''}
+  </div>
+</div>
+
+<div class="sec-t">ผลการวิเคราะห์</div>
+<div class="result">
+  <div class="res-ic">${r==='RED'?'⛔':r==='YELLOW'?'⚠️':'✅'}</div>
+  <div><div class="res-t">${bt}</div><div class="res-s">${bs}</div></div>
+</div>
+
+<div class="risk-row">
+  <span class="risk-lbl">ระดับความเสี่ยง</span>
+  <div class="dots">${dots}</div>
+</div>
+
+${pr?`<div class="box box-${rc}"><strong>⚗️ เหตุผล — เสี่ยงเกิด: ${pr.g}</strong><br>${pr.rx}</div>`:''}
+${cond?`<div class="box box-amb"><strong>📋 เงื่อนไข DIW ข้อที่ ${code}</strong><br>${cond}</div>`:''}
+${r==='GREEN'?`<div class="box box-grn"><strong>✅ เก็บร่วมกันได้ปลอดภัย</strong><br>สารทั้งสองชนิดสามารถจัดเก็บร่วมกันได้ตามมาตรฐาน DIW โดยไม่เกิดปฏิกิริยาอันตราย</div>`:''}
+
+${(pA.mw||pB.mw)?`
+<div class="sec-t" style="margin-top:6px">คุณสมบัติสาร</div>
+<div class="props">
+  <div>
+    <div class="prop-nm">${a.slice(0,20)}</div>
+    <table>${prow('สูตร',pA.f)}${prow('น้ำหนักโมเลกุล',pA.mw)}${prow('จุดเดือด',pA.bp)}${prow('จุดวาบไฟ',pA.flash)}${prow('ความหนาแน่น',pA.d)}</table>
+  </div>
+  <div>
+    <div class="prop-nm">${b.slice(0,20)}</div>
+    <table>${prow('สูตร',pB.f)}${prow('น้ำหนักโมเลกุล',pB.mw)}${prow('จุดเดือด',pB.bp)}${prow('จุดวาบไฟ',pB.flash)}${prow('ความหนาแน่น',pB.d)}</table>
+  </div>
+</div>`:''}
+
+<div class="sec-t">มาตรการฉุกเฉิน</div>
+<div class="sec" style="margin-bottom:8px">
+  <div style="font-size:10px;font-weight:800;color:#888;margin-bottom:5px">วิธีดับเพลิง</div>
+  <div class="chips">${fi.map(f=>`<span class="chip">🔥 ${f}</span>`).join('')}</div>
+</div>
+<div class="sec" style="margin-bottom:10px">
+  <div style="font-size:10px;font-weight:800;color:#888;margin-bottom:5px">อุปกรณ์ป้องกัน (PPE)</div>
+  <div class="chips">${pp.map(p=>`<span class="chip">🛡️ ${p}</span>`).join('')}</div>
+</div>
+<div class="emg"><strong>เบอร์ฉุกเฉิน:</strong> 199 (ดับเพลิง) · 1669 (EMS) · 1650 (กรมโรงงาน) · 191 (ตำรวจ)</div>
+
+<div class="footer">
+  <div class="foot-l">ChemNexus AI 2.0</div>
+  <div class="foot-r">อ้างอิง: กรมโรงงานอุตสาหกรรม (DIW)<br>พัฒนาโดย Atit Chimnan · ${now}</div>
+</div>
+
+<script>
+window.onload=function(){
+  // รอ font โหลดแล้วเปิด print dialog ทันที
+  if(document.fonts){
+    document.fonts.ready.then(function(){window.print();});
+  } else {
+    setTimeout(function(){window.print();},800);
+  }
+};
+window.onafterprint=function(){window.close();};
+<\/script>
+</body></html>`;
+
+  const w=window.open('','_blank','width=700,height=900,scrollbars=yes');
+  if(!w){
+    toast('⚠ กรุณาอนุญาต popup แล้วลองใหม่');
+    return;
+  }
+  w.document.open();
+  w.document.write(html);
+  w.document.close();
 }
 
 // ══════════════════════════════════════════
