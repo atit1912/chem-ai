@@ -684,15 +684,16 @@ const GHS_DEF={
 
 function ghsIcon(code,withLabel=true){
   const d=GHS_DEF[code]||{lbl:code,url:''};
-  const img=d.url?`<img src="${d.url}" width="${withLabel?44:26}" height="${withLabel?44:26}" alt="${d.lbl}" style="display:block" loading="lazy">`
-    :`<div style="width:${withLabel?44:26}px;height:${withLabel?44:26}px;background:var(--s3);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--tx3)">?</div>`;
+  const img=d.url
+    ?`<img src="${d.url}" alt="${d.lbl}" style="display:block;width:${withLabel?52:28}px;height:${withLabel?52:28}px;object-fit:contain" loading="lazy">`
+    :`<div style="width:${withLabel?52:28}px;height:${withLabel?52:28}px;background:#eee;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:10px;color:#999">?</div>`;
   if(withLabel){
-    return `<div style="display:flex;flex-direction:column;align-items:center;gap:5px;background:var(--s2);border:1px solid var(--bd2);border-radius:10px;padding:10px 8px;min-width:62px;max-width:72px">
+    return `<div style="display:flex;flex-direction:column;align-items:center;gap:6px;background:#fff;border:1px solid #ddd;border-radius:10px;padding:10px 8px;min-width:68px;max-width:78px;box-shadow:0 1px 4px rgba(0,0,0,.15)">
       ${img}
-      <span style="font-size:9px;font-weight:700;color:var(--tx2);text-align:center;line-height:1.3">${d.lbl}</span>
+      <span style="font-size:9px;font-weight:700;color:#333;text-align:center;line-height:1.3">${d.lbl}</span>
     </div>`;
   }else{
-    return `<div title="${d.lbl}" style="background:rgba(255,255,255,.07);border-radius:6px;padding:2px">${img}</div>`;
+    return `<div title="${d.lbl}" style="background:#fff;border-radius:5px;padding:2px;box-shadow:0 1px 3px rgba(0,0,0,.2)">${img}</div>`;
   }
 }
 
