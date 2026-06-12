@@ -168,6 +168,12 @@ html,body{height:100%;overflow:hidden;background:var(--bg);font-family:'Sarabun'
 .hi:active{background:rgba(184,255,58,.025)}
 .hd{width:7px;height:7px;border-radius:1px;flex-shrink:0}
 
+/* Swipe to delete */
+.swipe-item{position:relative;overflow:hidden;transition:height .3s ease,opacity .3s ease}
+.swipe-inner{position:relative;transition:transform .25s cubic-bezier(.4,0,.2,1);touch-action:pan-y;user-select:none}
+.swipe-bg{position:absolute;right:0;top:0;bottom:0;width:80px;background:var(--red);display:flex;align-items:center;justify-content:center;font-size:18px}
+.swipe-item.deleting{height:0!important;opacity:0;pointer-events:none}
+
 .pg{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:0 16px}
 .pi{background:var(--s2);border:1px solid var(--bd);border-radius:var(--rs);padding:13px 7px;display:flex;flex-direction:column;align-items:center;gap:6px;position:relative;transition:border-color .2s}
 .pi.rq{border-color:var(--lbd);background:var(--lb)}
@@ -316,14 +322,18 @@ select.fi option{background:#0c1120;color:var(--tx)}
 
 <!-- DASHBOARD -->
 <div id="page-dashboard" class="page active">
-  <div class="hdr">
-    <div style="flex:1">
-      <div style="display:flex;align-items:center;gap:5px;margin-bottom:2px"><span class="vt">v2.0</span></div>
-      <div class="hdr-t gt" style="font-size:17px">ChemNexus AI</div>
+  <div class="hdr" style="justify-content:space-between">
+    <div style="width:34px"></div>
+    <div style="text-align:center">
+      <div style="display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:1px">
+        <span class="vt">v2.0</span>
+      </div>
+      <div class="hdr-t gt" style="font-size:20px;font-weight:900;letter-spacing:-.03em">ChemNexus AI</div>
+      <div style="font-size:9px;color:var(--tx3);font-weight:500;letter-spacing:.04em;margin-top:1px">Chemical Safety System</div>
     </div>
     <div class="ib2" style="position:relative" onclick="toast('ไม่มีการแจ้งเตือนใหม่')">
       <i class="ph ph-bell"></i>
-      <div style="position:absolute;top:4px;right:4px;width:6px;height:6px;border-radius:1px;background:var(--red);border:1.5px solid var(--bg)"></div>
+      <div id="alert-badge" style="position:absolute;top:4px;right:4px;width:6px;height:6px;border-radius:1px;background:var(--red);border:1.5px solid var(--bg)"></div>
     </div>
   </div>
   <div class="pc">
@@ -350,12 +360,8 @@ select.fi option{background:#0c1120;color:var(--tx)}
       <div class="sc"><div class="scn" style="color:#ffcc55" id="dh">0</div><div class="scl">ประวัติล่าสุด</div></div>
     </div>
 
-    <div class="sl" style="margin-top:10px">การแจ้งเตือน <span style="color:var(--red);background:var(--rb);padding:1px 6px;border-radius:3px;font-size:8px;margin-left:3px;border:1px solid var(--rbd)">3</span></div>
-    <div class="card" style="margin:0 16px">
-      <div class="al"><div class="ad" style="background:var(--red);box-shadow:0 0 5px rgba(255,56,56,.55)"></div><div style="flex:1"><div class="at">กรดเกลือ (HCl)</div><div class="as">ใกล้หมดอายุภายใน 30 วัน • Class 8B</div></div><div style="font-size:8px;color:var(--tx3);flex-shrink:0">2 ชม.</div></div>
-      <div class="al"><div class="ad" style="background:var(--amb)"></div><div style="flex:1"><div class="at">ตรวจพบการจัดเก็บไม่ปลอดภัย</div><div class="as">โซเดียมไฮโปคลอไรต์ ใกล้ กรดเกลือ</div></div><div style="font-size:8px;color:var(--tx3);flex-shrink:0">5 ชม.</div></div>
-      <div class="al" style="border-bottom:none"><div class="ad" style="background:var(--amb)"></div><div style="flex:1"><div class="at">ยังไม่ได้ตรวจสอบสต็อก</div><div class="as">ถึงกำหนดตรวจสอบรายสัปดาห์</div></div><div style="font-size:8px;color:var(--tx3);flex-shrink:0">1 วัน</div></div>
-    </div>
+    <div class="sl" style="margin-top:10px">การแจ้งเตือน <span id="alert-count-badge" style="color:var(--red);background:var(--rb);padding:1px 6px;border-radius:3px;font-size:8px;margin-left:3px;border:1px solid var(--rbd)">3</span></div>
+    <div class="card" style="margin:0 16px" id="alert-list"></div>
 
     <div class="sl" style="margin-top:10px">ประวัติการวิเคราะห์</div>
     <div class="card" style="margin:0 16px" id="dhl">
@@ -374,7 +380,7 @@ select.fi option{background:#0c1120;color:var(--tx)}
 
 <!-- SEARCH -->
 <div id="page-search" class="page">
-  <div class="hdr"><div class="hdr-t">คลังสารเคมี</div></div>
+  <div class="hdr"><button class="bb" onclick="back()"><i class="ph-bold ph-caret-left"></i></button><div class="hdr-t">คลังสารเคมี</div></div>
   <div class="pc">
     <div class="sw" style="margin-top:11px"><i class="ph ph-magnifying-glass il"></i><input class="si" id="gs" placeholder="ค้นหาชื่อสาร หรือ CAS Number..." oninput="rCL(this.value)"></div>
     <div class="fr" id="clf">
@@ -394,7 +400,7 @@ select.fi option{background:#0c1120;color:var(--tx)}
 
 <!-- ANALYZE -->
 <div id="page-analyze" class="page">
-  <div class="hdr"><div class="hdr-t">วิเคราะห์ความเข้ากัน</div><button class="ib2" onclick="rAna()" title="Reset"><i class="ph ph-arrows-clockwise"></i></button></div>
+  <div class="hdr"><button class="bb" onclick="back()"><i class="ph-bold ph-caret-left"></i></button><div class="hdr-t">วิเคราะห์ความเข้ากัน</div><button class="ib2" onclick="rAna()" title="Reset"><i class="ph ph-arrows-clockwise"></i></button></div>
   <div class="pc">
     <div class="sln"><span class="snn sna">1</span>สารเคมีชนิดที่ 1</div>
     <div id="sAe" class="se" onclick="oSSO('A')"><i class="ph ph-plus-circle"></i><span>เลือกหรือค้นหาสาร A</span></div>
@@ -438,13 +444,13 @@ select.fi option{background:#0c1120;color:var(--tx)}
 
 <!-- PPE -->
 <div id="page-ppe" class="page">
-  <div class="hdr"><div class="hdr-t">อุปกรณ์ป้องกัน PPE</div></div>
+  <div class="hdr"><button class="bb" onclick="back()"><i class="ph-bold ph-caret-left"></i></button><div class="hdr-t">อุปกรณ์ป้องกัน PPE</div></div>
   <div class="pc" id="pb"></div>
 </div>
 
 <!-- EMERGENCY -->
 <div id="page-emergency" class="page">
-  <div class="hdr"><div class="hdr-t" style="color:var(--red)">⚠ กรณีฉุกเฉิน</div></div>
+  <div class="hdr"><button class="bb" onclick="back()"><i class="ph-bold ph-caret-left"></i></button><div class="hdr-t" style="color:var(--red)">⚠ กรณีฉุกเฉิน</div></div>
   <div class="pc" id="eb"></div>
 </div>
 
@@ -941,6 +947,69 @@ function getProps(name) {
   return {};
 }
 
+// ══════════════════════════════════════════
+//  SWIPE TO DELETE
+// ══════════════════════════════════════════
+function initSwipe(el, onDelete) {
+  const inner = el.querySelector('.swipe-inner');
+  if (!inner) return;
+  let startX=0,startY=0,dx=0,swiping=false,locked=false;
+  inner.addEventListener('touchstart',e=>{startX=e.touches[0].clientX;startY=e.touches[0].clientY;dx=0;swiping=false;locked=false;},{passive:true});
+  inner.addEventListener('touchmove',e=>{
+    const cx=e.touches[0].clientX,cy=e.touches[0].clientY;
+    if(!swiping&&!locked){const adx=Math.abs(cx-startX),ady=Math.abs(cy-startY);if(ady>adx+5){locked=true;return;}if(adx>6)swiping=true;}
+    if(!swiping)return;
+    dx=Math.min(0,cx-startX);inner.style.transition='none';inner.style.transform=`translateX(${dx}px)`;
+  },{passive:true});
+  inner.addEventListener('touchend',()=>{
+    if(!swiping)return;
+    if(dx<-60){
+      inner.style.transition='transform .2s ease';inner.style.transform='translateX(-100%)';
+      const h=el.offsetHeight;el.style.height=h+'px';
+      setTimeout(()=>{el.classList.add('deleting');setTimeout(()=>{el.remove();onDelete();},320);},180);
+    } else {inner.style.transition='transform .25s cubic-bezier(.4,0,.2,1)';inner.style.transform='translateX(0)';}
+    dx=0;swiping=false;
+  });
+}
+
+// ══════════════════════════════════════════
+//  ALERTS STATE
+// ══════════════════════════════════════════
+let alerts=JSON.parse(localStorage.getItem('cn2_alerts')||'null')||[
+  {id:1,color:'var(--red)',title:'กรดเกลือ (HCl)',sub:'ใกล้หมดอายุภายใน 30 วัน • Class 8B',time:'2 ชม.'},
+  {id:2,color:'var(--amb)',title:'ตรวจพบการจัดเก็บไม่ปลอดภัย',sub:'โซเดียมไฮโปคลอไรต์ ใกล้ กรดเกลือ',time:'5 ชม.'},
+  {id:3,color:'var(--amb)',title:'ยังไม่ได้ตรวจสอบสต็อก',sub:'ถึงกำหนดตรวจสอบรายสัปดาห์',time:'1 วัน'},
+];
+function saveAlerts(){localStorage.setItem('cn2_alerts',JSON.stringify(alerts));}
+
+function renderAlerts(){
+  const c=document.getElementById('alert-list');
+  const badge=document.getElementById('alert-count-badge');
+  const abadge=document.getElementById('alert-badge');
+  if(!c)return;
+  if(!alerts.length){
+    c.innerHTML=`<div style="padding:18px;text-align:center;color:var(--tx3);font-size:11px"><i class="ph ph-check-circle" style="font-size:22px;display:block;margin-bottom:6px;opacity:.3"></i>ไม่มีการแจ้งเตือน</div>`;
+    if(badge)badge.style.display='none';if(abadge)abadge.style.display='none';return;
+  }
+  if(badge){badge.textContent=alerts.length;badge.style.display='';}
+  if(abadge)abadge.style.display='';
+  c.innerHTML=alerts.map((a,i)=>`
+    <div class="swipe-item" id="al-${a.id}" style="height:auto">
+      <div class="swipe-bg">🗑️</div>
+      <div class="swipe-inner" style="background:var(--bg2)">
+        <div class="al" style="${i===alerts.length-1?'border-bottom:none':''}">
+          <div class="ad" style="background:${a.color};${a.color==='var(--red)'?'box-shadow:0 0 5px rgba(255,56,56,.55)':''}"></div>
+          <div style="flex:1"><div class="at">${a.title}</div><div class="as">${a.sub}</div></div>
+          <div style="font-size:8px;color:var(--tx3);flex-shrink:0">${a.time}</div>
+        </div>
+      </div>
+    </div>`).join('');
+  alerts.forEach(a=>{
+    const el=document.getElementById('al-'+a.id);
+    if(el)initSwipe(el,()=>{alerts=alerts.filter(x=>x.id!==a.id);saveAlerts();renderAlerts();toast('ลบการแจ้งเตือนแล้ว');});
+  });
+}
+
 let cp='dashboard',pv=[],st=null,sA=null,sB=null;
 let hs=JSON.parse(localStorage.getItem('cn2h')||'[]');
 let cf='all',cd=null;
@@ -1424,9 +1493,7 @@ function generateSDS() {
 function printSDS() {
   if (!sdsChem) return;
   const content = document.getElementById('sds-result').innerHTML;
-  const w = window.open('','_blank','width=700,height=900,scrollbars=yes');
-  if (!w) { toast('⚠ กรุณาอนุญาต popup'); return; }
-  w.document.write(`<!DOCTYPE html><html lang="th"><head><meta charset="UTF-8">
+  const html = `<!DOCTYPE html><html lang="th"><head><meta charset="UTF-8">
   <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700;800&display=swap" rel="stylesheet">
   <title>SDS — ${sdsChem.n}</title>
   <style>*{box-sizing:border-box;margin:0;padding:0;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
@@ -1434,9 +1501,23 @@ function printSDS() {
   .chip{display:inline-flex;padding:2px 8px;border-radius:4px;font-size:9px;font-weight:700;background:#f3f3f3;border:1px solid #ddd;color:#333;margin:2px}
   .cr{background:#fff0f0;border-color:#ffaaaa;color:#c00}
   .cl{background:#f0fff8;border-color:#aaddcc;color:#006633}
-  @media print{button{display:none!important}}</style></head><body>${content}
-  <script>window.onload=function(){document.fonts?document.fonts.ready.then(()=>window.print()):setTimeout(()=>window.print(),600)};window.onafterprint=function(){window.close()}<\/script></body></html>`);
-  w.document.close();
+  @media print{button{display:none!important}}</style></head><body>${content}</body></html>`;
+  const old=document.getElementById('print-frame');
+  if(old)old.remove();
+  const f=document.createElement('iframe');
+  f.id='print-frame';
+  f.style.cssText='position:fixed;right:0;bottom:0;width:0;height:0;border:0;visibility:hidden';
+  document.body.appendChild(f);
+  f.onload=function(){
+    try{
+      const fw=f.contentWindow;
+      const doPrint=function(){try{fw.focus();fw.print();}catch(err){toast('⚠ พิมพ์ไม่สำเร็จ');}};
+      if(fw.document.fonts){fw.document.fonts.ready.then(()=>setTimeout(doPrint,150));}
+      else{setTimeout(doPrint,700);}
+    }catch(err){toast('⚠ ไม่สามารถสร้าง SDS ได้');}
+  };
+  const d=f.contentWindow.document;
+  d.open();d.write(html);d.close();
 }
 
 // ══════════════════════════════════════════
@@ -2441,7 +2522,7 @@ function printReport(){
   if(r==='RED'){bt='ห้ามจัดเก็บร่วมกันเด็ดขาด';bs='DO NOT STORE TOGETHER';rn=5;rc='red';bgc='#fff0f0';bdc='#ff3838';}
   else if(r==='YELLOW'){bt='เก็บร่วมได้ (ต้องมีเงื่อนไข)';bs='CONDITIONAL STORAGE';rn=3;rc='amb';bgc='#fffbf0';bdc='#ffaa00';}
   else{bt='ปลอดภัย เก็บร่วมกันได้';bs='SAFE TO STORE TOGETHER';rn=1;rc='grn';bgc='#f0fff8';bdc='#00c26a';}
-  const dots=Array(5).fill(0).map((_,i)=>`<div style="width:12px;height:12px;border-radius:3px;background:${i<rn?(rc==='red'?'#ff3838':rc==='amb'?'ffaa00':'#00c26a'):'#ddd'}"></div>`).join('');
+  const dots=Array(5).fill(0).map((_,i)=>`<div style="width:12px;height:12px;border-radius:3px;background:${i<rn?(rc==='red'?'#ff3838':rc==='amb'?'#ffaa00':'#00c26a'):'#ddd'}"></div>`).join('');
   const fi=[...new Set([...hA.fi,...hB.fi])];
   const pp=[...new Set([...hA.pp,...hB.pp])];
   const now=new Date().toLocaleString('th-TH',{dateStyle:'full',timeStyle:'short'});
@@ -2569,27 +2650,34 @@ ${(pA.mw||pB.mw)?`
   </div>
 </div>
 
-<script>
-window.onload=function(){
-  // รอ font โหลดแล้วเปิด print dialog ทันที
-  if(document.fonts){
-    document.fonts.ready.then(function(){window.print();});
-  } else {
-    setTimeout(function(){window.print();},800);
-  }
-};
-window.onafterprint=function(){window.close();};
-<\/script>
 </body></html>`;
 
-  const w=window.open('','_blank','width=700,height=900,scrollbars=yes');
-  if(!w){
-    toast('⚠ กรุณาอนุญาต popup แล้วลองใหม่');
-    return;
-  }
-  w.document.open();
-  w.document.write(html);
-  w.document.close();
+  // ใช้ iframe ซ่อนในหน้าเดิม — เซฟ PDF ได้บนมือถือ ไม่โดน popup blocker
+  const old=document.getElementById('print-frame');
+  if(old)old.remove();
+  const f=document.createElement('iframe');
+  f.id='print-frame';
+  f.style.cssText='position:fixed;right:0;bottom:0;width:0;height:0;border:0;visibility:hidden';
+  document.body.appendChild(f);
+  f.onload=function(){
+    try{
+      const fw=f.contentWindow;
+      const doPrint=function(){
+        try{fw.focus();fw.print();}catch(err){toast('⚠ พิมพ์ไม่สำเร็จ');}
+      };
+      if(fw.document.fonts){fw.document.fonts.ready.then(()=>setTimeout(doPrint,150));}
+      else{setTimeout(doPrint,700);}
+    }catch(err){toast('⚠ ไม่สามารถสร้างรายงานได้');}
+  };
+  const d=f.contentWindow.document;
+  d.open();d.write(html);d.close();
+}
+
+function closePDF(){
+  const w=document.getElementById('pr-wrap');
+  if(w){w.style.display='none';w.innerHTML='';}
+  const f=document.getElementById('print-frame');
+  if(f)f.remove();
 }
 
 // ══════════════════════════════════════════
