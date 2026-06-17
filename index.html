@@ -882,26 +882,33 @@ select.fi option{background:#0c1120;color:var(--tx)}
 // ══════════════════════════════════════════
 const API_URL='https://script.google.com/macros/s/AKfycbx_lrWgNW-cYpghDSCGLBBcuUWPwO5MCvuA4UwuaFDHbIMzFI1JtWQatjZOwywz_dcs/exec';
 
-// นับ 1 session ต่อการเปิดแอป (กันนับซ้ำตอน refresh ด้วย sessionStorage)
+// นับทุกครั้งที่เปิดแอป
+// แยก 2 จังหวะ: (1) ยิงนับด้วย no-cors — ยังไงก็ถึง backend
+//               (2) อ่านยอดมาแสดงด้วย fetch ปกติ
 async function trackVisit(){
+  // (1) ยิงนับ — no-cors ไม่สน response อ่านไม่ได้ก็ไม่เป็นไร backend +1 แน่นอน
   try{
-    if(!sessionStorage.getItem('cn2_visited')){
-      const r=await fetch(API_URL+'?action=trackVisit&type=visit&sid='+encodeURIComponent(sessionId()));
-      const d=await r.json();
-      sessionStorage.setItem('cn2_visited','1');
-      if(d&&d.status==='ok')renderStats(d);
-    }else{
-      // เปิดซ้ำใน session เดิม — แค่ดึงยอดมาแสดง ไม่นับเพิ่ม
-      fetchStats();
-    }
-  }catch(e){console.log('trackVisit error:',e);}
+    fetch(API_URL+'?action=trackVisit&type=visit&sid='+encodeURIComponent(sessionId()),{mode:'no-cors'});
+  }catch(e){console.log('track beacon error:',e);}
+  // (2) อ่านยอดมาแสดง (หน่วงเล็กน้อยให้ backend บันทึกเสร็จก่อน)
+  setTimeout(fetchStats,900);
 }
 async function fetchStats(){
   try{
     const r=await fetch(API_URL+'?action=getStats');
     const d=await r.json();
     if(d&&d.status==='ok')renderStats(d);
-  }catch(e){console.log('getStats error:',e);}
+  }catch(e){
+    console.log('getStats error:',e);
+    // ลองอีกครั้งหลัง 2 วิ เผื่อ network ช้า
+    setTimeout(async()=>{
+      try{
+        const r2=await fetch(API_URL+'?action=getStats');
+        const d2=await r2.json();
+        if(d2&&d2.status==='ok')renderStats(d2);
+      }catch(e2){console.log('getStats retry error:',e2);}
+    },2000);
+  }
 }
 function renderStats(d){
   const tv=document.getElementById('stat-total-visits');
