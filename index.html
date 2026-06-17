@@ -159,6 +159,15 @@ html,body{height:100%;overflow:hidden;background:var(--bg);font-family:'Sarabun'
 .scn{font-size:26px;font-weight:900;line-height:1;font-family:'Sarabun',sans-serif}
 .scl{font-size:10px;color:var(--tx3);font-weight:700;text-transform:uppercase;letter-spacing:.07em;margin-top:4px}
 
+.vstat{margin:9px 16px 0;background:linear-gradient(135deg,rgba(184,255,58,.06),rgba(255,255,255,.02));border:1px solid var(--lbd);border-radius:var(--r);padding:13px 15px;display:flex;align-items:center;gap:13px}
+.vstat-ic{width:40px;height:40px;border-radius:11px;background:var(--lb);border:1px solid var(--lbd);color:var(--lime);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.vstat-main{flex:1;min-width:0}
+.vstat-n{font-size:24px;font-weight:900;line-height:1;color:var(--tx);font-family:'Sarabun',sans-serif}
+.vstat-l{font-size:10px;color:var(--tx3);font-weight:700;margin-top:3px;letter-spacing:.02em}
+.vstat-today{text-align:right;flex-shrink:0;padding-left:13px;border-left:1px solid var(--bd2)}
+.vstat-tn{font-size:18px;font-weight:900;line-height:1;color:var(--lime);font-family:'Sarabun',sans-serif}
+.vstat-tl{font-size:9px;color:var(--tx3);font-weight:700;margin-top:3px;text-transform:uppercase;letter-spacing:.06em}
+
 .qm{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:0 16px}
 .qmi{display:flex;flex-direction:column;align-items:center;gap:8px;padding:16px 4px 13px;background:var(--s1);border:1px solid var(--bd);border-radius:var(--r);cursor:pointer;transition:transform .15s,border-color .15s,background .15s}
 .qmi:active{transform:scale(.95);background:var(--s2)}
@@ -209,14 +218,6 @@ html,body{height:100%;overflow:hidden;background:var(--bg);font-family:'Sarabun'
 .stt{font-size:13px;color:var(--tx2);line-height:1.55;padding-top:3px}
 .cb{margin:9px 16px;background:linear-gradient(135deg,#be1515,#780000);border:none;border-radius:var(--r);padding:15px;display:flex;align-items:center;justify-content:center;gap:9px;cursor:pointer;width:calc(100% - 32px);color:#fff;font-family:'Sarabun',sans-serif;font-size:19px;font-weight:900;box-shadow:0 4px 22px rgba(190,21,21,.42);transition:all .2s}
 .cb:active{transform:scale(.97)}
-
-.gw{position:relative;width:108px;height:63px;flex-shrink:0}
-.gs{position:absolute;bottom:0;left:50%;transform:translateX(-50%);text-align:center}
-.gs .gn{font-size:22px;font-weight:900;color:var(--lime);font-family:'Sarabun',sans-serif;line-height:1}
-.gs .gd{font-size:8px;color:var(--tx3)}
-
-.sb{margin:13px 16px;background:linear-gradient(135deg,rgba(184,255,58,.08),rgba(0,0,0,0));border:1px solid var(--lbd);border-radius:var(--r);padding:15px;display:flex;align-items:center;gap:15px;position:relative;overflow:hidden;box-shadow:0 8px 24px -10px rgba(184,255,58,.12)}
-.sb::after{content:'';position:absolute;right:-16px;top:-16px;width:110px;height:110px;border-radius:50%;background:radial-gradient(circle,rgba(184,255,58,.11),transparent 70%);pointer-events:none}
 
 #toast{position:absolute;bottom:calc(var(--nav) + 9px);left:50%;transform:translateX(-50%);background:rgba(8,12,22,.98);border:1px solid var(--bd2);border-radius:6px;padding:6px 15px;font-size:10px;font-weight:700;color:var(--tx);z-index:9999;opacity:0;transition:opacity .22s;white-space:nowrap;backdrop-filter:blur(16px);pointer-events:none}
 #toast.show{opacity:1}
@@ -359,23 +360,7 @@ select.fi option{background:#0c1120;color:var(--tx)}
     </div>
   </div>
   <div class="pc">
-    <div class="sb">
-      <div class="gw">
-        <svg viewBox="0 0 108 63" width="108" height="63">
-          <path d="M7,60 A49,49 0 0,1 101,60" fill="none" stroke="rgba(255,255,255,0.055)" stroke-width="8" stroke-linecap="round"/>
-          <path d="M7,60 A49,49 0 0,1 101,60" fill="none" stroke="url(#gg)" stroke-width="8" stroke-linecap="round" stroke-dasharray="153.9" stroke-dashoffset="30.8"/>
-          <defs><linearGradient id="gg" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#8fd42a"/><stop offset="100%" stop-color="#b8ff3a"/></linearGradient></defs>
-        </svg>
-        <div class="gs"><div class="gn">87</div><div class="gd">/100</div></div>
-      </div>
-      <div style="flex:1">
-        <div style="font-size:8px;color:var(--tx3);font-weight:700;text-transform:uppercase;letter-spacing:.09em">Chemical Safety Score</div>
-        <div style="margin-top:6px"><span class="chip cg">ระดับความปลอดภัยสูง</span></div>
-        <div style="font-size:8px;color:var(--tx3);margin-top:5px">อัปเดตล่าสุด: วันนี้</div>
-      </div>
-    </div>
-
-    <div class="qm">
+    <div class="qm" style="margin-top:13px">
       <div class="qmi qm-grey" onclick="openAdmin()">
         <div class="qmic"><i class="ph ph-shield-star"></i></div>
         <div class="qmt">Admin<br>Panel</div>
@@ -403,6 +388,18 @@ select.fi option{background:#0c1120;color:var(--tx)}
       <div class="sc"><div class="scn" style="color:#ff7070">3</div><div class="scl">สารเสี่ยงสูง</div></div>
       <div class="sc"><div class="scn" style="color:#33ff99" id="ds">0</div><div class="scl">การวิเคราะห์</div></div>
       <div class="sc"><div class="scn" style="color:#ffcc55" id="dh">0</div><div class="scl">ประวัติล่าสุด</div></div>
+    </div>
+
+    <div class="vstat">
+      <div class="vstat-ic"><i class="ph ph-users-three"></i></div>
+      <div class="vstat-main">
+        <div class="vstat-n" id="stat-total-visits">–</div>
+        <div class="vstat-l">ผู้เข้าใช้งานทั้งหมด</div>
+      </div>
+      <div class="vstat-today">
+        <div class="vstat-tn" id="stat-today-visits">–</div>
+        <div class="vstat-tl">วันนี้</div>
+      </div>
     </div>
 
     <div class="sl" style="margin-top:10px">การแจ้งเตือน <span id="alert-count-badge" style="color:var(--red);background:var(--rb);padding:1px 6px;border-radius:3px;font-size:8px;margin-left:3px;border:1px solid var(--rbd)">3</span></div>
@@ -880,6 +877,44 @@ select.fi option{background:#0c1120;color:var(--tx)}
 </div>
 
 <script>
+// ══════════════════════════════════════════
+//  BACKEND API (Google Apps Script)
+// ══════════════════════════════════════════
+const API_URL='https://script.google.com/macros/s/AKfycbx_lrWgNW-cYpghDSCGLBBcuUWPwO5MCvuA4UwuaFDHbIMzFI1JtWQatjZOwywz_dcs/exec';
+
+// นับ 1 session ต่อการเปิดแอป (กันนับซ้ำตอน refresh ด้วย sessionStorage)
+async function trackVisit(){
+  try{
+    if(!sessionStorage.getItem('cn2_visited')){
+      const r=await fetch(API_URL+'?action=trackVisit&type=visit&sid='+encodeURIComponent(sessionId()));
+      const d=await r.json();
+      sessionStorage.setItem('cn2_visited','1');
+      if(d&&d.status==='ok')renderStats(d);
+    }else{
+      // เปิดซ้ำใน session เดิม — แค่ดึงยอดมาแสดง ไม่นับเพิ่ม
+      fetchStats();
+    }
+  }catch(e){console.log('trackVisit error:',e);}
+}
+async function fetchStats(){
+  try{
+    const r=await fetch(API_URL+'?action=getStats');
+    const d=await r.json();
+    if(d&&d.status==='ok')renderStats(d);
+  }catch(e){console.log('getStats error:',e);}
+}
+function renderStats(d){
+  const tv=document.getElementById('stat-total-visits');
+  const tdv=document.getElementById('stat-today-visits');
+  if(tv)tv.textContent=(d.total_visits||0).toLocaleString();
+  if(tdv)tdv.textContent=(d.today_visits||0).toLocaleString();
+}
+function sessionId(){
+  let s=sessionStorage.getItem('cn2_sid');
+  if(!s){s='s_'+Date.now().toString(36)+Math.random().toString(36).slice(2,7);sessionStorage.setItem('cn2_sid',s);}
+  return s;
+}
+
 // DATA
 const CO=["1","2A","2B","3A","3B","4.1A","4.1B","4.2","4.3","5.1A","5.1B","5.1C","5.2","6.1A","6.1B","6.2","7","8A","8B","10","11","12","13"];
 const HC={"1":{t:"วัตถุระเบิด",ic:"💥",r:"EXTREME",fi:["Water (Large)"],pp:["ระยะปลอดภัย","หมวก"],eg:"อพยพทันที ห้ามดับไฟ"},"2A":{t:"ก๊าซอัด",ic:"💨",r:"MEDIUM",fi:["Dry Chem","CO2"],pp:["แว่นตา","ถุงมือ"],eg:"หล่อเย็นถัง ปิดวาล์ว"},"2B":{t:"ก๊าซสเปรย์",ic:"💨",r:"LOW",fi:["Dry Chem"],pp:["แว่นตา"],eg:"เคลื่อนออกจากความร้อน"},"3A":{t:"ของเหลวไวไฟ(ต่ำ)",ic:"🔥",r:"HIGH",fi:["Foam","CO2"],pp:["ชุดทนไฟ","แว่นตา","ถุงมือ"],eg:"กำจัดประกายไฟ ใช้ทราย"},"3B":{t:"ของเหลวไวไฟ(สูง)",ic:"🔥",r:"MEDIUM",fi:["Foam"],pp:["ถุงมือ","แว่นตา"],eg:"ปิดกั้นน้ำ ใช้โฟม"},"4.1A":{t:"ของแข็งไวไฟ-ระเบิด",ic:"🔥",r:"HIGH",fi:["Water Spray"],pp:["หน้ากาก","แว่นตา"],eg:"หลีกเลี่ยงการเสียดสี"},"4.1B":{t:"ของแข็งไวไฟ",ic:"🔥",r:"MEDIUM",fi:["Water"],pp:["หน้ากากกรอง","แว่นตา"],eg:"กวาดเก็บระวังฝุ่น"},"4.2":{t:"สารลุกไหม้เอง",ic:"🔥",r:"HIGH",fi:["Dry Sand"],pp:["ชุดป้องกัน","ถุงมือ"],eg:"ห้ามใช้น้ำ ระวังอากาศ"},"4.3":{t:"สัมผัสน้ำ→ก๊าซไวไฟ",ic:"💧",r:"HIGH",fi:["Class D"],pp:["แว่นตา","ถุงมือแห้ง"],eg:"ห้ามใช้น้ำเด็ดขาด!"},"5.1A":{t:"สารออกซิไดซ์แรง",ic:"⭕",r:"HIGH",fi:["Water (Large)"],pp:["Face Shield","ถุงมือ"],eg:"แยกจากสารติดไฟทันที"},"5.1B":{t:"สารออกซิไดซ์",ic:"⭕",r:"MEDIUM",fi:["Water Spray"],pp:["ถุงมือ","แว่นตา"],eg:"ป้องกันสารอินทรีย์"},"5.1C":{t:"สารออกซิไดซ์อื่นๆ",ic:"⭕",r:"LOW",fi:["Water Spray"],pp:["แว่นตา"],eg:"กวาดด้วยวัสดุไม่ติดไฟ"},"5.2":{t:"เปอร์ออกไซด์อินทรีย์",ic:"⭕",r:"HIGH",fi:["Water Spray"],pp:["ชุดเคมี","Face Shield"],eg:"เก็บเย็น ระวังระเบิด"},"6.1A":{t:"สารพิษ(ติดไฟ)",ic:"☣️",r:"HIGH",fi:["Foam"],pp:["SCBA","ชุดป้องกัน"],eg:"อพยพเหนือลม"},"6.1B":{t:"สารพิษ(ไม่ติดไฟ)",ic:"☣️",r:"MEDIUM",fi:["เหมาะสม"],pp:["หน้ากาก P100","ถุงมือ"],eg:"ระบายอากาศ กั้นพื้นที่"},"6.2":{t:"สารติดเชื้อ",ic:"☣️",r:"HIGH",fi:["เหมาะสม"],pp:["ชุด Biohazard"],eg:"ห้ามสัมผัส น้ำยาฆ่าเชื้อ"},"7":{t:"กัมมันตรังสี",ic:"☢️",r:"EXTREME",fi:["เหมาะสม"],pp:["Dosimeter","Lead Shield"],eg:"กันเขต แจ้งเจ้าหน้าที่"},"8A":{t:"สารกัดกร่อน(ติดไฟ)",ic:"🧪",r:"HIGH",fi:["Dry Chem"],pp:["ชุดกรด","Face Shield"],eg:"ระวังกระเด็น สารสะเทิน"},"8B":{t:"สารกัดกร่อน",ic:"🧪",r:"MEDIUM",fi:["เหมาะสม"],pp:["ถุงมือยาง","แว่นตา","เสื้อคลุม"],eg:"ซับเฉื่อย ล้างน้ำมาก"},"10":{t:"ของเหลวติดไฟอื่น",ic:"🛢️",r:"LOW",fi:["Foam"],pp:["ถุงมือ"],eg:"กวาดด้วยวัสดุดูดซับ"},"11":{t:"ของแข็งติดไฟ",ic:"📦",r:"LOW",fi:["Water"],pp:["หน้ากากกรอง"],eg:"กวาดระวังฝุ่น"},"12":{t:"ของเหลวไม่ติดไฟ",ic:"💧",r:"LOW",fi:["เหมาะสม"],pp:["ถุงมือ"],eg:"เช็ดทำความสะอาด"},"13":{t:"ของแข็งไม่ติดไฟ",ic:"📦",r:"LOW",fi:["เหมาะสม"],pp:["มาตรฐาน"],eg:"กวาดทิ้งตามระเบียบ"}};
@@ -2776,6 +2811,7 @@ function skipOnboard(){
 window.onload=()=>{
   uNB('dashboard');
   uDash();
+  trackVisit();
   // splash → onboard (if first time) → app
   setTimeout(()=>{
     const sp=document.getElementById('splash');
