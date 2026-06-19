@@ -2,7 +2,7 @@
 // Developed by Atit Chimnan
 // Strategy: Cache-first for app shell, network-first for external resources
 
-const CACHE_NAME = 'chemnexus-v2.0.4';
+const CACHE_NAME = 'chemnexus-v3.1.0';
 const CACHE_URLS = [
   './index.html',
   './manifest.json',

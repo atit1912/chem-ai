@@ -47,14 +47,14 @@ html,body{height:100%;overflow:hidden;background:var(--bg);font-family:'Sarabun'
 .bb{width:33px;height:33px;border-radius:7px;background:var(--s2);border:1px solid var(--bd2);color:var(--tx2);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px}
 
 #nav{position:absolute;bottom:0;left:0;right:0;height:var(--nav);background:rgba(5,8,15,0.97);backdrop-filter:blur(24px);border-top:1px solid var(--bd2);display:flex;align-items:center;justify-content:space-around;padding:0 4px;z-index:100}
-.nb{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:5px 0;cursor:pointer;border-radius:7px;transition:all .2s;color:var(--tx3)}
-.nb i{font-size:20px;transition:all .2s}
-.nb span{font-size:10px;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+.nb{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:6px 0;cursor:pointer;border-radius:9px;transition:all .2s;color:var(--tx3)}
+.nb i{font-size:23px;transition:all .2s}
+.nb span{font-size:10.5px;font-weight:700;letter-spacing:.02em}
 .nb.active{color:var(--lime)}
-.nb.active i{filter:drop-shadow(0 0 7px rgba(184,255,58,.65))}
-.nb.cx{flex:0 0 54px;height:54px;border-radius:13px;margin-top:-15px;background:var(--lime);color:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 0 22px rgba(184,255,58,.5);border:none;gap:2px}
-.nb.cx i{font-size:22px;color:var(--bg)}
-.nb.cx span{font-size:9px;color:var(--bg);font-weight:900}
+.nb.active i{filter:drop-shadow(0 0 4px rgba(184,255,58,.4))}
+.nb.cx{flex:0 0 56px;height:56px;border-radius:16px;margin-top:-16px;background:var(--lime);color:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 6px 16px rgba(184,255,58,.35);border:none;gap:2px}
+.nb.cx i{font-size:24px;color:var(--bg)}
+.nb.cx span{font-size:9.5px;color:var(--bg);font-weight:900}
 .nb.cx.active{background:var(--lime);color:var(--bg)}
 .nb.cx.active i{filter:none}
 
@@ -159,15 +159,6 @@ html,body{height:100%;overflow:hidden;background:var(--bg);font-family:'Sarabun'
 .scn{font-size:26px;font-weight:900;line-height:1;font-family:'Sarabun',sans-serif}
 .scl{font-size:10px;color:var(--tx3);font-weight:700;text-transform:uppercase;letter-spacing:.07em;margin-top:4px}
 
-.vstat{margin:9px 16px 0;background:linear-gradient(135deg,rgba(184,255,58,.06),rgba(255,255,255,.02));border:1px solid var(--lbd);border-radius:var(--r);padding:13px 15px;display:flex;align-items:center;gap:13px}
-.vstat-ic{width:40px;height:40px;border-radius:11px;background:var(--lb);border:1px solid var(--lbd);color:var(--lime);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
-.vstat-main{flex:1;min-width:0}
-.vstat-n{font-size:24px;font-weight:900;line-height:1;color:var(--tx);font-family:'Sarabun',sans-serif}
-.vstat-l{font-size:10px;color:var(--tx3);font-weight:700;margin-top:3px;letter-spacing:.02em}
-.vstat-today{text-align:right;flex-shrink:0;padding-left:13px;border-left:1px solid var(--bd2)}
-.vstat-tn{font-size:18px;font-weight:900;line-height:1;color:var(--lime);font-family:'Sarabun',sans-serif}
-.vstat-tl{font-size:9px;color:var(--tx3);font-weight:700;margin-top:3px;text-transform:uppercase;letter-spacing:.06em}
-
 .qm{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:0 16px}
 .qmi{display:flex;flex-direction:column;align-items:center;gap:8px;padding:16px 4px 13px;background:var(--s1);border:1px solid var(--bd);border-radius:var(--r);cursor:pointer;transition:transform .15s,border-color .15s,background .15s}
 .qmi:active{transform:scale(.95);background:var(--s2)}
@@ -187,6 +178,83 @@ html,body{height:100%;overflow:hidden;background:var(--bg);font-family:'Sarabun'
 .sl-row{display:flex;align-items:center;justify-content:space-between}
 .sl-clear{font-size:9.5px;font-weight:800;color:var(--tx3);text-transform:uppercase;letter-spacing:.05em;cursor:pointer;display:flex;align-items:center;gap:4px;padding:4px 8px;margin-right:10px;border-radius:6px;transition:background .15s,color .15s}
 .sl-clear:active{background:var(--rb);color:#ff7070}
+
+/* ── v3 HEADER SUMMARY ── */
+.hsum{display:flex;align-items:center;gap:7px;margin-top:5px;justify-content:center}
+.hsum-i{display:flex;align-items:center;gap:4px;font-size:10px;font-weight:700;color:var(--tx2)}
+.hsum-i b{font-weight:900;font-size:11px}
+.hsum-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0}
+.hsum-sep{width:1px;height:11px;background:var(--bd2)}
+
+/* ── v3 PRIMARY ACTION ── */
+.pact{margin:14px 16px 0;background:linear-gradient(135deg,var(--lime),var(--lime2));border-radius:var(--r);padding:16px 17px;display:flex;align-items:center;gap:14px;cursor:pointer;position:relative;overflow:hidden;box-shadow:0 10px 30px -8px rgba(184,255,58,.4);transition:transform .15s}
+.pact:active{transform:scale(.98)}
+.pact::after{content:'';position:absolute;right:-30px;top:-30px;width:130px;height:130px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.18),transparent 70%);pointer-events:none}
+.pact-ic{width:46px;height:46px;border-radius:13px;background:rgba(5,8,15,.16);display:flex;align-items:center;justify-content:center;font-size:24px;color:var(--bg);flex-shrink:0}
+.pact-main{flex:1;min-width:0}
+.pact-t{font-size:16px;font-weight:900;color:var(--bg);letter-spacing:-.02em;line-height:1.1}
+.pact-s{font-size:10.5px;font-weight:700;color:rgba(5,8,15,.62);margin-top:2px}
+.pact-go{width:30px;height:30px;border-radius:9px;background:rgba(5,8,15,.16);display:flex;align-items:center;justify-content:center;font-size:17px;color:var(--bg);flex-shrink:0}
+.pact-chips{display:flex;gap:6px;margin:8px 16px 0}
+.pact-chip{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:9px 4px;background:var(--s1);border:1px solid var(--bd);border-radius:var(--rs);cursor:pointer;transition:background .15s,border-color .15s}
+.pact-chip:active{background:var(--s2);border-color:var(--lbd)}
+.pact-chip i{font-size:17px;color:var(--lime)}
+.pact-chip span{font-size:9px;font-weight:700;color:var(--tx2);text-align:center;line-height:1.2}
+
+/* ── v3 KPI CARDS ── */
+.kpi{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:0 16px}
+.kc{background:var(--s1);border:1px solid var(--bd);border-radius:var(--rs);padding:12px 13px;display:flex;align-items:center;gap:11px;cursor:pointer;transition:transform .15s,border-color .15s}
+.kc:active{transform:scale(.97)}
+.kc-ic{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.kc-main{min-width:0}
+.kc-n{font-size:21px;font-weight:900;line-height:1;font-family:'Sarabun',sans-serif}
+.kc-l{font-size:9.5px;color:var(--tx3);font-weight:700;margin-top:3px;line-height:1.2}
+.kc-grn .kc-ic{background:var(--gb);color:var(--grn)}
+.kc-grn .kc-n{color:var(--grn)}
+.kc-red .kc-ic{background:var(--rb);color:var(--red)}
+.kc-red .kc-n{color:#ff7070}
+.kc-amb .kc-ic{background:var(--ab);color:var(--amb)}
+.kc-amb .kc-n{color:var(--amb)}
+.kc-blue .kc-ic{background:rgba(0,180,255,.1);color:#60d0ff}
+.kc-blue .kc-n{color:#60d0ff}
+
+/* ── v3 RISK DONUT ── */
+.rcard{margin:0 16px;background:var(--s1);border:1px solid var(--bd);border-radius:var(--r);padding:15px}
+.rcard-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:13px}
+.rcard-t{font-size:12px;font-weight:800;color:var(--tx);letter-spacing:-.01em}
+.rcard-sub{font-size:9px;color:var(--tx3);font-weight:600}
+.rcard-body{display:flex;align-items:center;gap:17px}
+.donut{position:relative;width:96px;height:96px;flex-shrink:0}
+.donut svg{transform:rotate(-90deg)}
+.donut-c{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.donut-cn{font-size:23px;font-weight:900;line-height:1;color:var(--tx);font-family:'Sarabun',sans-serif}
+.donut-cl{font-size:8px;color:var(--tx3);font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-top:1px}
+.rleg{flex:1;display:flex;flex-direction:column;gap:9px;min-width:0}
+.rleg-i{display:flex;align-items:center;gap:9px}
+.rleg-dot{width:9px;height:9px;border-radius:3px;flex-shrink:0}
+.rleg-l{flex:1;font-size:11px;color:var(--tx2);font-weight:600}
+.rleg-v{font-size:13px;font-weight:900;font-family:'Sarabun',sans-serif}
+.rleg-bar{height:5px;border-radius:3px;background:var(--s2);overflow:hidden;margin-top:3px}
+.rleg-fill{height:100%;border-radius:3px;transition:width .5s ease}
+
+/* ── v3 RECENT ANALYSIS ── */
+.ra{display:flex;align-items:center;gap:11px;padding:11px 14px;border-bottom:1px solid var(--bd);cursor:pointer;transition:background .12s}
+.ra:last-child{border-bottom:none}
+.ra:active{background:rgba(184,255,58,.04)}
+.ra-ic{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;font-weight:900}
+.ra-main{flex:1;min-width:0}
+.ra-n{font-size:13px;font-weight:700;color:var(--tx);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ra-t{font-size:10px;color:var(--tx3);margin-top:1px}
+.ra-badge{font-size:8px;font-weight:900;text-transform:uppercase;padding:3px 7px;border-radius:5px;flex-shrink:0;letter-spacing:.03em}
+
+/* ── v3 ALERT CENTER ── */
+.ac{display:flex;align-items:flex-start;gap:11px;padding:11px 14px;border-bottom:1px solid var(--bd)}
+.ac:last-child{border-bottom:none}
+.ac-ic{width:32px;height:32px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.ac-main{flex:1;min-width:0}
+.ac-t{font-size:12px;font-weight:700;color:var(--tx);line-height:1.25}
+.ac-s{font-size:10px;color:var(--tx3);margin-top:2px;line-height:1.3}
+.ac-time{font-size:8px;color:var(--tx3);flex-shrink:0;font-weight:600}
 
 .al{display:flex;align-items:flex-start;gap:9px;padding:10px 16px;border-bottom:1px solid var(--bd)}
 .ad{width:6px;height:6px;border-radius:1px;flex-shrink:0;margin-top:5px}
@@ -338,6 +406,86 @@ select.fi option{background:#0c1120;color:var(--tx)}
 .prfoot-r{font-size:7px;color:#aaa;text-align:right;line-height:1.6}
 .pr-close{position:sticky;top:0;right:0;z-index:2;display:flex;justify-content:flex-end;margin-bottom:-8px;padding:4px 0}
 .pr-close button{padding:6px 14px;background:#111;border:none;border-radius:5px;color:#b8ff3a;font-size:10px;font-weight:800;cursor:pointer;font-family:'Sarabun',sans-serif}
+
+/* ── SPILL v3 COMPONENTS ── */
+.sp-sec{margin:0 0 12px;background:var(--s1);border:1px solid var(--bd);border-radius:var(--r);overflow:hidden}
+.sp-sec-hdr{display:flex;align-items:center;gap:9px;padding:11px 14px;border-bottom:1px solid var(--bd);background:var(--s2)}
+.sp-sec-hdr i{font-size:18px;flex-shrink:0}
+.sp-sec-hdr-t{font-size:12px;font-weight:800;letter-spacing:-.01em}
+.sp-sec-hdr-s{font-size:10px;color:var(--tx3);font-weight:600;margin-top:1px}
+.sp-sec-body{padding:13px 14px}
+
+/* Incident banner */
+.sp-banner{background:linear-gradient(135deg,rgba(255,56,56,.18),rgba(180,0,0,.1));border:2px solid var(--rbd);border-radius:var(--r);padding:14px;margin-bottom:12px}
+.sp-banner-t{font-size:15px;font-weight:900;color:#ff5050;letter-spacing:-.02em}
+.sp-banner-sub{font-size:11px;color:var(--tx2);margin-top:4px;line-height:1.5}
+
+/* Emergency zones */
+.sp-zones{display:flex;flex-direction:column;gap:7px}
+.sp-zone{display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:var(--rs);position:relative;overflow:hidden}
+.sp-zone-bar{position:absolute;inset:0;opacity:.07;transition:width .6s ease}
+.sp-zone-ic{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;font-weight:900;position:relative;z-index:1}
+.sp-zone-info{flex:1;position:relative;z-index:1}
+.sp-zone-name{font-size:12px;font-weight:800;line-height:1}
+.sp-zone-desc{font-size:10px;color:var(--tx3);margin-top:2px;font-weight:600}
+.sp-zone-dist{font-size:16px;font-weight:900;font-family:'Sarabun',sans-serif;position:relative;z-index:1;flex-shrink:0}
+
+/* Risk score */
+.sp-risk-score{display:flex;gap:10px;align-items:stretch}
+.sp-rs-main{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px;background:var(--rb);border:2px solid var(--rbd);border-radius:var(--rs);text-align:center}
+.sp-rs-n{font-size:36px;font-weight:900;font-family:'Sarabun',sans-serif;line-height:1}
+.sp-rs-l{font-size:9px;font-weight:700;color:var(--tx3);text-transform:uppercase;letter-spacing:.07em;margin-top:3px}
+.sp-rs-side{flex:1;display:flex;flex-direction:column;gap:7px}
+.sp-rs-row{display:flex;flex-direction:column;gap:4px;padding:10px 12px;background:var(--s2);border:1px solid var(--bd);border-radius:var(--rs)}
+.sp-rs-rl{font-size:9.5px;color:var(--tx3);font-weight:700}
+.sp-rs-stars{display:flex;gap:2px;margin-top:2px}
+.sp-rs-star{width:10px;height:10px;border-radius:2px}
+
+/* Health/Env impact */
+.sp-imp-row{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid var(--bd)}
+.sp-imp-row:last-child{border-bottom:none}
+.sp-imp-ic{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.sp-imp-t{font-size:12px;font-weight:700;color:var(--tx);line-height:1.2}
+.sp-imp-s{font-size:10px;color:var(--tx3);margin-top:2px;line-height:1.3}
+
+/* Role-based actions */
+.sp-role{margin-bottom:9px}
+.sp-role-hdr{display:flex;align-items:center;gap:7px;padding:8px 11px;border-radius:8px 8px 0 0;font-size:10.5px;font-weight:800}
+.sp-role-body{border-radius:0 0 8px 8px;overflow:hidden}
+.sp-act{display:flex;align-items:center;gap:9px;padding:8px 11px;border-bottom:1px solid rgba(255,255,255,.06)}
+.sp-act:last-child{border-bottom:none}
+.sp-act-n{font-size:11.5px;font-weight:600;color:var(--tx2)}
+.sp-act i{font-size:14px;flex-shrink:0}
+
+/* Firefighting */
+.sp-ff-row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.sp-ff-ok{display:flex;align-items:center;gap:7px;padding:8px 10px;background:var(--gb);border:1px solid var(--gbd);border-radius:var(--rs)}
+.sp-ff-no{display:flex;align-items:center;gap:7px;padding:8px 10px;background:var(--rb);border:1px solid var(--rbd);border-radius:var(--rs)}
+.sp-ff-t{font-size:11px;font-weight:700}
+
+/* PPE grid */
+.sp-ppe-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+.sp-ppe-item{display:flex;flex-direction:column;align-items:center;gap:5px;padding:10px 4px;background:var(--s2);border:1px solid var(--bd);border-radius:var(--rs);text-align:center}
+.sp-ppe-ic{width:36px;height:36px;border-radius:10px;background:rgba(184,255,58,.1);border:1px solid var(--lbd);display:flex;align-items:center;justify-content:center;font-size:18px}
+.sp-ppe-t{font-size:9.5px;font-weight:700;color:var(--tx2);line-height:1.2}
+
+/* AI Assessment */
+.sp-ai-card{background:linear-gradient(135deg,rgba(168,85,247,.08),rgba(0,0,0,0));border:1px solid rgba(168,85,247,.3);border-radius:var(--r);overflow:hidden}
+.sp-ai-hdr{display:flex;align-items:center;gap:9px;padding:11px 14px;border-bottom:1px solid rgba(168,85,247,.2);background:rgba(168,85,247,.07)}
+.sp-ai-body{padding:13px 14px;font-size:12px;color:var(--tx2);line-height:1.7;white-space:pre-wrap}
+.sp-ai-thinking{display:flex;align-items:center;gap:10px;padding:16px 14px;color:var(--tx3)}
+.sp-ai-dot{width:8px;height:8px;border-radius:50%;background:#c084fc;animation:aipulse 1.2s ease-in-out infinite}
+@keyframes aipulse{0%,100%{opacity:.3;transform:scale(.8)}50%{opacity:1;transform:scale(1.1)}}
+.sp-ai-dot:nth-child(2){animation-delay:.2s}
+.sp-ai-dot:nth-child(3){animation-delay:.4s}
+
+/* Emergency contacts */
+.sp-call-btn{display:flex;align-items:center;gap:12px;padding:13px 14px;border-radius:var(--rs);cursor:pointer;transition:transform .15s,opacity .15s;text-decoration:none;border:none;width:100%;font-family:'Sarabun',sans-serif}
+.sp-call-btn:active{transform:scale(.97);opacity:.85}
+.sp-call-ic{width:40px;height:40px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.sp-call-t{font-size:14px;font-weight:900;color:var(--tx);letter-spacing:-.01em}
+.sp-call-s{font-size:10px;color:var(--tx3);font-weight:600;margin-top:1px}
+
 </style>
 </head>
 <body>
@@ -349,71 +497,140 @@ select.fi option{background:#0c1120;color:var(--tx)}
     <div style="width:34px"></div>
     <div style="text-align:center">
       <div style="display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:1px">
-        <span class="vt">v2.0</span>
+        <span class="vt">v3.0</span>
       </div>
       <div class="hdr-t gt" style="font-size:20px;font-weight:900;letter-spacing:-.03em">ChemNexus AI</div>
-      <div style="font-size:9px;color:var(--tx3);font-weight:500;letter-spacing:.04em;margin-top:1px">Chemical Safety System</div>
+      <div class="hsum" id="hdr-summary">
+        <div class="hsum-i"><span class="hsum-dot" style="background:var(--grn)"></span><b id="hs-total">21</b> สาร</div>
+        <div class="hsum-sep"></div>
+        <div class="hsum-i"><span class="hsum-dot" style="background:var(--red)"></span><b id="hs-risk" style="color:#ff7070">8</b> เสี่ยงสูง</div>
+        <div class="hsum-sep"></div>
+        <div class="hsum-i"><span class="hsum-dot" style="background:var(--amb)"></span><b id="hs-alert" style="color:var(--amb)">3</b> เตือน</div>
+      </div>
     </div>
-    <div class="ib2" style="position:relative" onclick="toast('ไม่มีการแจ้งเตือนใหม่')">
+    <div class="ib2" style="position:relative" onclick="go('dashboard');document.getElementById('alert-center').scrollIntoView({behavior:'smooth'})">
       <i class="ph ph-bell"></i>
       <div id="alert-badge" style="position:absolute;top:4px;right:4px;width:6px;height:6px;border-radius:1px;background:var(--red);border:1.5px solid var(--bg)"></div>
     </div>
   </div>
   <div class="pc">
-    <div class="qm" style="margin-top:13px">
-      <div class="qmi qm-grey" onclick="openAdmin()">
-        <div class="qmic"><i class="ph ph-shield-star"></i></div>
-        <div class="qmt">Admin<br>Panel</div>
+
+    <!-- PRIMARY ACTION -->
+    <div class="pact" onclick="go('analyze')">
+      <div class="pact-ic"><i class="ph-bold ph-atom"></i></div>
+      <div class="pact-main">
+        <div class="pact-t">วิเคราะห์สารเคมีด้วย AI</div>
+        <div class="pact-s">ตรวจความเข้ากันได้ • มาตรฐาน DIW</div>
       </div>
-      <div class="qmi qm-blue" onclick="go('layout')">
-        <div class="qmic"><i class="ph ph-blueprint"></i></div>
-        <div class="qmt">แผนผัง<br>จัดวาง</div>
+      <div class="pact-go"><i class="ph-bold ph-arrow-right"></i></div>
+    </div>
+    <div class="pact-chips">
+      <div class="pact-chip" onclick="go('analyze')"><i class="ph ph-magnifying-glass"></i><span>เลือกคู่สาร</span></div>
+      <div class="pact-chip" onclick="go('search')"><i class="ph ph-flask"></i><span>คลังสารเคมี</span></div>
+      <div class="pact-chip" onclick="go('sds')"><i class="ph ph-file-text"></i><span>สร้าง SDS</span></div>
+    </div>
+
+    <!-- KPI CARDS -->
+    <div class="sl" style="margin-top:15px">ภาพรวมระบบ</div>
+    <div class="kpi">
+      <div class="kc kc-grn" onclick="go('search')">
+        <div class="kc-ic"><i class="ph ph-flask"></i></div>
+        <div class="kc-main"><div class="kc-n" id="kpi-total">21</div><div class="kc-l">สารเคมีทั้งหมด</div></div>
       </div>
-      <div class="qmi qm-purple" onclick="go('matrix');renderMatrix()">
-        <div class="qmic"><i class="ph ph-grid-nine"></i></div>
-        <div class="qmt">DIW<br>Matrix</div>
+      <div class="kc kc-red" onclick="go('search')">
+        <div class="kc-ic"><i class="ph ph-warning"></i></div>
+        <div class="kc-main"><div class="kc-n" id="kpi-risk">8</div><div class="kc-l">สารเสี่ยงสูง</div></div>
       </div>
-      <div class="qmi qm-red" onclick="go('spill')">
-        <div class="qmic"><i class="ph ph-warning-diamond"></i></div>
-        <div class="qmt">Spill<br>Simulator</div>
+      <div class="kc kc-amb" onclick="document.getElementById('alert-center').scrollIntoView({behavior:'smooth'})">
+        <div class="kc-ic"><i class="ph ph-bell-ringing"></i></div>
+        <div class="kc-main"><div class="kc-n" id="kpi-alert">3</div><div class="kc-l">การแจ้งเตือน</div></div>
       </div>
-      <div class="qmi qm-lime" onclick="go('sds')">
-        <div class="qmic"><i class="ph ph-file-text"></i></div>
-        <div class="qmt">SDS<br>Generator</div>
+      <div class="kc kc-blue" onclick="go('search')">
+        <div class="kc-ic"><i class="ph ph-check-circle"></i></div>
+        <div class="kc-main"><div class="kc-n" id="kpi-sds">95%</div><div class="kc-l">ข้อมูลครบถ้วน</div></div>
       </div>
     </div>
 
-    <div class="sg" style="margin-top:10px">
-      <div class="sc"><div class="scn" style="color:var(--lime)" id="dt">21</div><div class="scl">สารเคมีทั้งหมด</div></div>
-      <div class="sc"><div class="scn" style="color:#ff7070">3</div><div class="scl">สารเสี่ยงสูง</div></div>
-      <div class="sc"><div class="scn" style="color:#33ff99" id="ds">0</div><div class="scl">การวิเคราะห์</div></div>
-      <div class="sc"><div class="scn" style="color:#ffcc55" id="dh">0</div><div class="scl">ประวัติล่าสุด</div></div>
+    <!-- RISK DISTRIBUTION DONUT -->
+    <div class="sl" style="margin-top:15px">การกระจายระดับความเสี่ยง</div>
+    <div class="rcard">
+      <div class="rcard-body">
+        <div class="donut">
+          <svg width="96" height="96" viewBox="0 0 96 96">
+            <circle cx="48" cy="48" r="40" fill="none" stroke="var(--s2)" stroke-width="11"/>
+            <circle id="dn-high" cx="48" cy="48" r="40" fill="none" stroke="var(--red)" stroke-width="11" stroke-linecap="round" stroke-dasharray="0 251" stroke-dashoffset="0"/>
+            <circle id="dn-med" cx="48" cy="48" r="40" fill="none" stroke="var(--amb)" stroke-width="11" stroke-linecap="round" stroke-dasharray="0 251" stroke-dashoffset="0"/>
+            <circle id="dn-low" cx="48" cy="48" r="40" fill="none" stroke="var(--grn)" stroke-width="11" stroke-linecap="round" stroke-dasharray="0 251" stroke-dashoffset="0"/>
+          </svg>
+          <div class="donut-c"><div class="donut-cn" id="dn-total">21</div><div class="donut-cl">สาร</div></div>
+        </div>
+        <div class="rleg">
+          <div class="rleg-i">
+            <span class="rleg-dot" style="background:var(--red)"></span>
+            <span class="rleg-l">เสี่ยงสูง</span>
+            <span class="rleg-v" style="color:#ff7070" id="rl-high">8</span>
+          </div>
+          <div class="rleg-bar"><div class="rleg-fill" id="rb-high" style="background:var(--red);width:0%"></div></div>
+          <div class="rleg-i">
+            <span class="rleg-dot" style="background:var(--amb)"></span>
+            <span class="rleg-l">เสี่ยงปานกลาง</span>
+            <span class="rleg-v" style="color:var(--amb)" id="rl-med">9</span>
+          </div>
+          <div class="rleg-bar"><div class="rleg-fill" id="rb-med" style="background:var(--amb);width:0%"></div></div>
+          <div class="rleg-i">
+            <span class="rleg-dot" style="background:var(--grn)"></span>
+            <span class="rleg-l">เสี่ยงต่ำ</span>
+            <span class="rleg-v" style="color:var(--grn)" id="rl-low">4</span>
+          </div>
+          <div class="rleg-bar"><div class="rleg-fill" id="rb-low" style="background:var(--grn);width:0%"></div></div>
+        </div>
+      </div>
     </div>
 
-    <div class="vstat">
-      <div class="vstat-ic"><i class="ph ph-users-three"></i></div>
-      <div class="vstat-main">
-        <div class="vstat-n" id="stat-total-visits">–</div>
-        <div class="vstat-l">ผู้เข้าใช้งานทั้งหมด</div>
-      </div>
-      <div class="vstat-today">
-        <div class="vstat-tn" id="stat-today-visits">–</div>
-        <div class="vstat-tl">วันนี้</div>
-      </div>
-    </div>
-
-    <div class="sl" style="margin-top:10px">การแจ้งเตือน <span id="alert-count-badge" style="color:var(--red);background:var(--rb);padding:1px 6px;border-radius:3px;font-size:8px;margin-left:3px;border:1px solid var(--rbd)">3</span></div>
-    <div class="card" style="margin:0 16px" id="alert-list"></div>
-
-    <div class="sl-row">
-      <div class="sl">ประวัติการวิเคราะห์</div>
+    <!-- RECENT ANALYSIS -->
+    <div class="sl-row" style="margin-top:15px">
+      <div class="sl">ผลวิเคราะห์ล่าสุด</div>
       <div class="sl-clear" id="hist-clear-btn" onclick="clearHistory()" style="display:none"><i class="ph ph-trash"></i>ล้างประวัติ</div>
     </div>
     <div class="card" style="margin:0 16px" id="dhl">
       <div style="padding:22px;text-align:center;color:var(--tx3);font-size:10px"><i class="ph ph-clock-counter-clockwise" style="font-size:22px;display:block;margin-bottom:7px;opacity:.22"></i>ยังไม่มีประวัติ</div>
     </div>
 
-    <div style="margin:11px 16px 3px"><button class="btn" onclick="go('analyze')"><i class="ph-bold ph-atom" style="font-size:16px"></i>เริ่มวิเคราะห์สารเคมี</button></div>
+    <!-- ALERT CENTER -->
+    <div class="sl-row" id="alert-center" style="margin-top:15px">
+      <div class="sl">ศูนย์การแจ้งเตือน <span id="alert-count-badge" style="color:var(--red);background:var(--rb);padding:1px 6px;border-radius:3px;font-size:8px;margin-left:3px;border:1px solid var(--rbd)">3</span></div>
+    </div>
+    <div class="card" style="margin:0 16px" id="alert-list"></div>
+
+    <!-- QUICK ACCESS MENU -->
+    <div class="sl" style="margin-top:15px">เครื่องมือทั้งหมด</div>
+    <div class="qm">
+      <div class="qmi qm-grey" onclick="go('search')">
+        <div class="qmic"><i class="ph ph-flask"></i></div>
+        <div class="qmt">คลังสาร<br>เคมี</div>
+      </div>
+      <div class="qmi qm-lime" onclick="go('sds')">
+        <div class="qmic"><i class="ph ph-file-text"></i></div>
+        <div class="qmt">SDS<br>Generator</div>
+      </div>
+      <div class="qmi qm-purple" onclick="go('matrix');renderMatrix()">
+        <div class="qmic"><i class="ph ph-grid-nine"></i></div>
+        <div class="qmt">DIW<br>Matrix</div>
+      </div>
+      <div class="qmi qm-blue" onclick="go('layout')">
+        <div class="qmic"><i class="ph ph-blueprint"></i></div>
+        <div class="qmt">แผนผัง<br>จัดวาง</div>
+      </div>
+      <div class="qmi qm-red" onclick="go('spill')">
+        <div class="qmic"><i class="ph ph-warning-diamond"></i></div>
+        <div class="qmt">Spill<br>Simulator</div>
+      </div>
+      <div class="qmi qm-grey" onclick="openAdmin()">
+        <div class="qmic"><i class="ph ph-shield-star"></i></div>
+        <div class="qmt">Admin<br>Panel</div>
+      </div>
+    </div>
+
     <div class="crd"><strong>DEVELOPED BY ATIT CHIMNAN</strong>ระบบวิเคราะห์การจัดเก็บสารเคมี • DIW Standard</div>
   </div>
 </div>
@@ -877,51 +1094,6 @@ select.fi option{background:#0c1120;color:var(--tx)}
 </div>
 
 <script>
-// ══════════════════════════════════════════
-//  BACKEND API (Google Apps Script)
-// ══════════════════════════════════════════
-const API_URL='https://script.google.com/macros/s/AKfycbx_lrWgNW-cYpghDSCGLBBcuUWPwO5MCvuA4UwuaFDHbIMzFI1JtWQatjZOwywz_dcs/exec';
-
-// นับทุกครั้งที่เปิดแอป
-// แยก 2 จังหวะ: (1) ยิงนับด้วย no-cors — ยังไงก็ถึง backend
-//               (2) อ่านยอดมาแสดงด้วย fetch ปกติ
-async function trackVisit(){
-  // (1) ยิงนับ — no-cors ไม่สน response อ่านไม่ได้ก็ไม่เป็นไร backend +1 แน่นอน
-  try{
-    fetch(API_URL+'?action=trackVisit&type=visit&sid='+encodeURIComponent(sessionId()),{mode:'no-cors'});
-  }catch(e){console.log('track beacon error:',e);}
-  // (2) อ่านยอดมาแสดง (หน่วงเล็กน้อยให้ backend บันทึกเสร็จก่อน)
-  setTimeout(fetchStats,900);
-}
-async function fetchStats(){
-  try{
-    const r=await fetch(API_URL+'?action=getStats');
-    const d=await r.json();
-    if(d&&d.status==='ok')renderStats(d);
-  }catch(e){
-    console.log('getStats error:',e);
-    // ลองอีกครั้งหลัง 2 วิ เผื่อ network ช้า
-    setTimeout(async()=>{
-      try{
-        const r2=await fetch(API_URL+'?action=getStats');
-        const d2=await r2.json();
-        if(d2&&d2.status==='ok')renderStats(d2);
-      }catch(e2){console.log('getStats retry error:',e2);}
-    },2000);
-  }
-}
-function renderStats(d){
-  const tv=document.getElementById('stat-total-visits');
-  const tdv=document.getElementById('stat-today-visits');
-  if(tv)tv.textContent=(d.total_visits||0).toLocaleString();
-  if(tdv)tdv.textContent=(d.today_visits||0).toLocaleString();
-}
-function sessionId(){
-  let s=sessionStorage.getItem('cn2_sid');
-  if(!s){s='s_'+Date.now().toString(36)+Math.random().toString(36).slice(2,7);sessionStorage.setItem('cn2_sid',s);}
-  return s;
-}
-
 // DATA
 const CO=["1","2A","2B","3A","3B","4.1A","4.1B","4.2","4.3","5.1A","5.1B","5.1C","5.2","6.1A","6.1B","6.2","7","8A","8B","10","11","12","13"];
 const HC={"1":{t:"วัตถุระเบิด",ic:"💥",r:"EXTREME",fi:["Water (Large)"],pp:["ระยะปลอดภัย","หมวก"],eg:"อพยพทันที ห้ามดับไฟ"},"2A":{t:"ก๊าซอัด",ic:"💨",r:"MEDIUM",fi:["Dry Chem","CO2"],pp:["แว่นตา","ถุงมือ"],eg:"หล่อเย็นถัง ปิดวาล์ว"},"2B":{t:"ก๊าซสเปรย์",ic:"💨",r:"LOW",fi:["Dry Chem"],pp:["แว่นตา"],eg:"เคลื่อนออกจากความร้อน"},"3A":{t:"ของเหลวไวไฟ(ต่ำ)",ic:"🔥",r:"HIGH",fi:["Foam","CO2"],pp:["ชุดทนไฟ","แว่นตา","ถุงมือ"],eg:"กำจัดประกายไฟ ใช้ทราย"},"3B":{t:"ของเหลวไวไฟ(สูง)",ic:"🔥",r:"MEDIUM",fi:["Foam"],pp:["ถุงมือ","แว่นตา"],eg:"ปิดกั้นน้ำ ใช้โฟม"},"4.1A":{t:"ของแข็งไวไฟ-ระเบิด",ic:"🔥",r:"HIGH",fi:["Water Spray"],pp:["หน้ากาก","แว่นตา"],eg:"หลีกเลี่ยงการเสียดสี"},"4.1B":{t:"ของแข็งไวไฟ",ic:"🔥",r:"MEDIUM",fi:["Water"],pp:["หน้ากากกรอง","แว่นตา"],eg:"กวาดเก็บระวังฝุ่น"},"4.2":{t:"สารลุกไหม้เอง",ic:"🔥",r:"HIGH",fi:["Dry Sand"],pp:["ชุดป้องกัน","ถุงมือ"],eg:"ห้ามใช้น้ำ ระวังอากาศ"},"4.3":{t:"สัมผัสน้ำ→ก๊าซไวไฟ",ic:"💧",r:"HIGH",fi:["Class D"],pp:["แว่นตา","ถุงมือแห้ง"],eg:"ห้ามใช้น้ำเด็ดขาด!"},"5.1A":{t:"สารออกซิไดซ์แรง",ic:"⭕",r:"HIGH",fi:["Water (Large)"],pp:["Face Shield","ถุงมือ"],eg:"แยกจากสารติดไฟทันที"},"5.1B":{t:"สารออกซิไดซ์",ic:"⭕",r:"MEDIUM",fi:["Water Spray"],pp:["ถุงมือ","แว่นตา"],eg:"ป้องกันสารอินทรีย์"},"5.1C":{t:"สารออกซิไดซ์อื่นๆ",ic:"⭕",r:"LOW",fi:["Water Spray"],pp:["แว่นตา"],eg:"กวาดด้วยวัสดุไม่ติดไฟ"},"5.2":{t:"เปอร์ออกไซด์อินทรีย์",ic:"⭕",r:"HIGH",fi:["Water Spray"],pp:["ชุดเคมี","Face Shield"],eg:"เก็บเย็น ระวังระเบิด"},"6.1A":{t:"สารพิษ(ติดไฟ)",ic:"☣️",r:"HIGH",fi:["Foam"],pp:["SCBA","ชุดป้องกัน"],eg:"อพยพเหนือลม"},"6.1B":{t:"สารพิษ(ไม่ติดไฟ)",ic:"☣️",r:"MEDIUM",fi:["เหมาะสม"],pp:["หน้ากาก P100","ถุงมือ"],eg:"ระบายอากาศ กั้นพื้นที่"},"6.2":{t:"สารติดเชื้อ",ic:"☣️",r:"HIGH",fi:["เหมาะสม"],pp:["ชุด Biohazard"],eg:"ห้ามสัมผัส น้ำยาฆ่าเชื้อ"},"7":{t:"กัมมันตรังสี",ic:"☢️",r:"EXTREME",fi:["เหมาะสม"],pp:["Dosimeter","Lead Shield"],eg:"กันเขต แจ้งเจ้าหน้าที่"},"8A":{t:"สารกัดกร่อน(ติดไฟ)",ic:"🧪",r:"HIGH",fi:["Dry Chem"],pp:["ชุดกรด","Face Shield"],eg:"ระวังกระเด็น สารสะเทิน"},"8B":{t:"สารกัดกร่อน",ic:"🧪",r:"MEDIUM",fi:["เหมาะสม"],pp:["ถุงมือยาง","แว่นตา","เสื้อคลุม"],eg:"ซับเฉื่อย ล้างน้ำมาก"},"10":{t:"ของเหลวติดไฟอื่น",ic:"🛢️",r:"LOW",fi:["Foam"],pp:["ถุงมือ"],eg:"กวาดด้วยวัสดุดูดซับ"},"11":{t:"ของแข็งติดไฟ",ic:"📦",r:"LOW",fi:["Water"],pp:["หน้ากากกรอง"],eg:"กวาดระวังฝุ่น"},"12":{t:"ของเหลวไม่ติดไฟ",ic:"💧",r:"LOW",fi:["เหมาะสม"],pp:["ถุงมือ"],eg:"เช็ดทำความสะอาด"},"13":{t:"ของแข็งไม่ติดไฟ",ic:"📦",r:"LOW",fi:["เหมาะสม"],pp:["มาตรฐาน"],eg:"กวาดทิ้งตามระเบียบ"}};
@@ -1061,11 +1233,19 @@ function initSwipe(el, onDelete) {
 //  ALERTS STATE
 // ══════════════════════════════════════════
 let alerts=JSON.parse(localStorage.getItem('cn2_alerts')||'null')||[
-  {id:1,color:'var(--red)',title:'กรดเกลือ (HCl)',sub:'ใกล้หมดอายุภายใน 30 วัน • Class 8B',time:'2 ชม.'},
-  {id:2,color:'var(--amb)',title:'ตรวจพบการจัดเก็บไม่ปลอดภัย',sub:'โซเดียมไฮโปคลอไรต์ ใกล้ กรดเกลือ',time:'5 ชม.'},
-  {id:3,color:'var(--amb)',title:'ยังไม่ได้ตรวจสอบสต็อก',sub:'ถึงกำหนดตรวจสอบรายสัปดาห์',time:'1 วัน'},
+  {id:1,type:'expired',color:'var(--red)',title:'SDS ใกล้หมดอายุ',sub:'กรดเกลือ (HCl) • Class 8B • ภายใน 30 วัน',time:'2 ชม.'},
+  {id:2,type:'conflict',color:'var(--amb)',title:'ตรวจพบการจัดเก็บไม่ปลอดภัย',sub:'โซเดียมไฮโปคลอไรต์ ใกล้ กรดเกลือ',time:'5 ชม.'},
+  {id:3,type:'inspection',color:'var(--amb)',title:'ยังไม่ได้ตรวจสอบสต็อก',sub:'ถึงกำหนดตรวจสอบรายสัปดาห์',time:'1 วัน'},
 ];
 function saveAlerts(){localStorage.setItem('cn2_alerts',JSON.stringify(alerts));}
+
+const ALERT_IC={
+  conflict:  {ic:'ph-warning-diamond', bg:'var(--rb)', col:'var(--red)'},
+  expired:   {ic:'ph-calendar-x',      bg:'var(--ab)', col:'var(--amb)'},
+  ppe:       {ic:'ph-shield-warning',  bg:'var(--ab)', col:'var(--amb)'},
+  inspection:{ic:'ph-clipboard-text',  bg:'rgba(0,180,255,.1)', col:'#60d0ff'},
+  highrisk:  {ic:'ph-warning-octagon', bg:'var(--rb)', col:'var(--red)'},
+};
 
 function renderAlerts(){
   const c=document.getElementById('alert-list');
@@ -1078,20 +1258,22 @@ function renderAlerts(){
   }
   if(badge){badge.textContent=alerts.length;badge.style.display='';}
   if(abadge)abadge.style.display='';
-  c.innerHTML=alerts.map((a,i)=>`
-    <div class="swipe-item" id="al-${a.id}" style="height:auto">
+  c.innerHTML=alerts.map((a,i)=>{
+    const s=ALERT_IC[a.type]||ALERT_IC.conflict;
+    return`<div class="swipe-item" id="al-${a.id}" style="height:auto">
       <div class="swipe-bg">🗑️</div>
       <div class="swipe-inner" style="background:var(--bg2)">
-        <div class="al" style="${i===alerts.length-1?'border-bottom:none':''}">
-          <div class="ad" style="background:${a.color};${a.color==='var(--red)'?'box-shadow:0 0 5px rgba(255,56,56,.55)':''}"></div>
-          <div style="flex:1"><div class="at">${a.title}</div><div class="as">${a.sub}</div></div>
-          <div style="font-size:8px;color:var(--tx3);flex-shrink:0">${a.time}</div>
+        <div class="ac" style="${i===alerts.length-1?'border-bottom:none':''}">
+          <div class="ac-ic" style="background:${s.bg};color:${s.col}"><i class="ph ${s.ic}"></i></div>
+          <div class="ac-main"><div class="ac-t">${a.title}</div><div class="ac-s">${a.sub}</div></div>
+          <div class="ac-time">${a.time}</div>
         </div>
       </div>
-    </div>`).join('');
+    </div>`;
+  }).join('');
   alerts.forEach(a=>{
     const el=document.getElementById('al-'+a.id);
-    if(el)initSwipe(el,()=>{alerts=alerts.filter(x=>x.id!==a.id);saveAlerts();renderAlerts();toast('ลบการแจ้งเตือนแล้ว');});
+    if(el)initSwipe(el,()=>{alerts=alerts.filter(x=>x.id!==a.id);saveAlerts();renderAlerts();uDash();toast('ลบการแจ้งเตือนแล้ว');});
   });
 }
 
@@ -1116,21 +1298,76 @@ function back(){go(pv.pop()||'dashboard','left');}
 function uNB(pg){document.querySelectorAll('.nb').forEach(b=>b.classList.remove('active'));const a=document.getElementById('nb-'+pg);if(a)a.classList.add('active');}
 
 function uDash(){
-  document.getElementById('dt').textContent=DB.length;
-  document.getElementById('ds').textContent=hs.length;
-  document.getElementById('dh').textContent=Math.min(hs.length,6);
+  const db=liveDB();
+  const total=db.length;
+  // นับระดับความเสี่ยงจากข้อมูลจริง (HC[class].r)
+  let high=0,med=0,low=0;
+  db.forEach(d=>{
+    const r=HC[d.c]?HC[d.c].r:null;
+    if(r==='EXTREME'||r==='HIGH')high++;
+    else if(r==='MEDIUM')med++;
+    else if(r==='LOW')low++;
+  });
+  // ข้อมูลครบถ้วน = สารที่มีเลข CAS (ไม่ใช่ "-")
+  const withCAS=db.filter(d=>d.cs&&d.cs!=='-').length;
+  const dataPct=total?Math.round(withCAS/total*100):0;
+
+  // ── HEADER SUMMARY ──
+  setTxt('hs-total',total);
+  setTxt('hs-risk',high);
+  setTxt('hs-alert',alerts.length);
+
+  // ── KPI CARDS ──
+  setTxt('kpi-total',total);
+  setTxt('kpi-risk',high);
+  setTxt('kpi-alert',alerts.length);
+  setTxt('kpi-sds',dataPct+'%');
+
+  // ── RISK DONUT ──
+  setTxt('dn-total',total);
+  setTxt('rl-high',high);
+  setTxt('rl-med',med);
+  setTxt('rl-low',low);
+  drawDonut(high,med,low,total);
+  const max=Math.max(high,med,low,1);
+  setW('rb-high',high/max*100);
+  setW('rb-med',med/max*100);
+  setW('rb-low',low/max*100);
+
+  // ── RECENT ANALYSIS ──
   const cb=document.getElementById('hist-clear-btn');
   if(cb)cb.style.display=hs.length?'flex':'none';
   const c=document.getElementById('dhl');
+  if(!c)return;
   if(!hs.length){c.innerHTML='<div style="padding:22px;text-align:center;color:var(--tx3);font-size:10px"><i class="ph ph-clock-counter-clockwise" style="font-size:20px;display:block;margin-bottom:7px;opacity:.2"></i>ยังไม่มีประวัติ</div>';return;}
-  c.innerHTML=hs.slice(0,6).map(h=>{
+  c.innerHTML=hs.slice(0,5).map(h=>{
     const col=h.r==='RED'?'var(--red)':h.r==='YELLOW'?'var(--amb)':'var(--grn)';
-    return`<div class="hi" onclick="rplay('${h.a.replace(/'/g,"\\'")}','${h.b.replace(/'/g,"\\'")}')">
-      <div class="hd" style="background:${col};box-shadow:0 0 4px ${col}70"></div>
-      <div style="flex:1;min-width:0"><div style="font-size:13px;font-weight:700">${h.a} + ${h.b}</div><div style="font-size:11px;color:var(--tx3);margin-top:1px">${h.tm}</div></div>
-      <span style="color:${col};font-size:8px;font-weight:900;text-transform:uppercase">${h.r}</span>
+    const bg=h.r==='RED'?'var(--rb)':h.r==='YELLOW'?'var(--ab)':'var(--gb)';
+    const lbl=h.r==='RED'?'เสี่ยงสูง':h.r==='YELLOW'?'ปานกลาง':'ปลอดภัย';
+    const ic=h.r==='RED'?'ph-warning-octagon':h.r==='YELLOW'?'ph-warning':'ph-check-circle';
+    return`<div class="ra" onclick="rplay('${h.a.replace(/'/g,"\\'")}','${h.b.replace(/'/g,"\\'")}')">
+      <div class="ra-ic" style="background:${bg};color:${col}"><i class="ph ${ic}"></i></div>
+      <div class="ra-main"><div class="ra-n">${h.a} + ${h.b}</div><div class="ra-t">${h.tm}</div></div>
+      <span class="ra-badge" style="background:${bg};color:${col}">${lbl}</span>
     </div>`;
   }).join('');
+}
+function setTxt(id,v){const e=document.getElementById(id);if(e)e.textContent=v;}
+function setW(id,pct){const e=document.getElementById(id);if(e)e.style.width=pct+'%';}
+function drawDonut(high,med,low,total){
+  const C=2*Math.PI*40; // circumference ≈ 251.3
+  const t=total||1;
+  const segs=[['dn-high',high],['dn-med',med],['dn-low',low]];
+  let offset=0;
+  segs.forEach(([id,val])=>{
+    const e=document.getElementById(id);
+    if(!e)return;
+    const len=(val/t)*C;
+    const gap=C-len;
+    e.style.strokeDasharray=`${Math.max(0,len-1.5)} ${gap+1.5}`;
+    e.style.strokeDashoffset=`${-offset}`;
+    offset+=len;
+  });
 }
 function clearHistory(){
   if(!hs.length)return;
@@ -1663,109 +1900,382 @@ function runSpill() {
   const amount = parseFloat(document.getElementById('sp-amount').value) || 10;
   const unit = document.getElementById('sp-unit').value;
   const indoor = document.getElementById('sp-indoor').checked;
-  const h = HC[spChem.c]||{};
+  const h = HC[spChem.c] || {};
   const p = getProps(spChem.n);
+  const cls = spChem.c;
 
-  // Convert to liters for calculation
+  // ── ZONE CALCULATIONS ──
   let liters = amount;
   if (unit === 'kg') liters = amount / (parseFloat(p.d) || 1.0);
   if (unit === 'mL') liters = amount / 1000;
+  const riskMult = h.r==='EXTREME'?4:h.r==='HIGH'?2.5:h.r==='MEDIUM'?1.5:1;
+  const base = Math.sqrt(liters) * riskMult;
+  const hotR  = Math.max(3,  Math.round(base * (indoor?2:1)));
+  const warmR = Math.max(10, Math.round(base * (indoor?5:3)));
+  const safeR = Math.max(25, Math.round(base * (indoor?10:8)));
 
-  // Estimate danger radius based on class and amount
-  const riskMult = h.r === 'EXTREME' ? 4 : h.r === 'HIGH' ? 2.5 : h.r === 'MEDIUM' ? 1.5 : 1;
-  const baseDist = Math.sqrt(liters) * riskMult;
-  const evac = indoor ? Math.max(5, baseDist * 3) : Math.max(10, baseDist * 5);
-  const caution = indoor ? Math.max(10, baseDist * 6) : Math.max(25, baseDist * 10);
+  // ── RISK SCORE (computed from class + amount + location) ──
+  const sev = h.r==='EXTREME'?5:h.r==='HIGH'?4:h.r==='MEDIUM'?3:2;
+  const amtScore = liters>100?5:liters>20?4:liters>5?3:liters>1?2:1;
+  const locMult = indoor?1.2:1.0;
+  const rawScore = Math.min(10, ((sev*2 + amtScore) / 3 * locMult).toFixed(1));
+  const likelihood = Math.min(5, Math.round(amtScore * (indoor?1.3:1.0)));
 
-  // Risk characteristics
+  // ── RISK CLASSIFICATION ──
+  const riskClass = rawScore>=8?{lbl:'CRITICAL',col:'var(--red)',bg:'var(--rb)'}:rawScore>=6?{lbl:'HIGH',col:'#ff7070',bg:'rgba(255,80,80,.08)'}:rawScore>=4?{lbl:'MEDIUM',col:'var(--amb)',bg:'var(--ab)'}:{lbl:'LOW',col:'var(--grn)',bg:'var(--gb)'};
+
+  // ── RISKS ──
   const risks = [];
-  if (['3A','3B','2A','2B','4.1A','4.1B','4.2'].includes(spChem.c)) risks.push({ icon:'🔥', text:'เสี่ยงเพลิงไหม้', level:'HIGH' });
-  if (['1','5.2'].includes(spChem.c)) risks.push({ icon:'💥', text:'เสี่ยงระเบิด', level:'EXTREME' });
-  if (['6.1A','6.1B'].includes(spChem.c)) risks.push({ icon:'☠️', text:'ไอพิษฟุ้งกระจาย', level:'HIGH' });
-  if (['8A','8B'].includes(spChem.c)) risks.push({ icon:'🧪', text:'กัดกร่อนทำลายผิว', level:'HIGH' });
-  if (['5.1A','5.1B','5.1C'].includes(spChem.c)) risks.push({ icon:'⭕', text:'เร่งการเผาไหม้', level:'HIGH' });
-  if (['4.3'].includes(spChem.c)) risks.push({ icon:'💧', text:'ทำปฏิกิริยากับน้ำ', level:'HIGH' });
-  if (['7'].includes(spChem.c)) risks.push({ icon:'☢️', text:'กัมมันตรังสี', level:'EXTREME' });
-  if (['2A'].includes(spChem.c)) risks.push({ icon:'💨', text:'ก๊าซลอยตัว เสี่ยงขาดอากาศ', level:'MEDIUM' });
-  if (!risks.length) risks.push({ icon:'⚠️', text:'ระวังการสัมผัส', level:'LOW' });
+  if (['3A','3B','2A','2B','4.1A','4.1B','4.2'].includes(cls)) risks.push({ic:'ph-fire',col:'var(--amb)',t:'เสี่ยงเพลิงไหม้',s:'สารติดไฟ/ไวไฟ'});
+  if (['1','5.2'].includes(cls)) risks.push({ic:'ph-bomb',col:'var(--red)',t:'เสี่ยงระเบิด',s:'ความดันสูง/ไม่เสถียร'});
+  if (['6.1A','6.1B'].includes(cls)) risks.push({ic:'ph-skull',col:'var(--red)',t:'ไอพิษฟุ้งกระจาย',s:'เป็นพิษต่อระบบหายใจ'});
+  if (['8A','8B'].includes(cls)) risks.push({ic:'ph-drop',col:'#ff7070',t:'กัดกร่อนผิวหนัง',s:'อันตรายต่อผิว/ตา'});
+  if (['5.1A','5.1B','5.1C'].includes(cls)) risks.push({ic:'ph-circles-three-plus',col:'var(--amb)',t:'เร่งการเผาไหม้',s:'ออกซิไดซ์ เพิ่มความรุนแรงไฟ'});
+  if (['4.3'].includes(cls)) risks.push({ic:'ph-wave-sawtooth',col:'var(--amb)',t:'ทำปฏิกิริยากับน้ำ',s:'ก่อก๊าซไวไฟเมื่อสัมผัสน้ำ'});
+  if (['7'].includes(cls)) risks.push({ic:'ph-radioactive',col:'var(--red)',t:'กัมมันตรังสี',s:'อันตรายถึงชีวิต'});
+  if (!risks.length) risks.push({ic:'ph-warning',col:'var(--amb)',t:'ระวังการสัมผัส',s:'ตรวจสอบ SDS ก่อนรับมือ'});
 
-  // Emergency steps
-  const steps = [];
-  steps.push('อพยพบุคคลออกจากพื้นที่ทันที ออกทางเหนือลม');
-  if (indoor) steps.push('เปิดหน้าต่างและประตูเพื่อระบายอากาศ');
-  steps.push('สวม PPE: ' + (h.pp||['มาตรฐาน']).join(', '));
-  steps.push('กั้นพื้นที่รัศมีอย่างน้อย ' + Math.round(evac) + ' เมตร');
-  if (['8A','8B'].includes(spChem.c)) steps.push('ใช้วัสดุดูดซับเฉื่อย (ทราย/vermiculite) คลุมพื้นที่รั่ว');
-  if (['3A','3B','4.1A','4.2'].includes(spChem.c)) steps.push('ห้ามจุดไฟ ห้ามใช้อุปกรณ์ไฟฟ้าในบริเวณ');
-  if (['4.3'].includes(spChem.c)) steps.push('ห้ามใช้น้ำเด็ดขาด! ใช้ทรายแห้งหรือ Class D แทน');
-  else steps.push('ล้างพื้นที่ด้วยน้ำปริมาณมาก');
-  steps.push('เก็บกวาดใส่ภาชนะปิดมิดชิด ส่งกำจัดตามระเบียบ');
-  steps.push('โทรแจ้ง 199 / 1669 หากควบคุมไม่ได้');
+  // ── HEALTH IMPACT (by class) ──
+  const healthMap = {
+    '3A':[{ic:'🔥',t:'แผลไหม้จากไฟ',s:'ผิวหนังและเนื้อเยื่อถูกทำลายจากความร้อน'},{ic:'😶‍🌫️',t:'สูดดมไอระเหย',s:'ระคายเคืองทางเดินหายใจ วิงเวียน'},{ic:'👁️',t:'ระคายเคืองตา',s:'แสบตา น้ำตาไหล'}],
+    '3B':[{ic:'😶‍🌫️',t:'สูดดมไอระเหย',s:'ทำให้มึนงง ปวดหัว'},{ic:'👁️',t:'ระคายเคืองตา',s:'แสบตา'}],
+    '5.1A':[{ic:'🫁',t:'ระคายเคืองทางเดินหายใจ',s:'ไอ แน่นหน้าอก หากสูดดมในปริมาณมาก'},{ic:'🔥',t:'เพิ่มความรุนแรงไฟ',s:'สัมผัสวัสดุติดไฟทำให้ลุกติดทันที'}],
+    '5.1B':[{ic:'🫁',t:'ระคายเคืองทางเดินหายใจ',s:'ระคายเคืองเยื่อเมือก'},{ic:'☠️',t:'เป็นพิษต่อเซลล์',s:'หากกลืนกินหรือสัมผัสในปริมาณมาก'}],
+    '6.1A':[{ic:'☠️',t:'เป็นพิษสูง',s:'อันตรายถึงชีวิตหากสูดดมหรือสัมผัส'},{ic:'🫁',t:'ทำลายระบบหายใจ',s:'ปอดอักเสบ ขาดอากาศหายใจ'},{ic:'👁️',t:'ทำลายดวงตา',s:'อาจสูญเสียการมองเห็น'}],
+    '6.1B':[{ic:'☠️',t:'เป็นพิษปานกลาง-สูง',s:'ระวังการสัมผัสผิวหนังและการสูดดม'},{ic:'🫁',t:'ระคายเคืองทางเดินหายใจ',s:'ไอ แน่นหน้าอก'}],
+    '8A':[{ic:'🔥',t:'แผลไหม้รุนแรง',s:'กัดผิวหนังและเนื้อเยื่อในทันที'},{ic:'👁️',t:'ทำลายดวงตาถาวร',s:'สัมผัสตาต้องล้างน้ำทันที 15 นาที'},{ic:'🫁',t:'ไอกัดกร่อน',s:'ทำลายเยื่อบุทางเดินหายใจ'}],
+    '8B':[{ic:'🔥',t:'แผลไหม้จากสารกัดกร่อน',s:'ผิวหนังแดง พุพอง อาจลึกถึงกระดูก'},{ic:'👁️',t:'ทำลายดวงตา',s:'อาจถาวรหากไม่รีบล้าง'},{ic:'🫁',t:'ระคายเคืองทางเดินหายใจ',s:'ไอ แสบจมูกและลำคอ'}],
+    '4.3':[{ic:'🔥',t:'อันตรายจากก๊าซไวไฟ',s:'ก่อก๊าซ H₂ ซึ่งระเบิดได้เมื่อสัมผัสน้ำ'},{ic:'🫁',t:'ก๊าซอาจสูดดม',s:'ก๊าซไฮโดรเจนทำให้ขาดอากาศ'}],
+  };
+  const health = healthMap[cls] || [{ic:'⚠️',t:'อาจระคายเคือง',s:'ตรวจสอบ SDS สำหรับข้อมูลเพิ่มเติม'},{ic:'🫁',t:'หลีกเลี่ยงการสูดดม',s:'ใช้ในที่ระบายอากาศดี'}];
 
-  // Render visual
-  const maxR = Math.min(140, caution);
-  const evacP = Math.round((evac / caution) * maxR);
-  const spillP = Math.max(8, Math.round((baseDist / caution) * maxR));
+  // ── ENVIRONMENTAL IMPACT ──
+  const noWater = ['8A','8B','6.1A','6.1B','5.1A','5.1B','4.3'].includes(cls);
+  const envItems = [
+    {ic:'💧',t:noWater?'ห้ามระบายลงแหล่งน้ำ':'จำกัดการไหลลงแหล่งน้ำ',s:'อาจเป็นพิษต่อสิ่งมีชีวิตในน้ำ',col:'#60d0ff'},
+    {ic:'🐟',t:'เป็นพิษต่อสิ่งมีชีวิตทางน้ำ',s:'ห้ามทิ้งลงท่อระบายน้ำโดยตรง',col:'var(--amb)'},
+    {ic:'🌱',t:'อาจปนเปื้อนดิน',s:'ต้องกำจัดอย่างถูกต้องตามกฎหมาย',col:'var(--grn)'},
+    {ic:'♻️',t:'ต้องกำจัดโดยผู้รับใบอนุญาต',s:'ห้ามทิ้งในถังขยะทั่วไป',col:'var(--tx3)'},
+  ];
 
-  document.getElementById('sp-result').innerHTML = `
-    <!-- Header -->
-    <div style="background:linear-gradient(135deg,rgba(255,56,56,.15),rgba(200,0,0,.08));border:2px solid var(--rbd);border-radius:12px;overflow:hidden">
-      <div style="padding:14px;border-bottom:1px solid var(--rbd)">
-        <div style="font-size:14px;font-weight:900;color:#ff7070">🚨 ผลจำลองเหตุการณ์</div>
-        <div style="font-size:11px;color:var(--tx2);margin-top:3px">${spChem.n} — ${amount} ${unit} ${indoor ? 'ในอาคาร' : 'นอกอาคาร'}</div>
+  // ── PPE ──
+  const ppeFull = (h.pp||[]).map(pp=>{
+    const icMap = {'SCBA':'😮‍💨','Face Shield':'🥽','ชุดกรด':'🥼','ชุดเคมี':'🥼','ชุดทนไฟ':'🧥','ชุด Biohazard':'🦺','Lead Shield':'🛡️','ถุงมือ':'🧤','ถุงมือยาง':'🧤','ถุงมือแห้ง':'🧤','แว่นตา':'🥽','หน้ากาก':'😷','หน้ากาก P100':'😷','หน้ากากกรอง':'😷','Face Shield':'🥽','Dosimeter':'📟','ระยะปลอดภัย':'📏','หมวก':'⛑️','เสื้อคลุม':'🥼'};
+    return {ic:icMap[pp]||'🛡️',t:pp};
+  });
+  if (!ppeFull.length) ppeFull.push({ic:'🧤',t:'ถุงมือ'},{ic:'🥽',t:'แว่นตา'},{ic:'😷',t:'หน้ากาก'});
+
+  // ── FIREFIGHTING ──
+  const avoid4Water = ['4.3'].includes(cls);
+  const fi = h.fi||[];
+  const avoidFi = avoid4Water?['น้ำทุกชนิด']:['ฉีดน้ำแรง'];
+
+  // ── ROLE ACTIONS ──
+  const operatorActs = ['หยุดงานทันที แจ้งหัวหน้า','อพยพบุคคลออกจากพื้นที่ทั้งหมด','ปิดกั้นเส้นทางเข้า-ออก','ออกทางเหนือลม ห้ามวิ่งฝ่าสารเคมี'];
+  const sheActs = ['ประเมินความเสี่ยงและขอบเขตสาร','ยืนยันชุด PPE ที่ถูกต้องสำหรับทีม','กำหนด Hot/Warm/Safe Zone','ประสานงานกับทีมฉุกเฉินและแพทย์'];
+  const emergActs = ['กักเก็บสารด้วยวัสดุดูดซับเฉื่อย'+(avoid4Water?' ห้ามใช้น้ำ!':''),'เก็บสารที่หกในภาชนะปิดมิดชิด','Decontaminate พื้นที่ด้วย'+(avoid4Water?'ทรายแห้ง':'น้ำปริมาณมาก'),'ส่งกำจัดโดยผู้รับใบอนุญาต ตามกฎหมาย'];
+
+  // ── STARS RENDER ──
+  const stars = (filled,total=5) => Array.from({length:total},(_,i)=>
+    `<div class="sp-rs-star" style="background:${i<filled?'var(--amb)':'var(--s3)'}"></div>`).join('');
+
+  const res = document.getElementById('sp-result');
+
+  // ── RENDER ──
+  res.innerHTML = `
+<div style="display:flex;flex-direction:column;gap:0">
+
+<!-- 1. INCIDENT SUMMARY -->
+<div class="sp-banner">
+  <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+    <span style="font-size:22px">🚨</span>
+    <div>
+      <div class="sp-banner-t">ผลจำลองเหตุการณ์</div>
+      <div class="sp-banner-sub">${spChem.n} · ${amount} ${unit} · ${indoor?'ในอาคาร':'นอกอาคาร'}</div>
+    </div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-top:8px">
+    <div style="padding:8px;background:rgba(0,0,0,.25);border-radius:8px;text-align:center">
+      <div style="font-size:17px;font-weight:900;color:#ff7070;font-family:'Sarabun'">${amount} ${unit}</div>
+      <div style="font-size:8px;color:var(--tx3);font-weight:700;margin-top:2px">ปริมาณ</div>
+    </div>
+    <div style="padding:8px;background:rgba(0,0,0,.25);border-radius:8px;text-align:center">
+      <div style="font-size:13px;font-weight:900;color:#ff7070">${spChem.c}</div>
+      <div style="font-size:8px;color:var(--tx3);font-weight:700;margin-top:2px">Class</div>
+    </div>
+    <div style="padding:8px;background:rgba(0,0,0,.25);border-radius:8px;text-align:center">
+      <div style="font-size:13px;font-weight:900;color:${riskClass.col}">${riskClass.lbl}</div>
+      <div style="font-size:8px;color:var(--tx3);font-weight:700;margin-top:2px">ระดับความเสี่ยง</div>
+    </div>
+  </div>
+</div>
+
+<!-- 2. AI ASSESSMENT -->
+<div class="sp-ai-card sp-sec" style="margin-bottom:12px">
+  <div class="sp-ai-hdr">
+    <i class="ph ph-robot" style="font-size:18px;color:#c084fc"></i>
+    <div><div style="font-size:12px;font-weight:800;color:#c084fc">AI Assessment</div><div style="font-size:10px;color:var(--tx3)">ChemNexus AI วิเคราะห์สถานการณ์</div></div>
+  </div>
+  <div id="sp-ai-body">
+    <div class="sp-ai-thinking">
+      <div class="sp-ai-dot"></div>
+      <div class="sp-ai-dot"></div>
+      <div class="sp-ai-dot"></div>
+      <span style="font-size:11px;margin-left:4px">กำลังวิเคราะห์...</span>
+    </div>
+  </div>
+</div>
+
+<!-- 3. RISK ASSESSMENT -->
+<div class="sp-sec">
+  <div class="sp-sec-hdr">
+    <i class="ph ph-chart-bar" style="color:var(--red)"></i>
+    <div><div class="sp-sec-hdr-t">Risk Assessment</div><div class="sp-sec-hdr-s">การประเมินความเสี่ยง</div></div>
+  </div>
+  <div class="sp-sec-body">
+    <div class="sp-risk-score">
+      <div class="sp-rs-main">
+        <div class="sp-rs-n" style="color:${riskClass.col}">${rawScore}</div>
+        <div style="font-size:8px;color:var(--tx3);font-weight:700;margin-top:2px">/10.0</div>
+        <div style="margin-top:8px;font-size:11px;font-weight:900;color:${riskClass.col};padding:3px 10px;background:${riskClass.bg};border-radius:6px">${riskClass.lbl}</div>
       </div>
-
-      <!-- Radius visualization -->
-      <div style="padding:20px;display:flex;justify-content:center">
-        <div style="position:relative;width:${maxR*2+20}px;height:${maxR*2+20}px">
-          <!-- Caution zone -->
-          <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:${maxR*2}px;height:${maxR*2}px;border-radius:50%;background:rgba(255,170,0,.08);border:1.5px dashed rgba(255,170,0,.4)"></div>
-          <div style="position:absolute;top:6px;left:50%;transform:translateX(-50%);font-size:8px;color:var(--amb);font-weight:700;white-space:nowrap">⚠ ระวัง ${Math.round(caution)}m</div>
-          <!-- Evac zone -->
-          <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:${evacP*2}px;height:${evacP*2}px;border-radius:50%;background:rgba(255,56,56,.12);border:2px solid rgba(255,56,56,.5)"></div>
-          <div style="position:absolute;top:${(maxR*2+20)/2-evacP-12}px;left:50%;transform:translateX(-50%);font-size:8px;color:var(--red);font-weight:700;white-space:nowrap">⛔ อพยพ ${Math.round(evac)}m</div>
-          <!-- Spill center -->
-          <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:${spillP*2}px;height:${spillP*2}px;border-radius:50%;background:rgba(255,56,56,.35);border:2px solid var(--red)"></div>
-          <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:16px">💀</div>
+      <div class="sp-rs-side">
+        <div class="sp-rs-row">
+          <div class="sp-rs-rl">Severity</div>
+          <div class="sp-rs-stars">${stars(sev)}</div>
         </div>
-      </div>
-
-      <!-- Risks -->
-      <div style="padding:0 14px 10px">
-        <div style="font-size:9px;font-weight:800;color:var(--tx3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">ความเสี่ยง</div>
-        <div style="display:flex;flex-wrap:wrap;gap:6px">
-          ${risks.map(r => `<div style="display:flex;align-items:center;gap:5px;padding:6px 10px;background:var(--s2);border:1px solid var(--bd2);border-radius:6px;font-size:11px;font-weight:600">
-            <span style="font-size:14px">${r.icon}</span>
-            <span>${r.text}</span>
-            <span style="font-size:8px;color:${r.level==='EXTREME'?'var(--red)':r.level==='HIGH'?'#ff7070':'var(--amb)'};font-weight:800">${r.level}</span>
-          </div>`).join('')}
+        <div class="sp-rs-row">
+          <div class="sp-rs-rl">Likelihood</div>
+          <div class="sp-rs-stars">${stars(likelihood)}</div>
         </div>
-      </div>
-
-      <!-- Steps -->
-      <div style="padding:0 14px 14px">
-        <div style="font-size:9px;font-weight:800;color:var(--tx3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">ขั้นตอนรับมือ</div>
-        ${steps.map((s, i) => `<div style="display:flex;align-items:flex-start;gap:10px;padding:7px 0;border-bottom:1px solid var(--bd)">
-          <div style="width:22px;height:22px;border-radius:5px;background:var(--rb);border:1px solid var(--rbd);color:var(--red);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900;flex-shrink:0">${i+1}</div>
-          <div style="font-size:12px;color:var(--tx2);line-height:1.5;padding-top:2px">${s}</div>
-        </div>`).join('')}
-      </div>
-
-      <!-- Fire fighting -->
-      <div style="padding:0 14px 10px">
-        <div style="font-size:9px;font-weight:800;color:var(--tx3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">วิธีดับเพลิง</div>
-        <div style="display:flex;gap:4px;flex-wrap:wrap">${(h.fi||[]).map(f=>`<span class="chip cr">${f}</span>`).join('')}</div>
-      </div>
-
-      <!-- Emergency numbers -->
-      <div style="padding:10px 14px;background:rgba(0,0,0,.2);display:flex;gap:8px;flex-wrap:wrap;justify-content:center">
-        <span style="font-size:11px;font-weight:800;color:#ff7070">📞 199</span>
-        <span style="font-size:11px;font-weight:800;color:#ff7070">📞 1669</span>
-        <span style="font-size:11px;font-weight:800;color:var(--tx3)">📞 1650 กรมโรงงาน</span>
+        <div class="sp-rs-row">
+          <div class="sp-rs-rl">Location</div>
+          <div style="font-size:11px;font-weight:800;color:${indoor?'var(--red)':'var(--amb)'};margin-top:2px">${indoor?'⚠ ในอาคาร (เสี่ยงสูงกว่า)':'นอกอาคาร'}</div>
+        </div>
       </div>
     </div>
+  </div>
+</div>
+
+<!-- 4. EMERGENCY ZONES -->
+<div class="sp-sec">
+  <div class="sp-sec-hdr">
+    <i class="ph ph-map-pin" style="color:var(--red)"></i>
+    <div><div class="sp-sec-hdr-t">Emergency Response Zones</div><div class="sp-sec-hdr-s">เขตฉุกเฉินและระยะปลอดภัย</div></div>
+  </div>
+  <div class="sp-sec-body">
+    <!-- Visual concentric circles -->
+    <div style="display:flex;justify-content:center;margin-bottom:14px">
+      <svg width="220" height="220" viewBox="0 0 220 220">
+        <circle cx="110" cy="110" r="100" fill="rgba(0,232,122,.06)" stroke="rgba(0,232,122,.4)" stroke-width="2" stroke-dasharray="6 4"/>
+        <text x="110" y="22" text-anchor="middle" font-size="9" fill="#00e87a" font-weight="700" font-family="Sarabun">SAFE ZONE</text>
+        <text x="110" y="34" text-anchor="middle" font-size="9" fill="#00e87a" font-family="Sarabun">${safeR}m</text>
+        <circle cx="110" cy="110" r="65" fill="rgba(255,170,0,.08)" stroke="rgba(255,170,0,.5)" stroke-width="2" stroke-dasharray="6 4"/>
+        <text x="110" y="57" text-anchor="middle" font-size="9" fill="#ffaa00" font-weight="700" font-family="Sarabun">WARM ZONE</text>
+        <text x="110" y="69" text-anchor="middle" font-size="9" fill="#ffaa00" font-family="Sarabun">${warmR}m</text>
+        <circle cx="110" cy="110" r="35" fill="rgba(255,56,56,.2)" stroke="#ff3838" stroke-width="2.5"/>
+        <text x="110" y="98" text-anchor="middle" font-size="8" fill="#ff7070" font-weight="700" font-family="Sarabun">HOT ZONE</text>
+        <text x="110" y="110" text-anchor="middle" font-size="14" fill="white">☠️</text>
+        <text x="110" y="128" text-anchor="middle" font-size="9" fill="#ff7070" font-family="Sarabun">${hotR}m</text>
+      </svg>
+    </div>
+    <!-- Zone cards -->
+    <div class="sp-zones">
+      <div class="sp-zone" style="background:var(--rb);border:1px solid var(--rbd)">
+        <div class="sp-zone-ic" style="background:var(--rb);color:var(--red)"><i class="ph-bold ph-warning-octagon"></i></div>
+        <div class="sp-zone-info">
+          <div class="sp-zone-name" style="color:var(--red)">🔴 HOT ZONE</div>
+          <div class="sp-zone-desc">อันตรายทันที — ห้ามเข้าโดยไม่มี PPE เต็มรูปแบบ</div>
+        </div>
+        <div class="sp-zone-dist" style="color:var(--red)">${hotR}m</div>
+      </div>
+      <div class="sp-zone" style="background:var(--ab);border:1px solid var(--abd)">
+        <div class="sp-zone-ic" style="background:var(--ab);color:var(--amb)"><i class="ph-bold ph-shield-warning"></i></div>
+        <div class="sp-zone-info">
+          <div class="sp-zone-name" style="color:var(--amb)">🟠 WARM ZONE</div>
+          <div class="sp-zone-desc">พื้นที่ควบคุม — ทีมฉุกเฉินที่มี PPE เท่านั้น</div>
+        </div>
+        <div class="sp-zone-dist" style="color:var(--amb)">${warmR}m</div>
+      </div>
+      <div class="sp-zone" style="background:var(--gb);border:1px solid var(--gbd)">
+        <div class="sp-zone-ic" style="background:var(--gb);color:var(--grn)"><i class="ph-bold ph-check-circle"></i></div>
+        <div class="sp-zone-info">
+          <div class="sp-zone-name" style="color:var(--grn)">🟢 SAFE ZONE</div>
+          <div class="sp-zone-desc">พื้นที่ปลอดภัย — จุดรวมพลและบัญชาการ</div>
+        </div>
+        <div class="sp-zone-dist" style="color:var(--grn)">${safeR}m</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 5. HEALTH IMPACT -->
+<div class="sp-sec">
+  <div class="sp-sec-hdr">
+    <i class="ph ph-person" style="color:#60d0ff"></i>
+    <div><div class="sp-sec-hdr-t">Human Health Impact</div><div class="sp-sec-hdr-s">ผลกระทบต่อสุขภาพ</div></div>
+  </div>
+  <div class="sp-sec-body">
+    ${health.map(it=>`<div class="sp-imp-row">
+      <div class="sp-imp-ic" style="background:rgba(0,180,255,.1)">${it.ic}</div>
+      <div><div class="sp-imp-t">${it.t}</div><div class="sp-imp-s">${it.s}</div></div>
+    </div>`).join('')}
+  </div>
+</div>
+
+<!-- 6. ENVIRONMENTAL IMPACT -->
+<div class="sp-sec">
+  <div class="sp-sec-hdr">
+    <i class="ph ph-plant" style="color:var(--grn)"></i>
+    <div><div class="sp-sec-hdr-t">Environmental Impact</div><div class="sp-sec-hdr-s">ผลกระทบต่อสิ่งแวดล้อม</div></div>
+  </div>
+  <div class="sp-sec-body">
+    ${envItems.map(it=>`<div class="sp-imp-row">
+      <div class="sp-imp-ic" style="background:var(--gb)">${it.ic}</div>
+      <div><div class="sp-imp-t">${it.t}</div><div class="sp-imp-s">${it.s}</div></div>
+    </div>`).join('')}
+  </div>
+</div>
+
+<!-- 7. PPE -->
+<div class="sp-sec">
+  <div class="sp-sec-hdr">
+    <i class="ph ph-shield-check" style="color:var(--lime)"></i>
+    <div><div class="sp-sec-hdr-t">Required PPE</div><div class="sp-sec-hdr-s">อุปกรณ์ป้องกันส่วนบุคคลที่จำเป็น</div></div>
+  </div>
+  <div class="sp-sec-body">
+    <div class="sp-ppe-grid">
+      ${ppeFull.map(pp=>`<div class="sp-ppe-item">
+        <div class="sp-ppe-ic">${pp.ic}</div>
+        <div class="sp-ppe-t">${pp.t}</div>
+      </div>`).join('')}
+    </div>
+  </div>
+</div>
+
+<!-- 8. RESPONSE ACTIONS BY ROLE -->
+<div class="sp-sec">
+  <div class="sp-sec-hdr">
+    <i class="ph ph-users" style="color:var(--amb)"></i>
+    <div><div class="sp-sec-hdr-t">Response Actions by Role</div><div class="sp-sec-hdr-s">ขั้นตอนรับมือตามบทบาท</div></div>
+  </div>
+  <div class="sp-sec-body" style="padding:10px 14px">
+    <div class="sp-role">
+      <div class="sp-role-hdr" style="background:var(--rb);color:#ff7070"><i class="ph ph-hard-hat" style="font-size:16px"></i>👷 Operator / ผู้ปฏิบัติงาน</div>
+      <div class="sp-role-body" style="background:rgba(255,56,56,.04);border:1px solid rgba(255,56,56,.15);border-top:none">
+        ${operatorActs.map((a,i)=>`<div class="sp-act"><div style="width:20px;height:20px;border-radius:5px;background:var(--rb);border:1px solid var(--rbd);color:var(--red);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:900;flex-shrink:0">${i+1}</div><div class="sp-act-n">${a}</div></div>`).join('')}
+      </div>
+    </div>
+    <div class="sp-role">
+      <div class="sp-role-hdr" style="background:var(--ab);color:var(--amb)"><i class="ph ph-clipboard-text" style="font-size:16px"></i>🧑‍💼 SHE Officer</div>
+      <div class="sp-role-body" style="background:rgba(255,170,0,.04);border:1px solid rgba(255,170,0,.15);border-top:none">
+        ${sheActs.map((a,i)=>`<div class="sp-act"><div style="width:20px;height:20px;border-radius:5px;background:var(--ab);border:1px solid var(--abd);color:var(--amb);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:900;flex-shrink:0">${i+1}</div><div class="sp-act-n">${a}</div></div>`).join('')}
+      </div>
+    </div>
+    <div class="sp-role" style="margin-bottom:0">
+      <div class="sp-role-hdr" style="background:rgba(0,180,255,.1);color:#60d0ff"><i class="ph ph-first-aid-kit" style="font-size:16px"></i>🚒 Emergency Team</div>
+      <div class="sp-role-body" style="background:rgba(0,180,255,.04);border:1px solid rgba(0,180,255,.15);border-top:none">
+        ${emergActs.map((a,i)=>`<div class="sp-act"><div style="width:20px;height:20px;border-radius:5px;background:rgba(0,180,255,.1);border:1px solid rgba(0,180,255,.3);color:#60d0ff;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:900;flex-shrink:0">${i+1}</div><div class="sp-act-n">${a}</div></div>`).join('')}
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 9. FIREFIGHTING -->
+<div class="sp-sec">
+  <div class="sp-sec-hdr">
+    <i class="ph ph-fire-extinguisher" style="color:var(--red)"></i>
+    <div><div class="sp-sec-hdr-t">Fire Fighting Guidance</div><div class="sp-sec-hdr-s">วิธีการดับเพลิง</div></div>
+  </div>
+  <div class="sp-sec-body">
+    <div style="font-size:9px;font-weight:800;color:var(--grn);text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px">✓ สื่อดับเพลิงที่เหมาะสม</div>
+    <div class="sp-ff-row" style="margin-bottom:12px">
+      ${fi.map(f=>`<div class="sp-ff-ok"><i class="ph ph-check-circle" style="color:var(--grn);font-size:16px"></i><div class="sp-ff-t" style="color:var(--grn)">${f}</div></div>`).join('')}
+    </div>
+    <div style="font-size:9px;font-weight:800;color:var(--red);text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px">✗ ห้ามใช้</div>
+    <div class="sp-ff-row">
+      ${avoidFi.map(f=>`<div class="sp-ff-no"><i class="ph ph-x-circle" style="color:var(--red);font-size:16px"></i><div class="sp-ff-t" style="color:#ff7070">${f}</div></div>`).join('')}
+    </div>
+    ${h.eg?`<div style="margin-top:12px;padding:10px 12px;background:var(--ab);border:1px solid var(--abd);border-radius:var(--rs);font-size:11px;color:var(--amb);line-height:1.6"><strong>คำแนะนำฉุกเฉิน:</strong> ${h.eg}</div>`:''}
+  </div>
+</div>
+
+<!-- 10. EMERGENCY CONTACTS -->
+<div class="sp-sec">
+  <div class="sp-sec-hdr">
+    <i class="ph ph-phone-call" style="color:#ff7070"></i>
+    <div><div class="sp-sec-hdr-t">Emergency Contacts</div><div class="sp-sec-hdr-s">หมายเลขฉุกเฉิน — กดเพื่อโทรทันที</div></div>
+  </div>
+  <div style="padding:10px">
+    <a href="tel:199" class="sp-call-btn" style="background:var(--rb);border:1.5px solid var(--rbd);margin-bottom:7px">
+      <div class="sp-call-ic" style="background:var(--rb);border:1px solid var(--rbd)">🚒</div>
+      <div><div class="sp-call-t">ดับเพลิง 199</div><div class="sp-call-s">Fire Department • กดโทรทันที</div></div>
+      <i class="ph-bold ph-phone-call" style="color:var(--red);font-size:20px;margin-left:auto"></i>
+    </a>
+    <a href="tel:1669" class="sp-call-btn" style="background:rgba(0,180,255,.08);border:1.5px solid rgba(0,180,255,.25);margin-bottom:7px">
+      <div class="sp-call-ic" style="background:rgba(0,180,255,.1);border:1px solid rgba(0,180,255,.3)">🚑</div>
+      <div><div class="sp-call-t">การแพทย์ฉุกเฉิน 1669</div><div class="sp-call-s">Medical Emergency • กดโทรทันที</div></div>
+      <i class="ph-bold ph-phone-call" style="color:#60d0ff;font-size:20px;margin-left:auto"></i>
+    </a>
+    <a href="tel:1650" class="sp-call-btn" style="background:var(--ab);border:1.5px solid var(--abd)">
+      <div class="sp-call-ic" style="background:var(--ab);border:1px solid var(--abd)">🏭</div>
+      <div><div class="sp-call-t">กรมโรงงาน 1650</div><div class="sp-call-s">Department of Industrial Works</div></div>
+      <i class="ph-bold ph-phone-call" style="color:var(--amb);font-size:20px;margin-left:auto"></i>
+    </a>
+  </div>
+</div>
+
+<!-- 11. DISCLAIMER -->
+<div style="padding:10px 14px;background:var(--ab);border:1px solid var(--abd);border-radius:var(--rs)">
+  <div style="font-size:9.5px;color:var(--amb);line-height:1.7"><strong>⚠ ข้อจำกัดความรับผิดชอบ:</strong> ผลจำลองนี้เป็นการประมาณเบื้องต้นเพื่อการศึกษาและวางแผนฉุกเฉินเท่านั้น ไม่ใช่แบบจำลองทางวิศวกรรม ควรปรึกษาผู้เชี่ยวชาญด้านความปลอดภัยสารเคมีในสถานการณ์จริง</div>
+</div>
+
+</div>
   `;
+
+  // ── AI ASSESSMENT (Anthropic API) ──
+  spRunAI(spChem.n, spChem.c, amount, unit, indoor, h, riskClass.lbl, hotR, p);
+
+  document.getElementById('sp-result').scrollIntoView({ behavior: 'smooth', block: 'start' });
   toast('🚨 จำลองเสร็จแล้ว');
+}
+
+async function spRunAI(name, cls, amount, unit, indoor, h, riskLbl, hotR, p) {
+  const aiBody = document.getElementById('sp-ai-body');
+  if (!aiBody) return;
+  try {
+    const prompt = `You are ChemNexus AI, a chemical safety expert system. Provide a concise emergency assessment in Thai language (ภาษาไทย).
+
+Chemical: ${name} (Class ${cls} - ${h.t||'สารเคมี'})
+Quantity: ${amount} ${unit}
+Location: ${indoor?'Indoor (ในอาคาร)':'Outdoor (นอกอาคาร)'}
+Risk Level: ${riskLbl}
+Hot Zone Radius: ${hotR} meters
+Flash Point: ${p.flash||'N/A'}
+Physical State: ${p.st||'N/A'}
+
+Write a professional AI emergency assessment in Thai with these sections:
+1. สรุปสถานการณ์ (2 sentences max)
+2. ความเสี่ยงหลักที่ต้องระวัง (2-3 bullet points)
+3. การปฏิบัติทันที (2-3 bullet points)
+
+Keep it concise, professional, and actionable. Use • for bullets. No markdown headers, just plain text with section labels.`;
+
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-6',
+        max_tokens: 1000,
+        messages: [{ role: 'user', content: prompt }]
+      })
+    });
+    const data = await response.json();
+    const text = data.content?.[0]?.text || 'ไม่สามารถดึงข้อมูล AI ได้';
+    aiBody.innerHTML = `<div class="sp-ai-body">${text.replace(/\n/g,'<br>')}</div>`;
+  } catch (e) {
+    aiBody.innerHTML = `<div style="padding:12px 14px;font-size:11px;color:var(--tx3)">ไม่สามารถเชื่อมต่อ AI ได้ในขณะนี้</div>`;
+  }
 }
 
 // ══════════════════════════════════════════
@@ -2493,7 +3003,7 @@ function saveForm() {
   saveUserDB();
   closeFormModal();
   rAdmin();
-  document.getElementById('dt').textContent = liveDB().length;
+  uDash();
 }
 
 // ── DELETE ──
@@ -2513,7 +3023,7 @@ function confirmDel() {
   closeDelModal();
   toast('🗑️ ลบ ' + nm + ' แล้ว');
   rAdmin();
-  document.getElementById('dt').textContent = liveDB().length;
+  uDash();
 }
 
 function confirmResetAll() {
@@ -2522,7 +3032,7 @@ function confirmResetAll() {
   saveUserDB();
   toast('🗑️ ลบข้อมูลกำหนดเองทั้งหมดแล้ว');
   rAdmin();
-  document.getElementById('dt').textContent = liveDB().length;
+  uDash();
 }
 
 // inject shake keyframe
@@ -2817,8 +3327,8 @@ function skipOnboard(){
 // ══════════════════════════════════════════
 window.onload=()=>{
   uNB('dashboard');
+  renderAlerts();
   uDash();
-  trackVisit();
   // splash → onboard (if first time) → app
   setTimeout(()=>{
     const sp=document.getElementById('splash');
