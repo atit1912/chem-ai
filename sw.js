@@ -2,16 +2,20 @@
 // Developed by Atit Chimnan
 // Strategy: Cache-first for app shell, network-first for external resources
 
-const CACHE_NAME = 'chemnexus-v3.5.0';
+const CACHE_NAME = 'chemnexus-v3.8.0';
 const CACHE_URLS = [
   './index.html',
   './manifest.json',
+  './firebase-config.js',
 ];
 
 // External resources to cache when available
 const EXTERNAL_CACHE = [
-  'https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Prompt:wght@400;500;600;700;800;900&display=swap',
+  'https://fonts.googleapis.com/css2?family=Sarabun',
   'https://unpkg.com/@phosphor-icons/web',
+  'https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js',
+  'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js',
+  'https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics-compat.js',
 ];
 
 // ── INSTALL ── cache app shell
@@ -51,7 +55,7 @@ self.addEventListener('fetch', event => {
   // Skip chrome-extension and other non-http
   if (!request.url.startsWith('http')) return;
 
-  // App shell: cache-first
+  // App shell + known externals: cache-first
   if (
     url.origin === self.location.origin ||
     EXTERNAL_CACHE.some(u => request.url.startsWith(u.split('?')[0]))
@@ -85,6 +89,13 @@ self.addEventListener('fetch', event => {
         });
       })
     );
+    return;
+  }
+
+  // Firestore API calls: network-first (Firebase SDK handles offline internally)
+  if (url.hostname.includes('firestore.googleapis.com') ||
+      url.hostname.includes('firebase.googleapis.com')) {
+    event.respondWith(fetch(request).catch(() => new Response('', {status: 503})));
     return;
   }
 

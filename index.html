@@ -13,6 +13,11 @@
 <title>ChemNexus AI 3.0</title>
 <link href="https://fonts.googleapis.com/css2?family=Sarabun:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/@phosphor-icons/web"></script>
+<!-- Firebase SDK (compat v10) -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics-compat.js"></script>
+<script src="firebase-config.js"></script>
 <style>
 :root{
   --bg:#05080f;--bg2:#080c16;--s1:rgba(255,255,255,0.04);--s2:rgba(255,255,255,0.08);--s3:rgba(255,255,255,0.13);
@@ -578,16 +583,79 @@ select.fi option{background:#0c1120;color:var(--tx)}
 .ly-zone-badge{padding:2px 9px;border-radius:5px;font-size:9px;font-weight:900;color:#fff;flex-shrink:0}
 .ly-zone-chems{flex:1;font-size:10.5px;font-weight:600;color:var(--tx2);line-height:1.4}
 
+/* ── FARM SELECTOR ── */
+#farm-selector{position:fixed;inset:0;z-index:9999;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:28px 20px}
+.farm-grid{width:100%;max-width:380px;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.farm-card{padding:18px 12px;background:var(--s1);border:1px solid var(--bd);border-radius:14px;cursor:pointer;text-align:center;transition:all .2s}
+.farm-card:active{background:var(--lb);border-color:var(--lbd);transform:scale(.97)}
+.farm-card-icon{font-size:28px;margin-bottom:7px}
+.farm-card-name{font-size:11px;font-weight:700;color:var(--tx2);line-height:1.4}
+/* Farm PIN Modal */
+#farm-pin-modal{display:none;position:fixed;inset:0;z-index:10000;background:rgba(0,0,0,.88);backdrop-filter:blur(10px);align-items:center;justify-content:center}
+.fp-box{background:var(--bg2);border:1px solid var(--bd2);border-radius:20px;padding:28px 22px;width:288px;text-align:center}
+.fp-pin-row{display:flex;justify-content:center;gap:14px;margin:18px 0 8px}
+.fp-dot{width:13px;height:13px;border-radius:50%;background:var(--s3);border:1.5px solid var(--bd2);transition:all .15s}
+.fp-dot.on{background:var(--lime);border-color:var(--lime);box-shadow:0 0 6px rgba(184,255,58,.5)}
+.fp-keys{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px}
+.fp-key{padding:14px 8px;background:var(--s2);border:1px solid var(--bd2);border-radius:10px;color:var(--tx);font-family:'Sarabun',sans-serif;font-size:17px;font-weight:700;cursor:pointer;transition:all .15s}
+.fp-key:active{background:var(--lb);border-color:var(--lbd)}
+/* Farm badge in header */
+.farm-badge-btn{padding:4px 9px;background:var(--lb);border:1px solid var(--lbd);border-radius:7px;cursor:pointer;display:flex;align-items:center;gap:4px}
+.farm-badge-txt{font-size:10px;font-weight:800;color:var(--lime);white-space:nowrap}
 
 </style>
 </head>
 <body>
+
+<!-- ══ FARM SELECTOR ══ -->
+<div id="farm-selector" style="display:none">
+  <div style="text-align:center;margin-bottom:28px">
+    <div style="font-size:44px;margin-bottom:10px">⚗️</div>
+    <div style="font-size:22px;font-weight:900;letter-spacing:-.03em">ChemNexus AI</div>
+    <div style="font-size:12px;color:var(--tx3);margin-top:5px">เลือกศูนย์วิจัยเพื่อเข้าใช้งาน</div>
+  </div>
+  <div class="farm-grid" id="farm-grid"></div>
+</div>
+
+<!-- ══ FARM PIN MODAL ══ -->
+<div id="farm-pin-modal">
+  <div class="fp-box">
+    <div style="font-size:28px;margin-bottom:6px" id="fp-icon">🔑</div>
+    <div style="font-size:13px;font-weight:800;color:var(--tx)" id="fp-name">ศูนย์วิจัย</div>
+    <div style="font-size:11px;color:var(--tx3);margin-top:4px">กรอก PIN 4 หลัก</div>
+    <div class="fp-pin-row">
+      <div class="fp-dot" id="fpd0"></div>
+      <div class="fp-dot" id="fpd1"></div>
+      <div class="fp-dot" id="fpd2"></div>
+      <div class="fp-dot" id="fpd3"></div>
+    </div>
+    <div style="font-size:11px;color:var(--red);height:16px;margin-bottom:6px" id="fp-err"></div>
+    <div class="fp-keys">
+      <button class="fp-key" onclick="fpk('1')">1</button>
+      <button class="fp-key" onclick="fpk('2')">2</button>
+      <button class="fp-key" onclick="fpk('3')">3</button>
+      <button class="fp-key" onclick="fpk('4')">4</button>
+      <button class="fp-key" onclick="fpk('5')">5</button>
+      <button class="fp-key" onclick="fpk('6')">6</button>
+      <button class="fp-key" onclick="fpk('7')">7</button>
+      <button class="fp-key" onclick="fpk('8')">8</button>
+      <button class="fp-key" onclick="fpk('9')">9</button>
+      <button class="fp-key" onclick="fpCancel()" style="font-size:11px;color:var(--tx3)">ยกเลิก</button>
+      <button class="fp-key" onclick="fpk('0')">0</button>
+      <button class="fp-key" onclick="fpDel()"><i class="ph ph-backspace" style="font-size:16px"></i></button>
+    </div>
+  </div>
+</div>
+
 <div id="app">
 
 <!-- DASHBOARD -->
 <div id="page-dashboard" class="page active">
   <div class="hdr" style="justify-content:space-between">
-    <div style="width:34px"></div>
+    <div class="farm-badge-btn" onclick="showFarmSelector()">
+      <i class="ph ph-map-pin" style="font-size:13px;color:var(--lime)"></i>
+      <div class="farm-badge-txt" id="farm-badge">เลือกฟาร์ม</div>
+    </div>
     <div style="text-align:center">
       <div style="display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:1px">
         <span class="vt">v3.0</span>
@@ -1190,7 +1258,7 @@ select.fi option{background:#0c1120;color:var(--tx)}
 // DATA
 const CO=["1","2A","2B","3A","3B","4.1A","4.1B","4.2","4.3","5.1A","5.1B","5.1C","5.2","6.1A","6.1B","6.2","7","8A","8B","10","11","12","13"];
 const HC={"1":{t:"วัตถุระเบิด",ic:"💥",r:"EXTREME",fi:["Water (Large)"],pp:["ระยะปลอดภัย","หมวก"],eg:"อพยพทันที ห้ามดับไฟ"},"2A":{t:"ก๊าซอัด",ic:"💨",r:"MEDIUM",fi:["Dry Chem","CO2"],pp:["แว่นตา","ถุงมือ"],eg:"หล่อเย็นถัง ปิดวาล์ว"},"2B":{t:"ก๊าซสเปรย์",ic:"💨",r:"LOW",fi:["Dry Chem"],pp:["แว่นตา"],eg:"เคลื่อนออกจากความร้อน"},"3A":{t:"ของเหลวไวไฟ(ต่ำ)",ic:"🔥",r:"HIGH",fi:["Foam","CO2"],pp:["ชุดทนไฟ","แว่นตา","ถุงมือ"],eg:"กำจัดประกายไฟ ใช้ทราย"},"3B":{t:"ของเหลวไวไฟ(สูง)",ic:"🔥",r:"MEDIUM",fi:["Foam"],pp:["ถุงมือ","แว่นตา"],eg:"ปิดกั้นน้ำ ใช้โฟม"},"4.1A":{t:"ของแข็งไวไฟ-ระเบิด",ic:"🔥",r:"HIGH",fi:["Water Spray"],pp:["หน้ากาก","แว่นตา"],eg:"หลีกเลี่ยงการเสียดสี"},"4.1B":{t:"ของแข็งไวไฟ",ic:"🔥",r:"MEDIUM",fi:["Water"],pp:["หน้ากากกรอง","แว่นตา"],eg:"กวาดเก็บระวังฝุ่น"},"4.2":{t:"สารลุกไหม้เอง",ic:"🔥",r:"HIGH",fi:["Dry Sand"],pp:["ชุดป้องกัน","ถุงมือ"],eg:"ห้ามใช้น้ำ ระวังอากาศ"},"4.3":{t:"สัมผัสน้ำ→ก๊าซไวไฟ",ic:"💧",r:"HIGH",fi:["Class D"],pp:["แว่นตา","ถุงมือแห้ง"],eg:"ห้ามใช้น้ำเด็ดขาด!"},"5.1A":{t:"สารออกซิไดซ์แรง",ic:"⭕",r:"HIGH",fi:["Water (Large)"],pp:["Face Shield","ถุงมือ"],eg:"แยกจากสารติดไฟทันที"},"5.1B":{t:"สารออกซิไดซ์",ic:"⭕",r:"MEDIUM",fi:["Water Spray"],pp:["ถุงมือ","แว่นตา"],eg:"ป้องกันสารอินทรีย์"},"5.1C":{t:"สารออกซิไดซ์อื่นๆ",ic:"⭕",r:"LOW",fi:["Water Spray"],pp:["แว่นตา"],eg:"กวาดด้วยวัสดุไม่ติดไฟ"},"5.2":{t:"เปอร์ออกไซด์อินทรีย์",ic:"⭕",r:"HIGH",fi:["Water Spray"],pp:["ชุดเคมี","Face Shield"],eg:"เก็บเย็น ระวังระเบิด"},"6.1A":{t:"สารพิษ(ติดไฟ)",ic:"☣️",r:"HIGH",fi:["Foam"],pp:["SCBA","ชุดป้องกัน"],eg:"อพยพเหนือลม"},"6.1B":{t:"สารพิษ(ไม่ติดไฟ)",ic:"☣️",r:"MEDIUM",fi:["เหมาะสม"],pp:["หน้ากาก P100","ถุงมือ"],eg:"ระบายอากาศ กั้นพื้นที่"},"6.2":{t:"สารติดเชื้อ",ic:"☣️",r:"HIGH",fi:["เหมาะสม"],pp:["ชุด Biohazard"],eg:"ห้ามสัมผัส น้ำยาฆ่าเชื้อ"},"7":{t:"กัมมันตรังสี",ic:"☢️",r:"EXTREME",fi:["เหมาะสม"],pp:["Dosimeter","Lead Shield"],eg:"กันเขต แจ้งเจ้าหน้าที่"},"8A":{t:"สารกัดกร่อน(ติดไฟ)",ic:"🧪",r:"HIGH",fi:["Dry Chem"],pp:["ชุดกรด","Face Shield"],eg:"ระวังกระเด็น สารสะเทิน"},"8B":{t:"สารกัดกร่อน",ic:"🧪",r:"MEDIUM",fi:["เหมาะสม"],pp:["ถุงมือยาง","แว่นตา","เสื้อคลุม"],eg:"ซับเฉื่อย ล้างน้ำมาก"},"10":{t:"ของเหลวติดไฟอื่น",ic:"🛢️",r:"LOW",fi:["Foam"],pp:["ถุงมือ"],eg:"กวาดด้วยวัสดุดูดซับ"},"11":{t:"ของแข็งติดไฟ",ic:"📦",r:"LOW",fi:["Water"],pp:["หน้ากากกรอง"],eg:"กวาดระวังฝุ่น"},"12":{t:"ของเหลวไม่ติดไฟ",ic:"💧",r:"LOW",fi:["เหมาะสม"],pp:["ถุงมือ"],eg:"เช็ดทำความสะอาด"},"13":{t:"ของแข็งไม่ติดไฟ",ic:"📦",r:"LOW",fi:["เหมาะสม"],pp:["มาตรฐาน"],eg:"กวาดทิ้งตามระเบียบ"}};
-const MX={"1":["17","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0"],"2A":["0","17","4","0","0","0","0","0","0","0","0","10","0","0","0","0","18","5","00","0","5","00","00"],"2B":["0","4","00","1","1","0","0","0","0","0","0","10","0","2","2","0","18","4","4","6","6","6","6"],"3A":["0","0","1","17","00","0","0","0","0","0","0","0","0","18","9","0","18","3","9","00","3","00","00"],"3B":["0","0","1","00","17","12","4","4","4","0","0","0","7","00","00","0","18","00","00","00","00","00","00"],"4.1A":["0","0","0","0","12","17","12","0","0","0","0","0","14","0","0","0","18","12","12","12","12","12","12"],"4.1B":["0","0","0","0","4","12","00","4","4","4","0","0","13","8","0","0","18","00","00","00","00","00","00"],"4.2":["0","0","0","0","4","0","4","00","4","0","0","0","0","0","0","0","18","4","4","4","4","4","00"],"4.3":["0","0","0","0","4","0","4","4","00","0","0","0","0","0","0","0","18","4","4","4","4","4","00"],"5.1A":["0","0","0","0","0","0","4","0","0","00","00","00","0","0","0","0","18","4","4","4","4","4","0"],"5.1B":["0","0","0","0","0","0","0","0","0","00","10","15","0","15","15","0","18","11","00","11","11","00","00"],"5.1C":["0","10","10","0","0","0","0","0","0","00","15","17","0","0","0","0","18","10","10","10","10","10","10"],"5.2":["0","0","0","0","7","14","13","0","0","0","0","0","17","0","0","0","0","0","0","16","16","16","16"],"6.1A":["0","0","2","18","00","0","8","0","0","0","15","0","0","17","17","0","18","0","0","3","3","3","3"],"6.1B":["0","0","2","9","00","0","0","0","0","0","15","0","0","17","17","0","18","0","0","3","3","3","3"],"6.2":["0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","00","0","0","0","0","0","0","0"],"7":["0","18","18","18","18","18","18","18","18","18","18","18","0","18","18","0","18","18","18","18","18","18","18"],"8A":["0","5","4","3","00","12","00","4","4","4","11","10","0","0","0","0","18","00","00","10","10","10","00"],"8B":["0","00","4","9","00","12","00","4","4","4","00","10","0","0","0","0","18","00","00","10","10","00","00"],"10":["0","0","6","00","00","12","00","4","4","4","11","10","16","3","3","0","18","10","10","00","00","00","00"],"11":["0","5","6","3","00","12","00","4","4","4","11","10","16","3","3","0","18","10","10","00","00","00","00"],"12":["0","00","6","00","00","12","00","4","4","4","00","10","16","3","3","0","18","10","00","00","00","00","00"],"13":["0","00","6","00","00","12","00","00","00","0","00","10","16","3","3","0","18","00","00","00","00","00","00"]};
+const MX={"1":["17", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"],"2A":["0", "17", "4", "0", "0", "0", "0", "0", "0", "0", "0", "10", "0", "0", "0", "0", "18", "5", "00", "0", "5", "00", "00"],"2B":["0", "4", "00", "1", "1", "0", "0", "0", "0", "0", "0", "10", "0", "2", "2", "0", "18", "4", "4", "6", "6", "6", "6"],"3A":["0", "0", "1", "17", "00", "0", "0", "0", "0", "0", "0", "0", "0", "00", "0", "0", "18", "3", "9", "00", "3", "00", "00"],"3B":["0", "0", "1", "00", "17", "12", "4", "0", "4", "0", "0", "0", "7", "00", "00", "0", "18", "00", "00", "00", "00", "00", "00"],"4.1A":["0", "0", "0", "0", "12", "17", "12", "0", "0", "0", "0", "0", "14", "0", "0", "0", "0", "12", "12", "12", "12", "12", "12"],"4.1B":["0", "0", "0", "0", "4", "12", "00", "4", "4", "0", "0", "0", "13", "8", "0", "0", "18", "00", "00", "00", "00", "00", "00"],"4.2":["0", "0", "0", "0", "0", "0", "4", "00", "4", "0", "0", "0", "0", "0", "0", "0", "18", "4", "4", "4", "4", "00", "00"],"4.3":["0", "0", "0", "0", "4", "0", "4", "4", "00", "0", "0", "0", "0", "0", "0", "0", "18", "4", "4", "4", "4", "4", "00"],"5.1A":["0", "0", "0", "0", "0", "0", "0", "0", "0", "00", "00", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"],"5.1B":["0", "0", "0", "0", "0", "0", "0", "0", "0", "00", "10", "15", "0", "15", "15", "0", "18", "11", "00", "11", "11", "00", "00"],"5.1C":["0", "10", "10", "0", "0", "0", "0", "0", "0", "0", "15", "17", "0", "0", "0", "0", "18", "10", "10", "10", "10", "10", "10"],"5.2":["0", "0", "0", "0", "7", "14", "13", "0", "0", "0", "0", "0", "17", "0", "0", "0", "0", "0", "0", "16", "16", "16", "16"],"6.1A":["0", "0", "2", "00", "00", "0", "8", "0", "0", "0", "15", "0", "0", "17", "00", "0", "18", "00", "00", "00", "3", "00", "00"],"6.1B":["0", "0", "2", "0", "00", "0", "0", "0", "0", "0", "15", "0", "0", "00", "17", "0", "18", "00", "00", "00", "3", "00", "00"],"6.2":["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "00", "0", "0", "0", "0", "0", "0", "0"],"7":["0", "18", "18", "18", "18", "0", "18", "18", "18", "0", "18", "18", "0", "18", "18", "0", "18", "18", "18", "18", "18", "18", "18"],"8A":["0", "5", "4", "3", "00", "12", "00", "4", "4", "0", "11", "10", "0", "00", "00", "0", "18", "00", "00", "00", "00", "00", "00"],"8B":["0", "00", "4", "9", "00", "12", "00", "4", "4", "0", "00", "10", "0", "00", "00", "0", "18", "00", "00", "00", "00", "00", "00"],"10":["0", "0", "6", "00", "00", "12", "00", "4", "4", "0", "11", "10", "16", "00", "00", "0", "18", "00", "00", "00", "00", "00", "00"],"11":["0", "5", "6", "3", "00", "12", "00", "4", "4", "0", "11", "10", "16", "3", "3", "0", "18", "00", "00", "00", "00", "00", "00"],"12":["0", "00", "6", "00", "00", "12", "00", "00", "4", "0", "00", "10", "16", "00", "00", "0", "18", "00", "00", "00", "00", "00", "00"],"13":["0", "00", "6", "00", "00", "12", "00", "00", "00", "0", "00", "10", "16", "00", "00", "0", "18", "00", "00", "00", "00", "00", "00"]};
 const CD={"1":"ของเหลวไวไฟ+ก๊าซสเปรย์ เก็บได้โดยต้องมีระบายอากาศ และปริมาณไม่เกิน 60%","2":"ก๊าซสเปรย์+สารพิษ ต้องการ: ผนังทนไฟ พื้นที่ ≤60ม² ปริมาณ ≤60% อุณหภูมิ ≤50°C ระบายอากาศ ทางออกฉุกเฉิน 2 ทาง","3":"วัสดุลุกไฟได้เร็ว ควรแยกออกจากสารพิษหรือของเหลวไวไฟ","4":"สามารถเก็บคละได้โดยการแยกห่าง: กำแพงกั้น เว้นระยะ หรือบ่อแยก","5":"ก๊าซอัด ≤50 ท่อ (ก๊าซไวไฟ/ออกซิไดส์/พิษ ≤25 ท่อ) แยกด้วยผนังไม่ติดไฟ ≥2ม. ระยะห่าง ≥5ม.","6":"เก็บคละได้ตามข้อกำหนดประเภท 2B","7":"เก็บกับของเหลวไวไฟ จุดวาบไฟ >60°C หากไม่ก่อปฏิกิริยาอันตราย","8":"สารติดไฟ+พิษ เก็บกับของแข็งไวไฟ 4.1B ได้","9":"ห้ามเก็บ 3A คละกับสารกัดกร่อนในภาชนะแตกง่าย ยกเว้นมีมาตรการป้องกัน","10":"เก็บคละได้ ยกเว้นก๊าซไวไฟ","11":"ต้องมีมาตรการเพิ่มเติม รับความเห็นชอบจากกรมโรงงานอุตสาหกรรม","12":"4.1A อาจเก็บคละได้หากระยะห่างปลอดภัยรอบคลังเพียงพอ ตรวจสอบแต่ละกรณี","13":"5.2 เก็บกับ 4.1B ได้","14":"เก็บกับ propellants และ initiators ได้หากไม่มีโลหะหนัก","15":"5.1B กับ 6.1A/6.1B ≤20 ตัน โดยต้องมีระบบเตือนไฟ ดับเพลิงอัตโนมัติ และทีมดับเพลิงบริษัท","16":"5.2 กับสารอื่น ต้องตรวจสอบระยะห่างปลอดภัยรอบคลังแต่ละกรณี","17":"พิจารณาตามข้อกำหนดเฉพาะของวัตถุอันตรายแต่ละประเภท","18":"กัมมันตรังสี แยกจัดเก็บตามข้อกำหนด IAEA และได้รับอนุมัติจากหน่วยงานรัฐ"};
 const PR={
   // Class 8B (กรด/เบส) คู่
@@ -1610,6 +1678,7 @@ function doAna(){
     const e={a:sA.n,b:sB.n,cA:sA.c,cB:sB.c,c1,c2,r,code,tm:new Date().toLocaleString('th-TH',{hour:'2-digit',minute:'2-digit',day:'numeric',month:'short'})};
     hs.unshift(e);if(hs.length>20)hs=hs.slice(0,20);
     localStorage.setItem('cn2h',JSON.stringify(hs));
+    if(getCurrentFarm())logAudit({chemA:sA.n,clsA:sA.c,chemB:sB.n,clsB:sB.c,result:r}).catch(()=>{});
     lastResult=e;
     rRes(e);go('result');
   },1800);
@@ -2942,20 +3011,34 @@ const ADMIN_PIN = '2025';
 let pinBuf = '';
 let adminUnlocked = false;
 let delTargetIdx = -1;
+let delTargetName = '';
+let delTargetBase = false;
 let editingIdx = -1;
 let adminFilter = 'all';
 let adminSort = 'name'; // name | class | date
 
 // userDB = custom chemicals stored in localStorage (layered on top of DB)
 let userDB = JSON.parse(localStorage.getItem('cn2_udb') || '[]');
+let hiddenBase = JSON.parse(localStorage.getItem('cn2_hidden') || '[]');
+let firestoreDB = []; // chemicals loaded from Firestore
 
-// combined live DB (DB readonly base + userDB custom)
+// combined live DB — Firestore takes priority over local DB
 function liveDB() {
-  return [...DB, ...userDB];
+  if (firestoreDB.length > 0) {
+    const base = firestoreDB.filter(d => !hiddenBase.includes(d.n));
+    // local userDB ที่ไม่ซ้ำกับ Firestore
+    const fsNames = new Set(firestoreDB.map(d => d.n));
+    return [...base, ...userDB.filter(u => !fsNames.has(u.n))];
+  }
+  const base = DB.filter(d => !hiddenBase.includes(d.n));
+  return [...base, ...userDB];
 }
 
 function saveUserDB() {
   localStorage.setItem('cn2_udb', JSON.stringify(userDB));
+}
+function saveHidden() {
+  localStorage.setItem('cn2_hidden', JSON.stringify(hiddenBase));
 }
 
 // ── PIN MODAL ──
@@ -3083,8 +3166,8 @@ function rAdmin() {
             <div class="ai-actions">
               <button class="ai-btn edit" onclick="openEditForm(${isCustom ? customIdx : -1},'${nm.replace(/'/g, "\\'")}','${cls}','${cas}','${x.u || x.un || '-'}','${x.note || ''}')" title="แก้ไข"><i class="ph ph-pencil"></i></button>
               ${isCustom
-                ? `<button class="ai-btn del" onclick="openDelModal(${customIdx},'${nm.replace(/'/g, "\\'")}')"><i class="ph ph-trash"></i></button>`
-                : `<button class="ai-btn" style="opacity:.3;cursor:not-allowed" title="ข้อมูลพื้นฐาน ไม่สามารถลบได้"><i class="ph ph-lock"></i></button>`
+                ? `<button class="ai-btn del" onclick="openDelModal(${customIdx},'${nm.replace(/'/g, "\\'")}',false)"><i class="ph ph-trash"></i></button>`
+                : `<button class="ai-btn del" onclick="openDelModal(-1,'${nm.replace(/'/g, "\\'")}',true)" title="ลบสารพื้นฐาน (ซ่อนจากระบบ)"><i class="ph ph-trash"></i></button>`
               }
             </div>
           </div>`;
@@ -3097,6 +3180,14 @@ function rAdmin() {
       <button class="btn" style="background:var(--rb);border:1px solid var(--rbd);color:#ff7070" onclick="confirmResetAll()">
         <i class="ph ph-trash" style="font-size:14px"></i>
         ลบสารเคมีที่กำหนดเองทั้งหมด (${custom} รายการ)
+      </button>
+    </div>` : ''}
+
+    ${hiddenBase.length > 0 ? `
+    <div style="margin:8px 16px 3px">
+      <button class="btn" style="background:var(--s2);border:1px solid var(--bd2);color:var(--tx2)" onclick="restoreHidden()">
+        <i class="ph ph-arrow-counter-clockwise" style="font-size:14px"></i>
+        กู้คืนสารพื้นฐานที่ลบไป (${hiddenBase.length} รายการ)
       </button>
     </div>` : ''}
 
@@ -3407,8 +3498,10 @@ function saveForm() {
 }
 
 // ── DELETE ──
-function openDelModal(idx, nm) {
+function openDelModal(idx, nm, isBase) {
   delTargetIdx = idx;
+  delTargetName = nm;
+  delTargetBase = isBase === true;
   document.getElementById('del-name').textContent = nm;
   document.getElementById('del-modal').style.display = 'flex';
 }
@@ -3416,12 +3509,17 @@ function closeDelModal() {
   document.getElementById('del-modal').style.display = 'none';
 }
 function confirmDel() {
-  if (delTargetIdx < 0) return;
-  const nm = userDB[delTargetIdx]?.n || '';
-  userDB.splice(delTargetIdx, 1);
-  saveUserDB();
+  if (delTargetBase) {
+    // base chemical: hide it
+    if (!hiddenBase.includes(delTargetName)) hiddenBase.push(delTargetName);
+    saveHidden();
+  } else {
+    if (delTargetIdx < 0) return;
+    userDB.splice(delTargetIdx, 1);
+    saveUserDB();
+  }
   closeDelModal();
-  toast('🗑️ ลบ ' + nm + ' แล้ว');
+  toast('🗑️ ลบ ' + delTargetName + ' แล้ว');
   rAdmin();
   uDash();
 }
@@ -3431,6 +3529,15 @@ function confirmResetAll() {
   userDB = [];
   saveUserDB();
   toast('🗑️ ลบข้อมูลกำหนดเองทั้งหมดแล้ว');
+  rAdmin();
+  uDash();
+}
+
+function restoreHidden() {
+  if (!confirm('กู้คืนสารพื้นฐานที่ลบไป ' + hiddenBase.length + ' รายการ?')) return;
+  hiddenBase = [];
+  saveHidden();
+  toast('✅ กู้คืนสารพื้นฐานแล้ว');
   rAdmin();
   uDash();
 }
@@ -3723,25 +3830,129 @@ function skipOnboard(){
 }
 
 // ══════════════════════════════════════════
+//  FARM SELECTOR
+// ══════════════════════════════════════════
+let pendingFarmId = null;
+let fpBuf = '';
+
+function renderFarmGrid() {
+  const grid = document.getElementById('farm-grid');
+  if (!grid || typeof FARMS === 'undefined') return;
+  grid.innerHTML = FARMS.map(f => `
+    <div class="farm-card" onclick="openFarmPin('${f.id}','${f.name}','${f.icon}')">
+      <div class="farm-card-icon">${f.icon}</div>
+      <div class="farm-card-name">${f.name}</div>
+    </div>
+  `).join('');
+}
+
+function openFarmPin(id, name, icon) {
+  pendingFarmId = id;
+  fpBuf = '';
+  updFpDots();
+  document.getElementById('fp-icon').textContent = icon;
+  document.getElementById('fp-name').textContent = name;
+  document.getElementById('fp-err').textContent = '';
+  document.getElementById('farm-pin-modal').style.display = 'flex';
+}
+
+function updFpDots() {
+  for (let i = 0; i < 4; i++) {
+    const d = document.getElementById('fpd'+i);
+    if (d) d.className = 'fp-dot' + (i < fpBuf.length ? ' on' : '');
+  }
+}
+
+function fpk(k) {
+  if (fpBuf.length >= 4) return;
+  fpBuf += k;
+  updFpDots();
+  if (fpBuf.length === 4) setTimeout(submitFarmPin, 120);
+}
+
+function fpDel() { fpBuf = fpBuf.slice(0,-1); updFpDots(); }
+
+function fpCancel() {
+  document.getElementById('farm-pin-modal').style.display = 'none';
+  pendingFarmId = null; fpBuf = '';
+}
+
+async function submitFarmPin() {
+  const ok = await verifyFarmPIN(pendingFarmId, fpBuf);
+  if (ok) {
+    setCurrentFarm(pendingFarmId);
+    document.getElementById('farm-pin-modal').style.display = 'none';
+    document.getElementById('farm-selector').style.display = 'none';
+    updateFarmBadge();
+    syncFirestoreChemicals();
+    trackVisit().catch(()=>{});
+    if (!localStorage.getItem('cn2_ob')) { obStep=0; showOnboard(); }
+  } else {
+    document.getElementById('fp-err').textContent = 'PIN ไม่ถูกต้อง';
+    fpBuf = ''; updFpDots();
+    setTimeout(() => { document.getElementById('fp-err').textContent=''; }, 2000);
+  }
+}
+
+function showFarmSelector() {
+  renderFarmGrid();
+  document.getElementById('farm-selector').style.display = 'flex';
+}
+
+function updateFarmBadge() {
+  const farm = getCurrentFarm();
+  const el = document.getElementById('farm-badge');
+  if (el) el.textContent = farm ? farm.icon + ' ' + farm.short : 'เลือกฟาร์ม';
+}
+
+// ── Firestore Chemical Sync ───────────────────────────────────
+async function syncFirestoreChemicals() {
+  try {
+    const farm = getCurrentFarm();
+    if (!farm || typeof loadChemicals === 'undefined') return;
+    const chems = await loadChemicals(farm.id);
+    firestoreDB = chems.map(c => ({
+      n: c.name, c: c.class, cs: c.cas||'-', u: c.hsNumbers||'',
+      _id: c._id, _src: c._src
+    }));
+    uDash();
+    if (cp==='search') rCL('');
+    if (cp==='admin') rAdmin();
+  } catch(e) {
+    console.warn('[CNX] syncFirestoreChemicals:', e);
+  }
+}
+
+// ══════════════════════════════════════════
 //  SPLASH + INIT
 // ══════════════════════════════════════════
 window.onload=()=>{
   uNB('dashboard');
   renderAlerts();
   uDash();
-  // splash → onboard (if first time) → app
+  renderFarmGrid();
+  updateFarmBadge();
+  // splash → farm selector / app
   setTimeout(()=>{
     const sp=document.getElementById('splash');
     sp.classList.add('hide');
-    setTimeout(()=>{
+    setTimeout(async ()=>{
       sp.style.display='none';
+      const farm = getCurrentFarm();
+      if (!farm) {
+        // ยังไม่ได้เลือกฟาร์ม → แสดง farm selector
+        showFarmSelector();
+        return;
+      }
+      // มีฟาร์มอยู่แล้ว → sync Firestore แล้วเข้าแอป
+      syncFirestoreChemicals();
+      trackVisit().catch(()=>{});
       if(!localStorage.getItem('cn2_ob')){
         obStep=0;
         showOnboard();
       }
     },520);
   },2000);
-  // register PWA service worker
   if('serviceWorker' in navigator){
     navigator.serviceWorker.register('sw.js')
       .then(()=>console.log('✅ SW registered'))
