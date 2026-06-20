@@ -610,9 +610,13 @@ select.fi option{background:#0c1120;color:var(--tx)}
 <!-- ══ FARM SELECTOR ══ -->
 <div id="farm-selector" style="display:none">
   <div style="text-align:center;margin-bottom:28px">
-    <div style="font-size:44px;margin-bottom:10px">⚗️</div>
-    <div style="font-size:22px;font-weight:900;letter-spacing:-.03em">ChemNexus AI</div>
-    <div style="font-size:12px;color:var(--tx3);margin-top:5px">เลือกศูนย์วิจัยเพื่อเข้าใช้งาน</div>
+    <div style="font-size:44px;margin-bottom:8px">⚗️</div>
+    <div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:2px">
+      <div style="font-size:22px;font-weight:900;letter-spacing:-.03em">ChemNexus AI</div>
+      <span style="font-size:10px;font-weight:800;color:var(--lime);background:var(--lb);border:1px solid var(--lbd);padding:2px 7px;border-radius:5px">v3.0</span>
+    </div>
+    <div style="font-size:11px;color:var(--tx3);margin-top:2px">พัฒนาโดย <span style="color:var(--tx2);font-weight:700">Atit Chimnan</span></div>
+    <div style="font-size:11px;color:var(--tx3);margin-top:6px">เลือกศูนย์วิจัยเพื่อเข้าใช้งาน</div>
   </div>
   <div class="farm-grid" id="farm-grid"></div>
 </div>
@@ -3832,6 +3836,145 @@ function skipOnboard(){
 // ══════════════════════════════════════════
 //  FARM SELECTOR
 // ══════════════════════════════════════════
+// กุ้งแต่ละบุคลิก — 5 ฟาร์ม
+const FARM_SVGS = {
+  farm_hk: `<svg viewBox="0 0 80 90" xmlns="http://www.w3.org/2000/svg">
+    <path d="M28 84 Q22 94 34 90 Q38 85 40 84 Q42 85 46 90 Q58 94 52 84" fill="#d4613a"/>
+    <path d="M36 84 Q40 92 44 84" fill="#b8461e"/>
+    <ellipse cx="40" cy="76" rx="10" ry="6" fill="#f4845f"/>
+    <ellipse cx="40" cy="66" rx="12" ry="7" fill="#ffb08a"/>
+    <ellipse cx="40" cy="56" rx="11" ry="6" fill="#f4845f"/>
+    <ellipse cx="40" cy="47" rx="10" ry="6" fill="#ffb08a"/>
+    <circle cx="40" cy="31" r="18" fill="#f4845f"/>
+    <ellipse cx="40" cy="17" rx="22" ry="3.5" fill="#1a1a2e"/>
+    <rect x="24" y="5" width="32" height="13" rx="5" fill="#16213e"/>
+    <rect x="24" y="14" width="32" height="3" fill="#b8ff3a" rx="1"/>
+    <circle cx="34" cy="28" r="6" fill="white"/><circle cx="46" cy="28" r="6" fill="white"/>
+    <circle cx="35" cy="28" r="3.5" fill="#111"/><circle cx="47" cy="28" r="3.5" fill="#111"/>
+    <circle cx="36" cy="26.5" r="1.2" fill="white"/><circle cx="48" cy="26.5" r="1.2" fill="white"/>
+    <path d="M34 37 Q40 42 46 37" stroke="#c24422" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+    <line x1="34" y1="15" x2="18" y2="3" stroke="#e8754a" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="46" y1="15" x2="62" y2="3" stroke="#e8754a" stroke-width="1.5" stroke-linecap="round"/>
+    <circle cx="63" cy="53" r="5" fill="none" stroke="#FFD700" stroke-width="2"/>
+    <line x1="68" y1="53" x2="76" y2="53" stroke="#FFD700" stroke-width="2" stroke-linecap="round"/>
+    <line x1="73" y1="53" x2="73" y2="57" stroke="#FFD700" stroke-width="2" stroke-linecap="round"/>
+    <line x1="76" y1="53" x2="76" y2="56" stroke="#FFD700" stroke-width="2" stroke-linecap="round"/>
+    <line x1="30" y1="58" x2="19" y2="66" stroke="#e8754a" stroke-width="1.2" stroke-linecap="round"/>
+    <line x1="29" y1="68" x2="18" y2="75" stroke="#e8754a" stroke-width="1.2" stroke-linecap="round"/>
+    <line x1="50" y1="58" x2="61" y2="66" stroke="#e8754a" stroke-width="1.2" stroke-linecap="round"/>
+    <line x1="51" y1="68" x2="62" y2="75" stroke="#e8754a" stroke-width="1.2" stroke-linecap="round"/>
+  </svg>`,
+  farm_rs: `<svg viewBox="0 0 80 90" xmlns="http://www.w3.org/2000/svg">
+    <path d="M28 84 Q22 94 34 90 Q38 85 40 84 Q42 85 46 90 Q58 94 52 84" fill="#d4613a"/>
+    <path d="M36 84 Q40 92 44 84" fill="#b8461e"/>
+    <ellipse cx="40" cy="76" rx="10" ry="6" fill="#f4845f"/>
+    <ellipse cx="40" cy="66" rx="12" ry="7" fill="#ffb08a"/>
+    <ellipse cx="40" cy="56" rx="11" ry="6" fill="#f4845f"/>
+    <ellipse cx="40" cy="47" rx="10" ry="6" fill="#ffb08a"/>
+    <circle cx="40" cy="31" r="18" fill="#f4845f"/>
+    <ellipse cx="40" cy="18" rx="26" ry="4" fill="#c8933a"/>
+    <path d="M20 18 Q25 4 40 3 Q55 4 60 18Z" fill="#dba832"/>
+    <path d="M20 18 Q40 14 60 18" stroke="#8B5E0A" stroke-width="2" fill="none"/>
+    <path d="M28 18 Q32 8 38 4" stroke="#c8933a" stroke-width="0.8" fill="none" opacity="0.6"/>
+    <path d="M47 18 Q44 8 40 4" stroke="#c8933a" stroke-width="0.8" fill="none" opacity="0.6"/>
+    <path d="M52 18 Q48 8 42 4" stroke="#c8933a" stroke-width="0.8" fill="none" opacity="0.6"/>
+    <circle cx="34" cy="28" r="6" fill="white"/><circle cx="46" cy="28" r="6" fill="white"/>
+    <circle cx="35" cy="28" r="3.5" fill="#111"/><circle cx="47" cy="28" r="3.5" fill="#111"/>
+    <circle cx="36" cy="26.5" r="1.2" fill="white"/><circle cx="48" cy="26.5" r="1.2" fill="white"/>
+    <path d="M33 37 Q40 43 47 37" stroke="#c24422" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+    <line x1="34" y1="15" x2="18" y2="3" stroke="#e8754a" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="46" y1="15" x2="62" y2="3" stroke="#e8754a" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="66" y1="72" x2="66" y2="46" stroke="#8B6914" stroke-width="1.5" stroke-linecap="round"/>
+    <ellipse cx="66" cy="43" rx="3" ry="5" fill="#dba832"/>
+    <ellipse cx="62" cy="49" rx="2.5" ry="4" fill="#dba832" transform="rotate(-25 62 49)"/>
+    <ellipse cx="70" cy="49" rx="2.5" ry="4" fill="#dba832" transform="rotate(25 70 49)"/>
+    <line x1="30" y1="58" x2="19" y2="66" stroke="#e8754a" stroke-width="1.2" stroke-linecap="round"/>
+    <line x1="29" y1="68" x2="18" y2="75" stroke="#e8754a" stroke-width="1.2" stroke-linecap="round"/>
+    <line x1="50" y1="58" x2="61" y2="66" stroke="#e8754a" stroke-width="1.2" stroke-linecap="round"/>
+    <line x1="51" y1="68" x2="62" y2="75" stroke="#e8754a" stroke-width="1.2" stroke-linecap="round"/>
+  </svg>`,
+  farm_hj: `<svg viewBox="0 0 80 90" xmlns="http://www.w3.org/2000/svg">
+    <path d="M28 84 Q22 94 34 90 Q38 85 40 84 Q42 85 46 90 Q58 94 52 84" fill="#d4613a"/>
+    <path d="M36 84 Q40 92 44 84" fill="#b8461e"/>
+    <ellipse cx="40" cy="76" rx="10" ry="6" fill="#f4845f"/>
+    <ellipse cx="40" cy="66" rx="12" ry="7" fill="#ffb08a"/>
+    <ellipse cx="40" cy="56" rx="11" ry="6" fill="#f4845f"/>
+    <ellipse cx="40" cy="47" rx="10" ry="6" fill="#ffb08a"/>
+    <circle cx="40" cy="31" r="18" fill="#f4845f"/>
+    <path d="M16 18 Q22 10 28 16 Q34 22 40 14 Q46 6 52 14 Q58 22 64 18"
+          stroke="#1a9be8" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <rect x="24" y="26" width="11" height="8" rx="3" fill="#0055bb" opacity="0.9"/>
+    <rect x="39" y="26" width="11" height="8" rx="3" fill="#0055bb" opacity="0.9"/>
+    <line x1="35" y1="30" x2="39" y2="30" stroke="#003a88" stroke-width="2"/>
+    <path d="M24 28 Q18 25 14 27" stroke="#003a88" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+    <path d="M50 28 Q56 25 60 27" stroke="#003a88" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+    <ellipse cx="28" cy="28" rx="3" ry="2" fill="white" opacity="0.35"/>
+    <ellipse cx="43" cy="28" rx="3" ry="2" fill="white" opacity="0.35"/>
+    <path d="M34 39 Q40 44 46 39" stroke="#c24422" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+    <line x1="34" y1="15" x2="18" y2="3" stroke="#e8754a" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="46" y1="15" x2="62" y2="3" stroke="#e8754a" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="30" y1="58" x2="19" y2="66" stroke="#e8754a" stroke-width="1.2" stroke-linecap="round"/>
+    <line x1="29" y1="68" x2="18" y2="75" stroke="#e8754a" stroke-width="1.2" stroke-linecap="round"/>
+    <line x1="50" y1="58" x2="61" y2="66" stroke="#e8754a" stroke-width="1.2" stroke-linecap="round"/>
+    <line x1="51" y1="68" x2="62" y2="75" stroke="#e8754a" stroke-width="1.2" stroke-linecap="round"/>
+  </svg>`,
+  farm_pb: `<svg viewBox="0 0 80 90" xmlns="http://www.w3.org/2000/svg">
+    <path d="M28 84 Q22 94 34 90 Q38 85 40 84 Q42 85 46 90 Q58 94 52 84" fill="#d4613a"/>
+    <path d="M36 84 Q40 92 44 84" fill="#b8461e"/>
+    <ellipse cx="40" cy="76" rx="10" ry="6" fill="#f4845f"/>
+    <ellipse cx="40" cy="66" rx="12" ry="7" fill="#ffb08a"/>
+    <ellipse cx="40" cy="56" rx="11" ry="6" fill="#f4845f"/>
+    <ellipse cx="40" cy="47" rx="10" ry="6" fill="#ffb08a"/>
+    <circle cx="40" cy="31" r="18" fill="#f4845f"/>
+    <path d="M18 22 L24 9 L31 18 L40 5 L49 18 L56 9 L62 22 L62 26 L18 26 Z" fill="#FFD700"/>
+    <rect x="18" y="23" width="44" height="5" rx="1.5" fill="#f0c000"/>
+    <circle cx="40" cy="12" r="3.5" fill="#ff3838"/>
+    <circle cx="28" cy="19" r="2.5" fill="#44aaff"/>
+    <circle cx="52" cy="19" r="2.5" fill="#44aaff"/>
+    <path d="M18 26 L24 9 L31 18 L40 5 L49 18 L56 9 L62 26" fill="none" stroke="#cc9900" stroke-width="1"/>
+    <circle cx="34" cy="29" r="6" fill="white"/><circle cx="46" cy="29" r="6" fill="white"/>
+    <circle cx="35" cy="29" r="3.5" fill="#111"/><circle cx="47" cy="29" r="3.5" fill="#111"/>
+    <circle cx="36" cy="27.5" r="1.2" fill="white"/><circle cx="48" cy="27.5" r="1.2" fill="white"/>
+    <path d="M34 38 Q40 43 46 38" stroke="#c24422" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+    <line x1="34" y1="15" x2="18" y2="3" stroke="#e8754a" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="46" y1="15" x2="62" y2="3" stroke="#e8754a" stroke-width="1.5" stroke-linecap="round"/>
+    <path d="M66 47 L68 43 L70 47 L66 49 L70 49 L68 53" fill="none" stroke="#44aaff" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+    <line x1="30" y1="58" x2="19" y2="66" stroke="#e8754a" stroke-width="1.2" stroke-linecap="round"/>
+    <line x1="29" y1="68" x2="18" y2="75" stroke="#e8754a" stroke-width="1.2" stroke-linecap="round"/>
+    <line x1="50" y1="58" x2="61" y2="66" stroke="#e8754a" stroke-width="1.2" stroke-linecap="round"/>
+    <line x1="51" y1="68" x2="62" y2="75" stroke="#e8754a" stroke-width="1.2" stroke-linecap="round"/>
+  </svg>`,
+  farm_pps: `<svg viewBox="0 0 80 90" xmlns="http://www.w3.org/2000/svg">
+    <path d="M28 84 Q22 94 34 90 Q38 85 40 84 Q42 85 46 90 Q58 94 52 84" fill="#d4613a"/>
+    <path d="M36 84 Q40 92 44 84" fill="#b8461e"/>
+    <ellipse cx="40" cy="76" rx="10" ry="6" fill="#f4845f"/>
+    <ellipse cx="40" cy="66" rx="12" ry="7" fill="#ffb08a"/>
+    <ellipse cx="40" cy="56" rx="11" ry="6" fill="#f4845f"/>
+    <ellipse cx="40" cy="47" rx="10" ry="6" fill="#ffb08a"/>
+    <path d="M30 47 Q32 41 36 43 L40 44 L44 43 Q48 41 50 47" fill="white" stroke="#ddd" stroke-width="0.8"/>
+    <circle cx="40" cy="31" r="18" fill="#f4845f"/>
+    <path d="M16 30 Q18 22 27 25" stroke="#999" stroke-width="2" fill="none" stroke-linecap="round"/>
+    <path d="M64 30 Q62 22 53 25" stroke="#999" stroke-width="2" fill="none" stroke-linecap="round"/>
+    <ellipse cx="32" cy="29" rx="8" ry="6.5" fill="#d4eeff" stroke="#3388cc" stroke-width="2"/>
+    <ellipse cx="48" cy="29" rx="8" ry="6.5" fill="#d4eeff" stroke="#3388cc" stroke-width="2"/>
+    <line x1="40" y1="27" x2="40" y2="31" stroke="#3388cc" stroke-width="2"/>
+    <ellipse cx="29" cy="26" rx="2" ry="1.5" fill="white" opacity="0.7"/>
+    <ellipse cx="45" cy="26" rx="2" ry="1.5" fill="white" opacity="0.7"/>
+    <path d="M34 39 Q40 44 46 39" stroke="#c24422" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+    <line x1="34" y1="15" x2="18" y2="3" stroke="#e8754a" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="46" y1="15" x2="62" y2="3" stroke="#e8754a" stroke-width="1.5" stroke-linecap="round"/>
+    <path d="M65 48 Q71 53 65 58 Q71 63 65 68 Q71 73 65 78" stroke="#b8ff3a" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+    <path d="M71 48 Q65 53 71 58 Q65 63 71 68 Q65 73 71 78" stroke="#44aacc" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+    <line x1="65" y1="53" x2="71" y2="53" stroke="#888" stroke-width="1" stroke-linecap="round"/>
+    <line x1="65" y1="63" x2="71" y2="63" stroke="#888" stroke-width="1" stroke-linecap="round"/>
+    <line x1="65" y1="73" x2="71" y2="73" stroke="#888" stroke-width="1" stroke-linecap="round"/>
+    <line x1="30" y1="58" x2="19" y2="66" stroke="#e8754a" stroke-width="1.2" stroke-linecap="round"/>
+    <line x1="29" y1="68" x2="18" y2="75" stroke="#e8754a" stroke-width="1.2" stroke-linecap="round"/>
+    <line x1="50" y1="58" x2="61" y2="66" stroke="#e8754a" stroke-width="1.2" stroke-linecap="round"/>
+    <line x1="51" y1="68" x2="62" y2="75" stroke="#e8754a" stroke-width="1.2" stroke-linecap="round"/>
+  </svg>`
+};
+
 let pendingFarmId = null;
 let fpBuf = '';
 
@@ -3840,7 +3983,7 @@ function renderFarmGrid() {
   if (!grid || typeof FARMS === 'undefined') return;
   grid.innerHTML = FARMS.map(f => `
     <div class="farm-card" onclick="openFarmPin('${f.id}','${f.name}','${f.icon}')">
-      <div class="farm-card-icon">${f.icon}</div>
+      <div style="width:68px;height:68px;margin:0 auto 8px">${FARM_SVGS[f.id]||f.icon}</div>
       <div class="farm-card-name">${f.name}</div>
     </div>
   `).join('');
