@@ -2531,12 +2531,22 @@ function renderMatrix() {
     CO.forEach((c, ci) => {
       const val = MX[r]?.[ci] || '?';
       const isSelf = (r === c);
-      let bg, tx, label, cursor;
-      if (val === '0') { bg = 'rgba(255,56,56,.25)'; tx = '#ff7070'; label = '✕'; cursor = 'pointer'; }
-      else if (val === '00') { bg = 'rgba(0,232,122,.2)'; tx = '#33ff99'; label = '✓'; cursor = 'pointer'; }
-      else { bg = 'rgba(255,170,0,.2)'; tx = '#ffcc55'; label = val; cursor = isSelf ? 'default' : 'pointer'; }
-      const click = isSelf ? '' : `onclick="showMxDetail('${r}','${c}','${val}')"`;
-      const hover = isSelf ? '' : `onmouseover="this.style.filter='brightness(1.3)'" onmouseout="this.style.filter='none'"`;
+      let bg, tx, label, cursor, click, hover;
+      if (isSelf) {
+        bg = 'var(--s1)'; tx = 'var(--tx3)'; label = '—'; cursor = 'default'; click = ''; hover = '';
+      } else if (val === '0') {
+        bg = 'rgba(255,56,56,.25)'; tx = '#ff7070'; label = '✕'; cursor = 'pointer';
+        click = `onclick="showMxDetail('${r}','${c}','${val}')"`;
+        hover = `onmouseover="this.style.filter='brightness(1.3)'" onmouseout="this.style.filter='none'"`;
+      } else if (val === '00') {
+        bg = 'rgba(0,232,122,.2)'; tx = '#33ff99'; label = '✓'; cursor = 'pointer';
+        click = `onclick="showMxDetail('${r}','${c}','${val}')"`;
+        hover = `onmouseover="this.style.filter='brightness(1.3)'" onmouseout="this.style.filter='none'"`;
+      } else {
+        bg = 'rgba(255,170,0,.2)'; tx = '#ffcc55'; label = val; cursor = 'pointer';
+        click = `onclick="showMxDetail('${r}','${c}','${val}')"`;
+        hover = `onmouseover="this.style.filter='brightness(1.3)'" onmouseout="this.style.filter='none'"`;
+      }
       html += `<td ${click} style="padding:3px;border:1px solid var(--bd);background:${bg};color:${tx};text-align:center;font-weight:800;font-size:9px;cursor:${cursor};min-width:28px;transition:filter .15s" ${hover}>${label}</td>`;
     });
     html += `</tr>`;
