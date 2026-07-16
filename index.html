@@ -1312,7 +1312,42 @@ const PR={
   "6.1A-8B": {g:"ไอพิษเข้มข้น",               rx:"ฟอร์มาลดีไฮด์ + กรดแก่ เร่งการระเหย ความเข้มข้นไอพิษสูงมาก ก่อมะเร็ง"},
   "6.1B-5.1B":{g:"ก๊าซพิษ",                   rx:"โซเดียมไนไตรท์ (5.1B) + สารพิษ เกิดปฏิกิริยาที่ปล่อยไนโตรเจนออกไซด์ NOₓ พิษ"},
 };
-const DB=[{n:"LPG (ก๊าซหุงต้ม)",c:"2A",cs:"68476-85-7",u:"1075"},{n:"สเปรย์แอลกอฮอล์",c:"2B",cs:"64-17-5",u:"1950"},{n:"Nitroglycerin",c:"1",cs:"55-63-0",u:"0143"},{n:"เอทานอล 95%",c:"3A",cs:"64-17-5",u:"1170"},{n:"อะซิโตน",c:"3A",cs:"67-64-1",u:"1090"},{n:"โทลูอีน",c:"3A",cs:"108-88-3",u:"1294"},{n:"ไซลีน",c:"3A",cs:"1330-20-7",u:"1307"},{n:"แคลเซียมคาร์ไบด์",c:"4.3",cs:"75-20-7",u:"1402"},{n:"คลอรีนผง",c:"5.1A",cs:"7778-54-3",u:"1748"},{n:"โซเดียมไนไตรท์",c:"5.1B",cs:"7632-00-0",u:"1500"},{n:"ไฮโดรเจนเปอร์ออกไซด์ (30%)",c:"5.1B",cs:"7722-84-1",u:"2014"},{n:"ฟอร์มาลดีไฮด์",c:"6.1A",cs:"50-00-0",u:"1198"},{n:"กรดเกลือ (HCl)",c:"8B",cs:"7647-01-0",u:"1789"},{n:"โซเดียมไฮดรอกไซด์ (โซดาไฟ)",c:"8B",cs:"1310-73-2",u:"1823"},{n:"กรดซัลฟิวริก",c:"8B",cs:"7664-93-9",u:"1830"},{n:"อะซิติกแอซิด",c:"8B",cs:"64-19-7",u:"2789"},{n:"คลอรีนน้ำ (โซเดียมไฮโปคลอไรต์)",c:"8B",cs:"7681-52-9",u:"1791"},{n:"ไบโอซอล 300",c:"8B",cs:"-",u:"-"},{n:"EDTA",c:"12",cs:"60-00-4",u:"-"},{n:"โซเดียมไบคาร์บอเนต",c:"13",cs:"144-55-8",u:"-"},{n:"ปูนขาว",c:"13",cs:"1305-62-0",u:"1910"}];
+const DB=[
+{n:"โซเดียมไฮโปคลอไรต์ (คลอรีนน้ำ)",c:"8B",cs:"7681-52-9",u:"1791"},
+{n:"แคลเซียมไฮโปคลอไรต์ (คลอรีนผง 65%)",c:"5.1A",cs:"7778-54-3",u:"1748"},
+{n:"โซเดียมไฮดรอกไซด์ (โซดาไฟ)",c:"8B",cs:"1310-73-2",u:"1823"},
+{n:"โพวิโดนไอโอดีน",c:"12",cs:"25655-41-8",u:"-"},
+{n:"เอทิลแอลกอฮอล์ (เอทานอล)",c:"3A",cs:"64-17-5",u:"1170"},
+{n:"ไฮโดรเจนเปอร์ออกไซด์",c:"5.1B",cs:"7722-84-1",u:"2014"},
+{n:"แคลเซียมคลอไรด์",c:"13",cs:"10043-52-4",u:"-"},
+{n:"กรดไฮโดรคลอริก (กรดเกลือ)",c:"8B",cs:"7647-01-0",u:"1789"},
+{n:"โซเดียมไนไตรท์",c:"5.1B",cs:"7632-00-0",u:"1500"},
+{n:"กรดอะซิติก (≤80%)",c:"8B",cs:"64-19-7",u:"2790"},
+{n:"กรดซัลฟิวริก",c:"8B",cs:"7664-93-9",u:"1830"},
+{n:"ก๊าซหุงต้ม (LPG)",c:"2A",cs:"68476-85-7",u:"1075"},
+{n:"ออกซิเจน (ท่ออัด)",c:"2A",cs:"7782-44-7",u:"1072"},
+{n:"น้ำมันเบนซิน",c:"3A",cs:"86290-81-5",u:"1203"},
+{n:"น้ำมันดีเซล",c:"3B",cs:"68334-30-5",u:"1202"},
+{n:"กรดไนตริก (≤70%)",c:"8B",cs:"7697-37-2",u:"2031"}];
+
+// ── SMART-ADD DICTIONARY: พิมพ์ชื่อไทย/อังกฤษ/ชื่อสามัญ → เติมข้อมูลครบในคลิกเดียว ──
+const SMART_DB=[
+{n:"โซเดียมไฮโปคลอไรต์ (คลอรีนน้ำ)",c:"8B",cs:"7681-52-9",u:"1791",f:"NaOCl",st:"ของเหลว",al:["sodium hypochlorite","คลอรีนน้ำ","ไฮโปคลอไรต์","น้ำยาฟอกขาว","hypochlorite","naocl","chlorine liquid"]},
+{n:"แคลเซียมไฮโปคลอไรต์ (คลอรีนผง 65%)",c:"5.1A",cs:"7778-54-3",u:"1748",f:"Ca(OCl)2",st:"ของแข็ง (ผง/เม็ด)",al:["calcium hypochlorite","คลอรีนผง","คลอรีน 65","แคลเซียมไฮโป","hi-chlon","ปูนคลอรีน"]},
+{n:"โซเดียมไฮดรอกไซด์ (โซดาไฟ)",c:"8B",cs:"1310-73-2",u:"1823",f:"NaOH",st:"ของแข็ง (เกล็ด/เม็ด)",al:["sodium hydroxide","โซดาไฟ","คอสติกโซดา","caustic soda","naoh","lye"]},
+{n:"โพวิโดนไอโอดีน",c:"12",cs:"25655-41-8",u:"-",f:"C6H9NO·xI",st:"ของเหลว",al:["povidone iodine","เบตาดีน","ไอโอดีน","betadine","pvp-i","povidone"]},
+{n:"เอทิลแอลกอฮอล์ (เอทานอล)",c:"3A",cs:"64-17-5",u:"1170",f:"C2H5OH",st:"ของเหลวใส",al:["ethyl alcohol","ethanol","เอทานอล","แอลกอฮอล์","เหล้า 95","alcohol 95","etoh"]},
+{n:"ไฮโดรเจนเปอร์ออกไซด์",c:"5.1B",cs:"7722-84-1",u:"2014",f:"H2O2",st:"ของเหลวใส",al:["hydrogen peroxide","ไฮโดรเจนเปอร์","น้ำยาล้างแผล","h2o2","peroxide"]},
+{n:"แคลเซียมคลอไรด์",c:"13",cs:"10043-52-4",u:"-",f:"CaCl2",st:"ของแข็ง (เม็ด/เกล็ด)",al:["calcium chloride","แคลเซียมคลอไรด์","cacl2","แคลเซียม"]},
+{n:"กรดไฮโดรคลอริก (กรดเกลือ)",c:"8B",cs:"7647-01-0",u:"1789",f:"HCl",st:"ของเหลว (ควันกรด)",al:["hydrochloric acid","hydrochloric","กรดเกลือ","กรดไฮโดรคลอริก","hcl","muriatic"]},
+{n:"โซเดียมไนไตรท์",c:"5.1B",cs:"7632-00-0",u:"1500",f:"NaNO2",st:"ของแข็ง (ผง/เม็ด)",al:["sodium nitrite","โซเดียมไนไตรท์","ไนไตรท์","nano2","ดินประสิว"]},
+{n:"กรดอะซิติก (≤80%)",c:"8B",cs:"64-19-7",u:"2790",f:"CH3COOH",st:"ของเหลว (กลิ่นฉุน)",al:["acetic acid","acetic","กรดน้ำส้ม","อะซิติก","vinegar acid","ch3cooh","glacial acetic"]},
+{n:"กรดซัลฟิวริก",c:"8B",cs:"7664-93-9",u:"1830",f:"H2SO4",st:"ของเหลวหนืด",al:["sulfuric acid","sulfuric","กรดกำมะถัน","ซัลฟิวริก","h2so4","น้ำกรดแบตเตอรี่"]},
+{n:"ก๊าซหุงต้ม (LPG)",c:"2A",cs:"68476-85-7",u:"1075",f:"C3H8/C4H10",st:"ก๊าซเหลวอัดถัง",al:["lpg","liquified petroleum gas","แอลพีจี","ก๊าซหุงต้ม","แก๊สหุงต้ม","propane","โพรเพน"]},
+{n:"ออกซิเจน (ท่ออัด)",c:"2A",cs:"7782-44-7",u:"1072",f:"O2",st:"ก๊าซอัดท่อ",al:["oxygen","ออกซิเจน","o2","ท่อออกซิเจน","oxygen cylinder"]},
+{n:"น้ำมันเบนซิน",c:"3A",cs:"86290-81-5",u:"1203",f:"-",st:"ของเหลวไวไฟ",al:["gasoline","เบนซิน","น้ำมันเบนซิน","แก๊สโซฮอล์","gasohol","petrol","91","95"]},
+{n:"น้ำมันดีเซล",c:"3B",cs:"68334-30-5",u:"1202",f:"-",st:"ของเหลว",al:["diesel","ดีเซล","น้ำมันดีเซล","โซล่า","b7","diesel fuel"]},
+{n:"กรดไนตริก (≤70%)",c:"8B",cs:"7697-37-2",u:"2031",f:"HNO3",st:"ของเหลว (ควันกรด)",al:["nitric acid","กรดไนตริก","กรดดินประสิว","hno3","nitric"]}];
 const PP={
   "กรดเกลือ (HCl)":                  {f:"HCl",          mw:"36.46 g/mol",  st:"ของเหลว กลิ่นฉุนรุนแรง",   cn:"30–37%",   bp:"–85°C",    mp:"–114°C",   d:"1.16 g/cm³",  flash:"-",         ghs:["corrosion","exclamation","skull"]},
   "กรดซัลฟิวริก":                     {f:"H₂SO₄",       mw:"98.08 g/mol",  st:"ของเหลว หนืด ไม่มีสี",      cn:"98%",      bp:"337°C",    mp:"10°C",     d:"1.84 g/cm³",  flash:"-",         ghs:["corrosion","skull","exclamation"]},
@@ -3289,11 +3324,37 @@ function closeFormModal() {
 let pubChemTimer = null;
 let pubChemAbort = null;
 
+function smartMatch(query){
+  const q=query.trim().toLowerCase();
+  if(q.length<1)return[];
+  return SMART_DB.map((s,i)=>({s,i}))
+    .filter(({s})=>s.n.toLowerCase().includes(q)||s.al.some(a=>a.toLowerCase().includes(q)))
+    .slice(0,6);
+}
+
 function pubChemAutocomplete(query) {
   const dd = document.getElementById('pubchem-dd');
   const loading = document.getElementById('pubchem-loading');
 
-  if (!query || query.length < 2) { dd.style.display = 'none'; return; }
+  if (!query || query.length < 1) { dd.style.display = 'none'; return; }
+
+  // ── LOCAL SMART MATCH (ทันที ไม่ต้องรอเน็ต รองรับภาษาไทย) ──
+  const local = smartMatch(query);
+  if (local.length) {
+    dd.innerHTML = local.map(({s,i}) => {
+      const h = HC[s.c] || {};
+      return `<div style="padding:10px 14px;cursor:pointer;border-bottom:1px solid var(--bd);font-size:12px;font-weight:600;color:var(--tx);display:flex;align-items:center;gap:8px;transition:background .1s"
+           onmousedown="selectSmartResult(${i})" ontouchstart="selectSmartResult(${i})"
+           onmouseover="this.style.background='rgba(184,255,58,.06)'" onmouseout="this.style.background='none'">
+        <span style="font-size:16px;flex-shrink:0">${h.ic||'🧪'}</span>
+        <div style="flex:1;min-width:0"><div>${s.n}</div>
+        <div style="font-size:9px;color:var(--tx3)">CAS ${s.cs} · UN ${s.u}</div></div>
+        <span style="font-size:9px;font-weight:800;color:var(--lime);background:var(--lb);border:1px solid var(--lbd);padding:2px 7px;border-radius:5px;flex-shrink:0">${s.c}</span>
+      </div>`;
+    }).join('') + `<div style="padding:7px 14px;font-size:8.5px;color:var(--tx3);border-bottom:1px solid var(--bd)">⚡ ข้อมูลฟาร์ม — คลิกเพื่อเติมทุกช่องอัตโนมัติ</div>`;
+    dd.style.display = 'block';
+  }
+  if (query.length < 2) return;
 
   clearTimeout(pubChemTimer);
   pubChemTimer = setTimeout(async () => {
@@ -3309,11 +3370,12 @@ function pubChemAutocomplete(query) {
       const data = await res.json();
       const items = data?.dictionary_terms?.compound || [];
 
+      const localHtml = smartMatch(query).length ? dd.innerHTML : '';
       if (items.length === 0) {
-        dd.innerHTML = `<div style="padding:14px;text-align:center;color:var(--tx3);font-size:11px">ไม่พบผลลัพธ์สำหรับ "${query}"</div>`;
+        dd.innerHTML = localHtml || `<div style="padding:14px;text-align:center;color:var(--tx3);font-size:11px">ไม่พบผลลัพธ์สำหรับ "${query}"</div>`;
         dd.style.display = 'block';
       } else {
-        dd.innerHTML = items.map(name =>
+        dd.innerHTML = localHtml + items.map(name =>
           `<div style="padding:10px 14px;cursor:pointer;border-bottom:1px solid var(--bd);font-size:12px;font-weight:600;color:var(--tx);display:flex;align-items:center;gap:8px;transition:background .1s"
                onmousedown="selectPubChemResult('${name.replace(/'/g, "\\'")}')"
                ontouchstart="selectPubChemResult('${name.replace(/'/g, "\\'")}')"
@@ -3326,14 +3388,29 @@ function pubChemAutocomplete(query) {
         dd.style.display = 'block';
       }
     } catch (e) {
-      if (e.name !== 'AbortError') {
-        dd.innerHTML = `<div style="padding:14px;text-align:center;color:var(--red);font-size:11px">⚠ เชื่อมต่อ PubChem ไม่ได้</div>`;
+      if (e.name !== 'AbortError' && !smartMatch(query).length) {
+        dd.innerHTML = `<div style="padding:14px;text-align:center;color:var(--red);font-size:11px">⚠ เชื่อมต่อ PubChem ไม่ได้ (ยังใช้ข้อมูลฟาร์มด้านบนได้)</div>`;
         dd.style.display = 'block';
       }
     } finally {
       loading.style.display = 'none';
     }
   }, 350);
+}
+
+function selectSmartResult(idx) {
+  const s = SMART_DB[idx]; if (!s) return;
+  document.getElementById('pubchem-dd').style.display = 'none';
+  document.getElementById('f-pubchem-search').value = s.n;
+  document.getElementById('f-name').value = s.n;
+  document.getElementById('f-cas').value = s.cs === '-' ? '' : s.cs;
+  document.getElementById('f-un').value = s.u === '-' ? '' : s.u;
+  if (s.f && s.f !== '-') document.getElementById('f-formula').value = s.f;
+  if (s.st) document.getElementById('f-state').value = s.st;
+  document.getElementById('f-class').value = s.c;
+  updateClassPreview(s.c);
+  const h = HC[s.c] || {};
+  showPubChemStatus(`⚡ เติมข้อมูล "${s.n}" ครบแล้ว — Class ${s.c} ${h.t||''} (จากฐานข้อมูลฟาร์ม โปรดตรวจสอบก่อนบันทึก)`, 'green');
 }
 
 async function selectPubChemResult(name) {
