@@ -965,6 +965,11 @@ select.fi option{background:#0c1120;color:var(--tx)}
         <input class="fi" id="ed-h" type="number" value="6" min="2" style="font-size:12px" onchange="edMeta()"></div>
       <button class="ib2" onclick="edSaveRoom()" title="บันทึกห้อง"><i class="ph-bold ph-floppy-disk"></i></button>
     </div>
+    <div style="margin:0 16px 10px;display:flex;align-items:center;gap:8px;padding:8px 10px;background:var(--s1);border:1px solid var(--bd);border-radius:var(--rs)">
+      <i class="ph ph-ruler" style="color:var(--lime);font-size:14px"></i>
+      <div style="flex:1;font-size:10px;color:var(--tx2);line-height:1.5">ระยะ "แยกบริเวณ" ภายในห้องเดียวกัน (ม.)<br><span style="font-size:8.5px;color:var(--tx3)">ค่าเริ่มต้น 5 ม. อ้างอิงเงื่อนไขข้อ 7 — หรือใช้ 🧱 กำแพงกั้นแทนได้</span></div>
+      <input class="fi" id="ed-sep" type="number" value="5" min="1" step="0.5" style="width:64px;font-size:13px;text-align:center" onchange="edRender()">
+    </div>
     <div id="ed-rooms" style="margin:0 16px 10px;display:flex;gap:6px;flex-wrap:wrap"></div>
 
     <div class="sl">เพิ่มลงผัง</div>
@@ -1388,7 +1393,34 @@ const DB=[
 {n:"ออกซิเจน (ท่ออัด)",c:"2A",cs:"7782-44-7",u:"1072"},
 {n:"น้ำมันเบนซิน",c:"3A",cs:"86290-81-5",u:"1203"},
 {n:"น้ำมันดีเซล",c:"3B",cs:"68334-30-5",u:"1202"},
-{n:"กรดไนตริก (≤70%)",c:"8B",cs:"7697-37-2",u:"2031"}];
+{n:"กรดไนตริก (≤70%)",c:"8B",cs:"7697-37-2",u:"2031"},
+{n:"ไบโอซอล 300",c:"8B",cs:"-",u:"-"},
+{n:"ปูนขาว",c:"13",cs:"1305-62-0",u:"-"},
+{n:"โซเดียมไทโอซัลเฟต",c:"13",cs:"7772-98-7",u:"-"},
+{n:"แมกนีเซียมคลอไรด์",c:"13",cs:"7786-30-3",u:"-"},
+{n:"โซเดียมไบคาร์บอเนต",c:"13",cs:"144-55-8",u:"-"},
+{n:"EDTA",c:"13",cs:"60-00-4",u:"-"},
+{n:"ซันไล (น้ำยาล้างจาน)",c:"12",cs:"-",u:"-"},
+{n:"อควา บราวน์",c:"13",cs:"-",u:"-"}];
+
+// ── สารเคมีประจำแต่ละศูนย์ (จาก สอ.1 + แผนผังจริง) ──
+const FARM_CHEMS={
+"สัตว์น้ำ":["โซเดียมไฮโปคลอไรต์ (คลอรีนน้ำ)","แคลเซียมไฮโปคลอไรต์ (คลอรีนผง 65%)","โซเดียมไฮดรอกไซด์ (โซดาไฟ)","โพวิโดนไอโอดีน","เอทิลแอลกอฮอล์ (เอทานอล)","ไฮโดรเจนเปอร์ออกไซด์","แคลเซียมคลอไรด์","กรดไฮโดรคลอริก (กรดเกลือ)","โซเดียมไนไตรท์","กรดอะซิติก (≤80%)","กรดซัลฟิวริก","ก๊าซหุงต้ม (LPG)","ออกซิเจน (ท่ออัด)","น้ำมันเบนซิน","น้ำมันดีเซล","โซเดียมไบคาร์บอเนต","แมกนีเซียมคลอไรด์","ซันไล (น้ำยาล้างจาน)","โซเดียมไทโอซัลเฟต"],
+"หัวกุญแจ":["โซเดียมไฮโปคลอไรต์ (คลอรีนน้ำ)","แคลเซียมไฮโปคลอไรต์ (คลอรีนผง 65%)","โซเดียมไฮดรอกไซด์ (โซดาไฟ)","โพวิโดนไอโอดีน","น้ำมันดีเซล","แคลเซียมคลอไรด์","กรดไฮโดรคลอริก (กรดเกลือ)","โซเดียมไนไตรท์","ก๊าซหุงต้ม (LPG)","ออกซิเจน (ท่ออัด)","น้ำมันเบนซิน","ไบโอซอล 300","ปูนขาว","โซเดียมไทโอซัลเฟต","โซเดียมไบคาร์บอเนต"],
+"ไร่สาม":["โซเดียมไฮโปคลอไรต์ (คลอรีนน้ำ)","แคลเซียมไฮโปคลอไรต์ (คลอรีนผง 65%)","โซเดียมไฮดรอกไซด์ (โซดาไฟ)","โพวิโดนไอโอดีน","เอทิลแอลกอฮอล์ (เอทานอล)","ไฮโดรเจนเปอร์ออกไซด์","แคลเซียมคลอไรด์","กรดไฮโดรคลอริก (กรดเกลือ)","โซเดียมไนไตรท์","กรดอะซิติก (≤80%)","กรดซัลฟิวริก","ก๊าซหุงต้ม (LPG)","ออกซิเจน (ท่ออัด)","น้ำมันเบนซิน","น้ำมันดีเซล","กรดไนตริก (≤70%)","แมกนีเซียมคลอไรด์","โซเดียมไบคาร์บอเนต","โซเดียมไทโอซัลเฟต"],
+"วิจัยหาดเจ้า":["โซเดียมไฮโปคลอไรต์ (คลอรีนน้ำ)","แคลเซียมไฮโปคลอไรต์ (คลอรีนผง 65%)","โซเดียมไฮดรอกไซด์ (โซดาไฟ)","โพวิโดนไอโอดีน","เอทิลแอลกอฮอล์ (เอทานอล)","ไฮโดรเจนเปอร์ออกไซด์","แคลเซียมคลอไรด์","กรดไฮโดรคลอริก (กรดเกลือ)","โซเดียมไนไตรท์","กรดอะซิติก (≤80%)","กรดซัลฟิวริก","ก๊าซหุงต้ม (LPG)","ออกซิเจน (ท่ออัด)","น้ำมันเบนซิน","น้ำมันดีเซล","EDTA","อควา บราวน์","แมกนีเซียมคลอไรด์","โซเดียมไทโอซัลเฟต","โซเดียมไบคาร์บอเนต"],
+"เพชรบุรี":["โซเดียมไฮโปคลอไรต์ (คลอรีนน้ำ)","แคลเซียมไฮโปคลอไรต์ (คลอรีนผง 65%)","โซเดียมไฮดรอกไซด์ (โซดาไฟ)","โพวิโดนไอโอดีน","เอทิลแอลกอฮอล์ (เอทานอล)","แคลเซียมคลอไรด์","กรดไฮโดรคลอริก (กรดเกลือ)","โซเดียมไนไตรท์","กรดอะซิติก (≤80%)","กรดซัลฟิวริก","ก๊าซหุงต้ม (LPG)","ออกซิเจน (ท่ออัด)","น้ำมันเบนซิน","น้ำมันดีเซล","ไบโอซอล 300","โซเดียมไทโอซัลเฟต","โซเดียมไบคาร์บอเนต","แมกนีเซียมคลอไรด์"]};
+function farmChemKey(){
+  const f=(typeof getCurrentFarm==='function'&&getCurrentFarm())||null;
+  if(!f)return null;
+  const s=((f.name||'')+' '+(f.id||'')).toLowerCase();
+  if(s.includes('สัตว์น้ำ'))return 'สัตว์น้ำ';
+  if(s.includes('หัวกุญแจ')||s.includes('kunjae')||s.includes('hkj'))return 'หัวกุญแจ';
+  if(s.includes('ไร่สาม')||s.includes('raisam')||s.includes('rs'))return 'ไร่สาม';
+  if(s.includes('เพชรบุรี')||s.includes('phetchaburi')||s.includes('pb'))return 'เพชรบุรี';
+  if(s.includes('หาดเจ้า')||s.includes('hadchao')||s.includes('hjs'))return 'วิจัยหาดเจ้า';
+  return null;
+}
 
 // ── SMART-ADD DICTIONARY: พิมพ์ชื่อไทย/อังกฤษ/ชื่อสามัญ → เติมข้อมูลครบในคลิกเดียว ──
 const SMART_DB=[
@@ -3125,13 +3157,15 @@ let firestoreDB = []; // chemicals loaded from Firestore
 
 // combined live DB — Firestore takes priority over local DB
 function liveDB() {
+  const fk = farmChemKey();
+  const farmFilter = d => !fk || !FARM_CHEMS[fk] || FARM_CHEMS[fk].includes(d.n);
   if (firestoreDB.length > 0) {
-    const base = firestoreDB.filter(d => !hiddenBase.includes(d.n));
+    const base = firestoreDB.filter(d => !hiddenBase.includes(d.n)).filter(farmFilter);
     // local userDB ที่ไม่ซ้ำกับ Firestore
     const fsNames = new Set(firestoreDB.map(d => d.n));
     return [...base, ...userDB.filter(u => !fsNames.has(u.n))];
   }
-  const base = DB.filter(d => !hiddenBase.includes(d.n));
+  const base = DB.filter(d => !hiddenBase.includes(d.n)).filter(farmFilter);
   return [...base, ...userDB];
 }
 
@@ -4271,7 +4305,9 @@ function edLoadRoom(nm){const all=edRooms();if(!all[nm])return;edState=all[nm];
 function edDelRoom(nm){const all=edRooms();delete all[nm];localStorage.setItem(edStoreKey(),JSON.stringify(all));edRenderRooms();toast('ลบ "'+nm+'" แล้ว');}
 function edRenderRooms(){
   const all=edRooms();
-  document.getElementById('ed-rooms').innerHTML=Object.keys(all).map(nm=>
+  const presets=Object.keys(typeof ED_PRESETS!=='undefined'?ED_PRESETS:{}).map(k=>
+    `<span class="chip" style="cursor:pointer;border-color:var(--lbd);color:var(--lime)" onclick="edLoadPreset('${k.replace(/'/g,"\\'")}')">⭐ ${k}</span>`).join('');
+  document.getElementById('ed-rooms').innerHTML=presets+Object.keys(all).map(nm=>
     `<span class="chip" style="cursor:pointer;display:inline-flex;gap:5px;align-items:center" onclick="edLoadRoom('${nm.replace(/'/g,"\\'")}')">📁 ${nm}
      <i class="ph-bold ph-x" style="font-size:9px;opacity:.6" onclick="event.stopPropagation();edDelRoom('${nm.replace(/'/g,"\\'")}')"></i></span>`).join('')||'<span style="font-size:9px;color:var(--tx3)">ยังไม่มีห้องที่บันทึก</span>';
 }
@@ -4284,7 +4320,9 @@ function edMeta(){
 function edInit(){
   const sel=document.getElementById('ed-chem');
   sel.innerHTML=liveDB().map(x=>{const n=x.n||x.name,c=x.c||x.cls;return `<option value="${n.replace(/"/g,'&quot;')}">${(HC[c]||{}).ic||'🧪'} ${n} — ${c}</option>`;}).join('');
-  document.getElementById('ed-icons').innerHTML=ED_ICONS.map(([ic,lb],i)=>
+  document.getElementById('ed-icons').innerHTML=
+    `<button class="chip" style="cursor:pointer;border-color:var(--lime);color:var(--lime);font-weight:800" onclick="edAddWall()">🧱 กำแพงกั้น</button>`+
+    ED_ICONS.map(([ic,lb],i)=>
     `<button class="chip" style="cursor:pointer" onclick="edAddIcon(${i})">${ic} ${lb}</button>`).join('');
   document.getElementById('ed-name').value=edState.name;
   document.getElementById('ed-w').value=edState.w;
@@ -4302,20 +4340,67 @@ function edAddIcon(i){
   edState.items.push({t:'icon',ic:ED_ICONS[i][0],n:ED_ICONS[i][1],x:edState.w-1,y:edState.h-1});
   edRender();
 }
+function edAddWall(){
+  edState.items.push({t:'wall',x:edState.w/2,y:edState.h/2-1,len:2,vert:true});
+  edRender();toast('เพิ่มกำแพง — ลากเพื่อวาง แตะ 2 ครั้งเพื่อหมุน แตะค้างเพื่อลบ');
+}
+// เส้นตัดกัน: คู่ A-B ถูก "กั้น" ไหม
+function segX(p1,p2,p3,p4){
+  const d=(p2.x-p1.x)*(p4.y-p3.y)-(p2.y-p1.y)*(p4.x-p3.x);
+  if(Math.abs(d)<1e-9)return false;
+  const t=((p3.x-p1.x)*(p4.y-p3.y)-(p3.y-p1.y)*(p4.x-p3.x))/d;
+  const u=((p3.x-p1.x)*(p2.y-p1.y)-(p3.y-p1.y)*(p2.x-p1.x))/d;
+  return t>0&&t<1&&u>0&&u<1;
+}
+function edWallBetween(a,b){
+  const pa={x:a.x+0.7,y:a.y+0.45},pb={x:b.x+0.7,y:b.y+0.45};
+  return edState.items.filter(i=>i.t==='wall').some(w=>{
+    const w1={x:w.x,y:w.y};
+    const w2=w.vert?{x:w.x,y:w.y+w.len}:{x:w.x+w.len,y:w.y};
+    return segX(pa,pb,w1,w2);
+  });
+}
+// เส้น A-B ตัดผ่านสี่เหลี่ยมบล็อกไหม (เช็คกับขอบทั้ง 4 ด้าน)
+function segRect(pa,pb,rx,ry,rw,rh){
+  const c=[{x:rx,y:ry},{x:rx+rw,y:ry},{x:rx+rw,y:ry+rh},{x:rx,y:ry+rh}];
+  return segX(pa,pb,c[0],c[1])||segX(pa,pb,c[1],c[2])||segX(pa,pb,c[2],c[3])||segX(pa,pb,c[3],c[0]);
+}
+// สารไม่อันตรายวางคั่นแทนกำแพง: ต้องเป็น 12/13 + เขียวกับทั้งสองฝั่ง + ขวางเส้นเชื่อมจริง
+function edBufferBetween(a,b){
+  const pa={x:a.x+0.7,y:a.y+0.45},pb={x:b.x+0.7,y:b.y+0.45};
+  const buf=edState.items.find(m=>
+    m.t==='chem'&&m!==a&&m!==b&&
+    (m.c==='12'||m.c==='13')&&
+    mxVal(m.c,a.c)==='00'&&mxVal(m.c,b.c)==='00'&&
+    segRect(pa,pb,m.x,m.y,1.4,0.9));
+  return buf?buf.n:null;
+}
 function edClear(){if(!edState.items.length)return;edState.items=[];edRender();toast('ล้างผังแล้ว');}
 
 // ── ตรวจคู่สารทั้งหมดด้วย mxVal + ระยะจริง ──
+function edSepDist(){return Math.max(1,parseFloat(document.getElementById('ed-sep')?.value)||5);}
 function edCheck(){
   const chems=edState.items.filter(i=>i.t==='chem');
-  const probs=[],warns=[];
+  const sep=edSepDist();
+  const probs=[],mitig=[],warns=[];
   for(let i=0;i<chems.length;i++)for(let j=i+1;j<chems.length;j++){
     const a=chems[i],b=chems[j];
     const v=mxVal(a.c,b.c);
+    if(v==='00')continue;
     const dist=Math.hypot(a.x-b.x,a.y-b.y);
-    if(v==='0')probs.push({a,b,dist});
-    else if(v!=='00')warns.push({a,b,v,dist});
+    const walled=edWallBetween(a,b);
+    const buffer=edBufferBetween(a,b);
+    if(v==='0'){
+      // "แยกบริเวณ" ในห้องเดียวกัน: ระยะ ≥ sep, กำแพงกั้น หรือสารไม่อันตราย (12/13 เขียวทั้งสองฝั่ง) วางคั่น
+      if(dist>=sep||walled||buffer)mitig.push({a,b,dist,walled,buffer});
+      else probs.push({a,b,dist,need:sep});
+    }else{
+      // เงื่อนไข 4/7 ต้องแยกห่างเช่นกัน — ประเมินสถานะให้ด้วย
+      const needSep=(v==='4'||v==='7');
+      warns.push({a,b,v,dist,walled,buffer,sepOK:!needSep||dist>=sep||walled||!!buffer});
+    }
   }
-  return{probs,warns,chems};
+  return{probs,mitig,warns,chems};
 }
 
 function edRender(){
@@ -4327,7 +4412,7 @@ function edRender(){
   document.getElementById('ed-scale-lbl').textContent=`สเกล: ${edState.w}×${edState.h} ม. (1 ม. ≈ ${Math.round(edPPM)}px)`;
   // blocks
   room.querySelectorAll('.ed-it').forEach(e=>e.remove());
-  const {probs,warns}=edCheck();
+  const {probs,mitig,warns}=edCheck();
   const badIdx=new Set(); probs.forEach(p=>{badIdx.add(edState.items.indexOf(p.a));badIdx.add(edState.items.indexOf(p.b));});
   edState.items.forEach((it,idx)=>{
     const el=document.createElement('div');
@@ -4345,6 +4430,13 @@ function edRender(){
       if(badIdx.has(idx))el.style.boxShadow='0 0 12px rgba(255,23,68,.7)';
       el.textContent=it.c;
       el.title=it.n;
+    }else if(it.t==='wall'){
+      const tw=it.vert?0.18:it.len, th=it.vert?it.len:0.18;
+      el.style.width=(tw*edPPM)+'px';el.style.height=(th*edPPM)+'px';
+      el.style.background='repeating-linear-gradient(45deg,#8d6e63,#8d6e63 6px,#6d4c41 6px,#6d4c41 12px)';
+      el.style.borderRadius='3px';el.style.border='1px solid #4e342e';
+      el.title='กำแพงกั้น '+it.len+' ม. (แตะ 2 ครั้ง = หมุน)';
+      el.ondblclick=()=>{it.vert=!it.vert;edRender();};
     }else{
       el.style.fontSize=Math.max(16,edPPM*0.35)+'px';
       el.textContent=it.ic; el.title=it.n;
@@ -4355,22 +4447,29 @@ function edRender(){
   // conflict lines
   const ov=document.getElementById('ed-overlay');
   ov.setAttribute('viewBox',`0 0 ${edState.w*edPPM} ${edState.h*edPPM}`);
-  ov.innerHTML=probs.map(p=>{
+  const mkLine=(p,color,lbl)=>{
     const x1=(p.a.x+0.7)*edPPM,y1=(p.a.y+0.45)*edPPM,x2=(p.b.x+0.7)*edPPM,y2=(p.b.y+0.45)*edPPM;
-    return `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#ff1744" stroke-width="3" stroke-dasharray="7 5"/>
-      <text x="${(x1+x2)/2}" y="${(y1+y2)/2-6}" fill="#ff1744" font-size="11" font-weight="900" text-anchor="middle">${p.dist.toFixed(1)} ม.</text>`;
-  }).join('');
+    return `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${color}" stroke-width="3" stroke-dasharray="7 5"/>
+      <text x="${(x1+x2)/2}" y="${(y1+y2)/2-6}" fill="${color}" font-size="11" font-weight="900" text-anchor="middle">${lbl}</text>`;
+  };
+  ov.innerHTML=probs.map(p=>mkLine(p,'#ff1744',p.dist.toFixed(1)+' ม.'))
+    .concat(mitig.map(p=>mkLine(p,'#ff9100',p.walled?'🧱 กั้นแล้ว':p.buffer?'📦 มีสารคั่น':p.dist.toFixed(1)+' ม. ✓')))
+    .join('');
   // check panel
   const cp=document.getElementById('ed-check');
   let h='';
   if(probs.length)h+=`<div style="padding:10px 12px;background:var(--rb);border:1px solid var(--rbd);border-radius:var(--rs);margin-bottom:8px">
-    <div style="font-size:11px;font-weight:900;color:#ff7070;margin-bottom:5px">⛔ ห้ามอยู่ห้องเดียวกัน ${probs.length} คู่</div>
-    ${probs.map(p=>`<div style="font-size:10px;color:var(--tx2);line-height:1.7">• <b>${p.a.n}</b> (${p.a.c}) × <b>${p.b.n}</b> (${p.b.c}) — ต้องแยกบริเวณ/คนละห้อง (ตอนนี้ห่าง ${p.dist.toFixed(1)} ม.)</div>`).join('')}</div>`;
+    <div style="font-size:11px;font-weight:900;color:#ff7070;margin-bottom:5px">⛔ ยังไม่ผ่าน — ต้องแยกบริเวณ ${probs.length} คู่</div>
+    ${probs.map(p=>`<div style="font-size:10px;color:var(--tx2);line-height:1.7">• <b>${p.a.n}</b> (${p.a.c}) × <b>${p.b.n}</b> (${p.b.c}) — ห่าง ${p.dist.toFixed(1)} ม. <span style="color:#ff7070;font-weight:700">ต้อง ≥ ${p.need} ม. หรือวาง 🧱 กำแพงกั้นคั่น</span></div>`).join('')}</div>`;
+  if(mitig.length)h+=`<div style="padding:10px 12px;background:rgba(255,145,0,.1);border:1px solid rgba(255,145,0,.4);border-radius:var(--rs);margin-bottom:8px">
+    <div style="font-size:11px;font-weight:900;color:#ffab40;margin-bottom:5px">🟠 แยกบริเวณภายในห้องแล้ว ${mitig.length} คู่ (ห้ามคละ แต่ผ่านด้วยระยะ/กำแพง)</div>
+    ${mitig.map(p=>`<div style="font-size:10px;color:var(--tx2);line-height:1.7">• <b>${p.a.n}</b> × <b>${p.b.n}</b> — ${p.walled?'มีกำแพงกั้น 🧱':p.buffer?'มี <b>'+p.buffer+'</b> (ไม่ติดไฟ/เข้ากันได้) วางคั่น 📦':'ระยะ '+p.dist.toFixed(1)+' ม. ≥ เกณฑ์'} — ดูแลเส้นทางหกไหลไม่ให้ถึงกัน${p.buffer?' และรักษาแนวสารคั่นให้อยู่ตำแหน่งเดิมเสมอ':''}</div>`).join('')}</div>`;
   if(warns.length)h+=`<div style="padding:10px 12px;background:var(--ab);border:1px solid var(--abd);border-radius:var(--rs);margin-bottom:8px">
     <div style="font-size:11px;font-weight:900;color:var(--amb);margin-bottom:5px">⚠️ เก็บร่วมได้แบบมีเงื่อนไข ${warns.length} คู่</div>
-    ${warns.map(w=>`<div style="font-size:10px;color:var(--tx2);line-height:1.7">• <b>${w.a.n}</b> × <b>${w.b.n}</b> — เงื่อนไข ${w.v}: ${CD[w.v]||''} <span style="color:var(--tx3)">(ห่าง ${w.dist.toFixed(1)} ม.)</span></div>`).join('')}</div>`;
+    ${warns.map(w=>`<div style="font-size:10px;color:var(--tx2);line-height:1.7">• <b>${w.a.n}</b> × <b>${w.b.n}</b> — เงื่อนไข ${w.v}: ${CD[w.v]||''} <span style="color:${w.sepOK?'var(--tx3)':'#ff7070'}">(ห่าง ${w.dist.toFixed(1)} ม.${(w.v==='4'||w.v==='7')?(w.sepOK?' — แยกห่างแล้ว ✓':' — ควรแยกห่าง/มีกำแพงกั้น!'):''})</span></div>`).join('')}</div>`;
   const chems=edState.items.filter(i=>i.t==='chem');
-  if(!probs.length&&!warns.length&&chems.length>1)h=`<div style="padding:10px 12px;background:var(--gb);border:1px solid var(--gbd);border-radius:var(--rs);font-size:11px;font-weight:800;color:#33ff99">✅ ทุกคู่เก็บร่วมกันได้ ไม่มีข้อขัดแย้ง</div>`;
+  if(!probs.length&&!warns.length&&!mitig.length&&chems.length>1)h=`<div style="padding:10px 12px;background:var(--gb);border:1px solid var(--gbd);border-radius:var(--rs);font-size:11px;font-weight:800;color:#33ff99">✅ ทุกคู่เก็บร่วมกันได้ ไม่มีข้อขัดแย้ง</div>`;
+  else if(!probs.length&&chems.length>1&&(mitig.length||warns.length))h+=`<div style="padding:8px 12px;background:var(--gb);border:1px solid var(--gbd);border-radius:var(--rs);font-size:10.5px;font-weight:800;color:#33ff99">✅ ผังนี้ผ่านเกณฑ์แยกบริเวณภายในห้องเดียว</div>`;
   cp.innerHTML=h;
   // legend
   const uniq=[...new Map(chems.map(c=>[c.n,c])).values()];
@@ -4408,18 +4507,19 @@ function edDragStart(e,idx,el){
 
 function edExport(){
   const f=(typeof getCurrentFarm==='function'&&getCurrentFarm())||{name:''};
-  const {probs,warns}=edCheck();
+  const {probs,mitig,warns}=edCheck();
   const chems=edState.items.filter(i=>i.t==='chem');
   const uniq=[...new Map(chems.map(c=>[c.n,c])).values()];
   const S=70; // px/เมตร ในรายงาน
   const blocks=edState.items.map(it=>{
     if(it.t==='chem')return `<div style="position:absolute;left:${it.x*S}px;top:${it.y*S}px;width:${1.4*S}px;height:${0.9*S}px;background:${edColor(it.n)};border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:900;color:#fff;font-size:17px;text-shadow:0 1px 3px rgba(0,0,0,.5);border:2px solid rgba(0,0,0,.2)">${it.c}</div>`;
+    if(it.t==='wall'){const tw=it.vert?0.18:it.len,th=it.vert?it.len:0.18;
+      return `<div style="position:absolute;left:${it.x*S}px;top:${it.y*S}px;width:${tw*S}px;height:${th*S}px;background:repeating-linear-gradient(45deg,#8d6e63,#8d6e63 6px,#6d4c41 6px,#6d4c41 12px);border:1px solid #4e342e;border-radius:3px"></div>`;}
     return `<div style="position:absolute;left:${it.x*S}px;top:${it.y*S}px;font-size:26px">${it.ic}</div>`;
   }).join('');
-  const lines=probs.map(p=>{
-    const x1=(p.a.x+0.7)*S,y1=(p.a.y+0.45)*S,x2=(p.b.x+0.7)*S,y2=(p.b.y+0.45)*S;
-    return `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#e11" stroke-width="3" stroke-dasharray="8 5"/>`;
-  }).join('');
+  const mkL=(p,c)=>{const x1=(p.a.x+0.7)*S,y1=(p.a.y+0.45)*S,x2=(p.b.x+0.7)*S,y2=(p.b.y+0.45)*S;
+    return `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${c}" stroke-width="3" stroke-dasharray="8 5"/>`;};
+  const lines=probs.map(p=>mkL(p,'#e11')).concat(mitig.map(p=>mkL(p,'#f90'))).join('');
   const now=new Date().toLocaleString('th-TH',{dateStyle:'full',timeStyle:'short'});
   const w=window.open('','_blank');
   w.document.write(`<!DOCTYPE html><html><head><meta charset="utf-8"><title>แผนผัง ${edState.name}</title>
@@ -4439,13 +4539,125 @@ function edExport(){
     ${blocks}<div class="door"></div></div>
   <div style="font-size:11px;color:#666">⬆ ประตูห้องสารเคมี · เส้นประแดง = คู่ที่ห้ามเก็บร่วม</div>
   <div class="lg">${uniq.map(c=>`<span class="lgi"><span class="sw" style="background:${edColor(c.n)}"></span>${c.c} ${c.n}</span>`).join('')}</div>
-  ${probs.length?`<div class="sec red"><b>⛔ ตรวจพบคู่ห้ามเก็บร่วม ${probs.length} คู่ (ต้องแยกบริเวณ):</b><br>${probs.map(p=>`• ${p.a.n} (${p.a.c}) × ${p.b.n} (${p.b.c}) — ระยะปัจจุบัน ${p.dist.toFixed(1)} ม.`).join('<br>')}</div>`:''}
+  ${probs.length?`<div class="sec red"><b>⛔ ยังไม่ผ่าน ${probs.length} คู่ — ต้องเพิ่มระยะ ≥ ${edSepDist()} ม. หรือกำแพงกั้น:</b><br>${probs.map(p=>`• ${p.a.n} (${p.a.c}) × ${p.b.n} (${p.b.c}) — ระยะปัจจุบัน ${p.dist.toFixed(1)} ม.`).join('<br>')}</div>`:''}
+  ${mitig.length?`<div class="sec" style="background:#fff3e0;border:1px solid #fb2"><b>🟠 คู่ห้ามคละที่แยกบริเวณภายในห้องแล้ว ${mitig.length} คู่:</b><br>${mitig.map(p=>`• ${p.a.n} × ${p.b.n} — ${p.walled?'มีกำแพงกั้น':p.buffer?'มี '+p.buffer+' วางคั่น (ไม่ติดไฟ เข้ากันได้ทั้งสองฝั่ง)':'ระยะ '+p.dist.toFixed(1)+' ม.'}`).join('<br>')}</div>`:''}
   ${warns.length?`<div class="sec amb"><b>⚠️ คู่ที่เก็บร่วมได้แบบมีเงื่อนไข ${warns.length} คู่:</b><br>${warns.map(x=>`• ${x.a.n} × ${x.b.n} — เงื่อนไขข้อ ${x.v}: ${CD[x.v]||''} (ห่าง ${x.dist.toFixed(1)} ม.)`).join('<br>')}</div>`:''}
   ${!probs.length&&!warns.length&&chems.length>1?`<div class="sec grn"><b>✅ ทุกคู่เก็บร่วมกันได้ตาม DIW Matrix</b></div>`:''}
   <div style="margin-top:20px;font-size:10.5px;color:#888">อ้างอิง: ตารางการจัดเก็บสารเคมีและวัตถุอันตราย กรมโรงงานอุตสาหกรรม (DIW) · พัฒนาโดย Atit Chimnan · ChemNexus AI 3.0</div>
   <button class="np" onclick="window.print()" style="margin-top:16px;padding:10px 22px;font-size:14px;cursor:pointer">🖨 พิมพ์ / บันทึก PDF</button>
   </body></html>`);
   w.document.close();
+}
+
+
+// ── PRESET: ผังปัจจุบันของแต่ละศูนย์ (ถอดจากแผนผังจริง ก.ค. 2026) ──
+const ED_PRESETS={
+"หัวกุญแจ (ผังปัจจุบัน)":{name:"หัวกุญแจ (ผังปัจจุบัน)",w:8,h:7,items:[
+ {t:"chem",n:"ไบโอซอล 300",c:"8B",x:0.4,y:0.4},
+ {t:"chem",n:"แคลเซียมคลอไรด์",c:"13",x:0.4,y:1.5},
+ {t:"chem",n:"โซเดียมไทโอซัลเฟต",c:"13",x:0.4,y:2.6},
+ {t:"chem",n:"โซเดียมไนไตรท์",c:"5.1B",x:0.4,y:4.1},
+ {t:"chem",n:"แคลเซียมไฮโปคลอไรต์ (คลอรีนผง 65%)",c:"5.1A",x:0.4,y:5.2},
+ {t:"chem",n:"โซเดียมไบคาร์บอเนต",c:"13",x:0.4,y:6.0},
+ {t:"chem",n:"ปูนขาว",c:"13",x:3.1,y:1.4},
+ {t:"chem",n:"ปูนขาว",c:"13",x:4.6,y:1.4},
+ {t:"chem",n:"ปูนขาว",c:"13",x:3.1,y:2.4},
+ {t:"chem",n:"ปูนขาว",c:"13",x:4.6,y:2.4},
+ {t:"chem",n:"โซเดียมไฮดรอกไซด์ (โซดาไฟ)",c:"8B",x:6.1,y:0.4},
+ {t:"chem",n:"โพวิโดนไอโอดีน",c:"12",x:6.1,y:3.1},
+ {t:"chem",n:"กรดไฮโดรคลอริก (กรดเกลือ)",c:"8B",x:6.1,y:4.1},
+ {t:"chem",n:"โซเดียมไฮโปคลอไรต์ (คลอรีนน้ำ)",c:"8B",x:6.1,y:5.2},
+ {t:"chem",n:"โซเดียมไฮโปคลอไรต์ (คลอรีนน้ำ)",c:"8B",x:6.1,y:6.0},
+ {t:"icon",ic:"🚿",n:"อ่างล้างตา",x:0.2,y:6.6},
+ {t:"icon",ic:"📄",n:"เอกสาร MSDS",x:5.2,y:6.6},
+ {t:"icon",ic:"⚠️",n:"ป้ายเตือน",x:5.9,y:6.6},
+ {t:"icon",ic:"🏖️",n:"ทรายดูดซับ",x:7.2,y:6.6},
+ {t:"icon",ic:"🔺",n:"วัสดุดูดซับใช้แล้ว",x:7.2,y:0.3}
+]},
+"ไร่สาม (ผังปัจจุบัน)":{name:"ไร่สาม (ผังปัจจุบัน)",w:9,h:7,items:[
+ {t:"chem",n:"โซเดียมไฮดรอกไซด์ (โซดาไฟ)",c:"8B",x:0.4,y:0.4},
+ {t:"chem",n:"แมกนีเซียมคลอไรด์",c:"13",x:2.3,y:0.4},
+ {t:"chem",n:"แมกนีเซียมคลอไรด์",c:"13",x:4.0,y:0.4},
+ {t:"chem",n:"กรดไฮโดรคลอริก (กรดเกลือ)",c:"8B",x:7.1,y:0.4},
+ {t:"chem",n:"โซเดียมไบคาร์บอเนต",c:"13",x:0.4,y:2.6},
+ {t:"chem",n:"โซเดียมไทโอซัลเฟต",c:"13",x:0.4,y:4.4},
+ {t:"chem",n:"โซเดียมไฮโปคลอไรต์ (คลอรีนน้ำ)",c:"8B",x:0.6,y:6.0},
+ {t:"chem",n:"ไฮโดรเจนเปอร์ออกไซด์",c:"5.1B",x:7.1,y:2.3},
+ {t:"chem",n:"โซเดียมไนไตรท์",c:"5.1B",x:7.1,y:4.0},
+ {t:"chem",n:"แคลเซียมไฮโปคลอไรต์ (คลอรีนผง 65%)",c:"5.1A",x:7.1,y:5.7},
+ {t:"icon",ic:"🚿",n:"อ่างล้างตา",x:2.6,y:6.5},
+ {t:"icon",ic:"⚠️",n:"ป้ายเตือน",x:3.4,y:6.5},
+ {t:"icon",ic:"🧯",n:"ถังดับเพลิง",x:4.2,y:6.5},
+ {t:"icon",ic:"🏖️",n:"ทรายดูดซับ",x:5.9,y:6.3},
+ {t:"icon",ic:"🔺",n:"วัสดุดูดซับใช้แล้ว",x:6.5,y:6.3},
+ {t:"icon",ic:"📄",n:"เอกสาร MSDS",x:8.4,y:6.3}
+]},
+"เพชรบุรี ห้อง 1 (ผังปัจจุบัน)":{name:"เพชรบุรี ห้อง 1",w:8,h:6,items:[
+ {t:"chem",n:"โซเดียมไทโอซัลเฟต",c:"13",x:0.4,y:0.5},
+ {t:"chem",n:"ไบโอซอล 300",c:"8B",x:0.4,y:1.5},
+ {t:"chem",n:"โซเดียมไบคาร์บอเนต",c:"13",x:0.4,y:2.9},
+ {t:"chem",n:"โซเดียมไบคาร์บอเนต",c:"13",x:0.4,y:3.8},
+ {t:"chem",n:"โพวิโดนไอโอดีน",c:"12",x:0.4,y:5.0},
+ {t:"chem",n:"โซเดียมไนไตรท์",c:"5.1B",x:6.0,y:0.6},
+ {t:"chem",n:"โซเดียมไฮดรอกไซด์ (โซดาไฟ)",c:"8B",x:6.0,y:3.0},
+ {t:"chem",n:"โซเดียมไฮดรอกไซด์ (โซดาไฟ)",c:"8B",x:6.0,y:3.9},
+ {t:"icon",ic:"🏖️",n:"ทรายดูดซับ",x:0.2,y:5.6},{t:"icon",ic:"🚿",n:"อ่างล้างตา",x:0.9,y:5.6},
+ {t:"icon",ic:"📄",n:"เอกสาร MSDS",x:7.3,y:5.4},{t:"icon",ic:"⚠️",n:"ป้ายเตือน",x:4.6,y:5.6}]},
+"เพชรบุรี ห้อง 2 (ผังปัจจุบัน)":{name:"เพชรบุรี ห้อง 2",w:7,h:5,items:[
+ {t:"chem",n:"แคลเซียมไฮโปคลอไรต์ (คลอรีนผง 65%)",c:"5.1A",x:0.6,y:0.4},
+ {t:"chem",n:"โซเดียมไฮโปคลอไรต์ (คลอรีนน้ำ)",c:"8B",x:5.4,y:0.3},
+ {t:"chem",n:"โซเดียมไฮโปคลอไรต์ (คลอรีนน้ำ)",c:"8B",x:5.4,y:1.2},
+ {t:"chem",n:"โซเดียมไฮโปคลอไรต์ (คลอรีนน้ำ)",c:"8B",x:5.4,y:2.1},
+ {t:"chem",n:"แมกนีเซียมคลอไรด์",c:"13",x:0.6,y:3.0},
+ {t:"chem",n:"แมกนีเซียมคลอไรด์",c:"13",x:2.1,y:3.0},
+ {t:"chem",n:"แคลเซียมคลอไรด์",c:"13",x:5.4,y:3.4},
+ {t:"icon",ic:"🚿",n:"อ่างล้างตา",x:0.2,y:4.4},{t:"icon",ic:"📄",n:"เอกสาร MSDS",x:0.8,y:4.4},
+ {t:"icon",ic:"🏖️",n:"ทรายดูดซับ",x:1.5,y:4.4},{t:"icon",ic:"⚠️",n:"ป้ายเตือน",x:5.6,y:4.4}]},
+"สัตว์น้ำหาดเจ้า ห้อง 1 (ผังปัจจุบัน)":{name:"สัตว์น้ำหาดเจ้า ห้อง 1",w:7,h:5.5,items:[
+ {t:"chem",n:"โซเดียมไบคาร์บอเนต",c:"13",x:2.2,y:0.3},
+ {t:"chem",n:"กรดไฮโดรคลอริก (กรดเกลือ)",c:"8B",x:0.7,y:1.4},
+ {t:"chem",n:"แมกนีเซียมคลอไรด์",c:"13",x:4.9,y:1.4},
+ {t:"chem",n:"แคลเซียมคลอไรด์",c:"13",x:0.9,y:2.9},
+ {t:"chem",n:"แคลเซียมไฮโปคลอไรต์ (คลอรีนผง 65%)",c:"5.1A",x:4.9,y:2.9},
+ {t:"icon",ic:"🔺",n:"วัสดุดูดซับใช้แล้ว",x:3.2,y:4.4},{t:"icon",ic:"🏖️",n:"ทรายดูดซับ",x:3.2,y:5.0},
+ {t:"icon",ic:"📄",n:"เอกสาร MSDS",x:6.4,y:4.8},{t:"icon",ic:"⚠️",n:"ป้ายเตือน",x:5.0,y:5.0}]},
+"สัตว์น้ำหาดเจ้า ห้อง 2 (ผังปัจจุบัน)":{name:"สัตว์น้ำหาดเจ้า ห้อง 2",w:7,h:5.5,items:[
+ {t:"chem",n:"ซันไล (น้ำยาล้างจาน)",c:"12",x:0.6,y:0.4},
+ {t:"chem",n:"โซเดียมไนไตรท์",c:"5.1B",x:0.6,y:1.5},
+ {t:"chem",n:"โซเดียมไทโอซัลเฟต",c:"13",x:0.6,y:2.6},
+ {t:"chem",n:"โซเดียมไฮดรอกไซด์ (โซดาไฟ)",c:"8B",x:0.6,y:3.8},
+ {t:"chem",n:"โพวิโดนไอโอดีน",c:"12",x:4.6,y:0.3},
+ {t:"chem",n:"เอทิลแอลกอฮอล์ (เอทานอล)",c:"3A",x:5.0,y:2.5},
+ {t:"icon",ic:"🔺",n:"วัสดุดูดซับใช้แล้ว",x:6.2,y:4.2},{t:"icon",ic:"📄",n:"เอกสาร MSDS",x:5.6,y:4.6},
+ {t:"icon",ic:"🏖️",n:"ทรายดูดซับ",x:6.2,y:4.6},{t:"icon",ic:"⚠️",n:"ป้ายเตือน",x:5.0,y:5.0}]},
+"วิจัยหาดเจ้า ห้อง 1 (ผังปัจจุบัน)":{name:"วิจัยหาดเจ้า ห้อง 1",w:5,h:6.5,items:[
+ {t:"chem",n:"ไฮโดรเจนเปอร์ออกไซด์",c:"5.1B",x:0.3,y:0.4},
+ {t:"chem",n:"กรดไฮโดรคลอริก (กรดเกลือ)",c:"8B",x:0.3,y:1.5},
+ {t:"chem",n:"โพวิโดนไอโอดีน",c:"12",x:0.3,y:2.6},
+ {t:"chem",n:"โพวิโดนไอโอดีน",c:"12",x:0.3,y:3.7},
+ {t:"chem",n:"เอทิลแอลกอฮอล์ (เอทานอล)",c:"3A",x:0.3,y:5.1},
+ {t:"chem",n:"โซเดียมไบคาร์บอเนต",c:"13",x:3.2,y:0.5},
+ {t:"chem",n:"แมกนีเซียมคลอไรด์",c:"13",x:3.2,y:1.6},
+ {t:"chem",n:"โซเดียมไบคาร์บอเนต",c:"13",x:3.2,y:2.7},
+ {t:"chem",n:"EDTA",c:"13",x:3.2,y:3.8},
+ {t:"chem",n:"อควา บราวน์",c:"13",x:3.2,y:4.7},
+ {t:"chem",n:"โซเดียมไทโอซัลเฟต",c:"13",x:3.2,y:5.6},
+ {t:"icon",ic:"🧯",n:"ถังดับเพลิง",x:0.2,y:6.1},{t:"icon",ic:"⚠️",n:"ป้ายเตือน",x:1.4,y:6.1}]},
+"วิจัยหาดเจ้า ห้อง 2 (ผังปัจจุบัน)":{name:"วิจัยหาดเจ้า ห้อง 2",w:5,h:6.5,items:[
+ {t:"chem",n:"โซเดียมไฮดรอกไซด์ (โซดาไฟ)",c:"8B",x:0.5,y:0.6},
+ {t:"chem",n:"โซเดียมไฮโปคลอไรต์ (คลอรีนน้ำ)",c:"8B",x:0.5,y:4.8},
+ {t:"chem",n:"แคลเซียมไฮโปคลอไรต์ (คลอรีนผง 65%)",c:"5.1A",x:3.2,y:0.6},
+ {t:"icon",ic:"🔺",n:"วัสดุดูดซับใช้แล้ว",x:3.4,y:5.3},{t:"icon",ic:"🏖️",n:"ทรายดูดซับ",x:3.4,y:5.9},
+ {t:"icon",ic:"🚿",n:"อ่างล้างตา",x:4.4,y:5.9},{t:"icon",ic:"📄",n:"เอกสาร MSDS",x:0.3,y:6.0},
+ {t:"icon",ic:"⚠️",n:"ป้ายเตือน",x:1.0,y:6.0}]}};
+function edLoadPreset(key){
+  const p=ED_PRESETS[key]; if(!p)return;
+  edState=JSON.parse(JSON.stringify(p));
+  document.getElementById('ed-name').value=edState.name;
+  document.getElementById('ed-w').value=edState.w;
+  document.getElementById('ed-h').value=edState.h;
+  edRender();
+  toast('โหลดผัง "'+key+'" — ขนาดห้องเป็นค่าประมาณ แก้ให้ตรงจริงได้เลย');
 }
 
 </script>
