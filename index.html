@@ -892,6 +892,13 @@ select.fi option{background:#0c1120;color:var(--tx)}
     <div class="hdr-t">แผนผังจัดวางสารเคมี</div>
   </div>
   <div class="pc" id="layout-body">
+    <div style="margin:12px 16px 0">
+      <button class="btn" style="background:linear-gradient(135deg,#7c3aed,#4f46e5)" onclick="go('editor')">
+        <i class="ph-bold ph-hand-pointing" style="font-size:16px"></i>
+        โหมดวางผังเอง + ตรวจ DIW เรียลไทม์ (ใหม่)
+      </button>
+    </div>
+
     <!-- Step 1: Room info -->
     <div class="sl" style="margin-top:12px">ขั้นตอนที่ 1 — ข้อมูลห้อง</div>
     <div style="margin:0 16px 12px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">
@@ -937,6 +944,59 @@ select.fi option{background:#0c1120;color:var(--tx)}
     </div>
 
     <div class="crd"><strong>ATIT CHIMNAN</strong>ChemNexus AI 3.0 · Layout Planner</div>
+  </div>
+</div>
+
+
+<!-- LAYOUT EDITOR (Phase 1) -->
+<div id="page-editor" class="page">
+  <div class="hdr">
+    <button class="bb" onclick="back()"><i class="ph-bold ph-caret-left"></i></button>
+    <div class="hdr-t">Layout Editor · วางผังห้องจริง</div>
+  </div>
+  <div class="pc">
+    <div class="sl" style="margin-top:12px">ห้อง / ขนาดจริง</div>
+    <div style="margin:0 16px 10px;display:grid;grid-template-columns:2fr 1fr 1fr auto;gap:8px;align-items:end">
+      <div><div style="font-size:9px;color:var(--tx3);margin-bottom:3px;font-weight:700">ชื่อห้อง</div>
+        <input class="fi" id="ed-name" placeholder="ห้อง 1" style="font-size:12px" onchange="edMeta()"></div>
+      <div><div style="font-size:9px;color:var(--tx3);margin-bottom:3px;font-weight:700">กว้าง (ม.)</div>
+        <input class="fi" id="ed-w" type="number" value="8" min="2" style="font-size:12px" onchange="edMeta()"></div>
+      <div><div style="font-size:9px;color:var(--tx3);margin-bottom:3px;font-weight:700">ลึก (ม.)</div>
+        <input class="fi" id="ed-h" type="number" value="6" min="2" style="font-size:12px" onchange="edMeta()"></div>
+      <button class="ib2" onclick="edSaveRoom()" title="บันทึกห้อง"><i class="ph-bold ph-floppy-disk"></i></button>
+    </div>
+    <div id="ed-rooms" style="margin:0 16px 10px;display:flex;gap:6px;flex-wrap:wrap"></div>
+
+    <div class="sl">เพิ่มลงผัง</div>
+    <div style="margin:0 16px 8px;display:flex;gap:6px">
+      <select class="fi" id="ed-chem" style="flex:1;font-size:12px;appearance:none"></select>
+      <button class="ib2" onclick="edAddChem()" title="เพิ่มสาร"><i class="ph-bold ph-plus"></i></button>
+    </div>
+    <div style="margin:0 16px 12px;display:flex;gap:5px;flex-wrap:wrap" id="ed-icons"></div>
+
+    <div style="margin:0 16px 10px;position:relative">
+      <div id="ed-room" style="position:relative;background:#fff;border:5px solid #1a2b6d;border-radius:6px;overflow:hidden;touch-action:none">
+        <svg id="ed-overlay" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:5"></svg>
+        <div id="ed-door" style="position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:70px;height:8px;background:#111;z-index:2;border-radius:2px 2px 0 0" title="ประตู"></div>
+      </div>
+      <div style="display:flex;justify-content:space-between;margin-top:4px">
+        <div style="font-size:9px;color:var(--tx3)" id="ed-scale-lbl"></div>
+        <div style="font-size:9px;color:var(--tx3)">ลากบล็อกเพื่อจัดวาง · แตะค้างบล็อกเพื่อลบ</div>
+      </div>
+    </div>
+
+    <div id="ed-check" style="margin:0 16px 12px"></div>
+    <div id="ed-legend" style="margin:0 16px 12px"></div>
+
+    <div style="margin:0 16px 14px;display:grid;grid-template-columns:1fr 1fr;gap:8px">
+      <button class="btn bg" onclick="edClear()"><i class="ph-bold ph-trash" style="font-size:15px"></i>ล้างผัง</button>
+      <button class="btn" onclick="edExport()"><i class="ph-bold ph-file-pdf" style="font-size:15px"></i>ออกรายงาน PDF</button>
+    </div>
+
+    <div style="margin:0 16px 8px;padding:10px 12px;background:var(--ab);border:1px solid var(--abd);border-radius:var(--rs);font-size:10px;color:var(--amb);line-height:1.6">
+      <strong>⚠ หมายเหตุ:</strong> ระบบตรวจความเข้ากันได้และระยะห่างตาม DIW Matrix — เงื่อนไขเชิงกายภาพ (ผนังทนไฟ ระบายอากาศ ฯลฯ) ต้องตรวจรับรองโดยผู้รับผิดชอบหน้างาน
+    </div>
+    <div class="crd"><strong>ATIT CHIMNAN</strong>ChemNexus AI 3.0 · Layout Editor</div>
   </div>
 </div>
 
@@ -1502,6 +1562,7 @@ function go(pg,dr='right'){
   if(pg==='ppe')rPPE();
   if(pg==='emergency')rEMG();
   if(pg==='dashboard')uDash();
+  if(pg==='editor')edInit();
 }
 function back(){go(pv.pop()||'dashboard','left');}
 function uNB(pg){document.querySelectorAll('.nb').forEach(b=>b.classList.remove('active'));const a=document.getElementById('nb-'+pg);if(a)a.classList.add('active');}
@@ -4180,6 +4241,213 @@ window.onload=()=>{
       .catch(e=>console.log('SW error:',e));
   }
 };
+
+// ══════════════════════════════════════════
+//  LAYOUT EDITOR (Phase 1) — วางผังสเกลจริง + ตรวจ DIW เรียลไทม์
+// ══════════════════════════════════════════
+const ED_COLORS=['#f97316','#84cc16','#06b6d4','#8b5cf6','#ec4899','#eab308','#14b8a6','#3b82f6','#ef4444','#a16207','#10b981','#6366f1','#d946ef','#0ea5e9','#65a30d','#dc2626','#7c3aed','#f59e0b'];
+function edColor(name){
+  const db=liveDB().map(x=>x.n||x.name);
+  let i=db.indexOf(name); if(i<0){i=0;for(const ch of name)i=(i*31+ch.charCodeAt(0))>>>0;}
+  return ED_COLORS[i%ED_COLORS.length];
+}
+const ED_ICONS=[['🧯','ถังดับเพลิง'],['🚿','อ่างล้างตา'],['🏖️','ทรายดูดซับ'],['📄','เอกสาร MSDS'],['⚠️','ป้ายเตือน'],['🔺','วัสดุดูดซับใช้แล้ว']];
+let edState={name:'ห้อง 1',w:8,h:6,items:[]}; // items: {t:'chem'|'icon', n, c, x, y (เมตร), ic}
+let edPPM=60; // px per meter (คำนวณใหม่ตามจอ)
+let edHold=null;
+
+function edStoreKey(){const f=(typeof getCurrentFarm==='function'&&getCurrentFarm())||{id:'default'};return 'cn_ed_'+(f.id||f);}
+function edRooms(){try{return JSON.parse(localStorage.getItem(edStoreKey())||'{}')}catch(e){return{}}}
+function edSaveRoom(){
+  const all=edRooms(); all[edState.name]=edState;
+  localStorage.setItem(edStoreKey(),JSON.stringify(all));
+  toast('บันทึก "'+edState.name+'" แล้ว'); edRenderRooms();
+}
+function edLoadRoom(nm){const all=edRooms();if(!all[nm])return;edState=all[nm];
+  document.getElementById('ed-name').value=edState.name;
+  document.getElementById('ed-w').value=edState.w;
+  document.getElementById('ed-h').value=edState.h;
+  edRender();}
+function edDelRoom(nm){const all=edRooms();delete all[nm];localStorage.setItem(edStoreKey(),JSON.stringify(all));edRenderRooms();toast('ลบ "'+nm+'" แล้ว');}
+function edRenderRooms(){
+  const all=edRooms();
+  document.getElementById('ed-rooms').innerHTML=Object.keys(all).map(nm=>
+    `<span class="chip" style="cursor:pointer;display:inline-flex;gap:5px;align-items:center" onclick="edLoadRoom('${nm.replace(/'/g,"\\'")}')">📁 ${nm}
+     <i class="ph-bold ph-x" style="font-size:9px;opacity:.6" onclick="event.stopPropagation();edDelRoom('${nm.replace(/'/g,"\\'")}')"></i></span>`).join('')||'<span style="font-size:9px;color:var(--tx3)">ยังไม่มีห้องที่บันทึก</span>';
+}
+function edMeta(){
+  edState.name=document.getElementById('ed-name').value||'ห้อง 1';
+  edState.w=Math.max(2,parseFloat(document.getElementById('ed-w').value)||8);
+  edState.h=Math.max(2,parseFloat(document.getElementById('ed-h').value)||6);
+  edRender();
+}
+function edInit(){
+  const sel=document.getElementById('ed-chem');
+  sel.innerHTML=liveDB().map(x=>{const n=x.n||x.name,c=x.c||x.cls;return `<option value="${n.replace(/"/g,'&quot;')}">${(HC[c]||{}).ic||'🧪'} ${n} — ${c}</option>`;}).join('');
+  document.getElementById('ed-icons').innerHTML=ED_ICONS.map(([ic,lb],i)=>
+    `<button class="chip" style="cursor:pointer" onclick="edAddIcon(${i})">${ic} ${lb}</button>`).join('');
+  document.getElementById('ed-name').value=edState.name;
+  document.getElementById('ed-w').value=edState.w;
+  document.getElementById('ed-h').value=edState.h;
+  edRenderRooms(); edRender();
+}
+function edAddChem(){
+  const nm=document.getElementById('ed-chem').value; if(!nm)return;
+  const all=liveDB().map(x=>({n:x.n||x.name,c:x.c||x.cls}));
+  const ch=all.find(x=>x.n===nm); if(!ch)return;
+  edState.items.push({t:'chem',n:ch.n,c:ch.c,x:0.5+Math.random()*1.5,y:0.5+Math.random()*1.5});
+  edRender();
+}
+function edAddIcon(i){
+  edState.items.push({t:'icon',ic:ED_ICONS[i][0],n:ED_ICONS[i][1],x:edState.w-1,y:edState.h-1});
+  edRender();
+}
+function edClear(){if(!edState.items.length)return;edState.items=[];edRender();toast('ล้างผังแล้ว');}
+
+// ── ตรวจคู่สารทั้งหมดด้วย mxVal + ระยะจริง ──
+function edCheck(){
+  const chems=edState.items.filter(i=>i.t==='chem');
+  const probs=[],warns=[];
+  for(let i=0;i<chems.length;i++)for(let j=i+1;j<chems.length;j++){
+    const a=chems[i],b=chems[j];
+    const v=mxVal(a.c,b.c);
+    const dist=Math.hypot(a.x-b.x,a.y-b.y);
+    if(v==='0')probs.push({a,b,dist});
+    else if(v!=='00')warns.push({a,b,v,dist});
+  }
+  return{probs,warns,chems};
+}
+
+function edRender(){
+  const room=document.getElementById('ed-room'); if(!room)return;
+  const availW=room.parentElement.clientWidth-10||340;
+  edPPM=Math.max(24,Math.min(90,availW/edState.w));
+  room.style.width=(edState.w*edPPM)+'px';
+  room.style.height=(edState.h*edPPM)+'px';
+  document.getElementById('ed-scale-lbl').textContent=`สเกล: ${edState.w}×${edState.h} ม. (1 ม. ≈ ${Math.round(edPPM)}px)`;
+  // blocks
+  room.querySelectorAll('.ed-it').forEach(e=>e.remove());
+  const {probs,warns}=edCheck();
+  const badIdx=new Set(); probs.forEach(p=>{badIdx.add(edState.items.indexOf(p.a));badIdx.add(edState.items.indexOf(p.b));});
+  edState.items.forEach((it,idx)=>{
+    const el=document.createElement('div');
+    el.className='ed-it';
+    el.style.cssText=`position:absolute;z-index:3;cursor:grab;user-select:none;touch-action:none;left:${it.x*edPPM}px;top:${it.y*edPPM}px`;
+    if(it.t==='chem'){
+      const bw=1.4*edPPM,bh=0.9*edPPM;
+      el.style.width=bw+'px';el.style.height=bh+'px';
+      el.style.background=edColor(it.n);
+      el.style.borderRadius='8px';
+      el.style.display='flex';el.style.alignItems='center';el.style.justifyContent='center';
+      el.style.fontWeight='900';el.style.color='#fff';el.style.fontSize=Math.max(10,edPPM*0.22)+'px';
+      el.style.textShadow='0 1px 3px rgba(0,0,0,.55)';
+      el.style.border=badIdx.has(idx)?'3px solid #ff1744':'2px solid rgba(0,0,0,.25)';
+      if(badIdx.has(idx))el.style.boxShadow='0 0 12px rgba(255,23,68,.7)';
+      el.textContent=it.c;
+      el.title=it.n;
+    }else{
+      el.style.fontSize=Math.max(16,edPPM*0.35)+'px';
+      el.textContent=it.ic; el.title=it.n;
+    }
+    el.onpointerdown=e=>edDragStart(e,idx,el);
+    room.appendChild(el);
+  });
+  // conflict lines
+  const ov=document.getElementById('ed-overlay');
+  ov.setAttribute('viewBox',`0 0 ${edState.w*edPPM} ${edState.h*edPPM}`);
+  ov.innerHTML=probs.map(p=>{
+    const x1=(p.a.x+0.7)*edPPM,y1=(p.a.y+0.45)*edPPM,x2=(p.b.x+0.7)*edPPM,y2=(p.b.y+0.45)*edPPM;
+    return `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#ff1744" stroke-width="3" stroke-dasharray="7 5"/>
+      <text x="${(x1+x2)/2}" y="${(y1+y2)/2-6}" fill="#ff1744" font-size="11" font-weight="900" text-anchor="middle">${p.dist.toFixed(1)} ม.</text>`;
+  }).join('');
+  // check panel
+  const cp=document.getElementById('ed-check');
+  let h='';
+  if(probs.length)h+=`<div style="padding:10px 12px;background:var(--rb);border:1px solid var(--rbd);border-radius:var(--rs);margin-bottom:8px">
+    <div style="font-size:11px;font-weight:900;color:#ff7070;margin-bottom:5px">⛔ ห้ามอยู่ห้องเดียวกัน ${probs.length} คู่</div>
+    ${probs.map(p=>`<div style="font-size:10px;color:var(--tx2);line-height:1.7">• <b>${p.a.n}</b> (${p.a.c}) × <b>${p.b.n}</b> (${p.b.c}) — ต้องแยกบริเวณ/คนละห้อง (ตอนนี้ห่าง ${p.dist.toFixed(1)} ม.)</div>`).join('')}</div>`;
+  if(warns.length)h+=`<div style="padding:10px 12px;background:var(--ab);border:1px solid var(--abd);border-radius:var(--rs);margin-bottom:8px">
+    <div style="font-size:11px;font-weight:900;color:var(--amb);margin-bottom:5px">⚠️ เก็บร่วมได้แบบมีเงื่อนไข ${warns.length} คู่</div>
+    ${warns.map(w=>`<div style="font-size:10px;color:var(--tx2);line-height:1.7">• <b>${w.a.n}</b> × <b>${w.b.n}</b> — เงื่อนไข ${w.v}: ${CD[w.v]||''} <span style="color:var(--tx3)">(ห่าง ${w.dist.toFixed(1)} ม.)</span></div>`).join('')}</div>`;
+  const chems=edState.items.filter(i=>i.t==='chem');
+  if(!probs.length&&!warns.length&&chems.length>1)h=`<div style="padding:10px 12px;background:var(--gb);border:1px solid var(--gbd);border-radius:var(--rs);font-size:11px;font-weight:800;color:#33ff99">✅ ทุกคู่เก็บร่วมกันได้ ไม่มีข้อขัดแย้ง</div>`;
+  cp.innerHTML=h;
+  // legend
+  const uniq=[...new Map(chems.map(c=>[c.n,c])).values()];
+  document.getElementById('ed-legend').innerHTML=uniq.length?`<div class="sl" style="padding:0 0 6px">Legend</div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px">${uniq.map(c=>`<span style="display:inline-flex;align-items:center;gap:5px;font-size:9.5px;color:var(--tx2);background:var(--s1);border:1px solid var(--bd);padding:4px 8px;border-radius:6px">
+    <span style="width:14px;height:10px;border-radius:3px;background:${edColor(c.n)};display:inline-block"></span>${c.c} ${c.n}</span>`).join('')}</div>`:'';
+}
+
+function edDragStart(e,idx,el){
+  e.preventDefault();
+  const it=edState.items[idx];
+  const room=document.getElementById('ed-room');
+  const r0=room.getBoundingClientRect();
+  const sx=e.clientX,sy=e.clientY,ox=it.x,oy=it.y;
+  let moved=false;
+  el.setPointerCapture(e.pointerId);
+  // แตะค้าง 0.7 วิ = ลบ
+  edHold=setTimeout(()=>{if(!moved){if(confirm('ลบ "'+it.n+'" ออกจากผัง?')){edState.items.splice(idx,1);edRender();}}},700);
+  const mv=ev=>{
+    const dx=(ev.clientX-sx)/edPPM,dy=(ev.clientY-sy)/edPPM;
+    if(Math.abs(dx)>0.05||Math.abs(dy)>0.05){moved=true;clearTimeout(edHold);}
+    const maxX=it.t==='chem'?edState.w-1.4:edState.w-0.5;
+    const maxY=it.t==='chem'?edState.h-0.9:edState.h-0.5;
+    it.x=Math.max(0,Math.min(maxX,ox+dx));
+    it.y=Math.max(0,Math.min(maxY,oy+dy));
+    el.style.left=(it.x*edPPM)+'px';el.style.top=(it.y*edPPM)+'px';
+  };
+  const up=()=>{clearTimeout(edHold);el.releasePointerCapture&&el.releasePointerCapture(e.pointerId);
+    el.removeEventListener('pointermove',mv);el.removeEventListener('pointerup',up);el.removeEventListener('pointercancel',up);
+    edRender();};
+  el.addEventListener('pointermove',mv);
+  el.addEventListener('pointerup',up);
+  el.addEventListener('pointercancel',up);
+}
+
+function edExport(){
+  const f=(typeof getCurrentFarm==='function'&&getCurrentFarm())||{name:''};
+  const {probs,warns}=edCheck();
+  const chems=edState.items.filter(i=>i.t==='chem');
+  const uniq=[...new Map(chems.map(c=>[c.n,c])).values()];
+  const S=70; // px/เมตร ในรายงาน
+  const blocks=edState.items.map(it=>{
+    if(it.t==='chem')return `<div style="position:absolute;left:${it.x*S}px;top:${it.y*S}px;width:${1.4*S}px;height:${0.9*S}px;background:${edColor(it.n)};border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:900;color:#fff;font-size:17px;text-shadow:0 1px 3px rgba(0,0,0,.5);border:2px solid rgba(0,0,0,.2)">${it.c}</div>`;
+    return `<div style="position:absolute;left:${it.x*S}px;top:${it.y*S}px;font-size:26px">${it.ic}</div>`;
+  }).join('');
+  const lines=probs.map(p=>{
+    const x1=(p.a.x+0.7)*S,y1=(p.a.y+0.45)*S,x2=(p.b.x+0.7)*S,y2=(p.b.y+0.45)*S;
+    return `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#e11" stroke-width="3" stroke-dasharray="8 5"/>`;
+  }).join('');
+  const now=new Date().toLocaleString('th-TH',{dateStyle:'full',timeStyle:'short'});
+  const w=window.open('','_blank');
+  w.document.write(`<!DOCTYPE html><html><head><meta charset="utf-8"><title>แผนผัง ${edState.name}</title>
+  <style>body{font-family:'Sarabun',sans-serif;padding:28px;color:#111}
+  h1{font-size:22px;margin:0 0 4px} .sub{font-size:12px;color:#666;margin-bottom:18px}
+  .room{position:relative;border:6px solid #1a2b6d;border-radius:8px;background:#fff;margin-bottom:6px}
+  .door{position:absolute;bottom:-6px;left:50%;transform:translateX(-50%);width:80px;height:10px;background:#111;border-radius:3px 3px 0 0}
+  .lg{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0} .lgi{display:flex;align-items:center;gap:6px;font-size:12px}
+  .sw{width:22px;height:14px;border-radius:4px;display:inline-block}
+  .sec{margin-top:14px;padding:12px;border-radius:8px;font-size:12.5px;line-height:1.8}
+  .red{background:#fee;border:1px solid #fbb}.amb{background:#fff8e1;border:1px solid #fd6}.grn{background:#e8f8ee;border:1px solid #9d9}
+  @media print{.np{display:none}}</style></head><body>
+  <h1>แผนผังห้องจัดเก็บสารเคมี — ${edState.name}</h1>
+  <div class="sub">${f.name||''} · ขนาดจริง ${edState.w} × ${edState.h} เมตร · สร้าง ${now}</div>
+  <div class="room" style="width:${edState.w*S}px;height:${edState.h*S}px">
+    <svg style="position:absolute;inset:0;width:100%;height:100%">${lines}</svg>
+    ${blocks}<div class="door"></div></div>
+  <div style="font-size:11px;color:#666">⬆ ประตูห้องสารเคมี · เส้นประแดง = คู่ที่ห้ามเก็บร่วม</div>
+  <div class="lg">${uniq.map(c=>`<span class="lgi"><span class="sw" style="background:${edColor(c.n)}"></span>${c.c} ${c.n}</span>`).join('')}</div>
+  ${probs.length?`<div class="sec red"><b>⛔ ตรวจพบคู่ห้ามเก็บร่วม ${probs.length} คู่ (ต้องแยกบริเวณ):</b><br>${probs.map(p=>`• ${p.a.n} (${p.a.c}) × ${p.b.n} (${p.b.c}) — ระยะปัจจุบัน ${p.dist.toFixed(1)} ม.`).join('<br>')}</div>`:''}
+  ${warns.length?`<div class="sec amb"><b>⚠️ คู่ที่เก็บร่วมได้แบบมีเงื่อนไข ${warns.length} คู่:</b><br>${warns.map(x=>`• ${x.a.n} × ${x.b.n} — เงื่อนไขข้อ ${x.v}: ${CD[x.v]||''} (ห่าง ${x.dist.toFixed(1)} ม.)`).join('<br>')}</div>`:''}
+  ${!probs.length&&!warns.length&&chems.length>1?`<div class="sec grn"><b>✅ ทุกคู่เก็บร่วมกันได้ตาม DIW Matrix</b></div>`:''}
+  <div style="margin-top:20px;font-size:10.5px;color:#888">อ้างอิง: ตารางการจัดเก็บสารเคมีและวัตถุอันตราย กรมโรงงานอุตสาหกรรม (DIW) · พัฒนาโดย Atit Chimnan · ChemNexus AI 3.0</div>
+  <button class="np" onclick="window.print()" style="margin-top:16px;padding:10px 22px;font-size:14px;cursor:pointer">🖨 พิมพ์ / บันทึก PDF</button>
+  </body></html>`);
+  w.document.close();
+}
+
 </script>
 </body>
 </html>
