@@ -1,14 +1,12 @@
 // ChemNexus AI 3.0 — Service Worker
 // Developed by Atit Chimnan
 // Strategy: Cache-first for app shell, network-first for external resources
-
-const CACHE_NAME = 'chemnexus-v3.8.0';
+const CACHE_NAME = 'chemnexus-v3.9.0';
 const CACHE_URLS = [
   './index.html',
   './manifest.json',
   './firebase-config.js',
 ];
-
 // External resources to cache when available
 const EXTERNAL_CACHE = [
   'https://fonts.googleapis.com/css2?family=Sarabun',
@@ -17,7 +15,6 @@ const EXTERNAL_CACHE = [
   'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js',
   'https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics-compat.js',
 ];
-
 // ── INSTALL ── cache app shell
 self.addEventListener('install', event => {
   event.waitUntil(
@@ -27,7 +24,6 @@ self.addEventListener('install', event => {
     }).then(() => self.skipWaiting())
   );
 });
-
 // ── ACTIVATE ── clean old caches
 self.addEventListener('activate', event => {
   event.waitUntil(
@@ -43,18 +39,14 @@ self.addEventListener('activate', event => {
     ).then(() => self.clients.claim())
   );
 });
-
 // ── FETCH ── serve from cache, fallback to network
 self.addEventListener('fetch', event => {
   const { request } = event;
   const url = new URL(request.url);
-
   // Skip non-GET requests
   if (request.method !== 'GET') return;
-
   // Skip chrome-extension and other non-http
   if (!request.url.startsWith('http')) return;
-
   // App shell + known externals: cache-first
   if (
     url.origin === self.location.origin ||
@@ -91,20 +83,17 @@ self.addEventListener('fetch', event => {
     );
     return;
   }
-
   // Firestore API calls: network-first (Firebase SDK handles offline internally)
   if (url.hostname.includes('firestore.googleapis.com') ||
       url.hostname.includes('firebase.googleapis.com')) {
     event.respondWith(fetch(request).catch(() => new Response('', {status: 503})));
     return;
   }
-
   // Everything else: network-first
   event.respondWith(
     fetch(request).catch(() => caches.match(request))
   );
 });
-
 // ── MESSAGE ── handle skip-waiting from client
 self.addEventListener('message', event => {
   if (event.data && event.data.type === 'SKIP_WAITING') {
