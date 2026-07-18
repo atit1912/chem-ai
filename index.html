@@ -775,8 +775,8 @@ select.fi option{background:#0c1120;color:var(--tx)}
         <div class="qmt">คลังสาร<br>เคมี</div>
       </div>
       <div class="qmi qm-lime" onclick="go('sds')">
-        <div class="qmic"><i class="ph ph-file-text"></i></div>
-        <div class="qmt">SDS<br>Generator</div>
+        <div class="qmic"><i class="ph ph-books"></i></div>
+        <div class="qmt">คลัง<br>SDS</div>
       </div>
       <div class="qmi qm-purple" onclick="go('matrix');renderMatrix()">
         <div class="qmic"><i class="ph ph-grid-nine"></i></div>
@@ -1009,11 +1009,34 @@ select.fi option{background:#0c1120;color:var(--tx)}
 <div id="page-sds" class="page">
   <div class="hdr">
     <button class="bb" onclick="back()"><i class="ph-bold ph-caret-left"></i></button>
-    <div class="hdr-t">📋 SDS Generator</div>
+    <div class="hdr-t">📚 คลัง SDS</div>
   </div>
   <div class="pc" id="sds-body">
     <div style="margin:12px 16px 8px;font-size:11px;color:var(--tx2);line-height:1.6">
-      สร้างเอกสารข้อมูลความปลอดภัย (SDS) ฉบับย่อภาษาไทย เลือกสารเคมีแล้วกดสร้าง
+      เอกสารข้อมูลความปลอดภัย (SDS) ฉบับเต็ม <strong id="sds-count">55</strong> รายการ — พิมพ์ค้นหาหรือเลือกจากรายการเพื่อเปิดดู
+    </div>
+    <div style="margin:0 16px 10px;position:relative">
+      <input class="fi" id="sds-lib-search" placeholder="ค้นหา ชื่อไทย/อังกฤษ/เลข SDS..." oninput="renderSdsLib(this.value)" autocomplete="off" style="padding-left:36px">
+      <i class="ph ph-magnifying-glass" style="position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--lime);font-size:15px"></i>
+    </div>
+    <div id="sds-lib-list" style="margin:0 16px 12px"></div>
+    <div class="sl" style="margin-top:6px">เครื่องมือเพิ่มเติม</div>
+    <div style="margin:0 16px 14px">
+      <button class="btn bg" onclick="openSdsGen()"><i class="ph-bold ph-file-plus" style="font-size:16px"></i>สร้าง SDS จากระบบ (ฉบับย่อ)</button>
+    </div>
+    <div class="crd"><strong>ATIT CHIMNAN</strong>ChemNexus AI 3.0 · คลัง SDS</div>
+  </div>
+</div>
+
+<!-- SDS GENERATOR (ฉบับย่อจากระบบ) -->
+<div id="page-sdsgen" class="page">
+  <div class="hdr">
+    <button class="bb" onclick="go('sds')"><i class="ph-bold ph-caret-left"></i></button>
+    <div class="hdr-t">📋 สร้าง SDS จากระบบ</div>
+  </div>
+  <div class="pc" id="sdsgen-body">
+    <div style="margin:12px 16px 8px;font-size:11px;color:var(--tx2);line-height:1.6">
+      สร้างใบข้อมูลความปลอดภัยฉบับย่อจากข้อมูลในระบบ (สำหรับสารที่ยังไม่มีไฟล์ SDS เต็ม)
     </div>
     <div class="sl">เลือกสารเคมี</div>
     <div style="margin:0 16px 10px;position:relative">
@@ -1029,6 +1052,7 @@ select.fi option{background:#0c1120;color:var(--tx)}
     <div class="crd"><strong>ATIT CHIMNAN</strong>ChemNexus AI 3.0 · SDS Generator</div>
   </div>
 </div>
+
 
 <!-- SPILL SIMULATOR PAGE -->
 <div id="page-spill" class="page">
@@ -1598,6 +1622,7 @@ function go(pg,dr='right'){
   if(pg==='emergency')rEMG();
   if(pg==='dashboard')uDash();
   if(pg==='editor')edInit();
+  if(pg==='sds')renderSdsLib('');
 }
 function back(){go(pv.pop()||'dashboard','left');}
 function uNB(pg){document.querySelectorAll('.nb').forEach(b=>b.classList.remove('active'));const a=document.getElementById('nb-'+pg);if(a)a.classList.add('active');}
@@ -4709,6 +4734,38 @@ function edLoadPreset(key){
   edRender();
   toast('โหลดผัง "'+key+'" — ขนาดห้องเป็นค่าประมาณ แก้ให้ตรงจริงได้เลย');
 }
+
+const SDS_LIB=[{no:1,th:"คลอรีนน้ำ",en:"Sodium hypochlorite 10%"},{no:2,th:"คลอรีนผง",en:"Calcium hypochlorite 65%"},{no:3,th:"โซดาไฟ",en:"Sodium hydroxide"},{no:4,th:"โพวิโดน-ไอโอดีน",en:"Povidone iodine 1%"},{no:5,th:"เอทิลแอลกอฮอล์ 95%",en:"Ethanol 95%"},{no:6,th:"แคลเซียม คลอไรด์",en:"Calcium chloride"},{no:7,th:"กรดเกลือ",en:"Hydrochloric acid"},{no:8,th:"โซเดียมไนไตรท์",en:"Sodium nitrite"},{no:9,th:"กรดอะซิติก",en:"Acetic Acid"},{no:10,th:"กรดซัลฟิวริก",en:"Sulfuric Acid"},{no:11,th:"แก๊ส LPG",en:"LPG"},{no:12,th:"ออกซิเจน",en:"Oxygen"},{no:13,th:"น้ำมันเบนซิน",en:"Gasoline"},{no:14,th:"น้ำมันดีเซล",en:"Diesel Fuel"},{no:15,th:"โซเดียม ไทโอซัลเฟต",en:"Sodium Thiosulfate"},{no:16,th:"โซเดียมไบคาร์บอเนต",en:"Sodium bicarbonate"},{no:17,th:"ฟอร์มาลิน",en:"formaldehyde"},{no:18,th:"ปูนขาว",en:"calcium hydroxide"},{no:19,th:"แมกนีเซียมคลอไรด์",en:"Magnesium chloride"},{no:20,th:"ไฮโดรเจนเปอร์ออกไซด์",en:"Hydrogen peroxide"},{no:21,th:"ไบโอซอล 300",en:"Biosol300"},{no:22,th:"อีดีทีเอ",en:"EDTA"},{no:23,th:"อะควาบราว",en:"AQUA BROWN"},{no:24,th:"ผลิตภัณฑ์ล้างจาน สูตรน้ำ",en:"Dishwashing Liquid"},{no:25,th:"ทินเนอร์",en:"Thinner"},{no:26,th:"จาระบี",en:"Grease"},{no:27,th:"สีกันสนิม",en:"Anti-rust Paint"},{no:28,th:"สเปรย์สี",en:"Spray Paint"},{no:30,th:"น้ำมันเครื่อง",en:"Engine Oil"},{no:31,th:"สารละลายแอมโมเนีย",en:"Ammonia Solution"},{no:32,th:"แอมโมเนียมคลอไรด์",en:"Ammonium Chloride"},{no:33,th:"แอมโมเนียมโมลิบเดต",en:"Ammonium Molybdate"},{no:34,th:"แอมโมเนียมเปอร์ซัลเฟต",en:"Ammonium Persulfate"},{no:35,th:"แบเรียมคลอไรด์ ไดไฮเดรต",en:"Barium Chloride Dihydrate"},{no:36,th:"โบรมครีซอลกรีน",en:"Bromocresol Green"},{no:37,th:"โบรมฟีนอลบลู",en:"Bromophenol Blue"},{no:38,th:"บรูซีนซัลเฟต",en:"Brucine Sulfate"},{no:39,th:"แคลเซียมคาร์บอเนต",en:"Calcium Carbonate"},{no:41,th:"คลอโรฟอร์ม",en:"Chloroform"},{no:42,th:"กรดไนตริก",en:"Nitric Acid"},{no:43,th:"ฟีนอล",en:"Phenol"},{no:44,th:"กรดฟอร์มิก",en:"Formic Acid"},{no:45,th:"โพแทสเซียมไนเตรต",en:"Potassium Nitrate"},{no:46,th:"โพแทสเซียมไดไฮโดรเจนฟอสเฟต",en:"Potassium Dihydrogen Phosphate"},{no:47,th:"โพแทสเซียมแอนติโมนิลทาร์เทรต",en:"Potassium Antimonyl Tartrate"},{no:48,th:"โพแทสเซียมเปอร์แมงกาเนต",en:"Potassium Permanganate"},{no:49,th:"โซเดียมคลอไรด์",en:"Sodium Chloride"},{no:50,th:"โซเดียมดีออกซีโคเลต",en:"Sodium Deoxycholate"},{no:51,th:"โซเดียมเมตาซิลิเกต",en:"Sodium Metasilicate"},{no:52,th:"โซเดียมไฮโดรเจนฟอสเฟต",en:"Sodium Hydrogenphosphate"},{no:53,th:"กาวประสานท่อ",en:"Pipe Cement"},{no:54,th:"ปรอทไนเตรต โมโนไฮเดรต",en:"Mercuric Nitrate Monohydrate"},{no:55,th:"เมทานอล",en:"Methanol"},{no:56,th:"เป็ด โปร",en:"Duck Pro"},{no:57,th:"เดทตอล น้ำยาฆ่าเชื้อโรค",en:"Dettol Antiseptic Disinfectant"}];
+// ── คลัง SDS: render รายการ 55 ไฟล์ เรียงตามเลข ──
+function sdsGhs(en){
+  const s=en.toLowerCase();
+  if(/hypochlorite|permanganate|persulfate|peroxide|nitrate|nitrite/.test(s))return '⭕';
+  if(/acid|hydroxide|hydrochloric|sulfuric|nitric|formic|metasilicate/.test(s))return '🧪';
+  if(/ethanol|methanol|thinner|gasoline|diesel|spray|lpg|acetone/.test(s))return '🔥';
+  if(/mercuric|phenol|chloroform|brucine|barium|ammonia/.test(s))return '☠️';
+  if(/oxygen/.test(s))return '💨';
+  return '📄';
+}
+function renderSdsLib(q){
+  q=(q||'').trim().toLowerCase();
+  const list=SDS_LIB.filter(s=>!q||s.th.toLowerCase().includes(q)||s.en.toLowerCase().includes(q)||String(s.no).includes(q)||('sds-'+s.no).includes(q));
+  const el=document.getElementById('sds-lib-list');
+  document.getElementById('sds-count').textContent=SDS_LIB.length;
+  if(!list.length){el.innerHTML=`<div style="padding:20px;text-align:center;color:var(--tx3);font-size:11px">ไม่พบ "${q}"</div>`;return;}
+  el.innerHTML=`<div class="card" style="overflow:hidden">`+list.map(s=>{
+    const file='sds/sds-'+String(s.no).padStart(2,'0')+'.html';
+    return `<div onclick="window.open('${file}','_blank')" style="display:flex;align-items:center;gap:11px;padding:11px 13px;border-bottom:1px solid var(--bd);cursor:pointer;transition:background .12s" onmouseover="this.style.background='rgba(184,255,58,.05)'" onmouseout="this.style.background='none'">
+      <div style="font-size:9px;font-weight:900;color:var(--lime);background:var(--lb);border:1px solid var(--lbd);border-radius:6px;min-width:32px;text-align:center;padding:5px 4px;flex-shrink:0">${String(s.no).padStart(2,'0')}</div>
+      <div style="font-size:17px;flex-shrink:0">${sdsGhs(s.en)}</div>
+      <div style="flex:1;min-width:0">
+        <div style="font-size:12.5px;font-weight:800;color:var(--tx);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${s.th||s.en}</div>
+        <div style="font-size:9.5px;color:var(--tx3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${s.en}</div>
+      </div>
+      <i class="ph-bold ph-arrow-square-out" style="font-size:16px;color:var(--tx3);flex-shrink:0"></i>
+    </div>`;
+  }).join('')+`</div>`;
+}
+function openSdsGen(){go('sdsgen');}
 
 </script>
 </body>
