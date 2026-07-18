@@ -29,8 +29,36 @@
   .ghs{display:block;width:clamp(64px,12vw,88px);height:auto;filter:drop-shadow(0 0 6px rgba(2,6,23,.10))}
   .pictos figcaption{font-size:.85em;color:var(--muted);margin-top:6px}
 </style>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700;800&display=swap');
+  html,body{font-family:"Sarabun","Noto Sans Thai",system-ui,sans-serif}
+  header{padding:11px 14px 9px}
+  .ttl{font-size:clamp(10px,2.8vw,12px);color:#64748b;font-weight:700;margin:0 0 3px;text-transform:uppercase;letter-spacing:.1em}
+  .chem{font-size:clamp(17px,4.8vw,21px);margin:0 0 5px;padding:6px 11px;line-height:1.3}
+  .meta{font-size:8px;line-height:1.6;color:#94a3b8}
+  .badges{margin:7px 0 0;gap:4px}
+  .badge{font-size:8px;padding:3px 7px}
+  section>h2{font-size:clamp(13px,3.6vw,15px);padding:7px 10px;font-weight:800}
+  section#sec4{border-left:4px solid #ef4444;scroll-margin-top:44px}
+  section#sec4>h2{background:linear-gradient(90deg,rgba(239,68,68,.14),rgba(239,68,68,.04))!important;color:#ef4444!important}
+  section#sec6{border-left:4px solid #f97316;scroll-margin-top:44px}
+  section#sec6>h2{background:linear-gradient(90deg,rgba(249,115,22,.12),transparent)!important;color:#f97316!important}
+  section[id]{scroll-margin-top:44px}
+  table{min-width:0!important;width:100%}
+  th,td{padding:6px 8px;font-size:13px;line-height:1.5}
+  @media print{#sds-nav{display:none!important}}
+</style>
 </head>
 <body>
+<nav id="sds-nav" style="position:sticky;top:0;z-index:100;background:#0f172a;border-bottom:2px solid #1e3a5f;display:flex;align-items:center;overflow:hidden">
+  <a href="javascript:history.back()" style="flex-shrink:0;display:inline-flex;align-items:center;padding:9px 13px;color:#b8ff3a;font-size:12px;font-weight:900;text-decoration:none;border-right:1px solid #1e3a5f;background:#070d1a;letter-spacing:.02em">◀ กลับ</a>
+  <div style="overflow-x:auto;display:flex;scrollbar-width:none;-webkit-overflow-scrolling:touch"><a href="#sec1" class="toc-a">ข้อมูลเกี่ยวกับส</a><a href="#sec2" class="toc-a">การระบุอันตราย</a><a href="#sec3" class="toc-a">ส่วนประกอบ/ข้อมู</a><a href="#sec4" class="toc-a">มาตรการปฐมพยาบาล</a><a href="#sec5" class="toc-a">มาตรการระงับอัคค</a><a href="#sec6" class="toc-a">มาตรการเมื่อมีกา</a><a href="#sec7" class="toc-a">การจัดการและการเ</a><a href="#sec8" class="toc-a">การควบคุมการสัมผ</a></div>
+</nav><style>
+  .toc-a{display:inline-block;padding:9px 11px;color:#94a3b8;font-size:10px;font-weight:700;
+    text-decoration:none;white-space:nowrap;border-right:1px solid #1e3a5f;
+    transition:all .15s;letter-spacing:.02em;line-height:1}
+  .toc-a:hover{color:#b8ff3a;background:rgba(184,255,58,.08)}
+</style>
 <div class="container">
   <header>
     <h1 class="ttl">เอกสารข้อมูลความปลอดภัย (SDS)</h1>
@@ -44,21 +72,21 @@
     </div>
   </header>
 
-  <section><h2>ข้อ 1: ข้อมูลเกี่ยวกับสารหรือส่วนผสม และข้อมูลของผู้ผลิต</h2><div class="frame"><p><strong>ชื่อผลิตภัณฑ์:</strong> Ammonium Chloride (แอมโมเนียมคลอไรด์) · <strong>สูตร:</strong> NH₄Cl</p><p><strong>การใช้:</strong> ใช้ในอุตสาหกรรมโลหะ, แบตเตอรี่, ปุ๋ย, สารเคมีในห้องปฏิบัติการ</p><div class="tablewrap"><table><thead><tr><th>ผู้ผลิต/ผู้จัดจำหน่าย</th><th>ข้อมูลติดต่อ</th></tr></thead><tbody><tr><td>Merck KGaA</td><td>Frankfurter Str. 250, 64293 Darmstadt, Germany · โทร: +49 6151 72-0</td></tr><tr><td>Fisher Scientific</td><td>168 Third Avenue, Waltham, MA 02451, USA · โทร: +1 800 766-7000</td></tr></tbody></table></div><p><strong>เบอร์ติดต่อฉุกเฉิน:</strong> ศูนย์พิษวิทยา รามาธิบดี 1367</p></div></section>
+  <section><h2 id="sec1">ข้อ 1: ข้อมูลเกี่ยวกับสารหรือส่วนผสม และข้อมูลของผู้ผลิต</h2><div class="frame"><p><strong>ชื่อผลิตภัณฑ์:</strong> Ammonium Chloride (แอมโมเนียมคลอไรด์) · <strong>สูตร:</strong> NH₄Cl</p><p><strong>การใช้:</strong> ใช้ในอุตสาหกรรมโลหะ, แบตเตอรี่, ปุ๋ย, สารเคมีในห้องปฏิบัติการ</p><div class="tablewrap"><table><thead><tr><th>ผู้ผลิต/ผู้จัดจำหน่าย</th><th>ข้อมูลติดต่อ</th></tr></thead><tbody><tr><td>Merck KGaA</td><td>Frankfurter Str. 250, 64293 Darmstadt, Germany · โทร: +49 6151 72-0</td></tr><tr><td>Fisher Scientific</td><td>168 Third Avenue, Waltham, MA 02451, USA · โทร: +1 800 766-7000</td></tr></tbody></table></div><p><strong>เบอร์ติดต่อฉุกเฉิน:</strong> ศูนย์พิษวิทยา รามาธิบดี 1367</p></div></section>
 
-  <section><h2>ข้อ 2: การระบุอันตราย</h2><div class="frame"><div class="pictos"><figure><img class="ghs" alt="GHS07" src="https://commons.wikimedia.org/wiki/Special:FilePath/GHS-pictogram-exclam.svg"/><figcaption>GHS07 – ระคายเคือง</figcaption></figure></div><h3>ข้อความแสดงอันตราย (H)</h3><ul class="plist"><li><strong>H302</strong> เป็นอันตรายหากกลืนกิน</li><li><strong>H319</strong> ทำให้เกิดการระคายเคืองตารุนแรง</li></ul><h3>ข้อความแนะนำการป้องกัน (P)</h3><ul class="plist"><li><strong>P264</strong> ล้างมือให้สะอาดหลังการใช้งาน</li><li><strong>P270</strong> ห้ามรับประทาน ดื่ม หรือสูดดมสารนี้</li><li><strong>P301+P312</strong> หากกลืนกิน: โทรหาศูนย์พิษ/แพทย์ หากรู้สึกไม่สบาย</li><li><strong>P305+P351+P338</strong> หากเข้าตา: ล้างด้วยน้ำหลาย ๆ นาที</li><li><strong>P337+P313</strong> หากอาการตายังไม่หาย: พบแพทย์</li><li><strong>P501</strong> กำจัดของเสียตามข้อกำหนด</li></ul></div></section>
+  <section><h2 id="sec2">ข้อ 2: การระบุอันตราย</h2><div class="frame"><div class="pictos"><figure><img class="ghs" alt="GHS07" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1NzkwIDU3OTAiPjxwYXRoIGQ9Im0yNTMgMjg5NyAyNjQwIDI2NDAgMjY0MS0yNjQwYy04ODAtODgwLTE3NjAtMTc2Mi0yNjQwLTI2NDBMMjUzIDI4OTciIGZpbGw9IiNmZmYiLz48cGF0aCBkPSJtNjAgMjg5NyAyODMzIDI4MzMgMjgzNC0yODM0TDI4OTQgNjMgNjAgMjg5N3ptNTIxOCAwTDI4OTMgNTI4MCA1MTAgMjg5NiAyODk0IDUxMmwyMzg0IDIzODQiIGZpbGw9InJlZCIvPjxwYXRoIGQ9Ik0yODkyIDE0MjhoLTIwYTQ3NSA0NzUgMCAwIDAtMzAxIDEyMSAyMjkgMjI5IDAgMCAwLTY0IDExM2MtMyAxMS0zIDE0LTMgMzVzMCAyNSAzIDM3YzIgMTQgMTk1IDEzMTQgMTk3IDEzMzZhMjEzIDIxMyAwIDAgMCAyMzkgMTgyIDIxMyAyMTMgMCAwIDAgMTgwLTE4MmMzLTI3IDE5NS0xMzI0IDE5OC0xMzM3IDItMTIgMi0xNiAyLTM1IDAtMjMgMC0zMS01LTQ3YTIzNCAyMzQgMCAwIDAtMTA2LTEzOCA0OTYgNDk2IDAgMCAwLTI5MS04NWgtMzB6bTIwIDIwMTFoLTEyYTMwMiAzMDIgMCAwIDAtMjQzIDE0MSAzMzggMzM4IDAgMCAwLTU1IDIzMiAzNDMgMzQzIDAgMCAwIDExNCAyMTggMzEwIDMxMCAwIDAgMCAxOTkgNzQgMzE2IDMxNiAwIDAgMCAyNTgtMTQxIDM0MSAzNDEgMCAwIDAgNTQtMjM0IDM5MCAzOTAgMCAwIDAtMzItMTEwIDMxNyAzMTcgMCAwIDAtMjgxLTE4MCIvPjwvc3ZnPg=="/><figcaption>GHS07 – ระคายเคือง</figcaption></figure></div><h3>ข้อความแสดงอันตราย (H)</h3><ul class="plist"><li><strong>H302</strong> เป็นอันตรายหากกลืนกิน</li><li><strong>H319</strong> ทำให้เกิดการระคายเคืองตารุนแรง</li></ul><h3>ข้อความแนะนำการป้องกัน (P)</h3><ul class="plist"><li><strong>P264</strong> ล้างมือให้สะอาดหลังการใช้งาน</li><li><strong>P270</strong> ห้ามรับประทาน ดื่ม หรือสูดดมสารนี้</li><li><strong>P301+P312</strong> หากกลืนกิน: โทรหาศูนย์พิษ/แพทย์ หากรู้สึกไม่สบาย</li><li><strong>P305+P351+P338</strong> หากเข้าตา: ล้างด้วยน้ำหลาย ๆ นาที</li><li><strong>P337+P313</strong> หากอาการตายังไม่หาย: พบแพทย์</li><li><strong>P501</strong> กำจัดของเสียตามข้อกำหนด</li></ul></div></section>
 
-  <section><h2>ข้อ 3: ส่วนประกอบ/ข้อมูลเกี่ยวกับส่วนผสม</h2><div class="frame tablewrap"><table><thead><tr><th>สาร</th><th>CAS</th><th>ความเข้มข้น</th></tr></thead><tbody><tr><td>Ammonium Chloride</td><td>12125-02-9</td><td>≥ 99%</td></tr></tbody></table></div></section>
+  <section><h2 id="sec3">ข้อ 3: ส่วนประกอบ/ข้อมูลเกี่ยวกับส่วนผสม</h2><div class="frame tablewrap"><table><thead><tr><th>สาร</th><th>CAS</th><th>ความเข้มข้น</th></tr></thead><tbody><tr><td>Ammonium Chloride</td><td>12125-02-9</td><td>≥ 99%</td></tr></tbody></table></div></section>
 
-  <section><h2>ข้อ 4: มาตรการปฐมพยาบาลเบื้องต้น</h2><div class="frame"><div><strong>อาการสำคัญ:</strong> ระคายเคืองตาและระบบทางเดินหายใจ, คลื่นไส้หากกลืนกิน</div><ul class="plist"><li><strong>เข้าตา:</strong> ล้างน้ำต่อเนื่อง 15 นาที เปิดเปลือกตาเป็นระยะ รีบพบแพทย์</li><li><strong>ผิวหนัง:</strong> ล้างด้วยน้ำมาก ๆ ถอดเสื้อผ้าที่ปนเปื้อน</li><li><strong>สูดดม:</strong> ย้ายผู้ป่วยไปอากาศบริสุทธิ์ ให้ O₂ หากจำเป็น ติดต่อแพทย์</li><li><strong>กลืนกิน:</strong> บ้วนปาก ดื่มน้ำ 1–2 แก้ว ห้ามทำให้อาเจียน ส่งโรงพยาบาล</li></ul></div></section>
+  <section><h2 id="sec4">ข้อ 4: มาตรการปฐมพยาบาลเบื้องต้น</h2><div class="frame"><div><strong>อาการสำคัญ:</strong> ระคายเคืองตาและระบบทางเดินหายใจ, คลื่นไส้หากกลืนกิน</div><ul class="plist"><li><strong>เข้าตา:</strong> ล้างน้ำต่อเนื่อง 15 นาที เปิดเปลือกตาเป็นระยะ รีบพบแพทย์</li><li><strong>ผิวหนัง:</strong> ล้างด้วยน้ำมาก ๆ ถอดเสื้อผ้าที่ปนเปื้อน</li><li><strong>สูดดม:</strong> ย้ายผู้ป่วยไปอากาศบริสุทธิ์ ให้ O₂ หากจำเป็น ติดต่อแพทย์</li><li><strong>กลืนกิน:</strong> บ้วนปาก ดื่มน้ำ 1–2 แก้ว ห้ามทำให้อาเจียน ส่งโรงพยาบาล</li></ul></div></section>
 
-  <section><h2>ข้อ 5: มาตรการระงับอัคคีภัย</h2><div class="frame"><ul class="plist"><li><strong>สารดับเพลิงที่เหมาะสม:</strong> น้ำพ่นฝอย, โฟม, ผงเคมีแห้ง, CO₂</li><li><strong>อันตรายจากไฟ:</strong> สลายตัวเมื่อเผาไหม้ปล่อยก๊าซ HCl, NH₃</li><li><strong>คำแนะนำสำหรับผู้ดับเพลิง:</strong> ใช้ SCBA และชุดป้องกันสารเคมี</li></ul></div></section>
+  <section><h2 id="sec5">ข้อ 5: มาตรการระงับอัคคีภัย</h2><div class="frame"><ul class="plist"><li><strong>สารดับเพลิงที่เหมาะสม:</strong> น้ำพ่นฝอย, โฟม, ผงเคมีแห้ง, CO₂</li><li><strong>อันตรายจากไฟ:</strong> สลายตัวเมื่อเผาไหม้ปล่อยก๊าซ HCl, NH₃</li><li><strong>คำแนะนำสำหรับผู้ดับเพลิง:</strong> ใช้ SCBA และชุดป้องกันสารเคมี</li></ul></div></section>
 
-  <section><h2>ข้อ 6: มาตรการเมื่อมีการรั่วไหลโดยไม่ตั้งใจ</h2><div class="frame"><ul class="plist"><li><strong>บุคคล:</strong> อพยพผู้ไม่เกี่ยวข้อง ระบายอากาศ สวม PPE ที่เหมาะสม</li><li><strong>สิ่งแวดล้อม:</strong> หลีกเลี่ยงการปล่อยลงท่อระบายน้ำ/แหล่งน้ำ</li><li><strong>วิธีทำความสะอาด:</strong> กวาด/ดูดเก็บใส่ภาชนะปิดสนิทที่เหมาะสม</li></ul></div></section>
+  <section><h2 id="sec6">ข้อ 6: มาตรการเมื่อมีการรั่วไหลโดยไม่ตั้งใจ</h2><div class="frame"><ul class="plist"><li><strong>บุคคล:</strong> อพยพผู้ไม่เกี่ยวข้อง ระบายอากาศ สวม PPE ที่เหมาะสม</li><li><strong>สิ่งแวดล้อม:</strong> หลีกเลี่ยงการปล่อยลงท่อระบายน้ำ/แหล่งน้ำ</li><li><strong>วิธีทำความสะอาด:</strong> กวาด/ดูดเก็บใส่ภาชนะปิดสนิทที่เหมาะสม</li></ul></div></section>
 
-  <section><h2>ข้อ 7: การจัดการและการเก็บรักษา</h2><div class="frame"><ul class="plist"><li>ใช้งานในที่อากาศถ่ายเทดี</li><li>หลีกเลี่ยงการสัมผัสโดยตรงกับผิวหนัง/ตา</li><li>เก็บในภาชนะปิดสนิท แห้ง เย็น</li><li>แยกจากกรดและสารรีดิวซ์</li></ul></div></section>
+  <section><h2 id="sec7">ข้อ 7: การจัดการและการเก็บรักษา</h2><div class="frame"><ul class="plist"><li>ใช้งานในที่อากาศถ่ายเทดี</li><li>หลีกเลี่ยงการสัมผัสโดยตรงกับผิวหนัง/ตา</li><li>เก็บในภาชนะปิดสนิท แห้ง เย็น</li><li>แยกจากกรดและสารรีดิวซ์</li></ul></div></section>
 
-  <section><h2>ข้อ 8: การควบคุมการสัมผัสและการป้องกันส่วนบุคคล</h2><div class="frame"><div class="tablewrap" style="margin-bottom:8px"><table><thead><tr><th>สาร</th><th>หน่วยงาน</th><th>ค่า</th></tr></thead><tbody><tr><td>Ammonium Chloride (fume)</td><td>ACGIH</td><td>TWA 10 mg/m³; STEL 20 mg/m³</td></tr></tbody></table></div><ul class="plist"><li><strong>ตา/หน้า:</strong> แว่นครอบตาเคมี</li><li><strong>มือ:</strong> ถุงมือป้องกันสารเคมี</li><li><strong>ร่างกาย:</strong> เสื้อคลุมห้องแล็บ</li><li><strong>ระบบหายใจ:</strong> หน้ากากกรองฝุ่น/ไอ</li><li><strong>วิศวกรรม:</strong> ทำงานในตู้ดูดควันหรือระบบระบายอากาศเฉพาะที่</li></ul></div></section>
+  <section><h2 id="sec8">ข้อ 8: การควบคุมการสัมผัสและการป้องกันส่วนบุคคล</h2><div class="frame"><div class="tablewrap" style="margin-bottom:8px"><table><thead><tr><th>สาร</th><th>หน่วยงาน</th><th>ค่า</th></tr></thead><tbody><tr><td>Ammonium Chloride (fume)</td><td>ACGIH</td><td>TWA 10 mg/m³; STEL 20 mg/m³</td></tr></tbody></table></div><ul class="plist"><li><strong>ตา/หน้า:</strong> แว่นครอบตาเคมี</li><li><strong>มือ:</strong> ถุงมือป้องกันสารเคมี</li><li><strong>ร่างกาย:</strong> เสื้อคลุมห้องแล็บ</li><li><strong>ระบบหายใจ:</strong> หน้ากากกรองฝุ่น/ไอ</li><li><strong>วิศวกรรม:</strong> ทำงานในตู้ดูดควันหรือระบบระบายอากาศเฉพาะที่</li></ul></div></section>
 
   <section><h2>ข้อ 9: สมบัติทางกายภาพและเคมี</h2><div class="frame tablewrap"><table><tbody><tr><th>ลักษณะ</th><td>ผลึกสีขาว ไม่มีกลิ่น</td></tr><tr><th>pH (สารละลาย 10%)</th><td>4.5 – 5.5</td></tr><tr><th>จุดหลอมเหลว</th><td>338 °C (สลายตัว)</td></tr><tr><th>ความหนาแน่น</th><td>1.53 g/cm³</td></tr><tr><th>การละลายน้ำ</th><td>ละลายได้ดี</td></tr></tbody></table></div></section>
 

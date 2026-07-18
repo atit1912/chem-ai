@@ -39,8 +39,36 @@
   th,td{border:1px solid var(--line);padding:8px;vertical-align:top}
   th{background:#eef2ff;text-align:left}
 </style>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700;800&display=swap');
+  html,body{font-family:"Sarabun","Noto Sans Thai",system-ui,sans-serif}
+  header{padding:11px 14px 9px}
+  .ttl{font-size:clamp(10px,2.8vw,12px);color:#64748b;font-weight:700;margin:0 0 3px;text-transform:uppercase;letter-spacing:.1em}
+  .chem{font-size:clamp(17px,4.8vw,21px);margin:0 0 5px;padding:6px 11px;line-height:1.3}
+  .meta{font-size:8px;line-height:1.6;color:#94a3b8}
+  .badges{margin:7px 0 0;gap:4px}
+  .badge{font-size:8px;padding:3px 7px}
+  section>h2{font-size:clamp(13px,3.6vw,15px);padding:7px 10px;font-weight:800}
+  section#sec4{border-left:4px solid #ef4444;scroll-margin-top:44px}
+  section#sec4>h2{background:linear-gradient(90deg,rgba(239,68,68,.14),rgba(239,68,68,.04))!important;color:#ef4444!important}
+  section#sec6{border-left:4px solid #f97316;scroll-margin-top:44px}
+  section#sec6>h2{background:linear-gradient(90deg,rgba(249,115,22,.12),transparent)!important;color:#f97316!important}
+  section[id]{scroll-margin-top:44px}
+  table{min-width:0!important;width:100%}
+  th,td{padding:6px 8px;font-size:13px;line-height:1.5}
+  @media print{#sds-nav{display:none!important}}
+</style>
 </head>
 <body>
+<nav id="sds-nav" style="position:sticky;top:0;z-index:100;background:#0f172a;border-bottom:2px solid #1e3a5f;display:flex;align-items:center;overflow:hidden">
+  <a href="javascript:history.back()" style="flex-shrink:0;display:inline-flex;align-items:center;padding:9px 13px;color:#b8ff3a;font-size:12px;font-weight:900;text-decoration:none;border-right:1px solid #1e3a5f;background:#070d1a;letter-spacing:.02em">◀ กลับ</a>
+  <div style="overflow-x:auto;display:flex;scrollbar-width:none;-webkit-overflow-scrolling:touch"><a href="#sec1" class="toc-a">ข้อมูลเกี่ยวกับส</a><a href="#sec2" class="toc-a">การระบุอันตราย</a><a href="#sec3" class="toc-a">ส่วนประกอบ/ข้อมู</a><a href="#sec4" class="toc-a">มาตรการปฐมพยาบาล</a><a href="#sec5" class="toc-a">มาตรการระงับอัคค</a><a href="#sec6" class="toc-a">มาตรการเมื่อมีกา</a><a href="#sec7" class="toc-a">การจัดการและการเ</a><a href="#sec8" class="toc-a">การควบคุมการสัมผ</a><a href="#sec9" class="toc-a">สมบัติทางกายภาพแ</a><a href="#sec10" class="toc-a">ความเสถียรและควา</a><a href="#sec11" class="toc-a">ข้อมูลพิษวิทยา</a><a href="#sec12" class="toc-a">ข้อมูลระบบนิเวศ</a><a href="#sec13" class="toc-a">ข้อควรพิจารณาในก</a><a href="#sec14" class="toc-a">ข้อมูลการขนส่ง</a><a href="#sec15" class="toc-a">ข้อมูลเกี่ยวกับก</a><a href="#sec16" class="toc-a">ข้อมูลอื่น ๆ</a></div>
+</nav><style>
+  .toc-a{display:inline-block;padding:9px 11px;color:#94a3b8;font-size:10px;font-weight:700;
+    text-decoration:none;white-space:nowrap;border-right:1px solid #1e3a5f;
+    transition:all .15s;letter-spacing:.02em;line-height:1}
+  .toc-a:hover{color:#b8ff3a;background:rgba(184,255,58,.08)}
+</style>
 <div class="container" role="document" aria-label="Safety Data Sheet">
 
     <header>
@@ -97,7 +125,7 @@
             <h3 style="margin:10px 0 8px">สัญลักษณ์อันตราย (GHS)</h3>
             <div class="pictos" aria-label="GHS pictograms">
                 <figure>
-                    <img class="ghs" alt="GHS03 – Flame over circle" src="https://commons.wikimedia.org/wiki/Special:FilePath/GHS-pictogram-rondflam.svg" referrerpolicy="no-referrer">
+                    <img class="ghs" alt="GHS03 – Flame over circle" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjwhLS0gQ3JlYXRlZCB3aXRoIElua3NjYXBlIChodHRwOi8vd3d3Lmlua3NjYXBlLm9yZy8pIC0tPgo8c3ZnCiAgIHhtbG5zOnN2Zz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciCiAgIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIKICAgdmVyc2lvbj0iMS4wIgogICB3aWR0aD0iNTc5cHQiCiAgIGhlaWdodD0iNTc5cHQiCiAgIHZpZXdCb3g9IjAgMCA1NzkgNTc5Ij4KICA8cGF0aAogICAgIGQ9Ik0gMjUuMzAxMTY1LDI4OS42NzE3MiAyODkuMzI5ODcsNTUzLjcwMDQ0IDU1My40MDI2MSwyODkuNjI3NyBDIDQ2NS4zNTAyMiwyMDEuNjc1NyAzNzcuNDcxODIsMTEzLjU0OTQyIDI4OS4zNzM5LDI1LjY0MzAyNCBMIDI1LjMwMTE2NSwyODkuNjcxNzIgeiIKICAgICBzdHlsZT0iZmlsbDojZmZmZmZmO3N0cm9rZTpub25lIiAvPgogIDxwYXRoCiAgICAgZD0iTSAxNDcuNjU5NDEsMTQ4LjAxMjMzIDYsMjg5LjY3MTczIDE0Ny42Njg4Niw0MzEuMzQwNTkgMjg5LjMyODI3LDU3MyA0MzEuMDE2MDIsNDMxLjMxMjI0IDU3Mi43MDM3OCwyODkuNjI0NDkgNDMxLjA2MzI3LDE0Ny45ODM5OCBDIDM1My4xNjU3MSw3MC4wODY0MjQgMjg5LjQwMzg2LDYuMzQzNDcgMjg5LjM3NTUxLDYuMzQzNDcgYyAtMC4wMjg0LDAgLTYzLjc5OTY1LDYzLjc1MjQwMyAtMTQxLjcxNjEsMTQxLjY2ODg2IHogTSA0MDguNjIxODksMTcwLjQyNTM1IDUyNy44MjEwMywyODkuNjI0NDkgNDA4LjU2NTIsNDA4Ljg4MDMyIDI4OS4zMTg4Miw1MjguMTI2NyAxNzAuMTI5MTMsNDA4Ljg3MDg3IDUwLjkzOTQ0NCwyODkuNjE1MDQgMTcwLjEzODU4LDE3MC40MTU5MSBDIDIzNS42OTU3NCwxMDQuODU4NzQgMjg5LjM0NzE2LDUxLjIyNjIyIDI4OS4zNzU1MSw1MS4yMjYyMiBjIDAuMDI4MywwIDUzLjY4OTIyLDUzLjY0MTk3IDExOS4yNDYzOCwxMTkuMTk5MTMgeiIKICAgICBzdHlsZT0iZmlsbDojZmYwMDAwO3N0cm9rZTpub25lIiAvPgogIDxwYXRoCiAgICAgZD0ibSAzNTguNjg3NSwxMDUuNjg3NSBjIC0xMS4wNDIzLDExLjk1MTA0IC0wLjAzNDYsNjEuMTIyOTUgLTIyLjg0Mzc1LDEwNy4yMTg3NSAtMTEuODI1MTMsLTEyLjYxMzQ2IC0xNi41NjY5MiwtMzYuMjY4NjMgLTI5Ljk2ODc1LC00OC4wOTM3NSA3LjA3MDQ2LDE4LjEzMTg2IC0xMi42MjYzMywxNi41NTc2NiAtNS41MzEyNSw3OS42MjUgLTEwLjcwNzI1LC0yLjY3NjgxIC0xMS4wMzcyNSwtNy4wODg0NiAtMzQuNjg3NSwtMzUuNDY4NzUgNC40MDM1MywyNy41MjIwNCAxLjYwNjYzLDQ0Ljk0MjE3IDcuMTI1LDc1LjY4NzUgMCwwIC01LjcwMDM2LC0xLjIwMTA5IC0zMy4xMjUsLTIxLjMxMjUgOC45MDA4NCwyOS45ODE3NSAtNi42NDg3NCw5My4xMTE2OSAyOC43ODEyNSwxMzcuNzUgTCAyNjguMzEyNSw0MDEgYyAyLjcyNjYyLDQwLjM5NCAzMS4xOTk5NCw3My43NjE3OCA2OS4xMjUsODMuODQzNzUgbCAtNjguNTMxMjUsMCAwLDI5LjAzMTI1IDE5MS4xMjUsMCAwLC0yOS4wMzEyNSAtNzQuNTMxMjUsMCBjIDM0LjMxMjQyLC05LjEyMjk4IDYwLjg2NjIzLC0zNy4zMTU1NSA2Ny42MjUsLTcyLjUzMTI1IGwgMCwtMC4wMzEyIGMgOS4zOTMwMSwtMTUuMDEzMDQgNTEuNDA0MTIsLTYzLjYxMjA2IDE5LjA5Mzc1LC0xNDEuODEyNSAwLDAgLTkuNDc5MywxNy4zNzc4NCAtMjYuODEyNSwyMi4wNjI1IDAsMCAyMi4yMDc2MywtMzcuMDE4MjQgMy45Mzc1LC02NyAwLDAgLTUuMzU0ODgsMjEuOTA2ODIgLTIzLjYyNSwyMi44NDM3NSAwLDAgOC44OTI4NywtNDYuNzI0MTQgLTE1LC03Ni40Njg3NSAtOC42NzE3NiwxOS43MDg1NSA1LjE5MjUxLDI3Ljg3NTU2IC0yMy42NTYyNSw0NC4xNTYyNSAtMy45NDY4NiwtNjAuNzIyOTIgLTE2LjU0OTg3LC03MC45NTc5MSAtMjguMzc1LC0xMTAuMzc1IHogTSAzNTIuMzc1LDIzOC4xMjUgYyAxMS4wMTUxNyw2Ljc3ODU2IDE4LjkzODk5LDE4LjQzNzMgMjEuMzQzNzUsNDAuMzEyNSAxLjA1Nzc0LDkuNjIxODkgNC42NTQ0MywxNS4xMzU4MyA3LjI4MTI1LDI0LjkwNjI1IC02LjI5OTIyLC0xLjM0MjU2IC0xMi44MzMzMiwtMi4wNjI1IC0xOS41MzEyNSwtMi4wNjI1IC04LjE4NDk3LDAgLTE2LjExOTk4LDEuMDQ5NzQgLTIzLjY4NzUsMy4wMzEyNSAtMS42Nzc1MSwtMzEuODY4MjIgMTUuMDAyODIsLTI0Ljg3MTI4IDE0LjU5Mzc1LC02Ni4xODc1IHogTSAzMTIuMTg3NSwyNjEgYyAwLDAgNC40MDg5OCwyNy43NzkyMSAxNS42NTYyNSw0Ni41MzEyNSAtNy45MjQ3OSwzLjA2MzQgLTE1LjMxOTk3LDcuMTk0NCAtMjIuMDMxMjUsMTIuMTg3NSAtMy42OTQ5MywtMjguNzk4NSA0LjY3MjU3LC0zNS4zMTA1MyA2LjM3NSwtNTguNzE4NzUgeiBtIDk3Ljc1LDE0LjE4NzUgYyAwLDAgNC4xMjk3NywyNy44MTUxNSA5Ljc1LDQ2LjQ2ODc1IC04LjkwNjEyLC03LjExNjgyIC0xOS4xNDkxMywtMTIuNjM0MzUgLTMwLjI4MTI1LC0xNi4xMjUgNC42OTE0MiwtOS42MDA2NiAxMS45MDgyOSwtMjIuMjQzMzkgMjAuNTMxMjUsLTMwLjM0Mzc1IHogbSAtMTQxLjEyNSwzMC43NSBjIDAsMCA4LjM3MDA3LDguNDQyNjcgMzAuMjUsMTkuMjgxMjUgLTcuNjc3NDksNi45MDI4MiAtMTQuMTk1MzUsMTUuMDcwMDUgLTE5LjI1LDI0LjE1NjI1IC0zLjQxMTk3LC0xMS4xNzUwNyAtOC4yMDAyMSwtMjguMDM4NzEgLTExLC00My40Mzc1IHogbSAxODUuMjgxMjUsMTAuMjUgYyAwLjczNDI5LDEwLjI4MDA0IDAuNzQ3MTQsMzUuMjg5NTIgLTMuOTM3NSw0OC44NzUgbCAwLjAzMTIsMC40Njg3NSBjIC00LjEzODk4LC0xMi42MTkzMiAtMTAuODkxNTksLTI0LjA0Nzk2IC0xOS42MjUsLTMzLjY1NjI1IDUuNjMzMzksLTQuNTAyMjEgMTUuMjExOTksLTExLjY4MTkyIDIzLjUzMTI1LC0xNS42ODc1IHogbSAtOTMuNDM3NSwxMC45MDYyNSBjIDM2LjgzMDY5LDEwZS02IDY2LjcxODc1LDI5LjkxOTMxIDY2LjcxODc1LDY2Ljc1IDAsMzYuODMwNjkgLTI5Ljg4ODA2LDY2LjcxODc1IC02Ni43MTg3NSw2Ni43MTg3NSAtMzYuODMwNjgsMCAtNjYuNzE4NzUsLTI5Ljg4ODA2IC02Ni43MTg3NSwtNjYuNzE4NzUgMCwtMzYuODMwNjggMjkuODg4MDYsLTY2Ljc1IDY2LjcxODc1LC02Ni43NSB6IgogICAgIHRyYW5zZm9ybT0ic2NhbGUoMC44LDAuOCkiCiAgICAgc3R5bGU9ImZpbGw6IzAwMDAwMDtzdHJva2U6bm9uZSIgLz4KPC9zdmc+Cg==" referrerpolicy="no-referrer">
                     <figcaption>GHS03 – ออกซิไดซ์</figcaption>
                 </figure>
             </div>

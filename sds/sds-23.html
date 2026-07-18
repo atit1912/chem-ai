@@ -31,8 +31,36 @@
   .pictos figcaption{font-size:.85em;color:#475569;margin-top:6px}
   @media print{.ghs{width:22mm}}
 </style>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700;800&display=swap');
+  html,body{font-family:"Sarabun","Noto Sans Thai",system-ui,sans-serif}
+  header{padding:11px 14px 9px}
+  .ttl{font-size:clamp(10px,2.8vw,12px);color:#64748b;font-weight:700;margin:0 0 3px;text-transform:uppercase;letter-spacing:.1em}
+  .chem{font-size:clamp(17px,4.8vw,21px);margin:0 0 5px;padding:6px 11px;line-height:1.3}
+  .meta{font-size:8px;line-height:1.6;color:#94a3b8}
+  .badges{margin:7px 0 0;gap:4px}
+  .badge{font-size:8px;padding:3px 7px}
+  section>h2{font-size:clamp(13px,3.6vw,15px);padding:7px 10px;font-weight:800}
+  section#sec4{border-left:4px solid #ef4444;scroll-margin-top:44px}
+  section#sec4>h2{background:linear-gradient(90deg,rgba(239,68,68,.14),rgba(239,68,68,.04))!important;color:#ef4444!important}
+  section#sec6{border-left:4px solid #f97316;scroll-margin-top:44px}
+  section#sec6>h2{background:linear-gradient(90deg,rgba(249,115,22,.12),transparent)!important;color:#f97316!important}
+  section[id]{scroll-margin-top:44px}
+  table{min-width:0!important;width:100%}
+  th,td{padding:6px 8px;font-size:13px;line-height:1.5}
+  @media print{#sds-nav{display:none!important}}
+</style>
 </head>
 <body>
+<nav id="sds-nav" style="position:sticky;top:0;z-index:100;background:#0f172a;border-bottom:2px solid #1e3a5f;display:flex;align-items:center;overflow:hidden">
+  <a href="javascript:history.back()" style="flex-shrink:0;display:inline-flex;align-items:center;padding:9px 13px;color:#b8ff3a;font-size:12px;font-weight:900;text-decoration:none;border-right:1px solid #1e3a5f;background:#070d1a;letter-spacing:.02em">◀ กลับ</a>
+  <div style="overflow-x:auto;display:flex;scrollbar-width:none;-webkit-overflow-scrolling:touch"><a href="#sec1" class="toc-a">ข้อมูลเกี่ยวกับส</a><a href="#sec2" class="toc-a">การระบุอันตราย</a><a href="#sec3" class="toc-a">ส่วนประกอบ/ข้อมู</a><a href="#sec4" class="toc-a">มาตรการปฐมพยาบาล</a><a href="#sec5" class="toc-a">มาตรการระงับอัคค</a><a href="#sec6" class="toc-a">มาตรการควบคุมการ</a><a href="#sec7" class="toc-a">การจัดการและการเ</a><a href="#sec8" class="toc-a">การควบคุมการสัมผ</a><a href="#sec9" class="toc-a">สมบัติทางกายภาพแ</a><a href="#sec10" class="toc-a">ความเสถียรและควา</a><a href="#sec11" class="toc-a">ข้อมูลพิษวิทยา</a><a href="#sec12" class="toc-a">ข้อมูลระบบนิเวศ</a><a href="#sec13" class="toc-a">ข้อควรพิจารณาในก</a><a href="#sec14" class="toc-a">ข้อมูลเกี่ยวกับก</a><a href="#sec15" class="toc-a">ข้อมูลเกี่ยวกับก</a><a href="#sec16" class="toc-a">ข้อมูลอื่น ๆ</a></div>
+</nav><style>
+  .toc-a{display:inline-block;padding:9px 11px;color:#94a3b8;font-size:10px;font-weight:700;
+    text-decoration:none;white-space:nowrap;border-right:1px solid #1e3a5f;
+    transition:all .15s;letter-spacing:.02em;line-height:1}
+  .toc-a:hover{color:#b8ff3a;background:rgba(184,255,58,.08)}
+</style>
 <div class="container" role="document" aria-label="Safety Data Sheet">
 
   <header>
@@ -97,7 +125,7 @@
       <!-- พิกโตแกรมจาก Wikimedia + SVG fallback แบบฝังในหน้า -->
       <div class="pictos" aria-label="GHS pictograms">
         <figure>
-          <img class="ghs" alt="GHS07 – Exclamation" src="https://commons.wikimedia.org/wiki/Special:FilePath/GHS-pictogram-exclam.svg" referrerpolicy="no-referrer"
+          <img class="ghs" alt="GHS07 – Exclamation" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1NzkwIDU3OTAiPjxwYXRoIGQ9Im0yNTMgMjg5NyAyNjQwIDI2NDAgMjY0MS0yNjQwYy04ODAtODgwLTE3NjAtMTc2Mi0yNjQwLTI2NDBMMjUzIDI4OTciIGZpbGw9IiNmZmYiLz48cGF0aCBkPSJtNjAgMjg5NyAyODMzIDI4MzMgMjgzNC0yODM0TDI4OTQgNjMgNjAgMjg5N3ptNTIxOCAwTDI4OTMgNTI4MCA1MTAgMjg5NiAyODk0IDUxMmwyMzg0IDIzODQiIGZpbGw9InJlZCIvPjxwYXRoIGQ9Ik0yODkyIDE0MjhoLTIwYTQ3NSA0NzUgMCAwIDAtMzAxIDEyMSAyMjkgMjI5IDAgMCAwLTY0IDExM2MtMyAxMS0zIDE0LTMgMzVzMCAyNSAzIDM3YzIgMTQgMTk1IDEzMTQgMTk3IDEzMzZhMjEzIDIxMyAwIDAgMCAyMzkgMTgyIDIxMyAyMTMgMCAwIDAgMTgwLTE4MmMzLTI3IDE5NS0xMzI0IDE5OC0xMzM3IDItMTIgMi0xNiAyLTM1IDAtMjMgMC0zMS01LTQ3YTIzNCAyMzQgMCAwIDAtMTA2LTEzOCA0OTYgNDk2IDAgMCAwLTI5MS04NWgtMzB6bTIwIDIwMTFoLTEyYTMwMiAzMDIgMCAwIDAtMjQzIDE0MSAzMzggMzM4IDAgMCAwLTU1IDIzMiAzNDMgMzQzIDAgMCAwIDExNCAyMTggMzEwIDMxMCAwIDAgMCAxOTkgNzQgMzE2IDMxNiAwIDAgMCAyNTgtMTQxIDM0MSAzNDEgMCAwIDAgNTQtMjM0IDM5MCAzOTAgMCAwIDAtMzItMTEwIDMxNyAzMTcgMCAwIDAtMjgxLTE4MCIvPjwvc3ZnPg==" referrerpolicy="no-referrer"
                onerror='this.onerror=null;this.src="data:image/svg+xml;utf8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 210 210%22%3E%3Crect x=%2230%22 y=%2230%22 width=%22150%22 height=%22150%22 transform=%22rotate(45 105 105)%22 fill=%22%23fff%22 stroke=%22%23e60000%22 stroke-width=%2218%22/%3E%3Crect x=%22100%22 y=%2280%22 width=%2210%22 height=%2245%22 fill=%22000%22/%3E%3Ccircle cx=%22105%22 cy=%22135%22 r=%225%22 fill=%22000%22/%3E%3C/svg%3E"'>
           <figcaption>GHS07 – ระคายเคือง/พิษระดับต่ำ</figcaption>
         </figure>

@@ -39,8 +39,36 @@
   th,td{border:1px solid var(--line);padding:8px;vertical-align:top}
   th{background:#eef2ff;text-align:left}
 </style>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700;800&display=swap');
+  html,body{font-family:"Sarabun","Noto Sans Thai",system-ui,sans-serif}
+  header{padding:11px 14px 9px}
+  .ttl{font-size:clamp(10px,2.8vw,12px);color:#64748b;font-weight:700;margin:0 0 3px;text-transform:uppercase;letter-spacing:.1em}
+  .chem{font-size:clamp(17px,4.8vw,21px);margin:0 0 5px;padding:6px 11px;line-height:1.3}
+  .meta{font-size:8px;line-height:1.6;color:#94a3b8}
+  .badges{margin:7px 0 0;gap:4px}
+  .badge{font-size:8px;padding:3px 7px}
+  section>h2{font-size:clamp(13px,3.6vw,15px);padding:7px 10px;font-weight:800}
+  section#sec4{border-left:4px solid #ef4444;scroll-margin-top:44px}
+  section#sec4>h2{background:linear-gradient(90deg,rgba(239,68,68,.14),rgba(239,68,68,.04))!important;color:#ef4444!important}
+  section#sec6{border-left:4px solid #f97316;scroll-margin-top:44px}
+  section#sec6>h2{background:linear-gradient(90deg,rgba(249,115,22,.12),transparent)!important;color:#f97316!important}
+  section[id]{scroll-margin-top:44px}
+  table{min-width:0!important;width:100%}
+  th,td{padding:6px 8px;font-size:13px;line-height:1.5}
+  @media print{#sds-nav{display:none!important}}
+</style>
 </head>
 <body>
+<nav id="sds-nav" style="position:sticky;top:0;z-index:100;background:#0f172a;border-bottom:2px solid #1e3a5f;display:flex;align-items:center;overflow:hidden">
+  <a href="javascript:history.back()" style="flex-shrink:0;display:inline-flex;align-items:center;padding:9px 13px;color:#b8ff3a;font-size:12px;font-weight:900;text-decoration:none;border-right:1px solid #1e3a5f;background:#070d1a;letter-spacing:.02em">◀ กลับ</a>
+  <div style="overflow-x:auto;display:flex;scrollbar-width:none;-webkit-overflow-scrolling:touch"><a href="#sec1" class="toc-a">ข้อมูลเกี่ยวกับผ</a><a href="#sec2" class="toc-a">การบ่งชี้ความเป็</a><a href="#sec3" class="toc-a">ส่วนประกอบและข้อ</a><a href="#sec4" class="toc-a">มาตรการปฐมพยาบาล</a><a href="#sec5" class="toc-a">มาตรการการผจญเพล</a><a href="#sec6" class="toc-a">มาตรการเมื่อมีกา</a><a href="#sec7" class="toc-a">ข้อปฏิบัติในการใ</a><a href="#sec8" class="toc-a">การควบคุมการรับส</a><a href="#sec9" class="toc-a">คุณสมบัติทางกายภ</a><a href="#sec10" class="toc-a">ความคงตัวและการเ</a><a href="#sec11" class="toc-a">ข้อมูลด้านพิษวิท</a><a href="#sec12" class="toc-a">ข้อมูลผลกระทบต่อ</a><a href="#sec13" class="toc-a">ข้อควรพิจารณาในก</a><a href="#sec14" class="toc-a">ข้อมูลการขนส่ง</a><a href="#sec15" class="toc-a">ข้อมูลเกี่ยวกับข</a><a href="#sec16" class="toc-a">ข้อมูลอื่นๆ</a></div>
+</nav><style>
+  .toc-a{display:inline-block;padding:9px 11px;color:#94a3b8;font-size:10px;font-weight:700;
+    text-decoration:none;white-space:nowrap;border-right:1px solid #1e3a5f;
+    transition:all .15s;letter-spacing:.02em;line-height:1}
+  .toc-a:hover{color:#b8ff3a;background:rgba(184,255,58,.08)}
+</style>
 <div class="container" role="document" aria-label="Safety Data Sheet">
 
     <header>
@@ -100,11 +128,11 @@
             <h3 style="margin:10px 0 8px">สัญลักษณ์แสดงความเป็นอันตราย (GHS)</h3>
             <div class="pictos" aria-label="GHS pictograms">
                 <figure>
-                    <img class="ghs" alt="GHS07 – Exclamation mark" src="https://commons.wikimedia.org/wiki/Special:FilePath/GHS-pictogram-exclam.svg" referrerpolicy="no-referrer">
+                    <img class="ghs" alt="GHS07 – Exclamation mark" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1NzkwIDU3OTAiPjxwYXRoIGQ9Im0yNTMgMjg5NyAyNjQwIDI2NDAgMjY0MS0yNjQwYy04ODAtODgwLTE3NjAtMTc2Mi0yNjQwLTI2NDBMMjUzIDI4OTciIGZpbGw9IiNmZmYiLz48cGF0aCBkPSJtNjAgMjg5NyAyODMzIDI4MzMgMjgzNC0yODM0TDI4OTQgNjMgNjAgMjg5N3ptNTIxOCAwTDI4OTMgNTI4MCA1MTAgMjg5NiAyODk0IDUxMmwyMzg0IDIzODQiIGZpbGw9InJlZCIvPjxwYXRoIGQ9Ik0yODkyIDE0MjhoLTIwYTQ3NSA0NzUgMCAwIDAtMzAxIDEyMSAyMjkgMjI5IDAgMCAwLTY0IDExM2MtMyAxMS0zIDE0LTMgMzVzMCAyNSAzIDM3YzIgMTQgMTk1IDEzMTQgMTk3IDEzMzZhMjEzIDIxMyAwIDAgMCAyMzkgMTgyIDIxMyAyMTMgMCAwIDAgMTgwLTE4MmMzLTI3IDE5NS0xMzI0IDE5OC0xMzM3IDItMTIgMi0xNiAyLTM1IDAtMjMgMC0zMS01LTQ3YTIzNCAyMzQgMCAwIDAtMTA2LTEzOCA0OTYgNDk2IDAgMCAwLTI5MS04NWgtMzB6bTIwIDIwMTFoLTEyYTMwMiAzMDIgMCAwIDAtMjQzIDE0MSAzMzggMzM4IDAgMCAwLTU1IDIzMiAzNDMgMzQzIDAgMCAwIDExNCAyMTggMzEwIDMxMCAwIDAgMCAxOTkgNzQgMzE2IDMxNiAwIDAgMCAyNTgtMTQxIDM0MSAzNDEgMCAwIDAgNTQtMjM0IDM5MCAzOTAgMCAwIDAtMzItMTEwIDMxNyAzMTcgMCAwIDAtMjgxLTE4MCIvPjwvc3ZnPg==" referrerpolicy="no-referrer">
                     <figcaption>GHS07 – ระคายเคือง</figcaption>
                 </figure>
                 <figure>
-                    <img class="ghs" alt="GHS09 – Environment" src="https://commons.wikimedia.org/wiki/Special:FilePath/GHS-pictogram-pollu.svg" referrerpolicy="no-referrer">
+                    <img class="ghs" alt="GHS09 – Environment" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBoZWlnaHQ9IjcyNCIgd2lkdGg9IjcyNCIgdmlld0JveD0iMCAwIDczNSA3MzUiPgo8cGF0aCBkPSJtMzY3LjUgNzI3LjRsMzYwLTM2MC0zNjAtMzYwLTM2MCAzNjB6IiBmaWxsPSIjZjAwIi8+CjxwYXRoIGQ9Im0zNjcuNSA2NzAuMy0zMDIuOC0zMDIuOGwzMDIuOC0zMDIuOCAzMDIuOCAzMDIuOHoiIGZpbGw9IiNmZmYiLz4KPGcgc3Ryb2tlPSIjMDAwIiBzdHJva2Utd2lkdGg9IjUiPgo8cGF0aCBkPSJtMjIzLjcgMzY3LjJoMjgxLjIiLz4KPHBhdGggc3Ryb2tlLXdpZHRoPSI0IiBkPSJtNDYyLjcgNDE4IDMyLjk4IDIzLjc5LTMxLjM2IDE1LjEgNDIuMiAzLjc5LTExLjM2IDE1LjFoMjMuM2wuNTQgMTYuNzYtMjk0LjItMS42MDVzNDkuMi0xNC41OCA1Ny4zLTguNjM1YzEwLjgyLTQuODcgODkuOC0zOC40IDg5LjgtMzYuMm0tNzUuNzItMjUuOTggMS42Mi04NS40LTQyLjcyLTIzLjJzLTYuNDktNC4zMy0xNS42OC0xLjYyYy0zLjI1IDEuMDgtNy41NyAyLjE2LTcuNTcgMi4xNnMyMy4zLTE5LjQ3IDI3LjU4LTE3Ljg0YzQuMzMgMS42MiAzNC42MSAxNi4yMiAzNC42MSAxNi4yMnMtMy4yNS0yMi43MS0xMS4zNi0yOS4yLTM5LjQ3LTMxLjM2LTM5LjQ3LTMxLjM2di01Ljk1bDQyLjcyIDI1Ljk2czEuNjItMjQuODctNy0zOS40N2MtOC42NS0xNC42LTE1LjEtMjcuNTgtMTUuMS0yNy41OGwyLjctMi4xNiAyMS4xIDMyLjQ0IDctMjIuMiA0LjMzLTEuMDhzLTUuNDEgMzEuMzYtMS42MiA0MS4xYzMuNzkgOS43MyAxNy44NCA2Mi43MyAxNy44NCA2Mi43M2wyMS4xLTMwLjNzLjU0LTEyLjQ0LS41NC0yMS4xYy0xLjA4LTguNjUtMi43LTQ4LjY3LTIuNy00OC42N2gzLjc5bDUuOTUgNDMuOCAzNC4xLTM5LjQ3djQuMzNzLTMzLjUxIDQyLjItMzEuODkgNTEuNGMxLjYyIDkuMTkgMy4yNCAxNC42LTIuNyAyNy41OHMtOS43MyAyMi4yLTkuNzMgMjIuMiAxNy44NC0yMS4xIDI1Ljk2LTIyLjcxYzguMTEtLjU0IDE4LjkxLjU0IDI2LjQ4LTUuOTVzMjUuOTYtMjcgMjUuOTYtMjdsLTI4LjY2IDQ0LjNzLTEzLjUxLjU0LTE4LjkxIDYuNDljLTUuNDEgNS45NS0yNy41OCAzMS4zNi0yNy41OCAzMS4zNnY1OC40bDM2Ljc2IDE4LjM4LTQ0Ljg3IDYuNDktMTAuODIgMTUuNjgtMTQuNi0xMi40NC00MC42MiAzLjczNXoiLz4KPHBhdGggZmlsbD0iI2ZmZiIgZD0ibTM1NS4yIDQ0NS4xYzEwLjI5LTQuMjkgMjctMTEuMzYgMzYuNzYtMjUuNDIgMTAuMS0xNC41NCA0NS45Ni03NS43IDk1LjItNzAuOC0yLjcgNi40OS0xMS4zNiAyMC41NS0xMS4zNiAyMC41NWwzNS4xLTEwLjgycy41NCA0Ni41LTY1Ljk3IDc2LjJjLTMwLjgyIDEwLjgyLTM3LjMgMTEuMzYtNDAgMTUuMS0yLjcgMy43OS0xNS4xIDIyLjcxLTE1LjEgMjIuNzFsLTU1LjE0LTI0LjNzMTQuMDYtLjUxNSAyMC41MS0zLjIxNXoiLz4KPC9nPgo8ZWxsaXBzZSBjeT0iMzg1LjgiIGN4PSI0ODQuMyIgcng9IjUuOTUiIHJ5PSI1LjEzIi8+Cjwvc3ZnPgo=" referrerpolicy="no-referrer">
                     <figcaption>GHS09 – อันตรายต่อสิ่งแวดล้อม</figcaption>
                  </figure>
             </div>
