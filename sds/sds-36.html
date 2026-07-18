@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>SDS (Mobile) | Bromocresol Green — MSBRC2-SDS-36</title>
+<style>
+  /* ===== Mobile-first theme ===== */
+  :root{
+    --ink:#0f172a; --muted:#475569; --line:#e2e8f0; --bg:#ffffff; --paper:#f8fafc;
+    --accent:#0ea5e9; --accent2:#a78bfa;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--paper);color:var(--ink);
+    font-family:"Inter","Noto Sans Thai","Sarabun",system-ui,-apple-system,Segoe UI,Roboto,Arial}
+  body{font-size:clamp(15px, 3.8vw, 17px); line-height:1.75}
+  .container{max-width:760px;margin:0 auto;background:var(--bg);border-left:1px solid var(--line);border-right:1px solid var(--line)}
+
+  /* Header (non-sticky) */
+  header{padding:18px 16px 12px;border-bottom:1px solid var(--line);background:#fff;position:static}
+  .title{display:flex;flex-direction:column;align-items:center;text-align:center}
+  .ttl{margin:0 0 6px 0;font-size:clamp(20px,5.2vw,26px);line-height:1.35;letter-spacing:.2px;font-weight:800}
+  .chem{
+    display:inline-block;
+    margin:2px auto 8px;
+    font-size:clamp(18px,5.8vw,26px);
+    line-height:1.35;
+    font-weight:800;
+    color:#0b3b7e;
+    padding:8px 14px;
+    border-radius:14px;
+    background:linear-gradient(90deg, rgba(14,165,233,.18), rgba(167,139,250,.18));
+    border:1px solid #c7d2fe;
+    box-shadow:0 2px 8px rgba(2,6,23,.08);
+  }
+  .meta{font-size:.9em;color:var(--muted);margin-top:6px;text-align:center}
+  .badges{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0 0;justify-content:center}
+  .badge{font-size:.8em;border:1px solid var(--line);padding:4px 8px;border-radius:999px;background:#ecfeff;color:#0c4a6e}
+
+  section{padding:14px 16px;border-bottom:1px solid var(--line);background:#fff}
+  section>h2{margin:0 0 10px 0;font-size:clamp(16px,4.6vw,20px);line-height:1.4;
+    padding:8px 10px;border:1px solid var(--line);border-radius:12px;
+    background:linear-gradient(90deg,rgba(99,102,241,.08),rgba(244,63,94,.08))}
+  .frame{border:1px solid var(--line);border-radius:12px;padding:12px;background:#fff}
+  .info{background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:10px}
+  .muted{color:var(--muted)}
+
+  /* Tables: mobile horizontal scroll */
+  .tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  table{border-collapse:collapse;min-width:560px;width:100%}
+  th,td{border:1px solid var(--line);padding:8px;vertical-align:top}
+  th{background:#eef2ff;text-align:left}
+
+  /* Pictograms */
+  .pictos{display:flex;gap:16px;flex-wrap:wrap;align-items:center; justify-content:center;}
+  .pictos figure{margin:0;text-align:center}
+  .pictos img{display:block;width:88px;height:auto;filter:drop-shadow(0 0 6px rgba(239,68,68,.18))}
+  .pictos figcaption{font-size:.85em;color:var(--muted);margin-top:6px}
+
+  /* Cards */
+  .pcards{display:grid;grid-template-columns:1fr;gap:12px}
+  .pcard{border:1px solid var(--line);border-radius:12px;background:#fff}
+  .pcard h4{margin:0;padding:10px;border-bottom:1px solid var(--line);
+    background:linear-gradient(90deg,rgba(99,102,241,.10),rgba(244,63,94,.10))}
+  .plist{list-style:disc;padding:8px 16px;margin:0}
+
+  /* Print */
+  @page{size:A4;margin:8mm}
+  @media print{
+    header{position:static}
+    .container{border:none}
+    .title{align-items:center;text-align:center}
+    .chem{margin-left:auto;margin-right:auto}
+    section{page-break-inside:auto}
+  }
+</style>
+</head>
+<body>
+<div class="container" role="document" aria-label="Safety Data Sheet">
+
+  <!-- Header -->
+  <header>
+    <div class="title">
+      <h1 class="ttl">เอกสารข้อมูลความปลอดภัย (SDS)</h1>
+      <h2 class="chem">Bromocresol Green (โบรมครีซอลกรีน)</h2>
+      <div class="meta">
+        รูปแบบ: GHS/CLP | ภาษาไทย | จัดทำ: 15 Aug 2025 |
+        ทบทวน: 15 Aug 2025 | แก้ไขครั้งที่: 0 |
+        จัดทำโดย หน่วยงาน SHE&amp;En ธุรกิจพันธุ์กุ้งทะเล 2 |
+        หมายเลขเอกสาร <strong>MSBRC2-SDS-36</strong>
+      </div>
+    </div>
+    <div class="badges">
+      <span class="badge">CAS 76-60-8</span>
+       <span class="badge">Not regulated for transport</span>
+    </div>
+  </header>
+
+  <!-- 1 -->
+  <section id="sec1">
+    <h2>ข้อ 1: ข้อมูลเกี่ยวกับสารหรือส่วนผสม และข้อมูลของผู้ผลิต/ผู้จัดจำหน่าย</h2>
+    <div class="frame">
+      <div class="info" style="margin-bottom:10px">
+        <strong>ชื่อผลิตภัณฑ์:</strong> Bromocresol Green (โบรมครีซอลกรีน)<br>
+        <strong>สูตรเคมี:</strong> C₂₁H₁₄Br₄O₅S<br>
+        <strong>การใช้ที่แนะนำ:</strong> อินดิเคเตอร์วัดค่า pH, สารเคมีในห้องปฏิบัติการ<br>
+        <strong>การใช้ที่ไม่แนะนำ:</strong> <u>ห้าม</u>ใช้เพื่อการบริโภค
+      </div>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>ผู้ผลิต/ผู้นำเข้า/ผู้จัดจำหน่าย</th><th>ข้อมูลติดต่อ</th></tr></thead>
+          <tbody>
+            <tr>
+              <td>บริษัท อาร์ ซี ไอ แล็บสแกน จำกัด (RCI Labscan Limited)</td>
+              <td>ที่อยู่: 24 ถนนพระราม 1 แขวงรองเมือง เขตปทุมวัน กรุงเทพมหานคร 10330<br>
+                  โทรศัพท์: +66 2-613-7950-4</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="info" style="margin-top:10px"><strong>ฉุกเฉิน:</strong> ศูนย์พิษวิทยารามาธิบดี 1367 (24 ชม.)</div>
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section id="sec2">
+    <h2>ข้อ 2: การระบุอันตราย</h2>
+    <div class="frame">
+       <div class="info">
+        <strong>การจำแนกประเภท GHS:</strong> ไม่จัดเป็นสารหรือของผสมที่เป็นอันตรายตามระบบ GHS (Globally Harmonized System)
+      </div>
+      
+      <h3 style="margin:14px 0 8px">สัญลักษณ์อันตรายและคำสัญญาณ</h3>
+      <div class="muted">
+         <p style="margin:0;">ไม่จำเป็นต้องมีสัญลักษณ์อันตราย (Pictogram) และคำสัญญาณ (Signal Word)</p>
+      </div>
+
+      <h3 style="margin:14px 0 8px">ข้อความแสดงอันตราย (H-Statements)</h3>
+      <div class="muted">
+        <p style="margin:0;">ไม่มีข้อความแสดงอันตราย</p>
+      </div>
+
+      <h3 style="margin:14px 0 8px">ข้อความแนะนำการป้องกัน (P-Statements)</h3>
+      <div class="pcards">
+        <div class="pcard">
+          <h4>ข้อควรระวังทั่วไปในการจัดการสารเคมี</h4>
+          <ul class="plist">
+            <li><strong>P264</strong> ล้างมือให้สะอาดหลังการใช้งาน</li>
+            <li><strong>P280</strong> สวมถุงมือป้องกัน/ชุดป้องกัน/อุปกรณ์ป้องกันดวงตา/ใบหน้า</li>
+            <li>จัดการตามหลักสุขอนามัยและความปลอดภัยในอุตสาหกรรมที่ดี</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 -->
+  <section id="sec3">
+    <h2>ข้อ 3: ส่วนประกอบ/ข้อมูลเกี่ยวกับส่วนผสม</h2>
+    <div class="frame tablewrap">
+      <table>
+        <thead>
+          <tr><th>สาร</th><th>CAS No.</th><th>EC No.</th><th>ความเข้มข้น</th><th>การจัดประเภท GHS</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Bromocresol green</td>
+            <td>76-60-8</td>
+            <td>200-971-2</td>
+            <td>≥ 95 %</td>
+            <td>ไม่จัดเป็นสารอันตราย</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 4 -->
+  <section id="sec4">
+    <h2>ข้อ 4: มาตรการปฐมพยาบาลเบื้องต้น</h2>
+    <div class="frame">
+       <ul>
+        <li><strong>สูดดม:</strong> ย้ายไปที่อากาศบริสุทธิ์ หากมีอาการผิดปกติให้ปรึกษาแพทย์</li>
+        <li><strong>เข้าตา:</strong> ล้างด้วยน้ำปริมาณมากอย่างน้อย 15 นาที หากยังระคายเคืองให้พบแพทย์</li>
+        <li><strong>ผิวหนัง:</strong> ล้างออกด้วยสบู่และน้ำปริมาณมาก</li>
+        <li><strong>กลืนกิน:</strong> บ้วนปากด้วยน้ำ หากรู้สึกไม่สบายให้ปรึกษาแพทย์</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 5 -->
+  <section id="sec5">
+    <h2>ข้อ 5: มาตรการระงับอัคคีภัย</h2>
+    <div class="frame">
+      <ul>
+        <li><strong>สารดับเพลิง:</strong> สารนี้ไม่ติดไฟ ใช้วิธีการดับเพลิงที่เหมาะสมกับสภาพแวดล้อมโดยรอบ (เช่น ละอองน้ำ, โฟม, ผงเคมีแห้ง, คาร์บอนไดออกไซด์)</li>
+        <li><strong>อันตรายเฉพาะ:</strong> เมื่อเกิดเพลิงไหม้ อาจปล่อยไอระเหยของซัลเฟอร์ออกไซด์, คาร์บอนออกไซด์ และก๊าซไฮโดรเจนโบรไมด์</li>
+        <li><strong>อุปกรณ์ป้องกัน:</strong> สวม SCBA และชุดป้องกันสารเคมี</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 6 -->
+  <section id="sec6">
+    <h2>ข้อ 6: มาตรการเมื่อมีการรั่วไหลโดยไม่ตั้งใจ</h2>
+    <div class="frame">
+      <ul>
+        <li><strong>ข้อควรระวังส่วนบุคคล:</strong> หลีกเลี่ยงการสร้างฝุ่น สวม PPE (แว่นตา, ถุงมือ, หน้ากากกรองฝุ่น)</li>
+        <li><strong>ข้อควรระวังด้านสิ่งแวดล้อม:</strong> ป้องกันไม่ให้สารเคมีลงสู่แหล่งน้ำและท่อระบายน้ำ</li>
+        <li><strong>วิธีการทำความสะอาด:</strong> กวาดหรือดูดเก็บอย่างระมัดระวังใส่ในภาชนะที่ปิดมิดชิดเพื่อนำไปกำจัด</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 7 -->
+  <section id="sec7">
+    <h2>ข้อ 7: การจัดการและการเก็บรักษา</h2>
+    <div class="frame">
+      <ul>
+        <li><strong>การจัดการ:</strong> ใช้งานในบริเวณที่มีการระบายอากาศดี หลีกเลี่ยงการสัมผัสและสูดดมฝุ่น</li>
+        <li><strong>การเก็บรักษา:</strong> เก็บในภาชนะที่ปิดแน่นสนิท ในที่แห้งและเย็น</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 8 -->
+  <section id="sec8">
+    <h2>ข้อ 8: การควบคุมการสัมผัสและการป้องกันส่วนบุคคล</h2>
+    <div class="frame">
+      <div class="info" style="margin-bottom:8px">ไม่มีการกำหนดค่าขีดจำกัดการรับสัมผัสในที่ทำงานสำหรับสารนี้</div>
+      <ul>
+        <li><strong>การควบคุมทางวิศวกรรม:</strong> ระบบระบายอากาศทั่วไป</li>
+        <li><strong>ตา/หน้า:</strong> แว่นตานิรภัยกันสารเคมี</li>
+        <li><strong>มือ:</strong> ถุงมือยางไนไตรล์ (Nitrile rubber)</li>
+        <li><strong>ระบบหายใจ:</strong> ไม่จำเป็นต้องใช้ภายใต้การใช้งานปกติที่มีการระบายอากาศดี</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 9 -->
+  <section id="sec9">
+    <h2>ข้อ 9: สมบัติทางกายภาพและเคมี</h2>
+    <div class="frame tablewrap">
+      <table>
+        <tbody>
+          <tr><th>ลักษณะ</th><td>ผงผลึกสีเหลืองอ่อนถึงเบจหรือเขียว</td></tr>
+          <tr><th>ช่วงค่า pH</th><td>3.8 (สีเหลือง) – 5.4 (สีน้ำเงิน)</td></tr>
+          <tr><th>จุดหลอมเหลว</th><td>~218 - 220 °C</td></tr>
+          <tr><th>การละลายน้ำ</th><td>ละลายได้เล็กน้อย</td></tr>
+           <tr><th>การละลายในตัวทำละลายอื่น</th><td>ละลายได้ในแอลกอฮอล์และสารละลายด่างเจือจาง</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 10 -->
+  <section id="sec10">
+    <h2>ข้อ 10: ความเสถียรและความไวต่อการเกิดปฏิกริยา</h2>
+    <div class="frame">
+      <ul>
+        <li><strong>เสถียรภาพทางเคมี:</strong> เสถียรภายใต้สภาวะการเก็บรักษาที่แนะนำ</li>
+        <li><strong>สารที่เข้ากันไม่ได้:</strong> สารออกซิไดซ์อย่างแรง</li>
+        <li><strong>ผลิตภัณฑ์อันตรายที่เกิดจากการสลายตัว:</strong> ซัลเฟอร์ออกไซด์, คาร์บอนออกไซด์, ก๊าซไฮโดรเจนโบรไมด์ (เมื่อได้รับความร้อนสูงจนสลายตัว)</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 11 -->
+  <section id="sec11">
+    <h2>ข้อ 11: ข้อมูลพิษวิทยา</h2>
+    <div class="frame">
+      <p class="muted">ข้อมูลทางพิษวิทยามีจำกัด แต่ไม่คาดว่าจะเป็นพิษเฉียบพลัน อาจก่อให้เกิดการระคายเคืองต่อผิวหนังและดวงตาเล็กน้อย</p>
+    </div>
+  </section>
+
+  <!-- 12 -->
+  <section id="sec12">
+    <h2>ข้อ 12: ข้อมูลระบบนิเวศ</h2>
+    <div class="frame">
+      <p class="muted">ข้อมูลทางนิเวศวิทยามีจำกัด ควรหลีกเลี่ยงการปล่อยสู่สิ่งแวดล้อม</p>
+    </div>
+  </section>
+
+  <!-- 13 -->
+  <section id="sec13">
+    <h2>ข้อ 13: ข้อควรพิจารณาในการกำจัด</h2>
+    <div class="frame">
+      <ul>
+        <li>กำจัดตามข้อบังคับของท้องถิ่นและระดับประเทศ</li>
+        <li>ติดต่อบริษัทกำจัดของเสียที่ได้รับอนุญาต</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 14 -->
+  <section id="sec14">
+    <h2>ข้อ 14: ข้อมูลเกี่ยวกับการขนส่ง</h2>
+    <div class="frame">
+      <div class="info">
+        สารนี้ไม่อยู่ภายใต้ข้อบังคับการขนส่งสินค้าอันตราย (ADR, RID, IMDG, IATA)
+      </div>
+    </div>
+  </section>
+
+  <!-- 15 -->
+  <section id="sec15">
+    <h2>ข้อ 15: ข้อมูลเกี่ยวกับกฎหมาย</h2>
+    <div class="frame">
+       <ul>
+        <li>ปฏิบัติตามกฎหมายและข้อบังคับด้านความปลอดภัย อาชีวอนามัย และสิ่งแวดล้อมในระดับท้องถิ่นและระดับประเทศ</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 16 -->
+  <section id="sec16">
+    <h2>ข้อ 16: ข้อมูลอื่น ๆ</h2>
+    <div class="frame">
+      <div class="tablewrap" style="margin-bottom:8px">
+        <table>
+          <tbody>
+            <tr><th>หมายเลขเอกสาร</th><td>MSBRC2-SDS-36</td></tr>
+            <tr><th>ชื่อผลิตภัณฑ์</th><td>Bromocresol Green</td></tr>
+            <tr><th>จัดทำโดย</th><td>หน่วยงาน SHE&amp;En ธุรกิจพันธุ์กุ้งทะเล 2</td></tr>
+            <tr><th>สถานะ</th><td>ใช้งาน (Effective)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="info" style="margin-top:8px">
+        <strong>คำชี้แจงความรับผิดชอบ:</strong> ข้อมูลนี้จัดทำขึ้นจากแหล่งข้อมูลที่เชื่อว่าถูกต้องและเชื่อถือได้ ณ วันที่จัดทำ อย่างไรก็ตาม ผู้ใช้ต้องรับผิดชอบในการประเมินและประยุกต์ใช้ข้อมูลความปลอดภัยนี้ให้เหมาะสมกับสถานการณ์การใช้งานจริง
+      </div>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>
+
+

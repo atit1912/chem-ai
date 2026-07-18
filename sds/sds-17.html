@@ -1,0 +1,487 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>SDS | Formaldehyde — MSBRC2-SDS-17</title>
+<style>
+  /* ===== Mobile-first SDS theme (follow CM16 look & feel) ===== */
+  :root{
+    --ink:#0f172a; --muted:#475569; --line:#e2e8f0; --bg:#ffffff; --paper:#f8fafc;
+    --chipbg:#ecfeff; --chipfg:#0c4a6e; --grad1:rgba(14,165,233,.18); --grad2:rgba(167,139,250,.18);
+    --okbg:#eef2ff; --danger:#dc2626; --warn:#f59e0b; --good:#16a34a;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--paper);color:var(--ink);
+    font-family:"Inter","Noto Sans Thai","Sarabun",system-ui,-apple-system,Segoe UI,Roboto,Arial}
+  body{font-size:clamp(15px,3.8vw,17px);line-height:1.75}
+  a{color:inherit}
+  .container{max-width:900px;margin:0 auto;background:#fff;border-left:1px solid var(--line);border-right:1px solid var(--line)}
+
+  /* Header */
+  header{padding:18px 16px 12px;border-bottom:1px solid var(--line);background:#fff;position:static}
+  .title{display:flex;flex-direction:column;align-items:center;text-align:center}
+  .ttl{margin:0 0 6px 0;font-size:clamp(20px,5.2vw,26px);line-height:1.35;font-weight:800}
+  .chem{
+    display:inline-block;margin:2px auto 8px;padding:8px 14px;border-radius:14px;
+    font-size:clamp(18px,5.8vw,26px);font-weight:800;line-height:1.35;color:#052c65;
+    background:linear-gradient(90deg,var(--grad1),var(--grad2));border:1px solid #c7d2fe;box-shadow:0 2px 8px rgba(2,6,23,.08)
+  }
+  .meta{font-size:.92em;color:var(--muted);margin-top:6px;text-align:center}
+  .badges{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0 0;justify-content:center}
+  .badge{font-size:.8em;border:1px solid var(--line);padding:4px 8px;border-radius:999px;background:var(--chipbg);color:var(--chipfg)}
+
+  /* Sections */
+  section{padding:14px 16px;border-bottom:1px solid var(--line);background:#fff}
+  section>h2{margin:0 0 10px 0;font-size:clamp(16px,4.6vw,20px);
+    padding:8px 10px;border:1px solid var(--line);border-radius:12px;
+    background:linear-gradient(90deg,rgba(99,102,241,.08),rgba(14,165,233,.08))}
+  .frame{border:1px solid var(--line);border-radius:12px;padding:12px;background:#fff}
+  .info{background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:10px}
+  .muted{color:var(--muted)}
+
+  /* Tables */
+  .tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  table{border-collapse:collapse;min-width:560px;width:100%}
+  th,td{border:1px solid var(--line);padding:8px;vertical-align:top}
+  th{background:#eef2ff;text-align:left}
+
+  /* Pictograms */
+  .pictos{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+  .pictos figure{margin:0;text-align:center}
+  .ghs{display:block;width:94px;height:auto;filter:drop-shadow(0 0 6px rgba(239,68,68,.18));image-rendering:auto}
+  .pictos figcaption{font-size:.85em;color:var(--muted);margin-top:6px}
+
+  /* Cards */
+  .pcards{display:grid;grid-template-columns:1fr;gap:12px}
+  .pcard{border:1px solid var(--line);border-radius:12px;background:#fff}
+  .pcard h4{margin:0;padding:10px;border-bottom:1px solid var(--line);
+    background:linear-gradient(90deg,rgba(99,102,241,.10),rgba(244,63,94,.10))}
+  .plist{list-style:disc;padding:8px 16px;margin:0}
+
+  /* Chips / notes */
+  .note{font-size:.92em;color:#334155;background:#fafafa;border:1px dashed #cbd5e1;border-radius:10px;padding:8px}
+
+  /* Hidden diagnostics */
+  #qa-tests{display:none}
+</style>
+</head>
+<body>
+<div class="container" role="document" aria-label="Safety Data Sheet">
+
+  <!-- ===== Header ===== -->
+  <header>
+    <div class="title">
+      <h1 class="ttl">เอกสารข้อมูลความปลอดภัย (SDS)</h1>
+      <h2 class="chem">Formaldehyde</h2>
+      <div class="meta">
+        รูปแบบ: GHS/CLP | ภาษาไทย | จัดทำ: 15 Aug 2025 | ทบทวน: 15 Aug 2025 | แก้ไขครั้งที่: 0<br>
+        จัดทำโดย หน่วยงาน SHE&amp;En ธุรกิจพันธุ์กุ้งทะเล 2 · หมายเลขเอกสาร <strong>MSBRC2-SDS-17</strong>
+      </div>
+    </div>
+    <div class="badges">
+      <span class="badge">CAS No. 50-00-0</span>
+      <span class="badge">UN: <strong>2209</strong> — Formaldehyde solution (≥25%)</span>
+      <span class="badge">Storage Class (LGK): <strong>6.1C</strong> — ของเหลวเป็นพิษ/ติดไฟ</span>
+      <span class="badge">ชนิดวัตถุอันตราย: <strong>3</strong></span>
+    </div>
+  </header>
+
+  <!-- ===== 1 ===== -->
+  <section id="sec1">
+    <h2>ข้อ 1: ข้อมูลเกี่ยวกับสารหรือส่วนผสม และข้อมูลของผู้ผลิต/ผู้จัดจำหน่าย</h2>
+    <div class="frame">
+      <div class="info" style="margin-bottom:10px">
+        <strong>ชื่อผลิตภัณฑ์:</strong> Formaldehyde solution (Formalin) ≥ 25% w/w HCHO, มักมีเมทานอลเป็นสารยับยั้ง; ของเหลวใส ไม่มีกลิ่น/กลิ่นฉุนเฉพาะตัว<br>
+        <strong>การใช้ที่แนะนำ:</strong> ห้องปฏิบัติการ, ฟิกซ์ทีฟ/คงสภาพเนื้อเยื่อ (ขึ้นกับเกรด), วัตถุดิบเคมีอุตสาหกรรม (ใช้งานโดยผู้เชี่ยวชาญ)<br>
+        <strong>การใช้ที่ไม่แนะนำ:</strong> งานผู้บริโภค/งานในที่อับอากาศโดยไม่มีระบบดูดระบาย; การใช้ใกล้เปลวไฟ/ความร้อน
+      </div>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>ผู้จำหน่าย (ประเทศไทย)</th><th>ข้อมูลติดต่อ</th></tr></thead>
+          <tbody>
+            <tr>
+              <td>บริษัท ทีทีเค ซายเอนซ์ จำกัด (TTK Science Co., Ltd.)</td>
+              <td>
+                ที่อยู่: 13/95 ซอยแจ้งวัฒนะ 14 แขวงทุ่งสองห้อง เขตหลักสี่ กรุงเทพมหานคร 10210<br>
+                โทรศัพท์: 0-2573-9881 ถึง 4 · แฟกซ์: 0-2990-7639 · อีเมล: cs.ttkscience@gmail.com<br>
+                เว็บไซต์: <a href="https://shop.ttkscience.com/contact/" target="_blank" rel="noopener">ttkscience.com</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="muted" style="margin-top:8px">แหล่งข้อมูลสำรอง: 2/280 หมู่ 1 ซอย 14 ถนนแจ้งวัฒนะ แขวงทุ่งสองห้อง เขตหลักสี่ กรุงเทพฯ 10210; โทร. 02-990-7638 (YellowPages)</div>
+      <div class="info" style="margin-top:10px"><strong>ฉุกเฉิน:</strong> ศูนย์พิษวิทยารามาธิบดี โทร. 1367 (24 ชม.)</div>
+    </div>
+  </section>
+
+  <!-- ===== 2 ===== -->
+  <section id="sec2">
+    <h2>ข้อ 2: การระบุอันตราย</h2>
+    <div class="frame">
+      <div class="tablewrap" style="margin-bottom:12px">
+        <table>
+          <thead><tr><th>การจัดประเภท (GHS/CLP)</th><th>รายละเอียด (ตัวอย่างสำหรับสารละลาย ≥25% มีเมทานอล)</th></tr></thead>
+          <tbody>
+            <tr><td>Flammable liquids</td><td>หมวด 3 — ของเหลวไวไฟ (H226)</td></tr>
+            <tr><td>Acute toxicity (oral/dermal/inhal.)</td><td>หมวด 3 (H301/H311/H331)</td></tr>
+            <tr><td>Skin corrosion / Eye damage</td><td>Skin Corr. 1B (H314) / Eye Dam. 1 (H318)</td></tr>
+            <tr><td>Skin sensitization</td><td>หมวด 1 (H317)</td></tr>
+            <tr><td>Germ cell mutagenicity</td><td>หมวด 2 (H341)</td></tr>
+            <tr><td>Carcinogenicity</td><td>หมวด 1B (H350)</td></tr>
+            <tr><td>STOT (single exposure)</td><td>หมวด 3 ระคายเคืองทางเดินหายใจ (H335)</td></tr>
+            <tr><td>อันตรายต่อสิ่งแวดล้อมน้ำ</td><td>เฉียบพลัน หมวด 2 (H401) — ตามข้อมูลบางผู้ผลิต</td></tr>
+            <tr><td>คำสัญญาณ</td><td><strong>อันตราย (Danger)</strong></td></tr>
+            <tr><td>ข้อความอันตราย (H)</td><td>H226, H301, H311, H331, H314, H318, H317, H341, H350, H335, H401</td></tr>
+            <tr><td>ข้อความแนะนำ (P)</td><td>P201, P202, P210, P233, P240, P241, P242, P243, P260, P264, P270, P271, P272, P273, P280, P284; การตอบสนอง: P301+P310, P303+P361+P353, P304+P340+P310, P305+P351+P338+P310, P308+P313, P333+P313, P370+P378; การเก็บรักษา: P403+P233, P403+P235, P405; การกำจัด: P501</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- พิกโตแกรมจาก Wikimedia พร้อม SVG fallback แบบฝังในหน้า -->
+      <div class="pictos" aria-label="GHS pictograms">
+        <figure>
+          <img class="ghs" alt="GHS02 ไฟ/ไวไฟ" referrerpolicy="no-referrer"
+               src="https://commons.wikimedia.org/wiki/Special:FilePath/GHS-pictogram-flamme.svg"
+               onerror='this.onerror=null;this.src="data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"><rect x=\"20\" y=\"20\" width=\"60\" height=\"60\" transform=\"rotate(45 50 50)\" fill=\"white\" stroke=\"%23e11d48\" stroke-width=\"6\"/><path d=\"M50 17c-9 10-3 17-2 23-10-4-18 8-13 17 3 8 12 10 15 19 3-9 12-11 15-19 5-9-3-21-13-17 1-6 7-13-2-23z\" fill=\"%23111\"/></svg>"'>
+          <figcaption>GHS02 ไวไฟ</figcaption>
+        </figure>
+        <figure>
+          <img class="ghs" alt="GHS05 กัดกร่อน" referrerpolicy="no-referrer"
+               src="https://commons.wikimedia.org/wiki/Special:FilePath/GHS-pictogram-acid.svg"
+               onerror='this.onerror=null;this.src="data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"><rect x=\"20\" y=\"20\" width=\"60\" height=\"60\" transform=\"rotate(45 50 50)\" fill=\"white\" stroke=\"%23e11d48\" stroke-width=\"6\"/><g fill=\"%23111\"><path d=\"M28 58h44v4H28z\"/><path d=\"M64 34l12 5-3 7-12-5 3-7z\"/><path d=\"M60 50c-4 6-12 10-20 10\" stroke=\"%23111\" stroke-width=\"3\" fill=\"none\"/></g></svg>"'>
+          <figcaption>GHS05 กัดกร่อน/ทำลายผิวหนัง-ตารุนแรง</figcaption>
+        </figure>
+        <figure>
+          <img class="ghs" alt="GHS06 กะโหลกไขว้" referrerpolicy="no-referrer"
+               src="https://commons.wikimedia.org/wiki/Special:FilePath/GHS-pictogram-skull.svg"
+               onerror='this.onerror=null;this.src="data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"><rect x=\"20\" y=\"20\" width=\"60\" height=\"60\" transform=\"rotate(45 50 50)\" fill=\"white\" stroke=\"%23e11d48\" stroke-width=\"6\"/><g fill=\"%23111\"><circle cx=\"50\" cy=\"48\" r=\"10\"/><circle cx=\"46\" cy=\"46\" r=\"2.5\"/><circle cx=\"54\" cy=\"46\" r=\"2.5\"/><rect x=\"47\" y=\"52\" width=\"6\" height=\"3\"/><path d=\"M40 62l-8 5m36-5l8 5m-30-3l-8 6m28-6l8 6\" stroke=\"%23111\" stroke-width=\"3\" fill=\"none\"/></g></svg>"'>
+          <figcaption>GHS06 พิษเฉียบพลัน</figcaption>
+        </figure>
+        <figure>
+          <img class="ghs" alt="GHS07 ระคายเคือง" referrerpolicy="no-referrer"
+               src="https://commons.wikimedia.org/wiki/Special:FilePath/GHS-pictogram-exclam.svg"
+               onerror='this.onerror=null;this.src="data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"><rect x=\"20\" y=\"20\" width=\"60\" height=\"60\" transform=\"rotate(45 50 50)\" fill=\"white\" stroke=\"%23e11d48\" stroke-width=\"6\"/><rect x=\"48\" y=\"38\" width=\"4\" height=\"22\" fill=\"%23111\"/><circle cx=\"50\" cy=\"66\" r=\"3\" fill=\"%23111\"/></svg>"'>
+          <figcaption>GHS07 ระคายเคือง/ไวต่อผิว</figcaption>
+        </figure>
+        <figure>
+          <img class="ghs" alt="GHS08 อันตรายต่อสุขภาพ" referrerpolicy="no-referrer"
+               src="https://commons.wikimedia.org/wiki/Special:FilePath/GHS-pictogram-silhouette.svg"
+               onerror='this.onerror=null;this.src="data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"><rect x=\"20\" y=\"20\" width=\"60\" height=\"60\" transform=\"rotate(45 50 50)\" fill=\"white\" stroke=\"%23e11d48\" stroke-width=\"6\"/><path d=\"M50 36c6 0 10 4 10 9s-4 9-10 9-10-4-10-9 4-9 10-9zm-12 23c4-4 20-4 24 0 3 3 4 7 4 11H34c0-4 1-8 4-11z\" fill=\"%23111\"/><path d=\"M50 50l4 3-4 8-4-8z\" fill=\"%23e11d48\"/></svg>"'>
+          <figcaption>GHS08 ก่อมะเร็ง/ทำอันตรายต่ออวัยวะ</figcaption>
+        </figure>
+      </div>
+      <div class="pcards" style="margin-top:12px">
+        <div class="pcard">
+          <h4>ความหมายข้อความอันตราย (H-Statements)</h4>
+          <ul class="plist">
+            <li><strong>H226</strong> ของเหลวและไอระเหยไวไฟ</li>
+            <li><strong>H301</strong> พิษร้ายแรงเมื่อกลืนกิน</li>
+            <li><strong>H311</strong> พิษร้ายแรงเมื่อสัมผัสผิวหนัง</li>
+            <li><strong>H331</strong> พิษร้ายแรงเมื่อสูดดม</li>
+            <li><strong>H314</strong> กัดกร่อนผิวหนังอย่างรุนแรงและก่อให้เกิดความเสียหายรุนแรงต่อดวงตา</li>
+            <li><strong>H318</strong> ก่อให้เกิดความเสียหายรุนแรงต่อดวงตา</li>
+            <li><strong>H317</strong> อาจก่อให้เกิดอาการแพ้ผิวหนัง</li>
+            <li><strong>H341</strong> สงสัยว่าก่อให้เกิดความผิดปกติทางพันธุกรรม</li>
+            <li><strong>H350</strong> อาจก่อให้เกิดมะเร็ง</li>
+            <li><strong>H335</strong> อาจก่อให้เกิดการระคายเคืองทางเดินหายใจ</li>
+            <li><strong>H401</strong> เป็นพิษต่อสิ่งมีชีวิตในน้ำ</li>
+          </ul>
+        </div>
+        <div class="pcard">
+          <h4>ความหมายข้อความแนะนำ (P-Statements)</h4>
+          <ul class="plist">
+            <li><strong>P201</strong> ขอรับคำแนะนำพิเศษก่อนใช้งาน</li>
+            <li><strong>P202</strong> หลีกเลี่ยงการใช้งานก่อนอ่านและทำความเข้าใจคำแนะนำทั้งหมด</li>
+            <li><strong>P210</strong> เก็บให้ห่างจากความร้อน/ประกายไฟ/เปลวไฟ/พื้นผิวร้อน — ห้ามสูบบุหรี่</li>
+            <li><strong>P233</strong> เก็บภาชนะให้ปิดสนิท</li>
+            <li><strong>P240</strong> ต่อสายดิน/ต่อลงดินภาชนะและอุปกรณ์รับ</li>
+            <li><strong>P241</strong> ใช้อุปกรณ์ไฟฟ้า/ระบายอากาศ/แสงสว่างที่ป้องกันการระเบิด</li>
+            <li><strong>P242</strong> ใช้เครื่องมือที่ไม่ก่อประกายไฟ</li>
+            <li><strong>P243</strong> ดำเนินมาตรการป้องกันการคายประจุไฟฟ้าสถิต</li>
+            <li><strong>P260</strong> หลีกเลี่ยงการสูดดมไอ/ไอระเหย</li>
+            <li><strong>P264</strong> ล้างมือและผิวหนังที่สัมผัสให้สะอาดหลังปฏิบัติงาน</li>
+            <li><strong>P270</strong> ห้ามกิน ดื่ม หรือสูบบุหรี่เมื่อใช้งานผลิตภัณฑ์นี้</li>
+            <li><strong>P271</strong> ใช้เฉพาะในที่อากาศถ่ายเทได้ดี</li>
+            <li><strong>P272</strong> เสื้อผ้า/อุปกรณ์ป้องกันส่วนบุคคลที่ปนเปื้อน ห้ามนำออกจากที่ทำงาน</li>
+            <li><strong>P273</strong> หลีกเลี่ยงการปล่อยสู่สิ่งแวดล้อม</li>
+            <li><strong>P280</strong> สวมถุงมือ/เสื้อผ้าป้องกัน/แว่นตา/อุปกรณ์ป้องกันใบหน้า</li>
+            <li><strong>P284</strong> สวมเครื่องช่วยหายใจเมื่อจำเป็น</li>
+            <li><strong>P301+P310</strong> หากกลืนกิน: โทรหาศูนย์พิษ/แพทย์ทันที</li>
+            <li><strong>P303+P361+P353</strong> หากสัมผัสผิวหนัง (หรือเสื้อผ้า): ถอดเสื้อผ้าที่ปนเปื้อนทันที ล้างผิวด้วยน้ำ</li>
+            <li><strong>P304+P340+P310</strong> หากสูดดม: เคลื่อนย้ายสู่อากาศบริสุทธิ์และพักในท่าที่หายใจสะดวก — โทรหาศูนย์พิษ/แพทย์ทันที</li>
+            <li><strong>P305+P351+P338+P310</strong> หากเข้าตา: ล้างด้วยน้ำอย่างระมัดระวังหลาย ๆ นาที ถอดคอนแทคเลนส์หากทำได้ — ติดต่อแพทย์ทันที</li>
+            <li><strong>P308+P313</strong> หากได้รับสัมผัสหรือกังวล: ขอคำแนะนำ/การดูแลจากแพทย์</li>
+            <li><strong>P333+P313</strong> หากเกิดการระคายเคืองผิวหนังหรือผื่น: ขอคำแนะนำ/การดูแลจากแพทย์</li>
+            <li><strong>P370+P378</strong> ในกรณีเกิดเพลิงไหม้: ใช้สารดับเพลิงที่เหมาะสม</li>
+            <li><strong>P403+P233</strong> เก็บในที่อากาศถ่ายเทได้ดี และปิดภาชนะให้สนิท</li>
+            <li><strong>P403+P235</strong> เก็บในที่อากาศถ่ายเทได้ดี และเก็บให้เย็น</li>
+            <li><strong>P405</strong> เก็บให้มิดชิด</li>
+            <li><strong>P501</strong> กำจัดเนื้อหา/ภาชนะตามข้อกำหนดท้องถิ่น/ระดับประเทศ/ระหว่างประเทศ</li>
+          </ul>
+        </div>
+      </div>
+      <div class="note" style="margin-top:8px">
+        <strong>หมายเหตุขนส่ง:</strong> รายการ UN 2209 จัดเป็น <u>Class 8 (Corrosive)</u> สำหรับการขนส่ง; บางเกรดที่ติดไฟจัดเป็น UN 1198 (Class 3, มีความเป็นกัดกร่อนกำกับ) — โปรดตรวจสอบฉลากการขนส่งตามเกรดที่ใช้งานจริง
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 3 ===== -->
+  <section id="sec3">
+    <h2>ข้อ 3: ส่วนประกอบ/ข้อมูลเกี่ยวกับส่วนผสม</h2>
+    <div class="frame tablewrap">
+      <table>
+        <thead><tr><th>สาร</th><th>CAS</th><th>EC</th><th>ความเข้มข้นโดยประมาณ</th><th>การจัดประเภท GHS (สรุป)</th></tr></thead>
+        <tbody>
+          <tr><td>Formaldehyde</td><td>50-00-0</td><td>200-001-8</td><td>25–40%</td><td>Flam. Liq. 3; Acute Tox. 3 (oral, dermal, inh); Skin Corr. 1B; Eye Dam. 1; Skin Sens. 1; Muta. 2; Carc. 1B; STOT SE 3</td></tr>
+          <tr><td>Methanol (สารยับยั้ง)</td><td>67-56-1</td><td>200-659-6</td><td>10–15%</td><td>Flam. Liq. 2; Acute Tox. 3; STOT SE 1 (optic)</td></tr>
+          <tr><td>น้ำ</td><td>7732-18-5</td><td>231-791-2</td><td>ส่วนที่เหลือ</td><td>—</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===== 4 ===== -->
+  <section id="sec4">
+    <h2>ข้อ 4: มาตรการปฐมพยาบาลเบื้องต้น</h2>
+    <div class="frame">
+      <div class="info" style="margin-bottom:8px"><strong>อาการสำคัญ:</strong> ระคายเคือง/ไหม้ผิวหนังและตารุนแรง; ไอ หายใจติดขัด วิงเวียน คลื่นไส้; การสัมผัสเรื้อรังเสี่ยงไวต่อผิว/ก่อมะเร็ง</div>
+      <ul>
+        <li><strong>เข้าตา:</strong> ล้างด้วยน้ำสะอาดต่อเนื่องอย่างน้อย 15 นาที เปิดเปลือกตาเป็นระยะ ถอดคอนแทคเลนส์หากทำได้ง่าย ส่งพบจักษุแพทย์ทันที</li>
+        <li><strong>ผิวหนัง:</strong> ถอดเสื้อผ้าที่ปนเปื้อน ล้างด้วยน้ำไหลจำนวนมาก/อาบน้ำทันที รับการรักษาพยาบาล</li>
+        <li><strong>สูดดม:</strong> เคลื่อนย้ายสู่อากาศบริสุทธิ์ ให้ออกซิเจน/ช่วยหายใจถ้าจำเป็น ติดต่อศูนย์พิษ/แพทย์ทันที</li>
+        <li><strong>กลืนกิน:</strong> บ้วนปาก ห้ามทำให้อาเจียน โทร. ศูนย์พิษ/แพทย์ทันที (พิจารณาการรักษาพิษเมทานอล)</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== 5 ===== -->
+  <section id="sec5">
+    <h2>ข้อ 5: มาตรการระงับอัคคีภัย</h2>
+    <div class="frame">
+      <ul>
+        <li><strong>ดับเพลิงที่เหมาะสม:</strong> โฟมชนิดทนแอลกอฮอล์, ผงเคมีแห้ง, CO₂, น้ำสเปรย์</li>
+        <li><strong>อันตรายจากการเผาไหม้/สลายตัว:</strong> ไอไวไฟ/พิษ; ควัน/ไอระเหยระคายเคือง มี CO, CO₂, ฟอร์มิกแอซิด, ฟอร์มาลดีไฮด์</li>
+        <li><strong>คำแนะนำสำหรับผู้ดับเพลิง:</strong> ใช้ SCBA และชุดป้องกันเต็มรูปแบบ; ระบายไอ/ฉีดน้ำลดไอ; กั้นพื้นที่</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== 6 ===== -->
+  <section id="sec6">
+    <h2>ข้อ 6: มาตรการควบคุมการรั่วไหลหรือการปล่อยสารโดยไม่ตั้งใจ</h2>
+    <div class="frame">
+      <ul>
+        <li><strong>ป้องกันบุคคล:</strong> อพยพผู้ไม่เกี่ยวข้อง; ใส่ PPE ครบถ้วน; หลีกเลี่ยงสูดดมไอ; ปิดแหล่งจุดติดไฟ</li>
+        <li><strong>สิ่งแวดล้อม:</strong> ป้องกันไม่ให้ไหลลงท่อ/ทางน้ำ; แจ้งหน่วยงานเมื่อรั่วไหลมาก</li>
+        <li><strong>เก็บกู้:</strong> ซึมซับด้วยวัสดุดูดซับไม่ติดไฟ (ดินเบา/เวอร์มิคูไลต์) ใส่ภาชนะปิดสนิท; ระบายอากาศดี</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== 7 ===== -->
+  <section id="sec7">
+    <h2>ข้อ 7: การจัดการและการเก็บรักษา</h2>
+    <div class="frame">
+      <ul>
+        <li>ทำงานในตู้ดูดไอ/ที่อากาศถ่ายเทดี หลีกเลี่ยงความร้อน ประกายไฟ และไฟเปลว</li>
+        <li>เก็บในภาชนะเดิมที่ปิดสนิท ในที่เย็น มีการระบายอากาศ; ล็อกเก็บ; หลีกเลี่ยงแสงแดด</li>
+        <li>แยกจากออกซิไดเซอร์แรง, กรด/ด่างเข้มข้น, แอนไฮไดรด์, เอมีน/ตัวรีดิวซ์</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== 8 ===== -->
+  <section id="sec8">
+    <h2>ข้อ 8: การควบคุมการสัมผัสและการป้องกันส่วนบุคคล</h2>
+    <div class="frame">
+      <div class="tablewrap" style="margin-bottom:8px">
+        <table>
+          <thead><tr><th>หน่วยงาน</th><th>ค่าเกณฑ์</th><th>หมายเหตุ</th></tr></thead>
+          <tbody>
+            <tr><td>OSHA PEL</td><td>TWA 0.75 ppm; STEL 2 ppm; Action level 0.5 ppm</td><td>29 CFR 1910.1048</td></tr>
+            <tr><td>ACGIH TLV</td><td>TWA 0.1 ppm; STEL 0.3 ppm (Ceiling)</td><td>A1 สารก่อมะเร็งในมนุษย์</td></tr>
+            <tr><td>NIOSH REL</td><td>TWA 0.016 ppm; Ceiling 0.1 ppm (15 นาที)</td><td>แนะนำเพื่อความปลอดภัยสูงสุด</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <ul>
+        <li><strong>วิศวกรรม:</strong> ตู้ดูดไอ/ระบายอากาศเฉพาะจุด; ตรวจวัดความเข้มข้นในอากาศ</li>
+        <li><strong>ตา/หน้า:</strong> แว่นครอบตา EN 166 + เฟซชิลด์เมื่อเสี่ยงกระเด็น</li>
+        <li><strong>มือ:</strong> ถุงมือไนไตรล์/บิวทิล/นีโอพรีน (เลือกตาม breakthrough time ของผู้ผลิต)</li>
+        <li><strong>ร่างกาย:</strong> เสื้อผ้ากันสารเคมีแบบทนไฟ/ป้องกันไฟฟ้าสถิต</li>
+        <li><strong>หายใจ:</strong> หากเกินเกณฑ์ ใช้หน้ากากเต็มหน้าไส้กรองไออินทรีย์/ฟอร์มาลดีไฮด์ + P2/P3 หรือ SCBA ในเหตุฉุกเฉิน</li>
+        <li><strong>สุขลักษณะ:</strong> ห้ามกินดื่ม/สูบบุหรี่ในพื้นที่ทำงาน ล้างมือหลังปฏิบัติงาน</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== 9 ===== -->
+  <section id="sec9">
+    <h2>ข้อ 9: สมบัติทางกายภาพและเคมี</h2>
+    <div class="frame tablewrap">
+      <table>
+        <tbody>
+          <tr><th>ลักษณะ</th><td>ของเหลวใสไม่สี กลิ่นฉุนเฉพาะ</td></tr>
+          <tr><th>pH (สารละลาย ~37%)</th><td>~2.8–4</td></tr>
+          <tr><th>จุดวาบไฟ</th><td>~56–65 °C (ปิดฝา)</td></tr>
+          <tr><th>ขีดจำกัดการติดไฟในอากาศ</th><td>LEL ~7% v/v; UEL ~73% v/v</td></tr>
+          <tr><th>จุดเดือด (สารละลาย)</th><td>~96–100 °C</td></tr>
+          <tr><th>ความหนาแน่น @ 20 °C</th><td>~1.08–1.10 g/cm³</td></tr>
+          <tr><th>ความดันไอ</th><td>~69 hPa @ 37 °C</td></tr>
+          <tr><th>การละลายน้ำ</th><td>ละลายได้ดี</td></tr>
+          <tr><th>ออโตอิกไนชัน</th><td>~300 °C</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===== 10 ===== -->
+  <section id="sec10">
+    <h2>ข้อ 10: ความเสถียรและความไวต่อการเกิดปฏิกิริยา</h2>
+    <div class="frame">
+      <ul>
+        <li>เสถียรภายใต้การใช้งานปกติ (มีเมทานอลยับยั้งการพอลิเมอร์ไรซ์)</li>
+        <li><strong>หลีกเลี่ยง:</strong> ความร้อน/เปลวไฟ; สัมผัสออกซิไดเซอร์แรง กรด/ด่างเข้มข้น แอนไฮไดรด์ เอมีน</li>
+        <li><strong>ผลิตผลสลายตัว:</strong> ฟอร์มาลดีไฮด์ ไอพิษ, ฟอร์มิกแอซิด, คาร์บอนมอนอกไซด์/ไดออกไซด์</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== 11 ===== -->
+  <section id="sec11">
+    <h2>ข้อ 11: ข้อมูลพิษวิทยา</h2>
+    <div class="frame tablewrap">
+      <table>
+        <tbody>
+          <tr><th>พิษเฉียบพลัน (ข้อมูลตัวอย่าง)</th><td>LD50 (หนู, รับประทาน) ≈ 100 mg/kg; LD50 (กระต่าย, ผิวหนัง) ≈ 270 mg/kg; ATE สูดดมไอ 4 ชม. ≈ 0.5 mg/L</td></tr>
+          <tr><th>กัดกร่อน/ระคายเคือง</th><td>กัดกร่อนผิวหนังอย่างรุนแรง; ทำลายดวงตาอย่างรุนแรง</td></tr>
+          <tr><th>ก่อภูมิแพ้</th><td>ไวต่อผิวหนัง (ผื่น/ลมพิษ)</td></tr>
+          <tr><th>กลายพันธุ์/ก่อมะเร็ง</th><td>Mutagenicity หมวด 2; Carcinogenicity หมวด 1B; IARC 1 / NTP Known / OSHA regulated carcinogen</td></tr>
+          <tr><th>ผลต่ออวัยวะเป้าหมาย</th><td>STOT SE: ทางเดินหายใจ/ตา; เมทานอลเกี่ยวข้องกับระบบประสาท/สายตา</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===== 12 ===== -->
+  <section id="sec12">
+    <h2>ข้อ 12: ข้อมูลระบบนิเวศ</h2>
+    <div class="frame">
+      <ul>
+        <li>ย่อยสลายได้ดีในสภาพแวดล้อมน้ำ/อากาศ; ไม่คาดว่าจะสะสมในสิ่งมีชีวิต</li>
+        <li>เป็นพิษต่อสิ่งมีชีวิตน้ำในระดับหนึ่ง — หลีกเลี่ยงการปล่อยสู่สิ่งแวดล้อม</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== 13 ===== -->
+  <section id="sec13">
+    <h2>ข้อ 13: ข้อควรพิจารณาในการกำจัด</h2>
+    <div class="frame">
+      <ul>
+        <li>กำจัดเป็นของเสียอันตรายตามกฎหมายท้องถิ่น; ห้ามเทลงท่อระบายน้ำ</li>
+        <li>บรรจุภัณฑ์ที่ปนเปื้อน: ล้าง/ทำให้แห้งก่อนส่งกำจัดตามข้อกำหนด</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== 14 ===== -->
+  <section id="sec14">
+    <h2>ข้อ 14: ข้อมูลเกี่ยวกับการขนส่ง</h2>
+    <div class="frame tablewrap">
+      <table>
+        <thead><tr><th>ระเบียบ</th><th>รายละเอียด</th></tr></thead>
+        <tbody>
+          <tr><td>ADR/RID</td><td>UN 2209 · FORMALDEHYDE SOLUTION · Class 8 · PG III · รหัส C9 · ป้าย 8</td></tr>
+          <tr><td>IMDG</td><td>UN 2209 · FORMALDEHYDE SOLUTION · Class 8 · PG III</td></tr>
+          <tr><td>IATA/ICAO</td><td>UN 2209 · FORMALDEHYDE SOLUTION · Class 8 · PG III</td></tr>
+        </tbody>
+      </table>
+      <div class="muted" style="margin-top:6px">
+        <strong>หมายเหตุ:</strong> บางสูตรการค้าอาจเข้าข่าย UN 1198 (Formaldehyde solution, flammable) — Class 3, Subsidiary 8 ขึ้นกับองค์ประกอบและจุดวาบไฟจริงของผลิตภัณฑ์
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 15 ===== -->
+  <section id="sec15">
+    <h2>ข้อ 15: ข้อมูลเกี่ยวกับกฎหมาย</h2>
+    <div class="frame">
+      <ul>
+        <li>การจัดประเภทตาม GHS/CLP: Carc. 1B; Muta. 2; Acute Tox. 3; Skin Corr. 1B; Eye Dam. 1; Skin Sens. 1; Flam. Liq. 3; STOT SE 3</li>
+        <li>OSHA HazCom 2012 และมาตรฐานเฉพาะ <strong>29 CFR 1910.1048 Formaldehyde</strong></li>
+        <li>REACH/CLP: การจำแนกสอดคล้องตาม Annex VI (สารฟอร์มาลดีไฮด์)</li>
+        <li>Storage Class (TRGS 510 / LGK): <strong>6.1C — ของเหลวเป็นพิษ/ติดไฟ</strong></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== 16 ===== -->
+  <section id="sec16">
+    <h2>ข้อ 16: ข้อมูลอื่น ๆ</h2>
+    <div class="frame">
+      <div class="tablewrap" style="margin-bottom:8px">
+        <table>
+          <tbody>
+            <tr><th>หมายเลขเอกสาร</th><td>MSBRC2-SDS-17</td></tr>
+            <tr><th>ชื่อผลิตภัณฑ์</th><td>Formaldehyde</td></tr>
+            <tr><th>จัดทำโดย</th><td>หน่วยงาน SHE&amp;En ธุรกิจพันธุ์กุ้งทะเล 2</td></tr>
+            <tr><th>วันที่จัดทำ/ทบทวน</th><td>15 Aug 2025 / 15 Aug 2025</td></tr>
+            <tr><th>สถานะ</th><td>ใช้งาน (Effective)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <ul>
+        <li>ให้ใช้ SDS นี้กับสารละลายที่มีฟอร์มาลดีไฮด์ ≥25% w/w; หากความเข้มข้นต่างไป โปรดประเมินการจัดประเภทใหม่</li>
+        <li>ทบทวน SDS เมื่อมีการเปลี่ยนแปลงองค์ประกอบ/กฎหมาย หรืออย่างน้อยปีละครั้ง</li>
+      </ul>
+      <div class="info" style="margin-top:8px">
+        <strong>คำชี้แจงความรับผิดชอบ:</strong> เอกสารนี้จัดทำเพื่อสนับสนุนความปลอดภัยในการทำงานตามมาตรฐานสากล ผู้ใช้ต้องประเมินความเสี่ยง ณ สถานที่ปฏิบัติงานจริงและปฏิบัติตามกฎหมายที่เกี่ยวข้อง
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Automated diagnostics (tests) ===== -->
+  <section id="qa-tests" aria-label="Automated tests">
+    <div class="frame">
+      <h2 style="margin:0 0 8px 0">Diagnostics</h2>
+      <ul id="qa-list" class="plist"></ul>
+    </div>
+  </section>
+
+</div>
+<script>
+(function(){
+  // Simple tests to ensure pictograms render either remote SVG or inline fallback
+  function log(msg, ok){
+    var li=document.createElement('li');
+    li.textContent=(ok? 'PASS: ' : 'FAIL: ') + msg;
+    li.style.color= ok? '#16a34a' : '#dc2626';
+    document.getElementById('qa-list').appendChild(li);
+  }
+  function run(){
+    var imgs=[].slice.call(document.querySelectorAll('img.ghs'));
+    if(!imgs.length){ log('พบรูป GHS (img.ghs) 0 รูป', false); return; }
+    log('พบรูป GHS จำนวน ' + imgs.length + ' รูป', true);
+    imgs.forEach(function(img, idx){
+      var ok = img.complete && (img.naturalWidth>0 || (img.src||'').indexOf('data:image/svg+xml')===0);
+      log('ภาพ GHS ลำดับ ' + (idx+1) + ' โหลดสำเร็จหรือใช้ fallback', ok);
+    });
+    // H/P presence tests
+    var text=document.body.textContent||'';
+    var Hs=['H226','H301','H311','H331','H314','H318','H317','H341','H350','H335','H401'];
+    var Ps=['P201','P202','P210','P233','P240','P241','P242','P243','P260','P264','P270','P271','P272','P273','P280','P284','P301+P310','P303+P361+P353','P304+P340+P310','P305+P351+P338+P310','P308+P313','P333+P313','P370+P378','P403+P233','P403+P235','P405','P501'];
+    var allH = Hs.every(function(code){ return text.indexOf(code)>=0; });
+    var allP = Ps.every(function(code){ return text.indexOf(code)>=0; });
+    log('ตรวจพบบรรยายความหมายของ H-statements ครบชุดที่ระบุ', allH);
+    log('ตรวจพบบรรยายความหมายของ P-statements ครบชุดที่ระบุ', allP);
+  }
+  // delay a bit to allow network to load, then run
+  window.addEventListener('load', function(){ setTimeout(run, 600); });
+})();
+</script>
+</body>
+</html>

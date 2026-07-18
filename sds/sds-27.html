@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>SDS | Anti-rust Paint (สีกันสนิม) — SDS-27</title>
+<style>
+  /* ===== Mobile-first SDS theme — หัวกระดาษไม่ล็อค ===== */
+  :root{
+    --ink:#0f172a; --muted:#475569; --line:#e2e8f0; --paper:#f8fafc; --bg:#ffffff;
+    --chipbg:#ecfeff; --chipfg:#0c4a6e;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--paper);color:var(--ink);
+    font-family:"Inter","Noto Sans Thai","Sarabun",system-ui,-apple-system,Segoe UI,Roboto,Arial}
+  body{font-size:clamp(15px,3.8vw,17px);line-height:1.75}
+  a{color:inherit}
+  .container{max-width:900px;margin:0 auto;background:#fff;border-left:1px solid var(--line);border-right:1px solid var(--line)}
+
+  /* Header (static) */
+  header{padding:18px 16px 12px;border-bottom:1px solid var(--line);background:#fff}
+  .title{display:flex;flex-direction:column;align-items:center;text-align:center}
+  .ttl{margin:0 0 6px 0;font-size:clamp(20px,5.2vw,26px);line-height:1.35;font-weight:800}
+  .chem{
+    display:inline-block;margin:2px auto 8px;padding:8px 14px;border-radius:14px;
+    font-size:clamp(18px,5.8vw,26px);font-weight:800;line-height:1.35;color:#052c65;
+    background:linear-gradient(90deg, rgba(14,165,233,.18), rgba(167,139,250,.18));
+    border:1px solid #c7d2fe;box-shadow:0 2px 8px rgba(2,6,23,.08)
+  }
+  .meta{font-size:.92em;color:var(--muted);margin-top:6px;text-align:center}
+  .badges{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0 0;justify-content:center}
+  .badge{font-size:.8em;border:1px solid var(--line);padding:4px 8px;border-radius:999px;background:var(--chipbg);color:var(--chipfg)}
+
+  /* Sections */
+  section{padding:14px 16px;border-bottom:1px solid var(--line);background:#fff}
+  section>h2{margin:0 0 10px 0;font-size:clamp(16px,4.6vw,20px);
+    padding:8px 10px;border:1px solid var(--line);border-radius:12px;
+    background:linear-gradient(90deg,rgba(99,102,241,.08),rgba(14,165,233,.08))}
+  .frame{border:1px solid var(--line);border-radius:12px;padding:12px;background:#fff}
+  .info{background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:10px}
+  .muted{color:var(--muted)}
+  .plist{list-style:disc;padding:8px 16px;margin:0}
+
+  /* Tables */
+  .tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  table{border-collapse:collapse;min-width:560px;width:100%}
+  th,td{border:1px solid var(--line);padding:8px;vertical-align:top}
+  th{background:#eef2ff;text-align:left}
+
+  /* Pictograms */
+  .pictos{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+  .pictos figure{margin:0;text-align:center}
+  .ghs{display:block;width:clamp(64px,12vw,88px);height:auto;filter:drop-shadow(0 0 6px rgba(2,6,23,.10))}
+  .pictos figcaption{font-size:.85em;color:var(--muted);margin-top:6px}
+
+  @media print{header{position:static}}
+</style>
+</head>
+<body>
+<div class="container" role="document" aria-label="Safety Data Sheet">
+
+  <!-- ===== Header ===== -->
+  <header>
+    <div class="title">
+      <h1 class="ttl">เอกสารข้อมูลความปลอดภัย (SDS)</h1>
+      <h2 class="chem">Anti-rust Paint (สีกันสนิม)</h2>
+      <div class="meta">
+        รูปแบบ: GHS/CLP | ภาษาไทย | จัดทำ: 15 Aug 2025 | ทบทวน: 15 Aug 2025 | แก้ไขครั้งที่: 0<br>
+        จัดทำโดย หน่วยงาน SHE&amp;En ธุรกิจพันธุ์กุ้งทะเล 2 · หมายเลขเอกสาร <strong>MSBRC2-SDS-28</strong>
+      </div>
+    </div>
+    <div class="badges">
+      <span class="badge">UN 1263 — PAINT</span>
+      <span class="badge">Class 3 • PG II/III*</span>
+      <span class="badge">Storage Class: 3 (ของเหลวไวไฟ)</span>
+      <span class="badge">ชนิดวัตถุอันตราย: ประเภทที่ 2</span>
+    </div>
+  </header>
+
+  <!-- ===== 1 ===== -->
+  <section id="sec1">
+    <h2>ข้อ 1: ข้อมูลเกี่ยวกับสารหรือส่วนผสม และข้อมูลของผู้ผลิต/ผู้จัดจำหน่าย</h2>
+    <div class="frame">
+      <div class="info" style="margin-bottom:10px">
+        <strong>ชื่อผลิตภัณฑ์:</strong> สีกันสนิมชนิดอะครีลิค/อัลขีด (ตัวอย่างสูตร: solvent-borne, anti-corrosive pigments)<br>
+        <strong>การใช้ที่แนะนำ:</strong> เคลือบกันสนิมเหล็ก/โครงสร้าง ตามคู่มือผู้ผลิต (ใช้โดยผู้ชำนาญ/ในที่ระบายอากาศดี)<br>
+        <strong>การใช้ที่ไม่แนะนำ:</strong> หลีกเลี่ยงการพ่นในพื้นที่ปิด อุ่น/เผา; ห้ามใช้ใกล้แหล่งจุดติดไฟ
+      </div>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>ผู้ผลิต/ผู้จำหน่าย (ประเทศไทย)</th><th>ข้อมูลติดต่อ</th></tr></thead>
+          <tbody>
+            <tr>
+              <td>บริษัท ซีอาร์ซี ไทวัสดุ จำกัด <strong>(สำนักงานใหญ่)</strong></td>
+              <td>
+                ที่อยู่/โทรศัพท์/อีเมล: <em>โปรดกรอกข้อมูลสำนักงานใหญ่ตามเอกสารองค์กร/เว็บไซต์ทางการ</em><br>
+                หมายเหตุ: ใส่แหล่งจำหน่าย/คลังสินค้าที่ใช้จริงเพื่อความถูกต้องของ SDS ภายในองค์กร
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="info" style="margin-top:10px"><strong>ฉุกเฉิน:</strong> ศูนย์พิษวิทยารามาธิบดี โทร. 1367 (24 ชม.)</div>
+    </div>
+  </section>
+
+  <!-- ===== 2 ===== -->
+  <section id="sec2">
+    <h2>ข้อ 2: การระบุอันตราย</h2>
+    <div class="frame">
+      <div class="tablewrap" style="margin-bottom:12px">
+        <table>
+          <thead><tr><th>การจัดประเภท (GHS/CLP)</th><th>หมวด</th><th>รหัส</th></tr></thead>
+          <tbody>
+            <tr><td>ของเหลวไวไฟ</td><td>Flam. Liq. 3</td><td>H226</td></tr>
+            <tr><td>ระคายเคืองผิวหนัง</td><td>Skin Irrit. 2</td><td>H315</td></tr>
+            <tr><td>ระคายเคืองตา</td><td>Eye Irrit. 2</td><td>H319</td></tr>
+            <tr><td>กดประสาท/เวียนศีรษะ</td><td>STOT SE 3</td><td>H336</td></tr>
+            <tr><td>เป็นพิษต่อสิ่งแวดล้อมน้ำ (เรื้อรัง)</td><td>Aquatic Chronic 2</td><td>H411</td></tr>
+            <tr><td colspan="3" class="muted">* PG (II/III) ขึ้นกับค่าจุดวาบไฟและความหนืดของผลิตภัณฑ์จริง</td></tr>
+            <tr><td>คำสัญญาณ (Signal word)</td><td colspan="2"><strong>Warning</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- GHS pictograms -->
+      <div class="pictos" aria-label="GHS pictograms">
+        <!-- GHS02 -->
+        <figure>
+          <img class="ghs" alt="GHS02 – Flammable"
+               src="https://commons.wikimedia.org/wiki/Special:FilePath/GHS-pictogram-flamme.svg"
+               onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%200%200%20200%20200%3E<polygon points=%22100,8 192,100 100,192 8,100%22 fill=%22%23e60000%22/><polygon points=%22100,18 182,100 100,182 18,100%22 fill=%22%23fff%22/><path d=%22M100 46c12 12 24 28 24 43 0 9-5 17-12 22 1-10-2-19-9-26 3 14-7 24-18 30-7 4-11 11-11 19 0 18 14 30 30 30 22 0 36-17 36-34 0-18-12-34-40-54z%22 fill=%22000%22/><rect x=%2260%22 y=%22144%22 width=%2280%22 height=%229%22 rx=%222%22 fill=%22000%22/></svg>';"/>
+          <figcaption>GHS02 – ของเหลวไวไฟ</figcaption>
+        </figure>
+        <!-- GHS07 -->
+        <figure>
+          <img class="ghs" alt="GHS07 – Exclamation"
+               src="https://commons.wikimedia.org/wiki/Special:FilePath/GHS-pictogram-exclam.svg"
+               onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%200%200%20200%20200%3E<polygon points=%22100,8 192,100 100,192 8,100%22 fill=%22%23e60000%22/><polygon points=%22100,18 182,100 100,182 18,100%22 fill=%22%23fff%22/><rect x=%2291%22 y=%2266%22 width=%2218%22 height=%2270%22 rx=%229%22 fill=%22000%22/><circle cx=%22100%22 cy=%22152%22 r=%2211%22 fill=%22000%22/></svg>';"/>
+          <figcaption>GHS07 – ระคายเคือง</figcaption>
+        </figure>
+        <!-- GHS09 -->
+        <figure>
+          <img class="ghs" alt="GHS09 – Hazardous to the environment"
+               src="https://commons.wikimedia.org/wiki/Special:FilePath/GHS-pictogram-pollu.svg"
+               onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%200%200%20200%20200%3E<polygon points=%22100,8 192,100 100,192 8,100%22 fill=%22%23e60000%22/><polygon points=%22100,18 182,100 100,182 18,100%22 fill=%22%23fff%22/><path d=%22M40 148h120v6H40zM52 146c10-8 24-15 39-13c22 3 36 21 58 17c10-2 16-9 19-13c-5 3-13 6-21 4c-18-4-32-20-53-20c-18 0-29 12-42 25z%22 fill=%22000%22/></svg>';"/>
+          <figcaption>GHS09 – อันตรายต่อสิ่งแวดล้อมน้ำ</figcaption>
+        </figure>
+      </div>
+
+      <h3 style="margin:14px 0 8px">ข้อความแสดงอันตราย (H)</h3>
+      <ul class="plist">
+        <li><strong>H226</strong> ของเหลวและไอไวไฟ</li>
+        <li><strong>H315</strong> ก่อให้เกิดการระคายเคืองผิวหนัง · <strong>H319</strong> ระคายเคืองตารุนแรง</li>
+        <li><strong>H336</strong> อาจทำให้ง่วงซึม/เวียนศีรษะ</li>
+        <li><strong>H411</strong> เป็นพิษต่อสิ่งมีชีวิตในน้ำ มีผลยาวนาน</li>
+      </ul>
+
+      <h3 style="margin:14px 0 8px">ข้อความแนะนำการป้องกัน (P) — สรุป</h3>
+      <ul class="plist">
+        <li><strong>P210</strong> อยู่ห่างจากความร้อน/ประกายไฟ/เปลวไฟ/พื้นผิวร้อน — ห้ามสูบบุหรี่</li>
+        <li><strong>P240–P243</strong> ต่อสายดิน/ป้องกันไฟฟ้าสถิตภาชนะและอุปกรณ์</li>
+        <li><strong>P233 + P271</strong> ปิดภาชนะให้สนิท · ใช้ในที่ระบายอากาศดี</li>
+        <li><strong>P280</strong> สวมถุงมือ/แว่นครอบตา/หน้ากากกรองไออินทรีย์เมื่อจำเป็น</li>
+        <li><strong>P301+P312</strong> หากกลืนกินและรู้สึกไม่สบาย โทรหาศูนย์พิษฯ/<em>แพทย์</em> · <strong>P331</strong> ห้ามทำให้อาเจียน</li>
+        <li><strong>P303+P361+P353</strong> สัมผัสผิว: ถอดเสื้อผ้าที่ปนเปื้อน ล้างด้วยน้ำจำนวนมาก</li>
+        <li><strong>P370+P378</strong> ไฟไหม้: ใช้โฟม AR/ผงแห้ง/CO₂; ใช้น้ำสเปรย์หล่อเย็นภาชนะ</li>
+        <li><strong>P403+P235</strong> เก็บในที่อากาศถ่ายเทดี อุณหภูมิต่ำ · <strong>P501</strong> กำจัดของเสียตามกฎหมาย</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== 3 ===== -->
+  <section id="sec3">
+    <h2>ข้อ 3: ส่วนประกอบ/ข้อมูลเกี่ยวกับส่วนผสม</h2>
+    <div class="frame tablewrap">
+      <table>
+        <thead><tr><th>ส่วนประกอบ</th><th>CAS</th><th>EC</th><th>ช่วงความเข้มข้น</th><th>การจัดประเภท GHS</th></tr></thead>
+        <tbody>
+          <tr><td>Alkyd/Acrylic resin</td><td>—</td><td>—</td><td>20–50%</td><td>ไม่จัดเป็นอันตราย</td></tr>
+          <tr><td>Solvent naphtha (aromatic/light) / Xylene</td><td>64742-95-6 / 1330-20-7</td><td>265-199-0 / 215-535-7</td><td>15–40%</td><td>Flam. Liq. 3; Skin Irrit. 2; STOT SE 3; Aquatic Chronic 2</td></tr>
+          <tr><td>Ethylbenzene (สิ่งปน)</td><td>100-41-4</td><td>202-849-4</td><td>< 5%</td><td>Flam. Liq. 2; Acute Tox.; STOT SE 3</td></tr>
+          <tr><td>Zinc phosphate (รงควัตถุกันสนิม)</td><td>7779-90-0</td><td>231-944-3</td><td>5–20%</td><td>Aquatic Chronic 3</td></tr>
+          <tr><td>Iron oxide pigments / Fillers</td><td>1309-37-1 / —</td><td>215-168-2 / —</td><td>5–30%</td><td>ไม่จัดเป็นอันตราย</td></tr>
+          <tr><td class="muted" colspan="5">หมายเหตุ: องค์ประกอบ/ช่วงความเข้มข้นขึ้นกับยี่ห้อ/เฉดสี — อ้างอิง SDS ของผู้ผลิตจริงเมื่อมี</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===== 4 ===== -->
+  <section id="sec4">
+    <h2>ข้อ 4: มาตรการปฐมพยาบาลเบื้องต้น</h2>
+    <div class="frame">
+      <div class="info" style="margin-bottom:8px"><strong>อาการสำคัญ:</strong> ระคายเคืองตา/ผิว; ไอระเหยทำให้ง่วงซึมเวียนศีรษะ</div>
+      <ul class="plist">
+        <li><strong>เข้าตา:</strong> ล้างน้ำต่อเนื่อง 15–20 นาที ถอดคอนแทคเลนส์ถ้ามี</li>
+        <li><strong>ผิวหนัง:</strong> ล้างด้วยสบู่และน้ำ ถอดเสื้อผ้าปนเปื้อน</li>
+        <li><strong>สูดดม:</strong> เคลื่อนย้ายสู่อากาศบริสุทธิ์ พักในท่าที่หายใจสะดวก</li>
+        <li><strong>กลืนกิน:</strong> บ้วนปาก ห้ามทำให้อาเจียน ติดต่อศูนย์พิษฯ/แพทย์</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== 5 ===== -->
+  <section id="sec5">
+    <h2>ข้อ 5: มาตรการระงับอัคคีภัย</h2>
+    <div class="frame">
+      <ul class="plist">
+        <li><strong>สารดับเพลิงที่เหมาะสม:</strong> โฟม AR-AFFF, ผงแห้ง, CO₂, สเปรย์น้ำ (เพื่อหล่อเย็น)</li>
+        <li><strong>อันตราย:</strong> ไอหนักกว่าอากาศ ลามไฟได้; ควัน/ไอพิษ (CO, CO₂, สารอินทรีย์)</li>
+        <li><strong>คำแนะนำ:</strong> สวม SCBA; ตัดแหล่งจุดติดไฟ; ป้องกันน้ำดับเพลิงไหลลงท่อ</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== 6 ===== -->
+  <section id="sec6">
+    <h2>ข้อ 6: มาตรการเมื่อมีการรั่วไหลโดยไม่ตั้งใจ</h2>
+    <div class="frame">
+      <ul class="plist">
+        <li><strong>บุคคล/อุปกรณ์:</strong> อพยพผู้ไม่เกี่ยวข้อง เพิ่มการระบายอากาศ หลีกเลี่ยงประกายไฟ</li>
+        <li><strong>สิ่งแวดล้อม:</strong> ป้องกันไม่ให้ลงท่อระบายน้ำ/ทางน้ำ</li>
+        <li><strong>เก็บกู้:</strong> ใช้วัสดุดูดซับ (ทราย/เวอร์มิคูไลต์) ใส่ภาชนะปิดสนิท ทำความสะอาดพื้นที่</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== 7 ===== -->
+  <section id="sec7">
+    <h2>ข้อ 7: การจัดการและการเก็บรักษา</h2>
+    <div class="frame">
+      <ul class="plist">
+        <li>ใช้อุปกรณ์กันระเบิด/ป้องกันไฟฟ้าสถิต ต่อสายดินระหว่างถ่ายเท</li>
+        <li>ทำงานในที่อากาศถ่ายเทดี หลีกเลี่ยงการสูดดมไอ/ละออง</li>
+        <li>เก็บภาชนะปิดสนิท ห่างความร้อน/แสงแดด · ปิดป้ายเตือนชัดเจน</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== 8 ===== -->
+  <section id="sec8">
+    <h2>ข้อ 8: การควบคุมการสัมผัสและการป้องกันส่วนบุคคล</h2>
+    <div class="frame">
+      <div class="tablewrap" style="margin-bottom:8px">
+        <table>
+          <thead><tr><th>สาร/พารามิเตอร์</th><th>หน่วยงาน</th><th>ค่าเกณฑ์</th><th>หมายเหตุ</th></tr></thead>
+          <tbody>
+            <tr><td>Xylene (ทั้งหมด)</td><td>ACGIH TLV</td><td>100 ppm TWA · 150 ppm STEL</td><td>ผิวหนัง</td></tr>
+            <tr><td>Ethylbenzene</td><td>ACGIH TLV</td><td>20 ppm TWA</td><td>—</td></tr>
+            <tr><td>Oil mist/solvent mist (ทั่วไป)</td><td>OSHA/NIOSH</td><td>5 mg/m³ TWA</td><td>—</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <ul class="plist">
+        <li><strong>วิศวกรรม:</strong> ระบายอากาศเฉพาะจุด/ทั่วไป ตรวจวัดไอระเหย</li>
+        <li><strong>ตา/หน้า:</strong> แว่นครอบตา/กระบังหน้าเมื่อเสี่ยงกระเด็น</li>
+        <li><strong>มือ:</strong> ถุงมือไนไตรล์/นีโอพรีน</li>
+        <li><strong>ร่างกาย:</strong> ชุดกันสารตามความเสี่ยง</li>
+        <li><strong>หายใจ:</strong> หน้ากากกรองไออินทรีย์ (Type A/OV) เมื่อระบายอากาศไม่เพียงพอ</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== 9 ===== -->
+  <section id="sec9">
+    <h2>ข้อ 9: สมบัติทางกายภาพและเคมี</h2>
+    <div class="frame tablewrap">
+      <table>
+        <tbody>
+          <tr><th>ลักษณะ</th><td>ของเหลวหนืด สีตามผลิตภัณฑ์ กลิ่นตัวทำละลายอินทรีย์</td></tr>
+          <tr><th>ช่วงจุดเดือด</th><td>~ 140 – 200&nbsp;°C (ขึ้นกับตัวทำละลาย)</td></tr>
+          <tr><th>จุดวาบไฟ (CC)</th><td>≈ 25 – 60&nbsp;°C</td></tr>
+          <tr><th>อุณหภูมิติดเอง</th><td>~ 220 – 450&nbsp;°C</td></tr>
+          <tr><th>ขีดจำกัดการติดไฟ (อากาศ)</th><td>~ 1 – 7 %v/v</td></tr>
+          <tr><th>ความหนาแน่น (25 °C)</th><td>~ 0.95 – 1.20 g/cm³</td></tr>
+          <tr><th>การละลายน้ำ</th><td>ไม่ละลาย/ละลายได้น้อย</td></tr>
+          <tr><th>VOC (โดยประมาณ)</th><td>~ 300 – 600 g/L</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===== 10 ===== -->
+  <section id="sec10">
+    <h2>ข้อ 10: ความเสถียรและความไวต่อการเกิดปฏิกิริยา</h2>
+    <div class="frame">
+      <ul class="plist">
+        <li>เสถียรภายใต้การใช้งานปกติ</li>
+        <li><strong>ต้องหลีกเลี่ยง:</strong> ความร้อน เปลวไฟ ไฟฟ้าสถิต ออกซิไดเซอร์แรง</li>
+        <li><strong>สลายตัวเมื่อไหม้:</strong> CO, CO₂, ควัน/ไออินทรีย์</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== 11 ===== -->
+  <section id="sec11">
+    <h2>ข้อ 11: ข้อมูลพิษวิทยา</h2>
+    <div class="frame tablewrap">
+      <table>
+        <tbody>
+          <tr><th>พิษเฉียบพลัน/การระคายเคือง</th><td>ระคายเคืองผิว/ตา; ไอระเหยทำให้ง่วงซึม/เวียนศีรษะ</td></tr>
+          <tr><th>การหายใจ</th><td>การสัมผัสไอ/หมอกละอองซ้ำ ๆ อาจก่อผลต่อระบบประสาท</td></tr>
+          <tr><th>ข้อมูลอื่น</th><td>มีตัวทำละลายไฮโดรคาร์บอน — หลีกเลี่ยงการกลืนกิน/สำลัก</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===== 12 ===== -->
+  <section id="sec12">
+    <h2>ข้อ 12: ข้อมูลระบบนิเวศ</h2>
+    <div class="frame">
+      <ul class="plist">
+        <li>เป็นพิษต่อสิ่งมีชีวิตในน้ำ มีผลยาวนาน; ลอยผิวน้ำสร้างฟิล์มลดออกซิเจน</li>
+        <li>ย่อยสลายได้บางส่วนทางชีวภาพ; มีศักยภาพสะสมชีวภาพของอะโรมาติกบางชนิด</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== 13 ===== -->
+  <section id="sec13">
+    <h2>ข้อ 13: ข้อควรพิจารณาในการกำจัด</h2>
+    <div class="frame">
+      <ul class="plist">
+        <li>ของเสียไวไฟ/อันตราย: ส่งกำจัดโดยผู้รับอนุญาต (เตาเผามาตรฐาน)</li>
+        <li>ภาชนะเปล่า: ระบายไอ/ทำความสะอาด ปิดผนึกก่อนรีไซเคิล/กำจัด</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== 14 ===== -->
+  <section id="sec14">
+    <h2>ข้อ 14: ข้อมูลเกี่ยวกับการขนส่ง</h2>
+    <div class="frame tablewrap">
+      <table>
+        <thead><tr><th>ระเบียบ</th><th>รายละเอียด</th></tr></thead>
+        <tbody>
+          <tr><td>ADR/RID</td><td><strong>UN 1263</strong> — PAINT; Class 3; PG II/III; Classification code F1; Tunnel code (D/E)</td></tr>
+          <tr><td>IMDG</td><td><strong>UN 1263</strong> — PAINT; Class 3; PG II/III; EmS <strong>F-E, S-E</strong>; Marine pollutant: อาจเข้าข่าย</td></tr>
+          <tr><td>IATA/ICAO</td><td><strong>UN 1263</strong> — PAINT; Class 3; PG II/III</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===== 15 ===== -->
+  <section id="sec15">
+    <h2>ข้อ 15: ข้อมูลเกี่ยวกับกฎหมาย</h2>
+    <div class="frame">
+      <ul class="plist">
+        <li>การจำแนก/ฉลาก: ตาม GHS/CLP — Flam. Liq. 3 (H226); Skin Irrit. 2 (H315); Eye Irrit. 2 (H319); STOT SE 3 (H336); Aquatic Chronic 2 (H411)</li>
+        <li>OSHA HazCom 2012 (US): สอดคล้อง GHS</li>
+        <li>ประเทศไทย: ปฏิบัติตาม พ.ร.บ.วัตถุอันตราย และข้อบังคับด้านขนส่ง/สิ่งแวดล้อม</li>
+        <li>Storage Class (องค์กร): 3 — ของเหลวไวไฟ</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== 16 ===== -->
+  <section id="sec16">
+    <h2>ข้อ 16: ข้อมูลอื่น ๆ</h2>
+    <div class="frame">
+      <div class="tablewrap" style="margin-bottom:8px">
+        <table>
+          <tbody>
+            <tr><th>หมายเลขเอกสาร</th><td>MSBRC2-SDS-27</td></tr>
+            <tr><th>ชื่อผลิตภัณฑ์</th><td>Anti-rust Paint (สีกันสนิม)</td></tr>
+            <tr><th>จัดทำโดย</th><td>หน่วยงาน SHE&amp;En ธุรกิจพันธุ์กุ้งทะเล 2</td></tr>
+            <tr><th>สถานะ</th><td>ใช้งาน (Effective)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <ul class="plist">
+        <li>อัปเดต SDS เมื่อสูตร/ข้อมูลเปลี่ยนแปลง หรืออย่างน้อยปีละครั้ง</li>
+        <li>ทบทวนวิธีพ่นสีอย่างปลอดภัย: การต่อสายดิน/ป้องกันไฟฟ้าสถิต และการระบายอากาศ</li>
+      </ul>
+      <div class="info" style="margin-top:8px">
+        <strong>คำชี้แจงความรับผิดชอบ:</strong> เอกสารนี้เป็นแนวทางทั่วไป องค์กรมีกระบวนการอนุมัติภายในก่อนใช้งาน และต้องอ้างอิง SDS ของยี่ห้อ/รุ่นสินค้าที่ใช้งานจริง
+      </div>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>

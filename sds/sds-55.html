@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>SDS | Methanol (เมทานอล)</title>
+<style>
+  :root{ --ink:#0f172a; --muted:#475569; --line:#e2e8f0; --bg:#ffffff; --paper:#f8fafc; --accent:#0ea5e9; --accent2:#a78bfa; }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--paper);color:var(--ink);font-family:"Inter","Noto Sans Thai","Sarabun",system-ui,-apple-system,Segoe UI,Roboto,Arial}
+  body{font-size:clamp(15px,3.8vw,17px);line-height:1.75}
+  .container{max-width:760px;margin:0 auto;background:var(--bg);border-left:1px solid var(--line);border-right:1px solid var(--line)}
+
+  header{padding:18px 16px 12px;border-bottom:1px solid var(--line);background:#fff;text-align:center}
+  .ttl{margin:0 0 6px 0;font-size:clamp(20px,5.2vw,26px);font-weight:800}
+  .chem{display:inline-block;margin:2px auto 8px;font-size:clamp(18px,5.8vw,26px);font-weight:800;color:#0b3b7e;padding:8px 14px;border-radius:14px;background:linear-gradient(90deg, rgba(14,165,233,.18), rgba(167,139,250,.18));border:1px solid #c7d2fe;box-shadow:0 2px 8px rgba(2,6,23,.08)}
+  .meta{font-size:.9em;color:var(--muted);margin-top:6px}
+  .badges{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0;justify-content:center}
+  .badge{font-size:.8em;border:1px solid var(--line);padding:4px 8px;border-radius:999px;background:#ecfeff;color:#0c4a6e}
+
+  section{padding:14px 16px;border-bottom:1px solid var(--line);background:#fff}
+  section>h2{margin:0 0 10px;font-size:clamp(16px,4.6vw,20px);padding:8px 10px;border:1px solid var(--line);border-radius:12px;background:linear-gradient(90deg,rgba(99,102,241,.08),rgba(244,63,94,.08))}
+  .frame{border:1px solid var(--line);border-radius:12px;padding:12px;background:#fff}
+  .info{background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:10px;margin-bottom:8px}
+  .muted{color:var(--muted)}
+
+  .pictos{display:flex;gap:16px;flex-wrap:wrap;align-items:center;justify-content:center}
+  .pictos figure{margin:0;text-align:center}
+  .ghs{display:block;width:clamp(64px,12vw,88px);height:auto;filter:drop-shadow(0 0 6px rgba(239,68,68,.18));image-rendering:auto}
+  .pictos figcaption{font-size:.85em;color:var(--muted);margin-top:6px}
+
+  .pcards{display:grid;grid-template-columns:1fr;gap:12px}
+  .pcard{border:1px solid var(--line);border-radius:12px;background:#fff}
+  .pcard h4{margin:0;padding:10px;border-bottom:1px solid var(--line);background:linear-gradient(90deg,rgba(99,102,241,.10),rgba(244,63,94,.10))}
+  .plist{list-style:disc;padding:8px 16px;margin:0}
+
+  .tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  table{border-collapse:collapse;min-width:560px;width:100%}
+  th,td{border:1px solid var(--line);padding:8px;vertical-align:top}
+  th{background:#eef2ff;text-align:left}
+</style>
+</head>
+<body>
+<div class="container" role="document" aria-label="Safety Data Sheet">
+
+    <header>
+        <h1 class="ttl">เอกสารข้อมูลความปลอดภัย (SDS)</h1>
+        <h2 class="chem">เมทานอล (Methanol)</h2>
+        <div class="meta">รูปแบบ: GHS/CLP | ภาษาไทย | จัดทำ: 15 Aug 2025 | ทบทวน: 15 Aug 2025 | แก้ไขครั้งที่: 0<br>จัดทำโดย หน่วยงาน SHE&En ธุรกิจพันธุ์กุ้งทะเล 2 · หมายเลขเอกสาร <strong>MSBRC2-SDS-55</strong></div>
+        <div class="badges">
+            <span class="badge">CAS 67-56-1</span>
+            <span class="badge">EC 200-659-6</span>
+            <span class="badge">UN 1230</span>
+            <span class="badge">GHS02, GHS06, GHS08</span>
+        </div>
+    </header>
+
+    <!-- 1 -->
+    <section id="sec1">
+        <h2>ข้อ 1: ข้อมูลเกี่ยวกับสารหรือส่วนผสม และข้อมูลของผู้ผลิต/ผู้จัดจำหน่าย</h2>
+        <div class="frame">
+            <div class="info">
+                <strong>ชื่อผลิตภัณฑ์:</strong> Methanol · <strong>สูตร:</strong> CH₃OH<br>
+                <strong>ชื่ออื่น/คำพ้อง:</strong> Methyl alcohol, Wood alcohol<br>
+                <strong>การใช้ที่แนะนำ:</strong> ตัวทำละลาย, เชื้อเพลิง, สารตั้งต้นในอุตสาหกรรมเคมี<br>
+                <strong>การใช้ที่ไม่แนะนำ:</strong> ห้ามใช้เพื่อการบริโภคโดยเด็ดขาด
+            </div>
+            <div class="tablewrap">
+                <table>
+                    <thead><tr><th>ผู้ผลิต/ผู้จัดจำหน่าย</th><th>ข้อมูลติดต่อ</th></tr></thead>
+                    <tbody>
+                        <tr>
+                            <td>บริษัท พีทีที โกลบอล เคมิคอล จำกัด (มหาชน)</td>
+                            <td>ที่อยู่: 555/1 ศูนย์เอนเนอร์ยี่คอมเพล็กซ์ อาคารเอ ชั้น 14-18 ถ.วิภาวดีรังสิต แขวงจตุจักร เขตจตุจักร กรุงเทพฯ 10900<br>
+                                โทรศัพท์: 02-265-8400</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="info" style="margin-top:10px"><strong>ฉุกเฉิน:</strong> ศูนย์พิษวิทยารามาธิบดี 1367 (24 ชม.)</div>
+        </div>
+    </section>
+
+    <!-- 2 -->
+    <section id="sec2">
+        <h2>ข้อ 2: การระบุอันตราย</h2>
+        <div class="frame">
+            <div class="tablewrap" style="margin-bottom:10px">
+                <table>
+                    <thead><tr><th>อันตราย</th><th>หมวด</th><th>รหัส</th></tr></thead>
+                    <tbody>
+                        <tr><td>ของเหลวไวไฟสูง</td><td>Flam. Liq. 2</td><td>H225</td></tr>
+                        <tr><td>พิษเฉียบพลัน (ปาก/ผิวหนัง/สูดดม)</td><td>Acute Tox. 3</td><td>H301, H311, H331</td></tr>
+                        <tr><td>ทำอันตรายต่ออวัยวะอย่างเฉพาะเจาะจง</td><td>STOT SE 1</td><td>H370</td></tr>
+                        <tr><td>คำสัญญาณ</td><td colspan="2"><strong>อันตราย (Danger)</strong></td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <h3 style="margin:10px 0 8px">สัญลักษณ์อันตราย (GHS)</h3>
+            <div class="pictos" aria-label="GHS pictograms">
+                <figure>
+                    <img class="ghs" alt="GHS02 – Flame" src="https://commons.wikimedia.org/wiki/Special:FilePath/GHS-pictogram-flamme.svg" referrerpolicy="no-referrer">
+                    <figcaption>GHS02 – ไวไฟ</figcaption>
+                </figure>
+                <figure>
+                    <img class="ghs" alt="GHS06 – Skull and crossbones" src="https://commons.wikimedia.org/wiki/Special:FilePath/GHS-pictogram-skull.svg" referrerpolicy="no-referrer">
+                    <figcaption>GHS06 – พิษเฉียบพลัน</figcaption>
+                </figure>
+                <figure>
+                    <img class="ghs" alt="GHS08 – Health hazard" src="https://commons.wikimedia.org/wiki/Special:FilePath/GHS-pictogram-silhouette.svg" referrerpolicy="no-referrer">
+                    <figcaption>GHS08 – อันตรายต่อสุขภาพ</figcaption>
+                </figure>
+            </div>
+            <h3 style="margin:14px 0 8px">ข้อความแสดงอันตราย (H)</h3>
+            <ul class="plist">
+                <li><strong>H225 - ของเหลวและไอระเหยไวไฟสูง:</strong> สามารถติดไฟได้ง่ายที่อุณหภูมิห้องเมื่อมีประกายไฟหรือเปลวไฟ</li>
+                <li><strong>H301+H311+H331 - เป็นพิษเมื่อกลืนกิน, สัมผัสผิวหนัง หรือสูดดม:</strong> การรับสัมผัสไม่ว่าจะทางใดก็ตามในปริมาณเพียงเล็กน้อยก็อาจเป็นอันตรายถึงชีวิตได้</li>
+                <li><strong>H370 - ทำอันตรายต่ออวัยวะ:</strong> การรับสัมผัสเพียงครั้งเดียวอาจทำลายอวัยวะเป้าหมายอย่างถาวร โดยเฉพาะอย่างยิ่ง **ประสาทตา (อาจทำให้ตาบอด)** และ **ระบบประสาทส่วนกลาง**</li>
+            </ul>
+            <h3 style="margin:14px 0 8px">ข้อความแนะนำการป้องกัน (P) - สรุป</h3>
+            <div class="pcards">
+                <div class="pcard">
+                    <h4>การป้องกัน (Prevention)</h4>
+                    <ul class="plist">
+                        <li><strong>P210:</strong> เก็บให้ห่างจากความร้อน, ประกายไฟ, เปลวไฟ และพื้นผิวที่ร้อน — ห้ามสูบบุหรี่</li>
+                        <li><strong>P260:</strong> ห้ามหายใจเอาไอระเหยเข้าไปโดยเด็ดขาด</li>
+                        <li><strong>P271:</strong> ใช้เฉพาะในที่กลางแจ้งหรือบริเวณที่มีการระบายอากาศที่ดีเยี่ยม</li>
+                        <li><strong>P280:</strong> สวมถุงมือป้องกัน, ชุดป้องกัน, อุปกรณ์ป้องกันดวงตาและใบหน้า ที่ทนต่อสารเคมี</li>
+                    </ul>
+                </div>
+                <div class="pcard">
+                    <h4>การตอบโต้เหตุฉุกเฉิน (Response)</h4>
+                    <ul class="plist">
+                        <li><strong>P301+P310:</strong> หากกลืนกิน: ให้รีบโทรหาศูนย์พิษวิทยาหรือแพทย์ทันที</li>
+                        <li><strong>P302+P352:</strong> หากสัมผัสผิวหนัง: ให้ล้างออกด้วยน้ำและสบู่ปริมาณมาก</li>
+                        <li><strong>P304+P340:</strong> หากหายใจเข้าไป: ให้เคลื่อนย้ายผู้ป่วยไปยังที่ที่มีอากาศบริสุทธิ์และจัดท่าให้หายใจสะดวก</li>
+                        <li><strong>P308+P311:</strong> หากรับสัมผัสหรือเป็นกังวล: ให้โทรหาศูนย์พิษวิทยาหรือแพทย์</li>
+                    </ul>
+                </div>
+                <div class="pcard">
+                    <h4>การจัดเก็บ / การกำจัด (Storage / Disposal)</h4>
+                    <ul class="plist">
+                        <li><strong>P403+P233:</strong> เก็บในภาชนะที่ปิดสนิทและในบริเวณที่มีการระบายอากาศดี</li>
+                        <li><strong>P405:</strong> จัดเก็บในสถานที่ที่ปิดล็อกได้</li>
+                        <li><strong>P501:</strong> กำจัดสาร/ภาชนะบรรจุตามข้อบังคับของเสียอันตราย</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3 -->
+    <section id="sec3">
+        <h2>ข้อ 3: ส่วนประกอบ/ข้อมูลเกี่ยวกับส่วนผสม</h2>
+        <div class="frame tablewrap">
+            <table>
+                <thead><tr><th>สาร</th><th>CAS No.</th><th>EC No.</th><th>สัดส่วน</th></tr></thead>
+                <tbody>
+                    <tr><td>Methanol</td><td>67-56-1</td><td>200-659-6</td><td>≥ 99.8 %</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- 4 -->
+    <section id="sec4">
+        <h2>ข้อ 4: มาตรการปฐมพยาบาลเบื้องต้น</h2>
+        <div class="frame">
+             <div class="info" style="border-left-color: #ef4444; border-left-width: 4px;"><strong>ข้อควรระวังพิเศษ:</strong> การดูดซึมเมทานอลอาจทำให้ตาบอดและเสียชีวิตได้ ต้องได้รับการรักษาจากแพทย์โดยด่วน</div>
+            <ul class="plist">
+                <li><strong>สูดดม:</strong> เคลื่อนย้ายผู้ป่วยไปในที่ที่มีอากาศบริสุทธิ์ โทรหาแพทย์ทันที</li>
+                <li><strong>ผิวหนัง:</strong> ถอดเสื้อผ้าที่ปนเปื้อนออกทันที ล้างผิวหนังด้วยน้ำและสบู่ปริมาณมาก พบแพทย์ทันที</li>
+                <li><strong>เข้าตา:</strong> ล้างตาด้วยน้ำปริมาณมากอย่างน้อย 15 นาที พบจักษุแพทย์ทันที</li>
+                <li><strong>กลืนกิน:</strong> ห้ามทำให้อาเจียน โทรหาศูนย์พิษวิทยาหรือแพทย์ทันที (อาจให้เอทานอลเป็นการรักษาเบื้องต้นภายใต้คำแนะนำของแพทย์)</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- 5 -->
+    <section id="sec5">
+        <h2>ข้อ 5: มาตรการระงับอัคคีภัย</h2>
+        <div class="frame">
+            <ul class="plist">
+                <li><strong>สารดับเพลิงที่เหมาะสม:</strong> สำหรับไฟขนาดเล็ก: ใช้ผงเคมีแห้ง, คาร์บอนไดออกไซด์ (CO₂). สำหรับไฟขนาดใหญ่: ใช้โฟมทนแอลกอฮอล์ (Alcohol-resistant foam) หรือละอองน้ำ. <strong>ห้ามใช้น้ำฉีดเป็นลำโดยตรง</strong> เพราะอาจทำให้ไฟกระจายวงกว้าง</li>
+                <li><strong>อันตรายเฉพาะที่เกิดจากสารเคมี:</strong> เป็นของเหลวไวไฟสูง ไอระเหยสามารถผสมกับอากาศเกิดเป็นส่วนผสมที่ระเบิดได้ ไอระเหยหนักกว่าอากาศ สามารถเคลื่อนที่ไปตามพื้นได้ไกลและอาจย้อนกลับมาติดไฟจากแหล่งจุดติดไฟที่อยู่ห่างไกลได้ เปลวไฟอาจมีสีฟ้าจางๆ ซึ่งมองเห็นได้ยากในเวลากลางวัน ภาชนะบรรจุอาจระเบิดได้เมื่อได้รับความร้อน</li>
+                <li><strong>อุปกรณ์ป้องกันพิเศษและข้อควรระวังสำหรับนักผจญเพลิง:</strong> นักผจญเพลิงต้องสวมอุปกรณ์ช่วยหายใจชนิดมีถังอากาศในตัว (SCBA) และชุดป้องกันสารเคมีเต็มรูปแบบ ใช้ละอองน้ำเพื่อหล่อเย็นภาชนะที่อยู่ใกล้เคียงกับกองไฟเพื่อป้องกันการระเบิด กั้นพื้นที่และป้องกันไม่ให้น้ำจากการดับเพลิงไหลลงสู่แหล่งน้ำหรือท่อระบายน้ำ</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- 6 -->
+    <section id="sec6">
+        <h2>ข้อ 6: มาตรการเมื่อมีการรั่วไหลโดยไม่ตั้งใจ</h2>
+        <div class="frame">
+            <ul class="plist">
+                <li><strong>ข้อควรระวังส่วนบุคคล อุปกรณ์ป้องกัน และขั้นตอนปฏิบัติในกรณีฉุกเฉิน:</strong> อพยพบุคลากรที่ไม่เกี่ยวข้องออกจากพื้นที่ กำจัดแหล่งจุดติดไฟทั้งหมด (ประกายไฟ, เปลวไฟ, พื้นผิวที่ร้อน) และป้องกันการเกิดไฟฟ้าสถิต สวมอุปกรณ์ป้องกันส่วนบุคคลเต็มรูปแบบ รวมถึงอุปกรณ์ป้องกันระบบทางเดินหายใจ ตรวจสอบให้แน่ใจว่ามีการระบายอากาศที่เพียงพอ ห้ามสัมผัสสารที่หกโดยตรง</li>
+                <li><strong>ข้อควรระวังด้านสิ่งแวดล้อม:</strong> ป้องกันไม่ให้สารเคมีไหลลงสู่ท่อระบายน้ำ, ดิน, หรือแหล่งน้ำสาธารณะ หากเกิดการรั่วไหลในปริมาณมาก ให้แจ้งหน่วยงานด้านสิ่งแวดล้อมในพื้นที่</li>
+                <li><strong>วิธีการและวัสดุสำหรับการกักเก็บและทำความสะอาด:</strong>
+                    <ul>
+                        <li><strong>การรั่วไหลเล็กน้อย:</strong> ดูดซับด้วยวัสดุเฉื่อยที่ไม่ติดไฟ (เช่น ทราย, เวอร์มิคูไลต์, ดินเบา) แล้วเก็บในภาชนะที่ปิดสนิทและมีป้ายกำกับชัดเจนเพื่อนำไปกำจัด</li>
+                        <li><strong>การรั่วไหลปริมาณมาก:</strong> สร้างทำนบกั้นด้วยดินหรือทรายเพื่อกักเก็บสารที่รั่วไหล ใช้เครื่องมือและอุปกรณ์ที่ไม่ก่อให้เกิดประกายไฟ (non-sparking tools) ในการเก็บกู้</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- 7 -->
+    <section id="sec7">
+        <h2>ข้อ 7: การจัดการและการเก็บรักษา</h2>
+        <div class="frame">
+            <ul class="plist">
+                <li><strong>ข้อควรระวังในการจัดการอย่างปลอดภัย:</strong> ใช้งานในพื้นที่ที่มีการระบายอากาศดีเยี่ยม หรือใช้ระบบระบายอากาศเฉพาะที่แบบป้องกันการระเบิด หลีกเลี่ยงการสัมผัสกับผิวหนัง ดวงตา และเสื้อผ้า หลีกเลี่ยงการหายใจเอาไอระเหยเข้าไป ใช้อุปกรณ์และเครื่องมือชนิดไม่ก่อให้เกิดประกายไฟ ทำการต่อสายดินกับภาชนะบรรจุและอุปกรณ์เพื่อป้องกันการเกิดไฟฟ้าสถิต ล้างมือให้สะอาดหลังการใช้งาน ห้ามกิน ดื่ม หรือสูบบุหรี่ในบริเวณที่ทำงาน</li>
+                <li><strong>สภาวะการเก็บรักษาที่ปลอดภัย, รวมถึงสารที่เข้ากันไม่ได้:</strong> เก็บในภาชนะที่ปิดมิดชิดและมีป้ายกำกับชัดเจน จัดเก็บในที่เย็น, แห้ง, และมีการระบายอากาศดี แยกจากความร้อน, แหล่งจุดติดไฟ, และแสงแดดโดยตรง เก็บให้ห่างจากสารที่เข้ากันไม่ได้ โดยเฉพาะสารออกซิไดซ์แรง, กรด และด่างแก่ พื้นที่จัดเก็บควรทำจากวัสดุที่ทนไฟและมีระบบป้องกันอัคคีภัยที่เหมาะสม</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- 8 -->
+    <section id="sec8">
+        <h2>ข้อ 8: การควบคุมการสัมผัสและการป้องกันส่วนบุคคล</h2>
+        <div class="frame">
+            <div class="info"><strong>ค่าขีดจำกัดการสัมผัส (ACGIH TLV):</strong> 200 ppm (TWA), 250 ppm (STEL) (มีสัญลักษณ์ Skin)</div>
+            <ul class="plist">
+                <li><strong>การควบคุมทางวิศวกรรม:</strong> ใช้ตู้ดูดควันหรือการระบายอากาศเฉพาะที่แบบป้องกันการระเบิด</li>
+                <li><strong>ตา/หน้า:</strong> สวมแว่นตานิรภัยป้องกันสารเคมีและกระบังหน้า</li>
+                <li><strong>มือ:</strong> สวมถุงมือที่ทนต่อสารเคมี (เช่น Butyl rubber)</li>
+                <li><strong>ทางเดินหายใจ:</strong> สวมหน้ากากป้องกันไอระเหยสารอินทรีย์</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- 9 -->
+    <section id="sec9">
+        <h2>ข้อ 9: สมบัติทางกายภาพและเคมี</h2>
+        <div class="frame tablewrap">
+            <table>
+                <tbody>
+                    <tr><th>สถานะ</th><td>ของเหลว</td></tr>
+                    <tr><th>สี</th><td>ไม่มีสี</td></tr>
+                    <tr><th>กลิ่น</th><td>กลิ่นแอลกอฮอล์อ่อนๆ</td></tr>
+                    <tr><th>จุดเดือด</th><td>~64.7 °C</td></tr>
+                    <tr><th>จุดวาบไฟ</th><td>~11 °C</td></tr>
+                    <tr><th>ความหนาแน่น</th><td>~0.792 g/cm³</td></tr>
+                    <tr><th>การละลายน้ำ</th><td>ผสมเป็นเนื้อเดียวกับน้ำได้</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- 10 -->
+    <section id="sec10">
+        <h2>ข้อ 10: ความเสถียรและความไวต่อปฏิกิริยา</h2>
+        <div class="frame">
+            <ul class="plist">
+                <li><strong>ความเสถียรทางเคมี:</strong> เสถียรภายใต้สภาวะการเก็บรักษาที่แนะนำ</li>
+                <li><strong>ความเป็นไปได้ในการเกิดปฏิกิริยาอันตราย:</strong> ไอระเหยสามารถผสมกับอากาศเกิดเป็นสารผสมที่ระเบิดได้ ทำปฏิกิริยารุนแรงกับสารออกซิไดซ์แรงซึ่งอาจก่อให้เกิดไฟไหม้และการระเบิดได้</li>
+                <li><strong>สภาวะที่ควรหลีกเลี่ยง:</strong> ความร้อน, ประกายไฟ, เปลวไฟ, การเกิดไฟฟ้าสถิต และแหล่งจุดติดไฟอื่นๆ</li>
+                <li><strong>สารที่เข้ากันไม่ได้:</strong> สารออกซิไดซ์แรง (เช่น เปอร์คลอเรต, ไนเตรต, กรดซัลฟิวริกเข้มข้น), กรดแก่, ด่างแก่, โลหะอัลคาไล และโลหะอัลคาไลน์เอิร์ท</li>
+                <li><strong>ผลิตภัณฑ์ที่เป็นอันตรายจากการสลายตัว:</strong> เมื่อเผาไหม้จะเกิดก๊าซคาร์บอนมอนอกไซด์และคาร์บอนไดออกไซด์ เมื่อได้รับความร้อนสูงอาจเกิดฟอร์มาลดีไฮด์</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- 11 -->
+    <section id="sec11">
+        <h2>ข้อ 11: ข้อมูลพิษวิทยา</h2>
+        <div class="frame">
+            <div class="info"><strong>สรุป:</strong> เป็นพิษร้ายแรงเมื่อกลืนกิน, สัมผัสผิวหนัง หรือสูดดม ทำอันตรายต่อระบบประสาทส่วนกลางและประสาทตา ซึ่งอาจนำไปสู่การตาบอดถาวรหรือเสียชีวิตได้</div>
+            <ul class="plist">
+                <li><strong>ความเป็นพิษเฉียบพลัน:</strong> LD50 (ทางปาก, หนู): >1,187 mg/kg; LC50 (สูดดม, หนู): 128.2 mg/l (4 ชม.); LD50 (ผิวหนัง, กระต่าย): 17,100 mg/kg</li>
+                <li><strong>การกัดกร่อน/ระคายเคืองผิวหนัง:</strong> อาจทำให้ผิวแห้งและระคายเคืองเมื่อสัมผัสซ้ำๆ</li>
+                <li><strong>การทำลายดวงตาอย่างรุนแรง:</strong> ไอระเหยอาจทำให้เกิดการระคายเคือง</li>
+                <li><strong>การทำให้เกิดการกลายพันธุ์ของเซลล์สืบพันธุ์:</strong> ไม่มีข้อมูลเพียงพอที่จะจัดประเภท</li>
+                <li><strong>การก่อมะเร็ง:</strong> ไม่จัดเป็นสารก่อมะเร็งโดย IARC, ACGIH, NTP, หรือ OSHA</li>
+                <li><strong>ความเป็นพิษต่ออวัยวะเป้าหมาย (สัมผัสครั้งเดียว):</strong> ทำอันตรายต่ออวัยวะอย่างชัดเจน (H370) โดยมีเป้าหมายหลักที่ประสาทตาและระบบประสาทส่วนกลาง</li>
+                <li><strong>อาการและอาการแสดงของการรับสัมผัส:</strong> ปวดศีรษะ, เวียนศีรษะ, คลื่นไส้, อาเจียน, สูญเสียการมองเห็น, หมดสติ, โคม่า</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- 12 -->
+    <section id="sec12">
+        <h2>ข้อ 12: ข้อมูลระบบนิเวศ</h2>
+        <div class="frame">
+            <ul class="plist">
+                <li><strong>ความเป็นพิษต่อสิ่งมีชีวิตในน้ำ:</strong> LC50 (ปลา, 96 ชม.): 15,400 mg/l. มีความเป็นพิษต่อสิ่งมีชีวิตในน้ำที่ความเข้มข้นสูง</li>
+                <li><strong>การคงอยู่และการย่อยสลาย:</strong> ย่อยสลายได้ง่ายในทางชีวภาพ (Readily biodegradable)</li>
+                <li><strong>การสะสมทางชีวภาพ:</strong> มีแนวโน้มการสะสมทางชีวภาพต่ำ (BCF < 10)</li>
+                <li><strong>การเคลื่อนย้ายในดิน:</strong> คาดว่าจะมีการเคลื่อนย้ายในดินสูงมากเนื่องจากละลายน้ำได้ดี</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- 13 -->
+    <section id="sec13">
+        <h2>ข้อ 13: ข้อควรพิจารณาในการกำจัด</h2>
+        <div class="frame">
+            <ul class="plist">
+                <li><strong>วิธีการกำจัดของเสีย:</strong> ต้องกำจัดเป็นของเสียอันตราย ควรส่งให้บริษัทกำจัดของเสียที่ได้รับอนุญาตดำเนินการเผาในเตาเผาสารเคมีที่เหมาะสม</li>
+                <li><strong>บรรจุภัณฑ์ที่ปนเปื้อน:</strong> ควรจัดการเช่นเดียวกับตัวสารเคมี ไม่ควรนำกลับมาใช้ใหม่</li>
+                <li><strong>กฎหมายที่เกี่ยวข้อง:</strong> ปฏิบัติตามประกาศกระทรวงอุตสาหกรรมเรื่องการกำจัดสิ่งปฏิกูลหรือวัสดุที่ไม่ใช้แล้ว และกฎหมายท้องถิ่นอื่นๆ ที่เกี่ยวข้อง</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- 14 -->
+    <section id="sec14">
+        <h2>ข้อ 14: ข้อมูลการขนส่ง</h2>
+        <div class="frame tablewrap">
+            <table>
+                <thead>
+                    <tr><th>ระเบียบการขนส่ง</th><th>รายละเอียด</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>หมายเลข UN</strong></td><td>1230</td></tr>
+                    <tr><td><strong>ชื่อที่ใช้ในการขนส่ง</strong></td><td>METHANOL</td></tr>
+                    <tr><td><strong>ประเภทความเป็นอันตราย</strong></td><td>Class 3 (ของเหลวไวไฟ)</td></tr>
+                    <tr><td><strong>ความเป็นอันตรายรอง</strong></td><td>Class 6.1 (สารพิษ)</td></tr>
+                    <tr><td><strong>กลุ่มการบรรจุ</strong></td><td>PG II</td></tr>
+                    <tr><td><strong>มลพิษทางทะเล (IMDG)</strong></td><td>ไม่เป็น</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- 15 -->
+    <section id="sec15">
+        <h2>ข้อ 15: ข้อมูลเกี่ยวกับกฎหมาย</h2>
+        <div class="frame">
+            <ul class="plist">
+                <li><strong>กฎหมายในประเทศ (ประเทศไทย):</strong>
+                    <ul>
+                        <li>อยู่ภายใต้การกำกับดูแลของพระราชบัญญัติวัตถุอันตราย พ.ศ. 2535 (จัดเป็นวัตถุอันตรายชนิดที่ 3)</li>
+                        <li>อยู่ภายใต้บัญชีรายชื่อสารเคมีอันตรายของกรมโรงงานอุตสาหกรรม</li>
+                    </ul>
+                </li>
+                 <li><strong>กฎหมายระหว่างประเทศ:</strong>
+                    <ul>
+                        <li>อยู่ในบัญชีรายชื่อสารเคมีของ TSCA (สหรัฐอเมริกา), EINECS (ยุโรป), AICS (ออสเตรเลีย) และอื่นๆ</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- 16 -->
+    <section id="sec16">
+        <h2>ข้อ 16: ข้อมูลอื่น ๆ</h2>
+        <div class="frame">
+            <div class="info">
+                <strong>คำชี้แจงความรับผิดชอบ:</strong> ข้อมูลในเอกสารข้อมูลความปลอดภัยนี้จัดทำขึ้นตามความรู้ความสามารถที่ดีที่สุดของเรา ณ วันที่ระบุ และเชื่อว่ามีความถูกต้อง อย่างไรก็ตาม ข้อมูลนี้จัดทำขึ้นเพื่อเป็นแนวทางในการจัดการอย่างปลอดภัยเท่านั้น และไม่ถือเป็นการรับประกันคุณสมบัติของผลิตภัณฑ์ ผู้ใช้งานต้องรับผิดชอบในการประเมินความเหมาะสมและความสมบูรณ์ของข้อมูลนี้สำหรับสถานการณ์การใช้งานของตนเอง และปฏิบัติตามกฎหมายและข้อบังคับที่เกี่ยวข้องทั้งหมด
+            </div>
+            <p><strong>ฉบับปรับปรุง:</strong> 15 สิงหาคม 2568 (ฉบับแรก)</p>
+        </div>
+    </section>
+
+</div>
+</body>
+</html>
+
+

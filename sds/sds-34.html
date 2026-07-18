@@ -1,0 +1,402 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>SDS | Ammonium Persulfate — MSBRC2-SDS-34</title>
+<style>
+  :root{
+    --ink:#0f172a; --muted:#475569; --line:#e2e8f0; --bg:#ffffff; --paper:#f8fafc;
+    --chipbg:#ecfeff; --chipfg:#0c4a6e; --okbg:#eef2ff;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--paper);color:var(--ink);
+    font-family:"Inter","Noto Sans Thai","Sarabun",system-ui,-apple-system,Segoe UI,Roboto,Arial}
+  body{font-size:clamp(15px,3.8vw,17px);line-height:1.75}
+  a{color:inherit}
+  .container{max-width:900px;margin:0 auto;background:#fff;border-left:1px solid var(--line);border-right:1px solid var(--line)}
+
+  /* Header (STATIC — ไม่ sticky) */
+  header{padding:18px 16px 12px;border-bottom:1px solid var(--line);background:#fff}
+  .title{display:flex;flex-direction:column;align-items:center;text-align:center}
+  .ttl{margin:0 0 6px 0;font-size:clamp(20px,5.2vw,26px);line-height:1.35;font-weight:800}
+  .chem{
+    display:inline-block;margin:2px auto 8px;padding:8px 14px;border-radius:14px;
+    font-size:clamp(18px,5.8vw,26px);font-weight:800;line-height:1.35;color:#052c65;
+    background:linear-gradient(90deg, rgba(14,165,233,.18), rgba(167,139,250,.18));
+    border:1px solid #c7d2fe;box-shadow:0 2px 8px rgba(2,6,23,.08)
+  }
+  .meta{font-size:.92em;color:var(--muted);margin-top:6px;text-align:center}
+  .badges{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0 0;justify-content:center}
+  .badge{font-size:.8em;border:1px solid var(--line);padding:4px 8px;border-radius:999px;background:var(--chipbg);color:var(--chipfg)}
+
+  section{padding:14px 16px;border-bottom:1px solid var(--line);background:#fff}
+  section>h2{margin:0 0 10px 0;font-size:clamp(16px,4.6vw,20px);
+    padding:8px 10px;border:1px solid var(--line);border-radius:12px;
+    background:linear-gradient(90deg,rgba(99,102,241,.08),rgba(14,165,233,.08))}
+  .frame{border:1px solid var(--line);border-radius:12px;padding:12px;background:#fff}
+  .info{background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:10px}
+  .muted{color:var(--muted)}
+  .plist{list-style:disc;padding:8px 16px;margin:0}
+
+  .tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  table{border-collapse:collapse;min-width:560px;width:100%}
+  th,td{border:1px solid var(--line);padding:8px;vertical-align:top}
+  th{background:#eef2ff;text-align:left}
+
+  .pictos{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+  .pictos figure{margin:0;text-align:center}
+  .ghs{display:block;width:clamp(64px,12vw,88px);height:auto;filter:drop-shadow(0 0 6px rgba(2,6,23,.10))}
+  .pictos figcaption{font-size:.85em;color:var(--muted)}
+  .nosym{display:inline-flex;align-items:center;gap:8px;padding:8px 10px;border:1px dashed #cbd5e1;border-radius:10px;background:var(--okbg)}
+  .nosym svg{width:22px;height:22px}
+
+  @media print{ header{position:static} }
+</style>
+</head>
+<body>
+<div class="container" role="document" aria-label="Safety Data Sheet">
+
+  <!-- ===== Header ===== -->
+  <header>
+    <div class="title">
+      <h1 class="ttl">เอกสารข้อมูลความปลอดภัย (SDS)</h1>
+      <h2 class="chem">Ammonium Persulfate <span class="muted">(แอมโมเนียมเปอร์ซัลเฟต)</span></h2>
+      <div class="meta">
+        รูปแบบ: GHS/CLP | ภาษาไทย | จัดทำ: 15 Aug 2025 | ทบทวน: 15 Aug 2025 | แก้ไขครั้งที่: 0<br>
+        จัดทำโดย หน่วยงาน SHE&amp;En ธุรกิจพันธุ์กุ้งทะเล 2 · หมายเลขเอกสาร <strong>MSBRC2-SDS-34</strong>
+      </div>
+    </div>
+    <div class="badges">
+      <span class="badge">CAS No. 7727-54-0</span>
+      <span class="badge">UN 1444 — Ammonium persulfate</span>
+      <span class="badge">Class 5.1 • PG III</span>
+      <span class="badge">Storage Class (LGK): 5.1C — ตัวออกซิไดซ์ (ของแข็ง)</span>
+    </div>
+  </header>
+
+  <!-- ===== 1 ===== -->
+  <section id="sec1">
+    <h2>ข้อ 1: ข้อมูลเกี่ยวกับสารหรือส่วนผสม และข้อมูลของผู้ผลิต/ผู้จัดจำหน่าย</h2>
+    <div class="frame">
+      <div class="info" style="margin-bottom:10px">
+        <strong>ชื่อผลิตภัณฑ์:</strong> Ammonium persulfate (APS), ของแข็งผลึก/ผง สีขาว ไม่มีกลิ่น — <em>ตัวออกซิไดซ์แรง</em><br>
+        <strong>การใช้ที่แนะนำ:</strong> สารเริ่มปฏิกิริยาโพลิเมอไรเซชัน, ตัวออกซิไดซ์ในห้องปฏิบัติการ/อุตสาหกรรม (ใช้โดยผู้ชำนาญ)<br>
+        <strong>การใช้ที่ไม่แนะนำ:</strong> หลีกเลี่ยงผสมกับวัสดุไวไฟ/สารรีดิวซ์; หลีกเลี่ยงการสร้างฝุ่น
+      </div>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>ผู้จำหน่าย (ประเทศไทย)</th><th>ข้อมูลติดต่อ</th></tr></thead>
+          <tbody>
+            <tr>
+              <td>บริษัท วิทย์คอร์ป โปรดักส์</td>
+              <td>
+                ที่อยู่: 77, Tower, 27th Fl, Sinn Sathorn, 113 ถ. กรุงธนบุรี แขวงคลองต้นไทร เขตคลองสาน กรุงเทพมหานคร 10600<br>
+                โทร: <a href="tel:+6624400809">+66 2 440 0809</a> · แฟกซ์: +66 2 440 0827 · อีเมล: <a href="mailto:wcp@witcorp.co.th">wcp@witcorp.co.th</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="info" style="margin-top:10px"><strong>ฉุกเฉิน:</strong> ศูนย์พิษวิทยารามาธิบดี โทร. 1367 (24 ชม.)</div>
+    </div>
+  </section>
+
+  <!-- ===== 2 ===== -->
+  <section id="sec2">
+    <h2>ข้อ 2: การระบุอันตราย</h2>
+    <div class="frame">
+      <div class="tablewrap" style="margin-bottom:12px">
+        <table>
+          <thead><tr><th>การจัดประเภท (GHS/CLP)</th><th>หมวด</th><th>รหัส</th></tr></thead>
+          <tbody>
+            <tr><td>ของแข็งออกซิไดซ์</td><td>Ox. Sol. 3</td><td>H272</td></tr>
+            <tr><td>เป็นอันตรายหากกลืนกิน</td><td>Acute Tox. 4 (Oral)</td><td>H302</td></tr>
+            <tr><td>ระคายเคืองผิวหนัง</td><td>Skin Irrit. 2</td><td>H315</td></tr>
+            <tr><td>ระคายเคืองตารุนแรง</td><td>Eye Irrit. 2</td><td>H319</td></tr>
+            <tr><td>ทำให้แพ้ทางเดินหายใจ</td><td>Resp. Sens. 1</td><td>H334</td></tr>
+            <tr><td>ทำให้แพ้ผิวหนัง</td><td>Skin Sens. 1</td><td>H317</td></tr>
+            <tr><td>ระคายเคืองระบบหายใจ</td><td>STOT SE 3</td><td>H335</td></tr>
+            <tr><td>คำสัญญาณ (Signal word)</td><td colspan="2"><strong>Danger</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- GHS pictograms -->
+      <div class="pictos" aria-label="GHS pictograms">
+        <!-- GHS03: Flame over circle (Oxidizer) -->
+        <figure>
+          <img class="ghs" alt="GHS03 – Oxidizer (Flame over circle)"
+               src="https://commons.wikimedia.org/wiki/Special:FilePath/GHS-pictogram-rondflam.svg"
+               onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%200%200%20200%20200%3E<polygon points=%22100,8 192,100 100,192 8,100%22 fill=%22%23e60000%22/><polygon points=%22100,18 182,100 100,182 18,100%22 fill=%22%23fff%22/><circle cx=%22100%22 cy=%22118%22 r=%2218%22 fill=%22000%22/><path d=%22M100 60c10 10 18 20 18 30 0 7-4 12-9 16 1-7-2-14-7-19 2 11-6 18-15 23-5 3-8 9-8 15 0 14 12 24 25 24 18 0 31-13 31-28 0-15-10-29-35-45z%22 fill=%22000%22/><rect x=%2260%22 y=%22138%22 width=%2280%22 height=%229%22 rx=%222%22 fill=%22000%22/></svg>';"/>
+          <figcaption>GHS03 – ตัวออกซิไดซ์</figcaption>
+        </figure>
+        <!-- GHS07: Exclamation -->
+        <figure>
+          <img class="ghs" alt="GHS07 – Exclamation"
+               src="https://commons.wikimedia.org/wiki/Special:FilePath/GHS-pictogram-exclam.svg"
+               onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%200%200%20200%20200%3E<polygon points=%22100,8 192,100 100,192 8,100%22 fill=%22%23e60000%22/><polygon points=%22100,18 182,100 100,182 18,100%22 fill=%22%23fff%22/><rect x=%2291%22 y=%2266%22 width=%2218%22 height=%2270%22 rx=%229%22 fill=%22000%22/><circle cx=%22100%22 cy=%22152%22 r=%2211%22 fill=%22000%22/></svg>';"/>
+          <figcaption>GHS07 – ระคายเคือง/เป็นพิษเฉียบพลัน</figcaption>
+        </figure>
+        <!-- GHS08: Health hazard -->
+        <figure>
+          <img class="ghs" alt="GHS08 – Health hazard"
+               src="https://commons.wikimedia.org/wiki/Special:FilePath/GHS-pictogram-silhouette.svg"
+               onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%200%200%20200%20200%3E<polygon points=%22100,8 192,100 100,192 8,100%22 fill=%22%23e60000%22/><polygon points=%22100,18 182,100 100,182 18,100%22 fill=%22%23fff%22/><path d=%22M100 60a24 24 0 1 1 0 48a24 24 0 0 1 0-48zm0 60c24 0 40 16 40 36H60c0-20 16-36 40-36z%22 fill=%22000%22/></svg>';"/>
+          <figcaption>GHS08 – ไวต่อการแพ้ทางเดินหายใจ</figcaption>
+        </figure>
+      </div>
+
+      <h3 style="margin:14px 0 8px">ข้อความแสดงอันตราย (H)</h3>
+      <ul class="plist">
+        <li><strong>H272</strong> อาจทำให้ไฟรุนแรงขึ้น; เป็นสารออกซิไดซ์</li>
+        <li><strong>H302</strong> เป็นอันตรายหากกลืนกิน</li>
+        <li><strong>H315</strong> ก่อให้เกิดการระคายเคืองผิวหนัง · <strong>H319</strong> ระคายเคืองตารุนแรง</li>
+        <li><strong>H317</strong> อาจก่อให้เกิดการแพ้ผิวหนัง</li>
+        <li><strong>H334</strong> อาจทำให้เกิดอาการแพ้หรือหอบหืดหรือหายใจติดขัดเมื่อสูดดม</li>
+        <li><strong>H335</strong> อาจก่อให้เกิดการระคายเคืองต่อระบบทางเดินหายใจ</li>
+      </ul>
+
+      <h3 style="margin:14px 0 8px">ข้อความแนะนำการป้องกัน (P) — สรุป</h3>
+      <div class="frame" style="padding:0">
+        <div class="pcards">
+          <div class="pcard">
+            <h4>ป้องกัน</h4>
+            <ul class="plist">
+              <li><strong>P220</strong> เก็บให้ห่างจากเสื้อผ้า/วัสดุไวไฟและเชื้อเพลิงทุกชนิด</li>
+              <li><strong>P221</strong> หลีกเลี่ยงการผสมกับวัสดุไวไฟ</li>
+              <li><strong>P261</strong> หลีกเลี่ยงการสูดดมฝุ่น · <strong>P280</strong> สวมถุงมือ/แว่นครอบตา</li>
+              <li><strong>P272</strong> เสื้อผ้าที่ปนเปื้อนห้ามนำออกนอกที่ทำงาน</li>
+            </ul>
+          </div>
+          <div class="pcard">
+            <h4>ตอบโต้เหตุ</h4>
+            <ul class="plist">
+              <li><strong>P302+P352</strong> สัมผัสผิว: ล้างด้วยน้ำจำนวนมาก</li>
+              <li><strong>P333+P313</strong> หากเกิดการระคาย/ผื่นแพ้: พบแพทย์</li>
+              <li><strong>P304+P340</strong> สูดดม: เคลื่อนย้ายสู่ที่อากาศถ่ายเท พักในท่าที่หายใจสะดวก</li>
+              <li><strong>P342+P311</strong> มีอาการทางเดินหายใจ: โทร. ศูนย์พิษฯ/พบแพทย์</li>
+              <li><strong>P370+P378</strong> ไฟไหม้: ใช้น้ำปริมาณมาก/สเปรย์น้ำ ดับตามไฟรอบข้าง</li>
+            </ul>
+          </div>
+          <div class="pcard">
+            <h4>จัดเก็บ/กำจัด</h4>
+            <ul class="plist">
+              <li>เก็บในที่เย็น แห้ง ภาชนะปิดสนิท แยกจากสารรีดิวซ์/เชื้อเพลิง/โลหะหนัก</li>
+              <li><strong>P501</strong> กำจัดของเสียตามกฎหมาย (ของเสียออกซิไดซ์)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 3 ===== -->
+  <section id="sec3">
+    <h2>ข้อ 3: ส่วนประกอบ/ข้อมูลเกี่ยวกับส่วนผสม</h2>
+    <div class="frame tablewrap">
+      <table>
+        <thead><tr><th>ส่วนประกอบ</th><th>CAS</th><th>EC</th><th>ความเข้มข้น</th><th>การจัดประเภท GHS</th></tr></thead>
+        <tbody>
+          <tr><td>Ammonium persulfate</td><td>7727-54-0</td><td>231-786-5</td><td>≥ 98–100%</td><td>Ox. Sol. 3; Acute Tox. 4 (Oral); Skin Irrit. 2; Eye Irrit. 2; Skin Sens. 1; Resp. Sens. 1; STOT SE 3</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===== 4 ===== -->
+  <section id="sec4">
+    <h2>ข้อ 4: มาตรการปฐมพยาบาลเบื้องต้น</h2>
+    <div class="frame">
+      <div class="info" style="margin-bottom:8px"><strong>อาการสำคัญ:</strong> ระคายเคืองตา/ผิว; อาจก่ออาการแพ้ผิวหนังและหอบหืดจากการสูดดมฝุ่น</div>
+      <ul class="plist">
+        <li><strong>เข้าตา:</strong> ล้างด้วยน้ำสะอาดต่อเนื่อง 15–20 นาที ถอดคอนแทคเลนส์ถ้ามี</li>
+        <li><strong>ผิวหนัง:</strong> ล้างด้วยน้ำและสบู่ ถอดเสื้อผ้าปนเปื้อน ซักก่อนนำกลับมาใช้</li>
+        <li><strong>สูดดม:</strong> เคลื่อนย้ายสู่อากาศบริสุทธิ์ หากหายใจติดขัดให้การช่วยหายใจ/พบแพทย์ทันที</li>
+        <li><strong>กลืนกิน:</strong> บ้วนปาก ดื่มน้ำเล็กน้อย ห้ามชักนำให้อาเจียน หากไม่สบายพบแพทย์</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== 5 ===== -->
+  <section id="sec5">
+    <h2>ข้อ 5: มาตรการระงับอัคคีภัย</h2>
+    <div class="frame">
+      <ul class="plist">
+        <li><strong>คุณสมบัติ:</strong> ไม่ติดไฟเอง แต่ <em>ทำให้ไฟรุนแรงขึ้น</em> (ปล่อยออกซิเจนเมื่อสลาย)</li>
+        <li><strong>สารดับเพลิงที่เหมาะสม:</strong> น้ำ/สเปรย์น้ำ, โฟม, ผงแห้งตามไฟรอบข้าง (แนะนำใช้น้ำปริมาณมากกับสารออกซิไดซ์)</li>
+        <li><strong>อันตรายจากไฟ:</strong> สลายให้ก๊าซ/ไอระเหยออกซิแดนต์และซัลเฟอร์ออกไซด์</li>
+        <li><strong>คำแนะนำผู้ดับเพลิง:</strong> สวม SCBA; เลี่ยงการสัมผัสฝุ่น/ไอร้อนโดยตรง</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== 6 ===== -->
+  <section id="sec6">
+    <h2>ข้อ 6: มาตรการเมื่อมีการรั่วไหลโดยไม่ตั้งใจ</h2>
+    <div class="frame">
+      <ul class="plist">
+        <li><strong>บุคคล/อุปกรณ์:</strong> อพยพผู้ไม่เกี่ยวข้อง ใส่ PPE ป้องกันฝุ่น เพิ่มการระบายอากาศ</li>
+        <li><strong>สิ่งแวดล้อม:</strong> ป้องกันไม่ให้ลงท่อ/ทางน้ำโดยไม่ควบคุม</li>
+        <li><strong>เก็บกู้:</strong> กวาด/ดูดฝุ่นอย่างระมัดระวัง ใส่ภาชนะสะอาดปิดสนิท ห้ามใช้วัสดุอินทรีย์/วัสดุไวไฟดูดซับ</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== 7 ===== -->
+  <section id="sec7">
+    <h2>ข้อ 7: การจัดการและการเก็บรักษา</h2>
+    <div class="frame">
+      <ul class="plist">
+        <li>หลีกเลี่ยงการสร้างฝุ่น; ใช้เฉพาะในพื้นที่อากาศถ่ายเทดี</li>
+        <li>เก็บในที่เย็น แห้ง หลีกเลี่ยงความร้อน/แสงแดด; แยกจากสารรีดิวซ์/เชื้อเพลิง/โลหะหนัก/ด่างเข้มข้น</li>
+        <li>ใช้ภาชนะที่เข้ากันได้ ปิดสนิท ป้องกันความชื้น</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== 8 ===== -->
+  <section id="sec8">
+    <h2>ข้อ 8: การควบคุมการสัมผัสและการป้องกันส่วนบุคคล</h2>
+    <div class="frame">
+      <div class="tablewrap" style="margin-bottom:8px">
+        <table>
+          <thead><tr><th>สาร/พารามิเตอร์</th><th>หน่วยงาน</th><th>ค่าเกณฑ์</th><th>หมายเหตุ</th></tr></thead>
+          <tbody>
+            <tr><td>Persulfates (as ammonium/potassium/sodium)</td><td>ACGIH TLV</td><td><strong>0.1 mg/m³ TWA</strong> (inhalable)</td><td>Sensitizer (Resp/ฝุ่น)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <ul class="plist">
+        <li><strong>วิศวกรรม:</strong> ระบายอากาศเฉพาะจุด/ทั่วไป; ใช้ระบบปิดเมื่อเป็นไปได้</li>
+        <li><strong>ตา/หน้า:</strong> แว่นครอบตา (EN 166); กระบังหน้าเมื่อเสี่ยงกระเด็น</li>
+        <li><strong>มือ:</strong> ถุงมือไนไตรล์/บิวทิล; ตรวจความเข้ากันได้ก่อนใช้งาน</li>
+        <li><strong>ร่างกาย:</strong> เสื้อแขนยาว/เอี๊ยมกันสาร; ซักทำความสะอาดหลังใช้งาน</li>
+        <li><strong>หายใจ:</strong> หน้ากากกรองฝุ่น P2/P3 เมื่อฝุ่นเกินควบคุม หรือใช้ระบบปิด</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== 9 ===== -->
+  <section id="sec9">
+    <h2>ข้อ 9: สมบัติทางกายภาพและเคมี</h2>
+    <div class="frame tablewrap">
+      <table>
+        <tbody>
+          <tr><th>ลักษณะ</th><td>ของแข็งผลึก/ผง สีขาว ไม่มีกลิ่น</td></tr>
+          <tr><th>pH (สารละลาย ~1%)</th><td>~2.0–3.0 @ 20–25 °C</td></tr>
+          <tr><th>การละลายน้ำ</th><td>ละลายได้ดี</td></tr>
+          <tr><th>ความหนาแน่น (ของแข็ง)</th><td>~1.98 g/cm³</td></tr>
+          <tr><th>จุดเดือด/จุดหลอม</th><td>สลายตัวเมื่อร้อน (> 120 °C); ไม่เดือดจริง</td></tr>
+          <tr><th>ความไวไฟ</th><td>ไม่ติดไฟ (แต่เป็นตัวออกซิไดซ์)</td></tr>
+          <tr><th>กลิ่น</th><td>ไม่มีกลิ่น</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===== 10 ===== -->
+  <section id="sec10">
+    <h2>ข้อ 10: ความเสถียรและความไวต่อการเกิดปฏิกิริยา</h2>
+    <div class="frame">
+      <ul class="plist">
+        <li><strong>เสถียรภาพ:</strong> เสถียรภายใต้การใช้งานปกติ แต่สลายตัวเมื่อร้อน/ชื้น ปล่อยออกซิเจน</li>
+        <li><strong>ต้องหลีกเลี่ยง:</strong> ความร้อน/ไฟ/ประกายไฟ ความชื้น การกระแทกแรง</li>
+        <li><strong>ไม่เข้ากันกับ:</strong> สารรีดิวซ์ วัสดุอินทรีย์ เชื้อเพลิง โลหะหนัก/เกลือโลหะ สารด่างเข้มข้น สารประกอบเอมีน</li>
+        <li><strong>ผลิตผลสลายตัว:</strong> ออกซิเจน, ซัลเฟอร์ออกไซด์, ซัลเฟต</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== 11 ===== -->
+  <section id="sec11">
+    <h2>ข้อ 11: ข้อมูลพิษวิทยา</h2>
+    <div class="frame tablewrap">
+      <table>
+        <tbody>
+          <tr><th>พิษเฉียบพลัน</th><td>กลืนกินเป็นอันตราย (Acute Tox. 4)</td></tr>
+          <tr><th>ระคายเคือง/กัดกร่อน</th><td>ระคายเคืองผิว/ตา</td></tr>
+          <tr><th>การแพ้</th><td>ก่อให้เกิดการแพ้ผิวหนังและแพ้ทางเดินหายใจในผู้ไวต่อสาร</td></tr>
+          <tr><th>ผลเฉียบพลันต่อระบบหายใจ</th><td>อาจก่อให้เกิดการระคายเคือง/หอบหืด (H335/H334)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===== 12 ===== -->
+  <section id="sec12">
+    <h2>ข้อ 12: ข้อมูลระบบนิเวศ</h2>
+    <div class="frame">
+      <ul class="plist">
+        <li>ละลายน้ำได้ดี; ออกซิไดซ์สารอินทรีย์ในน้ำ — หลีกเลี่ยงการปล่อยจำนวนมาก</li>
+        <li>ข้อมูลที่มีอยู่ไม่ชี้ว่าเป็นพิษเฉียบพลันต่อสิ่งแวดล้อมน้ำอย่างรุนแรง แต่ควบคุมการปล่อยเสมอ</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== 13 ===== -->
+  <section id="sec13">
+    <h2>ข้อ 13: ข้อควรพิจารณาในการกำจัด</h2>
+    <div class="frame">
+      <ul class="plist">
+        <li>จัดการเป็นของเสียอันตรายประเภทออกซิไดซ์: ส่งกำจัดโดยผู้รับอนุญาต</li>
+        <li>ห้ามผสมกับของเสียอินทรีย์/เชื้อเพลิง; หลีกเลี่ยงสัมผัสความชื้น</li>
+        <li>บรรจุภัณฑ์: ล้าง/ทำให้แห้ง ปิดสนิทก่อนส่งรีไซเคิล/กำจัดตามกฎหมาย</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== 14 ===== -->
+  <section id="sec14">
+    <h2>ข้อ 14: ข้อมูลเกี่ยวกับการขนส่ง</h2>
+    <div class="frame tablewrap">
+      <table>
+        <thead><tr><th>ระเบียบ</th><th>รายละเอียด</th></tr></thead>
+        <tbody>
+          <tr><td>ADR/RID</td><td><strong>UN 1444</strong> — AMMONIUM PERSULPHATE; Class 5.1; <strong>PG III</strong>; Classification code <strong>O2</strong></td></tr>
+          <tr><td>IMDG</td><td><strong>UN 1444</strong> — AMMONIUM PERSULPHATE; Class 5.1; PG III; EmS <strong>F-A, S-Q</strong></td></tr>
+          <tr><td>IATA/ICAO</td><td><strong>UN 1444</strong> — Ammonium persulfate; Class 5.1; PG III</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===== 15 ===== -->
+  <section id="sec15">
+    <h2>ข้อ 15: ข้อมูลเกี่ยวกับกฎหมาย</h2>
+    <div class="frame">
+      <ul class="plist">
+        <li>การจำแนก/ฉลาก: GHS/CLP — Ox. Sol. 3 (H272); Acute Tox. 4 (H302); Skin Irrit. 2 (H315); Eye Irrit. 2 (H319); Skin Sens. 1 (H317); Resp. Sens. 1 (H334); STOT SE 3 (H335)</li>
+        <li>OSHA HazCom 2012: สอดคล้อง GHS; ระบุเป็นสารไวต่อการแพ้ทางเดินหายใจ/ผิวหนัง</li>
+        <li>Storage Class (TRGS 510 / LGK): <strong>5.1C — ตัวออกซิไดซ์ (ของแข็ง)</strong></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== 16 ===== -->
+  <section id="sec16">
+    <h2>ข้อ 16: ข้อมูลอื่น ๆ</h2>
+    <div class="frame">
+      <div class="tablewrap" style="margin-bottom:8px">
+        <table>
+          <tbody>
+            <tr><th>หมายเลขเอกสาร</th><td>MSBRC2-SDS-34</td></tr>
+            <tr><th>ชื่อผลิตภัณฑ์</th><td>Ammonium Persulfate</td></tr>
+            <tr><th>จัดทำโดย</th><td>หน่วยงาน SHE&amp;En ธุรกิจพันธุ์กุ้งทะเล 2</td></tr>
+            <tr><th>สถานะ</th><td>ใช้งาน (Effective)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <ul class="plist">
+        <li>ให้การฝึกอบรมเรื่อง “การจัดการสารออกซิไดซ์” และการแยกเก็บตาม LGK 5.1C</li>
+        <li>ทบทวน SDS เมื่อมีข้อมูลอัปเดตหรืออย่างน้อยปีละครั้ง</li>
+      </ul>
+      <div class="info" style="margin-top:8px">
+        <strong>คำชี้แจงความรับผิดชอบ:</strong> เอกสารนี้จัดทำเพื่อสนับสนุนความปลอดภัยในการทำงาน ผู้ใช้ต้องประเมินความเสี่ยง ณ สถานที่ปฏิบัติงานจริงและปฏิบัติตามกฎหมายที่เกี่ยวข้อง
+      </div>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>

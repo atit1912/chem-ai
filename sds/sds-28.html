@@ -1,0 +1,394 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>SDS | Spray Paint (สเปรย์สี) — SDS-28</title>
+<style>
+  /* ===== Mobile-first SDS theme — หัวกระดาษไม่ล็อค ===== */
+  :root{
+    --ink:#0f172a; --muted:#475569; --line:#e2e8f0; --paper:#f8fafc; --bg:#ffffff;
+    --chipbg:#ecfeff; --chipfg:#0c4a6e;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--paper);color:var(--ink);
+    font-family:"Inter","Noto Sans Thai","Sarabun",system-ui,-apple-system,Segoe UI,Roboto,Arial}
+  body{font-size:clamp(15px,3.8vw,17px);line-height:1.75}
+  a{color:inherit}
+  .container{max-width:900px;margin:0 auto;background:#fff;border-left:1px solid var(--line);border-right:1px solid var(--line)}
+
+  /* Header (static) */
+  header{padding:18px 16px 12px;border-bottom:1px solid var(--line);background:#fff}
+  .title{display:flex;flex-direction:column;align-items:center;text-align:center}
+  .ttl{margin:0 0 6px 0;font-size:clamp(20px,5.2vw,26px);line-height:1.35;font-weight:800}
+  .chem{
+    display:inline-block;margin:2px auto 8px;padding:8px 14px;border-radius:14px;
+    font-size:clamp(18px,5.8vw,26px);font-weight:800;line-height:1.35;color:#052c65;
+    background:linear-gradient(90deg, rgba(14,165,233,.18), rgba(167,139,250,.18));
+    border:1px solid #c7d2fe;box-shadow:0 2px 8px rgba(2,6,23,.08)
+  }
+  .meta{font-size:.92em;color:var(--muted);margin-top:6px;text-align:center}
+  .badges{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0 0;justify-content:center}
+  .badge{font-size:.8em;border:1px solid var(--line);padding:4px 8px;border-radius:999px;background:var(--chipbg);color:var(--chipfg)}
+
+  /* Sections */
+  section{padding:14px 16px;border-bottom:1px solid var(--line);background:#fff}
+  section>h2{margin:0 0 10px 0;font-size:clamp(16px,4.6vw,20px);
+    padding:8px 10px;border:1px solid var(--line);border-radius:12px;
+    background:linear-gradient(90deg,rgba(99,102,241,.08),rgba(14,165,233,.08))}
+  .frame{border:1px solid var(--line);border-radius:12px;padding:12px;background:#fff}
+  .info{background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:10px}
+  .muted{color:var(--muted)}
+  .plist{list-style:disc;padding:8px 16px;margin:0}
+
+  /* Tables */
+  .tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  table{border-collapse:collapse;min-width:560px;width:100%}
+  th,td{border:1px solid var(--line);padding:8px;vertical-align:top}
+  th{background:#eef2ff;text-align:left}
+
+  /* Pictograms */
+  .pictos{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+  .pictos figure{margin:0;text-align:center}
+  .ghs{display:block;width:clamp(64px,12vw,88px);height:auto;filter:drop-shadow(0 0 6px rgba(2,6,23,.10))}
+  .pictos figcaption{font-size:.85em;color:var(--muted);margin-top:6px}
+
+  @media print{header{position:static}}
+</style>
+</head>
+<body>
+<div class="container" role="document" aria-label="Safety Data Sheet">
+
+  <!-- ===== Header ===== -->
+  <header>
+    <div class="title">
+      <h1 class="ttl">เอกสารข้อมูลความปลอดภัย (SDS)</h1>
+      <h2 class="chem">Spray Paint (สเปรย์สี)</h2>
+      <div class="meta">
+        รูปแบบ: GHS/CLP | ภาษาไทย | จัดทำ: 15 Aug 2025 | ทบทวน: 15 Aug 2025 | แก้ไขครั้งที่: 0<br>
+        จัดทำโดย หน่วยงาน SHE&amp;En ธุรกิจพันธุ์กุ้งทะเล 2 · หมายเลขเอกสาร <strong> MSBRC2-SDS-28</strong>
+      </div>
+    </div>
+    <div class="badges">
+      <span class="badge">UN 1950 — AEROSOLS, flammable</span>
+      <span class="badge">Class 2.1 (Flammable gas under pressure)</span>
+      <span class="badge">Storage Class (LGK): 2B — สเปรย์/แอโรซอล</span>
+      <span class="badge">ชนิดวัตถุอันตราย: ประเภทที่ 2</span>
+    </div>
+  </header>
+
+  <!-- ===== 1 ===== -->
+  <section id="sec1">
+    <h2>ข้อ 1: ข้อมูลเกี่ยวกับสารหรือส่วนผสม และข้อมูลของผู้ผลิต/ผู้จัดจำหน่าย</h2>
+    <div class="frame">
+      <div class="info" style="margin-bottom:10px">
+        <strong>ชื่อผลิตภัณฑ์:</strong> Spray Paint (สเปรย์สี) — สีสำเร็จรูปบรรจุกระป๋องแรงดัน (Aerosol)<br>
+        <strong>การใช้ที่แนะนำ:</strong> งานพ่นสีโลหะ/ไม้/พลาสติก ตามคู่มือผู้ผลิต ใช้โดยผู้ชำนาญ/ในที่ระบายอากาศดี<br>
+        <strong>การใช้ที่ไม่แนะนำ:</strong> ห้ามพ่นใกล้เปลวไฟ/ประกายไฟ/พื้นผิวร้อน · หลีกเลี่ยงพื้นที่ปิดอับ · ห้ามเผาหรือเจาะกระป๋อง
+      </div>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>ผู้ผลิต/ผู้จำหน่าย (ประเทศไทย)</th><th>ข้อมูลติดต่อ</th></tr></thead>
+          <tbody>
+            <tr>
+              <td>บริษัท ซีอาร์ซี ไทวัสดุ จำกัด <strong>(สำนักงานใหญ่)</strong></td>
+              <td>
+                ที่อยู่/โทรศัพท์/อีเมล: <em>โปรดกรอกข้อมูลสำนักงานใหญ่จากเอกสารองค์กร/เว็บไซต์ทางการ</em><br>
+                หมายเหตุ: ระบุสาขาคลัง/หน่วยงานซื้อจริงสำหรับการติดต่อฉุกเฉิน/เคลมสินค้า
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="info" style="margin-top:10px"><strong>ฉุกเฉิน:</strong> ศูนย์พิษวิทยารามาธิบดี โทร. 1367 (24 ชม.)</div>
+    </div>
+  </section>
+
+  <!-- ===== 2 ===== -->
+  <section id="sec2">
+    <h2>ข้อ 2: การระบุอันตราย</h2>
+    <div class="frame">
+      <div class="tablewrap" style="margin-bottom:12px">
+        <table>
+          <thead><tr><th>การจัดประเภท (GHS/CLP)</th><th>หมวด</th><th>รหัส</th></tr></thead>
+          <tbody>
+            <tr><td>แอโรซอลไวไฟ</td><td>Aerosol 1</td><td>H222</td></tr>
+            <tr><td>ภาชนะบรรจุก๊าซภายใต้ความดัน</td><td>Press. Gas (Aerosol)</td><td>H229</td></tr>
+            <tr><td>ระคายเคืองผิวหนัง</td><td>Skin Irrit. 2</td><td>H315</td></tr>
+            <tr><td>ระคายเคืองตา</td><td>Eye Irrit. 2</td><td>H319</td></tr>
+            <tr><td>มีผลกดประสาท/เวียนศีรษะ</td><td>STOT SE 3</td><td>H336</td></tr>
+            <tr><td>อันตรายต่อสิ่งแวดล้อมน้ำ (เรื้อรัง)</td><td>Aquatic Chronic 2</td><td>H411</td></tr>
+            <tr><td>คำสัญญาณ (Signal word)</td><td colspan="2"><strong>Danger</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- GHS pictograms -->
+      <div class="pictos" aria-label="GHS pictograms">
+        <!-- GHS02 -->
+        <figure>
+          <img class="ghs" alt="GHS02 – Flammable"
+               src="https://commons.wikimedia.org/wiki/Special:FilePath/GHS-pictogram-flamme.svg"
+               onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%200%200%20200%20200%3E<polygon points=%22100,8 192,100 100,192 8,100%22 fill=%22%23e60000%22/><polygon points=%22100,18 182,100 100,182 18,100%22 fill=%22%23fff%22/><path d=%22M100 46c12 12 24 28 24 43 0 9-5 17-12 22 1-10-2-19-9-26 3 14-7 24-18 30-7 4-11 11-11 19 0 18 14 30 30 30 22 0 36-17 36-34 0-18-12-34-40-54z%22 fill=%22000%22/><rect x=%2260%22 y=%22144%22 width=%2280%22 height=%229%22 rx=%222%22 fill=%22000%22/></svg>';"/>
+          <figcaption>GHS02 – ไวไฟมาก</figcaption>
+        </figure>
+        <!-- GHS04 -->
+        <figure>
+          <img class="ghs" alt="GHS04 – Gas cylinder"
+               src="https://commons.wikimedia.org/wiki/Special:FilePath/GHS-pictogram-bottle.svg"
+               onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%200%200%20200%20200%3E<polygon points=%22100,8 192,100 100,192 8,100%22 fill=%22%23e60000%22/><polygon points=%22100,18 182,100 100,182 18,100%22 fill=%22%23fff%22/><rect x=%2246%22 y=%22138%22 width=%22108%22 height=%229%22 rx=%222%22 fill=%22000%22/><rect x=%2270%22 y=%2288%22 width=%2260%22 height=%2214%22 rx=%227%22 fill=%22000%22/></svg>';"/>
+          <figcaption>GHS04 – ภาชนะอัดแรงดัน</figcaption>
+        </figure>
+        <!-- GHS07 -->
+        <figure>
+          <img class="ghs" alt="GHS07 – Exclamation"
+               src="https://commons.wikimedia.org/wiki/Special:FilePath/GHS-pictogram-exclam.svg"
+               onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%200%200%20200%20200%3E<polygon points=%22100,8 192,100 100,192 8,100%22 fill=%22%23e60000%22/><polygon points=%22100,18 182,100 100,182 18,100%22 fill=%22%23fff%22/><rect x=%2291%22 y=%2266%22 width=%2218%22 height=%2270%22 rx=%229%22 fill=%22000%22/><circle cx=%22100%22 cy=%22152%22 r=%2211%22 fill=%22000%22/></svg>';"/>
+          <figcaption>GHS07 – ระคายเคือง/กดประสาท</figcaption>
+        </figure>
+        <!-- GHS09 -->
+        <figure>
+          <img class="ghs" alt="GHS09 – Hazardous to the environment"
+               src="https://commons.wikimedia.org/wiki/Special:FilePath/GHS-pictogram-pollu.svg"
+               onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%200%200%20200%20200%3E<polygon points=%22100,8 192,100 100,192 8,100%22 fill=%22%23e60000%22/><polygon points=%22100,18 182,100 100,182 18,100%22 fill=%22%23fff%22/><path d=%22M40 148h120v6H40zM52 146c10-8 24-15 39-13c22 3 36 21 58 17c10-2 16-9 19-13c-5 3-13 6-21 4c-18-4-32-20-53-20c-18 0-29 12-42 25z%22 fill=%22000%22/></svg>';"/>
+          <figcaption>GHS09 – อันตรายต่อสิ่งแวดล้อมน้ำ</figcaption>
+        </figure>
+      </div>
+
+      <h3 style="margin:14px 0 8px">ข้อความแสดงอันตราย (H)</h3>
+      <ul class="plist">
+        <li><strong>H222</strong> แอโรซอลไวไฟอย่างยิ่ง</li>
+        <li><strong>H229</strong> ภาชนะบรรจุอยู่ภายใต้ความดัน อาจระเบิดเมื่อถูกความร้อน</li>
+        <li><strong>H315/H319</strong> ระคายเคืองผิวหนัง/ตา</li>
+        <li><strong>H336</strong> อาจทำให้ง่วงซึม/เวียนศีรษะ</li>
+        <li><strong>H411</strong> เป็นพิษต่อสิ่งมีชีวิตในน้ำ มีผลยาวนาน</li>
+      </ul>
+
+      <h3 style="margin:14px 0 8px">ข้อความแนะนำการป้องกัน (P) — สรุป</h3>
+      <ul class="plist">
+        <li><strong>P102</strong> เก็บให้พ้นมือเด็ก · <strong>P210</strong> อยู่ห่างจากความร้อน/ประกายไฟ/เปลวไฟ/พื้นผิวร้อน — ห้ามสูบบุหรี่</li>
+        <li><strong>P211</strong> ห้ามพ่นบนเปลวไฟ/วัตถุที่ลุกไหม้ · <strong>P251</strong> ห้ามเจาะหรือเผากระป๋อง แม้หลังใช้งาน</li>
+        <li><strong>P271</strong> ใช้เฉพาะกลางแจ้งหรือในที่ระบายอากาศดี · <strong>P273</strong> หลีกเลี่ยงการปล่อยลงสิ่งแวดล้อม</li>
+        <li><strong>P280</strong> สวมถุงมือ/แว่นครอบตา หน้ากากกรองไออินทรีย์เมื่อจำเป็น</li>
+        <li><strong>P304+P340</strong> หากสูดดม: เคลื่อนย้ายสู่อากาศบริสุทธิ์และพักในท่าที่หายใจสะดวก</li>
+        <li><strong>P410+P412</strong> ปกป้องจากแสงแดด · ห้ามเกิน 50 °C/122 °F</li>
+        <li><strong>P501</strong> กำจัดของเสีย/กระป๋องตามกฎหมายท้องถิ่น</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== 3 ===== -->
+  <section id="sec3">
+    <h2>ข้อ 3: ส่วนประกอบ/ข้อมูลเกี่ยวกับส่วนผสม</h2>
+    <div class="frame tablewrap">
+      <table>
+        <thead><tr><th>ส่วนประกอบ</th><th>CAS</th><th>EC</th><th>ช่วงความเข้มข้น</th><th>การจัดประเภท GHS</th></tr></thead>
+        <tbody>
+          <tr><td>Propellant (LPG: Propane/Isobutane/n-Butane)</td><td>74-98-6 / 75-28-5 / 106-97-8</td><td>200-827-9 / 200-857-2 / 203-448-7</td><td>20–50%</td><td>Flam. Gas 1; Press. Gas</td></tr>
+          <tr><td>Acetone / MEK</td><td>67-64-1 / 78-93-3</td><td>200-662-2 / 201-159-0</td><td>10–40%</td><td>Flam. Liq. 2; Eye Irrit. 2; STOT SE 3</td></tr>
+          <tr><td>Xylene (mixed isomers)</td><td>1330-20-7</td><td>215-535-7</td><td>5–20%</td><td>Flam. Liq. 3; Skin Irrit. 2; STOT SE 3</td></tr>
+          <tr><td>Ethylbenzene (สิ่งปนของโซลเวนต์)</td><td>100-41-4</td><td>202-849-4</td><td>< 5%</td><td>Flam. Liq. 2; Acute Tox.; STOT SE 3</td></tr>
+          <tr><td>Resin (อะครีลิค/อัลขีด) + Pigments/Fillers</td><td>—</td><td>—</td><td>10–40%</td><td>ดู SDS ผู้ผลิต</td></tr>
+          <tr><td class="muted" colspan="5">หมายเหตุ: องค์ประกอบขึ้นกับยี่ห้อ/เฉดสี — อ้างอิง SDS ของสินค้าที่ใช้งานจริง</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===== 4 ===== -->
+  <section id="sec4">
+    <h2>ข้อ 4: มาตรการปฐมพยาบาลเบื้องต้น</h2>
+    <div class="frame">
+      <div class="info" style="margin-bottom:8px"><strong>อาการสำคัญ:</strong> ระคายเคืองตา/ผิว; ไอทำให้ง่วงซึมเวียนศีรษะ; แช่เย็นจากการพ่นระยะใกล้</div>
+      <ul class="plist">
+        <li><strong>เข้าตา:</strong> ล้างน้ำ 15–20 นาที ถอดคอนแทคเลนส์หากทำได้</li>
+        <li><strong>ผิวหนัง:</strong> ล้างด้วยสบู่และน้ำ อุ่นช้า ๆ หากเกิดแผลเย็นเยียบ (frostbite-like)</li>
+        <li><strong>สูดดม:</strong> เคลื่อนย้ายสู่อากาศบริสุทธิ์ พัก หากอาการไม่ทุเลาให้พบแพทย์</li>
+        <li><strong>กลืนกิน:</strong> โดยปกติไม่น่าเกิดจากแอโรซอล — หากเกิด อม/บ้วนปาก หลีกเลี่ยงอาเจียน ติดต่อแพทย์</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== 5 ===== -->
+  <section id="sec5">
+    <h2>ข้อ 5: มาตรการระงับอัคคีภัย</h2>
+    <div class="frame">
+      <ul class="plist">
+        <li><strong>ดับเพลิงที่เหมาะสม:</strong> โฟม AR-AFFF, ผงแห้ง, CO₂; น้ำสเปรย์เพื่อหล่อเย็นกระป๋อง</li>
+        <li><strong>อันตรายจากไฟ:</strong> กระป๋องอาจระเบิดเมื่อร้อน; ไอหนักกว่าอากาศ เคลื่อนที่ไปยังแหล่งจุดติดไฟ</li>
+        <li><strong>คำแนะนำ:</strong> อพยพพื้นที่ เสี่ยงควันพิษ (CO, CO₂, ไออินทรีย์); สวม SCBA</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== 6 ===== -->
+  <section id="sec6">
+    <h2>ข้อ 6: มาตรการเมื่อมีการรั่วไหลโดยไม่ตั้งใจ</h2>
+    <div class="frame">
+      <ul class="plist">
+        <li><strong>บุคคล/อุปกรณ์:</strong> กำจัดแหล่งจุดติดไฟ เพิ่มการระบายอากาศ อพยพผู้ไม่เกี่ยวข้อง</li>
+        <li><strong>สิ่งแวดล้อม:</strong> ป้องกันไม่ให้ลงท่อระบายน้ำ/ทางน้ำ</li>
+        <li><strong>เก็บกู้:</strong> ปล่อยให้ระเหยสลายตัวในที่อากาศถ่ายเทดี เก็บกระป๋องเสียใส่ภาชนะโลหะปิด</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== 7 ===== -->
+  <section id="sec7">
+    <h2>ข้อ 7: การจัดการและการเก็บรักษา</h2>
+    <div class="frame">
+      <ul class="plist">
+        <li>ใช้งานในที่อากาศถ่ายเทดี หลีกเลี่ยงการสูดดมหมอก/ไอพ่น</li>
+        <li>ห้ามสูบบุหรี่/ประกายไฟ; ไม่พ่นบนเปลวไฟหรือวัตถุที่ลุกไหม้</li>
+        <li>เก็บให้ห่างความร้อน แสงแดด; อุณหภูมิไม่เกิน <strong>50 °C</strong>; ป้องกันการบิดงอ/กระแทกกระป๋อง</li>
+        <li>แยกจากออกซิไดเซอร์แรง · จัดเก็บตาม <strong>LGK 2B (Aerosols)</strong></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== 8 ===== -->
+  <section id="sec8">
+    <h2>ข้อ 8: การควบคุมการสัมผัสและการป้องกันส่วนบุคคล</h2>
+    <div class="frame">
+      <div class="tablewrap" style="margin-bottom:8px">
+        <table>
+          <thead><tr><th>สาร/พารามิเตอร์</th><th>หน่วยงาน</th><th>ค่าเกณฑ์</th><th>หมายเหตุ</th></tr></thead>
+          <tbody>
+            <tr><td>Xylene (ทั้งหมด)</td><td>ACGIH TLV</td><td>100 ppm TWA · 150 ppm STEL</td><td>ผิวหนัง</td></tr>
+            <tr><td>Toluene</td><td>ACGIH TLV</td><td>20 ppm TWA</td><td>—</td></tr>
+            <tr><td>Acetone</td><td>ACGIH TLV</td><td>250 ppm TWA · 500 ppm STEL</td><td>—</td></tr>
+            <tr><td>Propane/Butane</td><td>ทั่วไป</td><td>1,000 ppm (แนวทางสถานประกอบการ)</td><td>ระบายอากาศดี</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <ul class="plist">
+        <li><strong>วิศวกรรม:</strong> ระบายอากาศเฉพาะจุด/ทั่วไป; หลีกเลี่ยงประกายไฟ</li>
+        <li><strong>ตา/หน้า:</strong> แว่นครอบตา/กระบังหน้าเมื่อเสี่ยงกระเด็น</li>
+        <li><strong>มือ:</strong> ถุงมือไนไตรล์/นีโอพรีน</li>
+        <li><strong>ร่างกาย:</strong> ชุดกันสารตามความเสี่ยง</li>
+        <li><strong>หายใจ:</strong> หน้ากากกรองไออินทรีย์ (ชนิด A/OV) เมื่อระบายอากาศไม่พอ</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== 9 ===== -->
+  <section id="sec9">
+    <h2>ข้อ 9: สมบัติทางกายภาพและเคมี</h2>
+    <div class="frame tablewrap">
+      <table>
+        <tbody>
+          <tr><th>ลักษณะ</th><td>ละอองสเปรย์จากกระป๋องแรงดัน สีตามผลิตภัณฑ์ กลิ่นตัวทำละลายอินทรีย์</td></tr>
+          <tr><th>จุดวาบไฟ</th><td>ใช้ไม่ได้กับแอโรซอล (สำหรับเนื้อใน: มัก &lt; 0 °C — ไวไฟมาก)</td></tr>
+          <tr><th>อุณหภูมิติดเอง</th><td>~ 200 – 500 °C (ขึ้นกับโซลเวนต์)</td></tr>
+          <tr><th>ขีดจำกัดการติดไฟ (อากาศ)</th><td>~ 1 – 9.5 % v/v (ตามโพรเพน/บิวเทน)</td></tr>
+          <tr><th>ความดันไอ</th><td>สูง (จากโพรเพน/บิวเทนในกระป๋อง)</td></tr>
+          <tr><th>การละลายน้ำ</th><td>ไม่ละลาย/ละลายได้น้อย</td></tr>
+          <tr><th>VOC (โดยประมาณ)</th><td>ขึ้นกับสูตร โดยทั่วไปสูง</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===== 10 ===== -->
+  <section id="sec10">
+    <h2>ข้อ 10: ความเสถียรและความไวต่อการเกิดปฏิกิริยา</h2>
+    <div class="frame">
+      <ul class="plist">
+        <li>เสถียรภายใต้การใช้งานปกติ</li>
+        <li><strong>ต้องหลีกเลี่ยง:</strong> ความร้อน/แสงแดด/เปลวไฟ/ไฟฟ้าสถิต ออกซิไดเซอร์แรง</li>
+        <li><strong>สลายตัวเมื่อไหม้:</strong> CO, CO₂, ควัน/ไออินทรีย์</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== 11 ===== -->
+  <section id="sec11">
+    <h2>ข้อ 11: ข้อมูลพิษวิทยา</h2>
+    <div class="frame tablewrap">
+      <table>
+        <tbody>
+          <tr><th>พิษเฉียบพลัน/การระคายเคือง</th><td>ระคายเคืองผิว/ตา; ไอทำให้ง่วงซึม/เวียนศีรษะ</td></tr>
+          <tr><th>การหายใจ</th><td>การสัมผัสซ้ำอาจมีผลต่อระบบประสาทส่วนกลาง</td></tr>
+          <tr><th>ข้อมูลอื่น</th><td>ตัวทำละลายไฮโดรคาร์บอน — หลีกเลี่ยงการกลืนกิน/สำลัก</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===== 12 ===== -->
+  <section id="sec12">
+    <h2>ข้อ 12: ข้อมูลระบบนิเวศ</h2>
+    <div class="frame">
+      <ul class="plist">
+        <li>เป็นพิษต่อสิ่งมีชีวิตในน้ำ มีผลยาวนาน; ลอยผิวน้ำสร้างฟิล์มลดออกซิเจน</li>
+        <li>ย่อยสลายได้บางส่วนทางชีวภาพ; บางส่วนมีศักยภาพสะสมชีวภาพ</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== 13 ===== -->
+  <section id="sec13">
+    <h2>ข้อ 13: ข้อควรพิจารณาในการกำจัด</h2>
+    <div class="frame">
+      <ul class="plist">
+        <li>กระป๋องใช้แล้ว: ห้ามเผา/เจาะ · ส่งรีไซเคิลโลหะเมื่อ “ปลดแรงดัน/ว่าง” ตามแนวปฏิบัติท้องถิ่น</li>
+        <li>ของเสียไวไฟ/อันตราย: ส่งกำจัดโดยผู้รับอนุญาต</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== 14 ===== -->
+  <section id="sec14">
+    <h2>ข้อ 14: ข้อมูลเกี่ยวกับการขนส่ง</h2>
+    <div class="frame tablewrap">
+      <table>
+        <thead><tr><th>ระเบียบ</th><th>รายละเอียด</th></tr></thead>
+        <tbody>
+          <tr><td>ADR/RID</td><td><strong>UN 1950</strong> — AEROSOLS, flammable; Class 2.1; Classification code <strong>5F</strong>; Tunnel code <strong>(D)</strong></td></tr>
+          <tr><td>IMDG</td><td><strong>UN 1950</strong> — AEROSOLS, flammable; Class 2.1; EmS <strong>F-D, S-U</strong>; Marine pollutant: อาจเข้าข่าย</td></tr>
+          <tr><td>IATA/ICAO</td><td><strong>UN 1950</strong> — AEROSOLS, flammable; Class 2.1; PI <strong>203/ Y203</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===== 15 ===== -->
+  <section id="sec15">
+    <h2>ข้อ 15: ข้อมูลเกี่ยวกับกฎหมาย</h2>
+    <div class="frame">
+      <ul class="plist">
+        <li>การจำแนก/ฉลาก: ตาม GHS/CLP — Aerosol 1 (H222, H229); Skin Irrit. 2 (H315); Eye Irrit. 2 (H319); STOT SE 3 (H336); Aquatic Chronic 2 (H411)</li>
+        <li>OSHA HazCom 2012 (US): สอดคล้อง GHS สำหรับแอโรซอลไวไฟ</li>
+        <li>ประเทศไทย: ปฏิบัติตาม พ.ร.บ.วัตถุอันตราย และกฎหมายด้านขนส่ง/สิ่งแวดล้อม</li>
+        <li>Storage Class (องค์กร): 2B — แอโรซอล</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== 16 ===== -->
+  <section id="sec16">
+    <h2>ข้อ 16: ข้อมูลอื่น ๆ</h2>
+    <div class="frame">
+      <div class="tablewrap" style="margin-bottom:8px">
+        <table>
+          <tbody>
+            <tr><th>หมายเลขเอกสาร</th><td>MSBRC2-SDS-28</td></tr>
+            <tr><th>ชื่อผลิตภัณฑ์</th><td>Spray Paint (สเปรย์สี)</td></tr>
+            <tr><th>จัดทำโดย</th><td>หน่วยงาน SHE&amp;En ธุรกิจพันธุ์กุ้งทะเล 2</td></tr>
+            <tr><th>สถานะ</th><td>ใช้งาน (Effective)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <ul class="plist">
+        <li>ทบทวน SDS เมื่อสูตร/ข้อมูลเปลี่ยนแปลง หรืออย่างน้อยปีละครั้ง</li>
+        <li>ฝึกอบรมการใช้งานสเปรย์: ป้องกันไฟฟ้าสถิต/การระบายอากาศ/การจัดเก็บไม่เกิน 50 °C</li>
+      </ul>
+      <div class="info" style="margin-top:8px">
+        <strong>คำชี้แจงความรับผิดชอบ:</strong> เอกสารนี้เป็นแนวทางทั่วไป ต้องอ้างอิง SDS ของยี่ห้อ/รุ่นสินค้าที่ใช้งานจริง และปฏิบัติตามกฎหมายที่เกี่ยวข้อง
+      </div>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>
