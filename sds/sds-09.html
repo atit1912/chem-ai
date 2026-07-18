@@ -1,0 +1,416 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>SDS | Acetic Acid — MSBRC2-SDS-09</title>
+<style>
+  /* ===== Mobile-first SDS theme ===== */
+  :root{
+    --ink:#0f172a; --muted:#475569; --line:#e2e8f0; --bg:#ffffff; --paper:#f8fafc;
+    --chipbg:#ecfeff; --chipfg:#0c4a6e;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--paper);color:var(--ink);
+    font-family:"Inter","Noto Sans Thai","Sarabun",system-ui,-apple-system,Segoe UI,Roboto,Arial}
+  body{font-size:clamp(15px,3.8vw,17px);line-height:1.75}
+  a{color:inherit}
+  .container{max-width:860px;margin:0 auto;background:#fff;border-left:1px solid var(--line);border-right:1px solid var(--line)}
+
+  /* ===== Header ===== */
+  header{padding:18px 16px 12px;border-bottom:1px solid var(--line);background:#fff;}
+  .title{display:flex;flex-direction:column;align-items:center;text-align:center}
+  .ttl{margin:0 0 6px 0;font-size:clamp(20px,5.2vw,26px);line-height:1.35;font-weight:800;letter-spacing:.2px}
+  .chem{
+    display:inline-block;margin:2px auto 8px;padding:8px 14px;border-radius:14px;
+    font-size:clamp(18px,5.8vw,26px);font-weight:800;line-height:1.35;color:#052c65;
+    background:linear-gradient(90deg, rgba(14,165,233,.18), rgba(167,139,250,.18));
+    border:1px solid #c7d2fe;box-shadow:0 2px 8px rgba(2,6,23,.08)
+  }
+  .meta{font-size:.92em;color:var(--muted);margin-top:6px;text-align:center}
+  .badges{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0 0;justify-content:center}
+  .badge{font-size:.8em;border:1px solid var(--line);padding:4px 8px;border-radius:999px;background:var(--chipbg);color:var(--chipfg)}
+
+  /* ===== Sections ===== */
+  section{padding:14px 16px;border-bottom:1px solid var(--line);background:#fff}
+  section>h2{margin:0 0 10px 0;font-size:clamp(16px,4.6vw,20px);line-height:1.4;
+    padding:8px 10px;border:1px solid var(--line);border-radius:12px;
+    background:linear-gradient(90deg,rgba(99,102,241,.08),rgba(244,63,94,.08))}
+  .frame{border:1px solid var(--line);border-radius:12px;padding:12px;background:#fff}
+  .info{background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:10px}
+  .muted{color:var(--muted)}
+
+  /* ===== Tables (mobile scroll) ===== */
+  .tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  table{border-collapse:collapse;min-width:560px;width:100%}
+  th,td{border:1px solid var(--line);padding:8px;vertical-align:top}
+  th{background:#eef2ff;text-align:left}
+
+  /* ===== Pictograms (Wikimedia + inline SVG fallback) ===== */
+  .pictos{display:flex;gap:18px;flex-wrap:wrap;align-items:center}
+  .pictos figure{margin:0;text-align:center}
+  .ghs{display:block;width:clamp(72px,18vw,96px);height:auto;filter:drop-shadow(0 0 6px rgba(239,68,68,.18))}
+  .pictos figcaption{font-size:.85em;color:var(--muted);margin-top:6px}
+
+  @media print{
+    header{position:static}
+    .container{border:none}
+    .ghs{width:22mm;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  }
+
+  /* ===== Cards ===== */
+  .pcards{display:grid;grid-template-columns:1fr;gap:12px}
+  .pcard{border:1px solid var(--line);border-radius:12px;background:#fff}
+  .pcard h4{margin:0;padding:10px;border-bottom:1px solid var(--line);
+    background:linear-gradient(90deg,rgba(99,102,241,.10),rgba(244,63,94,.10))}
+  .plist{list-style:disc;padding:8px 16px;margin:0}
+</style>
+</head>
+<body>
+<div class="container" role="document" aria-label="Safety Data Sheet">
+
+  <!-- ===== Header ===== -->
+  <header>
+    <div class="title">
+      <h1 class="ttl">เอกสารข้อมูลความปลอดภัย (SDS)</h1>
+      <h2 class="chem">Acetic Acid</h2>
+      <div class="meta">
+        รูปแบบ: GHS/CLP | ภาษาไทย | จัดทำ: 15 Aug 2025 | ทบทวน: 15 Aug 2025 | แก้ไขครั้งที่: 0<br>
+        จัดทำโดย หน่วยงาน SHE&amp;En ธุรกิจพันธุ์กุ้งทะเล 2 · หมายเลขเอกสาร <strong>MSBRC2-SDS-09</strong>
+      </div>
+    </div>
+    <div class="badges">
+      <span class="badge">สูตรเคมี: CH<sub>3</sub>COOH</span>
+      <span class="badge">CAS No. 64-19-7</span>
+      <span class="badge">UN 2790 — Acetic acid solution</span>
+      <span class="badge">Class 8 (Corrosive) • PG II*</span>
+      <span class="badge">Storage Class: 3A</span>
+      <span class="badge">ชนิดวัตถุอันตราย: ประเภทที่ 3</span>
+    </div>
+  </header>
+
+  <!-- ===== 1 ===== -->
+  <section id="sec1">
+    <h2>ข้อ 1: ข้อมูลเกี่ยวกับสารหรือส่วนผสม และข้อมูลของผู้ผลิต/ผู้จัดจำหน่าย</h2>
+    <div class="frame">
+      <div class="info" style="margin-bottom:10px">
+        <strong>ชื่อสารเคมี:</strong> Acetic Acid (กรดอะซิติก) — ของเหลวใส กลิ่นน้ำส้มสายชู ฉุน จัดเป็น<strong>ของเหลวไวไฟ</strong>และ<strong>กัดกร่อน</strong><br>
+        <strong>การใช้ที่แนะนำ:</strong> ห้องปฏิบัติการ, ควบคุม pH/ตัวทำปฏิกิริยา, ทำความสะอาดโลหะ (ใช้โดยผู้ชำนาญ)<br>
+        <strong>การใช้ที่ไม่แนะนำ:</strong> หลีกเลี่ยงการสร้างไอ/ละออง; ห้ามผสมกับออกซิไดเซอร์แรง/เบสแรง; เติมกรดลงในน้ำช้า ๆ เท่านั้น
+      </div>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>ผู้จำหน่าย (ประเทศไทย)</th><th>ข้อมูลติดต่อ</th></tr></thead>
+          <tbody>
+            <tr>
+              <td>บริษัท ทีทีเค ซายเอนซ์ จำกัด (TTK Science Co., Ltd.)</td>
+              <td>
+                ที่อยู่: 13/95 ซอยแจ้งวัฒนะ 14 แขวงทุ่งสองห้อง เขตหลักสี่ กรุงเทพมหานคร 10210<br>
+                โทรศัพท์: 0-2573-9881 ถึง 4 &nbsp;|&nbsp; แฟกซ์: 0-2990-7638 / 0-2990-7639<br>
+                อีเมล: cs.ttkscience@gmail.com &nbsp;|&nbsp; เว็บไซต์: <a href="https://ttkscience.com/" target="_blank" rel="noopener">ttkscience.com</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="info" style="margin-top:10px"><strong>ฉุกเฉิน:</strong> ศูนย์พิษวิทยารามาธิบดี โทร. 1367 (24 ชม.)</div>
+      <div class="muted" style="margin-top:6px;font-size:.9em">* หมายเหตุ: UN 2790 (สารละลายกรดอะซิติก) จัด PG II หรือ PG III ตามความเข้มข้น — ตัวอย่าง 50–80%: PG II.</div>
+    </div>
+  </section>
+
+  <!-- ===== 2 ===== -->
+  <section id="sec2">
+    <h2>ข้อ 2: การระบุอันตราย</h2>
+    <div class="frame">
+      <div class="tablewrap" style="margin-bottom:12px">
+        <table>
+          <thead><tr><th>การจัดประเภท (GHS/CLP)</th><th>หมวด</th><th>รหัส</th></tr></thead>
+          <tbody>
+            <tr><td>ของเหลวไวไฟ (Flammable liquid)</td><td>Flam. Liq. 3</td><td>H226</td></tr>
+            <tr><td>กัดกร่อนต่อผิวหนัง/ทำลายดวงตา</td><td>Skin Corr. 1A</td><td>H314</td></tr>
+            <tr><td>กัดกร่อนโลหะ</td><td>Met. Corr. 1</td><td>H290</td></tr>
+            <tr><td>คำสัญญาณ (Signal word)</td><td colspan="2"><strong>Danger</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- GHS pictograms from Wikimedia (with inline SVG fallback) -->
+      <div class="pictos" aria-label="GHS pictograms">
+        <!-- GHS02 Flame -->
+        <figure>
+          <img class="ghs" alt="GHS02 – Flammable"
+               src="https://commons.wikimedia.org/wiki/Special:FilePath/GHS-pictogram-flamme.svg"
+               onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 200 200%22><polygon points=%22100,8 192,100 100,192 8,100%22 fill=%22%23e60000%22/><polygon points=%22100,18 182,100 100,182 18,100%22 fill=%22%23ffffff%22/><rect x=%2260%22 y=%22138%22 width=%2280%22 height=%229%22 rx=%222%22 fill=%22000%22/><path d=%22M100 52c14 14 28 30 28 46 0 9-5 17-12 22 1-10-2-20-9-27 2 15-8 26-20 33-7 4-11 11-11 19 0 18 15 30 32 30 23 0 39-18 39-36 0-18-13-35-47-57z%22 fill=%22000%22/></svg>';"/>
+          <figcaption>GHS02 – ของเหลวไวไฟ</figcaption>
+        </figure>
+        <!-- GHS05 Corrosion -->
+        <figure>
+          <img class="ghs" alt="GHS05 – Corrosion"
+               src="https://commons.wikimedia.org/wiki/Special:FilePath/GHS-pictogram-acid.svg"
+               onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 200 200%22><polygon points=%22100,8 192,100 100,192 8,100%22 fill=%22%23e60000%22/><polygon points=%22100,18 182,100 100,182 18,100%22 fill=%22%23fff%22/><g fill=%22000%22><rect x=%2246%22 y=%22138%22 width=%22108%22 height=%229%22 rx=%222%22/><path d=%27M60 120h20l-7 14h-6l-7-14zm63-8h22l-9 16h-6l-7-16z%27/></g></svg>';"/>
+          <figcaption>GHS05 – กัดกร่อน</figcaption>
+        </figure>
+      </div>
+
+      <h3 style="margin:14px 0 8px">ข้อความแสดงอันตราย (H)</h3>
+      <ul>
+        <li><strong>H226</strong> ของเหลวและไอไวไฟ</li>
+        <li><strong>H314</strong> ก่อให้เกิดการไหม้กัดผิวหนังรุนแรงและทำลายดวงตาอย่างรุนแรง</li>
+        <li><strong>H290</strong> อาจกัดกร่อนโลหะ</li>
+      </ul>
+
+      <h3 style="margin:14px 0 8px">ข้อความแนะนำการป้องกัน (P) — สรุป</h3>
+      <div class="pcards">
+        <div class="pcard">
+          <h4>ป้องกัน</h4>
+          <ul class="plist">
+            <li><strong>P210</strong> อยู่ห่างจากความร้อน/ประกายไฟ/เปลวไฟ/พื้นผิวร้อน</li>
+            <li><strong>P233</strong> ปิดภาชนะให้สนิท</li>
+            <li><strong>P240–P243</strong> ต่อสายดิน/ป้องกันไฟฟ้าสถิตให้ภาชนะและอุปกรณ์</li>
+            <li><strong>P260</strong> หลีกเลี่ยงการสูดดมไอ/ละออง</li>
+            <li><strong>P280</strong> สวมแว่นครอบตา/กระบังหน้า ถุงมือกันกรด เสื้อกันสาร</li>
+          </ul>
+        </div>
+        <div class="pcard">
+          <h4>ตอบโต้เหตุ</h4>
+          <ul class="plist">
+            <li><strong>P301+P330+P331</strong> กลืนกิน: บ้วนปาก ห้ามทำให้อาเจียน</li>
+            <li><strong>P303+P361+P353</strong> ผิวหนัง/ผม: ถอดเสื้อผ้าปนเปื้อน ล้างด้วยน้ำจำนวนมาก</li>
+            <li><strong>P305+P351+P338</strong> ตา: ล้างน้ำ 15–20 นาที ถอดคอนแทคเลนส์ถ้ามี</li>
+            <li><strong>P370+P378</strong> ไฟไหม้: ใช้โฟม AR, ผงแห้ง, CO₂, สเปรย์น้ำ</li>
+            <li><strong>P310</strong> ติดต่อแพทย์ทันที</li>
+          </ul>
+        </div>
+        <div class="pcard">
+          <h4>จัดเก็บ/กำจัด</h4>
+          <ul class="plist">
+            <li><strong>P403+P235</strong> เก็บในที่อากาศถ่ายเทดี ห่างความร้อน</li>
+            <li><strong>P406</strong> เก็บในภาชนะทนการกัดกร่อน/มีซับในที่เหมาะสม</li>
+            <li><strong>P501</strong> กำจัดตามกฎหมาย (ของเสียไวไฟ/กัดกร่อน)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 3 ===== -->
+  <section id="sec3">
+    <h2>ข้อ 3: ส่วนประกอบ/ข้อมูลเกี่ยวกับส่วนผสม</h2>
+    <div class="frame tablewrap">
+      <table>
+        <thead><tr><th>สาร</th><th>CAS</th><th>EC</th><th>ความเข้มข้นโดยประมาณ</th><th>การจัดประเภท GHS</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>Acetic acid</td><td>64-19-7</td><td>200-580-7</td><td>ขึ้นกับเกรดสินค้า/สารละลาย</td>
+            <td>Flam. Liq. 3; Skin Corr. 1A; Met. Corr. 1</td>
+          </tr>
+          <tr>
+            <td>น้ำ</td><td>7732-18-5</td><td>231-791-2</td><td>สมดุล</td><td>ไม่จัดเป็นอันตราย</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===== 4 ===== -->
+  <section id="sec4">
+    <h2>ข้อ 4: มาตรการปฐมพยาบาลเบื้องต้น</h2>
+    <div class="frame">
+      <div class="info" style="margin-bottom:8px">
+        <strong>อาการสำคัญ:</strong> แสบร้อน/ไหม้ผิวหนังรุนแรง; แสบตา/น้ำตาไหล; ไอ/ระคายทางเดินหายใจ; เวียนศีรษะจากไอ
+      </div>
+      <ul>
+        <li><strong>เข้าตา:</strong> ล้างน้ำไหลอ่อน ๆ อย่างน้อย 15–20 นาที ยกเปลือกตาเป็นช่วง ๆ รีบพบแพทย์</li>
+        <li><strong>ผิวหนัง:</strong> ล้างด้วยน้ำจำนวนมาก ถอดเสื้อผ้าปนเปื้อน พบแพทย์</li>
+        <li><strong>สูดดม:</strong> ย้ายสู่ที่อากาศบริสุทธิ์ เฝ้าระวังอาการหายใจ เจ็บหน้าอก ไอ</li>
+        <li><strong>กลืนกิน:</strong> บ้วนปาก ห้ามทำให้อาเจียน จิบน้ำเล็กน้อย รีบติดต่อแพทย์/ศูนย์พิษวิทยา</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== 5 ===== -->
+  <section id="sec5">
+    <h2>ข้อ 5: มาตรการระงับอัคคีภัย</h2>
+    <div class="frame">
+      <ul>
+        <li><strong>คุณสมบัติ:</strong> ไวไฟ (จุดวาบไฟ ~39 °C)</li>
+        <li><strong>สารดับเพลิงที่เหมาะสม:</strong> โฟมทนแอลกอฮอล์ (AR-AFFF), ผงแห้ง, CO₂, สเปรย์น้ำ</li>
+        <li><strong>อันตรายจากไฟ:</strong> ไอผสมอากาศติดไฟได้; ให้ CO/CO₂ เมื่อไหม้</li>
+        <li><strong>คำแนะนำผู้ดับเพลิง:</strong> สวม SCBA; หล่อเย็นภาชนะด้วยสเปรย์น้ำ</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== 6 ===== -->
+  <section id="sec6">
+    <h2>ข้อ 6: มาตรการเมื่อมีการรั่วไหลโดยไม่ตั้งใจ</h2>
+    <div class="frame">
+      <ul>
+        <li><strong>ความปลอดภัยบุคคล:</strong> อพยพผู้ไม่เกี่ยวข้อง เพิ่มการระบายอากาศ สวม PPE กันกรด</li>
+        <li><strong>สิ่งแวดล้อม:</strong> ป้องกันไม่ให้ลงท่อ/แหล่งน้ำในปริมาณมาก</li>
+        <li><strong>การเก็บกู้:</strong> กั้นพื้นที่ ซับด้วยวัสดุดูดซับทนกรด; ทำให้เป็นกลางอย่างระมัดระวังด้วยด่างอ่อน (เช่น โซเดียมไบคาร์บอเนต)</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== 7 ===== -->
+  <section id="sec7">
+    <h2>ข้อ 7: การจัดการและการเก็บรักษา</h2>
+    <div class="frame">
+      <ul>
+        <li>ทำงานในที่อากาศถ่ายเทดี/LEV; หลีกเลี่ยงแหล่งจุดติดไฟ</li>
+        <li>เก็บในภาชนะทนการกัดกร่อน (HDPE/PVC/แก้ว) ปิดสนิท แยกจากเบส/ออกซิไดเซอร์</li>
+        <li>เติมกรดลงในน้ำช้า ๆ (ไม่ย้อนลำดับ)</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== 8 ===== -->
+  <section id="sec8">
+    <h2>ข้อ 8: การควบคุมการสัมผัสและการป้องกันส่วนบุคคล</h2>
+    <div class="frame">
+      <div class="tablewrap" style="margin-bottom:8px">
+        <table>
+          <thead><tr><th>สาร</th><th>หน่วยงาน</th><th>ค่าเกณฑ์</th><th>หมายเหตุ</th></tr></thead>
+          <tbody>
+            <tr><td>Acetic acid</td><td>OSHA PEL</td><td>10 ppm (TWA)</td><td>—</td></tr>
+            <tr><td>Acetic acid</td><td>NIOSH REL</td><td>10 ppm (TWA); 15 ppm (STEL)</td><td>—</td></tr>
+            <tr><td>Acetic acid</td><td>ACGIH TLV</td><td>10 ppm (TWA); 15 ppm (STEL)</td><td>TLV-C: —</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <ul>
+        <li><strong>ตา/หน้า:</strong> แว่นครอบตากันสาร + กระบังหน้าเมื่อเสี่ยงกระเด็น</li>
+        <li><strong>มือ:</strong> ถุงมือทนกรด (นีโอพรีน/บิวทิล/PVC)</li>
+        <li><strong>ร่างกาย:</strong> เสื้อคลุม/เอี๊ยมกันกรด</li>
+        <li><strong>หายใจ:</strong> ไส้กรองไอกรด/อินทรีย์เมื่อเกินเกณฑ์; ภาวะฉุกเฉินใช้ SCBA</li>
+        <li><strong>วิศวกรรม:</strong> LEV, ฝักบัว/จุดล้างตาพร้อมใช้</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== 9 ===== -->
+  <section id="sec9">
+    <h2>ข้อ 9: สมบัติทางกายภาพและเคมี</h2>
+    <div class="frame tablewrap">
+      <table>
+        <tbody>
+          <tr><th>ลักษณะ</th><td>ของเหลวใส กลิ่นน้ำส้มสายชูเฉพาะ</td></tr>
+          <tr><th>จุดหลอมเหลว (กลีเชียล)</th><td>~ 16.2–16.7 °C</td></tr>
+          <tr><th>จุดเดือด</th><td>~ 117–118 °C</td></tr>
+          <tr><th>จุดวาบไฟ (CC)</th><td>~ 39 °C</td></tr>
+          <tr><th>อุณหภูมิติดเอง</th><td>~ 463 °C</td></tr>
+          <tr><th>ขีดจำกัดการติดไฟ (ว.% ในอากาศ)</th><td>~ 4 – 19.9%</td></tr>
+          <tr><th>ความหนาแน่น (25 °C)</th><td>~ 1.049 g/cm³</td></tr>
+          <tr><th>การละลายน้ำ</th><td>ผสมกันได้ทุกอัตราส่วน</td></tr>
+          <tr><th>pH (สารละลาย 1 M)</th><td>~ 2.4</td></tr>
+          <tr><th>VOC</th><td>ไม่ใช้เกณฑ์ VOC</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===== 10 ===== -->
+  <section id="sec10">
+    <h2>ข้อ 10: ความเสถียรและความไวต่อการเกิดปฏิกิริยา</h2>
+    <div class="frame">
+      <ul>
+        <li><strong>ความเสถียร:</strong> เสถียรภายใต้การใช้งานปกติ</li>
+        <li><strong>ต้องหลีกเลี่ยง:</strong> ความร้อน/ประกายไฟ; ผสมกับเบสแรง/ออกซิไดเซอร์แรง</li>
+        <li><strong>สารที่ไม่เข้ากัน:</strong> ไฮโดรเจนเปอร์ออกไซด์/เปอร์อะซิติก, โครเมียมไตรออกไซด์, โพแทสเซียมเปอร์แมงกาเนต, โลหะปฏิกิริยาง่าย</li>
+        <li><strong>ผลิตภัณฑ์สลายตัว:</strong> CO, CO₂ เมื่อไหม้; ไอกรด</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== 11 ===== -->
+  <section id="sec11">
+    <h2>ข้อ 11: ข้อมูลพิษวิทยา</h2>
+    <div class="frame tablewrap">
+      <table>
+        <tbody>
+          <tr><th>พิษเฉียบพลัน</th><td>อาการหลักจากการกัดกร่อนของเนื้อเยื่อ; ไอทำให้ระคายเคืองทางเดินหายใจ</td></tr>
+          <tr><th>การระคายเคือง/ไหม้</th><td>ทำให้ผิวหนังไหม้กัดและทำลายดวงตาอย่างรุนแรง</td></tr>
+          <tr><th>CMR</th><td>ไม่จัดเป็นก่อมะเร็ง/ก่อกลายพันธุ์/พิษต่อการเจริญพันธุ์</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===== 12 ===== -->
+  <section id="sec12">
+    <h2>ข้อ 12: ข้อมูลระบบนิเวศ</h2>
+    <div class="frame">
+      <ul>
+        <li>ย่อยสลายได้ดีทางชีวภาพ; ผลกระทบต่อสิ่งแวดล้อมขึ้นกับการเจือจาง/การควบคุม pH</li>
+        <li>ไม่จัดเป็นอันตรายต่อสิ่งแวดล้อมตาม GHS</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== 13 ===== -->
+  <section id="sec13">
+    <h2>ข้อ 13: ข้อควรพิจารณาในการกำจัด</h2>
+    <div class="frame">
+      <ul>
+        <li>ทำให้เป็นกลางด้วยด่างอ่อนอย่างระมัดระวัง ตรวจสอบ pH ก่อนปล่อยเข้าระบบบำบัด</li>
+        <li>ของเสีย/ภาชนะ: จัดส่งกำจัดโดยผู้รับอนุญาตตามกฎหมายของเสียอันตราย</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== 14 ===== -->
+  <section id="sec14">
+    <h2>ข้อ 14: ข้อมูลเกี่ยวกับการขนส่ง</h2>
+    <div class="frame tablewrap">
+      <table>
+        <thead><tr><th>ระเบียบ</th><th>รายละเอียด</th></tr></thead>
+        <tbody>
+          <tr><td>ADR/RID</td><td><strong>UN 2790</strong> — Acetic acid solution; Class 8; <strong>PG II</strong> (50–80%); Classification code C3; Tunnel code (E)</td></tr>
+          <tr><td>IMDG</td><td><strong>UN 2790</strong> — Acetic acid solution; Class 8; PG II; <em>Marine pollutant:</em> ไม่</td></tr>
+          <tr><td>IATA/ICAO</td><td><strong>UN 2790</strong> — Acetic acid solution; Class 8; PG II</td></tr>
+        </tbody>
+      </table>
+      <div class="muted" style="margin-top:6px"><strong>ฉลากขนส่ง:</strong> 8 (Corrosive substances)</div>
+    </div>
+  </section>
+
+  <!-- ===== 15 ===== -->
+  <section id="sec15">
+    <h2>ข้อ 15: ข้อมูลเกี่ยวกับกฎหมาย</h2>
+    <div class="frame">
+      <ul>
+        <li>การจัดประเภทและฉลาก: ตาม GHS/CLP (EU) / OSHA HazCom 2012 (US) — Flam. Liq. 3 (H226); Skin Corr. 1A (H314); Met. Corr. 1 (H290)</li>
+        <li>ประเทศไทย: ปฏิบัติตาม พ.ร.บ.วัตถุอันตราย และกฎหมายความปลอดภัยในการทำงาน</li>
+        <li>Storage Class (องค์กร): 3A — ของเหลวไวไฟ</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== 16 ===== -->
+  <section id="sec16">
+    <h2>ข้อ 16: ข้อมูลอื่น ๆ</h2>
+    <div class="frame">
+      <div class="tablewrap" style="margin-bottom:8px">
+        <table>
+          <tbody>
+            <tr><th>หมายเลขเอกสาร</th><td>MSBRC2-SDS-09</td></tr>
+            <tr><th>ชื่อผลิตภัณฑ์</th><td>Acetic Acid</td></tr>
+            <tr><th>จัดทำโดย</th><td>หน่วยงาน SHE&amp;En ธุรกิจพันธุ์กุ้งทะเล 2</td></tr>
+            <tr><th>สถานะ</th><td>ใช้งาน (Effective)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <ul>
+        <li>ทบทวน SDS อย่างน้อยปีละครั้ง หรือเมื่อข้อมูล/กฎหมายเปลี่ยนแปลง</li>
+        <li>ติดตั้งจุดล้างตา/ฝักบัวนิรภัย และอบรมการทำงานกับของเหลวไวไฟ/กัดกร่อน</li>
+      </ul>
+      <div class="info" style="margin-top:8px">
+        <strong>คำชี้แจงความรับผิดชอบ:</strong> เอกสารนี้จัดทำเพื่อสนับสนุนความปลอดภัยในการทำงาน ผู้ใช้ต้องประเมินความเสี่ยง ณ สถานที่ปฏิบัติงานจริงและปฏิบัติตามกฎหมายที่เกี่ยวข้อง
+      </div>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>SDS | Sunlight Dishwashing Liquid — MSBRC2-SDS-17</title>
+<style>
+  :root{
+    --ink:#0f172a; --muted:#475569; --line:#e2e8f0; --paper:#f8fafc;
+    --chipbg:#ecfeff; --chipfg:#0c4a6e;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--paper);color:var(--ink);
+    font-family:"Inter","Noto Sans Thai","Sarabun",system-ui,-apple-system,Segoe UI,Roboto,Arial}
+  body{font-size:clamp(15px,3.8vw,17px);line-height:1.75}
+  a{color:inherit}
+  .container{max-width:900px;margin:0 auto;background:#fff;border-left:1px solid var(--line);border-right:1px solid var(--line)}
+
+  /* Header (not sticky) */
+  header{padding:18px 16px 12px;border-bottom:1px solid var(--line);background:#fff;position:static}
+  .title{display:flex;flex-direction:column;align-items:center;text-align:center}
+  .ttl{margin:0 0 6px 0;font-size:clamp(20px,5.2vw,26px);line-height:1.35;font-weight:800}
+  .chem{
+    display:inline-block;margin:2px auto 8px;padding:8px 14px;border-radius:14px;
+    font-size:clamp(18px,5.8vw,26px);font-weight:800;line-height:1.35;color:#052c65;
+    background:linear-gradient(90deg, rgba(14,165,233,.18), rgba(167,139,250,.18));
+    border:1px solid #c7d2fe;box-shadow:0 2px 8px rgba(2,6,23,.08)
+  }
+  .meta{font-size:.92em;color:var(--muted);margin-top:6px;text-align:center}
+  .badges{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0 0;justify-content:center}
+  .badge{font-size:.8em;border:1px solid var(--line);padding:4px 8px;border-radius:999px;background:var(--chipbg);color:var(--chipfg)}
+
+  /* Sections */
+  section{padding:14px 16px;border-bottom:1px solid var(--line);background:#fff}
+  section>h2{margin:0 0 10px 0;font-size:clamp(16px,4.6vw,20px);
+    padding:8px 10px;border:1px solid var(--line);border-radius:12px;
+    background:linear-gradient(90deg,rgba(99,102,241,.08),rgba(14,165,233,.08))}
+  .frame{border:1px solid var(--line);border-radius:12px;padding:12px;background:#fff}
+  .info{background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:10px}
+  .muted{color:var(--muted)}
+  .tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  table{border-collapse:collapse;min-width:560px;width:100%}
+  th,td{border:1px solid var(--line);padding:8px;vertical-align:top}
+  th{background:#eef2ff;text-align:left}
+
+  /* Pictograms (inline SVG) */
+  .pictos{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+  .pictos figure{margin:0;text-align:center}
+  .ghs{display:block;width:clamp(64px,12vw,88px);height:auto;filter:drop-shadow(0 0 6px rgba(2,6,23,.10))}
+  .pictos figcaption{font-size:.85em;color:var(--muted);margin-top:6px}
+
+  /* Cards */
+  .pcards{display:grid;grid-template-columns:1fr;gap:12px}
+  .pcard{border:1px solid var(--line);border-radius:12px;background:#fff}
+  .pcard h4{margin:0;padding:10px;border-bottom:1px solid var(--line);
+    background:linear-gradient(90deg,rgba(99,102,241,.10),rgba(244,63,94,.10))}
+
+  @media print{ header{position:static} }
+</style>
+</head>
+<body>
+<div class="container" role="document" aria-label="Safety Data Sheet">
+
+  <!-- Header -->
+  <header>
+    <div class="title">
+      <h1 class="ttl">เอกสารข้อมูลความปลอดภัย (SDS)</h1>
+      <h2 class="chem">Sunlight — Dishwashing Liquid (ผลิตภัณฑ์ล้างจาน สูตรน้ำ)</h2>
+      <div class="meta">
+        รูปแบบ: GHS/CLP | ภาษาไทย | จัดทำ: 15 Aug 2025 | ทบทวน: 15 Aug 2025 | แก้ไขครั้งที่: 0<br>
+        จัดทำโดย หน่วยงาน SHE&amp;En ธุรกิจพันธุ์กุ้งทะเล 2 · หมายเลขเอกสาร <strong>MSBRC2-SDS-24</strong>
+      </div>
+    </div>
+    <div class="badges">
+      <span class="badge">ส่วนผสม (Mixture) — ไม่มี CAS เดี่ยว</span>
+      <span class="badge">UN: <strong>Not regulated</strong></span>
+      <span class="badge">Storage Class (LGK): 12 — ของเหลวไม่ติดไฟ</span>
+      <span class="badge">ชนิดวัตถุอันตราย: ระคายเคือง (ขึ้นกับสูตร)</span>
+    </div>
+  </header>
+
+  <!-- 1 -->
+  <section id="sec1">
+    <h2>ข้อ 1: ข้อมูลสาร/ส่วนผสม และผู้ผลิต/ผู้จัดจำหน่าย</h2>
+    <div class="frame">
+      <div class="info" style="margin-bottom:10px">
+        <strong>ชื่อผลิตภัณฑ์:</strong> Sunlight Dishwashing Liquid (ผลิตภัณฑ์ล้างจาน สูตรน้ำ, สีเหลือง/เขียว กลิ่นเลมอน/ซิตรัส ฯลฯ)<br>
+        <strong>การใช้ที่แนะนำ:</strong> ทำความสะอาดภาชนะ อุปกรณ์ครัวเรือน (ใช้ตามฉลาก)<br>
+        <strong>ไม่แนะนำ:</strong> ห้ามผสมกับกรด/ด่างแรงหรือสารฟอกขาวคลอรีน; หลีกเลี่ยงการสัมผัสดวงตาโดยตรง
+      </div>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>ผู้ผลิต/ผู้จำหน่าย</th><th>ข้อมูลติดต่อ</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><em>แม็คโคร สาทร</em></td>
+              <td>178 ถนน นราธิวาสราชนครินทร์ แขวงทุ่งวัดดอน เขตสาทร กรุงเทพมหานคร 10120</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="info" style="margin-top:10px"><strong>ฉุกเฉิน:</strong> ศูนย์พิษวิทยารามาธิบดี โทร. 1367 (24 ชม.)</div>
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section id="sec2">
+    <h2>ข้อ 2: การระบุอันตราย</h2>
+    <div class="frame">
+      <div class="tablewrap" style="margin-bottom:12px">
+        <table>
+          <thead><tr><th>การจัดประเภท (GHS/CLP)</th><th>หมวด</th><th>รหัส</th></tr></thead>
+          <tbody>
+            <tr><td>ระคายเคืองตา</td><td>Eye Irrit. 2</td><td>H319</td></tr>
+            <tr><td>ระคายเคืองผิวหนัง</td><td>Skin Irrit. 2</td><td>H315</td></tr>
+            <tr><td class="muted" colspan="3">อาจเข้าข่าย: Aquatic Chronic 3 (H412) ขึ้นกับสูตร/ความเข้มข้นของสารลดแรงตึงผิวและน้ำหอม</td></tr>
+            <tr><td>คำสัญญาณ</td><td colspan="2"><strong>Warning</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="pictos" aria-label="GHS pictograms">
+        <!-- GHS07: Exclamation (inline SVG) -->
+        <figure>
+          <svg class="ghs" viewBox="0 0 200 200" aria-hidden="true">
+            <polygon points="100,8 192,100 100,192 8,100" fill="#e60000"/>
+            <polygon points="100,18 182,100 100,182 18,100" fill="#fff"/>
+            <rect x="91" y="66" width="18" height="70" rx="9" fill="#000"/>
+            <circle cx="100" cy="152" r="11" fill="#000"/>
+          </svg>
+          <figcaption>GHS07 – ระคายเคือง</figcaption>
+        </figure>
+      </div>
+
+      <h3 style="margin:14px 0 8px">ข้อความแสดงอันตราย (H)</h3>
+      <ul>
+        <li><strong>H319</strong> ก่อให้เกิดการระคายเคืองตารุนแรง</li>
+        <li><strong>H315</strong> ก่อให้เกิดการระคายเคืองผิวหนัง</li>
+        <li class="muted">H412 อาจเป็นพิษต่อสิ่งมีชีวิตในน้ำ มีผลยาวนาน (หากเข้าข่าย)</li>
+      </ul>
+
+      <h3 style="margin:14px 0 8px">ข้อความแนะนำการป้องกัน (P) — สรุป</h3>
+      <ul>
+        <li><strong>P264</strong> ล้างมือ/ผิวหนังหลังใช้งาน · <strong>P280</strong> สวมถุงมือเมื่อต้องสัมผัสมาก</li>
+        <li><strong>P305+P351+P338</strong> เข้าตา: ล้างด้วยน้ำหลายนาที ถอดคอนแทคเลนส์หากทำได้ง่าย</li>
+        <li><strong>P337+P313</strong> หากการระคายตายังคงอยู่ ให้พบแพทย์</li>
+        <li><strong>P302+P352</strong> สัมผัสผิว: ล้างด้วยน้ำและสบู่</li>
+        <li><strong>P273</strong> หลีกเลี่ยงการปล่อยลงสิ่งแวดล้อมจำนวนมากโดยไม่ควบคุม</li>
+      </ul>
+      <div class="muted" style="margin-top:6px">หมายเหตุ: การจัดประเภทอาจต่างกันตามสูตร/กลิ่น โปรดอ้างอิง SDS ของผู้ผลิตรุ่นที่ใช้งานจริง</div>
+    </div>
+  </section>
+
+  <!-- 3 -->
+  <section id="sec3">
+    <h2>ข้อ 3: ส่วนประกอบ/ข้อมูลเกี่ยวกับส่วนผสม</h2>
+    <div class="frame tablewrap">
+      <table>
+        <thead><tr><th>ส่วนประกอบ</th><th>CAS</th><th>ช่วงโดยประมาณ</th><th>การจัดประเภท</th></tr></thead>
+        <tbody>
+          <tr><td>น้ำ</td><td>7732-18-5</td><td>70–90%</td><td>—</td></tr>
+          <tr><td>Sodium Laureth Sulfate (SLES)</td><td>68891-38-3</td><td>3–15%</td><td>Skin Irrit. 2; Eye Dam./Irrit.</td></tr>
+          <tr><td>Cocamidopropyl Betaine (CAPB)</td><td>61789-40-0</td><td>1–5%</td><td>Eye Irrit. 2; Skin Irrit. 2</td></tr>
+          <tr><td>Alcohols, C12-14, ethoxylated</td><td>68439-50-9</td><td>&lt;5%</td><td>Eye Irrit. 2; Aquatic Chronic</td></tr>
+          <tr><td>น้ำหอม/สี</td><td>—</td><td>&lt;1%</td><td>อาจทำให้แพ้ (ขึ้นกับชนิด)</td></tr>
+          <tr><td>สารกันเสีย (เช่น MIT/BIT)</td><td>2682-20-4 / 2634-33-5</td><td>&lt;0.1%</td><td>Skin Sens. 1 (อาจใช้ EUH208)</td></tr>
+          <tr><td class="muted" colspan="4">องค์ประกอบจริงขึ้นกับรุ่นสินค้า/กลิ่น</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 4 -->
+  <section id="sec4">
+    <h2>ข้อ 4: มาตรการปฐมพยาบาลเบื้องต้น</h2>
+    <div class="frame">
+      <div class="info" style="margin-bottom:8px"><strong>อาการสำคัญ:</strong> ระคายเคืองตา/ผิวหนัง; กลืนมากอาจระคายทางเดินอาหาร</div>
+      <ul>
+        <li><strong>เข้าตา:</strong> ล้างด้วยน้ำสะอาดต่อเนื่อง 15 นาที หากอาการไม่ทุเลา พบแพทย์</li>
+        <li><strong>ผิวหนัง:</strong> ล้างด้วยน้ำและสบู่ ถ้าระคายต่อเนื่อง ปรึกษาแพทย์</li>
+        <li><strong>สูดดมละออง:</strong> เคลื่อนย้ายสู่อากาศบริสุทธิ์</li>
+        <li><strong>กลืนกิน:</strong> บ้วนปาก ดื่มน้ำเล็กน้อย ไม่ทำให้อาเจียนเอง หากมีอาการผิดปกติพบแพทย์</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 5 -->
+  <section id="sec5">
+    <h2>ข้อ 5: มาตรการระงับอัคคีภัย</h2>
+    <div class="frame">
+      <ul>
+        <li><strong>ความไวไฟ:</strong> สูตรน้ำ ไม่ติดไฟ</li>
+        <li><strong>สารดับเพลิงที่เหมาะสม:</strong> ใช้ตามวัสดุรอบข้าง (น้ำ โฟม ผงแห้ง CO₂)</li>
+        <li><strong>ผลิตผลสลายตัวเมื่อไหม้:</strong> CO, CO₂ และไอระคายเคือง</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 6 -->
+  <section id="sec6">
+    <h2>ข้อ 6: เมื่อมีการรั่วไหลโดยไม่ตั้งใจ</h2>
+    <div class="frame">
+      <ul>
+        <li>ป้องกันการลื่นไถล; กั้นพื้นที่</li>
+        <li>ซับด้วยทราย/วัสดุดูดซับ แล้วใส่ภาชนะที่ปิดสนิท</li>
+        <li>ห้ามปล่อยลงทางน้ำในปริมาณมากโดยไม่ควบคุม</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 7 -->
+  <section id="sec7">
+    <h2>ข้อ 7: การจัดการและการเก็บรักษา</h2>
+    <div class="frame">
+      <ul>
+        <li>ใช้ตามฉลาก หลีกเลี่ยงการกระเด็นเข้าตา</li>
+        <li>เก็บในภาชนะปิดสนิท ที่แห้ง เย็น พ้นมือเด็ก</li>
+        <li>ไม่ผสมกับกรด/ด่างแรง หรือสารฟอกขาวคลอรีน</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 8 -->
+  <section id="sec8">
+    <h2>ข้อ 8: การควบคุมการสัมผัสและ PPE</h2>
+    <div class="frame">
+      <div class="tablewrap" style="margin-bottom:8px">
+        <table>
+          <thead><tr><th>สาร</th><th>ค่าเกณฑ์</th><th>หมายเหตุ</th></tr></thead>
+          <tbody>
+            <tr><td>ส่วนผสมทั้งหมด</td><td>ไม่มี OEL เฉพาะ</td><td>ควบคุมด้วยสุขลักษณะพื้นฐาน</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <ul>
+        <li><strong>วิศวกรรม:</strong> ระบายอากาศทั่วไปเพียงพอ</li>
+        <li><strong>ตา/หน้า:</strong> แว่นครอบตาเมื่อจัดการจำนวนมาก</li>
+        <li><strong>มือ:</strong> ถุงมือยาง/ไนไตรล์เมื่อสัมผัสต่อเนื่อง</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 9 -->
+  <section id="sec9">
+    <h2>ข้อ 9: สมบัติทางกายภาพและเคมี</h2>
+    <div class="frame tablewrap">
+      <table>
+        <tbody>
+          <tr><th>ลักษณะ</th><td>ของเหลวใส สีเหลือง/เขียว กลิ่นซิตรัส</td></tr>
+          <tr><th>pH (ตรงขวด)</th><td>ประมาณ 6–9 @ 25 °C</td></tr>
+          <tr><th>การละลายน้ำ</th><td>ละลายน้ำได้สมบูรณ์</td></tr>
+          <tr><th>ความหนาแน่น</th><td>~1.00–1.05 g/cm³</td></tr>
+          <tr><th>ความหนืด</th><td>~500–1500 mPa·s (ขึ้นกับสูตร)</td></tr>
+          <tr><th>จุดวาบไฟ</th><td>ไม่เกี่ยวข้อง (สูตรน้ำ)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 10 -->
+  <section id="sec10">
+    <h2>ข้อ 10: ความเสถียรและการเกิดปฏิกิริยา</h2>
+    <div class="frame">
+      <ul>
+        <li>เสถียรภายใต้การใช้งานปกติ</li>
+        <li><strong>ไม่เข้ากันกับ:</strong> กรด/ด่างแรง สารออกซิไดซ์แรง (เช่น คลอรีนบลีช)</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 11 -->
+  <section id="sec11">
+    <h2>ข้อ 11: ข้อมูลพิษวิทยา</h2>
+    <div class="frame tablewrap">
+      <table>
+        <tbody>
+          <tr><th>การสัมผัสตา</th><td>ระคายเคืองตารุนแรง (Eye Irrit. 2)</td></tr>
+          <tr><th>ผิวหนัง</th><td>ระคายเคืองผิวหนัง (Skin Irrit. 2); บางรายอาจแพ้จากสารกันเสีย/น้ำหอม</td></tr>
+          <tr><th>การกลืนกิน</th><td>อาจระคายทางเดินอาหาร คลื่นไส้</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 12 -->
+  <section id="sec12">
+    <h2>ข้อ 12: ข้อมูลระบบนิเวศ</h2>
+    <div class="frame">
+      <ul>
+        <li>สารลดแรงตึงผิวโดยทั่วไปย่อยสลายทางชีวภาพตามข้อกำหนดสำหรับผงซักฟอก</li>
+        <li>การปล่อยจำนวนมากอาจมีผลต่อสิ่งมีชีวิตน้ำ (โฟม/ลดแรงตึงผิวน้ำ)</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 13 -->
+  <section id="sec13">
+    <h2>ข้อ 13: การกำจัด</h2>
+    <div class="frame">
+      <ul>
+        <li>ของเสียเจือจาง: ละลายน้ำมากๆ แล้วปล่อยตามระบบบำบัด (หากกฎหมายท้องถิ่นอนุญาต)</li>
+        <li>ปริมาณมาก: ส่งกำจัดตามข้อกำหนดท้องถิ่น</li>
+        <li>บรรจุภัณฑ์: ล้างสะอาดก่อนรีไซเคิล/กำจัด</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 14 -->
+  <section id="sec14">
+    <h2>ข้อ 14: การขนส่ง</h2>
+    <div class="frame tablewrap">
+      <table>
+        <thead><tr><th>ระเบียบ</th><th>สถานะ</th></tr></thead>
+        <tbody>
+          <tr><td>ADR/RID</td><td>Not regulated — ไม่เป็นวัตถุอันตรายในการขนส่ง</td></tr>
+          <tr><td>IMDG</td><td>Not regulated — ไม่เป็นวัตถุอันตรายในการขนส่ง</td></tr>
+          <tr><td>IATA/ICAO</td><td>Not regulated — ไม่เป็นวัตถุอันตรายในการขนส่ง</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 15 -->
+  <section id="sec15">
+    <h2>ข้อ 15: กฎหมาย/ระเบียบข้อบังคับ</h2>
+    <div class="frame">
+      <ul>
+        <li>การจัดประเภทตาม GHS/CLP: Eye Irrit. 2 (H319); Skin Irrit. 2 (H315); <span class="muted">H412 อาจใช้กับบางสูตร</span></li>
+        <li>สินค้าอุปโภคบริโภค: ปฏิบัติตามกฎหมายคุ้มครองผู้บริโภค/เครื่องสำอาง/ผงซักฟอกที่เกี่ยวข้อง</li>
+        <li>Storage Class (TRGS 510 / LGK): 12 — ของเหลวไม่ติดไฟ</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 16 -->
+  <section id="sec16">
+    <h2>ข้อ 16: ข้อมูลอื่น ๆ</h2>
+    <div class="frame">
+      <div class="tablewrap" style="margin-bottom:8px">
+        <table>
+          <tbody>
+            <tr><th>หมายเลขเอกสาร</th><td>MSBRC2-SDS-24</td></tr>
+            <tr><th>ชื่อผลิตภัณฑ์</th><td>Sunlight Dishwashing Liquid</td></tr>
+            <tr><th>จัดทำโดย</th><td>หน่วยงาน SHE&amp;En ธุรกิจพันธุ์กุ้งทะเล 2</td></tr>
+            <tr><th>สถานะ</th><td>ใช้งาน (Effective)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <ul>
+        <li>ข้อมูลนี้เป็นแนวทางทั่วไปสำหรับผลิตภัณฑ์ล้างจานแบบ Sunlight—สูตรจริงอาจแตกต่าง โปรดแนบ SDS ของผู้ผลิตรุ่นที่ใช้งาน</li>
+        <li>ทบทวน SDS เมื่อมีการเปลี่ยนแปลงสูตรหรืออย่างน้อยปีละครั้ง</li>
+      </ul>
+      <div class="info" style="margin-top:8px">
+        <strong>คำชี้แจงความรับผิดชอบ:</strong> เอกสารนี้จัดทำเพื่อสนับสนุนความปลอดภัยในการทำงาน ผู้ใช้ต้องประเมินความเสี่ยง ณ สถานที่ปฏิบัติงานจริงและปฏิบัติตามกฎหมายที่เกี่ยวข้อง
+      </div>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>

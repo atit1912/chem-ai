@@ -1,0 +1,393 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>SDS | Oxygen (Compressed) — MSBRC2-SDS-12</title>
+<style>
+  /* ===== Mobile-first SDS theme ===== */
+  :root{
+    --ink:#0f172a; --muted:#475569; --line:#e2e8f0; --bg:#ffffff; --paper:#f8fafc;
+    --chipbg:#ecfeff; --chipfg:#0c4a6e;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--paper);color:var(--ink);
+    font-family:"Inter","Noto Sans Thai","Sarabun",system-ui,-apple-system,Segoe UI,Roboto,Arial}
+  body{font-size:clamp(15px,3.8vw,17px);line-height:1.75}
+  a{color:inherit}
+  .container{max-width:900px;margin:0 auto;background:#fff;border-left:1px solid var(--line);border-right:1px solid var(--line)}
+
+  /* ===== Header ===== */
+  header{padding:18px 16px 12px;border-bottom:1px solid var(--line);background:#fff;}
+  .title{display:flex;flex-direction:column;align-items:center;text-align:center}
+  .ttl{margin:0 0 6px 0;font-size:clamp(20px,5.2vw,26px);line-height:1.35;font-weight:800}
+  .chem{
+    display:inline-block;margin:2px auto 8px;padding:8px 14px;border-radius:14px;
+    font-size:clamp(18px,5.8vw,26px);font-weight:800;line-height:1.35;color:#052c65;
+    background:linear-gradient(90deg, rgba(14,165,233,.18), rgba(167,139,250,.18));
+    border:1px solid #c7d2fe;box-shadow:0 2px 8px rgba(2,6,23,.08)
+  }
+  .meta{font-size:.92em;color:var(--muted);margin-top:6px;text-align:center}
+  .badges{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0 0;justify-content:center}
+  .badge{font-size:.8em;border:1px solid var(--line);padding:4px 8px;border-radius:999px;background:var(--chipbg);color:var(--chipfg)}
+
+  /* ===== Sections ===== */
+  section{padding:14px 16px;border-bottom:1px solid var(--line);background:#fff}
+  section>h2{margin:0 0 10px 0;font-size:clamp(16px,4.6vw,20px);
+    padding:8px 10px;border:1px solid var(--line);border-radius:12px;
+    background:linear-gradient(90deg,rgba(99,102,241,.08),rgba(14,165,233,.08))}
+  .frame{border:1px solid var(--line);border-radius:12px;padding:12px;background:#fff}
+  .info{background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:10px}
+  .muted{color:var(--muted)}
+
+  /* ===== Tables ===== */
+  .tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  table{border-collapse:collapse;min-width:560px;width:100%}
+  th,td{border:1px solid var(--line);padding:8px;vertical-align:top}
+  th{background:#eef2ff;text-align:left}
+
+  /* ===== Pictograms (Wikimedia + inline SVG fallback) ===== */
+  .pictos{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+  .pictos figure{margin:0;text-align:center}
+  .ghs{display:block;width:clamp(64px,12vw,88px);height:auto;filter:drop-shadow(0 0 6px rgba(2,6,23,.10))}
+  .pictos figcaption{font-size:.85em;color:var(--muted);margin-top:6px}
+  @media print{
+    header{position:static}
+    .container{border:none}
+    .ghs{width:22mm;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  }
+
+  /* ===== Cards ===== */
+  .pcards{display:grid;grid-template-columns:1fr;gap:12px}
+  .pcard{border:1px solid var(--line);border-radius:12px;background:#fff}
+  .pcard h4{margin:0;padding:10px;border-bottom:1px solid var(--line);
+    background:linear-gradient(90deg,rgba(99,102,241,.10),rgba(244,63,94,.10))}
+  .plist{list-style:disc;padding:8px 16px;margin:0}
+</style>
+</head>
+<body>
+<div class="container" role="document" aria-label="Safety Data Sheet">
+
+  <!-- ===== Header ===== -->
+  <header>
+    <div class="title">
+      <h1 class="ttl">เอกสารข้อมูลความปลอดภัย (SDS)</h1>
+      <h2 class="chem">Oxygen</h2>
+      <div class="meta">
+        รูปแบบ: GHS/CLP | ภาษาไทย | จัดทำ: 15 Aug 2025 | ทบทวน: 15 Aug 2025 | แก้ไขครั้งที่: 0<br>
+        จัดทำโดย หน่วยงาน SHE&amp;En ธุรกิจพันธุ์กุ้งทะเล 2 · หมายเลขเอกสาร <strong>MSBRC2-SDS-12</strong>
+      </div>
+    </div>
+    <div class="badges">
+      <span class="badge">CAS No. 7782-44-7</span>
+      <span class="badge">UN 1072 — Oxygen, compressed</span>
+      <span class="badge">Class 2 (Labels 2.2 + 5.1)</span>
+      <span class="badge">Storage Class: 2C</span>
+      <span class="badge">ชนิดวัตถุอันตราย: ประเภทที่ 2</span>
+    </div>
+  </header>
+
+  <!-- ===== 1 ===== -->
+  <section id="sec1">
+    <h2>ข้อ 1: ข้อมูลเกี่ยวกับสารหรือส่วนผสม และข้อมูลของผู้ผลิต/ผู้จัดจำหน่าย</h2>
+    <div class="frame">
+      <div class="info" style="margin-bottom:10px">
+        <strong>ชื่อสารเคมี:</strong> Oxygen (ก๊าซออกซิเจน อัดความดัน) — สนับสนุนการเผาไหม้อย่างรุนแรง (Oxidizer), ไม่ติดไฟเอง<br>
+        <strong>การใช้ที่แนะนำ:</strong> การแพทย์/อุตสาหกรรม, เชื่อม-ตัดโลหะ, กระบวนการเผาไหม้ที่ต้องใช้ออกซิเจนบริสุทธิ์<br>
+        <strong>การใช้ที่ไม่แนะนำ:</strong> ห้ามสัมผัส/ปนเปื้อนน้ำมัน จาระบี สารไวไฟ; หลีกเลี่ยงพื้นที่ปิดอับอากาศที่มีออกซิเจนเกิน 23.5%
+      </div>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>ผู้จำหน่าย (ประเทศไทย)</th><th>ข้อมูลติดต่อ</th></tr></thead>
+          <tbody>
+            <tr>
+              <td>ร้านรวมชัยเพชรบุรี</td>
+              <td>
+                ที่อยู่: 87/15–17 หมู่ 1 ถนนเพชรเกษม ตำบลไร่ส้ม อำเภอเมืองเพชรบุรี จังหวัดเพชรบุรี 76000<br>
+                โทรศัพท์: 032-425-650 · แฟกซ์: 032-413-917<br>
+                อ้างอิง: รายชื่อ/ที่อยู่จากสมุดหน้าเหลือง (YellowPages)
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="info" style="margin-top:10px"><strong>ฉุกเฉิน:</strong> ศูนย์พิษวิทยารามาธิบดี โทร. 1367 (24 ชม.)</div>
+    </div>
+  </section>
+
+  <!-- ===== 2 ===== -->
+  <section id="sec2">
+    <h2>ข้อ 2: การระบุอันตราย</h2>
+    <div class="frame">
+      <div class="tablewrap" style="margin-bottom:12px">
+        <table>
+          <thead><tr><th>การจัดประเภท (GHS/CLP)</th><th>หมวด</th><th>รหัส</th></tr></thead>
+          <tbody>
+            <tr><td>ก๊าซออกซิไดซ์ (Oxidizing gas)</td><td>Ox. Gas 1</td><td>H270</td></tr>
+            <tr><td>ก๊าซภายใต้ความดัน (อัด)</td><td>Press. Gas (Compressed)</td><td>H280</td></tr>
+            <tr><td>คำสัญญาณ (Signal word)</td><td colspan="2"><strong>Danger</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- GHS pictograms from Wikimedia (with inline SVG fallback) -->
+      <div class="pictos" aria-label="GHS pictograms">
+        <!-- GHS03: Flame over circle (Oxidizer) -->
+        <figure>
+          <img class="ghs" alt="GHS03 – Oxidizer (Flame over circle)"
+               src="https://commons.wikimedia.org/wiki/Special:FilePath/GHS-pictogram-rondflam.svg"
+               onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%200%200%20200%20200%3E<polygon points=%22100,8 192,100 100,192 8,100%22 fill=%22%23e60000%22/><polygon points=%22100,18 182,100 100,182 18,100%22 fill=%22%23fff%22/><circle cx=%22100%22 cy=%22118%22 r=%2218%22 fill=%22000%22/><path d=%22M100 60c10 10 18 20 18 30 0 7-4 12-9 16 1-7-2-14-7-19 2 11-6 18-15 23-5 3-8 9-8 15 0 14 12 24 25 24 18 0 31-13 31-28 0-15-10-29-35-45z%22 fill=%22000%22/><rect x=%2260%22 y=%22138%22 width=%2280%22 height=%229%22 rx=%222%22 fill=%22000%22/></svg>';"/>
+          <figcaption>GHS03 – ตัวออกซิไดซ์แรง</figcaption>
+        </figure>
+        <!-- GHS04: Gas cylinder -->
+        <figure>
+          <img class="ghs" alt="GHS04 – Gas cylinder"
+               src="https://commons.wikimedia.org/wiki/Special:FilePath/GHS-pictogram-bottle.svg"
+               onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%200%200%20200%20200%3E<polygon points=%22100,8 192,100 100,192 8,100%22 fill=%22%23e60000%22/><polygon points=%22100,18 182,100 100,182 18,100%22 fill=%22%23fff%22/><rect x=%2246%22 y=%22138%22 width=%22108%22 height=%229%22 rx=%222%22 fill=%22000%22/><rect x=%2270%22 y=%2288%22 width=%2260%22 height=%2214%22 rx=%227%22 fill=%22000%22/></svg>';"/>
+          <figcaption>GHS04 – ก๊าซภายใต้ความดัน</figcaption>
+        </figure>
+      </div>
+
+      <h3 style="margin:14px 0 8px">ข้อความแสดงอันตราย (H)</h3>
+      <ul>
+        <li><strong>H270</strong> อาจทำให้ไฟรุนแรงขึ้น; เป็นสารออกซิไดซ์</li>
+        <li><strong>H280</strong> มีแรงดัน; อาจระเบิดเมื่อถูกความร้อน</li>
+      </ul>
+
+      <h3 style="margin:14px 0 8px">ข้อความแนะนำการป้องกัน (P) — สรุป</h3>
+      <div class="pcards">
+        <div class="pcard">
+          <h4>ป้องกัน</h4>
+          <ul class="plist">
+            <li><strong>P220</strong> เก็บให้ห่างจากเสื้อผ้า/วัสดุไวไฟและเชื้อเพลิงทุกชนิด</li>
+            <li><strong>P244</strong> รักษาวาล์ว/ข้อต่อให้ปราศจากน้ำมันและจาระบี</li>
+            <li><strong>P271</strong> ใช้เฉพาะกลางแจ้งหรือในที่ระบายอากาศดี</li>
+          </ul>
+        </div>
+        <div class="pcard">
+          <h4>ตอบโต้เหตุ</h4>
+          <ul class="plist">
+            <li><strong>P370+P378</strong> ไฟไหม้: ใช้สารดับเพลิงที่เหมาะสมกับวัสดุรอบข้าง; ตัดแหล่งก๊าซหากทำได้อย่างปลอดภัย</li>
+            <li><strong>P376</strong> หยุดการรั่วไหลหากทำได้อย่างปลอดภัย</li>
+          </ul>
+        </div>
+        <div class="pcard">
+          <h4>จัดเก็บ/กำจัด</h4>
+          <ul class="plist">
+            <li><strong>P403</strong> เก็บในที่อากาศถ่ายเทดี · <strong>P410</strong> ป้องกันจากแสงแดด</li>
+            <li><strong>P501</strong> ส่งคืนกระบอกให้ผู้จำหน่าย/กำจัดตามกฎหมาย</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 3 ===== -->
+  <section id="sec3">
+    <h2>ข้อ 3: ส่วนประกอบ/ข้อมูลเกี่ยวกับส่วนผสม</h2>
+    <div class="frame tablewrap">
+      <table>
+        <thead><tr><th>ส่วนประกอบ</th><th>CAS</th><th>EC</th><th>ความเข้มข้น</th><th>การจัดประเภท GHS</th></tr></thead>
+        <tbody>
+          <tr><td>Oxygen (O<sub>2</sub>)</td><td>7782-44-7</td><td>231-956-9</td><td>100%</td><td>Ox. Gas 1 (H270); Press. Gas (Compressed) (H280)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===== 4 ===== -->
+  <section id="sec4">
+    <h2>ข้อ 4: มาตรการปฐมพยาบาลเบื้องต้น</h2>
+    <div class="frame">
+      <div class="info" style="margin-bottom:8px">
+        <strong>อาการสำคัญ:</strong> สภาพแวดล้อมออกซิเจนสูงเสี่ยงเกิดเพลิงไหม้/ไฟลุกลาม; การหายใจออกซิเจนความดันสูงนาน ๆ อาจก่ออาการ (เฉพาะงานเฉพาะทาง)
+      </div>
+      <ul>
+        <li><strong>สูดดม:</strong> โดยปกติไม่เป็นพิษ; หากมีอาการผิดปกติ เคลื่อนย้ายสู่ที่อากาศถ่ายเทและพบแพทย์</li>
+        <li><strong>ผิวหนัง/ตา:</strong> ก๊าซอัดไม่ก่อการระคายเคืองโดยตรง; หลีกเลี่ยงการฉีดพ่นแรงดันสูงสู่ผิว/ตา</li>
+        <li><strong>กลืนกิน:</strong> ไม่เป็นเส้นทางสัมผัสที่เกี่ยวข้อง</li>
+        <li><strong>หมายเหตุ:</strong> ไม่ให้สัมผัสน้ำมัน/จาระบีบนผิว อุปกรณ์ หรือ PPE เมื่องานเกี่ยวกับออกซิเจน</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== 5 ===== -->
+  <section id="sec5">
+    <h2>ข้อ 5: มาตรการระงับอัคคีภัย</h2>
+    <div class="frame">
+      <ul>
+        <li><strong>คุณสมบัติ:</strong> ไม่ติดไฟ แต่ทำให้การเผาไหม้รุนแรงขึ้น</li>
+        <li><strong>ดับเพลิงที่เหมาะสม:</strong> เลือกตามวัสดุที่ลุกไหม้ (น้ำ, โฟม, ผงแห้ง, CO₂ ฯลฯ)</li>
+        <li><strong>คำแนะนำ:</strong> ตัดแหล่งก๊าซ; ทำให้ภาชนะ/ท่อเย็นด้วยสเปรย์น้ำ; อุปกรณ์ต้องปลอดน้ำมัน/จาระบี</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== 6 ===== -->
+  <section id="sec6">
+    <h2>ข้อ 6: มาตรการเมื่อมีการรั่วไหลโดยไม่ตั้งใจ</h2>
+    <div class="frame">
+      <ul>
+        <li><strong>บุคคล/อุปกรณ์:</strong> อพยพผู้ไม่เกี่ยวข้อง กำจัดแหล่งจุดติดไฟทั้งหมด เพิ่มการระบายอากาศ</li>
+        <li><strong>สิ่งแวดล้อม:</strong> ป้องกันการสะสมก๊าซในพื้นที่ต่ำ/อับอากาศ</li>
+        <li><strong>เก็บกู้:</strong> ปิดวาล์ว/หยุดรั่วถ้าปลอดภัย ย้ายกระบอกไปที่โล่ง ห้ามใช้น้ำมัน/สารหล่อลื่นกับอุปกรณ์</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== 7 ===== -->
+  <section id="sec7">
+    <h2>ข้อ 7: การจัดการและการเก็บรักษา</h2>
+    <div class="frame">
+      <ul>
+        <li>ใช้เฉพาะอุปกรณ์ที่ <u>เหมาะกับงานออกซิเจน</u> และปลอดน้ำมัน/จาระบี</li>
+        <li>ห้ามสูบบุหรี่/ประกายไฟ ใกล้จุดใช้งาน/จัดเก็บ</li>
+        <li>ยึดกระบอกตั้งตรง ฝาครอบวาล์วครบ เก็บในที่เย็น อากาศถ่ายเทดี ห่างวัสดุไวไฟ</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== 8 ===== -->
+  <section id="sec8">
+    <h2>ข้อ 8: การควบคุมการสัมผัสและการป้องกันส่วนบุคคล</h2>
+    <div class="frame">
+      <div class="tablewrap" style="margin-bottom:8px">
+        <table>
+          <thead><tr><th>พารามิเตอร์</th><th>ค่า/แนวทาง</th><th>อ้างอิง</th></tr></thead>
+          <tbody>
+            <tr><td>ขีดจำกัดออกซิเจนต่ำ</td><td>&lt; 19.5% v/v = <em>อับอากาศ (IDLH)</em></td><td>OSHA 29 CFR 1910.134</td></tr>
+            <tr><td>บรรยากาศออกซิเจนสูง</td><td>&gt; 23.5% v/v = <em>Oxygen-enriched</em> (เสี่ยงไฟ)</td><td>OSHA 1910.146</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <ul>
+        <li><strong>วิศวกรรม:</strong> ระบายอากาศ/ตรวจวัด O<sub>2</sub> ต่อเนื่องในพื้นที่เสี่ยง</li>
+        <li><strong>ตา/หน้า:</strong> แว่นครอบตา/กระบังหน้าเมื่อเสี่ยงเศษวัสดุ/แรงดัน</li>
+        <li><strong>มือ/ร่างกาย:</strong> ถุงมือ/ชุดที่สะอาด ปราศจากน้ำมัน; ใช้ชุดกันไฟตามความเสี่ยง</li>
+        <li><strong>หายใจ:</strong> ใช้ SCBA เมื่อ O<sub>2</sub> &lt; 19.5% หรือมีบรรยากาศอันตรายอื่น ๆ</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== 9 ===== -->
+  <section id="sec9">
+    <h2>ข้อ 9: สมบัติทางกายภาพและเคมี</h2>
+    <div class="frame tablewrap">
+      <table>
+        <tbody>
+          <tr><th>ลักษณะ</th><td>ก๊าซใส ไม่สี ไม่มีกลิ่น</td></tr>
+          <tr><th>จุดหลอมเหลว</th><td>≈ −218.8 °C</td></tr>
+          <tr><th>จุดเดือด</th><td>≈ −183 °C</td></tr>
+          <tr><th>ความหนาแน่น (ก๊าซ, 0 °C, 1 atm)</th><td>≈ 1.429 g/L</td></tr>
+          <tr><th>ความหนาแน่นไอ (อากาศ=1)</th><td>≈ 1.1</td></tr>
+          <tr><th>การละลายน้ำ</th><td>ละลายได้เล็กน้อย</td></tr>
+          <tr><th>ความไวไฟ</th><td>ไม่ติดไฟ (แต่เป็นตัวออกซิไดซ์แรง)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===== 10 ===== -->
+  <section id="sec10">
+    <h2>ข้อ 10: ความเสถียรและความไวต่อการเกิดปฏิกิริยา</h2>
+    <div class="frame">
+      <ul>
+        <li><strong>เสถียรภาพ:</strong> เสถียรภายใต้สภาวะปกติ</li>
+        <li><strong>ต้องหลีกเลี่ยง:</strong> ความร้อนสูง เปลวไฟ สารไวไฟ/รีดิวซ์ซิ่ง และสาร/ชิ้นส่วนที่มีน้ำมัน</li>
+        <li><strong>ไม่เข้ากันกับ:</strong> น้ำมัน จาระบี โลหะ/สารที่ไวต่อออกซิเดชัน</li>
+        <li><strong>สลายตัวเมื่อไหม้:</strong> ไม่มีผลิตผลอันตรายเฉพาะ นอกจากทำให้การเผาไหม้รุนแรงขึ้น</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== 11 ===== -->
+  <section id="sec11">
+    <h2>ข้อ 11: ข้อมูลพิษวิทยา</h2>
+    <div class="frame tablewrap">
+      <table>
+        <tbody>
+          <tr><th>พิษเฉียบพลัน</th><td>ไม่มีค่ามาตรฐานพิษเฉียบพลันสำหรับก๊าซบริสุทธิ์; ความเสี่ยงหลักคือบรรยากาศออกซิเจนสูง/อุปกรณ์แรงดัน</td></tr>
+          <tr><th>ผลต่อสุขภาพ</th><td>การหายใจออกซิเจนความดันสูง (งานเฉพาะทาง) อาจเกิดอาการจากออกซิเจนท็อกซิซิตี</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===== 12 ===== -->
+  <section id="sec12">
+    <h2>ข้อ 12: ข้อมูลระบบนิเวศ</h2>
+    <div class="frame">
+      <ul>
+        <li>ไม่มีความเป็นพิษต่อสิ่งแวดล้อมโดยตรง; ความเสี่ยงหลักคือการทำให้ไฟลุกลาม</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== 13 ===== -->
+  <section id="sec13">
+    <h2>ข้อ 13: ข้อควรพิจารณาในการกำจัด</h2>
+    <div class="frame">
+      <ul>
+        <li>ส่งคืนกระบอกให้ผู้จำหน่ายเพื่อนำกลับมาใช้ซ้ำ/บรรจุใหม่</li>
+        <li>ปฏิบัติตามกฎหมายและข้อบังคับท้องถิ่น</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== 14 ===== -->
+  <section id="sec14">
+    <h2>ข้อ 14: ข้อมูลเกี่ยวกับการขนส่ง</h2>
+    <div class="frame tablewrap">
+      <table>
+        <thead><tr><th>ระเบียบ</th><th>รายละเอียด</th></tr></thead>
+        <tbody>
+          <tr><td>ADR/RID</td><td><strong>UN 1072</strong> — OXYGEN, COMPRESSED; Class 2; Classification code <strong>1O</strong>; Labels <strong>2.2 + 5.1</strong>; Kemler code 25</td></tr>
+          <tr><td>IMDG</td><td><strong>UN 1072</strong> — OXYGEN, COMPRESSED; Class <strong>2.2</strong>; Subsidiary risk <strong>5.1</strong>; EmS <strong>F-C, S-W</strong>; Marine pollutant: ไม่</td></tr>
+          <tr><td>IATA/ICAO</td><td><strong>UN 1072</strong> — Oxygen, compressed; Class <strong>2.2</strong> (5.1); Packing Instruction 200</td></tr>
+        </tbody>
+      </table>
+      <div class="muted" style="margin-top:6px"><strong>คู่มือเหตุฉุกเฉิน (ERG):</strong> Guide <strong>122</strong> — Oxidizing Gases (รวม Oxygen)</div>
+    </div>
+  </section>
+
+  <!-- ===== 15 ===== -->
+  <section id="sec15">
+    <h2>ข้อ 15: ข้อมูลเกี่ยวกับกฎหมาย</h2>
+    <div class="frame">
+      <ul>
+        <li>การจำแนก/ฉลาก: GHS/CLP — Ox. Gas 1 (H270); Press. Gas (Compressed) (H280)</li>
+        <li>OSHA HazCom 2012 (US) — สอดคล้องกับ GHS</li>
+        <li>ประเทศไทย: ปฏิบัติตาม พ.ร.บ.วัตถุอันตราย และกฎหมายความปลอดภัย/การขนส่งที่เกี่ยวข้อง</li>
+        <li>Storage Class (องค์กร): 2C — ก๊าซออกซิไดซ์ภายใต้แรงดัน</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== 16 ===== -->
+  <section id="sec16">
+    <h2>ข้อ 16: ข้อมูลอื่น ๆ</h2>
+    <div class="frame">
+      <div class="tablewrap" style="margin-bottom:8px">
+        <table>
+          <tbody>
+            <tr><th>หมายเลขเอกสาร</th><td>MSBRC2-SDS-12</td></tr>
+            <tr><th>ชื่อผลิตภัณฑ์</th><td>Oxygen (Compressed)</td></tr>
+            <tr><th>จัดทำโดย</th><td>หน่วยงาน SHE&amp;En ธุรกิจพันธุ์กุ้งทะเล 2</td></tr>
+            <tr><th>สถานะ</th><td>ใช้งาน (Effective)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <ul>
+        <li>ฝึกอบรมงานระบบออกซิเจน: ความเข้ากันได้ของวัสดุ/การทำความสะอาดปลอดน้ำมัน (oxygen service)</li>
+        <li>ติดตั้งอุปกรณ์กันย้อนไฟ/วาล์วป้องกัน และตรวจรั่วด้วยสารละลายสบู่</li>
+        <li>ทบทวน SDS เมื่อมีการเปลี่ยนแปลงข้อมูลหรืออย่างน้อยปีละครั้ง</li>
+      </ul>
+      <div class="info" style="margin-top:8px">
+        <strong>คำชี้แจงความรับผิดชอบ:</strong> เอกสารนี้จัดทำเพื่อสนับสนุนความปลอดภัยในการทำงาน ผู้ใช้ต้องประเมินความเสี่ยง ณ สถานที่ปฏิบัติงานจริงและปฏิบัติตามกฎหมายที่เกี่ยวข้อง
+      </div>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>

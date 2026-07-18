@@ -1,0 +1,420 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>SDS | Sodium nitrite — MSBRC2-SDS-08</title>
+<style>
+  /* ===== Mobile-first SDS theme ===== */
+  :root{
+    --ink:#0f172a; --muted:#475569; --line:#e2e8f0; --bg:#ffffff; --paper:#f8fafc;
+    --chipbg:#ecfeff; --chipfg:#0c4a6e;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--paper);color:var(--ink);
+    font-family:"Inter","Noto Sans Thai","Sarabun",system-ui,-apple-system,Segoe UI,Roboto,Arial}
+  body{font-size:clamp(15px,3.8vw,17px);line-height:1.75}
+  a{color:inherit}
+  .container{max-width:860px;margin:0 auto;background:#fff;border-left:1px solid var(--line);border-right:1px solid var(--line)}
+
+  /* ===== Header ===== */
+  /* Removed sticky locking: position is static by default */
+  header{padding:18px 16px 12px;border-bottom:1px solid var(--line);background:#fff}
+  .title{display:flex;flex-direction:column;align-items:center;text-align:center}
+  .ttl{margin:0 0 6px 0;font-size:clamp(20px,5.2vw,26px);line-height:1.35;font-weight:800;letter-spacing:.2px}
+  .chem{
+    display:inline-block;margin:2px auto 8px;padding:8px 14px;border-radius:14px;
+    font-size:clamp(18px,5.8vw,26px);font-weight:800;line-height:1.35;color:#052c65;
+    background:linear-gradient(90deg, rgba(14,165,233,.18), rgba(167,139,250,.18));
+    border:1px solid #c7d2fe;box-shadow:0 2px 8px rgba(2,6,23,.08)
+  }
+  .meta{font-size:.92em;color:var(--muted);margin-top:6px;text-align:center}
+  .badges{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0 0;justify-content:center}
+  .badge{font-size:.8em;border:1px solid var(--line);padding:4px 8px;border-radius:999px;background:var(--chipbg);color:var(--chipfg)}
+
+  /* ===== Sections ===== */
+  section{padding:14px 16px;border-bottom:1px solid var(--line);background:#fff}
+  section>h2{margin:0 0 10px 0;font-size:clamp(16px,4.6vw,20px);line-height:1.4;
+    padding:8px 10px;border:1px solid var(--line);border-radius:12px;
+    background:linear-gradient(90deg,rgba(99,102,241,.08),rgba(244,63,94,.08))}
+  .frame{border:1px solid var(--line);border-radius:12px;padding:12px;background:#fff}
+  .info{background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:10px}
+  .muted{color:var(--muted)}
+
+  /* ===== Tables (mobile scroll) ===== */
+  .tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  table{border-collapse:collapse;min-width:560px;width:100%}
+  th,td{border:1px solid var(--line);padding:8px;vertical-align:top}
+  th{background:#eef2ff;text-align:left}
+
+  /* ===== Pictograms (Wikimedia + inline SVG fallback) ===== */
+  .pictos{display:flex;gap:18px;flex-wrap:wrap;align-items:center}
+  .pictos figure{margin:0;text-align:center}
+  .ghs{display:block;width:clamp(72px,18vw,96px);height:auto;filter:drop-shadow(0 0 6px rgba(0,0,0,.12))}
+  .pictos figcaption{font-size:.85em;color:var(--muted);margin-top:6px}
+
+  @media print{
+    /* header is already static; keep it as is for print */
+    .container{border:none}
+    .ghs{width:22mm;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  }
+
+  /* ===== Cards ===== */
+  .pcards{display:grid;grid-template-columns:1fr;gap:12px}
+  .pcard{border:1px solid var(--line);border-radius:12px;background:#fff}
+  .pcard h4{margin:0;padding:10px;border-bottom:1px solid var(--line);
+    background:linear-gradient(90deg,rgba(99,102,241,.10),rgba(244,63,94,.10))}
+  .plist{list-style:disc;padding:8px 16px;margin:0}
+</style>
+</head>
+<body>
+<div class="container" role="document" aria-label="Safety Data Sheet">
+
+  <!-- ===== Header ===== -->
+  <header>
+    <div class="title">
+      <h1 class="ttl">เอกสารข้อมูลความปลอดภัย (SDS)</h1>
+      <h2 class="chem">Sodium nitrite</h2>
+      <div class="meta">
+        รูปแบบ: GHS/CLP | ภาษาไทย | จัดทำ: 15 Aug 2025 | ทบทวน: 15 Aug 2025 | แก้ไขครั้งที่: 0<br>
+        จัดทำโดย หน่วยงาน SHE&amp;En ธุรกิจพันธุ์กุ้งทะเล 2 · หมายเลขเอกสาร <strong>MSBRC2-SDS-08</strong>
+      </div>
+    </div>
+    <div class="badges">
+      <span class="badge">สูตรเคมี: NaNO₂</span>
+      <span class="badge">CAS No. 7632-00-0</span>
+      <span class="badge">UN 1500 — Sodium nitrite</span>
+      <span class="badge">Class 5.1 (Oxidizer) • PG III</span>
+      <span class="badge">Storage Class: 5.1B</span>
+      <span class="badge">ชนิดวัตถุอันตราย: ประเภทที่ 3</span>
+    </div>
+  </header>
+
+  <!-- ===== 1 ===== -->
+  <section id="sec1">
+    <h2>ข้อ 1: ข้อมูลเกี่ยวกับสารหรือส่วนผสม และข้อมูลของผู้ผลิต/ผู้จัดจำหน่าย</h2>
+    <div class="frame">
+      <div class="info" style="margin-bottom:10px">
+        <strong>ชื่อสารเคมี:</strong> Sodium nitrite (โซเดียมไนไตรต์), ของแข็งผลึกสีขาว-เหลืองอ่อน เป็น<strong>สารออกซิไดซ์</strong><br>
+        <strong>การใช้ที่แนะนำ:</strong> ห้องปฏิบัติการ, สารช่วยกระบวนการ/ยับยั้งการกัดกร่อน, สังเคราะห์อินทรีย์ (ใช้โดยผู้ชำนาญ)<br>
+        <strong>การใช้ที่ไม่แนะนำ:</strong> หลีกเลี่ยงการสัมผัสกับสารติดไฟ/สารรีดิวซ์/แอมโมเนียมเกลือ; ห้ามกลืนกิน; หลีกเลี่ยงปล่อยลงสิ่งแวดล้อม
+      </div>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>ผู้จำหน่าย (ประเทศไทย)</th><th>ข้อมูลติดต่อ</th></tr></thead>
+          <tbody>
+            <tr>
+              <td>เอ็มซี อินดัสเทรียลเคมิคัล จำกัด</td>
+              <td>
+                ที่อยู่: 180-184 ถ. ราชวงศ์ แขวงจักรวรรดิ์ เขตสัมพันธวงศ์ กรุงเทพมหานคร 10100<br>
+                เบอร์โทรศัพท์: +66 2 225 0200 &nbsp;|&nbsp;แฟกซ์: +66 2 224 7700 และ +66 2 224 9839<br>
+                อีเมล: mcic@mcic.co.th &nbsp;|&nbsp; เว็บไซต์: <a href="https://ttkscience.com/" target="_blank" rel="noopener">ttkscience.com</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="info" style="margin-top:10px"><strong>ฉุกเฉิน:</strong> ศูนย์พิษวิทยารามาธิบดี โทร. 1367 (24 ชม.)</div>
+    </div>
+  </section>
+
+  <!-- ===== 2 ===== -->
+  <section id="sec2">
+    <h2>ข้อ 2: การระบุอันตราย</h2>
+    <div class="frame">
+      <div class="tablewrap" style="margin-bottom:12px">
+        <table>
+          <thead><tr><th>การจัดประเภท (GHS/CLP)</th><th>หมวด</th><th>รหัส</th></tr></thead>
+          <tbody>
+            <tr><td>ของแข็งออกซิไดซ์ (Oxidizing solid)</td><td>Ox. Sol. 3</td><td>H272</td></tr>
+            <tr><td>พิษเฉียบพลัน (รับประทาน)</td><td>Acute Tox. 3 (Oral)</td><td>H301</td></tr>
+            <tr><td>ระคายเคืองตาอย่างมีนัยสำคัญ</td><td>Eye Irrit. 2</td><td>H319</td></tr>
+            <tr><td>เป็นพิษอย่างรุนแรงต่อสิ่งมีชีวิตน้ำ (เฉียบพลัน)</td><td>Aquatic Acute 1</td><td>H400</td></tr>
+            <tr><td>คำสัญญาณ (Signal word)</td><td colspan="2"><strong>Danger</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- GHS pictograms from Wikimedia (with inline SVG fallback) -->
+      <div class="pictos" aria-label="GHS pictograms">
+        <!-- GHS03 Oxidizer (Flame over circle) -->
+        <figure>
+          <img class="ghs" alt="GHS03 – Oxidizer"
+               src="https://commons.wikimedia.org/wiki/Special:FilePath/GHS-pictogram-rondflam.svg"
+               onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 200 200%22><polygon points=%22100,8 192,100 100,192 8,100%22 fill=%22%23e60000%22/><polygon points=%22100,18 182,100 100,182 18,100%22 fill=%22%23fff%22/><g fill=%22000%22><circle cx=%22100%22 cy=%2288%22 r=%2214%22/><path d=%22M92 72c4 5 8 10 8 16 0 3-2 6-4 8 0-5-1-9-4-12 1 7-5 12-10 15-3 2-6 6-6 10 0 9 8 16 18 16 13 0 22-10 22-21 0-11-7-20-24-32z%22/></g></svg>';"/>
+          <figcaption>GHS03 – สารออกซิไดซ์</figcaption>
+        </figure>
+        <!-- GHS06 Skull & crossbones -->
+        <figure>
+          <img class="ghs" alt="GHS06 – Toxic"
+               src="https://commons.wikimedia.org/wiki/Special:FilePath/GHS-pictogram-skull.svg"
+               onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 200 200%22><polygon points=%22100,8 192,100 100,192 8,100%22 fill=%22%23e60000%22/><polygon points=%22100,18 182,100 100,182 18,100%22 fill=%22%23ffffff%22/><g fill=%22000%22><circle cx=%2280%22 cy=%2290%22 r=%227%22/><circle cx=%22120%22 cy=%2290%22 r=%227%22/><path d=%22M70 110c20 12 40 12 60 0l10 8-16 10-14-6-14 6-16-10 10-8z%22/></g></svg>';"/>
+          <figcaption>GHS06 – พิษเฉียบพลัน</figcaption>
+        </figure>
+        <!-- GHS09 Environment -->
+        <figure>
+          <img class="ghs" alt="GHS09 – Hazardous to the aquatic environment"
+               src="https://commons.wikimedia.org/wiki/Special:FilePath/GHS-pictogram-pollu.svg"
+               onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 200 200%22><polygon points=%22100,8 192,100 100,192 8,100%22 fill=%22%23e60000%22/><polygon points=%22100,18 182,100 100,182 18,100%22 fill=%22%23ffffff%22/><path d=%22M40 140c20-10 40-10 60 0s40 10 60 0v8H40v-8z%22 fill=%22000%22/><path d=%22M70 128l20-22 8 10-10 12H70z%22 fill=%22000%22/></svg>';"/>
+          <figcaption>GHS09 – อันตรายต่อสิ่งแวดล้อมน้ำ</figcaption>
+        </figure>
+      </div>
+
+      <h3 style="margin:14px 0 8px">ข้อความแสดงอันตราย (H)</h3>
+      <ul>
+        <li><strong>H272</strong> อาจทำให้ไฟลุกลามรุนแรงขึ้น; เป็นสารออกซิไดซ์</li>
+        <li><strong>H301</strong> เป็นพิษหากกลืนกิน</li>
+        <li><strong>H319</strong> ก่อให้เกิดการระคายเคืองตาอย่างมีนัยสำคัญ</li>
+        <li><strong>H400</strong> เป็นพิษอย่างรุนแรงต่อสิ่งมีชีวิตในน้ำ</li>
+      </ul>
+
+      <h3 style="margin:14px 0 8px">ข้อความแนะนำการป้องกัน (P) — สรุป</h3>
+      <div class="pcards">
+        <div class="pcard">
+          <h4>ป้องกัน</h4>
+          <ul class="plist">
+            <li><strong>P210</strong> อยู่ห่างจากความร้อน/ประกายไฟ/เปลวไฟ</li>
+            <li><strong>P220</strong> เก็บให้ห่างจากเสื้อผ้า/วัสดุไวไฟ</li>
+            <li><strong>P221</strong> หลีกเลี่ยงการผสมกับวัสดุไวไฟ</li>
+            <li><strong>P264</strong> ล้างมือหลังปฏิบัติงาน</li>
+            <li><strong>P270</strong> ห้ามรับประทานอาหาร/เครื่องดื่ม/สูบบุหรี่ขณะใช้งาน</li>
+            <li><strong>P273</strong> หลีกเลี่ยงการปล่อยลงสิ่งแวดล้อม</li>
+            <li><strong>P280</strong> สวมแว่นครอบตา/หน้ากากกันกระเด็น และถุงมือกันสาร</li>
+          </ul>
+        </div>
+        <div class="pcard">
+          <h4>ตอบโต้เหตุ</h4>
+          <ul class="plist">
+            <li><strong>P301+P310</strong> หากกลืนกิน: โทรหาศูนย์พิษวิทยา/แพทย์ทันที</li>
+            <li><strong>P330</strong> บ้วนปาก</li>
+            <li><strong>P370+P378</strong> ไฟไหม้: ใช้น้ำ/สเปรย์น้ำเพื่อดับ/หล่อเย็น</li>
+            <li><strong>P391</strong> เก็บกู้สารที่หกรั่วไหล</li>
+          </ul>
+        </div>
+        <div class="pcard">
+          <h4>จัดเก็บ/กำจัด</h4>
+          <ul class="plist">
+            <li><strong>P405</strong> เก็บให้มิดชิด</li>
+            <li><strong>P501</strong> กำจัดตามข้อกำหนดของกฎหมาย (ของเสียอันตราย/สารออกซิไดซ์)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 3 ===== -->
+  <section id="sec3">
+    <h2>ข้อ 3: ส่วนประกอบ/ข้อมูลเกี่ยวกับส่วนผสม</h2>
+    <div class="frame tablewrap">
+      <table>
+        <thead><tr><th>สาร</th><th>CAS</th><th>EC</th><th>ความเข้มข้นโดยประมาณ</th><th>การจัดประเภท GHS</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>Sodium nitrite</td><td>7632-00-0</td><td>231-555-9</td><td>≥ 95–100% (ของแข็ง)</td>
+            <td>Ox. Sol. 3; Acute Tox. 3 (Oral); Eye Irrit. 2; Aquatic Acute 1</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===== 4 ===== -->
+  <section id="sec4">
+    <h2>ข้อ 4: มาตรการปฐมพยาบาลเบื้องต้น</h2>
+    <div class="frame">
+      <div class="info" style="margin-bottom:8px">
+        <strong>อาการสำคัญ:</strong> คลื่นไส้ อาเจียน เวียนศีรษะ ตัวเขียวจาก <em>methemoglobinemia</em>; ระคายเคืองตา/ผิวหนัง
+      </div>
+      <ul>
+        <li><strong>เข้าตา:</strong> ล้างน้ำไหลอ่อน ๆ 15–20 นาที ถอดคอนแทคเลนส์ถ้ามี พบแพทย์</li>
+        <li><strong>ผิวหนัง:</strong> ล้างด้วยน้ำและสบู่ ถอดเสื้อผ้าปนเปื้อน</li>
+        <li><strong>สูดดม:</strong> ย้ายสู่ที่อากาศบริสุทธิ์ เฝ้าระวังการหายใจ</li>
+        <li><strong>กลืนกิน:</strong> บ้วนปาก ห้ามทำให้อาเจียน รีบติดต่อแพทย์/ศูนย์พิษวิทยา (พิจารณาให้สารแก้พิษเมทิลีนบลูภายใต้การดูแลแพทย์)</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== 5 ===== -->
+  <section id="sec5">
+    <h2>ข้อ 5: มาตรการระงับอัคคีภัย</h2>
+    <div class="frame">
+      <ul>
+        <li><strong>คุณสมบัติ:</strong> ไม่ติดไฟ แต่<strong>ช่วยให้การเผาไหม้รุนแรงขึ้น</strong> (สารออกซิไดซ์)</li>
+        <li><strong>สารดับเพลิงที่เหมาะสม:</strong> น้ำ/สเปรย์น้ำ; เลือกชนิดให้เหมาะกับวัสดุรอบข้าง</li>
+        <li><strong>อันตรายจากไฟ:</strong> สลายตัวที่ความร้อนสูงให้ก๊าซ NO<sub>x</sub></li>
+        <li><strong>คำแนะนำผู้ดับเพลิง:</strong> สวม SCBA และชุดกันสาร; หลีกเลี่ยงฝุ่น/ไอที่เกิดจากความร้อน</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== 6 ===== -->
+  <section id="sec6">
+    <h2>ข้อ 6: มาตรการเมื่อมีการรั่วไหลโดยไม่ตั้งใจ</h2>
+    <div class="frame">
+      <ul>
+        <li><strong>ความปลอดภัยบุคคล:</strong> อพยพผู้ไม่เกี่ยวข้อง ปิดแหล่งจุดติดไฟ หลีกเลี่ยงฝุ่น</li>
+        <li><strong>สิ่งแวดล้อม:</strong> ป้องกันไม่ให้ลงท่อ/ทางน้ำ (เป็นพิษต่อสิ่งมีชีวิตน้ำ)</li>
+        <li><strong>การเก็บกู้:</strong> กวาด/ตักใส่ภาชนะสะอาดทนการกัดกร่อน; หากเป็นสารละลาย ใช้วัสดุดูดซับและล้างพื้นที่ด้วยน้ำมาก ๆ</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== 7 ===== -->
+  <section id="sec7">
+    <h2>ข้อ 7: การจัดการและการเก็บรักษา</h2>
+    <div class="frame">
+      <ul>
+        <li>หลีกเลี่ยงการปนเปื้อนกับสารรีดิวซ์/เชื้อเพลิง/สารอินทรีย์/แอมโมเนียมเกลือ/กรด</li>
+        <li>เก็บในภาชนะเดิมที่ปิดสนิท ในที่แห้ง เย็น ระบายอากาศดี แยกจากสารไวไฟและกรด</li>
+        <li>หลีกเลี่ยงการสร้างฝุ่น; ใช้อุปกรณ์ป้องกันไฟฟ้าสถิตตามสมควร</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== 8 ===== -->
+  <section id="sec8">
+    <h2>ข้อ 8: การควบคุมการสัมผัสและการป้องกันส่วนบุคคล</h2>
+    <div class="frame">
+      <div class="tablewrap" style="margin-bottom:8px">
+        <table>
+          <thead><tr><th>สาร</th><th>หน่วยงาน</th><th>ค่าเกณฑ์</th><th>หมายเหตุ</th></tr></thead>
+          <tbody>
+            <tr><td>ฝุ่นที่ไม่จัดประเภทเฉพาะ (PNOR/PNOS)</td><td>OSHA PEL</td><td>15 mg/m³ (Total dust), 5 mg/m³ (Resp.)</td><td>ใช้เมื่อไม่มี OEL เฉพาะ</td></tr>
+            <tr><td>อนุภาคไม่ละลาย/ละลายยาก (PNOS)</td><td>ACGIH (คำแนะนำ)</td><td>10 mg/m³ (Inhalable), 3 mg/m³ (Resp.)</td><td>แนวทางทั่วไป</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <ul>
+        <li><strong>วิศวกรรม:</strong> ใช้การดูดอากาศเฉพาะที่ (LEV) ลดฝุ่น</li>
+        <li><strong>ตา/หน้า:</strong> แว่นครอบตากันสาร; เสี่ยงกระเด็นใช้กระบังหน้าเพิ่ม</li>
+        <li><strong>มือ:</strong> ถุงมือไนไตรล์/นีโอพรีน</li>
+        <li><strong>ร่างกาย:</strong> เสื้อกาวน์หรือชุดกันสาร</li>
+        <li><strong>หายใจ:</strong> หากเกินเกณฑ์ ใช้หน้ากากกรองฝุ่น P2/P3; ภาวะฉุกเฉินใช้ SCBA</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== 9 ===== -->
+  <section id="sec9">
+    <h2>ข้อ 9: สมบัติทางกายภาพและเคมี</h2>
+    <div class="frame tablewrap">
+      <table>
+        <tbody>
+          <tr><th>ลักษณะ</th><td>ของแข็งผลึกสีขาวถึงเหลืองอ่อน ไม่มีกลิ่น</td></tr>
+          <tr><th>จุดหลอมเหลว</th><td>~ 271 °C</td></tr>
+          <tr><th>การสลายตัวเชิงความร้อน</th><td>~ &gt; 320 °C (ให้ NO<sub>x</sub>)</td></tr>
+          <tr><th>ความหนาแน่น (20–25 °C)</th><td>~ 2.17 g/cm³</td></tr>
+          <tr><th>การละลายน้ำ</th><td>~ 80–85 g/100 mL (25 °C)</td></tr>
+          <tr><th>pH (สารละลายในน้ำ)</th><td>~ 9 (10% w/v)</td></tr>
+          <tr><th>สมบัติออกซิไดซ์</th><td>จัดเป็น Oxidizing solid, Cat. 3</td></tr>
+          <tr><th>จุดวาบไฟ</th><td>ไม่เกี่ยวข้อง (ของแข็งอนินทรีย์ ไม่ติดไฟ)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===== 10 ===== -->
+  <section id="sec10">
+    <h2>ข้อ 10: ความเสถียรและความไวต่อการเกิดปฏิกิริยา</h2>
+    <div class="frame">
+      <ul>
+        <li><strong>ความเสถียร:</strong> เสถียรภายใต้การใช้งานปกติ</li>
+        <li><strong>ต้องหลีกเลี่ยง:</strong> ความร้อนสูง/เปลวไฟ; การปนเปื้อนด้วยสารรีดิวซ์/เชื้อเพลิง/กรด/แอมโมเนียมเกลือ</li>
+        <li><strong>สารที่ไม่เข้ากัน:</strong> สารรีดิวซ์ แอมโมเนียมเกลือ กรดแรง โลหะปฏิกิริยาง่าย</li>
+        <li><strong>ผลิตภัณฑ์สลายตัว:</strong> NO, NO<sub>2</sub>, N<sub>2</sub>O, O<sub>2</sub></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== 11 ===== -->
+  <section id="sec11">
+    <h2>ข้อ 11: ข้อมูลพิษวิทยา</h2>
+    <div class="frame tablewrap">
+      <table>
+        <tbody>
+          <tr><th>พิษเฉียบพลัน (oral, rat)</th><td>LD₅₀ ~ 85–180 mg/kg (รายงานหลายแหล่ง)</td></tr>
+          <tr><th>กลไกสำคัญ</th><td>ทำให้เกิด methemoglobinemia → ภาวะพร่องออกซิเจน</td></tr>
+          <tr><th>การระคายเคือง</th><td>ตา: ระคายเคืองอย่างมีนัย (H319); ผิวหนัง: อาจระคาย</td></tr>
+          <tr><th>การก่อมะเร็ง/พันธุกรรม/สืบพันธุ์</th><td>ไม่จัดเป็น CMR; อย่างไรก็ดี ไนไตรต์สามารถก่อไนโตรซามีนกับเอมีนรองในกรด</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===== 12 ===== -->
+  <section id="sec12">
+    <h2>ข้อ 12: ข้อมูลระบบนิเวศ</h2>
+    <div class="frame">
+      <ul>
+        <li>เป็นพิษอย่างรุนแรงต่อสิ่งมีชีวิตน้ำ (ตัวอย่าง LC₅₀ ปลา เทราต์ ~ 0.19 mg/L, 96 ชม.)</li>
+        <li>ละลายน้ำได้ดี; ผลกระทบขึ้นกับการเจือจาง/ภาระไนโตรเจนอนินทรีย์</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== 13 ===== -->
+  <section id="sec13">
+    <h2>ข้อ 13: ข้อควรพิจารณาในการกำจัด</h2>
+    <div class="frame">
+      <ul>
+        <li>ของเสียจากสารออกซิไดซ์: แยกเก็บและส่งกำจัดโดยผู้รับอนุญาตตามกฎหมาย</li>
+        <li>ภาชนะ/บรรจุภัณฑ์: ล้างให้สะอาด ห้ามผสมกับของเสียไวไฟ/รีดิวซ์</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== 14 ===== -->
+  <section id="sec14">
+    <h2>ข้อ 14: ข้อมูลเกี่ยวกับการขนส่ง</h2>
+    <div class="frame tablewrap">
+      <table>
+        <thead><tr><th>ระเบียบ</th><th>รายละเอียด</th></tr></thead>
+        <tbody>
+          <tr><td>ADR/RID</td><td><strong>UN 1500</strong> — Sodium nitrite; Class 5.1 (Subsidiary 6.1); PG III; Classification code OT2; LQ 5 kg; Tunnel code (E)</td></tr>
+          <tr><td>IMDG</td><td><strong>UN 1500</strong> — SODIUM NITRITE; Class 5.1 (6.1); PG III; <em>Marine pollutant:</em> Yes; EmS: F-A, S-Q</td></tr>
+          <tr><td>IATA/ICAO</td><td><strong>UN 1500</strong> — Sodium nitrite; Class 5.1 (6.1); PG III</td></tr>
+        </tbody>
+      </table>
+      <div class="muted" style="margin-top:6px"><strong>ฉลากขนส่ง:</strong> 5.1 (Oxidizer) + 6.1 (Toxic)</div>
+    </div>
+  </section>
+
+  <!-- ===== 15 ===== -->
+  <section id="sec15">
+    <h2>ข้อ 15: ข้อมูลเกี่ยวกับกฎหมาย</h2>
+    <div class="frame">
+      <ul>
+        <li>การจัดประเภทและฉลาก: ตาม GHS/CLP (EU) และ OSHA HazCom 2012 (US)</li>
+        <li>ประเทศไทย: ปฏิบัติตาม พ.ร.บ.วัตถุอันตราย และข้อกำหนดด้านความปลอดภัยที่เกี่ยวข้อง</li>
+        <li>Storage Class (องค์กร): 5.1B — สารออกซิไดซ์</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== 16 ===== -->
+  <section id="sec16">
+    <h2>ข้อ 16: ข้อมูลอื่น ๆ</h2>
+    <div class="frame">
+      <div class="tablewrap" style="margin-bottom:8px">
+        <table>
+          <tbody>
+            <tr><th>หมายเลขเอกสาร</th><td>MSBRC2-SDS-08</td></tr>
+            <tr><th>ชื่อผลิตภัณฑ์</th><td>Sodium nitrite</td></tr>
+            <tr><th>จัดทำโดย</th><td>หน่วยงาน SHE&amp;En ธุรกิจพันธุ์กุ้งทะเล 2</td></tr>
+            <tr><th>สถานะ</th><td>ใช้งาน (Effective)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <ul>
+        <li>ทบทวน SDS อย่างน้อยปีละครั้ง หรือเมื่อมีการเปลี่ยนแปลงข้อมูล/กฎหมาย</li>
+        <li>ฝึกอบรมการทำงานกับ<strong>สารออกซิไดซ์</strong> และการแยกเก็บจากเชื้อเพลิง/สารรีดิวซ์</li>
+      </ul>
+      <div class="info" style="margin-top:8px">
+        <strong>คำชี้แจงความรับผิดชอบ:</strong> เอกสารนี้จัดทำเพื่อสนับสนุนความปลอดภัยในการทำงาน ผู้ใช้ต้องประเมินความเสี่ยง ณ สถานที่ปฏิบัติงานจริงและปฏิบัติตามกฎหมายที่เกี่ยวข้อง
+      </div>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>

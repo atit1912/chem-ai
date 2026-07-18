@@ -1,0 +1,426 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>SDS (Mobile) | Ethanol 95%  MSBRC2-SDS-05</title>
+<style>
+  :root{
+    --ink:#0f172a; --muted:#475569; --line:#e2e8f0; --bg:#ffffff; --paper:#f8fafc;
+    --chipbg:#ecfeff; --chipfg:#0c4a6e;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--paper);color:var(--ink);
+    font-family:"Inter","Noto Sans Thai","Sarabun",system-ui,-apple-system,Segoe UI,Roboto,Arial}
+  body{font-size:clamp(15px,3.8vw,17px);line-height:1.75}
+  a{color:inherit}
+  .container{max-width:780px;margin:0 auto;background:var(--bg);
+    border-left:1px solid var(--line);border-right:1px solid var(--line)}
+
+  header{padding:18px 16px 12px;border-bottom:1px solid var(--line);background:#fff}
+  .title{text-align:center}
+  .title h1{margin:0 0 10px 0;font-size:clamp(18px,5.2vw,24px);line-height:1.35}
+  .chem-pill{
+    display:inline-block;margin:0 auto 6px;padding:10px 16px;border-radius:16px;
+    font-size:clamp(18px,5.4vw,24px);font-weight:800;color:#0b1020;letter-spacing:.2px;
+    background:linear-gradient(135deg, rgba(167,139,250,.20), rgba(96,165,250,.20));
+    border:1.5px solid rgba(167,139,250,.55);
+    box-shadow:0 6px 22px rgba(88,28,135,.12), inset 0 1px 0 rgba(255,255,255,.6)
+  }
+  .chem-pill .en{color:#1e1b4b}
+  .meta{font-size:.9em;color:var(--muted);margin-top:8px}
+  .badges{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin:12px 0 0}
+  .badge{font-size:.8em;border:1px solid var(--line);padding:4px 8px;border-radius:999px;background:var(--chipbg);color:var(--chipfg)}
+
+  section{padding:14px 16px;border-bottom:1px solid var(--line);background:#fff}
+  section>h2{margin:0 0 10px 0;font-size:clamp(16px,4.6vw,20px);line-height:1.4;
+    padding:8px 10px;border:1px solid var(--line);border-radius:12px;
+    background:linear-gradient(90deg,rgba(167,139,250,.12),rgba(96,165,250,.12))}
+  .frame{border:1px solid var(--line);border-radius:12px;padding:12px;background:#fff}
+  .info{background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:10px}
+  .muted{color:var(--muted)}
+  .tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  table{border-collapse:collapse;min-width:560px;width:100%}
+  th,td{border:1px solid var(--line);padding:8px;vertical-align:top}
+  th{background:#eef2ff;text-align:left}
+
+  .pictos{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+  .pictos figure{margin:0;text-align:center}
+  .ghs-img{display:block;width:clamp(72px,18vw,96px);height:auto}
+  .pictos figcaption{font-size:.85em;color:var(--muted);margin-top:6px}
+  @media print{
+    .ghs-img{width:22mm;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  }
+
+  .pcards{display:grid;grid-template-columns:1fr;gap:12px}
+  .pcard{border:1px solid var(--line);border-radius:12px;background:#fff}
+  .pcard h4{margin:0;padding:10px;border-bottom:1px solid var(--line);
+    background:linear-gradient(90deg,rgba(99,102,241,.10),rgba(244,63,94,.10))}
+  .plist{list-style:disc;padding:8px 16px;margin:0}
+</style>
+</head>
+<body>
+<div class="container" role="document" aria-label="Safety Data Sheet">
+
+  <!-- Header -->
+  <header>
+    <div class="title">
+      <h1>เอกสารข้อมูลความปลอดภัย (SDS)</h1>
+      <div class="chem-pill">เอทิลแอลกอฮอล์<span class="en">(Ethanol 95%)</span></div>
+      <div class="meta">
+        รูปแบบ: GHS/CLP | ภาษาไทย | จัดทำ: 15 Aug 2025 | ทบทวน: 15 Aug 2025 | แก้ไขครั้งที่: 1<br>
+        จัดทำโดย หน่วยงาน SHE&amp;En ธุรกิจพันธุ์กุ้งทะเล 2 | หมายเลขเอกสาร <strong>MSBRC2-SDS-05</strong>
+      </div>
+    </div>
+    <div class="badges">
+      <span class="badge">CAS 64-17-5 (Ethanol)</span>
+      <span class="badge">UN 1170 — Ethanol</span>
+      <span class="badge">Class 3 (Flammable) • PG II</span>
+      <span class="badge">Storage Class: 3A</span>
+      <span class="badge">ประเภทที่ 3 — วัตถุไวไฟ</span>
+    </div>
+  </header>
+
+  <!-- 1 -->
+  <section id="sec1">
+    <h2>ข้อ 1: ข้อมูลเกี่ยวกับสารหรือส่วนผสม และข้อมูลของผู้ผลิต/ผู้จัดจำหน่าย</h2>
+    <div class="frame">
+      <div class="info" style="margin-bottom:10px">
+        <strong>ชื่อผลิตภัณฑ์:</strong> เอทิลแอลกอฮอล์(Ethanol 95% — Denatured), ของเหลวใส ไวไฟสูง<br>
+        <strong>ชื่ออื่น/คำพ้อง:</strong> Ethyl alcohol; Alkohol; C<sub>2</sub>H<sub>5</sub>OH<br>
+        <strong>การใช้ที่แนะนำ:</strong> สารทำความสะอาด/ฆ่าเชื้อพื้นผิว, ตัวทำละลาย, ห้องปฏิบัติการ (ใช้โดยผู้ชำนาญ)<br>
+        <strong>การใช้ที่ไม่แนะนำ:</strong> ห้ามใช้บริโภค; ห้ามใช้ใกล้ความร้อน/เปลวไฟ/ประกายไฟ; หลีกเลี่ยงการพ่นละอองในพื้นที่ปิด
+      </div>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>ผู้จำหน่าย (ประเทศไทย)</th><th>ข้อมูลติดต่อ</th></tr></thead>
+          <tbody>
+            <tr>
+              <td>บริษัท ซีนิธ ไซเอนซ์ จำกัด (Zenith Science Co., Ltd.)</td>
+              <td>
+                ที่อยู่: 93/439 แขวงบางขุนศรี เขตบางกอกน้อย กรุงเทพมหานคร 10700<br>
+                โทรศัพท์: +66 2 411 5717<br>
+                เว็บไซต์: <a href="http://www.zenithscience.co.th/" target="_blank" rel="noopener">www.zenithscience.co.th</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="info" style="margin-top:10px"><strong>ฉุกเฉิน:</strong> ศูนย์พิษวิทยารามาธิบดี โทร. 1367 (24 ชม.)</div>
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section id="sec2">
+    <h2>ข้อ 2: การระบุอันตราย</h2>
+    <div class="frame">
+      <div class="tablewrap" style="margin-bottom:12px">
+        <table>
+          <thead><tr><th>อันตราย</th><th>หมวด</th><th>รหัส</th></tr></thead>
+          <tbody>
+            <tr><td>ของเหลวไวไฟ</td><td>Flam. Liq. 2</td><td>H225</td></tr>
+            <tr><td>ระคายเคืองตา</td><td>Eye Irrit. 2</td><td>H319</td></tr>
+            <tr><td>อันตรายต่อสุขภาพระยะยาว (ตามฉลากผู้ผลิต)</td><td>STOT RE 2</td><td>H373</td></tr>
+            <tr><td>คำสัญญาณ (Signal word)</td><td colspan="2"><strong>Danger</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="pictos" aria-label="GHS pictograms">
+        <figure>
+          <img class="ghs-img" alt="GHS02 – Flame" src="https://commons.wikimedia.org/wiki/Special:FilePath/GHS-pictogram-flamme.svg" />
+          <figcaption>GHS02 – Flame</figcaption>
+        </figure>
+
+        <figure>
+          <img class="ghs-img" alt="GHS07 – Exclamation" src="https://commons.wikimedia.org/wiki/Special:FilePath/GHS-pictogram-exclam.svg" />
+          <figcaption>GHS07 – Exclamation</figcaption>
+        </figure>
+
+        <figure>
+          <img class="ghs-img" alt="GHS08 – Health hazard" src="https://commons.wikimedia.org/wiki/Special:FilePath/GHS-pictogram-silhouette.svg" />
+          <figcaption>GHS08 – Health hazard</figcaption>
+        </figure>
+      </div>
+
+      <h3 style="margin:14px 0 8px">ข้อความแสดงอันตราย (H)</h3>
+      <ul>
+        <li><strong>H225</strong> ของเหลวและไอไวไฟมาก</li>
+        <li><strong>H319</strong> ก่อให้เกิดการระคายเคืองตาอย่างรุนแรง</li>
+        <li><strong>H373</strong> อาจก่อให้เกิดผลเสียต่ออวัยวะเมื่อได้รับสัมผัสเป็นเวลานานหรือซ้ำๆ <em>(ตามฉลากผู้ผลิต)</em></li>
+      </ul>
+
+      <h3 style="margin:14px 0 8px">ข้อความแนะนำการป้องกัน (P) — สรุป</h3>
+      <div class="pcards">
+        <div class="pcard">
+          <h4>ทั่วไป/ป้องกัน</h4>
+          <ul class="plist">
+            <li><strong>P210</strong> อยู่ห่างจากความร้อน/ประกายไฟ/เปลวไฟ/พื้นผิวร้อน</li>
+            <li><strong>P233</strong> ปิดภาชนะให้สนิท</li>
+            <li><strong>P240–P243</strong> ต่อสายดิน/ป้องกันไฟฟ้าสถิตให้ภาชนะและอุปกรณ์</li>
+            <li><strong>P260</strong> หลีกเลี่ยงการหายใจเอาไอ/ละออง</li>
+            <li><strong>P280</strong> สวมแว่นครอบตา/กระบังหน้า ถุงมือกันสาร</li>
+          </ul>
+        </div>
+        <div class="pcard">
+          <h4>ตอบโต้เหตุ</h4>
+          <ul class="plist">
+            <li><strong>P303+P361+P353</strong> ผิวหนัง/ผม: ถอดเสื้อผ้าปนเปื้อน ล้างด้วยน้ำจำนวนมาก</li>
+            <li><strong>P305+P351+P338</strong> ตา: ล้างน้ำต่อเนื่อง 15–20 นาที แล้วพบแพทย์หากระคายต่อ</li>
+            <li><strong>P370+P378</strong> ไฟไหม้: ใช้โฟม AR, ผงแห้ง หรือ CO₂; ใช้น้ำสเปรย์เพื่อหล่อเย็น</li>
+            <li><strong>P314</strong> หากรู้สึกไม่สบาย ให้ไปพบแพทย์</li>
+          </ul>
+        </div>
+        <div class="pcard">
+          <h4>จัดเก็บ/กำจัด</h4>
+          <ul class="plist">
+            <li><strong>P403+P235</strong> เก็บในที่อากาศถ่ายเทดี อุณหภูมิต่ำ/ห่างความร้อน</li>
+            <li><strong>P501</strong> กำจัดตามกฎหมายในฐานะของเสียไวไฟ</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 -->
+  <section id="sec3">
+    <h2>ข้อ 3: ส่วนประกอบ/ข้อมูลเกี่ยวกับส่วนผสม</h2>
+    <div class="frame tablewrap">
+      <table>
+        <thead><tr><th>สาร</th><th>CAS</th><th>EC</th><th>ความเข้มข้นโดยประมาณ</th><th>การจัดประเภท GHS</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>Ethanol (เอทานอล)</td><td>64-17-5</td><td>200-578-6</td><td>~95% v/v</td>
+            <td>Flam. Liq. 2; Eye Irrit. 2</td>
+          </tr>
+          <tr>
+            <td>น้ำ</td><td>7732-18-5</td><td>231-791-2</td><td>~5% v/v</td><td>ไม่จัดเป็นอันตราย</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="muted" style="margin-top:6px">หมายเหตุ: การใส่ GHS08 ในเอกสารนี้อ้างอิงตามฉลากผู้ผลิตสำหรับผลิตภัณฑ์ “เอสทิวแอลกอฮอล์”</div>
+    </div>
+  </section>
+
+  <!-- 4 -->
+  <section id="sec4">
+    <h2>ข้อ 4: มาตรการปฐมพยาบาลเบื้องต้น</h2>
+    <div class="frame">
+      <div class="info" style="margin-bottom:8px">
+        <strong>อาการสำคัญ:</strong> ระคายเคืองตา แสบผิวหนัง; สูดดมมากทำให้เวียนศีรษะ ง่วงซึม; กลืนกินมากเสี่ยงสำลัก
+      </div>
+      <ul>
+        <li><strong>เข้าตา:</strong> ล้างน้ำ 15–20 นาที เปิดเปลือกตาเป็นระยะ หากระคายต่อให้พบแพทย์</li>
+        <li><strong>ผิวหนัง:</strong> ล้างด้วยน้ำและสบู่ ถอดเสื้อผ้าปนเปื้อน</li>
+        <li><strong>สูดดม:</strong> เคลื่อนย้ายสู่อากาศบริสุทธิ์ พักในท่าที่หายใจสะดวก</li>
+        <li><strong>กลืนกิน:</strong> บ้วนปาก ห้ามทำให้อาเจียน ให้แพทย์ประเมิน</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 5 -->
+  <section id="sec5">
+    <h2>ข้อ 5: มาตรการระงับอัคคีภัย</h2>
+    <div class="frame">
+      <ul>
+        <li><strong>ดับเพลิงที่เหมาะสม:</strong> โฟม AR, ผงเคมีแห้ง, CO₂, สเปรย์น้ำ (หล่อเย็น)</li>
+        <li><strong>อันตรายจากไฟ:</strong> ไอหนักกว่าภาย สามารถลามไฟย้อนกลับตามทิศลม</li>
+        <li><strong>คำแนะนำ:</strong> สวม SCBA; ตัดแหล่งจุดติดไฟ; ป้องกันน้ำดับเพลิงไหลลงท่อ</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 6 -->
+  <section id="sec6">
+    <h2>ข้อ 6: มาตรการเมื่อมีการรั่วไหลโดยไม่ตั้งใจ</h2>
+    <div class="frame">
+      <ul>
+        <li><strong>บุคคล/อุปกรณ์:</strong> อพยพผู้ไม่เกี่ยวข้อง ปิดแหล่งจุดติดไฟ เพิ่มการระบายอากาศ</li>
+        <li><strong>สิ่งแวดล้อม:</strong> ป้องกันไม่ให้ลงท่อระบายน้ำ/ทางน้ำ</li>
+        <li><strong>เก็บกู้:</strong> ดูดซับด้วยวัสดุไม่ติดไฟ (ทราย เวอร์มิคูไลต์) ใส่ภาชนะปิดสนิท</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 7 -->
+  <section id="sec7">
+    <h2>ข้อ 7: การจัดการและการเก็บรักษา</h2>
+    <div class="frame">
+      <ul>
+        <li>ทำงานในที่อากาศถ่ายเท/ไม่มีแหล่งจุดติดไฟ</li>
+        <li>ใช้ภาชนะ/อุปกรณ์ที่ต่อสายดินและป้องกันไฟฟ้าสถิต</li>
+        <li>เก็บในภาชนะปิดสนิท อุณหภูมิต่ำ ห่างความร้อนและแสงแดด</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 8 -->
+  <section id="sec8">
+    <h2>ข้อ 8: การควบคุมการสัมผัสและการป้องกันส่วนบุคคล</h2>
+    <div class="frame">
+      <div class="tablewrap" style="margin-bottom:8px">
+        <table>
+          <thead><tr><th>สาร</th><th>หน่วยงาน</th><th>ค่าเกณฑ์</th><th>หมายเหตุ</th></tr></thead>
+          <tbody>
+            <tr><td>Ethanol</td><td>ACGIH TLV</td><td>1000 ppm (TWA)</td><td>ไอระเหยระคายเคือง</td></tr>
+            <tr><td>Ethanol</td><td>OSHA PEL</td><td>1000 ppm (TWA)</td><td>—</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <ul>
+        <li><strong>ตา/หน้า:</strong> แว่นครอบตา/กระบังหน้า</li>
+        <li><strong>มือ:</strong> ถุงมือไนไตรล์/นีโอพรีน</li>
+        <li><strong>ร่างกาย:</strong> ชุดกันสารตามความเสี่ยง</li>
+        <li><strong>หายใจ:</strong> ถ้าระบายอากาศไม่พอ ใช้หน้ากากกรองไออินทรีย์</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 9 -->
+  <section id="sec9">
+    <h2>ข้อ 9: สมบัติทางกายภาพและเคมี</h2>
+    <div class="frame tablewrap">
+      <table>
+        <tbody>
+          <tr><th>ลักษณะ</th><td>ของเหลวใส ไม่สี กลิ่นแอลกอฮอล์</td></tr>
+          <tr><th>จุดเดือด</th><td>~78 °C</td></tr>
+          <tr><th>จุดเยือกแข็ง</th><td>~ −114 °C</td></tr>
+          <tr><th>จุดวาบไฟ (CC)</th><td>~ 12 °C</td></tr>
+          <tr><th>อุณหภูมิติดเอง</th><td>~ 365 °C</td></tr>
+          <tr><th>ขีดจำกัดการติดไฟ</th><td>~ 3.3 – 19 % v/v (อากาศ)</td></tr>
+          <tr><th>ความหนาแน่น (20 °C)</th><td>~ 0.79 g/cm³</td></tr>
+          <tr><th>การละลายน้ำ</th><td>ละลายได้สมบูรณ์</td></tr>
+          <tr><th>VOC</th><td>~100%</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 10 -->
+  <section id="sec10">
+    <h2>ข้อ 10: ความเสถียรและความไวต่อการเกิดปฏิกิริยา</h2>
+    <div class="frame">
+      <ul>
+        <li>ไวไฟสูง; ไอสามารถลามไฟ</li>
+        <li>หลีกเลี่ยง: ความร้อน เปลวไฟ ไฟฟ้าสถิต ออกซิไดเซอร์แรง</li>
+        <li>ผลิตผลสลายตัวจากไฟ: CO, CO₂</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 11 -->
+  <section id="sec11">
+    <h2>ข้อ 11: ข้อมูลพิษวิทยา</h2>
+    <div class="frame tablewrap">
+      <table>
+        <tbody>
+          <tr><th>พิษเฉียบพลัน (oral, rat)</th><td>LD₅₀ ~ 7060 mg/kg</td></tr>
+          <tr><th>ระคายเคือง</th><td>ตา: ระคายเคืองอย่างมีนัย; ผิวหนัง: ระคายเล็กน้อย–ปานกลาง</td></tr>
+          <tr><th>ผลเฉียบพลันจากไอ</th><td>เวียนศีรษะ ง่วงซึม เมื่อความเข้มข้นสูง</td></tr>
+          <tr><th>ผลระยะยาว</th><td>การสัมผัสซ้ำซากอาจมีผลต่อระบบประสาท/ตับ — จัดเป็น STOT RE 2 (H373) <em>ตามฉลากผู้ผลิต</em></td></tr>
+          <tr><th>ก่อมะเร็ง/พันธุกรรม/สืบพันธุ์</th><td>ไม่จัดเป็นสารก่อมะเร็ง; ไม่มีข้อมูลเพียงพอสำหรับ Muta./Repr. สำหรับผลิตภัณฑ์นี้</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 12 -->
+  <section id="sec12">
+    <h2>ข้อ 12: ข้อมูลระบบนิเวศ</h2>
+    <div class="frame">
+      <ul>
+        <li>ย่อยสลายได้ดีทางชีวภาพ; ระเหยเร็ว</li>
+        <li>ห้ามปล่อยลงแหล่งน้ำโดยไม่ควบคุม (เสี่ยงออกซิเจนลด)</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 13 -->
+  <section id="sec13">
+    <h2>ข้อ 13: ข้อควรพิจารณาในการกำจัด</h2>
+    <div class="frame">
+      <ul>
+        <li>ของเสียไวไฟ: ส่งกำจัดโดยผู้รับอนุญาต (เตาเผามาตรฐาน)</li>
+        <li>ภาชนะเปล่า: ระบายไอ/ล้าง และส่งรีไซเคิล/กำจัดตามกฎหมาย</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 14 -->
+  <section id="sec14">
+    <h2>ข้อ 14: ข้อมูลเกี่ยวกับการขนส่ง</h2>
+    <div class="frame tablewrap">
+      <table>
+        <thead><tr><th>ระเบียบ</th><th>รายละเอียด</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>ADR/RID (EU)</td>
+            <td>
+              <strong>UN 1170</strong> — ETHANOL หรือ ETHANOL SOLUTION; <strong>Class 3</strong> (Flammable liquid); <strong>Packing Group II</strong>;<br>
+              ฉลาก/ป้าย: <strong>3</strong>; ชื่อการขนส่งที่ถูกต้อง (PSN): ETHANOL; <em>Limited Quantity (LQ):</em> 1 L;<br>
+              ข้อควรระวัง: เก็บห่างแหล่งจุดติดไฟ, ระบายอากาศดี
+            </td>
+          </tr>
+          <tr>
+            <td>IMDG (ทะเล)</td>
+            <td>
+              <strong>UN 1170</strong> — Ethanol; <strong>Class 3</strong>; <strong>PG II</strong>; <em>Marine pollutant:</em> ไม่;<br>
+              <em>EmS:</em> F-E, S-D; ป้องกันความร้อน/ประกายไฟ; แยกจากสารออกซิไดซ์แรง
+            </td>
+          </tr>
+          <tr>
+            <td>IATA/ICAO (อากาศ)</td>
+            <td>
+              <strong>UN 1170</strong> — Ethanol; <strong>Class 3</strong>; <strong>PG II</strong>; ฉลาก: 3;<br>
+              บรรจุภัณฑ์ต้องเป็นไปตามข้อกำหนดของ IATA PI ที่ใช้; ห้ามบรรทุกใกล้แหล่งความร้อน
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="muted" style="margin-top:6px"><strong>ฉลากขนส่ง:</strong> 3 (Flammable liquid)</div>
+    </div>
+  </section>
+
+  <!-- 15 -->
+  <section id="sec15">
+    <h2>ข้อ 15: ข้อมูลเกี่ยวกับกฎหมาย</h2>
+    <div class="frame">
+      <ul>
+        <li><strong>การจัดประเภท/ฉลาก:</strong> ตาม GHS/CLP (Reg. (EC) No 1272/2008) และ OSHA HazCom 2012 — จัดเป็น Flam. Liq. 2, Eye Irrit. 2 และ <em>STOT RE 2 (H373 ตามฉลากผู้ผลิต)</em>; คำสัญญาณ <em>Danger</em></li>
+        <li><strong>EU/EEA:</strong> เอทานอลมีรายชื่อใน EINECS/EC No. 200-578-6; ปฏิบัติตาม REACH สำหรับการสื่อสารความปลอดภัยสารเคมี</li>
+        <li><strong>สหรัฐอเมริกา:</strong> อยู่ภายใต้ OSHA 29 CFR 1910.1200; การเก็บรักษา/ป้ายเตือนตาม NFPA/IFC ที่เกี่ยวข้อง</li>
+        <li><strong>ประเทศไทย:</strong> ปฏิบัติตาม พ.ร.บ. วัตถุอันตราย และกฎหมายความปลอดภัยในการทำงานที่เกี่ยวข้อง; การขนส่งต้องเป็นไปตามข้อกำหนด DG ของหน่วยงานที่เกี่ยวข้อง</li>
+        <li><strong>ชั้นจัดเก็บ (VCI):</strong> 3A — ของเหลวไวไฟ; ต้องใช้พื้นที่กันไฟและระบบระบายอากาศเหมาะสม</li>
+        <li><strong>ข้อจำกัดทั่วไป:</strong> ห้ามใช้เพื่อการบริโภค; อาจมีข้อกำหนดด้านสรรพสามิต/การทำให้เสื่อมสภาพ (denatured) ขึ้นกับการใช้งาน</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 16 -->
+  <section id="sec16">
+    <h2>ข้อ 16: ข้อมูลอื่น ๆ</h2>
+    <div class="frame">
+      <div class="tablewrap" style="margin-bottom:8px">
+        <table>
+          <tbody>
+            <tr><th>หมายเลขเอกสาร</th><td>MSBRC2-SDS-05</td></tr>
+            <tr><th>ชื่อผลิตภัณฑ์</th><td>เอทิลแอลกอฮอล์(Ethanol 95% )</td></tr>
+            <tr><th>จัดทำโดย</th><td>หน่วยงาน SHE&amp;En ธุรกิจพันธุ์กุ้งทะเล 2</td></tr>
+            <tr><th>สถานะ</th><td>ใช้งาน (Effective)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <ul>
+        <li>ฝึกอบรมการทำงานกับของเหลวไวไฟ และการควบคุมไฟฟ้าสถิต</li>
+        <li>ติดตั้งระบบระบายอากาศ/จุดล้างตาพร้อมใช้</li>
+        <li>ทบทวน SDS อย่างน้อยปีละครั้ง หรือเมื่อมีการเปลี่ยนแปลงข้อมูล</li>
+      </ul>
+      <div class="info" style="margin-top:8px">
+        <strong>คำชี้แจงความรับผิดชอบ:</strong> เอกสารนี้จัดทำเพื่อสนับสนุนความปลอดภัยในการทำงานตามมาตรฐานสากล ผู้ใช้ต้องประเมินความเสี่ยง ณ สถานที่ปฏิบัติงานจริงและปฏิบัติตามกฎหมายที่เกี่ยวข้อง
+      </div>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>

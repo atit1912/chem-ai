@@ -1,0 +1,420 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>SDS (Mobile) | Sodium hydroxide — MSBRC2-SDS-03</title>
+<style>
+  /* ===== Mobile-first theme ===== */
+  :root{
+    --ink:#0f172a; --muted:#475569; --line:#e2e8f0; --bg:#ffffff; --paper:#f8fafc;
+    --accent:#0ea5e9; --accent2:#a78bfa;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--paper);color:var(--ink);
+    font-family:"Inter","Noto Sans Thai","Sarabun",system-ui,-apple-system,Segoe UI,Roboto,Arial}
+  body{font-size:clamp(15px, 3.8vw, 17px); line-height:1.75}
+  a{color:inherit}
+  .container{max-width:760px;margin:0 auto;background:var(--bg);border-left:1px solid var(--line);border-right:1px solid var(--line)}
+
+  /* Header (non-sticky) */
+  header{padding:18px 16px 12px;border-bottom:1px solid var(--line);background:#fff;position:static}
+  .title{display:flex;flex-direction:column;align-items:center;text-align:center;margin:0 0 6px 0}
+  .ttl{margin:0 0 6px 0;font-size:clamp(20px,5.2vw,26px);line-height:1.35;letter-spacing:.2px;font-weight:800}
+  .chem{
+    display:inline-block;
+    margin:0 auto 8px;
+    font-size:clamp(18px,5.8vw,28px);
+    line-height:1.35;
+    font-weight:800;
+    color:#0b3b7e;
+    padding:10px 16px;
+    border-radius:16px;
+    background:linear-gradient(90deg, rgba(14,165,233,.18), rgba(167,139,250,.18));
+    border:1px solid #c7d2fe;
+    box-shadow:0 2px 8px rgba(2,6,23,.08);
+  }
+  .meta{font-size:.9em;color:var(--muted)}
+  .badges{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0 0;justify-content:center}
+  .badge{font-size:.8em;border:1px solid var(--line);padding:4px 8px;border-radius:999px;background:#ecfeff;color:#0c4a6e}
+
+  /* Sections */
+  section{padding:14px 16px;border-bottom:1px solid var(--line);background:#fff}
+  section>h2{margin:0 0 10px 0;font-size:clamp(16px,4.6vw,20px);line-height:1.4;
+    padding:8px 10px;border:1px solid var(--line);border-radius:12px;
+    background:linear-gradient(90deg,rgba(99,102,241,.08),rgba(244,63,94,.08))}
+  .frame{border:1px solid var(--line);border-radius:12px;padding:12px;background:#fff}
+  .info{background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:10px}
+  .muted{color:var(--muted)}
+  
+  /* Tables: mobile scroll */
+  .tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  table{border-collapse:collapse;min-width:560px;width:100%}
+  th,td{border:1px solid var(--line);padding:8px;vertical-align:top}
+  th{background:#eef2ff;text-align:left}
+
+  /* Pictos */
+  .pictos{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+  .pictos figure{margin:0;text-align:center}
+  .pictos img{display:block;width:84px;height:auto;filter:drop-shadow(0 0 6px rgba(239,68,68,.18))}
+  .pictos figcaption{font-size:.85em;color:var(--muted);margin-top:6px}
+
+  /* Cards */
+  .pcards{display:grid;grid-template-columns:1fr;gap:12px}
+  .pcard{border:1px solid var(--line);border-radius:12px;background:#fff}
+  .pcard h4{margin:0;padding:10px;border-bottom:1px solid var(--line);
+    background:linear-gradient(90deg,rgba(99,102,241,.10),rgba(244,63,94,.10))}
+  .plist{list-style:disc;padding:8px 16px;margin:0}
+
+  /* Print */
+  @page{size:A4;margin:8mm}
+  @media print{
+    header{position:static}
+    .container{border:none}
+    .title{align-items:center}
+    .chem{margin-left:auto;margin-right:auto}
+    section{page-break-inside:auto}
+  }
+</style>
+</head>
+<body>
+<div class="container" role="document" aria-label="Safety Data Sheet">
+
+  <!-- Header -->
+  <header>
+    <div class="title">
+      <h1 class="ttl">เอกสารข้อมูลความปลอดภัย (SDS)</h1>
+      <h2 class="chem">โซดาไฟ (Sodium hydroxide)</h2>
+      <div class="meta">
+        รูปแบบ: GHS/CLP | ภาษาไทย | จัดทำ: 15 Aug 2025 |
+        ทบทวน: 15 Aug 2025 |แก้ไขครั้งที่: 0 |
+        จัดทำโดย หน่วยงาน SHE&amp;En ธุรกิจพันธุ์กุ้งทะเล 2 |
+        หมายเลขเอกสาร <strong>MSBRC2-SDS-03</strong>
+      </div>
+    </div>
+    <div class="badges">
+      <span class="badge">CAS 1310-73-2</span>
+      <span class="badge">UN 1823 — Sodium hydroxide, solid</span>
+      <span class="badge">Class 8 (Corrosive) • PG II</span>
+      <span class="badge">Storage Class: 8B</span>
+      <span class="badge">ประเภทที่ 2 – วัตถุกัดกร่อน</span>
+    </div>
+  </header>
+
+  <!-- 1 -->
+  <section id="sec1">
+    <h2>ข้อ 1: ข้อมูลเกี่ยวกับสารหรือส่วนผสม และข้อมูลของผู้ผลิต/ผู้จัดจำหน่าย</h2>
+    <div class="frame">
+      <div class="info" style="margin-bottom:10px">
+        <strong>ชื่อผลิตภัณฑ์:</strong> โซดาไฟ — Sodium hydroxide (NaOH), ของแข็ง/เกล็ด/ไข่มุก<br>
+        <strong>ชื่ออื่น:</strong> Caustic soda; Lye<br>
+        <strong>การใช้ที่แนะนำ:</strong> ทำความสะอาด/ทำให้เป็นด่าง, ปรับ pH, ทำสบู่/กระดาษ (ใช้โดยผู้ชำนาญ)<br>
+        <strong>ห้ามใช้:</strong> โดยปราศจากมาตรการป้องกัน; ผสมกรด/โลหะไวปฏิกิริยา
+      </div>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>ผู้จำหน่าย (ประเทศไทย)</th><th>ข้อมูลติดต่อ</th></tr></thead>
+          <tbody>
+            <tr>
+              <td>บริษัท วิทย์คอร์ป โปรดักส์ จำกัด</td>
+              <td>ที่อยู่: 77/113 อาคารสินสาธรทาวเวอร์ ชั้น 27 ถนนกรุงธนบุรี แขวงคลองต้นไทร เขตคลองสาน กรุงเทพมหานคร 10600<br>
+                  เบอร์โทรศัพท์: +66 2440 0809 &nbsp;|&nbsp; เบอร์แฟกซ์: +66 2440 0827 &nbsp;|&nbsp; อีเมล: wcp@witcorp.co.th</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="info" style="margin-top:10px"><strong>ฉุกเฉิน:</strong> ศูนย์พิษวิทยารามาธิบดี 1367 (24 ชม.)</div>
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section id="sec2">
+    <h2>ข้อ 2: การระบุอันตราย</h2>
+    <div class="frame">
+      <div class="tablewrap" style="margin-bottom:10px">
+        <table>
+          <thead><tr><th>อันตราย</th><th>หมวด</th><th>รหัส</th></tr></thead>
+          <tbody>
+            <tr><td>กัดกร่อนโลหะ</td><td>Met. Corr. 1</td><td>H290</td></tr>
+            <tr><td>กัดกร่อนผิวหนังอย่างรุนแรง / ทำลายดวงตา</td><td>Skin Corr. 1A / Eye Dam. 1</td><td>H314</td></tr>
+            <tr><td>คำสัญญาณ</td><td colspan="2"><strong>Danger</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="pictos" aria-label="GHS pictograms">
+        <figure>
+          <img alt="GHS05 – Corrosive"
+               src="https://upload.wikimedia.org/wikipedia/commons/a/a1/GHS-pictogram-acid.svg"
+               onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 210 210%22><rect x=%2230%22 y=%2230%22 width=%22150%22 height=%22150%22 transform=%22rotate(45 105 105)%22 fill=%22%23fff%22 stroke=%22%23e60000%22 stroke-width=%2218%22/><path d=%22M65 120h35m80 0h-35M95 120c0 15-10 25-25 25 5-10 5-15 0-25m85 0c0 15 10 25 25 25-5-10-5-15 0-25%22 stroke=%22000%22 stroke-width=%228%22 fill=%22none%22/></svg>';">
+          <figcaption>GHS05 – Corrosive</figcaption>
+        </figure>
+      </div>
+
+      <!-- กล่องอธิบายรหัส H/P -->
+      <div class="info" style="margin-top:12px">
+        <strong>ความหมายของรหัส H และ P (ตาม GHS/CLP):</strong><br>
+        <span class="muted">
+          <u>H-statement (Hazard)</u> = ข้อความแสดงอันตรายมาตรฐาน ระบุ “ลักษณะความเป็นอันตราย” ของสาร เช่น กัดกร่อน/ไวไฟ ฯลฯ<br>
+          <u>P-statement (Precautionary)</u> = ข้อความแนะนำการป้องกัน แบ่งเป็น 4 กลุ่ม: P2xx ป้องกัน (Prevention), P3xx ตอบโต้เหตุ (Response),
+          P4xx จัดเก็บ (Storage), P5xx กำจัด (Disposal). รหัสหลายตัวที่เชื่อมด้วย “+” คือขั้นตอนที่ต้องทำร่วมกัน
+        </span>
+      </div>
+
+      <!-- สรุป H -->
+      <div class="tablewrap" style="margin-top:10px">
+        <table>
+          <thead><tr><th>รหัส H</th><th>ข้อความทางการ</th><th>ความหมาย/ผลกระทบเชิงปฏิบัติ</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><strong>H290</strong></td>
+              <td>อาจกัดกร่อนโลหะ</td>
+              <td>ภาชนะ/ท่อโลหะบางชนิดอาจเสียหายและรั่วซึม ควรใช้ภาชนะที่ทนด่าง เช่น HDPE/PP/สเตนเลส และมีถาดรองรับ</td>
+            </tr>
+            <tr>
+              <td><strong>H314</strong></td>
+              <td>ก่อให้เกิดแผลไหม้อย่างรุนแรงต่อผิวหนังและทำลายดวงตา</td>
+              <td>สัมผัสเพียงสั้น ๆ ก็ทำลายเนื้อเยื่อได้ ต้องสวม PPE ครบ และมีจุดล้างตา/ฝักบัวนิรภัยใกล้พื้นที่ใช้งาน</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- สรุป P -->
+      <div class="tablewrap" style="margin-top:10px">
+        <table>
+          <thead><tr><th>รหัส P</th><th>ข้อความทางการ</th><th>ความหมาย/แนวทางใช้งาน</th></tr></thead>
+          <tbody>
+            <tr><td><strong>P260</strong></td><td>หลีกเลี่ยงการสูดดมฝุ่น/ไอ</td><td>ทำงานในที่ระบายอากาศดี ใช้ดูดไอเฉพาะที่/respirator เมื่อจำเป็น</td></tr>
+            <tr><td><strong>P264</strong></td><td>ล้างมือ แขน ใบหน้า หลังปฏิบัติงาน</td><td>ลดการตกค้าง/การกลืนกินโดยไม่ตั้งใจ</td></tr>
+            <tr><td><strong>P270</strong></td><td>ห้ามกิน ดื่ม หรือสูบบุหรี่ระหว่างปฏิบัติงาน</td><td>ป้องกันการรับเข้าสู่ร่างกาย</td></tr>
+            <tr><td><strong>P280</strong></td><td>สวมถุงมือ แว่นครอบตา/กระบังหน้า เสื้อกันสาร</td><td>เลือกวัสดุถุงมือที่ทนด่าง (NBR/Neoprene/PVC ≥0.4 มม.)</td></tr>
+            <tr><td><strong>P301+P330+P331</strong></td><td>หากกลืน: บ้วนปาก ห้ามทำให้อาเจียน</td><td>ลดการไหม้ทางเดินอาหาร และรีบนำส่งแพทย์</td></tr>
+            <tr><td><strong>P303+P361+P353</strong></td><td>ผิวหนัง/ผม: ถอดเสื้อผ้าปนเปื้อน ล้างน้ำมาก ๆ</td><td>ลดเวลาสัมผัสสาร ลดความลึกของบาดแผลไหม้</td></tr>
+            <tr><td><strong>P304+P340</strong></td><td>สูดดม: ย้ายไปอากาศบริสุทธิ์</td><td>บรรเทาการระคายทางเดินหายใจ</td></tr>
+            <tr><td><strong>P305+P351+P338</strong></td><td>เข้าตา: ล้างน้ำ 15–20 นาที ถอดคอนแทคเลนส์</td><td>ล้างต่อเนื่องเพื่อลดความเสียหายของกระจกตา</td></tr>
+            <tr><td><strong>P310</strong></td><td>โทรหาศูนย์พิษ/แพทย์ทันที</td><td>โซดาไฟเป็นสารกัดกร่อนจัด ต้องได้รับการประเมินโดยแพทย์</td></tr>
+            <tr><td><strong>P321</strong></td><td>การรักษาเฉพาะ</td><td>ใช้น้ำปริมาณมากล้างออกอย่างต่อเนื่อง ตามแนวทางแพทย์</td></tr>
+            <tr><td><strong>P363</strong></td><td>ซักเสื้อผ้าปนเปื้อนก่อนใช้ซ้ำ</td><td>ป้องกันการสัมผัสซ้ำ</td></tr>
+            <tr><td><strong>P390</strong></td><td>ดูดซับสารที่หกรั่วไหลเพื่อป้องกันความเสียหายต่อวัสดุ</td><td>ด่างกัดพื้นผิว/โลหะ ควรมีวัสดุดูดซับพร้อมใช้</td></tr>
+            <tr><td><strong>P405</strong></td><td>เก็บในที่ล็อกได้</td><td>จำกัดการเข้าถึงโดยไม่ได้รับอนุญาต</td></tr>
+            <tr><td><strong>P406</strong></td><td>เก็บในภาชนะทนกัดกร่อน พร้อมชั้นในที่ทนสาร</td><td>เลือก HDPE/PP/สเตนเลส ปิดสนิท ป้องกันความชื้น</td></tr>
+            <tr><td><strong>P501</strong></td><td>กำจัดตามกฎหมาย</td><td>ทำให้เป็นกลาง/ส่งผู้รับกำจัดที่ได้รับอนุญาต</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 -->
+  <section id="sec3">
+    <h2>ข้อ 3: ส่วนประกอบ/ข้อมูลเกี่ยวกับส่วนผสม</h2>
+    <div class="frame tablewrap">
+      <table>
+        <thead><tr><th>สาร</th><th>CAS</th><th>EC</th><th>ความเข้มข้น</th><th>การจัดประเภท</th></tr></thead>
+        <tbody>
+          <tr><td>Sodium hydroxide (โซดาไฟ)</td><td>1310-73-2</td><td>215-185-5</td><td>≥ 98% w/w</td><td>Met. Corr. 1; Skin Corr. 1A; Eye Dam. 1</td></tr>
+          <tr><td>สิ่งเจือปนทั่วไป</td><td>—</td><td>—</td><td>≤ 2%</td><td>—</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 4 -->
+  <section id="sec4">
+    <h2>ข้อ 4: มาตรการปฐมพยาบาลเบื้องต้น</h2>
+    <div class="frame">
+      <div class="info" style="margin-bottom:8px">
+        <strong>อาการสำคัญ:</strong> ผิวไหม้กัดกร่อน; ปวดแสบตารุนแรง; ระคายทางเดินหายใจ; แผลกัดกร่อนทางเดินอาหาร
+      </div>
+      <ul>
+        <li><strong>เข้าตา:</strong> ล้างน้ำ 15–20 นาที เปิดเปลือกตาเป็นระยะ รีบพบจักษุแพทย์</li>
+        <li><strong>ผิวหนัง:</strong> ล้างน้ำมาก ๆ 15 นาที ถอดเสื้อผ้าปนเปื้อน</li>
+        <li><strong>สูดดม:</strong> ย้ายไปอากาศบริสุทธิ์ หากมีอาการให้แพทย์ประเมิน</li>
+        <li><strong>กลืนกิน:</strong> ล้างปาก ดื่มน้ำ 1–2 แก้ว <u>ห้าม</u>ทำให้อาเจียน ส่งโรงพยาบาลทันที</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 5 -->
+  <section id="sec5">
+    <h2>ข้อ 5: มาตรการระงับอัคคีภัย</h2>
+    <div class="frame">
+      <ul>
+        <li><strong>ดับเพลิงที่เหมาะสม:</strong> น้ำ, โฟม, ผงแห้ง, CO₂ (ตามเชื้อเพลิงรอบข้าง)</li>
+        <li><strong>อันตรายจากไฟ:</strong> ไม่ติดไฟ แต่ทำปฏิกิริยากับโลหะให้ H₂ (ติดไฟได้)</li>
+        <li><strong>คำแนะนำ:</strong> SCBA + ชุดกันสาร ควบคุมน้ำเสียไม่ให้ลงแหล่งน้ำ</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 6 -->
+  <section id="sec6">
+    <h2>ข้อ 6: มาตรการเมื่อมีการรั่วไหลโดยไม่ตั้งใจ</h2>
+    <div class="frame">
+      <ul>
+        <li><strong>บุคคล/อุปกรณ์:</strong> อพยพผู้ไม่เกี่ยวข้อง ใส่ PPE ครบ (แว่นครอบตา/กระบังหน้า ถุงมือ NBR/Neoprene/PVC)</li>
+        <li><strong>สิ่งแวดล้อม:</strong> ปิดกั้นท่อระบายน้ำ</li>
+        <li><strong>เก็บกู้:</strong> กวาดใส่ภาชนะ HDPE/PP ปิดสนิท; ล้างพื้นที่ด้วยน้ำอย่างพอเหมาะ</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 7 -->
+  <section id="sec7">
+    <h2>ข้อ 7: การจัดการและการเก็บรักษา</h2>
+    <div class="frame">
+      <ul>
+        <li>ทำในที่อากาศถ่ายเท/ดูดไอเฉพาะที่</li>
+        <li>เติมน้ำ<strong>ลงใน</strong>โซดาไฟช้า ๆ เท่านั้น</li>
+        <li>เก็บเย็น แห้ง มืด ป้องกันความชื้น/CO₂; ภาชนะ HDPE/PP/สเตนเลส</li>
+        <li>แยกจากกรด โลหะอ่อน และสารไวปฏิกิริยา</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 8 -->
+  <section id="sec8">
+    <h2>ข้อ 8: การควบคุมการสัมผัสและการป้องกันส่วนบุคคล</h2>
+    <div class="frame">
+      <div class="tablewrap" style="margin-bottom:8px">
+        <table>
+          <thead><tr><th>สาร</th><th>หน่วยงาน</th><th>ค่าเกณฑ์</th></tr></thead>
+          <tbody>
+            <tr><td>NaOH (ละออง/ไอ)</td><td>OSHA / ACGIH / NIOSH</td><td>2 mg/m³ (Ceiling)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <ul>
+        <li><strong>ตา/หน้า:</strong> แว่นครอบตาเคมี + กระบังหน้า</li>
+        <li><strong>มือ:</strong> ถุงมือ NBR/Neoprene/PVC (≥0.4 มม.)</li>
+        <li><strong>ร่างกาย:</strong> เอี๊ยม/ชุดกันสารเคมี, รองเท้าบูท</li>
+        <li><strong>หายใจ:</strong> หน้ากากกรองละออง/ไอหมอกด่าง; เหตุฉุกเฉินใช้ SCBA</li>
+        <li><strong>วิศวกรรม:</strong> ดูดไอเฉพาะที่; มีฝักบัวนิรภัยและที่ล้างตา</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 9 -->
+  <section id="sec9">
+    <h2>ข้อ 9: สมบัติทางกายภาพและเคมี</h2>
+    <div class="frame tablewrap">
+      <table>
+        <tbody>
+          <tr><th>ลักษณะ</th><td>ของแข็ง สีขาว ไม่มีกลิ่น (เกล็ด/ไข่มุก)</td></tr>
+          <tr><th>pH (1%)</th><td>&gt; 13</td></tr>
+          <tr><th>จุดหลอมเหลว</th><td>~318 °C</td></tr>
+          <tr><th>จุดเดือด</th><td>~1,388 °C (สลายตัว)</td></tr>
+          <tr><th>ความหนาแน่น</th><td>~2.13 g/cm³ (20 °C)</td></tr>
+          <tr><th>การละลายน้ำ</th><td>สูง (~109 g/100 mL ที่ 20 °C) ปล่อยความร้อนเมื่อละลาย</td></tr>
+          <tr><th>จุดวาบไฟ/VOC</th><td>ไม่เกี่ยวข้อง / ไม่มี</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 10 -->
+  <section id="sec10">
+    <h2>ข้อ 10: ความเสถียรและความไวต่อการเกิดปฏิกิริยา</h2>
+    <div class="frame">
+      <ul>
+        <li>ด่างแก่; ทำปฏิกิริยารุนแรงกับกรด</li>
+        <li>ทำปฏิกิริยากับโลหะบางให้ก๊าซ H₂ (ติดไฟได้)</li>
+        <li>เลี่ยงความชื้น/ความร้อน/การปนเปื้อน</li>
+        <li>เข้ากันไม่ได้: กรด, โลหะอ่อน, แอมโมเนีย/เกลือแอมโมเนียม, สารอินทรีย์บางชนิด</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 11 -->
+  <section id="sec11">
+    <h2>ข้อ 11: ข้อมูลพิษวิทยา</h2>
+    <div class="frame">
+      <ul>
+        <li>การประเมินพิษพึ่งฤทธิ์กัดกร่อน (Skin Corr. 1A; Eye Dam. 1)</li>
+        <li>เสี่ยงไหม้เนื้อเยื่ออย่างรุนแรงเมื่อสัมผัสโดยตรง</li>
+        <li>ไม่จัดเป็นสารก่อมะเร็ง/พันธุกรรม/สืบพันธุ์</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 12 -->
+  <section id="sec12">
+    <h2>ข้อ 12: ข้อมูลระบบนิเวศ</h2>
+    <div class="frame">
+      <ul>
+        <li>เปลี่ยน pH น้ำอย่างมาก; อันตรายต่อสิ่งมีชีวิตน้ำหากไม่ทำให้เป็นกลาง</li>
+        <li>ไม่คาดว่าจะสะสมในสิ่งมีชีวิต (อนินทรีย์)</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 13 -->
+  <section id="sec13">
+    <h2>ข้อ 13: ข้อควรพิจารณาในการกำจัด</h2>
+    <div class="frame">
+      <ul>
+        <li>ทำให้เป็นกลางอย่างควบคุม (กรดอ่อน/บัฟเฟอร์) ตามแผนความปลอดภัย</li>
+        <li>ภาชนะล้างน้ำหลายครั้งก่อนกำจัด; ห้ามนำกลับใช้บรรจุอาหาร/น้ำ</li>
+        <li>ส่งกำจัดโดยผู้รับอนุญาต ตามกฎหมายท้องถิ่น/ประเทศ</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 14 -->
+  <section id="sec14">
+    <h2>ข้อ 14: ข้อมูลเกี่ยวกับการขนส่ง</h2>
+    <div class="frame tablewrap">
+      <table>
+        <thead><tr><th>กฎระเบียบ</th><th>ข้อมูล</th></tr></thead>
+        <tbody>
+          <tr><td>ADR/RID</td><td><strong>UN 1823</strong> — Sodium hydroxide, solid; Class 8; PG II</td></tr>
+          <tr><td>IMDG</td><td><strong>UN 1823</strong> — Sodium hydroxide, solid; Class 8; PG II</td></tr>
+          <tr><td>IATA/ICAO</td><td><strong>UN 1823</strong> — Sodium hydroxide, solid; Class 8; PG II</td></tr>
+        </tbody>
+      </table>
+      <div class="muted" style="margin-top:6px"><strong>ฉลากขนส่ง:</strong> 8 (Corrosive)</div>
+    </div>
+  </section>
+
+  <!-- 15 -->
+  <section id="sec15">
+    <h2>ข้อ 15: ข้อมูลเกี่ยวกับกฎหมาย</h2>
+    <div class="frame">
+      <ul>
+        <li>สอดคล้อง GHS/CLP (EU) และ OSHA HazCom 2012 (US)</li>
+        <li>ประเทศไทย: พ.ร.บ.วัตถุอันตราย และกฎหมายสิ่งแวดล้อมที่เกี่ยวข้อง</li>
+        <li>Storage Class (VCI): 8B — สารกัดกร่อน ไม่ไวไฟ</li>
+        <li>ชนิดวัตถุอันตราย: ประเภทที่ 2 — วัตถุกัดกร่อน</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 16 -->
+  <section id="sec16">
+    <h2>ข้อ 16: ข้อมูลอื่น ๆ</h2>
+    <div class="frame">
+      <div class="tablewrap" style="margin-bottom:8px">
+        <table>
+          <tbody>
+            <tr><th>หมายเลขเอกสาร</th><td>MSBRC2-SDS-03</td></tr>
+            <tr><th>ชื่อผลิตภัณฑ์</th><td>Sodium hydroxide (NaOH)</td></tr>
+            <tr><th>จัดทำโดย</th><td>หน่วยงาน SHE&amp;En ธุรกิจพันธุ์กุ้งทะเล 2</td></tr>
+            <tr><th>สถานะ</th><td>ใช้งาน (Effective)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <ul>
+        <li>อบรมการจัดการสารกัดกร่อนและซ้อมแผนฉุกเฉิน</li>
+        <li>เตรียมฝักบัวนิรภัย/ที่ล้างตาใกล้จุดใช้งาน</li>
+        <li>ทบทวน SDS อย่างน้อยปีละครั้ง หรือเมื่อข้อมูลเปลี่ยน</li>
+      </ul>
+      <div class="info" style="margin-top:8px">
+        <strong>คำชี้แจงความรับผิดชอบ:</strong> เอกสารนี้จัดทำเพื่อการความปลอดภัยในการทำงานตามมาตรฐานสากล ผู้ใช้ต้องประเมินความเสี่ยง ณ สถานที่ปฏิบัติงานจริงและปฏิบัติตามกฎหมายที่เกี่ยวข้อง
+      </div>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>

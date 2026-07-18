@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>SDS (Mobile) | Povidone iodine 1% — MSBRC2-SDS-04</title>
+<style>
+  /* ===== Mobile-first theme ===== */
+  :root{
+    --ink:#0f172a; --muted:#475569; --line:#e2e8f0; --bg:#ffffff; --paper:#f8fafc;
+    --vio1:#a78bfa; --vio2:#6366f1; --vio3:#7c3aed;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--paper);color:var(--ink);
+    font-family:"Inter","Noto Sans Thai","Sarabun",system-ui,-apple-system,Segoe UI,Roboto,Arial}
+  body{font-size:clamp(15px, 3.8vw, 17px); line-height:1.75}
+  a{color:inherit}
+  .container{max-width:760px;margin:0 auto;background:var(--bg);
+    border-left:1px solid var(--line);border-right:1px solid var(--line)}
+
+  /* Header (non-sticky) */
+  header{padding:18px 16px 12px;border-bottom:1px solid var(--line);background:#fff;position:static}
+  .title{margin:0 0 10px 0;text-align:center}
+  .ttl{margin:0 0 10px 0;font-size:clamp(18px,5.2vw,24px);line-height:1.35;letter-spacing:.2px}
+  .chem{
+    margin:0 auto; display:inline-block; padding:10px 16px; border-radius:16px;
+    font-weight:800; letter-spacing:.2px; color:#0b1020;
+    background:linear-gradient(180deg,rgba(255,255,255,.85),rgba(255,255,255,.75)),
+               linear-gradient(90deg,var(--vio1),var(--vio2),var(--vio3));
+    border:1px solid rgba(99,102,241,.35);
+    box-shadow:0 6px 18px rgba(99,102,241,.24), inset 0 1px 0 #fff;
+  }
+  .chem .en{color:#1f2937}
+  .meta{font-size:.9em;color:var(--muted);margin-top:10px}
+  .badges{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin:10px 0 0}
+  .badge{font-size:.8em;border:1px solid var(--line);padding:4px 8px;border-radius:999px;background:#eef2ff;color:#3730a3}
+
+  /* Sections */
+  section{padding:14px 16px;border-bottom:1px solid var(--line);background:#fff}
+  section>h2{margin:0 0 10px 0;font-size:clamp(16px,4.6vw,20px);line-height:1.4;
+    padding:8px 10px;border:1px solid var(--line);border-radius:12px;
+    background:linear-gradient(90deg,rgba(99,102,241,.08),rgba(244,63,94,.08))}
+  .frame{border:1px solid var(--line);border-radius:12px;padding:12px;background:#fff}
+  .info{background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:10px}
+  .muted{color:var(--muted)}
+
+  /* Tables (mobile scroll) */
+  .tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  table{border-collapse:collapse;min-width:560px;width:100%}
+  th,td{border:1px solid var(--line);padding:8px;vertical-align:top}
+  th{background:#eef2ff;text-align:left}
+
+  /* GHS07 – inline SVG, mobile sized & crisp */
+  .ghs{margin:6px auto 0; text-align:center}
+  .ghs svg{
+    width:min(26vw,96px); height:auto; display:block; margin:0 auto;
+    filter:drop-shadow(0 2px 8px rgba(124,58,237,.14));
+  }
+  .ghs figcaption{font-size:.95em;color:#0f172a;font-weight:700;margin-top:6px}
+
+  /* P cards */
+  .pcards{display:grid;grid-template-columns:1fr;gap:12px}
+  .pcard{border:1px solid var(--line);border-radius:12px;background:#fff}
+  .pcard h4{margin:0;padding:10px;border-bottom:1px solid var(--line);
+    background:linear-gradient(90deg,rgba(99,102,241,.10),rgba(244,63,94,.10))}
+  .plist{list-style:disc;padding:8px 16px;margin:0}
+
+  /* Print */
+  @page{size:A4;margin:8mm}
+  @media print{header{position:static}.container{border:none}section{page-break-inside:auto}}
+</style>
+</head>
+<body>
+<div class="container" role="document" aria-label="Safety Data Sheet">
+
+  <!-- Header -->
+  <header>
+    <div class="title">
+      <h1 class="ttl">เอกสารข้อมูลความปลอดภัย (SDS)</h1>
+      <div class="chem" aria-label="ชื่อสารเคมีที่ไฮไลต์">
+        โพวิโดน-ไอโอดีน 1% <span class="en">(Povidone iodine 1%)</span>
+      </div>
+      <div class="meta">
+        รูปแบบ: GHS/CLP | ภาษาไทย | จัดทำ: 15 Aug 2025 |
+        ทบทวน: 15 Aug 2025 |แก้ไขครั้งที่: 0 | 
+        จัดทำโดย หน่วยงาน SHE&amp;En ธุรกิจพันธุ์กุ้งทะเล 2 |
+        หมายเลขเอกสาร <strong>MSBRC2-SDS-04</strong>
+      </div>
+    </div>
+    <div class="badges">
+      <span class="badge">CAS 25655-41-8</span>
+      <span class="badge">UN — ไม่จัดเป็นวัตถุอันตรายเพื่อการขนส่งทั่วไป</span>
+      <span class="badge">Storage Class: 12</span>
+      <span class="badge">ประเภท: ระคายเคือง (ประเภทที่ 2)</span>
+      <span class="badge">ทะเบียนวัตถุอันตราย กษ. 0514012005962</span>
+    </div>
+  </header>
+
+  <!-- 1 -->
+  <section id="sec1">
+    <h2>ข้อ 1: ข้อมูลเกี่ยวกับสารหรือส่วนผสม และข้อมูลของผู้ผลิต/ผู้จัดจำหน่าย</h2>
+    <div class="frame">
+      <div class="info" style="margin-bottom:10px">
+        <strong>ชื่อผลิตภัณฑ์:</strong> โพวิโดน-ไอโอดีน 1% (Povidone iodine 1%)<br>
+        <strong>ลักษณะผลิตภัณฑ์:</strong> ของเหลวสีน้ำตาล ใช้ฆ่าเชื้ออุปกรณ์/พื้นผิวในการเพาะเลี้ยงสัตว์น้ำและงานทั่วไปตามฉลาก<br>
+        <strong>การใช้ที่ไม่แนะนำ:</strong> ห้ามใช้ภายในร่างกายสัตว์/คน (ยกเว้นผลิตภัณฑ์เวชภัณฑ์ตามทะเบียน), ห้ามผสมกรด/สารรีดิวซ์
+      </div>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>ผู้จำหน่าย (ประเทศไทย)</th><th>ข้อมูลติดต่อ</th></tr></thead>
+          <tbody>
+            <tr>
+              <td>บริษัท แอ๊ดว้านซ์ฟาร์ม่า จำกัด (Advance Pharma Co., Ltd.)</td>
+              <td>
+                สำนักงานกรุงเทพฯ: 47/1–4 ซอยเย็นจิต ถนนจันทน์ แขวงทุ่งวัดดอน เขตสาทร กรุงเทพฯ 10120<br>
+                โทรศัพท์: 02-675-9859 | โทรสาร: 02-675-9444<br>
+                โรงงาน (สมุทรปราการ): 164 หมู่ 16 ถนนเทพารักษ์ ต.บางเสาธง อ.บางเสาธง สมุทรปราการ 10540 โทรศัพท์: 0-2706-0791–3
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="info" style="margin-top:10px"><strong>ฉุกเฉิน:</strong> ศูนย์พิษวิทยารามาธิบดี 1367 (24 ชม.)</div>
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section id="sec2">
+    <h2>ข้อ 2: การระบุอันตราย</h2>
+    <div class="frame">
+      <div class="tablewrap" style="margin-bottom:10px">
+        <table>
+          <thead><tr><th>การจัดประเภท (GHS/CLP)</th><th>หมวด</th><th>รหัส</th></tr></thead>
+          <tbody>
+            <tr><td>ทำให้ระคายเคืองผิวหนัง</td><td>Skin Irrit. 2</td><td>H315</td></tr>
+            <tr><td>ทำให้ระคายเคืองตา</td><td>Eye Irrit. 2</td><td>H319</td></tr>
+            <tr><td>คำสัญญาณ (Signal word)</td><td colspan="2"><strong>Warning</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- GHS07 – inline SVG with tuned gap -->
+      <figure class="ghs" aria-label="GHS pictogram">
+        <svg viewBox="0 0 220 220" role="img" aria-label="GHS07 – Exclamation">
+          <rect x="36" y="36" width="148" height="148"
+                transform="rotate(45 110 110)"
+                fill="#fff" stroke="#e60012" stroke-width="14"/>
+          <rect x="101" y="70" width="18" height="58" rx="9" ry="9" fill="#000"/>
+          <circle cx="110" cy="154" r="11" fill="#000"/>
+        </svg>
+        <figcaption>GHS07 – Exclamation</figcaption>
+      </figure>
+
+      <h3 style="margin:14px 0 8px">ข้อความแสดงอันตราย (H)</h3>
+      <ul>
+        <li><strong>H315</strong> ทำให้ระคายเคืองผิวหนัง</li>
+        <li><strong>H319</strong> ทำให้ระคายเคืองตารุนแรง</li>
+      </ul>
+
+      <h3 style="margin:14px 0 8px">ข้อความแนะนำการป้องกัน (P) — สรุป</h3>
+      <div class="pcards">
+        <div class="pcard">
+          <h4>ทั่วไป/ป้องกัน</h4>
+          <ul class="plist">
+            <li><strong>P264</strong> ล้างมือหลังการใช้งานทุกครั้ง</li>
+            <li><strong>P280</strong> สวมถุงมือและแว่นครอบตา/กระบังหน้า</li>
+            <li><strong>P270</strong> ห้ามกิน ดื่ม หรือสูบบุหรี่ระหว่างปฏิบัติงาน</li>
+          </ul>
+        </div>
+        <div class="pcard">
+          <h4>ตอบโต้เหตุ</h4>
+          <ul class="plist">
+            <li><strong>P302+P352</strong> สัมผัสผิวหนัง: ล้างด้วยน้ำและสบู่</li>
+            <li><strong>P305+P351+P338</strong> เข้าตา: ล้างน้ำ 15–20 นาที ถอดคอนแทคเลนส์หากทำได้ แล้วล้างต่อ</li>
+            <li><strong>P332+P313</strong> หากเกิดการระคายเคืองผิวหนัง: ปรึกษาแพทย์</li>
+            <li><strong>P337+P313</strong> หากอาการระคายเคืองตาไม่ทุเลา: พบแพทย์</li>
+            <li><strong>P362+P364</strong> ถอดและซักเสื้อผ้าปนเปื้อนก่อนใช้ซ้ำ</li>
+          </ul>
+        </div>
+        <div class="pcard">
+          <h4>จัดเก็บ/กำจัด</h4>
+          <ul class="plist">
+            <li><strong>P403+P233</strong> เก็บในที่อากาศถ่ายเท ภาชนะปิดสนิท พ้นแสง</li>
+            <li><strong>P501</strong> กำจัดของเสียตามกฎหมายท้องถิ่น/ประเทศ</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 -->
+  <section id="sec3">
+    <h2>ข้อ 3: ส่วนประกอบ/ข้อมูลเกี่ยวกับส่วนผสม</h2>
+    <div class="frame tablewrap">
+      <table>
+        <thead><tr><th>สาร</th><th>CAS</th><th>ความเข้มข้นโดยประมาณ</th><th>การจัดประเภท GHS</th></tr></thead>
+        <tbody>
+          <tr><td>Povidone-iodine (PVP-I)</td><td>25655-41-8</td><td>1% w/v (เชิงไอโอดีนคงตัว)</td><td>Skin Irrit. 2; Eye Irrit. 2</td></tr>
+          <tr><td>น้ำบริสุทธิ์/ตัวปรับสภาพ</td><td>7732-18-5 / —</td><td>สมดุล</td><td>—</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 4 -->
+  <section id="sec4">
+    <h2>ข้อ 4: มาตรการปฐมพยาบาลเบื้องต้น</h2>
+    <div class="frame">
+      <div class="info" style="margin-bottom:8px">
+        <strong>อาการสำคัญ:</strong> ระคายเคืองผิว/ตา อาจทำให้เปื้อนสีน้ำตาลบนผิวชั่วคราว กลิ่นไอโอดีน
+      </div>
+      <ul>
+        <li><strong>เข้าตา:</strong> ล้างน้ำสะอาดทันที 15–20 นาที เปิดเปลือกตาเป็นระยะ หากปวด/แดงไม่ทุเลา พบแพทย์</li>
+        <li><strong>ผิวหนัง:</strong> ล้างด้วยน้ำและสบู่อ่อน</li>
+        <li><strong>สูดดม:</strong> เคลื่อนย้ายไปอากาศบริสุทธิ์</li>
+        <li><strong>กลืนกิน:</strong> บ้วนปาก ดื่มน้ำเล็กน้อย หากมีอาการผิดปกติพบแพทย์</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 5 -->
+  <section id="sec5">
+    <h2>ข้อ 5: มาตรการระงับอัคคีภัย</h2>
+    <div class="frame">
+      <ul>
+        <li><strong>สารดับเพลิงที่เหมาะสม:</strong> น้ำ โฟม ผงแห้ง CO₂ (เลือกตามเชื้อเพลิงรอบข้าง)</li>
+        <li><strong>อันตรายจากไฟ:</strong> ไม่ติดไฟโดยตรง อาจสลายตัวเมื่อร้อนจัดให้ไอโอดีน/ไอระเหย</li>
+        <li><strong>คำแนะนำผู้ดับเพลิง:</strong> อุปกรณ์ป้องกันระบบหายใจมาตรฐาน</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 6 -->
+  <section id="sec6">
+    <h2>ข้อ 6: มาตรการเมื่อมีการรั่วไหลโดยไม่ตั้งใจ</h2>
+    <div class="frame">
+      <ul>
+        <li><strong>บุคคล/อุปกรณ์:</strong> สวมถุงมือ แว่นครอบตา</li>
+        <li><strong>สิ่งแวดล้อม:</strong> ป้องกันไม่ให้ลงท่อระบายน้ำ/แหล่งน้ำ</li>
+        <li><strong>เก็บกู้:</strong> ดูดซับด้วยวัสดุดูดซับอุ้มน้ำ ใส่ภาชนะเหมาะสม ล้างพื้นที่ด้วยน้ำปริมาณพอเหมาะ</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 7 -->
+  <section id="sec7">
+    <h2>ข้อ 7: การจัดการและการเก็บรักษา</h2>
+    <div class="frame">
+      <ul>
+        <li>ทำงานในที่อากาศถ่ายเท หลีกเลี่ยงกระเด็นเข้าตา</li>
+        <li>เก็บในภาชนะเดิม ปิดสนิท พ้นแสงแดดและความร้อน</li>
+        <li>อุณหภูมิแนะนำ: ปกติห้อง (15–30°C)</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 8 -->
+  <section id="sec8">
+    <h2>ข้อ 8: การควบคุมการสัมผัสและการป้องกันส่วนบุคคล</h2>
+    <div class="frame">
+      <ul>
+        <li><strong>ตา/หน้า:</strong> แว่นครอบตาเคมีเมื่องานเสี่ยงกระเด็น</li>
+        <li><strong>มือ:</strong> ถุงมือไนไตรล์/นีโอพรีนเมื่อสัมผัสบ่อย</li>
+        <li><strong>ร่างกาย:</strong> เสื้อคลุมกันน้ำกระเด็น</li>
+        <li><strong>วิศวกรรม:</strong> มีที่ล้างตาใกล้จุดใช้งาน</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 9 -->
+  <section id="sec9">
+    <h2>ข้อ 9: สมบัติทางกายภาพและเคมี</h2>
+    <div class="frame tablewrap">
+      <table>
+        <tbody>
+          <tr><th>ลักษณะ</th><td>ของเหลวสีน้ำตาล กลิ่นไอโอดีน</td></tr>
+          <tr><th>pH (25°C)</th><td>~2.0–7.0 (ขึ้นกับสูตร/ตัวปรับสภาพ)</td></tr>
+          <tr><th>การละลายน้ำ</th><td>ละลายน้ำได้ดี</td></tr>
+          <tr><th>จุดวาบไฟ</th><td>ไม่เกี่ยวข้อง (สารละลายน้ำ)</td></tr>
+          <tr><th>ความหนาแน่น</th><td>~1.00–1.05 g/cm³</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 10 -->
+  <section id="sec10">
+    <h2>ข้อ 10: ความเสถียรและความไวต่อการเกิดปฏิกิริยา</h2>
+    <div class="frame">
+      <ul>
+        <li>เสถียรภายใต้สภาวะปกติ</li>
+        <li>หลีกเลี่ยงความร้อน/แสงจ้า/กรดแก่/ตัวรีดิวซ์แรง</li>
+        <li>อาจปล่อยไอโอดีนเมื่อถูกกรด/ความร้อนจัด</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 11 -->
+  <section id="sec11">
+    <h2>ข้อ 11: ข้อมูลพิษวิทยา</h2>
+    <div class="frame">
+      <ul>
+        <li>ก่อการระคายเคืองผิวหนัง/ดวงตา</li>
+        <li>การสัมผัสซ้ำ ๆ อาจทำให้ผิวแห้ง/อักเสบ</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 12 -->
+  <section id="sec12">
+    <h2>ข้อ 12: ข้อมูลระบบนิเวศ</h2>
+    <div class="frame">
+      <ul>
+        <li>เป็นพิษต่อสิ่งมีชีวิตน้ำในบางระดับความเข้มข้น — หลีกเลี่ยงการปล่อยสู่แหล่งน้ำ</li>
+        <li>ไอโอดีนสุดท้ายเปลี่ยนรูปเป็นไอโอไดด์ในสิ่งแวดล้อม</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 13 -->
+  <section id="sec13">
+    <h2>ข้อ 13: ข้อควรพิจารณาในการกำจัด</h2>
+    <div class="frame">
+      <ul>
+        <li>ของเหลือ/น้ำล้างที่ปนเปื้อน: <u>ทำให้เป็นกลางโดยการรีดิวซ์</u> ด้วยสารละลายโซเดียมไทโอซัลเฟต (Na<sub>2</sub>S<sub>2</sub>O<sub>3</sub>) 0.1–1% จนสีน้ำตาลหาย แล้วกำจัดตามกฎหมายท้องถิ่น</li>
+        <li>วัสดุดูดซับที่ปนเปื้อน: บรรจุถุง/ภาชนะที่เหมาะสม ติดฉลากให้ชัด ส่งผู้รับกำจัดที่ได้รับอนุญาต</li>
+        <li>ภาชนะบรรจุ: ล้างน้ำหลายครั้งก่อนส่งรีไซเคิล/กำจัด ห้ามนำกลับไปใช้กับอาหาร/น้ำ</li>
+        <li>หลีกเลี่ยงการปล่อยลงท่อระบายน้ำโดยไม่ผ่านการบำบัด</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 14 -->
+  <section id="sec14">
+    <h2>ข้อ 14: ข้อมูลเกี่ยวกับการขนส่ง</h2>
+    <div class="frame">
+      <ul>
+        <li>โดยทั่วไป <strong>ไม่เข้าข่ายวัตถุอันตราย</strong>สำหรับการขนส่งทางบก/เรือ/อากาศ (ไม่มี UN เฉพาะ) สำหรับสารละลาย PVP-I 1%</li>
+        <li>บรรจุภัณฑ์: ปิดสนิท กันการกระเด็น/หก ตั้งตรง ขนส่งในภาชนะรองรับ</li>
+        <li>ป้าย/เอกสาร: แสดงชื่อผลิตภัณฑ์ เลขเอกสาร SDS และข้อมูลผู้ผลิต/ผู้จำหน่าย</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 15 -->
+  <section id="sec15">
+    <h2>ข้อ 15: ข้อมูลเกี่ยวกับกฎหมาย</h2>
+    <div class="frame">
+      <ul>
+        <li>การติดฉลากตาม GHS/CLP: สัญลักษณ์ <strong>GHS07 – Exclamation</strong>; คำสัญญาณ <strong>Warning</strong>; H315, H319 และ P-statements ที่เกี่ยวข้อง</li>
+        <li>ประเทศไทย: ปฏิบัติตาม พ.ร.บ.วัตถุอันตราย และกฎหมายสิ่งแวดล้อมที่เกี่ยวข้อง</li>
+        <li>Storage Class: <strong>12</strong> (แนวทางจัดเก็บสารทั่วไปที่ไม่ไวไฟ/ไม่ออกซิไดซ์)</li>
+        <li>ทะเบียนวัตถุอันตรายเพื่อการใช้ในสัตว์น้ำ: <strong>กษ. 0514012005962</strong> (ชื่อทางการค้า โซลูดีน อัลตร้า)</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 16 -->
+  <section id="sec16">
+    <h2>ข้อ 16: ข้อมูลอื่น ๆ</h2>
+    <div class="frame">
+      <div class="tablewrap" style="margin-bottom:8px">
+        <table>
+          <tbody>
+            <tr><th>หมายเลขเอกสาร</th><td>MSBRC2-SDS-04</td></tr>
+            <tr><th>ชื่อผลิตภัณฑ์</th><td>Povidone iodine 1%</td></tr>
+            <tr><th>จัดทำโดย</th><td>หน่วยงาน SHE&amp;En ธุรกิจพันธุ์กุ้งทะเล 2</td></tr>
+            <tr><th>สถานะ</th><td>ใช้งาน (Effective)</td></tr>
+            <tr><th>หมายเลขฉุกเฉิน</th><td>ศูนย์พิษวิทยารามาธิบดี 1367 (24 ชม.)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <ul>
+        <li>แหล่งอ้างอิง: หลักเกณฑ์ GHS/CLP, แนวปฏิบัติการจัดเก็บสารเคมีทั่วไป, เอกสารผู้ผลิต/ใบขึ้นทะเบียน</li>
+        <li>แนะนำให้ทบทวน SDS อย่างน้อยปีละครั้ง หรือเมื่อมีการเปลี่ยนสูตร/กฎหมาย</li>
+      </ul>
+      <div class="info" style="margin-top:8px">
+        <strong>คำชี้แจงความรับผิดชอบ:</strong>
+        เอกสารนี้จัดทำเพื่อสนับสนุนความปลอดภัยในการทำงานโดยอาศัยมาตรฐานทั่วไป ผู้ใช้ต้องประเมินความเสี่ยง ณ สถานที่ปฏิบัติงานจริงและปฏิบัติตามกฎหมายที่เกี่ยวข้อง
+      </div>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>

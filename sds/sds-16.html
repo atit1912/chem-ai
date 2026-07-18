@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>SDS | Sodium bicarbonate — MSBRC2-SDS-16</title>
+<style>
+  /* ===== Mobile-first SDS theme ===== */
+  :root{
+    --ink:#0f172a; --muted:#475569; --line:#e2e8f0; --bg:#ffffff; --paper:#f8fafc;
+    --chipbg:#ecfeff; --chipfg:#0c4a6e; --grad1:rgba(14,165,233,.18); --grad2:rgba(167,139,250,.18);
+    --okbg:#eef2ff;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--paper);color:var(--ink);
+    font-family:"Inter","Noto Sans Thai","Sarabun",system-ui,-apple-system,Segoe UI,Roboto,Arial}
+  body{font-size:clamp(15px,3.8vw,17px);line-height:1.75}
+  a{color:inherit}
+  .container{max-width:900px;margin:0 auto;background:#fff;border-left:1px solid var(--line);border-right:1px solid var(--line)}
+
+  /* Header — NOT sticky */
+  header{padding:18px 16px 12px;border-bottom:1px solid var(--line);background:#fff;position:static}
+  .title{display:flex;flex-direction:column;align-items:center;text-align:center}
+  .ttl{margin:0 0 6px 0;font-size:clamp(20px,5.2vw,26px);line-height:1.35;font-weight:800}
+  .chem{
+    display:inline-block;margin:2px auto 8px;padding:8px 14px;border-radius:14px;
+    font-size:clamp(18px,5.8vw,26px);font-weight:800;line-height:1.35;color:#052c65;
+    background:linear-gradient(90deg,var(--grad1),var(--grad2));border:1px solid #c7d2fe;box-shadow:0 2px 8px rgba(2,6,23,.08)
+  }
+  .meta{font-size:.92em;color:var(--muted);margin-top:6px;text-align:center}
+  .badges{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0 0;justify-content:center}
+  .badge{font-size:.8em;border:1px solid var(--line);padding:4px 8px;border-radius:999px;background:var(--chipbg);color:var(--chipfg)}
+
+  /* Sections */
+  section{padding:14px 16px;border-bottom:1px solid var(--line);background:#fff}
+  section>h2{margin:0 0 10px 0;font-size:clamp(16px,4.6vw,20px);
+    padding:8px 10px;border:1px solid var(--line);border-radius:12px;
+    background:linear-gradient(90deg,rgba(99,102,241,.08),rgba(14,165,233,.08))}
+  .frame{border:1px solid var(--line);border-radius:12px;padding:12px;background:#fff}
+  .info{background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:10px}
+  .muted{color:var(--muted)}
+
+  /* Tables */
+  .tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  table{border-collapse:collapse;min-width:560px;width:100%}
+  th,td{border:1px solid var(--line);padding:8px;vertical-align:top}
+  th{background:#eef2ff;text-align:left}
+
+  /* Pictograms */
+  .pictos{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+  .pictos figure{margin:0;text-align:center}
+  .ghs{display:block;width:clamp(64px,12vw,88px);height:auto;filter:drop-shadow(0 0 6px rgba(2,6,23,.10))}
+  .pictos figcaption{font-size:.85em;color:var(--muted);margin-top:6px}
+  .nosym{display:inline-flex;align-items:center;gap:8px;padding:8px 10px;border:1px dashed #cbd5e1;border-radius:10px;background:var(--okbg)}
+  .nosym svg{width:22px;height:22px}
+
+  /* Cards */
+  .pcards{display:grid;grid-template-columns:1fr;gap:12px}
+  .pcard{border:1px solid var(--line);border-radius:12px;background:#fff}
+  .pcard h4{margin:0;padding:10px;border-bottom:1px solid var(--line);
+    background:linear-gradient(90deg,rgba(99,102,241,.10),rgba(244,63,94,.10))}
+  .plist{list-style:disc;padding:8px 16px;margin:0}
+
+  /* ===== Outside floating Preview button ===== */
+  .floating-preview{
+    position:fixed;right:16px;bottom:16px;z-index:9999;
+    background:#0b0b0f;color:#fff;border:1px solid rgba(0,0,0,.25);
+    border-radius:999px;padding:10px 16px;font-weight:800;cursor:pointer;
+    box-shadow:0 10px 22px rgba(2,6,23,.25), inset 0 1px 0 rgba(255,255,255,.08)
+  }
+  .floating-preview:hover{filter:brightness(1.06)}
+  .floating-preview:active{transform:translateY(1px)}
+  .floating-preview[aria-pressed="true"]{background:#111827}
+
+  /* ===== Preview mode (A4 look) ===== */
+  body.preview{background:#e5e7eb}
+  body.preview .container{
+    max-width:794px; /* ~ A4 width at 96dpi */
+    margin:24px auto;border-left:none;border-right:none;
+    box-shadow:0 10px 30px rgba(2,6,23,.15);
+  }
+  body.preview header, body.preview section{border-bottom-color:#e5e7eb}
+
+  @media print{
+    .floating-preview{display:none}
+    header{position:static}
+    .container{border:none;box-shadow:none}
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== Floating button OUTSIDE the document ===== -->
+<button id="previewBtn" class="floating-preview" type="button" aria-pressed="false" title="ดูตัวอย่างแบบ A4">Preview</button>
+
+<div class="container" role="document" aria-label="Safety Data Sheet">
+
+  <!-- ===== Header ===== -->
+  <header>
+    <div class="title">
+      <h1 class="ttl">เอกสารข้อมูลความปลอดภัย (SDS)</h1>
+      <h2 class="chem">Sodium bicarbonate</h2>
+      <div class="meta">
+        รูปแบบ: GHS/CLP | ภาษาไทย | จัดทำ: 15 Aug 2025 | ทบทวน: 15 Aug 2025 | แก้ไขครั้งที่: 0<br>
+        จัดทำโดย หน่วยงาน SHE&amp;En ธุรกิจพันธุ์กุ้งทะเล 2 · หมายเลขเอกสาร <strong>MSBRC2-SDS-16</strong>
+      </div>
+    </div>
+    <div class="badges">
+      <span class="badge">CAS No. 144-55-8</span>
+      <span class="badge">UN: <strong>Not regulated</strong></span>
+      <span class="badge">Storage Class (LGK): 13 — ของแข็งไม่ติดไฟ</span>
+      <span class="badge">ชนิดวัตถุอันตราย: ไม่มี (Not classified)</span>
+    </div>
+  </header>
+
+  <!-- ===== Sections (เนื้อหาเดิมทั้งหมด) ===== -->
+  <section id="sec1">
+    <h2>ข้อ 1: ข้อมูลเกี่ยวกับสารหรือส่วนผสม และข้อมูลของผู้ผลิต/ผู้จัดจำหน่าย</h2>
+    <div class="frame">
+      <div class="info" style="margin-bottom:10px">
+        <strong>ชื่อผลิตภัณฑ์:</strong> Sodium bicarbonate (โซเดียมไบคาร์บอเนต, เบกกิ้งโซดา), ของแข็งผลึกสีขาว ไม่มีกลิ่น<br>
+        <strong>การใช้ที่แนะนำ:</strong> ตัวปรับ pH/บัฟเฟอร์, ห้องปฏิบัติการ, อาหาร/เภสัชกรรม (ขึ้นกับเกรด), บำบัดน้ำเสีย<br>
+        <strong>การใช้ที่ไม่แนะนำ:</strong> หลีกเลี่ยงการสัมผัสกรดแรง; หลีกเลี่ยงการเกิดฝุ่นมาก
+      </div>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>ผู้จำหน่าย (ประเทศไทย)</th><th>ข้อมูลติดต่อ</th></tr></thead>
+          <tbody>
+            <tr>
+              <td>บริษัท วิทย์คอร์ป โปรดักส์</td>
+              <td>
+                ที่อยู่: 77, Tower, 27th Fl, Sinn Sathorn, 113 ถ. กรุงธนบุรี แขวงคลองต้นไทร Khlongsan, กรุงเทพมหานคร 10600<br>
+                เบอร์โทรศัพท์: +66 2 440 0809  |  แฟกซ์: +66 2 440 0827<br>
+                อีเมล: wcp@witcorp.co.th
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="info" style="margin-top:10px"><strong>ฉุกเฉิน:</strong> ศูนย์พิษวิทยารามาธิบดี โทร. 1367 (24 ชม.)</div>
+    </div>
+  </section>
+
+  <section id="sec2">
+    <h2>ข้อ 2: การระบุอันตราย</h2>
+    <div class="frame">
+      <div class="tablewrap" style="margin-bottom:12px">
+        <table>
+          <thead><tr><th>การจัดประเภท (GHS/CLP)</th><th>รายละเอียด</th></tr></thead>
+          <tbody>
+            <tr><td>ความเป็นอันตรายโดยรวม</td><td><strong>ไม่เข้าข่ายอันตราย (Not classified)</strong></td></tr>
+            <tr><td>คำสัญญาณ</td><td>—</td></tr>
+            <tr><td>ข้อความอันตราย (H)</td><td>—</td></tr>
+            <tr><td>ข้อความแนะนำ (P)</td><td>P264 ล้างมือหลังใช้งาน; P270 หลีกเลี่ยงการรับประทาน/สูดดมฝุ่น</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="pictos" aria-label="GHS pictograms">
+        <span class="nosym" title="No GHS symbol required">
+          <svg viewBox="0 0 100 100" aria-hidden="true">
+            <rect x="20" y="20" width="60" height="60" transform="rotate(45 50 50)" fill="#ffffff" stroke="#94a3b8" stroke-width="6" stroke-dasharray="8 6"/>
+            <path d="M25 75 L75 25" stroke="#64748b" stroke-width="6" />
+          </svg>
+          ไม่มีพิกโตแกรม GHS (ไม่เข้าข่าย)
+        </span>
+      </div>
+      <div class="muted" style="margin-top:8px">
+        หมายเหตุ: บางเอกสารเก่า/บางเกรดอาจระบุ “ระคายเคืองตา (H320)” หรือ “อาจเป็นอันตรายเมื่อกลืนกิน (H303)” แต่ตาม SDS ปัจจุบันของผู้ผลิตรายใหญ่ โดยทั่วไป “ไม่จัดเป็นอันตราย” — โปรดอ้างอิง SDS ของผู้จำหน่ายที่ใช้งานจริง
+      </div>
+    </div>
+  </section>
+
+  <section id="sec3">
+    <h2>ข้อ 3: ส่วนประกอบ/ข้อมูลเกี่ยวกับส่วนผสม</h2>
+    <div class="frame tablewrap">
+      <table>
+        <thead><tr><th>สาร</th><th>CAS</th><th>EC</th><th>ความบริสุทธิ์โดยประมาณ</th><th>การจัดประเภท GHS</th></tr></thead>
+        <tbody>
+          <tr><td>Sodium bicarbonate</td><td>144-55-8</td><td>205-633-8</td><td>≥ 99%</td><td>ไม่จัดเป็นอันตราย</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="sec4">
+    <h2>ข้อ 4: มาตรการปฐมพยาบาลเบื้องต้น</h2>
+    <div class="frame">
+      <div class="info" style="margin-bottom:8px"><strong>อาการสำคัญ:</strong> โดยทั่วไปความเสี่ยงต่ำ; ฝุ่นอาจระคายทางเดินหายใจ/ตา</div>
+      <ul>
+        <li><strong>เข้าตา:</strong> ล้างน้ำสะอาดต่อเนื่อง 15 นาที หากระคายต่อให้พบแพทย์</li>
+        <li><strong>ผิวหนัง:</strong> ล้างด้วยน้ำและสบู่</li>
+        <li><strong>สูดดมฝุ่น:</strong> เคลื่อนย้ายสู่อากาศบริสุทธิ์</li>
+        <li><strong>กลืนกิน:</strong> บ้วนปาก ดื่มน้ำ หากมีอาการผิดปกติให้พบแพทย์</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="sec5">
+    <h2>ข้อ 5: มาตรการระงับอัคคีภัย</h2>
+    <div class="frame">
+      <ul>
+        <li><strong>ความไวไฟ:</strong> ไม่ติดไฟ</li>
+        <li><strong>ดับเพลิงที่เหมาะสม:</strong> ใช้วิธีตามไฟรอบข้าง (ผงแห้ง โฟม CO₂ น้ำสเปรย์)</li>
+        <li><strong>อันตรายจากการเผาไหม้/สลายตัว:</strong> เมื่อร้อนจัดสลายให้ CO₂ และ Na<sub>2</sub>O/Na<sub>2</sub>CO<sub>3</sub></li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="sec6">
+    <h2>ข้อ 6: มาตรการเมื่อมีการรั่วไหลโดยไม่ตั้งใจ</h2>
+    <div class="frame">
+      <ul>
+        <li><strong>บุคคล/อุปกรณ์:</strong> หลีกเลี่ยงฝุ่น ใส่แว่น/หน้ากากกรองฝุ่นเมื่อจำเป็น</li>
+        <li><strong>สิ่งแวดล้อม:</strong> หลีกเลี่ยงปล่อยลงท่อ/ทางน้ำมาก ๆ โดยไม่ควบคุม</li>
+        <li><strong>เก็บกู้:</strong> กวาด/ดูดฝุ่น ใส่ภาชนะปิดสนิท ทำความสะอาดพื้นที่</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="sec7">
+    <h2>ข้อ 7: การจัดการและการเก็บรักษา</h2>
+    <div class="frame">
+      <ul>
+        <li>หลีกเลี่ยงการสร้างฝุ่น ทำงานในที่อากาศถ่ายเท</li>
+        <li>เก็บในที่แห้ง ภาชนะปิดสนิท แยกจาก<strong>กรด</strong>และ<strong>ตัวออกซิไดซ์แรง</strong></li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="sec8">
+    <h2>ข้อ 8: การควบคุมการสัมผัสและการป้องกันส่วนบุคคล</h2>
+    <div class="frame">
+      <div class="tablewrap" style="margin-bottom:8px">
+        <table>
+          <thead><tr><th>สาร</th><th>หน่วยงาน</th><th>ค่าเกณฑ์</th><th>หมายเหตุ</th></tr></thead>
+          <tbody>
+            <tr><td>Sodium bicarbonate</td><td>—</td><td>ไม่มีค่า OEL เฉพาะ</td><td>ควบคุมฝุ่นตามมาตรฐานฝุ่นละอองทั่วไป</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <ul>
+        <li><strong>วิศวกรรม:</strong> ระบายอากาศทั่วไป/เฉพาะจุดเมื่อเกิดฝุ่น</li>
+        <li><strong>ตา/หน้า:</strong> แว่นครอบตา EN 166 เมื่อเสี่ยงกระเด็น/ฝุ่น</li>
+        <li><strong>มือ:</strong> ถุงมือทั่วไป (ไนไตรล์/PVC) เมื่อต้องสัมผัสมาก</li>
+        <li><strong>หายใจ:</strong> หน้ากากกรองฝุ่น P2/P3 หากฝุ่นเกินควบคุม</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="sec9">
+    <h2>ข้อ 9: สมบัติทางกายภาพและเคมี</h2>
+    <div class="frame tablewrap">
+      <table>
+        <tbody>
+          <tr><th>ลักษณะ</th><td>ของแข็งผลึกสีขาว ไม่มีกลิ่น</td></tr>
+          <tr><th>pH (สารละลาย ~1%)</th><td>~8.3 @ 25 °C</td></tr>
+          <tr><th>การละลายน้ำ</th><td>~9% w/w @ 20 °C (≈ 90 g/L)</td></tr>
+          <tr><th>ความหนาแน่น/ความถ่วงจำเพาะ</th><td>~2.2 g/cm³ (ของแข็ง)</td></tr>
+          <tr><th>จุดเดือด/จุดหลอม</th><td>สลายตัวเมื่อร้อน (ไม่เดือดจริง); รายงานบางฉบับระบุสลาย ~270 °C</td></tr>
+          <tr><th>ความไวไฟ</th><td>ไม่ติดไฟ</td></tr>
+          <tr><th>ความเสถียร</th><td>เสถียรภายใต้สภาวะปกติ; ทำปฏิกิริยากับกรดให้ CO₂</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="sec10">
+    <h2>ข้อ 10: ความเสถียรและความไวต่อการเกิดปฏิกิริยา</h2>
+    <div class="frame">
+      <ul>
+        <li>เสถียรภายใต้การใช้งานปกติ</li>
+        <li><strong>หลีกเลี่ยง:</strong> กรดแรง/ออกซิไดเซอร์แรง ความชื้นสูง ความร้อนจัด</li>
+        <li><strong>ผลิตผลสลายตัว:</strong> CO₂, Na₂CO₃/Na₂O</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="sec11">
+    <h2>ข้อ 11: ข้อมูลพิษวิทยา</h2>
+    <div class="frame tablewrap">
+      <table>
+        <tbody>
+          <tr><th>พิษเฉียบพลัน</th><td>โดยทั่วไปไม่เป็นอันตราย; กลืนมากอาจระคายทางเดินอาหาร</td></tr>
+          <tr><th>ระคายเคือง</th><td>ฝุ่นอาจระคายเคืองตา/ทางเดินหายใจ</td></tr>
+          <tr><th>ก่อมะเร็ง/พันธุกรรม/สืบพันธุ์</th><td>ไม่จัดเป็นสารก่อมะเร็ง/ไม่เข้าข่าย</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="sec12">
+    <h2>ข้อ 12: ข้อมูลระบบนิเวศ</h2>
+    <div class="frame">
+      <ul>
+        <li>ไม่เข้าข่ายอันตรายต่อสิ่งแวดล้อมตามข้อมูลที่มี</li>
+        <li>หลีกเลี่ยงการปล่อยลงทางน้ำในปริมาณมากโดยไม่ควบคุม</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="sec13">
+    <h2>ข้อ 13: ข้อควรพิจารณาในการกำจัด</h2>
+    <div class="frame">
+      <ul>
+        <li>จัดการเป็นของเสียทั่วไปตามกฎหมายท้องถิ่น (ไม่เป็นวัตถุอันตราย)</li>
+        <li>บรรจุภัณฑ์: ทำความสะอาด/ทำให้แห้งก่อนรีไซเคิลหรือกำจัด</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="sec14">
+    <h2>ข้อ 14: ข้อมูลเกี่ยวกับการขนส่ง</h2>
+    <div class="frame tablewrap">
+      <table>
+        <thead><tr><th>ระเบียบ</th><th>รายละเอียด</th></tr></thead>
+        <tbody>
+          <tr><td>ADR/RID</td><td>Not regulated — ไม่เป็นวัตถุอันตรายในการขนส่ง</td></tr>
+          <tr><td>IMDG</td><td>Not regulated — ไม่เป็นวัตถุอันตรายในการขนส่ง</td></tr>
+          <tr><td>IATA/ICAO</td><td>Not regulated — ไม่เป็นวัตถุอันตรายในการขนส่ง</td></tr>
+        </tbody>
+      </table>
+      <div class="muted" style="margin-top:6px">
+        <strong>UN:</strong> Not regulated. <em>หมายเหตุ:</em> UN 1832 เป็นรายการของสารกัดกร่อน (Class 8) ซึ่งไม่ใช่โซเดียมไบคาร์บอเนต
+      </div>
+    </div>
+  </section>
+
+  <section id="sec15">
+    <h2>ข้อ 15: ข้อมูลเกี่ยวกับกฎหมาย</h2>
+    <div class="frame">
+      <ul>
+        <li>การจัดประเภทตาม GHS/CLP: <strong>ไม่เข้าข่ายอันตราย</strong> (ไม่มีพิกโตแกรม)</li>
+        <li>OSHA HazCom 2012: โดยทั่วไปไม่เป็นสารอันตรายตามข้อกำหนด</li>
+        <li>Storage Class (TRGS 510 / LGK): <strong>13 — ของแข็งไม่ติดไฟ</strong></li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="sec16">
+    <h2>ข้อ 16: ข้อมูลอื่น ๆ</h2>
+    <div class="frame">
+      <div class="tablewrap" style="margin-bottom:8px">
+        <table>
+          <tbody>
+            <tr><th>หมายเลขเอกสาร</th><td>MSBRC2-SDS-16</td></tr>
+            <tr><th>ชื่อผลิตภัณฑ์</th><td>Sodium bicarbonate</td></tr>
+            <tr><th>จัดทำโดย</th><td>หน่วยงาน SHE&amp;En ธุรกิจพันธุ์กุ้งทะเล 2</td></tr>
+            <tr><th>สถานะ</th><td>ใช้งาน (Effective)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <ul>
+        <li>ทบทวน SDS เมื่อมีการเปลี่ยนแปลงสำคัญหรืออย่างน้อยปีละครั้ง</li>
+        <li>ให้ความรู้ผู้ปฏิบัติงานเรื่องการจัดเก็บแบบ LGK 13 และการแยกจากกรด</li>
+      </ul>
+      <div class="info" style="margin-top:8px">
+        <strong>คำชี้แจงความรับผิดชอบ:</strong> เอกสารนี้จัดทำเพื่อสนับสนุนความปลอดภัยในการทำงานตามมาตรฐานสากล ผู้ใช้ต้องประเมินความเสี่ยง ณ สถานที่ปฏิบัติงานจริงและปฏิบัติตามกฎหมายที่เกี่ยวข้อง
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<script>
+  // Preview toggle (outside button)
+  const previewBtn = document.getElementById('previewBtn');
+  previewBtn.addEventListener('click', ()=>{
+    const on = document.body.classList.toggle('preview');
+    previewBtn.setAttribute('aria-pressed', on);
+    previewBtn.textContent = on ? 'Close preview' : 'Preview';
+  });
+</script>
+</body>
+</html>

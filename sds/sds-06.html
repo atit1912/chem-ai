@@ -1,0 +1,397 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>SDS | Calcium chloride — MSBRC2-SDS-06</title>
+<style>
+  /* ===== Mobile-first theme ===== */
+  :root{
+    --ink:#0f172a; --muted:#475569; --line:#e2e8f0; --bg:#ffffff; --paper:#f8fafc;
+    --chipbg:#ecfeff; --chipfg:#0c4a6e;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--paper);color:var(--ink);
+    font-family:"Inter","Noto Sans Thai","Sarabun",system-ui,-apple-system,Segoe UI,Roboto,Arial}
+  body{font-size:clamp(15px,3.8vw,17px);line-height:1.75}
+  a{color:inherit}
+  .container{max-width:820px;margin:0 auto;background:#fff;border-left:1px solid var(--line);border-right:1px solid var(--line)}
+
+  /* ===== Header (ตามรูปแบบที่กำหนด) ===== */
+  header{padding:18px 16px 12px;border-bottom:1px solid var(--line);background:#fff}
+  .title{display:flex;flex-direction:column;align-items:center;text-align:center}
+  .ttl{margin:0 0 6px 0;font-size:clamp(20px,5.2vw,26px);line-height:1.35;font-weight:800;letter-spacing:.2px}
+  .chem{
+    display:inline-block;margin:2px auto 8px;padding:8px 14px;border-radius:14px;
+    font-size:clamp(18px,5.8vw,26px);font-weight:800;line-height:1.35;color:#0b3b7e;
+    background:linear-gradient(90deg, rgba(14,165,233,.18), rgba(167,139,250,.18));
+    border:1px solid #c7d2fe;box-shadow:0 2px 8px rgba(2,6,23,.08)
+  }
+  .meta{font-size:.92em;color:var(--muted);margin-top:6px;text-align:center}
+  .badges{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0 0;justify-content:center}
+  .badge{font-size:.8em;border:1px solid var(--line);padding:4px 8px;border-radius:999px;background:var(--chipbg);color:var(--chipfg)}
+
+  /* ===== Sections ===== */
+  section{padding:14px 16px;border-bottom:1px solid var(--line);background:#fff}
+  section>h2{margin:0 0 10px 0;font-size:clamp(16px,4.6vw,20px);line-height:1.4;
+    padding:8px 10px;border:1px solid var(--line);border-radius:12px;
+    background:linear-gradient(90deg,rgba(99,102,241,.08),rgba(244,63,94,.08))}
+  .frame{border:1px solid var(--line);border-radius:12px;padding:12px;background:#fff}
+  .info{background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:10px}
+  .muted{color:var(--muted)}
+
+  /* ===== Tables (mobile scroll) ===== */
+  .tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  table{border-collapse:collapse;min-width:560px;width:100%}
+  th,td{border:1px solid var(--line);padding:8px;vertical-align:top}
+  th{background:#eef2ff;text-align:left}
+
+  /* ===== Pictogram (Wikimedia + inline SVG fallback) ===== */
+  .pictos{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+  .pictos figure{margin:0;text-align:center}
+  .ghs{display:block;width:clamp(72px,18vw,96px);height:auto;filter:drop-shadow(0 0 6px rgba(239,68,68,.18))}
+  .pictos figcaption{font-size:.85em;color:var(--muted)}
+  @media print{
+    header{position:static}
+    .container{border:none}
+    .ghs{width:22mm;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  }
+
+  /* ===== Cards ===== */
+  .pcards{display:grid;grid-template-columns:1fr;gap:12px}
+  .pcard{border:1px solid var(--line);border-radius:12px;background:#fff}
+  .pcard h4{margin:0;padding:10px;border-bottom:1px solid var(--line);
+    background:linear-gradient(90deg,rgba(99,102,241,.10),rgba(244,63,94,.10))}
+  .plist{list-style:disc;padding:8px 16px;margin:0}
+</style>
+</head>
+<body>
+<div class="container" role="document" aria-label="Safety Data Sheet">
+
+  <!-- ===== Header ===== -->
+  <header>
+    <div class="title">
+      <h1 class="ttl">เอกสารข้อมูลความปลอดภัย (SDS)</h1>
+      <h2 class="chem">Calcium chloride</h2>
+      <div class="meta">
+        รูปแบบ: GHS/CLP | ภาษาไทย | จัดทำ: 15 Aug 2025 | ทบทวน: 15 Aug 2025 |แก้ไขครั้งที่: 0 |
+        จัดทำโดย หน่วยงาน SHE&amp;En ธุรกิจพันธุ์กุ้งทะเล 2 · หมายเลขเอกสาร <strong>MSBRC2-SDS-06</strong>
+      </div>
+    </div>
+    <!-- badges หัวข้อแบบเดียวกับ “สูตรเคมี CaCl2” -->
+    <div class="badges">
+      <span class="badge">สูตรเคมี CaCl<sub>2</sub></span>
+      <span class="badge">CAS No. 10043-52-4</span>
+      <span class="badge">UN: Not regulated</span>
+      <span class="badge">Storage Class 12</span>
+      <span class="badge">Irritant (ประเภทที่ 2)</span>
+      <span class="badge">EC No. 233-140-8</span>
+    </div>
+  </header>
+
+  <!-- ===== 1 ===== -->
+  <section id="sec1">
+    <h2>ข้อ 1: ข้อมูลเกี่ยวกับสารหรือส่วนผสม และข้อมูลของผู้ผลิต/ผู้จัดจำหน่าย</h2>
+    <div class="frame">
+      <div class="info" style="margin-bottom:10px">
+        <strong>ชื่อสารเคมี:</strong> Calcium chloride (แคลเซียมคลอไรด์) — ของแข็งสีขาว ดูดความชื้นสูง (hygroscopic)<br>
+        <strong>การใช้ที่แนะนำ:</strong> สารดูดความชื้น/ทำให้แห้ง, ปรับคุณภาพน้ำในการเพาะเลี้ยงสัตว์น้ำ, ตัวให้ไอออน Ca<sup>2+</sup>, ห้องปฏิบัติการ<br>
+        <strong>การใช้ที่ไม่แนะนำ:</strong> หลีกเลี่ยงการสร้างฝุ่น; หลีกเลี่ยงการเติมลงในน้ำรวดเดียว (การละลายให้ความร้อน)
+      </div>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>ผู้จำหน่าย (ประเทศไทย)</th><th>ข้อมูลติดต่อ</th></tr></thead>
+          <tbody>
+            <tr>
+              <td>บริษัท วิทย์คอร์ป โปรดักส์ จำกัด (Witcorp Products Co., Ltd.)</td>
+              <td>
+                สำนักงานใหญ่: 77/113 อาคารสินสาธรทาวเวอร์ ชั้น 27 ถนนกรุงธนบุรี แขวงคลองต้นไทร เขตคลองสาน กรุงเทพมหานคร 10600<br>
+                โทรศัพท์: +66 2440 0809 · แฟกซ์: +66 2440 0827<br>
+                เว็บไซต์: <a href="https://witcorpproducts.com/" target="_blank" rel="noopener">witcorpproducts.com</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="info" style="margin-top:10px"><strong>ฉุกเฉิน:</strong> ศูนย์พิษวิทยารามาธิบดี โทร. 1367 (24 ชม.)</div>
+    </div>
+  </section>
+
+  <!-- ===== 2 ===== -->
+  <section id="sec2">
+    <h2>ข้อ 2: การระบุอันตราย</h2>
+    <div class="frame">
+      <div class="tablewrap" style="margin-bottom:12px">
+        <table>
+          <thead><tr><th>การจัดประเภท (GHS/CLP)</th><th>หมวด</th><th>รหัส</th></tr></thead>
+          <tbody>
+            <tr><td>ระคายเคืองตา (Eye Irritation)</td><td>Eye Irrit. 2</td><td>H319</td></tr>
+            <tr><td>ระคายเคืองทางเดินหายใจ (ฝุ่น)</td><td>STOT SE 3</td><td>H335</td></tr>
+            <tr><td>คำสัญญาณ (Signal word)</td><td colspan="2"><strong>Warning</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Pictogram — Wikimedia vector (with inline SVG fallback) -->
+      <div class="pictos" aria-label="GHS pictograms">
+        <figure>
+          <img class="ghs" alt="GHS07 – Exclamation"
+               src="https://commons.wikimedia.org/wiki/Special:FilePath/GHS-pictogram-exclam.svg"
+               onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 200 200%22><polygon points=%22100,8 192,100 100,192 8,100%22 fill=%22%23e60000%22/><polygon points=%22100,18 182,100 100,182 18,100%22 fill=%22%23ffffff%22/><rect x=%2292%22 y=%2244%22 width=%2216%22 height=%2268%22 rx=%228%22 fill=%22%23111%22/><circle cx=%22100%22 cy=%22140%22 r=%229%22 fill=%22%23111%22/></svg>';"/>
+          <figcaption>GHS07 – ระคายเคือง/อันตรายเล็กน้อย</figcaption>
+        </figure>
+      </div>
+
+      <h3 style="margin:14px 0 8px">ข้อความแสดงอันตราย (H)</h3>
+      <ul>
+        <li><strong>H319</strong> ก่อให้เกิดการระคายเคืองตารุนแรง</li>
+        <li><strong>H335</strong> อาจก่อให้เกิดการระคายเคืองต่อระบบทางเดินหายใจ (จากฝุ่น)</li>
+      </ul>
+
+      <h3 style="margin:14px 0 8px">ข้อความแนะนำการป้องกัน (P) — สรุป</h3>
+      <div class="pcards">
+        <div class="pcard">
+          <h4>ป้องกัน</h4>
+          <ul class="plist">
+            <li><strong>P261</strong> หลีกเลี่ยงการสูดดมฝุ่น</li>
+            <li><strong>P264</strong> ล้างมือและผิวหนังให้สะอาดหลังการใช้งาน</li>
+            <li><strong>P271</strong> ใช้งานในที่อากาศถ่ายเทดี</li>
+            <li><strong>P280</strong> สวมแว่นครอบตา/ถุงมือกันสาร</li>
+          </ul>
+        </div>
+        <div class="pcard">
+          <h4>ตอบโต้เหตุ</h4>
+          <ul class="plist">
+            <li><strong>P305+P351+P338</strong> ตา: ล้างด้วยน้ำต่อเนื่อง 15 นาที ถอดคอนแทคเลนส์ถ้ามี</li>
+            <li><strong>P337+P313</strong> หากอาการระคายตายังอยู่ ให้พบแพทย์</li>
+            <li><strong>P304+P340</strong> สูดดมฝุ่น: เคลื่อนย้ายสู่อากาศบริสุทธิ์ พักให้หายใจสะดวก</li>
+            <li><strong>P302+P352</strong> ผิวหนัง: ล้างด้วยน้ำและสบู่</li>
+          </ul>
+        </div>
+        <div class="pcard">
+          <h4>จัดเก็บ/กำจัด</h4>
+          <ul class="plist">
+            <li><strong>P402+P404</strong> เก็บในที่แห้งและในภาชนะปิดสนิท</li>
+            <li><strong>P501</strong> กำจัดตามข้อกำหนดของกฎหมายท้องถิ่น</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 3 ===== -->
+  <section id="sec3">
+    <h2>ข้อ 3: ส่วนประกอบ/ข้อมูลเกี่ยวกับส่วนผสม</h2>
+    <div class="frame tablewrap">
+      <table>
+        <thead><tr><th>สาร</th><th>CAS</th><th>EC</th><th>ความเข้มข้น</th><th>การจัดประเภท GHS</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>Calcium chloride (แอนไฮดรัส)</td><td>10043-52-4</td><td>233-140-8</td><td>≥ 95% w/w</td>
+            <td>Eye Irrit. 2 (H319); STOT SE 3 (H335/ฝุ่น)</td>
+          </tr>
+          <tr>
+            <td>สิ่งเจือปน/น้ำ</td><td>7732-18-5</td><td>231-791-2</td><td>≤ 5% w/w</td><td>ไม่จัดเป็นอันตราย</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===== 4 ===== -->
+  <section id="sec4">
+    <h2>ข้อ 4: มาตรการปฐมพยาบาลเบื้องต้น</h2>
+    <div class="frame">
+      <div class="info" style="margin-bottom:8px">
+        <strong>อาการสำคัญ:</strong> แสบตา/น้ำตาไหล; ไอ/ระคายคอจากฝุ่น; ผิวแห้งหรือแสบร้อนเมื่อสัมผัสสารชื้น (การละลายให้ความร้อน)
+      </div>
+      <ul>
+        <li><strong>เข้าตา:</strong> ล้างน้ำไหลอ่อน ๆ อย่างน้อย 15 นาที ยกเปลือกตาเป็นช่วง ๆ พบแพทย์หากไม่ทุเลา</li>
+        <li><strong>ผิวหนัง:</strong> ปัดฝุ่นออก ล้างด้วยน้ำและสบู่ ถอดเสื้อผ้าปนเปื้อน</li>
+        <li><strong>สูดดม:</strong> นำผู้ป่วยสู่อากาศบริสุทธิ์ หากมีอาการให้พบแพทย์</li>
+        <li><strong>กลืนกิน:</strong> บ้วนปาก ดื่มน้ำตามช้า ๆ ห้ามทำให้อาเจียนเอง ติดต่อแพทย์หากรู้สึกไม่สบาย</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== 5 ===== -->
+  <section id="sec5">
+    <h2>ข้อ 5: มาตรการระงับอัคคีภัย</h2>
+    <div class="frame">
+      <ul>
+        <li><strong>คุณสมบัติการติดไฟ:</strong> ไม่ติดไฟ</li>
+        <li><strong>สารดับเพลิงที่เหมาะสม:</strong> ใช้สื่อดับเพลิงตามวัสดุรอบข้าง (น้ำพ่น โฟม ผงแห้ง CO₂)</li>
+        <li><strong>อันตรายจากการเผาไหม้:</strong> เมื่อถูกความร้อนจัดอาจสลายให้ HCl/Cl<sub>2</sub></li>
+        <li><strong>คำแนะนำผู้ดับเพลิง:</strong> สวม SCBA หากเกิดควัน/ไอระเหย</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== 6 ===== -->
+  <section id="sec6">
+    <h2>ข้อ 6: มาตรการเมื่อมีการรั่วไหลโดยไม่ตั้งใจ</h2>
+    <div class="frame">
+      <ul>
+        <li><strong>ความปลอดภัยบุคคล:</strong> หลีกเลี่ยงการเกิดฝุ่น สวมแว่น/ถุงมือ เพิ่มการระบายอากาศ</li>
+        <li><strong>สิ่งแวดล้อม:</strong> ป้องกันไม่ให้ลงทางน้ำในปริมาณมาก (เสี่ยงเพิ่มความเค็ม)</li>
+        <li><strong>การเก็บกู้:</strong> กวาด/ตักใส่ภาชนะปิดสนิท; สำหรับสารละลาย ซับด้วยวัสดุดูดซับไม่ทำปฏิกิริยา</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== 7 ===== -->
+  <section id="sec7">
+    <h2>ข้อ 7: การจัดการและการเก็บรักษา</h2>
+    <div class="frame">
+      <ul>
+        <li>หลีกเลี่ยงความชื้น/น้ำขณะชั่งหรือผสม (การละลายให้ความร้อน)</li>
+        <li>ป้องกันการเกิดฝุ่น; ใช้ในที่อากาศถ่ายเท</li>
+        <li>เก็บในที่แห้ง ภาชนะปิดสนิท วางห่างกรดแรง/โลหะบางชนิด</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== 8 ===== -->
+  <section id="sec8">
+    <h2>ข้อ 8: การควบคุมการสัมผัสและการป้องกันส่วนบุคคล</h2>
+    <div class="frame">
+      <div class="tablewrap" style="margin-bottom:8px">
+        <table>
+          <thead><tr><th>สาร</th><th>หน่วยงาน</th><th>ค่าเกณฑ์</th><th>หมายเหตุ</th></tr></thead>
+          <tbody>
+            <tr><td>ฝุ่นอนินทรีย์ (PNOR/PNOS)</td><td>OSHA PEL</td><td>15 mg/m³ (Total), 5 mg/m³ (Resp.)</td><td>เกณฑ์ฝุ่นทั่วไป</td></tr>
+            <tr><td>Particles NOS</td><td>ACGIH TLV</td><td>10 mg/m³ (Inhalable), 3 mg/m³ (Resp.)</td><td>เกณฑ์ฝุ่นทั่วไป</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <ul>
+        <li><strong>ตา/หน้า:</strong> แว่นครอบตา</li>
+        <li><strong>มือ:</strong> ถุงมือไนไตรล์/พีวีซี</li>
+        <li><strong>ร่างกาย:</strong> เสื้อคลุมกันฝุ่น</li>
+        <li><strong>หายใจ:</strong> หน้ากากกรองฝุ่น P2/P3 หากฝุ่นเกินเกณฑ์</li>
+        <li><strong>วิศวกรรม:</strong> ใช้ท้องถิ่นดูดอากาศ (LEV) เมื่อชั่ง/เท</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== 9 ===== -->
+  <section id="sec9">
+    <h2>ข้อ 9: สมบัติทางกายภาพและเคมี</h2>
+    <div class="frame tablewrap">
+      <table>
+        <tbody>
+          <tr><th>ลักษณะ</th><td>ของแข็งผลึก/เกล็ด สีขาว ไม่มีกลิ่น</td></tr>
+          <tr><th>จุดหลอมเหลว</th><td>~ 772 °C (แอนไฮดรัส)</td></tr>
+          <tr><th>การสลายตัว</th><td>&gt; 1600 °C (ไม่มีจุดเดือดแท้)</td></tr>
+          <tr><th>ความหนาแน่น</th><td>~ 2.15 g/cm³ (20 °C)</td></tr>
+          <tr><th>การละลายน้ำ</th><td>ละลายได้มาก (ดูดความชื้นสูง; การละลายให้ความร้อน)</td></tr>
+          <tr><th>pH (สารละลาย 10%)</th><td>~ 7–9</td></tr>
+          <tr><th>VOC</th><td>0%</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===== 10 ===== -->
+  <section id="sec10">
+    <h2>ข้อ 10: ความเสถียรและความไวต่อการเกิดปฏิกิริยา</h2>
+    <div class="frame">
+      <ul>
+        <li><strong>ความเสถียร:</strong> เสถียรภายใต้การใช้งานปกติ; ดูดความชื้น/ละลายให้ความร้อน</li>
+        <li><strong>ต้องหลีกเลี่ยง:</strong> ความชื้นมาก, กรดแรง, อะลูมิเนียม/สังกะสี/ดีบุก (เสี่ยงเกิดก๊าซไฮโดรเจนเมื่อมีน้ำ)</li>
+        <li><strong>ผลิตภัณฑ์สลายตัว:</strong> HCl/Cl<sub>2</sub> เมื่อถูกความร้อนจัด</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== 11 ===== -->
+  <section id="sec11">
+    <h2>ข้อ 11: ข้อมูลพิษวิทยา</h2>
+    <div class="frame tablewrap">
+      <table>
+        <tbody>
+          <tr><th>พิษเฉียบพลัน (oral, rat)</th><td>LD₅₀ ~ 2300 mg/kg</td></tr>
+          <tr><th>การระคายเคือง</th><td>ตา: ระคายรุนแรง (H319); ทางเดินหายใจ: ระคายจากฝุ่น (H335)</td></tr>
+          <tr><th>ไวต่อการก่อมะเร็ง/ก่อกลายพันธุ์/สืบพันธุ์</th><td>ไม่มีการจัดเป็นอันตรายตาม GHS</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===== 12 ===== -->
+  <section id="sec12">
+    <h2>ข้อ 12: ข้อมูลระบบนิเวศ</h2>
+    <div class="frame">
+      <ul>
+        <li>ไม่จัดเป็นอันตรายต่อสิ่งแวดล้อม แต่การปล่อยจำนวนมากอาจเพิ่มความเค็มของน้ำ ส่งผลต่อสิ่งมีชีวิตน้ำ</li>
+        <li>แตกตัวเป็นไอออน Ca<sup>2+</sup>, Cl<sup>−</sup> ในน้ำได้</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== 13 ===== -->
+  <section id="sec13">
+    <h2>ข้อ 13: ข้อควรพิจารณาในการกำจัด</h2>
+    <div class="frame">
+      <ul>
+        <li>กวาดบรรจุภัณฑ์ปิดสนิท ส่งกำจัดตามกฎหมายท้องถิ่น; หลีกเลี่ยงการเทลงท่อโดยตรง</li>
+        <li>บรรจุภัณฑ์: ล้าง/ทำให้แห้งก่อนส่งรีไซเคิลหรือกำจัด</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== 14 ===== -->
+  <section id="sec14">
+    <h2>ข้อ 14: ข้อมูลเกี่ยวกับการขนส่ง</h2>
+    <div class="frame tablewrap">
+      <table>
+        <thead><tr><th>ระเบียบ</th><th>สถานะ/รายละเอียด</th></tr></thead>
+        <tbody>
+          <tr><td>ADR/RID (EU)</td><td>Not regulated — ไม่มี UN Number</td></tr>
+          <tr><td>IMDG (ทะเล)</td><td>Not regulated — ไม่เป็น Marine pollutant</td></tr>
+          <tr><td>IATA/ICAO (อากาศ)</td><td>Not regulated</td></tr>
+        </tbody>
+      </table>
+      <div class="muted" style="margin-top:6px"><strong>ฉลากขนส่ง:</strong> ไม่มี (ไม่เข้าเกณฑ์วัตถุอันตรายในการขนส่ง)</div>
+    </div>
+  </section>
+
+  <!-- ===== 15 ===== -->
+  <section id="sec15">
+    <h2>ข้อ 15: ข้อมูลเกี่ยวกับกฎหมาย</h2>
+    <div class="frame">
+      <ul>
+        <li>การจัดประเภทและฉลาก: GHS/CLP — Eye Irrit. 2 (H319), STOT SE 3 (H335/ฝุ่น); คำสัญญาณ <em>Warning</em></li>
+        <li>ประเทศไทย: ปฏิบัติตาม พ.ร.บ.วัตถุอันตราย และกฎหมายความปลอดภัยในการทำงาน</li>
+        <li>Storage Class (VCI): 12 (ตามที่ระบุโดยองค์กร)</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== 16 ===== -->
+  <section id="sec16">
+    <h2>ข้อ 16: ข้อมูลอื่น ๆ</h2>
+    <div class="frame">
+      <div class="tablewrap" style="margin-bottom:8px">
+        <table>
+          <tbody>
+            <tr><th>หมายเลขเอกสาร</th><td>MSBRC2-SDS-06</td></tr>
+            <tr><th>ชื่อผลิตภัณฑ์</th><td>Calcium chloride</td></tr>
+            <tr><th>จัดทำโดย</th><td>หน่วยงาน SHE&amp;En ธุรกิจพันธุ์กุ้งทะเล 2</td></tr>
+            <tr><th>สถานะ</th><td>ใช้งาน (Effective)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <ul>
+        <li>ทบทวน SDS อย่างน้อยปีละครั้ง หรือเมื่อข้อมูล/กฎหมายเปลี่ยนแปลง</li>
+        <li>แนะนำให้ติดตั้งจุดล้างตา และใช้ LEV ในพื้นที่ที่เกิดฝุ่น</li>
+      </ul>
+      <div class="info" style="margin-top:8px">
+        <strong>คำชี้แจงความรับผิดชอบ:</strong> ข้อมูลนี้จัดทำเพื่อสนับสนุนความปลอดภัยในการทำงาน ผู้ใช้ต้องประเมินความเสี่ยง ณ สถานที่ปฏิบัติงานจริงและปฏิบัติตามกฎหมายที่เกี่ยวข้อง
+      </div>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>

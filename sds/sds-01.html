@@ -1,0 +1,463 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>SDS (Mobile) | Sodium hypochlorite 10% — MSBRC2-SDS-01</title>
+<style>
+  /* ===== Mobile-first theme ===== */
+  :root{
+    --ink:#0f172a; --muted:#475569; --line:#e2e8f0; --bg:#ffffff; --paper:#f8fafc;
+    --accent:#0ea5e9; --accent2:#a78bfa;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--paper);color:var(--ink);
+    font-family:"Inter","Noto Sans Thai","Sarabun",system-ui,-apple-system,Segoe UI,Roboto,Arial}
+  body{font-size:clamp(15px, 3.8vw, 17px); line-height:1.75}
+  .container{max-width:760px;margin:0 auto;background:var(--bg);border-left:1px solid var(--line);border-right:1px solid var(--line)}
+
+  /* Header (non-sticky) */
+  header{padding:18px 16px 12px;border-bottom:1px solid var(--line);background:#fff;position:static}
+  .title{display:flex;flex-direction:column;align-items:center;text-align:center}
+  .ttl{margin:0 0 6px 0;font-size:clamp(20px,5.2vw,26px);line-height:1.35;letter-spacing:.2px;font-weight:800}
+  .chem{
+    display:inline-block;
+    margin:2px auto 8px;
+    font-size:clamp(18px,5.8vw,26px);
+    line-height:1.35;
+    font-weight:800;
+    color:#0b3b7e;
+    padding:8px 14px;
+    border-radius:14px;
+    background:linear-gradient(90deg, rgba(14,165,233,.18), rgba(167,139,250,.18));
+    border:1px solid #c7d2fe;
+    box-shadow:0 2px 8px rgba(2,6,23,.08);
+  }
+  .meta{font-size:.9em;color:var(--muted);margin-top:6px;text-align:center}
+  .badges{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0 0;justify-content:center}
+  .badge{font-size:.8em;border:1px solid var(--line);padding:4px 8px;border-radius:999px;background:#ecfeff;color:#0c4a6e}
+
+  section{padding:14px 16px;border-bottom:1px solid var(--line);background:#fff}
+  section>h2{margin:0 0 10px 0;font-size:clamp(16px,4.6vw,20px);line-height:1.4;
+    padding:8px 10px;border:1px solid var(--line);border-radius:12px;
+    background:linear-gradient(90deg,rgba(99,102,241,.08),rgba(244,63,94,.08))}
+  .frame{border:1px solid var(--line);border-radius:12px;padding:12px;background:#fff}
+  .info{background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:10px}
+  .muted{color:var(--muted)}
+
+  /* Tables: mobile horizontal scroll */
+  .tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  table{border-collapse:collapse;min-width:560px;width:100%}
+  th,td{border:1px solid var(--line);padding:8px;vertical-align:top}
+  th{background:#eef2ff;text-align:left}
+
+  /* Pictograms */
+  .pictos{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+  .pictos figure{margin:0;text-align:center}
+  .pictos img{display:block;width:88px;height:auto;filter:drop-shadow(0 0 6px rgba(239,68,68,.18))}
+  .pictos figcaption{font-size:.85em;color:var(--muted);margin-top:6px}
+
+  /* Cards */
+  .pcards{display:grid;grid-template-columns:1fr;gap:12px}
+  .pcard{border:1px solid var(--line);border-radius:12px;background:#fff}
+  .pcard h4{margin:0;padding:10px;border-bottom:1px solid var(--line);
+    background:linear-gradient(90deg,rgba(99,102,241,.10),rgba(244,63,94,.10))}
+  .plist{list-style:disc;padding:8px 16px;margin:0}
+
+  /* Print */
+  @page{size:A4;margin:8mm}
+  @media print{
+    header{position:static}
+    .container{border:none}
+    .title{align-items:center;text-align:center}
+    .chem{margin-left:auto;margin-right:auto}
+    section{page-break-inside:auto}
+  }
+</style>
+</head>
+<body>
+<div class="container" role="document" aria-label="Safety Data Sheet">
+
+  <!-- Header -->
+  <header>
+    <div class="title">
+      <h1 class="ttl">เอกสารข้อมูลความปลอดภัย (SDS)</h1>
+      <h2 class="chem">คลอรีนน้ำ (Sodium hypochlorite 10%)</h2>
+      <div class="meta">
+        รูปแบบ: GHS/CLP | ภาษาไทย | จัดทำ: 15 Aug 2025 |
+        ทบทวน: 15 Aug 2025 | แก้ไขครั้งที่: 0 |
+        จัดทำโดย หน่วยงาน SHE&amp;En ธุรกิจพันธุ์กุ้งทะเล 2 |
+        หมายเลขเอกสาร <strong>MSBRC2-SDS-01</strong>
+      </div>
+    </div>
+    <div class="badges">
+      <span class="badge">CAS 7681-52-9</span>
+      <span class="badge">UN 1791 — Hypochlorite solution</span>
+      <span class="badge">Class 8 (Corrosive) • PG III</span>
+      <span class="badge">Storage Class: 8B</span>
+      <span class="badge">ประเภทที่ 2 — วัตถุกัดกร่อน</span>
+    </div>
+  </header>
+
+  <!-- 1 -->
+  <section id="sec1">
+    <h2>ข้อ 1: ข้อมูลเกี่ยวกับสารหรือส่วนผสม และข้อมูลของผู้ผลิต/ผู้จัดจำหน่าย</h2>
+    <div class="frame">
+      <div class="info" style="margin-bottom:10px">
+        <strong>ชื่อผลิตภัณฑ์:</strong> คลอรีนน้ำ — Sodium hypochlorite 10% w/w <span class="muted">(available chlorine ~10–12%)</span><br>
+        <strong>ชื่ออื่น/คำพ้อง:</strong> น้ำยาฟอกขาว; Hypochlorite solution; Bleach<br>
+        <strong>การใช้ที่แนะนำ:</strong> ฆ่าเชื้อพื้นผิว/อุปกรณ์, ปรับสภาพน้ำ/บำบัดน้ำเสีย, ทำความสะอาดเชิงอุตสาหกรรม (ใช้โดยมืออาชีพ)<br>
+        <strong>การใช้ที่ไม่แนะนำ:</strong> <u>ห้าม</u> ผสมกับกรด/แอมโมเนีย/แอมโมเนียม; ห้ามใช้เพื่อการบริโภค; ห้ามผสมผลิตภัณฑ์อื่น
+      </div>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>ผู้ผลิต/ผู้นำเข้า/ผู้จัดจำหน่าย</th><th>ข้อมูลติดต่อ</th></tr></thead>
+          <tbody>
+            <tr>
+              <td>บริษัท อควาติก ซัพพลาย โซลูชั่นส์ จำกัด</td>
+              <td>ที่อยู่: 111/99 ถนนรัชดา-รามอินทรา แขวงคันนายาว เขตคันนายาว กรุงเทพมหานคร 10230<br>
+                  โทรศัพท์: 063-269-2902, 02-918-1010, 084-698-2003</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="info" style="margin-top:10px"><strong>ฉุกเฉิน:</strong> ศูนย์พิษวิทยารามาธิบดี 1367 (24 ชม.)</div>
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section id="sec2">
+    <h2>ข้อ 2: การระบุอันตราย</h2>
+    <div class="frame">
+      <div class="tablewrap" style="margin-bottom:10px">
+        <table>
+          <thead><tr><th>อันตราย</th><th>หมวด</th><th>รหัส</th></tr></thead>
+          <tbody>
+            <tr><td>กัดกร่อนโลหะ</td><td>Met. Corr. 1</td><td>H290</td></tr>
+            <tr><td>กัดกร่อนผิวหนัง</td><td>Skin Corr. 1B</td><td>H314</td></tr>
+            <tr><td>ทำลายดวงตา</td><td>Eye Dam. 1</td><td>H318 <span class="muted">(ครอบคลุมโดย H314)</span></td></tr>
+            <tr><td>เป็นพิษต่อสิ่งมีชีวิตในน้ำ (เฉียบพลัน)</td><td>Aquatic Acute 1</td><td>H400</td></tr>
+            <tr><td>เป็นพิษต่อสิ่งมีชีวิตในน้ำ (เรื้อรัง)</td><td>Aquatic Chronic 1</td><td>H410</td></tr>
+            <tr><td>คำสัญญาณ</td><td colspan="2"><strong>Danger</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 style="margin:10px 0 8px">สัญลักษณ์อันตราย (GHS)</h3>
+      <div class="pictos" aria-label="GHS pictograms">
+        <figure>
+          <img alt="GHS05 – Corrosive"
+               src="https://upload.wikimedia.org/wikipedia/commons/a/a1/GHS-pictogram-acid.svg"
+               onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 210 210%22><rect x=%2230%22 y=%2230%22 width=%22150%22 height=%22150%22 transform=%22rotate(45 105 105)%22 fill=%22%23fff%22 stroke=%22%23e60000%22 stroke-width=%2218%22/><path d=%22M65 120h35m80 0h-35M95 120c0 15-10 25-25 25 5-10 5-15 0-25m85 0c0 15 10 25 25 25-5-10-5-15 0-25%22 stroke=%22000%22 stroke-width=%228%22 fill=%22none%22/></svg>';">
+          <figcaption>GHS05 – Corrosive</figcaption>
+        </figure>
+        <figure>
+          <img alt="GHS09 – Environment"
+               src="https://upload.wikimedia.org/wikipedia/commons/b/b9/GHS-pictogram-pollu.svg"
+               onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 210 210%22><rect x=%2230%22 y=%2230%22 width=%22150%22 height=%22150%22 transform=%22rotate(45 105 105)%22 fill=%22%23fff%22 stroke=%22%23e60000%22 stroke-width=%2218%22/><path d=%22M50 140h110M70 140c10-20 35-30 50-40 5-3 10-7 12-12 3-8-3-18-8-22 5 0 22 6 26 18 3 9-2 18-9 24-10 8-26 12-36 16-12 4-24 10-35 16z%22 fill=%22000%22/></svg>';">
+          <figcaption>GHS09 – Environment</figcaption>
+        </figure>
+      </div>
+
+      <h3 style="margin:14px 0 8px">ข้อความแสดงอันตราย (H)</h3>
+      <ul>
+        <li><strong>H290</strong> อาจกัดกร่อนโลหะ</li>
+        <li><strong>H314</strong> ก่อให้เกิดแผลไหม้อย่างรุนแรงต่อผิวหนังและทำลายดวงตา</li>
+        <li><strong>H400</strong> มีพิษอย่างรุนแรงต่อสิ่งมีชีวิตในน้ำ</li>
+        <li><strong>H410</strong> มีพิษอย่างรุนแรงต่อสิ่งมีชีวิตในน้ำ โดยมีผลกระทบยาวนาน</li>
+      </ul>
+
+      <h3 style="margin:14px 0 8px">ข้อความแนะนำการป้องกัน (P) — สรุป</h3>
+      <div class="pcards" aria-label="Precautionary statements – grouped">
+        <div class="pcard">
+          <h4>ทั่วไป/ป้องกัน</h4>
+          <ul class="plist">
+            <li><strong>P234</strong> เก็บไว้ในภาชนะเดิมเท่านั้น เพื่อลดปฏิกิริยากับโลหะ/กรด และป้องกันการรั่วซึม</li>
+            <li><strong>P260</strong> หลีกเลี่ยงการสูดดมไอ/ละออง ใช้ระบบดูดไอเฉพาะที่ หรือหน้ากากตามระดับความเข้มข้น</li>
+            <li><strong>P264</strong> ล้างมือ แขน ใบหน้า หลังการจัดการทุกครั้งก่อนกิน/ดื่ม/เข้าห้องน้ำ</li>
+            <li><strong>P271</strong> ใช้เฉพาะในที่อากาศถ่ายเทดี ลดการสะสมของคลอรีนในอากาศ</li>
+            <li><strong>P273</strong> หลีกเลี่ยงการปล่อยลงสิ่งแวดล้อม ปิดกั้นท่อระบายน้ำ/ทางน้ำ</li>
+            <li><strong>P280</strong> สวมถุงมือเคมี (NBR/Neoprene/PVC) แว่นครอบตา/กระบังหน้า เสื้อกันสาร</li>
+          </ul>
+        </div>
+        <div class="pcard">
+          <h4>ตอบโต้เหตุ</h4>
+          <ul class="plist">
+            <li><strong>P301+P330+P331</strong> หากกลืน: บ้วนปาก ห้ามทำให้อาเจียน ติดต่อศูนย์พิษ/แพทย์ทันที</li>
+            <li><strong>P303+P361+P353</strong> ผิวหนัง/ผม: ถอดเสื้อผ้าปนเปื้อน ล้าง/อาบน้ำด้วยน้ำจำนวนมาก</li>
+            <li><strong>P304+P340</strong> สูดดม: เคลื่อนย้ายไปอากาศบริสุทธิ์ จัดท่าที่หายใจสะดวก</li>
+            <li><strong>P305+P351+P338</strong> เข้าตา: ล้างน้ำต่อเนื่อง 15–20 นาที ถอดคอนแทคเลนส์หากทำได้ แล้วล้างต่อ</li>
+            <li><strong>P310</strong> โทรหาศูนย์พิษ/แพทย์ทันทีเมื่อเกิดการสัมผัสที่รุนแรง</li>
+            <li><strong>P391</strong> เก็บกู้สารที่หกรั่วไหล ป้องกันไม่ให้ลงแหล่งน้ำ/ท่อระบายน้ำ</li>
+          </ul>
+        </div>
+        <div class="pcard">
+          <h4>จัดเก็บ/กำจัด</h4>
+          <ul class="plist">
+            <li><strong>P405</strong> เก็บในที่ล็อกได้ แยกจากกรด/แอมโมเนีย พ้นแสงแดดและความร้อน ภาชนะปิดสนิท</li>
+            <li><strong>P501</strong> กำจัดตามกฎหมาย อาจทำให้เป็นกลาง (เช่น sodium thiosulfate) และส่งผู้รับกำจัดที่ได้รับอนุญาต</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3 style="margin:14px 0 8px">ข้อความเพิ่มเติม (EUH)</h3>
+      <ul>
+        <li><strong>EUH031</strong> สัมผัสกับกรดปล่อยก๊าซพิษ (คลอรีน)</li>
+        <li><strong>EUH206</strong> คำเตือน! ห้ามใช้ร่วมกับผลิตภัณฑ์อื่น อาจปล่อยก๊าซอันตราย (คลอรีน)</li>
+      </ul>
+
+      <h3 style="margin:14px 0 8px">อันตรายอื่นที่ไม่รวมในการจัดประเภท</h3>
+      <ul class="muted">
+        <li>ผสมกับแอมโมเนีย/แอมโมเนียม/ยูเรีย อาจเกิดคลอรามีนที่เป็นพิษ</li>
+        <li>สารละลายด่างจัด (pH ~11.5–13) เสี่ยงทำลายเยื่อบุตาอย่างรุนแรง</li>
+        <li>กัดกร่อนโลหะบางชนิด และอาจทำให้พื้นผิวคอนกรีตเสียหายเมื่อสัมผัสซ้ำ</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 3 -->
+  <section id="sec3">
+    <h2>ข้อ 3: ส่วนประกอบ/ข้อมูลเกี่ยวกับส่วนผสม</h2>
+    <div class="frame tablewrap">
+      <table>
+        <thead>
+          <tr><th>สาร</th><th>CAS No.</th><th>EC No.</th><th>ความเข้มข้นโดยประมาณ</th><th>การจัดประเภท GHS</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Sodium hypochlorite (สารละลาย)</td>
+            <td>7681-52-9</td>
+            <td>231-668-3</td>
+            <td>10% w/w (Cl₂ available ~10–12%)</td>
+            <td>Met. Corr. 1; Skin Corr. 1B; Eye Dam. 1; Aquatic Acute 1; Aquatic Chronic 1</td>
+          </tr>
+          <tr>
+            <td>น้ำ; โซเดียมไฮดรอกไซด์ (ปรับ pH); โซเดียมคลอไรด์ (สิ่งเจือปน)</td>
+            <td>7732-18-5; 1310-73-2; 7647-14-5</td>
+            <td>231-791-2; 215-185-5; 231-598-3</td>
+            <td>สมดุล</td>
+            <td>NaOH: Skin Corr. 1A (หากมีในระดับเกี่ยวข้อง)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 4 -->
+  <section id="sec4">
+    <h2>ข้อ 4: มาตรการปฐมพยาบาลเบื้องต้น</h2>
+    <div class="frame">
+      <div class="info" style="margin-bottom:8px">
+        <strong>อาการสำคัญ:</strong> ผิวไหม้กัดกร่อน; ปวดแสบตารุนแรง; ระคายทางเดินหายใจ; แผลกัดกร่อนทางเดินอาหาร
+      </div>
+      <ul>
+        <li><strong>เข้าตา:</strong> ล้างน้ำ 15–20 นาที เปิดเปลือกตาเป็นระยะ รีบพบจักษุแพทย์</li>
+        <li><strong>ผิวหนัง:</strong> ล้างน้ำมาก ๆ 15 นาที ถอดเสื้อผ้าปนเปื้อน</li>
+        <li><strong>สูดดม:</strong> ย้ายไปอากาศบริสุทธิ์ ให้ O₂ หากจำเป็น ติดต่อแพทย์</li>
+        <li><strong>กลืนกิน:</strong> ล้างปาก ดื่มน้ำ 1–2 แก้ว <u>ห้าม</u>ทำให้อาเจียน ส่งโรงพยาบาลทันที</li>
+      </ul>
+      <div class="muted" style="margin-top:6px">หมายเหตุ: หลีกเลี่ยงการใช้สารแก้พิษกรด/ด่างโดยไม่มีคำแนะนำแพทย์; ในสถานพยาบาลอาจพิจารณาใช้ <em>sodium thiosulfate</em> ภายใต้ดุลยพินิจแพทย์</div>
+    </div>
+  </section>
+
+  <!-- 5 -->
+  <section id="sec5">
+    <h2>ข้อ 5: มาตรการระงับอัคคีภัย</h2>
+    <div class="frame">
+      <ul>
+        <li><strong>ดับเพลิงที่เหมาะสม:</strong> น้ำสเปรย์/ละออง, โฟม, ผงแห้ง, CO₂ (พิจารณาตามเชื้อเพลิงรอบข้าง)</li>
+        <li><strong>ไม่แนะนำ:</strong> ฉีดน้ำแรงดันสูงตรงแอ่งสาร (กระจายสาร)</li>
+        <li><strong>อันตรายจากไฟ:</strong> สลายตัวด้วยความร้อน/กรด ปล่อย Cl₂ และ O₂; ภาชนะอาจแตกเมื่อร้อนจัด</li>
+        <li><strong>คำแนะนำ:</strong> สวม SCBA + ชุดกันสาร ควบคุมน้ำดับเพลิงไม่ให้ลงแหล่งน้ำ</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 6 -->
+  <section id="sec6">
+    <h2>ข้อ 6: มาตรการเมื่อมีการรั่วไหลโดยไม่ตั้งใจ</h2>
+    <div class="frame">
+      <ul>
+        <li><strong>บุคคล/อุปกรณ์:</strong> อพยพผู้ไม่เกี่ยวข้อง ระบายอากาศ สวม PPE (แว่นครอบตา/กระบังหน้า ถุงมือ NBR/Neoprene/PVC ชุดกันสาร)</li>
+        <li><strong>สิ่งแวดล้อม:</strong> ปิดกั้นท่อระบายน้ำ/ทางน้ำ</li>
+        <li><strong>เก็บกู้/ทำให้เป็นกลาง:</strong> ดูดซับด้วยทราย/เวอร์มิคูไลต์ ใส่ภาชนะ HDPE/PP ปิดสนิท; อาจรีดิวซ์ด้วย sodium thiosulfate/bisulfite ภายใต้การควบคุม; ล้างพื้นที่อย่างพอเหมาะ</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 7 -->
+  <section id="sec7">
+    <h2>ข้อ 7: การจัดการและการเก็บรักษา</h2>
+    <div class="frame">
+      <ul>
+        <li>ทำงานในที่อากาศถ่ายเท/มีการดูดไอเฉพาะที่</li>
+        <li>ห้ามผสมกับกรด แอมโมเนีย/แอมโมเนียม สารรีดิวซ์ หรือโลหะ</li>
+        <li>ใช้อุปกรณ์/ท่อที่ทนการกัดกร่อน: PVC/CPVC/PE/PP/PTFE (หลีกเลี่ยงอลูมิเนียม/ทองแดง)</li>
+        <li>เก็บเย็นและมืด (5–25°C), กันแสงแดด/UV, ภาชนะ HDPE/PP ปิดสนิท, แยกจากกรด/สารอินทรีย์/ตัวรีดิวซ์/โลหะ</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 8 -->
+  <section id="sec8">
+    <h2>ข้อ 8: การควบคุมการสัมผัสและการป้องกันส่วนบุคคล</h2>
+    <div class="frame">
+      <div class="tablewrap" style="margin-bottom:8px">
+        <table>
+          <thead><tr><th>สาร</th><th>หน่วยงาน</th><th>ค่า</th><th>หมายเหตุ</th></tr></thead>
+          <tbody>
+            <tr><td>คลอรีน (Chlorine)</td><td>ACGIH TLV-C</td><td>0.5 ppm (Ceiling)</td><td>อาจเกิดจากการสลายตัวของ NaOCl</td></tr>
+            <tr><td>คลอรีน (Chlorine)</td><td>OSHA PEL-C</td><td>0.5 ppm (Ceiling)</td><td>—</td></tr>
+            <tr><td>คลอรีน (Chlorine)</td><td>NIOSH REL</td><td>C 0.5 ppm; ST 1 ppm (15 นาที)</td><td>—</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <ul>
+        <li><strong>ตา/หน้า:</strong> แว่นครอบตาเคมี + กระบังหน้า</li>
+        <li><strong>มือ:</strong> ถุงมือ NBR/Neoprene/PVC (≥0.4 มม.)</li>
+        <li><strong>ร่างกาย:</strong> เอี๊ยม/เสื้อกันสารเคมี, รองเท้าบูทกันสาร</li>
+        <li><strong>ระบบหายใจ:</strong> หน้ากากกรองไอ/หมอกอนินทรีย์ + P2/P3; ใช้ SCBA ในกรณีฉุกเฉิน</li>
+        <li><strong>วิศวกรรม:</strong> ดูดไอเฉพาะที่/ตู้ดูดควัน; มีฝักบัวนิรภัยและที่ล้างตา</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 9 -->
+  <section id="sec9">
+    <h2>ข้อ 9: สมบัติทางกายภาพและเคมี</h2>
+    <div class="frame tablewrap">
+      <table>
+        <tbody>
+          <tr><th>ลักษณะ</th><td>ของเหลว สีเหลืองอ่อนถึงเขียวอ่อน มีกลิ่นคลอรีน</td></tr>
+          <tr><th>pH (20–25 °C)</th><td>~ 11.5 – 13</td></tr>
+          <tr><th>จุดเดือดเริ่มต้น</th><td>~ 100 – 111 °C</td></tr>
+          <tr><th>จุดเยือกแข็ง</th><td>&lt; 0 °C (ขึ้นกับความเข้มข้น)</td></tr>
+          <tr><th>จุดวาบไฟ</th><td>ไม่ติดไฟ</td></tr>
+          <tr><th>ความหนาแน่น (20 °C)</th><td>~ 1.15 – 1.21 g/cm³</td></tr>
+          <tr><th>การละลายน้ำ</th><td>ละลายได้สมบูรณ์</td></tr>
+          <tr><th>แรงดันไอ (20 °C)</th><td>ใกล้เคียงน้ำ; อาจมีไอคลอรีนเล็กน้อย</td></tr>
+          <tr><th>ความหนืด</th><td>ใกล้เคียงน้ำ</td></tr>
+          <tr><th>VOC</th><td>ไม่มี</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 10 -->
+  <section id="sec10">
+    <h2>ข้อ 10: ความเสถียรและความไวต่อการเกิดปฏิกิริยา</h2>
+    <div class="frame">
+      <ul>
+        <li><strong>ปฏิกิริยา:</strong> สารออกซิไดซ์อ่อน; สลายเมื่อถูกความร้อน/แสง/กรด</li>
+        <li><strong>เสถียรภาพเคมี:</strong> เสถียรภายใต้สภาวะปกติ แต่ค่อยๆ เสื่อม (เกิดคลอเรต)</li>
+        <li><strong>สภาวะที่ต้องหลีกเลี่ยง:</strong> แสงแดด, ความร้อน, pH ต่ำ, การปนเปื้อนโลหะ</li>
+        <li><strong>สารที่เข้ากันไม่ได้:</strong> กรด, แอมโมเนีย/แอมโมเนียม/ยูเรีย, สารรีดิวซ์, สารอินทรีย์บางชนิด, โลหะ</li>
+        <li><strong>ผลิตผลสลายตัวอันตราย:</strong> คลอรีน (Cl₂), ออกซิเจน (O₂), NaCl, NaClO₃</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 11 -->
+  <section id="sec11">
+    <h2>ข้อ 11: ข้อมูลพิษวิทยา</h2>
+    <div class="frame tablewrap">
+      <table>
+        <tbody>
+          <tr><th>พิษเฉียบพลัน (ทางปาก, หนู)</th><td>LD₅₀ ~ 8,200 mg/kg (สารละลาย)</td></tr>
+          <tr><th>พิษเฉียบพลัน (ทางผิวหนัง)</th><td>ก่อการกัดกร่อนผิวหนังรุนแรง</td></tr>
+          <tr><th>ระคายเคือง/กัดกร่อน</th><td>ผิวหนัง: กัดกร่อน 1B; ตา: ทำลายตา 1</td></tr>
+          <tr><th>ความไวต่อการก่อภูมิแพ้</th><td>ไม่คาดว่าจะเป็นสารก่อภูมิแพ้ผิวหนัง</td></tr>
+          <tr><th>การก่อมะเร็ง/พันธุกรรม/สืบพันธุ์</th><td>ไม่มีข้อมูลบ่งชี้สำคัญ; ไม่จัดเป็นสารก่อมะเร็งโดย IARC/OSHA</td></tr>
+          <tr><th>อวัยวะเป้าหมาย</th><td>ทางเดินหายใจส่วนบน (การระคายเคือง)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 12 -->
+  <section id="sec12">
+    <h2>ข้อ 12: ข้อมูลระบบนิเวศ</h2>
+    <div class="frame">
+      <ul>
+        <li><strong>พิษต่อสิ่งมีชีวิตน้ำ:</strong> สูง (Aquatic Acute 1; Chronic 1)</li>
+        <li><strong>คงตัว/ย่อยสลายได้:</strong> สลายเป็นคลอไรด์ภายใต้สภาพแวดล้อม; ไม่ใช่สารอินทรีย์ย่อยง่าย</li>
+        <li><strong>สะสมในสิ่งมีชีวิต:</strong> ไม่น่าจะสะสม (อนินทรีย์)</li>
+        <li><strong>การเคลื่อนย้ายในดิน:</strong> เคลื่อนย้ายได้สูงในรูปไอออน</li>
+        <li><strong>ข้อควรระวังสิ่งแวดล้อม:</strong> ป้องกันไม่ให้ลงสู่ท่อระบายน้ำ/แหล่งน้ำ</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 13 -->
+  <section id="sec13">
+    <h2>ข้อ 13: ข้อควรพิจารณาในการกำจัด</h2>
+    <div class="frame">
+      <ul>
+        <li>ทำให้เป็นกลาง/รีดิวซ์ (เช่น โซเดียมไทโอซัลเฟต) ภายใต้การควบคุม ส่งกำจัดโดยผู้รับอนุญาต</li>
+        <li>ภาชนะเปล่า: ล้างน้ำหลายครั้งก่อนส่งรีไซเคิล/กำจัด; ห้ามนำกลับมาใช้บรรจุอาหาร/น้ำ</li>
+        <li>ปฏิบัติตามกฎหมายท้องถิ่น/ประเทศ</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 14 -->
+  <section id="sec14">
+    <h2>ข้อ 14: ข้อมูลเกี่ยวกับการขนส่ง</h2>
+    <div class="frame">
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>ระเบียบ</th><th>รายละเอียด</th></tr></thead>
+          <tbody>
+            <tr><td>ADR/RID</td><td><strong>UN 1791</strong> — Hypochlorite solution; Class 8; PG III</td></tr>
+            <tr><td>IMDG</td><td><strong>UN 1791</strong> — Hypochlorite solution; Class 8; PG III; Marine pollutant: ใช่ (เมื่อเข้าเกณฑ์)</td></tr>
+            <tr><td>IATA/ICAO</td><td><strong>UN 1791</strong> — Hypochlorite solution; Class 8; PG III</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="muted" style="margin-top:6px"><strong>ฉลากขนส่ง:</strong> 8 (Corrosive) + เครื่องหมายสิ่งแวดล้อม (ถ้าบังคับใช้)</div>
+    </div>
+  </section>
+
+  <!-- 15 -->
+  <section id="sec15">
+    <h2>ข้อ 15: ข้อมูลเกี่ยวกับกฎหมาย</h2>
+    <div class="frame">
+      <ul>
+        <li>สอดคล้อง GHS/CLP (EU) และ OSHA HazCom 2012 (US)</li>
+        <li>ประเทศไทย: พ.ร.บ.วัตถุอันตราย และประกาศหน่วยงานที่เกี่ยวข้อง</li>
+        <li>Storage Class (VCI): 8B — สารกัดกร่อน ไม่ไวไฟ</li>
+        <li>ชนิดวัตถุอันตราย: ประเภทที่ 2 — วัตถุกัดกร่อน</li>
+      </ul>
+      <div class="muted">ผู้ใช้ต้องปฏิบัติตามข้อกำหนดเฉพาะของสถานประกอบการ/ท้องถิ่น และการขึ้นทะเบียนที่เกี่ยวข้อง</div>
+    </div>
+  </section>
+
+  <!-- 16 -->
+  <section id="sec16">
+    <h2>ข้อ 16: ข้อมูลอื่น ๆ</h2>
+    <div class="frame">
+      <div class="tablewrap" style="margin-bottom:8px">
+        <table>
+          <tbody>
+            <tr><th>หมายเลขเอกสาร</th><td>MSBRC2-SDS-01</td></tr>
+            <tr><th>ชื่อผลิตภัณฑ์</th><td>Sodium hypochlorite 10% (NaOCl)</td></tr>
+            <tr><th>จัดทำโดย</th><td>หน่วยงาน SHE&amp;En ธุรกิจพันธุ์กุ้งทะเล 2</td></tr>
+            <tr><th>สถานะ</th><td>ใช้งาน (Effective)</td></tr>
+            <tr><th>ช่องทางฉุกเฉิน</th><td>063-269-2902, 02-918-1010, 084-698-2003</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <ul>
+        <li>แหล่งอ้างอิง: GHS, OSHA HazCom 2012, CLP (EC) 1272/2008, ADR/IMDG/IATA, กฎหมายไทยที่เกี่ยวข้อง</li>
+        <li>ฝึกอบรมการใช้งานสารกัดกร่อน/ขั้นตอนเหตุฉุกเฉิน; ติดตั้งจุดล้างตา/ฝักบัวนิรภัย</li>
+        <li>ทบทวน SDS อย่างน้อยปีละครั้ง หรือเมื่อมีการเปลี่ยนสูตร/กฎหมาย</li>
+      </ul>
+      <div class="info" style="margin-top:8px">
+        <strong>คำชี้แจงความรับผิดชอบ:</strong> เอกสารนี้จัดทำเพื่อสนับสนุนความปลอดภัยในการทำงาน อ้างอิงมาตรฐานสากลและข้อมูลอุตสาหกรรมที่เชื่อถือได้ แต่ไม่ถือเป็นการรับประกันคุณสมบัติของผลิตภัณฑ์ ผู้ใช้ต้องประเมินความเสี่ยง ณ สถานที่ปฏิบัติงานจริงและปฏิบัติตามกฎหมายที่เกี่ยวข้องทุกประการ
+      </div>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>
