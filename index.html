@@ -1090,8 +1090,8 @@ select.fi option{background:#0c1120;color:var(--tx)}
 
     <div id="sp-result" style="margin:0 16px 12px"></div>
 
-    <div style="margin:0 16px 8px;padding:10px 12px;background:var(--ab);border:1px solid var(--abd);border-radius:var(--rs);font-size:10px;color:var(--amb);line-height:1.6">
-      <strong>⚠ หมายเหตุ:</strong> ผลจำลองเป็นการประมาณเบื้องต้นเท่านั้น ไม่ใช่แบบจำลองวิศวกรรม ควรปรึกษาผู้เชี่ยวชาญ
+    <div style="margin:0 16px 8px;padding:10px 12px;background:var(--rb);border:1px solid var(--rbd);border-radius:var(--rs);font-size:10px;color:#ff9a9a;line-height:1.7">
+      <strong>⚠ ใช้เพื่อการฝึกอบรมเท่านั้น:</strong> คะแนนความเสี่ยงและรัศมีโซนคำนวณจากสูตรประมาณภายในแอป (class × ปริมาณ × สถานที่) ไม่ใช่แบบจำลองการแพร่กระจายทางวิศวกรรม — <strong>ในเหตุการณ์จริงให้ยึดระยะจาก ERG ฉบับพิมพ์ล่าสุดและ SDS ของสารเป็นหลัก</strong> และปฏิบัติตามแผนฉุกเฉินขององค์กร
     </div>
     <div class="crd"><strong>ATIT CHIMNAN</strong>ChemNexus AI 3.0 · Spill Simulator</div>
   </div>
@@ -2278,6 +2278,26 @@ function printSDS() {
 }
 
 // ══════════════════════════════════════════
+
+// ── ERG REFERENCE (Emergency Response Guidebook 2020) ──
+// isolate = ระยะกั้นทันทีรอบจุดหก (ม.), guide = หมายเลข Guide สีส้ม
+// ⚠ ค่าอ้างอิงจากตาราง ERG 2020 — ผู้ใช้ต้องตรวจทานกับฉบับพิมพ์ล่าสุดก่อนใช้ปฏิบัติจริง
+const ERG_DATA={
+"1791":{guide:"154",iso:50,form:"ของเหลว",note:"สารกัดกร่อน — อยู่เหนือลม หลีกเลี่ยงไอระเหย"},
+"1748":{guide:"140",iso:25,form:"ของแข็ง",note:"ออกซิไดเซอร์ — แยกจากวัสดุติดไฟ ไฟไหม้ถังให้อพยพ 800 ม."},
+"1823":{guide:"154",iso:25,form:"ของแข็ง",note:"สารกัดกร่อน — ระวังฝุ่น ห้ามสัมผัสโดยตรง"},
+"1170":{guide:"127",iso:50,form:"ของเหลวไวไฟ",note:"ตัดแหล่งจุดติดไฟทุกชนิด ไฟไหม้ถังให้อพยพ 800 ม."},
+"2014":{guide:"140",iso:50,form:"ของเหลว",note:"ออกซิไดเซอร์ — ห้ามให้สัมผัสสารอินทรีย์/เชื้อเพลิง"},
+"1789":{guide:"157",iso:50,form:"ของเหลว",note:"กรดควัน — อยู่เหนือลม ไอกัดกร่อนทางเดินหายใจ"},
+"1500":{guide:"140",iso:25,form:"ของแข็ง",note:"ออกซิไดเซอร์+พิษ — ห้ามลงแหล่งน้ำเด็ดขาด"},
+"2790":{guide:"153",iso:50,form:"ของเหลว",note:"กรดกัดกร่อน — ระวังไอระคายเคือง"},
+"1830":{guide:"137",iso:50,form:"ของเหลว",note:"ห้ามฉีดน้ำใส่กรดโดยตรง — เกิดความร้อนรุนแรง"},
+"1075":{guide:"115",iso:100,form:"ก๊าซไวไฟ",note:"ตัดไฟทุกแหล่ง ไฟไหม้ถังให้อพยพ 1,600 ม."},
+"1072":{guide:"122",iso:100,form:"ก๊าซออกซิไดส์",note:"ห้ามน้ำมัน/จาระบีสัมผัสวาล์ว ไฟไหม้ถังอพยพ 800 ม."},
+"1203":{guide:"128",iso:50,form:"ของเหลวไวไฟ",note:"ไอหนักกว่าอากาศ ไหลตามพื้น — ตัดแหล่งจุดติดไฟ"},
+"1202":{guide:"128",iso:50,form:"ของเหลวติดไฟ",note:"กันการไหลลงท่อระบายน้ำ"},
+"2031":{guide:"157",iso:50,form:"ของเหลว",note:"กรดออกซิไดส์ — ห้ามสัมผัสวัสดุอินทรีย์"}};
+
 //  SPILL SIMULATOR
 // ══════════════════════════════════════════
 let spChem = null;
@@ -2325,6 +2345,9 @@ function runSpill() {
   const amount = parseFloat(document.getElementById('sp-amount').value) || 10;
   const unit = document.getElementById('sp-unit').value;
   const indoor = document.getElementById('sp-indoor').checked;
+  const full = liveDB().map(x=>({...x,n:x.n||x.name})).find(x=>x.n===spChem.n);
+  const ergUN = full && full.u && full.u!=='-' ? full.u : null;
+  const erg = ergUN ? ERG_DATA[ergUN] : null;
   const h = HC[spChem.c] || {};
   const p = getProps(spChem.n);
   const cls = spChem.c;
@@ -2434,6 +2457,30 @@ function runSpill() {
     </div>
   </div>
 </div>
+
+${erg?`
+<!-- 2. ERG REFERENCE -->
+<div class="sp-sec" style="border-color:var(--lbd)">
+  <div class="sp-sec-hdr">
+    <i class="ph ph-book-open-text" style="color:var(--lime)"></i>
+    <div><div class="sp-sec-hdr-t">ระยะอ้างอิง ERG 2020</div><div class="sp-sec-hdr-s">Emergency Response Guidebook · UN ${ergUN} · Guide ${erg.guide}</div></div>
+  </div>
+  <div class="sp-sec-body">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
+      <div style="padding:10px;background:var(--s1);border:1px solid var(--bd);border-radius:8px;text-align:center">
+        <div style="font-size:20px;font-weight:900;color:var(--lime)">≥ ${erg.iso} ม.</div>
+        <div style="font-size:8.5px;color:var(--tx3);font-weight:700;margin-top:3px">กั้นพื้นที่ทันทีรอบจุดหก (ทุกทิศ)</div>
+      </div>
+      <div style="padding:10px;background:var(--s1);border:1px solid var(--bd);border-radius:8px;text-align:center">
+        <div style="font-size:14px;font-weight:900;color:var(--tx)">Guide ${erg.guide}</div>
+        <div style="font-size:8.5px;color:var(--tx3);font-weight:700;margin-top:3px">${erg.form}</div>
+      </div>
+    </div>
+    <div style="font-size:10px;color:var(--tx2);line-height:1.6;padding:8px 10px;background:var(--s1);border-radius:8px">📖 ${erg.note}</div>
+    <div style="font-size:8.5px;color:var(--tx3);margin-top:6px;line-height:1.5">ค่าจากตาราง ERG 2020 (แนวทางกั้นพื้นที่เบื้องต้นกรณีหกปริมาณน้อย) — โปรดตรวจทานกับ ERG ฉบับพิมพ์ล่าสุดก่อนใช้ปฏิบัติจริง หกปริมาณมาก/เกิดเพลิงไหม้ ระยะเพิ่มขึ้นมาก</div>
+  </div>
+</div>`:`
+<div style="padding:9px 12px;background:var(--s1);border:1px solid var(--bd);border-radius:var(--rs);font-size:9.5px;color:var(--tx3);margin-bottom:2px">ℹ️ สารนี้ไม่มี UN Number กำกับ — ไม่มีระยะ ERG อ้างอิง ให้ยึด SDS ของผลิตภัณฑ์</div>`}
 
 <!-- 3. RISK ASSESSMENT -->
 <div class="sp-sec">
