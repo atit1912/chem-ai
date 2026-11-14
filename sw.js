@@ -1,8 +1,8 @@
-// ChemNexus AI 4.0 — Service Worker
+// ChemNexus AI 4.1 — Service Worker
 // พัฒนาโปรแกรมโดย ธุรกิจพันธุ์กุ้งขาว 2
 // Strategy: หน้าแอป + chemicals.json = network-first (อัปโหลดแล้วเห็นทันที, ออฟไลน์ใช้ของในแคช)
 //           ไฟล์อื่นของเว็บ = cache-first
-const CACHE_NAME = 'chemnexus-v4.0.0';
+const CACHE_NAME = 'chemnexus-v4.1.0';
 const CACHE_URLS = [
   './index.html',
   './manifest.json',
@@ -13,9 +13,6 @@ const NETWORK_FIRST = (url) =>
 const EXTERNAL_CACHE = [
   'https://fonts.googleapis.com/css2?family=Sarabun',
   'https://unpkg.com/@phosphor-icons/web',
-  'https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js',
-  'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js',
-  'https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics-compat.js',
 ];
 // ── INSTALL ── cache app shell
 self.addEventListener('install', event => {

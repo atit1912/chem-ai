@@ -10,7 +10,7 @@
 <meta name="description" content="ตรวจการจัดเก็บสารเคมีร่วมกันตามตารางกรมโรงงานอุตสาหกรรม (DIW) — พัฒนาโปรแกรมโดย ธุรกิจพันธุ์กุ้งขาว 2">
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icon-192.png">
-<title>ChemNexus AI 4.0</title>
+<title>ChemNexus AI 4.1</title>
 <link href="https://fonts.googleapis.com/css2?family=Sarabun:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/@phosphor-icons/web"></script>
 <style>
@@ -442,6 +442,75 @@ select.fi option{background:#0c1120;color:var(--tx)}
 .pr-close{position:sticky;top:0;right:0;z-index:2;display:flex;justify-content:flex-end;margin-bottom:-8px;padding:4px 0}
 .pr-close button{padding:6px 14px;background:#111;border:none;border-radius:5px;color:#b8ff3a;font-size:10px;font-weight:800;cursor:pointer;font-family:'Sarabun',sans-serif}
 
+/* ── v4.1 PPE + ถ้าเกิดเหตุ ── */
+.sf-row{display:flex;gap:10px;padding:10px 14px;border-bottom:1px solid var(--bd)}
+.sf-row:last-child{border-bottom:none}
+.sf-k{flex:0 0 86px;font-size:10.5px;font-weight:800;color:var(--tx2)}
+.sf-v{flex:1;font-size:11.5px;color:var(--tx);line-height:1.6}
+.sf-note{margin:8px 16px 0;padding:9px 12px;background:var(--s2);border:1px solid var(--bd);border-radius:var(--rs);font-size:10px;color:var(--tx2);line-height:1.65}
+.sf-src{margin:8px 16px 0;font-size:9.5px;color:var(--tx3);line-height:1.6}
+.sf-src a{color:var(--lime)}
+.sf-react{margin:10px 16px 0;padding:10px 12px;background:var(--rb);border:1px solid var(--rbd);border-radius:var(--rs);font-size:11px;color:var(--tx);line-height:1.6}
+.sf-react b{color:#ff7070}
+.sf-erg{margin:10px 16px 0;padding:11px 12px;background:var(--ab);border:1px solid var(--abd);border-radius:var(--rs)}
+.sf-erg-h{font-size:10px;font-weight:800;color:var(--amb);margin-bottom:8px}
+.sf-erg-g{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.sf-erg-g div{background:rgba(0,0,0,.18);border-radius:8px;padding:8px}
+.sf-erg-g b{display:block;font-size:14px;color:var(--tx);font-weight:900}
+.sf-erg-g span{font-size:9.5px;color:var(--tx2);line-height:1.4}
+.sf-erg-s{font-size:9.5px;color:var(--tx2);margin-top:7px;line-height:1.5}
+.sf-card{margin:10px 16px 0;background:var(--s1);border:1px solid var(--bd);border-radius:var(--rs);padding:10px 12px}
+.sf-card-h{font-size:12px;font-weight:900;color:var(--tx);margin-bottom:6px}
+.sf-list{list-style:none;margin:0;padding:0}
+.sf-list li{position:relative;padding:4px 0 4px 22px;font-size:11.5px;line-height:1.55;color:var(--tx)}
+.sf-list.do li:before{content:'✅';position:absolute;left:0;top:4px;font-size:11px}
+.sf-list.no li:before{content:'⛔';position:absolute;left:0;top:4px;font-size:11px}
+.sf-list.no li{color:#ffb3b3}
+.sf-aid{padding:6px 0;border-top:1px solid var(--bd)}
+.sf-aid:first-of-type{border-top:none}
+.sf-aid-k{font-size:10.5px;font-weight:800;color:var(--tx2)}
+.sf-aid-v{font-size:11.5px;color:var(--tx);line-height:1.55;margin-top:2px}
+.sf-calls{display:flex;gap:6px;margin:12px 16px 0}
+.sf-call{flex:1;text-align:center;padding:9px 4px;border-radius:var(--rs);background:var(--s2);border:1px solid var(--bd);color:var(--tx);font-size:11px;font-weight:800;text-decoration:none}
+.sf-call.red{background:var(--rb);border-color:var(--rbd);color:#ff8080}
+.sf-chem{margin:12px 16px 0;font-size:13px;font-weight:900;color:var(--tx)}
+.sf-chem span{display:block;font-size:10px;font-weight:600;color:var(--tx3)}
+.pf-chips{display:flex;flex-wrap:wrap;gap:6px;margin:0 16px}
+.pf-chip{display:flex;align-items:center;gap:6px;padding:6px 10px 6px 6px;border-radius:20px;background:var(--s2);border:1px solid var(--bd);color:var(--tx);font-size:10.5px;font-weight:700;font-family:inherit;cursor:pointer;text-align:left}
+.pf-sw{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;font-size:11px;font-weight:900;flex-shrink:0;border:1px solid rgba(255,255,255,.25)}
+.pf-em{font-size:17px;width:22px;text-align:center;flex-shrink:0}
+.pf-grp{font-size:9px;font-weight:800;color:var(--tx3);text-transform:uppercase;letter-spacing:.08em;margin:10px 16px 5px}
+.pf-item{border-bottom:1px solid var(--bd)}
+.pf-item:last-child{border-bottom:none}
+.pf-head{display:flex;align-items:center;gap:10px;padding:11px 13px;cursor:pointer}
+.pf-t{flex:1;font-size:12px;font-weight:700;color:var(--tx);line-height:1.4}
+.pf-n{font-size:9.5px;font-weight:800;color:var(--lime);background:var(--lb);padding:2px 7px;border-radius:10px;flex-shrink:0}
+.pf-item.open{background:var(--s2)}
+.pf-users{display:flex;flex-wrap:wrap;gap:6px;padding:0 13px 12px 45px}
+.pf-u{display:flex;align-items:center;gap:4px;padding:6px 9px;border-radius:8px;background:var(--s1);border:1px solid var(--bd);color:var(--tx);font-size:10.5px;font-family:inherit;cursor:pointer}
+.pf-pick{display:grid;grid-template-columns:1fr;gap:4px;margin:4px 0 8px}
+.pf-pk{display:flex;align-items:center;gap:7px;font-size:10.5px;color:var(--tx2);cursor:pointer}
+.fi.fs{margin-bottom:6px;font-size:12px}
+textarea.fi{resize:vertical;font-family:inherit}
+.ec-grid{display:grid;grid-template-columns:1fr;gap:7px;margin:0 16px}
+.ec{display:flex;align-items:center;gap:12px;padding:11px 13px;border-radius:var(--rs);background:var(--s2);border:1.5px solid var(--bd);color:var(--tx);text-decoration:none;font-family:inherit;text-align:left;cursor:pointer}
+.ec.red{background:var(--rb);border-color:var(--rbd)}
+.ec.amb{background:var(--ab);border-color:var(--abd)}
+.ec-n{font-size:18px;font-weight:900;min-width:64px;color:var(--tx)}
+.ec-t{flex:1;font-size:12px;font-weight:800;line-height:1.35}
+.ec-t span{display:block;font-size:10px;font-weight:600;color:var(--tx3)}
+.ec i{font-size:19px;color:var(--lime)}
+.ec-add{border-style:dashed}
+.dn{padding:10px 13px;border-bottom:1px solid var(--bd)}
+.dn:last-child{border-bottom:none}
+.dn-t{font-size:12px;font-weight:800;color:#ff8080}
+.dn-s{font-size:10.5px;color:var(--tx2);margin-top:2px;line-height:1.5}
+.dn-s em{font-style:normal;color:var(--tx3);font-size:9px}
+.res-pair{display:flex;flex-direction:column;gap:7px;margin:0 16px}
+.res-pair-i{display:flex;align-items:center;gap:8px;padding:9px 11px;background:var(--s1);border:1px solid var(--bd);border-radius:var(--rs)}
+.res-pair-n{flex:1;min-width:0;font-size:11.5px;font-weight:800;color:var(--tx);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.res-pair-b{display:flex;gap:5px;flex-shrink:0}
+.res-pair-b button{display:flex;align-items:center;gap:4px;padding:6px 9px;border-radius:7px;background:var(--s2);border:1px solid var(--bd);color:var(--tx);font-size:10.5px;font-weight:700;font-family:inherit;cursor:pointer}
 /* ── SPILL v3 COMPONENTS ── */
 .sp-sec{margin:0 0 12px;background:var(--s1);border:1px solid var(--bd);border-radius:var(--r);overflow:hidden}
 .sp-sec-hdr{display:flex;align-items:center;gap:9px;padding:11px 14px;border-bottom:1px solid var(--bd);background:var(--s2)}
@@ -614,13 +683,13 @@ select.fi option{background:#0c1120;color:var(--tx)}
     </div>
     <div style="text-align:center">
       <div style="display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:1px">
-        <span class="vt">v4.0</span>
+        <span class="vt">v4.1</span>
       </div>
       <div class="hdr-t gt" style="font-size:20px;font-weight:900;letter-spacing:-.03em">ChemNexus AI</div>
       <div class="hsum" id="hdr-summary">
         <div class="hsum-i"><span class="hsum-dot" style="background:var(--grn)"></span><b id="hs-total">21</b> สาร</div>
         <div class="hsum-sep"></div>
-        <div class="hsum-i"><span class="hsum-dot" style="background:var(--red)"></span><b id="hs-risk" style="color:#ff7070">8</b> เสี่ยงสูง</div>
+        <div class="hsum-i"><span class="hsum-dot" style="background:var(--red)"></span><b id="hs-risk" style="color:#ff7070">8</b> มีข้อมูลฉุกเฉิน</div>
       </div>
     </div>
     <div class="ib2" style="position:relative" onclick="go('request')" title="ขอเพิ่มสารเคมี">
@@ -641,7 +710,7 @@ select.fi option{background:#0c1120;color:var(--tx)}
     <div class="pact-chips">
       <div class="pact-chip" onclick="go('analyze')"><i class="ph ph-magnifying-glass"></i><span>เลือกคู่สาร</span></div>
       <div class="pact-chip" onclick="go('search')"><i class="ph ph-flask"></i><span>คลังสารเคมี</span></div>
-      <div class="pact-chip" onclick="go('sds')"><i class="ph ph-file-text"></i><span>สร้าง SDS</span></div>
+      <div class="pact-chip" onclick="go('emergency')"><i class="ph ph-warning-octagon"></i><span>ฉุกเฉิน</span></div>
     </div>
 
     <!-- KPI CARDS -->
@@ -651,53 +720,17 @@ select.fi option{background:#0c1120;color:var(--tx)}
         <div class="kc-ic"><i class="ph ph-flask"></i></div>
         <div class="kc-main"><div class="kc-n" id="kpi-total">21</div><div class="kc-l">สารเคมีทั้งหมด</div></div>
       </div>
-      <div class="kc kc-red" onclick="go('search')">
-        <div class="kc-ic"><i class="ph ph-warning"></i></div>
-        <div class="kc-main"><div class="kc-n" id="kpi-risk">8</div><div class="kc-l">สารเสี่ยงสูง</div></div>
+      <div class="kc kc-red" onclick="go('emergency')">
+        <div class="kc-ic"><i class="ph ph-shield-check"></i></div>
+        <div class="kc-main"><div class="kc-n" id="kpi-risk">0</div><div class="kc-l">มี PPE + วิธีรับมือเหตุ</div></div>
       </div>
-      <div class="kc kc-amb" onclick="go('sds')">
-        <div class="kc-ic"><i class="ph ph-books"></i></div>
-        <div class="kc-main"><div class="kc-n" id="kpi-sdsn">0</div><div class="kc-l">มี SDS ฉบับเต็ม</div></div>
+      <div class="kc kc-amb" onclick="go('search')">
+        <div class="kc-ic"><i class="ph ph-seal-check"></i></div>
+        <div class="kc-main"><div class="kc-n" id="kpi-sdsn">0</div><div class="kc-l">Class มีแหล่งอ้างอิง</div></div>
       </div>
       <div class="kc kc-blue" onclick="go('search')">
         <div class="kc-ic"><i class="ph ph-check-circle"></i></div>
         <div class="kc-main"><div class="kc-n" id="kpi-sds">95%</div><div class="kc-l">ข้อมูลครบถ้วน</div></div>
-      </div>
-    </div>
-
-    <!-- RISK DISTRIBUTION DONUT -->
-    <div class="sl" style="margin-top:15px">การกระจายระดับความเสี่ยง</div>
-    <div class="rcard">
-      <div class="rcard-body">
-        <div class="donut">
-          <svg width="96" height="96" viewBox="0 0 96 96">
-            <circle cx="48" cy="48" r="40" fill="none" stroke="var(--s2)" stroke-width="11"/>
-            <circle id="dn-high" cx="48" cy="48" r="40" fill="none" stroke="var(--red)" stroke-width="11" stroke-linecap="round" stroke-dasharray="0 251" stroke-dashoffset="0"/>
-            <circle id="dn-med" cx="48" cy="48" r="40" fill="none" stroke="var(--amb)" stroke-width="11" stroke-linecap="round" stroke-dasharray="0 251" stroke-dashoffset="0"/>
-            <circle id="dn-low" cx="48" cy="48" r="40" fill="none" stroke="var(--grn)" stroke-width="11" stroke-linecap="round" stroke-dasharray="0 251" stroke-dashoffset="0"/>
-          </svg>
-          <div class="donut-c"><div class="donut-cn" id="dn-total">21</div><div class="donut-cl">สาร</div></div>
-        </div>
-        <div class="rleg">
-          <div class="rleg-i">
-            <span class="rleg-dot" style="background:var(--red)"></span>
-            <span class="rleg-l">เสี่ยงสูง</span>
-            <span class="rleg-v" style="color:#ff7070" id="rl-high">8</span>
-          </div>
-          <div class="rleg-bar"><div class="rleg-fill" id="rb-high" style="background:var(--red);width:0%"></div></div>
-          <div class="rleg-i">
-            <span class="rleg-dot" style="background:var(--amb)"></span>
-            <span class="rleg-l">เสี่ยงปานกลาง</span>
-            <span class="rleg-v" style="color:var(--amb)" id="rl-med">9</span>
-          </div>
-          <div class="rleg-bar"><div class="rleg-fill" id="rb-med" style="background:var(--amb);width:0%"></div></div>
-          <div class="rleg-i">
-            <span class="rleg-dot" style="background:var(--grn)"></span>
-            <span class="rleg-l">เสี่ยงต่ำ</span>
-            <span class="rleg-v" style="color:var(--grn)" id="rl-low">4</span>
-          </div>
-          <div class="rleg-bar"><div class="rleg-fill" id="rb-low" style="background:var(--grn);width:0%"></div></div>
-        </div>
       </div>
     </div>
 
@@ -728,21 +761,21 @@ select.fi option{background:#0c1120;color:var(--tx)}
         <div class="qmic"><i class="ph ph-flask"></i></div>
         <div class="qmt">คลังสาร<br>เคมี</div>
       </div>
-      <div class="qmi qm-lime" onclick="go('sds')">
-        <div class="qmic"><i class="ph ph-books"></i></div>
-        <div class="qmt">คลัง<br>SDS</div>
+      <div class="qmi qm-lime" onclick="go('ppe')">
+        <div class="qmic"><i class="ph ph-shield-check"></i></div>
+        <div class="qmt">PPE<br>รายสาร</div>
       </div>
       <div class="qmi qm-purple" onclick="go('matrix');renderMatrix()">
         <div class="qmic"><i class="ph ph-grid-nine"></i></div>
         <div class="qmt">DIW<br>Matrix</div>
       </div>
-      <div class="qmi qm-blue" onclick="go('layout')">
+      <div class="qmi qm-blue" onclick="go('editor')">
         <div class="qmic"><i class="ph ph-blueprint"></i></div>
-        <div class="qmt">แผนผัง<br>จัดวาง</div>
+        <div class="qmt">วางผัง<br>ห้องเก็บ</div>
       </div>
-      <div class="qmi qm-red" onclick="go('spill')">
-        <div class="qmic"><i class="ph ph-warning-diamond"></i></div>
-        <div class="qmt">Spill<br>Simulator</div>
+      <div class="qmi qm-red" onclick="go('emergency')">
+        <div class="qmic"><i class="ph ph-warning-octagon"></i></div>
+        <div class="qmt">ถ้าเกิด<br>เหตุ</div>
       </div>
       <div class="qmi qm-grey" onclick="go('request')">
         <div class="qmic"><i class="ph ph-plus-circle"></i></div>
@@ -770,7 +803,7 @@ select.fi option{background:#0c1120;color:var(--tx)}
       <div class="fc" onclick="fCls(this,'13')">13</div>
     </div>
     <div id="clc"></div>
-    <div class="crd"><strong>ธุรกิจพันธุ์กุ้งขาว 2</strong>ChemNexus AI 4.0 • DIW</div>
+    <div class="crd"><strong>ธุรกิจพันธุ์กุ้งขาว 2</strong>ChemNexus AI 4.1 • DIW</div>
   </div>
 </div>
 
@@ -802,7 +835,7 @@ select.fi option{background:#0c1120;color:var(--tx)}
       </div>
       <div style="font-size:9px;color:var(--lime);font-weight:800;letter-spacing:.1em;text-transform:uppercase" class="pls">กำลังเทียบตาราง DIW...</div>
     </div>
-    <div class="crd"><strong>ธุรกิจพันธุ์กุ้งขาว 2</strong>ChemNexus AI 4.0</div>
+    <div class="crd"><strong>ธุรกิจพันธุ์กุ้งขาว 2</strong>ChemNexus AI 4.1</div>
   </div>
 </div>
 
@@ -838,69 +871,6 @@ select.fi option{background:#0c1120;color:var(--tx)}
   <div class="nb" id="nb-ppe" onclick="go('ppe')"><i class="ph ph-shield-check"></i><span>PPE</span></div>
   <div class="nb" id="nb-emergency" onclick="go('emergency')"><i class="ph ph-warning-octagon"></i><span>ฉุกเฉิน</span></div>
 </div>
-
-<!-- LAYOUT PLANNER PAGE -->
-<div id="page-layout" class="page">
-  <div class="hdr">
-    <button class="bb" onclick="back()"><i class="ph-bold ph-caret-left"></i></button>
-    <div class="hdr-t">แผนผังจัดวางสารเคมี</div>
-  </div>
-  <div class="pc" id="layout-body">
-    <div style="margin:12px 16px 0">
-      <button class="btn" style="background:linear-gradient(135deg,#7c3aed,#4f46e5)" onclick="go('editor')">
-        <i class="ph-bold ph-hand-pointing" style="font-size:16px"></i>
-        โหมดวางผังเอง + ตรวจ DIW เรียลไทม์ (ใหม่)
-      </button>
-    </div>
-
-    <!-- Step 1: Room info -->
-    <div class="sl" style="margin-top:12px">ขั้นตอนที่ 1 — ข้อมูลห้อง</div>
-    <div style="margin:0 16px 12px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">
-      <div>
-        <div style="font-size:9px;color:var(--tx3);margin-bottom:3px;font-weight:700">ชื่อห้อง</div>
-        <input class="fi" id="ly-name" placeholder="ห้องเก็บสาร A" style="font-size:12px">
-      </div>
-      <div>
-        <div style="font-size:9px;color:var(--tx3);margin-bottom:3px;font-weight:700">กว้าง (ม.)</div>
-        <input class="fi" id="ly-w" type="number" placeholder="8" value="8" style="font-size:12px">
-      </div>
-      <div>
-        <div style="font-size:9px;color:var(--tx3);margin-bottom:3px;font-weight:700">ยาว (ม.)</div>
-        <input class="fi" id="ly-h" type="number" placeholder="6" value="6" style="font-size:12px">
-      </div>
-    </div>
-
-    <!-- Step 2: Select chemicals -->
-    <div class="sl">ขั้นตอนที่ 2 — เลือกสารเคมีที่จะจัดเก็บ</div>
-    <div style="margin:0 16px 8px;position:relative">
-      <input class="fi" id="ly-search" placeholder="ค้นหาสารเคมีเพื่อเพิ่ม..." oninput="renderLySearch(this.value)" style="padding-left:36px">
-      <i class="ph ph-magnifying-glass" style="position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--lime);font-size:15px"></i>
-      <div id="ly-dd" style="display:none;position:absolute;top:calc(100% + 4px);left:0;right:0;background:#0c1120;border:1px solid var(--bd2);border-radius:var(--rs);max-height:180px;overflow-y:auto;z-index:200;box-shadow:0 12px 36px rgba(0,0,0,.8);scrollbar-width:none"></div>
-    </div>
-
-    <!-- Selected chemicals list -->
-    <div id="ly-selected" style="margin:0 16px 12px;display:flex;flex-wrap:wrap;gap:6px"></div>
-
-    <!-- Generate button -->
-    <div style="margin:0 16px 14px">
-      <button class="btn" onclick="generateLayout()" id="ly-gen-btn">
-        <i class="ph-bold ph-blueprint" style="font-size:16px"></i>
-        สร้างแผนผังจัดวาง
-      </button>
-    </div>
-
-    <!-- Result floor plan -->
-    <div id="ly-result" style="margin:0 16px 12px"></div>
-
-    <!-- Disclaimer -->
-    <div style="margin:0 16px 8px;padding:10px 12px;background:var(--ab);border:1px solid var(--abd);border-radius:var(--rs);font-size:10px;color:var(--amb);line-height:1.6">
-      <strong>⚠ หมายเหตุ:</strong> แผนผังนี้เป็นคำแนะนำเบื้องต้นจาก DIW Compatibility Matrix เท่านั้น ไม่ใช่แบบแปลนวิศวกรรม ควรปรึกษาผู้เชี่ยวชาญก่อนนำไปใช้งานจริง
-    </div>
-
-    <div class="crd"><strong>ธุรกิจพันธุ์กุ้งขาว 2</strong>ChemNexus AI 4.0 · Layout Planner</div>
-  </div>
-</div>
-
 
 <!-- LAYOUT EDITOR (Phase 1) -->
 <div id="page-editor" class="page">
@@ -955,123 +925,7 @@ select.fi option{background:#0c1120;color:var(--tx)}
     <div style="margin:0 16px 8px;padding:10px 12px;background:var(--ab);border:1px solid var(--abd);border-radius:var(--rs);font-size:10px;color:var(--amb);line-height:1.6">
       <strong>⚠ หมายเหตุ:</strong> ระบบตรวจความเข้ากันได้และระยะห่างตาม DIW Matrix — เงื่อนไขเชิงกายภาพ (ผนังทนไฟ ระบายอากาศ ฯลฯ) ต้องตรวจรับรองโดยผู้รับผิดชอบหน้างาน
     </div>
-    <div class="crd"><strong>ธุรกิจพันธุ์กุ้งขาว 2</strong>ChemNexus AI 4.0 · Layout Editor</div>
-  </div>
-</div>
-
-<!-- SDS GENERATOR PAGE -->
-<div id="page-sds" class="page">
-  <div class="hdr">
-    <button class="bb" onclick="back()"><i class="ph-bold ph-caret-left"></i></button>
-    <div class="hdr-t">📚 คลัง SDS</div>
-  </div>
-  <div class="pc" id="sds-body">
-    <div style="margin:12px 16px 8px;font-size:11px;color:var(--tx2);line-height:1.6">
-      เอกสารข้อมูลความปลอดภัย (SDS) ฉบับเต็ม <strong id="sds-count">55</strong> รายการ — พิมพ์ค้นหาหรือเลือกจากรายการเพื่อเปิดดู
-    </div>
-    <div style="margin:0 16px 10px;position:relative">
-      <input class="fi" id="sds-lib-search" placeholder="ค้นหา ชื่อไทย/อังกฤษ/เลข SDS..." oninput="renderSdsLib(this.value)" autocomplete="off" style="padding-left:36px">
-      <i class="ph ph-magnifying-glass" style="position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--lime);font-size:15px"></i>
-    </div>
-    <div id="sds-lib-list" style="margin:0 16px 12px"></div>
-    <div class="sl" style="margin-top:6px">เครื่องมือเพิ่มเติม</div>
-    <div style="margin:0 16px 14px">
-      <button class="btn bg" onclick="openSdsGen()"><i class="ph-bold ph-file-plus" style="font-size:16px"></i>สร้าง SDS จากระบบ (ฉบับย่อ)</button>
-    </div>
-    <div class="crd"><strong>ธุรกิจพันธุ์กุ้งขาว 2</strong>ChemNexus AI 4.0 · คลัง SDS</div>
-  </div>
-</div>
-
-<!-- SDS GENERATOR (ฉบับย่อจากระบบ) -->
-<div id="page-sdsgen" class="page">
-  <div class="hdr">
-    <button class="bb" onclick="go('sds')"><i class="ph-bold ph-caret-left"></i></button>
-    <div class="hdr-t">📋 สร้าง SDS จากระบบ</div>
-  </div>
-  <div class="pc" id="sdsgen-body">
-    <div style="margin:12px 16px 8px;font-size:11px;color:var(--tx2);line-height:1.6">
-      สร้างใบข้อมูลความปลอดภัยฉบับย่อจากข้อมูลในระบบ (สำหรับสารที่ยังไม่มีไฟล์ SDS เต็ม)
-    </div>
-    <div class="sl">เลือกสารเคมี</div>
-    <div style="margin:0 16px 10px;position:relative">
-      <input class="fi" id="sds-search" placeholder="ค้นหาสารเคมี..." oninput="renderSdsSearch(this.value)" autocomplete="off" style="padding-left:36px">
-      <i class="ph ph-magnifying-glass" style="position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--lime);font-size:15px"></i>
-      <div id="sds-dd" style="display:none;position:absolute;top:calc(100% + 4px);left:0;right:0;background:#0c1120;border:1px solid var(--bd2);border-radius:var(--rs);max-height:180px;overflow-y:auto;z-index:200;box-shadow:0 12px 36px rgba(0,0,0,.8);scrollbar-width:none"></div>
-    </div>
-    <div id="sds-selected" style="margin:0 16px 10px"></div>
-    <div style="margin:0 16px 14px">
-      <button class="btn" onclick="generateSDS()"><i class="ph-bold ph-file-text" style="font-size:16px"></i>สร้างเอกสาร SDS</button>
-    </div>
-    <div id="sds-result" style="margin:0 16px 12px"></div>
-    <div class="crd"><strong>ธุรกิจพันธุ์กุ้งขาว 2</strong>ChemNexus AI 4.0 · SDS Generator</div>
-  </div>
-</div>
-
-
-<!-- SPILL SIMULATOR PAGE -->
-<div id="page-spill" class="page">
-  <div class="hdr">
-    <button class="bb" onclick="back()"><i class="ph-bold ph-caret-left"></i></button>
-    <div class="hdr-t" style="color:var(--red)">🚨 Chemical Spill Simulator</div>
-  </div>
-  <div class="pc" id="spill-body">
-    <div style="margin:12px 16px 8px;font-size:11px;color:var(--tx2);line-height:1.6">
-      จำลองสถานการณ์สารเคมีรั่วไหล — ระบบจะคำนวณรัศมีอันตรายและแนะนำวิธีรับมือ
-    </div>
-
-    <div class="sl">เลือกสารเคมีที่รั่วไหล</div>
-    <div style="margin:0 16px 10px;position:relative">
-      <input class="fi" id="sp-search" placeholder="ค้นหาสารเคมี..." oninput="renderSpSearch(this.value)" autocomplete="off" style="padding-left:36px">
-      <i class="ph ph-magnifying-glass" style="position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--red);font-size:15px"></i>
-      <div id="sp-dd" style="display:none;position:absolute;top:calc(100% + 4px);left:0;right:0;background:#0c1120;border:1px solid var(--bd2);border-radius:var(--rs);max-height:180px;overflow-y:auto;z-index:200;box-shadow:0 12px 36px rgba(0,0,0,.8);scrollbar-width:none"></div>
-    </div>
-    <div id="sp-selected" style="margin:0 16px 10px"></div>
-
-    <div class="sl">ปริมาณที่รั่วไหล</div>
-    <div style="margin:0 16px 10px;display:grid;grid-template-columns:1fr 1fr;gap:8px">
-      <div>
-        <div style="font-size:9px;color:var(--tx3);margin-bottom:3px;font-weight:700">ปริมาณ</div>
-        <input class="fi" id="sp-amount" type="number" placeholder="10" value="10" style="font-size:13px">
-      </div>
-      <div>
-        <div style="font-size:9px;color:var(--tx3);margin-bottom:3px;font-weight:700">หน่วย</div>
-        <select class="fi" id="sp-unit" style="appearance:none;cursor:pointer;font-size:13px">
-          <option value="L">ลิตร (L)</option>
-          <option value="kg">กิโลกรัม (kg)</option>
-          <option value="mL">มิลลิลิตร (mL)</option>
-        </select>
-      </div>
-    </div>
-
-    <div class="sl">สถานที่</div>
-    <div style="margin:0 16px 12px;display:grid;grid-template-columns:1fr 1fr;gap:8px">
-      <div>
-        <div class="fi" style="cursor:pointer;display:flex;align-items:center;gap:6px;padding:10px 12px" onclick="document.getElementById('sp-indoor').checked=true" id="sp-loc-in">
-          <input type="radio" name="sp-loc" id="sp-indoor" value="indoor" checked style="accent-color:var(--lime)">
-          <span style="font-size:12px;font-weight:600">ในอาคาร</span>
-        </div>
-      </div>
-      <div>
-        <div class="fi" style="cursor:pointer;display:flex;align-items:center;gap:6px;padding:10px 12px" onclick="document.getElementById('sp-outdoor').checked=true">
-          <input type="radio" name="sp-loc" id="sp-outdoor" value="outdoor" style="accent-color:var(--lime)">
-          <span style="font-size:12px;font-weight:600">นอกอาคาร</span>
-        </div>
-      </div>
-    </div>
-
-    <div style="margin:0 16px 14px">
-      <button class="btn bd3" onclick="runSpill()">
-        <i class="ph-bold ph-warning-diamond" style="font-size:16px"></i>
-        จำลองสถานการณ์
-      </button>
-    </div>
-
-    <div id="sp-result" style="margin:0 16px 12px"></div>
-
-    <div style="margin:0 16px 8px;padding:10px 12px;background:var(--rb);border:1px solid var(--rbd);border-radius:var(--rs);font-size:10px;color:#ff9a9a;line-height:1.7">
-      <strong>⚠ ใช้เพื่อการฝึกอบรมเท่านั้น:</strong> คะแนนความเสี่ยงและรัศมีโซนคำนวณจากสูตรประมาณภายในแอป (class × ปริมาณ × สถานที่) ไม่ใช่แบบจำลองการแพร่กระจายทางวิศวกรรม — <strong>ในเหตุการณ์จริงให้ยึดระยะจาก ERG ฉบับพิมพ์ล่าสุดและ SDS ของสารเป็นหลัก</strong> และปฏิบัติตามแผนฉุกเฉินขององค์กร
-    </div>
-    <div class="crd"><strong>ธุรกิจพันธุ์กุ้งขาว 2</strong>ChemNexus AI 4.0 · Spill Simulator</div>
+    <div class="crd"><strong>ธุรกิจพันธุ์กุ้งขาว 2</strong>ChemNexus AI 4.1 · Layout Editor</div>
   </div>
 </div>
 
@@ -1095,7 +949,7 @@ select.fi option{background:#0c1120;color:var(--tx)}
     <div id="mx-table" style="margin:0 16px 12px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none"></div>
     <!-- Cell detail popup -->
     <div id="mx-detail" style="display:none;margin:0 16px 12px"></div>
-    <div class="crd"><strong>ธุรกิจพันธุ์กุ้งขาว 2</strong>ChemNexus AI 4.0 · DIW Matrix</div>
+    <div class="crd"><strong>ธุรกิจพันธุ์กุ้งขาว 2</strong>ChemNexus AI 4.1 · DIW Matrix</div>
   </div>
 </div>
 
@@ -1128,7 +982,7 @@ select.fi option{background:#0c1120;color:var(--tx)}
       <button class="btn bg" onclick="copyReq()"><i class="ph ph-copy" style="font-size:14px"></i>คัดลอกข้อความ</button>
       <div style="font-size:9.5px;color:var(--tx3);line-height:1.6">มีไฟล์ SDS เป็นรูป/PDF? ส่งแนบในแชตเดียวกันต่อท้ายข้อความได้เลย</div>
     </div>
-    <div class="crd"><strong>ธุรกิจพันธุ์กุ้งขาว 2</strong>ChemNexus AI 4.0 · ขอเพิ่มสาร</div>
+    <div class="crd"><strong>ธุรกิจพันธุ์กุ้งขาว 2</strong>ChemNexus AI 4.1 · ขอเพิ่มสาร</div>
   </div>
 </div>
 
@@ -1243,9 +1097,35 @@ select.fi option{background:#0c1120;color:var(--tx)}
       </div>
 
       <div style="margin-bottom:12px">
-        <div style="font-size:8px;font-weight:800;color:var(--tx3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:5px">ไฟล์ SDS ในคลัง (ถ้ามี)</div>
-        <input class="fi" id="f-sds" placeholder="เช่น sds-58.html (อัปโหลดไว้ในโฟลเดอร์ sds)">
+        <div style="font-size:8px;font-weight:800;color:var(--tx3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:5px">ลิงก์ SDS ผู้ผลิต (ถ้ามี)</div>
+        <input class="fi" id="f-sds" placeholder="https://… (ลิงก์หน้าเว็บผู้ผลิต — ไม่ใช่เอกสารของหน่วยงาน)">
       </div>
+
+      <!-- PPE + ถ้าเกิดเหตุ -->
+      <details id="f-safe-box" style="margin-bottom:14px;padding:12px;background:var(--s1);border:1px solid var(--bd);border-radius:10px">
+        <summary style="font-size:9px;font-weight:800;color:var(--lime);text-transform:uppercase;letter-spacing:.1em;cursor:pointer">PPE + ถ้าเกิดเหตุ (จากบัตร ICSC / ERG)</summary>
+        <div style="font-size:9.5px;color:var(--tx3);line-height:1.6;margin:8px 0">เปิดบัตร ICSC ของสาร (ภาษาไทยมีหลายตัว) แล้วกรอกเฉพาะที่บัตรเขียนไว้ · ช่องที่ไม่มีข้อมูลเว้นว่าง · ช่องรายการพิมพ์บรรทัดละข้อ</div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px">
+          <button type="button" class="fc" onclick="refLookup('icsc')">🔎 ICSC (ตาม CAS)</button>
+          <button type="button" class="fc" onclick="refLookup('erg')">🔎 ERG 2024 (ตาม UN)</button>
+        </div>
+        <input class="fi fs" id="f-s-src" placeholder="แหล่งอ้างอิง เช่น ICSC 1234">
+        <div class="rq-l" style="margin-top:6px">อุปกรณ์ที่ต้องใช้ (ใช้ค้นย้อนกลับในหน้า PPE)</div>
+        <div id="f-s-ppe" class="pf-pick"></div>
+        <input class="fi fs" id="f-s-glove" placeholder="ถุงมือ (วัสดุ)">
+        <input class="fi fs" id="f-s-eye" placeholder="ตา / หน้า">
+        <input class="fi fs" id="f-s-resp" placeholder="ทางหายใจ / ไส้กรอง">
+        <input class="fi fs" id="f-s-body" placeholder="ร่างกาย">
+        <input class="fi fs" id="f-s-react" placeholder="อย่าให้สัมผัส (Chemical dangers)">
+        <textarea class="fi fs" id="f-s-sd" rows="2" placeholder="หก/รั่ว — ทำ (บรรทัดละข้อ)"></textarea>
+        <textarea class="fi fs" id="f-s-sx" rows="2" placeholder="หก/รั่ว — ห้ามทำ"></textarea>
+        <textarea class="fi fs" id="f-s-fd" rows="2" placeholder="ไฟไหม้ — ทำ"></textarea>
+        <textarea class="fi fs" id="f-s-fx" rows="2" placeholder="ไฟไหม้ — ห้ามทำ"></textarea>
+        <input class="fi fs" id="f-s-ae" placeholder="ปฐมพยาบาล: โดนตา">
+        <input class="fi fs" id="f-s-as" placeholder="ปฐมพยาบาล: โดนผิว">
+        <input class="fi fs" id="f-s-ai" placeholder="ปฐมพยาบาล: สูดดม">
+        <input class="fi fs" id="f-s-ag" placeholder="ปฐมพยาบาล: กลืน">
+      </details>
 
       <div style="margin-bottom:16px">
         <div style="font-size:8px;font-weight:800;color:var(--tx3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:5px">หมายเหตุ (optional)</div>
@@ -1306,7 +1186,7 @@ select.fi option{background:#0c1120;color:var(--tx)}
   <div class="sp-logo">⚗️</div>
   <div class="sp-title">ChemNexus AI</div>
   <div class="sp-sub">Chemical Safety System</div>
-  <div class="sp-ver">v4.0</div>
+  <div class="sp-ver">v4.1</div>
   <div class="sp-bar"><div class="sp-fill"></div></div>
   <div class="sp-by">พัฒนาโปรแกรมโดย <strong>ธุรกิจพันธุ์กุ้งขาว 2</strong><br><span style="font-size:.85em;opacity:.6">ผู้พัฒนา Atit Chimnan</span></div>
 </div>
@@ -1346,7 +1226,7 @@ function mxVal(a,b){
   return rank(v1)<=rank(v2)?v1:v2;
 }
 // ── คู่สารที่ต้องแยกแม้ตาราง DIW (เทียบระดับคลาส) จะให้เก็บร่วมได้ ──
-// ที่มา: SDS หัวข้อ 10 "สารที่เข้ากันไม่ได้" ของสารในคลัง (ตรวจ 14 พ.ย. 2569)
+// ที่มา: บัตร ICSC (ILO/WHO) หัวข้อ Chemical dangers (ตรวจ 14 พ.ย. 2569)
 // จับคู่ด้วยเลข CAS → สารที่แอดมินเพิ่มใหม่ ถ้า CAS ตรงก็โดนกฎเดียวกัน
 const SDS_GROUPS={
   hypo:{cas:["7681-52-9","7778-54-3"],t:"สารไฮโปคลอไรต์ (คลอรีน)"},
@@ -1354,8 +1234,8 @@ const SDS_GROUPS={
   base:{cas:["1310-73-2"],t:"ด่างแก่ (โซดาไฟ)"},
 };
 const SDS_RULES=[
-  {a:"hypo",b:"acid",g:"ก๊าซคลอรีน (Cl₂) — พิษ",rx:"ไฮโปคลอไรต์สัมผัสกรดจะปล่อยก๊าซคลอรีนซึ่งเป็นพิษ (EUH031) — SDS คลอรีนน้ำ/คลอรีนผง หัวข้อ 10 ระบุกรดเป็นสารที่เข้ากันไม่ได้",sds:"sds-01.html"},
-  {a:"acid",b:"base",g:"ปฏิกิริยารุนแรง คายความร้อน",rx:"กรดกับด่างแก่ทำปฏิกิริยารุนแรง คายความร้อนสูง อาจเดือดและกระเด็น — SDS โซดาไฟ หัวข้อ 10 ระบุกรดเป็นสารที่เข้ากันไม่ได้",sds:"sds-03.html"},
+  {a:"hypo",b:"acid",g:"ก๊าซคลอรีน (Cl₂) — พิษ",rx:"ไฮโปคลอไรต์สลายตัวเมื่อสัมผัสกรด ให้ก๊าซคลอรีนซึ่งเป็นพิษและกัดกร่อน — ICSC 1119 (คลอรีนน้ำ) และ ICSC 0638 (คลอรีนผง)",url:"https://chemicalsafety.ilo.org/dyn/icsc/showcard.display?p_card_id=1119&p_version=2&p_lang=en"},
+  {a:"acid",b:"base",g:"ปฏิกิริยารุนแรง คายความร้อน",rx:"สารละลายโซดาไฟเป็นด่างแก่ ทำปฏิกิริยารุนแรงกับกรด คายความร้อนสูง — ICSC 0360 (โซดาไฟ)",url:"https://chemicalsafety.ilo.org/dyn/icsc/showcard.display?p_card_id=0360&p_version=2&p_lang=en"},
 ];
 function sdsGroupOf(ch){return Object.keys(SDS_GROUPS).filter(k=>SDS_GROUPS[k].cas.includes((ch&&ch.cs)||''));}
 function sdsRule(a,b){
@@ -1424,30 +1304,271 @@ const PR={
   "6.1B-5.1B":{g:"ก๊าซพิษ",                   rx:"โซเดียมไนไตรท์ (5.1B) + สารพิษ เกิดปฏิกิริยาที่ปล่อยไนโตรเจนออกไซด์ NOₓ พิษ"},
 };
 const DB=[
-{n:"โซเดียมไฮโปคลอไรต์ (คลอรีนน้ำ)",c:"8B",cs:"7681-52-9",u:"1791",sds:"sds-01.html"},
-{n:"แคลเซียมไฮโปคลอไรต์ (คลอรีนผง 65%)",c:"5.1A",cs:"7778-54-3",u:"1748",sds:"sds-02.html",ref:{src:"Merck/Sigma-Aldrich (TRGS 510)",url:"https://www.merckmillipore.com/GT/en/product/Calcium-hypochlorite,MDA_CHEM-841799",date:"2026-11-14"}},
-{n:"โซเดียมไฮดรอกไซด์ (โซดาไฟ)",c:"8B",cs:"1310-73-2",u:"1823",sds:"sds-03.html"},
-{n:"โพวิโดนไอโอดีน",c:"12",cs:"25655-41-8",u:"-",sds:"sds-04.html"},
-{n:"เอทิลแอลกอฮอล์ (เอทานอล)",c:"3A",cs:"64-17-5",u:"1170",sds:"sds-05.html"},
-{n:"ไฮโดรเจนเปอร์ออกไซด์",c:"5.1B",cs:"7722-84-1",u:"2014",sds:"sds-20.html",ref:{src:"Merck/Sigma-Aldrich (TRGS 510)",url:"https://www.sigmaaldrich.com/VN/en/product/sigald/31642",date:"2026-11-14"}},
-{n:"แคลเซียมคลอไรด์",c:"13",cs:"10043-52-4",u:"-",sds:"sds-06.html"},
-{n:"กรดไฮโดรคลอริก (กรดเกลือ)",c:"8B",cs:"7647-01-0",u:"1789",sds:"sds-07.html"},
-{n:"โซเดียมไนไตรท์",c:"5.1B",cs:"7632-00-0",u:"1500",sds:"sds-08.html"},
-{n:"กรดอะซิติก (≤80%)",c:"8B",cs:"64-19-7",u:"2790",sds:"sds-09.html"},
-{n:"กรดซัลฟิวริก",c:"8B",cs:"7664-93-9",u:"1830",sds:"sds-10.html"},
-{n:"ก๊าซหุงต้ม (LPG)",c:"2A",cs:"68476-85-7",u:"1075",sds:"sds-11.html"},
-{n:"ออกซิเจน (ท่ออัด)",c:"2A",cs:"7782-44-7",u:"1072",sds:"sds-12.html"},
-{n:"น้ำมันเบนซิน",c:"3A",cs:"86290-81-5",u:"1203",sds:"sds-13.html"},
-{n:"น้ำมันดีเซล",c:"3B",cs:"68334-30-5",u:"1202",sds:"sds-14.html"},
-{n:"กรดไนตริก (≤70%)",c:"5.1B",cs:"7697-37-2",u:"2031",sds:"sds-42.html",note:"v4: เปลี่ยนจาก 8B เป็น 5.1B ตาม Merck (กรดไนตริก 65% = Storage class 5.1B สารออกซิไดซ์)",ref:{src:"Merck/Sigma-Aldrich (TRGS 510)",url:"https://sigmaaldrich.com/DE/de/sds/mm/1.00441",date:"2026-11-14"}},
-{n:"ไบโอซอล 300",c:"8B",cs:"111-30-8",u:"1903",sds:"sds-21.html"},
-{n:"ปูนขาว",c:"13",cs:"1305-62-0",u:"-",sds:"sds-18.html"},
-{n:"โซเดียมไทโอซัลเฟต",c:"13",cs:"7772-98-7",u:"-",sds:"sds-15.html"},
-{n:"แมกนีเซียมคลอไรด์",c:"13",cs:"7786-30-3",u:"-",sds:"sds-19.html"},
-{n:"โซเดียมไบคาร์บอเนต",c:"13",cs:"144-55-8",u:"-",sds:"sds-16.html"},
-{n:"EDTA",c:"13",cs:"60-00-4",u:"-",sds:"sds-22.html"},
-{n:"ซันไล (น้ำยาล้างจาน)",c:"12",cs:"-",u:"-",sds:"sds-24.html"},
-{n:"อควา บราวน์",c:"13",cs:"-",u:"-",sds:"sds-23.html"}];
+{n:"โซเดียมไฮโปคลอไรต์ (คลอรีนน้ำ)",c:"8B",cs:"7681-52-9",u:"1791"},
+{n:"แคลเซียมไฮโปคลอไรต์ (คลอรีนผง 65%)",c:"5.1A",cs:"7778-54-3",u:"1748",ref:{src:"Merck/Sigma-Aldrich (TRGS 510)",url:"https://www.merckmillipore.com/GT/en/product/Calcium-hypochlorite,MDA_CHEM-841799",date:"2026-11-14"}},
+{n:"โซเดียมไฮดรอกไซด์ (โซดาไฟ)",c:"8B",cs:"1310-73-2",u:"1823"},
+{n:"โพวิโดนไอโอดีน",c:"12",cs:"25655-41-8",u:"-"},
+{n:"เอทิลแอลกอฮอล์ (เอทานอล)",c:"3A",cs:"64-17-5",u:"1170"},
+{n:"ไฮโดรเจนเปอร์ออกไซด์",c:"5.1B",cs:"7722-84-1",u:"2014",ref:{src:"Merck/Sigma-Aldrich (TRGS 510)",url:"https://www.sigmaaldrich.com/VN/en/product/sigald/31642",date:"2026-11-14"}},
+{n:"แคลเซียมคลอไรด์",c:"13",cs:"10043-52-4",u:"-"},
+{n:"กรดไฮโดรคลอริก (กรดเกลือ)",c:"8B",cs:"7647-01-0",u:"1789"},
+{n:"โซเดียมไนไตรท์",c:"5.1B",cs:"7632-00-0",u:"1500"},
+{n:"กรดอะซิติก (≤80%)",c:"8B",cs:"64-19-7",u:"2790"},
+{n:"กรดซัลฟิวริก",c:"8B",cs:"7664-93-9",u:"1830"},
+{n:"ก๊าซหุงต้ม (LPG)",c:"2A",cs:"68476-85-7",u:"1075"},
+{n:"ออกซิเจน (ท่ออัด)",c:"2A",cs:"7782-44-7",u:"1072"},
+{n:"น้ำมันเบนซิน",c:"3A",cs:"86290-81-5",u:"1203"},
+{n:"น้ำมันดีเซล",c:"3B",cs:"68334-30-5",u:"1202"},
+{n:"กรดไนตริก (≤70%)",c:"5.1B",cs:"7697-37-2",u:"2031",note:"v4: เปลี่ยนจาก 8B เป็น 5.1B ตาม Merck (กรดไนตริก 65% = Storage class 5.1B สารออกซิไดซ์)",ref:{src:"Merck/Sigma-Aldrich (TRGS 510)",url:"https://sigmaaldrich.com/DE/de/sds/mm/1.00441",date:"2026-11-14"}},
+{n:"ไบโอซอล 300",c:"8B",cs:"111-30-8",u:"1903"},
+{n:"ปูนขาว",c:"13",cs:"1305-62-0",u:"-"},
+{n:"โซเดียมไทโอซัลเฟต",c:"13",cs:"7772-98-7",u:"-"},
+{n:"แมกนีเซียมคลอไรด์",c:"13",cs:"7786-30-3",u:"-"},
+{n:"โซเดียมไบคาร์บอเนต",c:"13",cs:"144-55-8",u:"-"},
+{n:"EDTA",c:"13",cs:"60-00-4",u:"-"},
+{n:"ซันไล (น้ำยาล้างจาน)",c:"12",cs:"-",u:"-"},
+{n:"อควา บราวน์",c:"13",cs:"-",u:"-"}];
+
+// ══════════════════════════════════════════
+//  PPE + ถ้าเกิดเหตุ รายสาร (v4.1 — ตรวจ 14 พ.ย. 2569)
+//  ที่มา: ICSC (บัตรข้อมูลความปลอดภัยสารเคมีระหว่างประเทศ ILO/WHO) · NIOSH Pocket Guide (ไส้กรอง)
+//         OSHA 3151 ตาราง 4 (วัสดุถุงมือ) · ERG 2024 (ระยะกั้น / การดับไฟ / สารหก)
+//  สีไส้กรองตาม EN 14387: A น้ำตาล = ไอสารอินทรีย์ · B เทา = ก๊าซอนินทรีย์ (คลอรีน) · E เหลือง = ก๊าซกรด · P ขาว = ฝุ่น/ละออง
+// ══════════════════════════════════════════
+const PPE_CAT={
+  g_nit:{ic:'🧤',t:'ถุงมือไนไตรล์',grp:'มือ'},
+  g_neo:{ic:'🧤',t:'ถุงมือนีโอพรีน',grp:'มือ'},
+  g_any:{ic:'🧤',t:'ถุงมือกันสารเคมี (ไม่ระบุวัสดุ)',grp:'มือ'},
+  g_cold:{ic:'🧤',t:'ถุงมือกันความเย็น',grp:'มือ'},
+  goggle:{ic:'🥽',t:'แว่นครอบตา (Goggles)',grp:'ตา/หน้า'},
+  spect:{ic:'👓',t:'แว่นนิรภัย',grp:'ตา/หน้า'},
+  shield:{ic:'🛡️',t:'กระบังหน้า (Face shield)',grp:'ตา/หน้า'},
+  fA:{ic:'A',t:'ไส้กรอง A (สีน้ำตาล) — ไอสารอินทรีย์',grp:'ทางหายใจ',col:'#8b5a2b'},
+  fB:{ic:'B',t:'ไส้กรอง B (สีเทา) — ก๊าซอนินทรีย์ เช่น คลอรีน',grp:'ทางหายใจ',col:'#8f98a3'},
+  fE:{ic:'E',t:'ไส้กรอง E (สีเหลือง) — ก๊าซกรด',grp:'ทางหายใจ',col:'#e8b600'},
+  fP:{ic:'P',t:'ไส้กรอง P (สีขาว) — ฝุ่น/ละออง',grp:'ทางหายใจ',col:'#f2f2f2'},
+  scba:{ic:'🫁',t:'SCBA ถังอากาศ — หกมาก/ที่อับ (ทีมที่ผ่านการฝึกเท่านั้น)',grp:'ทางหายใจ'},
+  suit:{ic:'🦺',t:'ชุดหรือผ้ากันเปื้อนกันสารเคมี',grp:'ร่างกาย'},
+  eyewash:{ic:'🚿',t:'ที่ล้างตา / ฝักบัวฉุกเฉิน ใกล้จุดใช้',grp:'จุดทำงาน'},
+};
+// ERG 2024 — ระยะกั้นทันที (iso) · หกมาก (big) · ถัง/แทงก์ถูกไฟไหม้ (fire)
+const ERG_G={
+  '115':{t:'ก๊าซไวไฟ',iso:'100 ม. ทุกทิศ',big:'พิจารณาอพยพด้านใต้ลม 800 ม.',fire:'1,600 ม.'},
+  '122':{t:'ก๊าซออกซิไดซ์',iso:'100 ม. ทุกทิศ',big:'พิจารณาอพยพด้านใต้ลม 500 ม.',fire:'800 ม.'},
+  '127':{t:'ของเหลวไวไฟ (ผสมน้ำได้)',iso:'50 ม. ทุกทิศ',big:'พิจารณาอพยพด้านใต้ลม 300 ม.',fire:'800 ม.'},
+  '128':{t:'ของเหลวไวไฟ (ไม่ผสมน้ำ)',iso:'50 ม. ทุกทิศ',big:'พิจารณาอพยพด้านใต้ลม 300 ม.',fire:'800 ม.'},
+  '137':{t:'สารกัดกร่อน ทำปฏิกิริยากับน้ำ',iso:'ของเหลว 50 ม. / ของแข็ง 25 ม.',big:'ขยายระยะด้านใต้ลมตามสถานการณ์',fire:'800 ม.'},
+  '140':{t:'สารออกซิไดซ์',iso:'ของเหลว 50 ม. / ของแข็ง 25 ม.',big:'พิจารณาอพยพด้านใต้ลม 100 ม.',fire:'800 ม.'},
+  '141':{t:'สารออกซิไดซ์ มีพิษ',iso:'ของเหลว 50 ม. / ของแข็ง 25 ม.',big:'พิจารณาอพยพด้านใต้ลม 100 ม.',fire:'800 ม.'},
+  '153':{t:'สารพิษ/กัดกร่อน (ติดไฟได้)',iso:'ของเหลว 50 ม. / ของแข็ง 25 ม.',big:'ขยายระยะด้านใต้ลมตามสถานการณ์',fire:'800 ม.'},
+  '154':{t:'สารพิษ/กัดกร่อน (ไม่ติดไฟ)',iso:'ของเหลว 50 ม. / ของแข็ง 25 ม.',big:'ขยายระยะด้านใต้ลมตามสถานการณ์',fire:'800 ม.'},
+  '157':{t:'สารพิษ/กัดกร่อน (ไม่ติดไฟ ไวต่อน้ำ)',iso:'ของเหลว 50 ม. / ของแข็ง 25 ม.',big:'ขยายระยะด้านใต้ลมตามสถานการณ์',fire:'800 ม.'},
+};
+// เลข UN → Guide (ERG 2024 ตรวจผ่าน CAMEO Chemicals ของ NOAA)
+const ERG_UN={'1791':'154','1748':'140','1823':'154','1170':'127','2014':'140','1789':'157','1500':'141','2790':'153','1830':'137','1075':'115','1072':'122','1203':'128','1202':'128','2031':'157','1903':'153'};
+const SAFE={
+"7681-52-9":{icsc:"1119",g:"154",
+  glove:"ถุงมือกันสารเคมี (ICSC ไม่ระบุวัสดุ — ดูฉลากผู้ผลิต)",eye:"กระบังหน้า หรือแว่นครอบตาร่วมกับหน้ากาก",
+  resp:"ไส้กรอง B (ก๊าซอนินทรีย์) ตาม ICSC 0482 · หกมาก/เข้มข้นเกิน 10%: ชุดกันสารเคมี + SCBA ตาม ICSC 1119",body:"ชุดหรือผ้ากันเปื้อนกันสารเคมี",
+  ppe:["g_any","shield","fB","suit","scba"],
+  react:"กรดทุกชนิด (เกิดก๊าซคลอรีนพิษ) · สารติดไฟและสารรีดิวซ์ · ความร้อนและแสงแดด (สลายตัว) · ทองแดงและโลหะเบา",
+  sd:["เปิดระบายอากาศ","ตักหรือดูดสารใส่ภาชนะที่ไม่ใช่โลหะ มีฝาปิด","ส่วนที่เหลือล้างด้วยน้ำปริมาณมาก โดยกั้นไม่ให้ไหลลงบ่อหรือทางน้ำ"],
+  sx:["ห้ามใช้ขี้เลื่อยหรือวัสดุติดไฟซับ","ห้ามให้สัมผัสกรด — จะเกิดก๊าซคลอรีน","ห้ามปล่อยลงสิ่งแวดล้อม/บ่อเลี้ยง"],
+  fd:["ตัวสารไม่ติดไฟ — ดับไฟรอบข้างตามชนิดเชื้อเพลิง","ฉีดน้ำหล่อเย็นภาชนะที่โดนความร้อน"],fx:["ไฟไหม้จะปล่อยไอพิษ — อย่าอยู่ใต้ลม"],
+  aid:{i:"อากาศบริสุทธิ์ นั่งครึ่งนั่งครึ่งนอน อาจต้องผายปอด ส่งแพทย์ทันที (อาการอาจเกิดช้า)",s:"ล้างน้ำมากๆ อย่างน้อย 15 นาที แล้วถอดเสื้อผ้าที่เปื้อนและล้างซ้ำ ส่งแพทย์ทันที",e:"ล้างตาด้วยน้ำหลายนาที ถอดคอนแทคเลนส์ถ้าถอดง่าย ส่งแพทย์ทันที",g:"บ้วนปาก ห้ามทำให้อาเจียน ดื่มน้ำ 1–2 แก้ว ส่งแพทย์ทันที"},
+  note:"ICSC 1119 = คลอรีนออกฤทธิ์เกิน 10% · ICSC 0482 = ต่ำกว่า 10%"},
+"7778-54-3":{icsc:"0638",g:"140",
+  glove:"ถุงมือกันสารเคมี (ICSC ไม่ระบุวัสดุ)",eye:"กระบังหน้า หรือแว่นครอบตาร่วมกับหน้ากาก",
+  resp:"ฝุ่นผง: ไส้กรอง P · ได้กลิ่นคลอรีน: ไส้กรอง B ตามชนิดก๊าซ (EN 14387) · ICSC: เก็บสารหกให้สวมชุดกันสารเคมี กระบังหน้า และหน้ากากไส้กรอง",body:"ชุดกันสารเคมี",
+  ppe:["g_any","shield","fP","fB","suit"],
+  react:"กรด (สลายตัวเร็ว ให้คลอรีนและออกซิเจน — ไฟ/ระเบิด) · สารติดไฟและสารรีดิวซ์ · แอมโมเนีย เอมีน · ความร้อนเกิน 175°C · กัดโลหะและพลาสติก",
+  sd:["กวาดใส่ภาชนะแห้ง ปิดสนิท","กำจัดตามระเบียบท้องถิ่น"],
+  sx:["ห้ามให้ผงฟุ้งกระจาย","ห้ามให้สัมผัสวัสดุติดไฟ (ขี้เลื่อย ผ้า กระดาษ น้ำมัน) หรือกรด","ห้ามให้น้ำเข้าภาชนะบรรจุ (ERG 140)","ห้ามปล่อยลงสิ่งแวดล้อม/บ่อเลี้ยง"],
+  fd:["ใช้น้ำปริมาณมาก","ฉีดน้ำหล่อเย็นภาชนะที่โดนความร้อน"],fx:["ห้ามใช้ผงเคมีแห้งหรือโฟม (ICSC / ERG 140)"],
+  aid:{i:"อากาศบริสุทธิ์ นั่งครึ่งนั่งครึ่งนอน อาจต้องผายปอด พบแพทย์",s:"ถอดเสื้อผ้าที่เปื้อน ล้างผิวด้วยน้ำมากๆ หรืออาบน้ำ",e:"ล้างตาด้วยน้ำหลายนาที (ถอดคอนแทคเลนส์ถ้าง่าย) แล้วพบแพทย์",g:"บ้วนปาก ดื่มน้ำ 1–2 แก้ว ห้ามทำให้อาเจียน พบแพทย์"}},
+"1310-73-2":{icsc:"0360",niosh:"0565",g:"154",
+  glove:"นีโอพรีน ไนไตรล์ บิวทิล ยางธรรมชาติ — ดีมากทุกชนิด (OSHA)",eye:"กระบังหน้า หรือแว่นครอบตาร่วมกับหน้ากาก",
+  resp:"ฝุ่น/ละออง: ไส้กรองอนุภาค P (NIOSH: N100/P100) · หกมาก: ชุดกันสารเคมี + SCBA (ICSC)",body:"ชุดกันสารเคมี",
+  ppe:["g_nit","g_neo","shield","fP","suit","scba"],
+  react:"กรด (รุนแรง) · น้ำและความชื้น (ร้อนจัด อาจจุดไฟวัสดุข้างเคียง) · อะลูมิเนียม ดีบุก ตะกั่ว สังกะสี (เกิดไฮโดรเจน) · เกลือแอมโมเนียม",
+  sd:["กวาดเกล็ดใส่ภาชนะพลาสติกมีฝา","เก็บส่วนที่เหลืออย่างระวัง กำจัดตามระเบียบ"],
+  sx:["ห้ามราดน้ำลงเกล็ดโซดาไฟ — เกิดความร้อนสูง","ห้ามใช้ภาชนะอะลูมิเนียมหรือสังกะสี","ห้ามปล่อยลงสิ่งแวดล้อม/บ่อเลี้ยง"],
+  fd:["ตัวสารไม่ติดไฟ — ดับไฟรอบข้างตามชนิดเชื้อเพลิง"],fx:["ห้ามให้สัมผัสน้ำหรือความชื้น — ร้อนพอจุดไฟวัสดุติดไฟได้"],
+  aid:{i:"อากาศบริสุทธิ์ พัก ส่งแพทย์ทันที",s:"ถอดเสื้อผ้าที่เปื้อน ล้างน้ำหรืออาบน้ำอย่างน้อย 15 นาที ส่งแพทย์ทันที",e:"ล้างตาด้วยน้ำหลายนาที (ถอดคอนแทคเลนส์ถ้าง่าย) แล้วส่งแพทย์",g:"บ้วนปาก ห้ามทำให้อาเจียน ถ้าเพิ่งกลืนไม่กี่นาทีให้ดื่มน้ำแก้วเล็ก 1 แก้ว ส่งแพทย์ทันที"}},
+"25655-41-8":{icsc:"1471",
+  glove:"ถุงมือป้องกัน (ICSC)",eye:"—",resp:"—",body:"—",ppe:["g_any"],
+  react:"ความร้อน (สลายตัวให้ไอไอโอดีนและไนโตรเจนออกไซด์)",
+  sd:[],sx:[],fd:[],fx:["ไฟไหม้ปล่อยไอระคายเคือง/ไอพิษ"],
+  aid:{s:"ล้างน้ำ แล้วล้างด้วยสบู่"},
+  note:"บัตร ICSC ของสารนี้มีข้อมูลน้อย — ดูฉลากผู้ผลิตประกอบ"},
+"64-17-5":{icsc:"0044",niosh:"0262",g:"127",
+  glove:"นีโอพรีน ไนไตรล์ บิวทิล ยางธรรมชาติ — ดีมากทุกชนิด (OSHA)",eye:"แว่นครอบตา",
+  resp:"งานปกติ: ระบายอากาศ หรือดูดอากาศเฉพาะที่ (ICSC)",body:"ชุดคลุม ผ้ากันเปื้อน",
+  ppe:["g_nit","goggle","suit"],
+  react:"สารออกซิไดซ์แรง เช่น กรดไนตริก (ไฟ/ระเบิด) · คลอรีนผง (แคลเซียมไฮโปคลอไรต์) · แอมโมเนีย",
+  sd:["ตัดแหล่งประกายไฟทั้งหมด","ระบายอากาศ","ตักใส่ภาชนะมีฝา ส่วนที่เหลือซับด้วยทรายหรือวัสดุเฉื่อย"],
+  sx:["ห้ามล้างลงท่อ","ห้ามสูบบุหรี่ ห้ามเปิด-ปิดอุปกรณ์ไฟฟ้าที่เกิดประกาย","ห้ามใช้ลมอัดถ่ายเทสาร"],
+  fd:["ผงเคมีแห้ง CO₂ น้ำฝอย หรือโฟมชนิดทนแอลกอฮอล์","ฉีดน้ำหล่อเย็นถัง"],fx:["เปลวไฟเอทานอลอาจมองไม่เห็น (ERG 127)","อย่าฉีดน้ำเป็นลำตรงใส่ของเหลว (ERG 127)"],
+  aid:{i:"อากาศบริสุทธิ์ พัก",s:"ถอดเสื้อผ้าที่เปื้อน ล้างน้ำหรืออาบน้ำ",e:"ล้างตาด้วยน้ำหลายนาที แล้วพบแพทย์",g:"บ้วนปาก ดื่มน้ำ 1–2 แก้ว ส่งแพทย์ทันที"}},
+"7722-84-1":{icsc:"0164",niosh:"0335",g:"140",
+  glove:"นีโอพรีน ไนไตรล์ บิวทิล ยางธรรมชาติ — ดีทุกชนิด สำหรับ 30% (OSHA)",eye:"แว่นครอบตา หรือกระบังหน้า",
+  resp:"งานปกติ: ระบายอากาศ · หกมาก: ชุดกันสารเคมี + SCBA (ICSC)",body:"ชุดกันสารเคมี",
+  ppe:["g_nit","g_neo","goggle","shield","suit","scba"],
+  react:"สารติดไฟและสารรีดิวซ์ (ไฟ/ระเบิด โดยเฉพาะเมื่อมีโลหะ) · ความร้อนและแสง (สลายตัวให้ออกซิเจน) · ผ้า กระดาษ",
+  sd:["ซับด้วยทรายหรือวัสดุเฉื่อย","เก็บใส่ภาชนะ กำจัดตามระเบียบ"],
+  sx:["ห้ามใช้ขี้เลื่อย ผ้า หรือกระดาษซับ — ติดไฟได้","ห้ามวางใกล้วัสดุติดไฟหรือของร้อน","ห้ามปล่อยลงสิ่งแวดล้อม"],
+  fd:["ใช้น้ำ (ERG 140)","ฉีดน้ำหล่อเย็นถัง"],fx:["ห้ามใช้ผงเคมีแห้งหรือโฟม (ERG 140)","เสื้อผ้าที่เปื้อนเมื่อแห้งอาจติดไฟ (ERG 140)"],
+  aid:{i:"อากาศบริสุทธิ์ นั่งครึ่งนั่งครึ่งนอน ส่งแพทย์ทันที",s:"ล้างน้ำมากๆ อย่างน้อย 15 นาที ถอดเสื้อผ้าที่เปื้อน ล้างซ้ำ ส่งแพทย์ทันที",e:"ล้างตาด้วยน้ำหลายนาที แล้วส่งแพทย์",g:"บ้วนปาก ห้ามทำให้อาเจียน ส่งแพทย์ทันที"},
+  note:"บัตร ICSC 0164 เป็นของความเข้มข้นเกิน 60% — ความเข้มข้นต่ำกว่าใช้หลักเดียวกัน"},
+"10043-52-4":{icsc:"1184",
+  glove:"ถุงมือป้องกัน (ICSC)",eye:"แว่นครอบตาร่วมกับหน้ากาก",resp:"มีฝุ่น: ไส้กรอง P หรือดูดอากาศเฉพาะที่ (ICSC)",body:"—",
+  ppe:["g_any","goggle","fP"],
+  react:"ละลายน้ำแล้วร้อนมาก · สังกะสี (เกิดไฮโดรเจน) · ความร้อนสูง (ไอคลอรีน)",
+  sd:["กวาดใส่ภาชนะมีฝา (พรมน้ำก่อนถ้าฝุ่นฟุ้ง)","ส่วนที่เหลือล้างด้วยน้ำปริมาณมาก"],sx:["ห้ามให้ฝุ่นฟุ้ง"],
+  fd:["ไม่ติดไฟ — ดับไฟรอบข้างตามชนิดเชื้อเพลิง"],fx:[],
+  aid:{i:"อากาศบริสุทธิ์ พัก พบแพทย์",s:"ถอดเสื้อผ้าที่เปื้อน ล้างน้ำมากๆ ส่งแพทย์ทันที",e:"ล้างตาด้วยน้ำหลายนาที ส่งแพทย์ทันที",g:"บ้วนปาก ห้ามทำให้อาเจียน ดื่มน้ำ 1–2 แก้ว ส่งแพทย์ทันที"}},
+"7647-01-0":{icsc:"0163",niosh:"0332",g:"157",
+  glove:"นีโอพรีน (ดีมาก) · ไนไตรล์ บิวทิล ยางธรรมชาติ (ดี) — OSHA",eye:"กระบังหน้า หรือแว่นครอบตาร่วมกับหน้ากาก",
+  resp:"ไส้กรองก๊าซกรด E สีเหลือง (NIOSH: acid gas) · หกมาก: SCBA",body:"ชุดหรือผ้ากันเปื้อนกันสารเคมี",
+  ppe:["g_neo","g_nit","shield","fE","suit","scba","eyewash"],
+  react:"ด่าง เช่น โซดาไฟ (รุนแรง) · คลอรีนน้ำ/คลอรีนผง (เกิดก๊าซคลอรีน) · สารออกซิไดซ์ · โลหะ (เกิดไฮโดรเจน) ทองเหลือง สังกะสี",
+  sd:["กันคนออก อยู่เหนือลม","ปิดจุดรั่วถ้าทำได้โดยไม่เสี่ยง","คลุมด้วยดินแห้งหรือทรายแห้ง แล้วคลุมพลาสติกกันฝน","ตักใส่ภาชนะพลาสติก ปิดฝาหลวมๆ"],
+  sx:["ห้ามฉีดน้ำลงที่สารหกหรือจุดรั่ว (ERG 157)","ห้ามให้ไหลลงท่อ ทางน้ำ หรือบ่อ","ห้ามให้สัมผัสคลอรีน"],
+  fd:["ตัวสารไม่ติดไฟ — ไฟเล็ก: CO₂ ผงเคมีแห้ง ทรายแห้ง · ไฟใหญ่: น้ำฝอยหรือโฟมทนแอลกอฮอล์ (ERG 157)","กั้นน้ำที่ใช้ดับไฟไว้ อย่าให้ไหลออก"],
+  fx:["โฟมบางชนิดทำปฏิกิริยาปล่อยแก๊สพิษ (ERG 157)","อย่าฉีดน้ำเป็นลำตรงใส่ตัวสาร"],
+  aid:{i:"อากาศบริสุทธิ์ นั่งครึ่งนั่งครึ่งนอน อาจต้องผายปอด ส่งแพทย์ทันที — ปอดบวมน้ำอาจเกิดหลังหลายชั่วโมง",s:"ผู้ช่วยต้องใส่ถุงมือ · ล้างน้ำมากๆ อย่างน้อย 15 นาที ถอดเสื้อผ้า ล้างซ้ำ ส่งแพทย์ทันที",e:"ล้างตาด้วยน้ำทันที หลายนาที (ถอดคอนแทคเลนส์ถ้าง่าย) ส่งแพทย์ทันที",g:"ส่งแพทย์ทันที (NIOSH)"},
+  note:"ICSC 0163 เป็นบัตรของก๊าซ HCl — วิธีจัดการสารหกใช้ ERG Guide 157 ของกรดเกลือ (UN1789)"},
+"7632-00-0":{icsc:"1120",g:"141",
+  glove:"ถุงมือป้องกัน (ICSC)",eye:"แว่นนิรภัย",resp:"มีฝุ่น: ไส้กรอง P (ICSC)",body:"—",
+  ppe:["g_any","spect","fP"],
+  react:"กรด (เกิดไอไนโตรเจนออกไซด์พิษ) · สารติดไฟและสารรีดิวซ์ (ไฟ/ระเบิด) · อะลูมิเนียม สารแอมโมเนียม เอมีน",
+  sd:["กวาดใส่ภาชนะมีฝา (พรมน้ำก่อนถ้าฝุ่นฟุ้ง)","เก็บส่วนที่เหลือ กำจัดตามระเบียบ"],
+  sx:["ห้ามวางใกล้วัสดุติดไฟ (ไม้ กระดาษ น้ำมัน)","ห้ามปล่อยลงสิ่งแวดล้อม"],
+  fd:["ใช้น้ำ (ERG 141)"],fx:["ห้ามใช้ผงเคมีแห้งหรือโฟม (ERG 141)","ไฟไหม้ปล่อยไอพิษ"],
+  aid:{i:"อากาศบริสุทธิ์ พัก อาจต้องผายปอด พบแพทย์",s:"ล้างน้ำมากๆ อย่างน้อย 15 นาที ถอดเสื้อผ้าที่เปื้อน ล้างซ้ำ",e:"ล้างตาด้วยน้ำหลายนาที แล้วพบแพทย์",g:"ICSC ให้ทำให้อาเจียนเฉพาะคนที่รู้สึกตัว และดื่มน้ำ 1–2 แก้ว — โทรปรึกษา 1367 ก่อน แล้วพบแพทย์"}},
+"64-19-7":{icsc:"0363",niosh:"0002",g:"153",
+  glove:"นีโอพรีน ไนไตรล์ บิวทิล ยางธรรมชาติ — ดีมากทุกชนิด (OSHA)",eye:"กระบังหน้า หรือแว่นครอบตาร่วมกับหน้ากาก",
+  resp:"ไส้กรองไอสารอินทรีย์ A สีน้ำตาล (NIOSH: organic vapor) · หกมาก: SCBA",body:"ชุดกันสารเคมี",
+  ppe:["g_nit","g_neo","shield","fA","suit","scba"],
+  react:"สารออกซิไดซ์แรง (ไฟ/ระเบิด) · ด่างแก่ กรดแก่ · กัดพลาสติกและยางบางชนิด",
+  sd:["ตัดแหล่งประกายไฟ","ตักใส่ภาชนะปิดได้","ส่วนที่เหลือซับด้วยดินหรือทรายแห้ง (ERG 153)"],
+  sx:["ห้ามปล่อยลงท่อหรือสิ่งแวดล้อม","ห้ามให้น้ำเข้าภาชนะบรรจุ (ERG 153)","การทำให้เป็นกลางด้วยโซดาแอช ให้ผู้เชี่ยวชาญทำเท่านั้น (ICSC)"],
+  fd:["ผงเคมีแห้ง โฟมทนแอลกอฮอล์ น้ำฝอย หรือ CO₂","ฉีดน้ำหล่อเย็นถัง"],fx:["เกิน 39°C ไอผสมอากาศระเบิดได้ — ห้ามเปลวไฟ/ประกายไฟ"],
+  aid:{i:"อากาศบริสุทธิ์ นั่งครึ่งนั่งครึ่งนอน ส่งแพทย์ทันที",s:"ถอดเสื้อผ้าที่เปื้อน ล้างน้ำมากหรืออาบน้ำอย่างน้อย 15 นาที ส่งแพทย์ทันที",e:"ล้างตาด้วยน้ำมากๆ ส่งแพทย์ทันที",g:"บ้วนปาก ห้ามทำให้อาเจียน ถ้าเพิ่งกลืนไม่กี่นาทีให้ดื่มน้ำแก้วเล็ก 1 แก้ว ส่งแพทย์ทันที"}},
+"7664-93-9":{icsc:"0362",niosh:"0577",g:"137",
+  glove:"นีโอพรีน ไนไตรล์ บิวทิล ยางธรรมชาติ — ดีทุกชนิด (OSHA)",eye:"กระบังหน้า หรือแว่นครอบตาร่วมกับหน้ากาก",
+  resp:"ไส้กรองก๊าซกรด E สีเหลือง ร่วมกับไส้กรองอนุภาค P (NIOSH: acid gas + P100) · หกมาก: SCBA",body:"ชุดกันสารเคมี + ผ้ากันเปื้อน",
+  ppe:["g_neo","g_nit","shield","fE","fP","suit","scba","eyewash"],
+  react:"น้ำ (ร้อนจัด เดือดกระเด็น) · ด่าง · สารติดไฟ สารรีดิวซ์ สารอินทรีย์ · คลอรีนน้ำ/คลอรีนผง · โลหะ (เกิดไฮโดรเจน) · พลาสติกหลายชนิด",
+  sd:["อพยพคนออก เรียกผู้เชี่ยวชาญ","ตักใส่ภาชนะปิดได้","ส่วนที่เหลือซับด้วยทรายแห้ง แล้วทำให้เป็นกลางด้วยปูนขาวหรือโซดาแอชอย่างระวัง (ICSC)"],
+  sx:["ห้ามฉีดน้ำลงที่สารหก (ERG 137)","ห้ามใช้ขี้เลื่อยหรือวัสดุติดไฟซับ","ห้ามปล่อยลงสิ่งแวดล้อม/บ่อเลี้ยง"],
+  fd:["ดับไฟรอบข้างตามชนิดเชื้อเพลิง","ฉีดน้ำหล่อเย็นถังได้ แต่ห้ามให้น้ำโดนตัวสาร"],fx:["ห้ามใช้น้ำกับตัวสารโดยตรง (ICSC)"],
+  aid:{i:"อากาศบริสุทธิ์ นั่งครึ่งนั่งครึ่งนอน อาจต้องผายปอด ส่งแพทย์ทันที",s:"ผู้ช่วยต้องใส่ถุงมือ · ล้างน้ำมากๆ อย่างน้อย 15 นาที ถอดเสื้อผ้า ล้างซ้ำ ส่งแพทย์ทันที",e:"ล้างตาด้วยน้ำหลายนาที ส่งแพทย์ทันที",g:"บ้วนปาก ห้ามให้ดื่มอะไร ห้ามทำให้อาเจียน ส่งแพทย์ทันที"}},
+"68476-85-7":{icsc:"0319",g:"115",
+  glove:"ถุงมือกันความเย็น — ก๊าซเหลวทำให้ผิวไหม้เย็น (ICSC)",eye:"กระบังหน้า",
+  resp:"หน้ากากไส้กรองใช้ไม่ได้ — ก๊าซรั่วหนักต้องใช้ SCBA (ICSC)",body:"ชุดป้องกัน",
+  ppe:["g_cold","shield","scba"],
+  react:"เปลวไฟ ประกายไฟ ไฟฟ้าสถิต · สารออกซิไดซ์",
+  sd:["อพยพ เรียกผู้เชี่ยวชาญ","ตัดแหล่งประกายไฟทั้งหมด ระบายอากาศ","ปิดวาล์วถ้าทำได้โดยไม่เสี่ยง","ถ้าทำได้ หันจุดรั่วให้ก๊าซออกแทนของเหลว (ERG 115)"],
+  sx:["ห้ามเปิด-ปิดสวิตช์ไฟฟ้า","ห้ามฉีดน้ำเป็นลำใส่ของเหลวหรือจุดรั่ว","ห้ามเดินผ่านสารที่หก","อย่าให้ก๊าซไหลลงท่อหรือที่ต่ำ"],
+  fd:["ตัดแหล่งก๊าซ — ถ้าตัดไม่ได้และไม่เสี่ยงต่อรอบข้าง ปล่อยให้ไหม้จนหมด (ICSC)","ไฟเล็ก: ผงเคมีแห้ง หรือ CO₂","ฉีดน้ำหล่อเย็นถังจากที่กำบัง"],
+  fx:["ห้ามดับไฟที่ก๊าซรั่ว ถ้ายังปิดการรั่วไม่ได้ (ERG 115)"],
+  aid:{i:"อากาศบริสุทธิ์ พัก อาจต้องผายปอด พบแพทย์",s:"โดนของเหลวเย็นจัด: ล้างด้วยน้ำมากๆ ห้ามถอดเสื้อผ้า พบแพทย์",e:"ล้างตาด้วยน้ำหลายนาที แล้วพบแพทย์"},
+  note:"ใช้บัตร ICSC 0319 (โพรเพน) — LPG คือโพรเพนผสมบิวเทน"},
+"7782-44-7":{icsc:"0138",g:"122",
+  glove:"—",eye:"แว่นครอบตา",resp:"—",body:"—",ppe:["goggle"],
+  react:"สารไวไฟทุกชนิด น้ำมัน (เร่งการลุกไหม้)",
+  sd:["ระบายอากาศ","ปิดวาล์วถ้าทำได้โดยไม่เสี่ยง","เอาวัสดุติดไฟออกห่าง (ERG 122)"],
+  sx:["ห้ามเปลวไฟ ประกายไฟ และสูบบุหรี่","ห้ามให้สัมผัสสารไวไฟ"],
+  fd:["ดับไฟรอบข้างตามชนิดเชื้อเพลิง","ฉีดน้ำหล่อเย็นถังจากที่กำบัง"],fx:["ถังโดนความร้อนอาจระเบิด","ถังที่เสียหายให้ผู้เชี่ยวชาญจัดการ (ERG 122)"],
+  aid:{i:"พบแพทย์ (ICSC)"}},
+"86290-81-5":{icsc:"1400",niosh:"0299",g:"128",
+  glove:"ไนไตรล์ (ดีมาก) · นีโอพรีน (ดี) · ห้ามใช้ยางธรรมชาติ (แย่) — OSHA",eye:"แว่นนิรภัย หรือแว่นร่วมกับหน้ากาก",
+  resp:"ไส้กรองไอสารอินทรีย์ A สีน้ำตาล (NIOSH: organic vapor) · หกมาก: SCBA",body:"ชุดป้องกัน",
+  ppe:["g_nit","spect","fA","suit","scba"],
+  react:"สารออกซิไดซ์ · ประกายไฟ ไฟฟ้าสถิต",
+  sd:["อพยพ ตัดแหล่งประกายไฟทั้งหมด","คลุมด้วยดินแห้ง ทราย หรือวัสดุไม่ติดไฟ","เก็บด้วยเครื่องมือที่ไม่เกิดประกายไฟ (ERG 128)"],
+  sx:["ห้ามล้างลงท่อ","ห้ามปล่อยลงสิ่งแวดล้อม/บ่อเลี้ยง"],
+  fd:["ผงเคมีแห้ง โฟม (AFFF) หรือ CO₂","ฉีดน้ำหล่อเย็นถัง"],fx:["อย่าฉีดน้ำเป็นลำตรงใส่น้ำมัน (ERG 128)","จุดวาบไฟต่ำ น้ำฝอยอาจดับไม่ได้ (ERG 128)"],
+  aid:{i:"อากาศบริสุทธิ์ พัก พบแพทย์",s:"ถอดเสื้อผ้าที่เปื้อน ล้างน้ำแล้วล้างด้วยสบู่",e:"ล้างตาด้วยน้ำหลายนาที แล้วพบแพทย์",g:"บ้วนปาก ห้ามทำให้อาเจียน ดื่มน้ำ 1–2 แก้ว พบแพทย์"}},
+"68334-30-5":{icsc:"1561",g:"128",
+  glove:"ไนไตรล์ (ดีมาก) · นีโอพรีน (ดี) · ห้ามใช้ยางธรรมชาติหรือบิวทิล (แย่) — OSHA",eye:"แว่นครอบตา หรือแว่นร่วมกับหน้ากาก",
+  resp:"ไส้กรองไอสารอินทรีย์ A สีน้ำตาล (ICSC)",body:"—",
+  ppe:["g_nit","goggle","fA"],
+  react:"สารออกซิไดซ์ · เกิน 52°C ไอผสมอากาศระเบิดได้",
+  sd:["ตัดแหล่งประกายไฟ (ERG 128)","ตักใส่ภาชนะปิดได้","ส่วนที่เหลือซับด้วยทรายหรือวัสดุเฉื่อย"],
+  sx:["ห้ามปล่อยลงท่อ ทางน้ำ หรือบ่อ (ERG 128)"],
+  fd:["น้ำฝอย โฟมทนแอลกอฮอล์ ผงเคมีแห้ง หรือ CO₂","ฉีดน้ำหล่อเย็นถัง"],fx:["อย่าฉีดน้ำเป็นลำตรงใส่น้ำมัน (ERG 128)"],
+  aid:{i:"อากาศบริสุทธิ์ พัก พบแพทย์",s:"ล้างน้ำแล้วล้างด้วยสบู่",e:"ล้างตาด้วยน้ำหลายนาที แล้วพบแพทย์",g:"บ้วนปาก ห้ามทำให้อาเจียน พบแพทย์"},
+  note:"ใช้บัตร ICSC 1561 (Diesel fuel No. 2)"},
+"7697-37-2":{icsc:"0183",niosh:"0447",g:"157",
+  glove:"นีโอพรีน (ดี) · ไนไตรล์ บิวทิล ยางธรรมชาติ (พอใช้) — OSHA ระบุว่าใช้ได้ช่วงสั้น เปลี่ยนทันทีที่เปื้อน",eye:"กระบังหน้า หรือแว่นครอบตาร่วมกับหน้ากาก",
+  resp:"NIOSH: ไส้กรองที่ผู้ผลิตรับรองว่ากันกรดไนตริก (ไม่มีสีมาตรฐานเดียว — ดูฉลากไส้กรอง) · หกมาก: SCBA",body:"ชุดกันสารเคมี + ผ้ากันเปื้อน",
+  ppe:["g_neo","shield","suit","scba","eyewash"],
+  react:"สารติดไฟ สารรีดิวซ์ แอลกอฮอล์ น้ำมัน สารอินทรีย์ (รุนแรง เกิดไฟ) · ด่าง · โลหะ (เกิดไฮโดรเจน) · ความร้อน (ไอไนโตรเจนออกไซด์พิษ)",
+  sd:["อพยพ เรียกผู้เชี่ยวชาญ ระบายอากาศ","ตักใส่ภาชนะปิดได้","ส่วนที่เหลือทำให้เป็นกลางด้วยโซดาแอชอย่างระวัง แล้วล้างด้วยน้ำมาก (ICSC)"],
+  sx:["ห้ามใช้ขี้เลื่อยหรือวัสดุติดไฟซับ","ห้ามให้สัมผัสแอลกอฮอล์ น้ำมัน หรือสารอินทรีย์","ห้ามให้ไหลลงบ่อหรือทางน้ำ (ERG 157)"],
+  fd:["ใช้น้ำปริมาณมาก หรือ CO₂ (ICSC)","ฉีดน้ำหล่อเย็นถัง"],fx:["ห้ามใช้ผงเคมีแห้งหรือโฟม (ICSC)","ห้ามให้น้ำโดนตัวสารโดยตรง (ICSC)"],
+  aid:{i:"อากาศบริสุทธิ์ นั่งครึ่งนั่งครึ่งนอน อาจต้องผายปอด ส่งแพทย์ทันที",s:"ผู้ช่วยต้องใส่ถุงมือ · ล้างน้ำมากๆ อย่างน้อย 15 นาที ถอดเสื้อผ้า ล้างซ้ำ ส่งแพทย์ทันที",e:"ล้างตาด้วยน้ำหลายนาที ส่งแพทย์ทันที",g:"บ้วนปาก ห้ามให้ดื่มอะไร ห้ามทำให้อาเจียน ส่งแพทย์ทันที"},
+  note:"บัตร ICSC 0183 เป็นของความเข้มข้นเกิน 70% — สารในระบบ ≤70% ใช้หลักเดียวกัน"},
+"111-30-8":{icsc:"0352",g:"153",
+  glove:"ถุงมือป้องกัน (ICSC ไม่ระบุวัสดุ — ดูฉลากผู้ผลิต)",eye:"แว่นครอบตา หรือแว่นร่วมกับหน้ากาก",
+  resp:"ระบายอากาศ หรือหน้ากากกันไอระเหย — ไอสารอินทรีย์ใช้ไส้กรอง A (EN 14387) · หกมาก: SCBA (ICSC)",body:"ชุดกันสารเคมี",
+  ppe:["g_any","goggle","fA","suit","scba"],
+  react:"ด่างแก่ กรดแก่ สารออกซิไดซ์แรง (ไฟ/ระเบิด)",
+  sd:["ตักใส่ภาชนะปิดได้","ซับด้วยทรายหรือวัสดุเฉื่อย","ส่วนที่เหลือล้างด้วยน้ำมาก (ICSC) โดยกั้นไม่ให้ลงบ่อ"],
+  sx:["ห้ามปล่อยลงสิ่งแวดล้อม/บ่อเลี้ยง"],
+  fd:["ไม่ติดไฟ — ดับไฟรอบข้างตามชนิดเชื้อเพลิง"],fx:["ไฟไหม้ปล่อยไอพิษ"],
+  aid:{i:"อากาศบริสุทธิ์ พัก อาจต้องผายปอด ส่งแพทย์ทันที",s:"ผู้ช่วยต้องใส่ถุงมือ · ถอดเสื้อผ้าที่เปื้อน ล้างน้ำมากอย่างน้อย 15 นาที ส่งแพทย์ทันที",e:"ล้างตาด้วยน้ำหลายนาที ส่งแพทย์ทันที",g:"บ้วนปาก ดื่มน้ำ 1–2 แก้ว ห้ามทำให้อาเจียน ส่งแพทย์ทันที"},
+  note:"อ้างอิงสารออกฤทธิ์กลูตารัลดีไฮด์ (ICSC 0352 สารละลาย 50%) — ผลิตภัณฑ์จริงอาจมีส่วนผสมอื่น ตรวจฉลากผู้ผลิตประกอบ"},
+"1305-62-0":{icsc:"0408",
+  glove:"ถุงมือป้องกัน (ICSC)",eye:"แว่นครอบตา กระบังหน้า หรือแว่นร่วมกับหน้ากาก",resp:"มีฝุ่น: ไส้กรอง P (ICSC)",body:"ชุดป้องกัน",
+  ppe:["g_any","goggle","fP","suit"],
+  react:"กรด (รุนแรง) · โลหะเมื่อมีน้ำ (เกิดไฮโดรเจน)",
+  sd:["กวาดใส่ภาชนะมีฝา","กำจัดตามระเบียบ"],sx:[],
+  fd:["ไม่ติดไฟ — ดับไฟรอบข้างตามชนิดเชื้อเพลิง"],fx:[],
+  aid:{i:"อากาศบริสุทธิ์ พัก พบแพทย์",s:"ถอดเสื้อผ้าที่เปื้อน ล้างน้ำมากหรืออาบน้ำ พบแพทย์",e:"ล้างตาด้วยน้ำหลายนาที แล้วพบแพทย์",g:"บ้วนปาก ห้ามทำให้อาเจียน ห้ามให้ดื่มอะไร พบแพทย์"}},
+"7772-98-7":{icsc:"1138",
+  glove:"—",eye:"แว่นครอบตา",resp:"มีฝุ่น: ไส้กรอง P (ICSC)",body:"—",ppe:["goggle","fP"],
+  react:"สารออกซิไดซ์แรง เช่น คลอรีน (รุนแรง) · ความร้อน (ไอซัลเฟอร์ออกไซด์)",
+  sd:["กวาดใส่ภาชนะมีฝา"],sx:["ห้ามให้สัมผัสสารออกซิไดซ์"],
+  fd:["ไม่ติดไฟ — ดับไฟรอบข้างตามชนิดเชื้อเพลิง"],fx:[],
+  aid:{i:"อากาศบริสุทธิ์ พัก",s:"ล้างน้ำแล้วล้างด้วยสบู่",e:"ล้างตาด้วยน้ำหลายนาที",g:"บ้วนปาก"}},
+"7786-30-3":{icsc:"0764",
+  glove:"—",eye:"แว่นนิรภัย",resp:"มีฝุ่น: ไส้กรอง P (ICSC)",body:"—",ppe:["spect","fP"],
+  react:"ละลายน้ำแล้วร้อน · ความร้อน 300°C (ไอคลอรีน)",
+  sd:["กวาดใส่ภาชนะมีฝา (พรมน้ำก่อนถ้าฝุ่นฟุ้ง)"],sx:[],
+  fd:["ไม่ติดไฟ — ดับไฟรอบข้างตามชนิดเชื้อเพลิง"],fx:[],
+  aid:{i:"อากาศบริสุทธิ์ พัก",s:"ล้างน้ำมากๆ",e:"ล้างตาด้วยน้ำหลายนาที",g:"บ้วนปาก"}},
+"144-55-8":{icsc:"1044",
+  glove:"—",eye:"แว่นนิรภัย",resp:"ดูดอากาศเฉพาะที่ (ICSC)",body:"—",ppe:["spect"],
+  react:"กรด (เกิดฟองก๊าซคาร์บอนไดออกไซด์และความร้อน)",
+  sd:["กวาดใส่ภาชนะมีฝา (พรมน้ำก่อนถ้าฝุ่นฟุ้ง)","ส่วนที่เหลือล้างด้วยน้ำมาก"],sx:[],
+  fd:["ไม่ติดไฟ — ดับไฟรอบข้างตามชนิดเชื้อเพลิง"],fx:[],
+  aid:{i:"อากาศบริสุทธิ์",e:"ล้างตาด้วยน้ำมากๆ",g:"ดื่มน้ำ 1–2 แก้ว"}},
+"60-00-4":{icsc:"0886",
+  glove:"ถุงมือป้องกัน (ICSC)",eye:"แว่นครอบตา",resp:"มีฝุ่น: ไส้กรอง P (ICSC)",body:"—",ppe:["g_any","goggle","fP"],
+  react:"สารออกซิไดซ์แรง · ฝุ่นละเอียดผสมอากาศระเบิดได้ · กัดโลหะและยางบางชนิด",
+  sd:["กวาดใส่ภาชนะที่ไม่ใช่โลหะ มีฝา","เก็บส่วนที่เหลือ กำจัดตามระเบียบ"],sx:["ห้ามให้ฝุ่นสะสมหรือฟุ้ง (ICSC)"],
+  fd:["น้ำฝอย โฟม CO₂ หรือผงเคมีแห้ง"],fx:["ห้ามเปลวไฟใกล้ฝุ่น"],
+  aid:{i:"อากาศบริสุทธิ์ พัก",s:"ล้างน้ำมากๆ",e:"ล้างตาด้วยน้ำมากๆ",g:"บ้วนปาก ดื่มน้ำ 1–2 แก้ว"}},
+};
+// ข้อห้ามที่พบบ่อย — ใช้ในหน้าฉุกเฉิน
+const DONTS=[
+  {t:"ห้ามให้คลอรีน (น้ำ/ผง) สัมผัสกรด",s:"เกิดก๊าซคลอรีนพิษ",src:"ICSC 1119 · 0638"},
+  {t:"ห้ามราดน้ำลงกรดซัลฟิวริกเข้มข้น หรือเกล็ดโซดาไฟ",s:"ร้อนจัด เดือด กระเด็น",src:"ICSC 0362 · 0360"},
+  {t:"ห้ามล้างสารที่หกลงท่อ ทางน้ำ หรือบ่อ",s:"ตักเก็บ หรือซับด้วยทราย/ดินแห้งก่อน",src:"ERG 2024 · ICSC"},
+  {t:"ห้ามใช้ขี้เลื่อย ผ้า หรือกระดาษ ซับสารออกซิไดซ์",s:"คลอรีน ไฮโดรเจนเปอร์ออกไซด์ กรดไนตริก กรดซัลฟิวริก — ติดไฟได้",src:"ICSC"},
+  {t:"ห้ามเข้าไปช่วยคนโดยไม่มี PPE",s:"ผู้ช่วยต้องใส่ถุงมือ ถ้ามีไอ/ก๊าซหนัก รอทีมที่มี SCBA",src:"ICSC · ERG 2024"},
+  {t:"กลืนสารกัดกร่อน: ห้ามทำให้อาเจียน",s:"บ้วนปาก แล้วโทร 1669 / 1367",src:"ICSC"},
+];
+function safeOf(ch){
+  if(!ch)return null;
+  const s=ch.safe||SAFE[ch.cs||''];
+  if(!s)return null;
+  const g=s.g||ERG_UN[ch.u||''];
+  return {...s,g};
+}
 
 // ── SMART-ADD DICTIONARY: พิมพ์ชื่อไทย/อังกฤษ/ชื่อสามัญ → เติมข้อมูลครบในคลิกเดียว ──
 const SMART_DB=[
@@ -1621,7 +1742,6 @@ function go(pg,dr='right'){
   if(pg==='emergency')rEMG();
   if(pg==='dashboard')uDash();
   if(pg==='editor')edInit();
-  if(pg==='sds')renderSdsLib('');
 }
 function back(){go(pv.pop()||'dashboard','left');}
 function uNB(pg){document.querySelectorAll('.nb').forEach(b=>b.classList.remove('active'));const a=document.getElementById('nb-'+pg);if(a)a.classList.add('active');}
@@ -1629,38 +1749,22 @@ function uNB(pg){document.querySelectorAll('.nb').forEach(b=>b.classList.remove(
 function uDash(){
   const db=liveDB();
   const total=db.length;
-  // นับระดับความเสี่ยงจากข้อมูลจริง (HC[class].r)
-  let high=0,med=0,low=0;
-  db.forEach(d=>{
-    const r=HC[d.c]?HC[d.c].r:null;
-    if(r==='EXTREME'||r==='HIGH')high++;
-    else if(r==='MEDIUM')med++;
-    else if(r==='LOW')low++;
-  });
+  // v4.1: ตัดระดับเสี่ยงสูง/กลาง/ต่ำ (แอปกำหนดเอง ไม่มีมาตรฐานรองรับ) → นับสารที่มีข้อมูลตรวจแล้ว
+  const withSafe=db.filter(d=>safeOf({...d,cs:d.cs||d.cas,u:d.u||d.un})).length;
+  const withRef=db.filter(d=>d.ref).length;
   // ข้อมูลครบถ้วน = สารที่มีเลข CAS (ไม่ใช่ "-")
   const withCAS=db.filter(d=>d.cs&&d.cs!=='-').length;
   const dataPct=total?Math.round(withCAS/total*100):0;
 
   // ── HEADER SUMMARY ──
   setTxt('hs-total',total);
-  setTxt('hs-risk',high);
+  setTxt('hs-risk',withSafe);
 
   // ── KPI CARDS ──
   setTxt('kpi-total',total);
-  setTxt('kpi-risk',high);
-  setTxt('kpi-sdsn',db.filter(d=>d.sds).length);
+  setTxt('kpi-risk',withSafe);
+  setTxt('kpi-sdsn',withRef);
   setTxt('kpi-sds',dataPct+'%');
-
-  // ── RISK DONUT ──
-  setTxt('dn-total',total);
-  setTxt('rl-high',high);
-  setTxt('rl-med',med);
-  setTxt('rl-low',low);
-  drawDonut(high,med,low,total);
-  const max=Math.max(high,med,low,1);
-  setW('rb-high',high/max*100);
-  setW('rb-med',med/max*100);
-  setW('rb-low',low/max*100);
 
   // ── RECENT ANALYSIS ──
   const cb=document.getElementById('hist-clear-btn');
@@ -1671,7 +1775,7 @@ function uDash(){
   c.innerHTML=hs.slice(0,5).map(h=>{
     const col=h.r==='RED'?'var(--red)':h.r==='YELLOW'?'var(--amb)':'var(--grn)';
     const bg=h.r==='RED'?'var(--rb)':h.r==='YELLOW'?'var(--ab)':'var(--gb)';
-    const lbl=h.r==='RED'?'เสี่ยงสูง':h.r==='YELLOW'?'ปานกลาง':'ปลอดภัย';
+    const lbl=h.r==='RED'?'ห้ามเก็บร่วม':h.r==='YELLOW'?'มีเงื่อนไข':'เก็บร่วมได้';
     const ic=h.r==='RED'?'ph-warning-octagon':h.r==='YELLOW'?'ph-warning':'ph-check-circle';
     return`<div class="ra" onclick="rplay('${h.a.replace(/'/g,"\\'")}','${h.b.replace(/'/g,"\\'")}')">
       <div class="ra-ic" style="background:${bg};color:${col}"><i class="ph ${ic}"></i></div>
@@ -1718,23 +1822,84 @@ function rCL(q=''){
     return`<div class="cli" onclick="sDet('${x.n.replace(/'/g,"\\'")}')">
       <div class="clic">${h.ic||'🧪'}</div>
       <div style="flex:1;min-width:0"><div class="clin">${x.n}${x._custom?'<span style="color:var(--lime);font-size:7px;font-weight:800;background:var(--lb);padding:1px 4px;border-radius:3px;margin-left:4px">+</span>':''}</div><div class="clis">CAS: ${x.cs||'-'} · <span style="color:var(--lime)">${x.c}</span></div></div>
-      <span style="font-size:7px;font-weight:900;color:${rc(h.r)};text-transform:uppercase;margin-right:3px">${h.r||''}</span>
       <i class="ph ph-caret-right" style="color:var(--tx3);font-size:14px"></i>
     </div>`;
   }).join('');
 }
 function fCls(el,cls){cf=cls;document.querySelectorAll('.fc').forEach(c=>c.classList.remove('active'));el.classList.add('active');rCL(document.getElementById('gs')?.value||'');}
 
-function sDet(nm){
+// ── ลิงก์แหล่งอ้างอิงของข้อมูลความปลอดภัย ──
+function safeSrc(s,ch){
+  const a=[];
+  if(s.icsc)a.push(`<a href="https://chemicalsafety.ilo.org/dyn/icsc/showcard.display?p_card_id=${s.icsc}&p_version=2&p_lang=en" target="_blank" rel="noopener">ICSC ${s.icsc}</a>`);
+  if(s.niosh)a.push(`<a href="https://www.cdc.gov/niosh/npg/npgd${s.niosh}.html" target="_blank" rel="noopener">NIOSH</a>`);
+  if(s.g&&ch&&ch.u&&ch.u!=='-')a.push(`<a href="https://cameochemicals.noaa.gov/unna/${ch.u}" target="_blank" rel="noopener">ERG 2024 Guide ${s.g}</a>`);
+  else if(s.g)a.push(`ERG 2024 Guide ${s.g}`);
+  if(/OSHA/.test(s.glove||''))a.push(`<a href="https://www.osha.gov/sites/default/files/publications/osha3151.pdf" target="_blank" rel="noopener">OSHA 3151 ตาราง 4</a>`);
+  if(s.src)a.push(esc(s.src));
+  return `<div class="sf-src"><i class="ph ph-book-open-text"></i> ที่มา: ${a.join(' · ')}</div>`;
+}
+function ppeIcon(id){
+  const p=PPE_CAT[id];if(!p)return'';
+  return p.col?`<span class="pf-sw" style="background:${p.col};color:${id==='fP'?'#333':'#fff'}">${p.ic}</span>`:`<span class="pf-em">${p.ic}</span>`;
+}
+function noSafeHTML(ch,what){
+  return `<div class="ib amb" style="margin-top:12px"><i class="ph-fill ph-info"></i><div><div class="ibt">ยังไม่มีข้อมูล${what}ที่ตรวจแล้ว</div><div class="ibb">ดู SDS ของผู้ผลิต ${what==='PPE'?'หัวข้อ 8':'หัวข้อ 4–6'} · ถ้าต้องการให้เพิ่ม แจ้งผู้ดูแลผ่าน "ขอเพิ่มสารเคมี"</div></div></div>
+  <button class="btn bg" style="margin:10px 16px;width:calc(100% - 32px)" onclick="window.open('https://www.google.com/search?q='+encodeURIComponent('SDS ${jsq(ch.n)}'),'_blank')"><i class="ph ph-magnifying-glass" style="font-size:14px"></i>ค้นหา SDS ผู้ผลิต</button>`;
+}
+function ppeHTML(ch){
+  const s=safeOf(ch);
+  if(!s)return noSafeHTML(ch,'PPE');
+  const row=(ic,k,v)=>v&&v!=='—'?`<div class="sf-row"><div class="sf-k">${ic} ${k}</div><div class="sf-v">${esc(v)}</div></div>`:'';
+  return `
+    <div class="sl" style="margin-top:12px">ต้องใช้อะไรบ้าง — กดเพื่อดูสารอื่นที่ใช้อุปกรณ์เดียวกัน</div>
+    <div class="pf-chips">${(s.ppe||[]).map(id=>PPE_CAT[id]?`<button class="pf-chip" onclick="ppeGo('${id}')">${ppeIcon(id)}<span>${PPE_CAT[id].t}</span></button>`:'').join('')}</div>
+    <div class="card" style="margin:10px 16px 0">
+      ${row('🧤','ถุงมือ',s.glove)}${row('🥽','ตา / หน้า',s.eye)}${row('😷','ทางหายใจ',s.resp)}${row('🦺','ร่างกาย',s.body)}
+    </div>
+    ${s.note?`<div class="sf-note">${esc(s.note)}</div>`:''}
+    <div class="sf-note">ไส้กรองไม่เติมออกซิเจน — ห้ามใช้ในที่อับอากาศหรือที่ก๊าซรั่วหนาแน่น ต้องใช้ SCBA</div>
+    ${safeSrc(s,ch)}`;
+}
+function listHTML(arr,cls){return (arr||[]).length?`<ul class="sf-list ${cls}">${arr.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`:'';}
+function emgHTML(ch,noCalls){
+  const s=safeOf(ch);
+  const g=s?s.g:ERG_UN[ch.u||''];
+  const e=g?ERG_G[g]:null;
+  const ergBox=e?`<div class="sf-erg">
+      <div class="sf-erg-h"><i class="ph-fill ph-circles-three"></i> ระยะกั้นพื้นที่ (ERG 2024 Guide ${g} — ${e.t})</div>
+      <div class="sf-erg-g">
+        <div><b>${e.iso}</b><span>กั้นทันทีรอบจุดหก</span></div>
+        <div><b>${e.fire}</b><span>ถัง/ภาชนะใหญ่ถูกไฟไหม้ กั้นทุกทิศ</span></div>
+      </div>
+      <div class="sf-erg-s">หกปริมาณมาก: ${e.big} · อยู่เหนือลม · ERG ทำไว้สำหรับเหตุขนส่ง ใช้เป็นระยะเริ่มต้น</div>
+    </div>`:'';
+  if(!s)return ergBox+noSafeHTML(ch,'วิธีรับมือเหตุ');
+  const a=s.aid||{};
+  const aid=[['👁️','โดนตา',a.e],['✋','โดนผิว',a.s],['🌬️','สูดดม',a.i],['👄','กลืน',a.g]].filter(x=>x[2]);
+  const block=(ic,t,dos,donts)=>(dos&&dos.length)||(donts&&donts.length)?`<div class="sf-card"><div class="sf-card-h">${ic} ${t}</div>${listHTML(dos,'do')}${listHTML(donts,'no')}</div>`:'';
+  return `
+    ${noCalls?'':`<div class="sf-calls"><a href="tel:1669" class="sf-call red">🚑 1669</a><a href="tel:1367" class="sf-call">☎️ 1367 ศูนย์พิษ</a><a href="tel:199" class="sf-call">🚒 199</a></div>`}
+    ${ergBox}
+    ${s.react?`<div class="sf-react"><b>⛔ อย่าให้สัมผัส:</b> ${esc(s.react)}</div>`:''}
+    ${block('🧯','หก / รั่วไหล',s.sd,s.sx)}
+    ${block('🔥','ไฟไหม้',s.fd,s.fx)}
+    ${aid.length?`<div class="sf-card"><div class="sf-card-h">🩹 โดนตัว — ปฐมพยาบาล</div>${aid.map(x=>`<div class="sf-aid"><div class="sf-aid-k">${x[0]} ${x[1]}</div><div class="sf-aid-v">${esc(x[2])}</div></div>`).join('')}</div>`:''}
+    ${s.note?`<div class="sf-note">${esc(s.note)}</div>`:''}
+    ${safeSrc(s,ch)}`;
+}
+function sDet(nm,tab){
   const all=liveDB().map(x=>({...x,n:x.n||x.name,c:x.c||x.cls,cs:x.cs||x.cas,u:x.u||x.un}));
   const ch=all.find(x=>x.n===nm);if(!ch)return;
   cd=ch;const h=HC[ch.c]||{},p=PP[nm]||ch.props||{};
   document.getElementById('dh').textContent=nm.length>13?nm.slice(0,13)+'…':nm;
-  const rc=h.r==='HIGH'||h.r==='EXTREME'?'cr':h.r==='MEDIUM'?'ca':'cg';
+  const t=tab||'tt';
+  const tb=(id,lbl)=>`<button class="tbtn${t===id?' active':''}" onclick="swT(this,'${id}')">${lbl}</button>`;
+  const sdsUrl=/^https?:\/\//.test(ch.sds||'')?ch.sds:'';
   document.getElementById('db').innerHTML=`
-    <div class="dh"><div class="dhic">${h.ic||'🧪'}</div><div><div class="dhnm">${nm}</div><div class="dhlat">${p.f||''}</div><div class="dhbd"><span class="chip cl">Class ${ch.c}</span><span class="chip ${rc}">${h.r||''}</span></div></div></div>
-    <div class="tbb"><button class="tbtn active" onclick="swT(this,'ti')">ข้อมูล</button><button class="tbtn" onclick="swT(this,'ts')">ความปลอดภัย</button><button class="tbtn" onclick="swT(this,'tt')">การจัดเก็บ</button></div>
-    <div id="ti" class="tp active">
+    <div class="dh"><div class="dhic">${h.ic||'🧪'}</div><div><div class="dhnm">${nm}</div><div class="dhlat">${p.f||''}</div><div class="dhbd"><span class="chip cl">Class ${ch.c}</span>${ch.u&&ch.u!=='-'?`<span class="chip">UN ${ch.u}</span>`:''}</div></div></div>
+    <div class="tbb">${tb('tt','การจัดเก็บ')}${tb('tp','PPE')}${tb('te','ถ้าเกิดเหตุ')}${tb('ti','ข้อมูล')}</div>
+    <div id="ti" class="tp${t==='ti'?' active':''}">
       <div class="pr"><span class="prk">CAS</span><span class="prv">${ch.cs||'-'}</span></div>
       <div class="pr"><span class="prk">UN</span><span class="prv">${ch.u||'-'}</span></div>
       ${p.f?`<div class="pr"><span class="prk">สูตรเคมี</span><span class="prv">${p.f}</span></div>`:''}
@@ -1752,26 +1917,24 @@ function sDet(nm){
           ${p.ghs.map(g=>ghsIcon(g,true)).join('')}
         </div>
       </div>`:''}
+      ${sdsUrl?`<button class="btn bg" style="margin:10px 16px;width:calc(100% - 32px)" onclick="window.open('${esc(sdsUrl)}','_blank')"><i class="ph ph-file-text" style="font-size:14px"></i>เปิด SDS ผู้ผลิต</button>`:''}
     </div>
-    <div id="ts" class="tp">
-      <div class="sl">วิธีดับเพลิง</div><div style="padding:0 16px 10px;display:flex;gap:4px;flex-wrap:wrap">${(h.fi||[]).map(f=>`<span class="chip cr">${f}</span>`).join('')}</div>
-      <div class="sl">อุปกรณ์ป้องกัน</div><div style="padding:0 16px 10px;display:flex;gap:4px;flex-wrap:wrap">${(h.pp||[]).map(p=>`<span class="chip cl">${p}</span>`).join('')}</div>
-      <div class="ib amb" style="margin-top:4px"><i class="ph-fill ph-warning"></i><div><div class="ibt">Initial Action</div><div class="ibb">${h.eg||'-'}</div></div></div>
-    </div>
-    <div id="tt" class="tp">
-      <div class="ib lm" style="margin-top:13px"><i class="ph-fill ph-info"></i><div><div class="ibt">DIW Class</div><div class="ibb">${h.t||''}</div></div></div>
-      <div style="padding:9px 16px;font-size:10px;color:var(--tx2);line-height:1.7">เก็บในสถานที่เย็น แห้ง ระบายอากาศดี ห่างจากแหล่งความร้อน ตรวจสอบความเข้ากันได้ก่อนเก็บร่วมกัน</div>
-
+    <div id="tp" class="tp${t==='tp'?' active':''}">${ppeHTML(ch)}</div>
+    <div id="te" class="tp${t==='te'?' active':''}">${emgHTML(ch)}</div>
+    <div id="tt" class="tp${t==='tt'?' active':''}">
+      <div class="ib lm" style="margin-top:13px"><i class="ph-fill ph-info"></i><div><div class="ibt">DIW Class ${ch.c}</div><div class="ibb">${h.t||''}</div></div></div>
       ${(()=>{
-        // แหล่งอ้างอิง Class ของสารนี้
         const r=ch.ref;
         return r
-          ? `<div style="padding:0 16px 8px;font-size:9.5px;color:var(--tx3);line-height:1.6"><i class="ph ph-seal-check" style="color:var(--grn)"></i> อ้างอิง Class: ${esc(r.src||'-')}${r.url?` · <a href="${esc(r.url)}" target="_blank" rel="noopener" style="color:var(--lime)">เปิดแหล่งอ้างอิง</a>`:''}${r.date?` · ตรวจ ${esc(r.date)}`:''}</div>`
-          : `<div style="padding:0 16px 8px;font-size:9.5px;color:var(--amb);line-height:1.6"><i class="ph ph-warning"></i> Class นี้เป็นข้อมูลตั้งต้นของระบบ ยังไม่ได้ระบุแหล่งอ้างอิง — ตรวจกับ SDS ผู้ผลิตก่อนใช้</div>`;
+          ? `<div style="padding:8px 16px;font-size:9.5px;color:var(--tx3);line-height:1.6"><i class="ph ph-seal-check" style="color:var(--grn)"></i> อ้างอิง Class: ${esc(r.src||'-')}${r.url?` · <a href="${esc(r.url)}" target="_blank" rel="noopener" style="color:var(--lime)">เปิดแหล่งอ้างอิง</a>`:''}${r.date?` · ตรวจ ${esc(r.date)}`:''}</div>`
+          : `<div style="padding:8px 16px;font-size:9.5px;color:var(--amb);line-height:1.6"><i class="ph ph-warning"></i> Class นี้เป็นข้อมูลตั้งต้นของระบบ ยังไม่ได้ระบุแหล่งอ้างอิง — ตรวจกับ SDS ผู้ผลิตก่อนใช้</div>`;
       })()}
       ${ch.note?`<div style="padding:0 16px 8px;font-size:9.5px;color:var(--tx3)">หมายเหตุ: ${esc(ch.note)}</div>`:''}
       ${(()=>{
-        // คลาสที่ห้ามเก็บร่วม / เก็บได้แบบมีเงื่อนไข (จากตาราง DIW)
+        const s=safeOf(ch);
+        return s&&s.react?`<div class="sf-react" style="margin-top:4px"><b>⛔ ตาม ICSC ห้ามให้สัมผัส:</b> ${esc(s.react)}</div>`:'';
+      })()}
+      ${(()=>{
         const cls = ch.c;
         const others = CO.filter(c2=>c2!==cls);
         const dangerCls = others.filter(c2=>mxVal(cls,c2)==='0');
@@ -1786,10 +1949,8 @@ function sDet(nm){
         <div style="padding:0 16px 10px;display:flex;gap:5px;flex-wrap:wrap">${chips(okCls,'cg')}</div>`:''}
         <div style="padding:0 16px 10px;font-size:9px;color:var(--tx3)">อ้างอิง: ตารางการจัดเก็บ คู่มือการเก็บรักษาสารเคมีและวัตถุอันตราย กรมโรงงานอุตสาหกรรม 2550 · ดูรายละเอียดคู่สารได้ที่ "เก็บด้วยกันได้ไหม?"</div>`;
       })()}
-
-      <button class="btn bg" style="margin:7px 16px;width:calc(100% - 32px)" onclick="${ch.sds?`window.open('sds/${ch.sds}','_blank')`:`window.open('https://www.google.com/search?q=SDS+${encodeURIComponent(nm)}','_blank')`}"><i class="ph ph-file-text" style="font-size:14px"></i>${ch.sds?'ดู SDS ฉบับองค์กร (MSBRC2)':'ค้นหา SDS จากผู้ผลิต'}</button>
     </div>
-    <div class="crd"><strong>ธุรกิจพันธุ์กุ้งขาว 2</strong>ChemNexus AI 4.0 • DIW Standard</div>
+    <div class="crd"><strong>ธุรกิจพันธุ์กุ้งขาว 2</strong>ChemNexus AI 4.1 • DIW Standard</div>
   `;
   go('detail');
 }
@@ -1869,7 +2030,7 @@ function rRes(e){
   const sr=e.sr||null, diw=e.diw||r;
   const hA=HC[cA]||{},hB=HC[cB]||{};
   const pA=getProps(a),pB=getProps(b);
-  const pr=sr?{g:sr.g,rx:sr.rx+`<div style="margin-top:6px;font-size:10.5px;color:var(--tx3)">ตาราง DIW (เทียบระดับ Class ${c1}–${c2}) = ${diw==='GREEN'?'เก็บร่วมได้':'เก็บร่วมได้แบบมีเงื่อนไข'} แต่ SDS ของสารคู่นี้ระบุว่าเข้ากันไม่ได้ จึงให้แยกเก็บ · <a href="sds/${sr.sds}" target="_blank" style="color:var(--lime)">เปิด SDS</a></div>`}
+  const pr=sr?{g:sr.g,rx:sr.rx+`<div style="margin-top:6px;font-size:10.5px;color:var(--tx3)">ตาราง DIW (เทียบระดับ Class ${c1}–${c2}) = ${diw==='GREEN'?'เก็บร่วมได้':'เก็บร่วมได้แบบมีเงื่อนไข'} แต่บัตรข้อมูลความปลอดภัยของสารคู่นี้ระบุว่าเข้ากันไม่ได้ จึงให้แยกเก็บ · <a href="${sr.url}" target="_blank" rel="noopener" style="color:var(--lime)">เปิดแหล่งอ้างอิง</a></div>`}
     :(PR[`${c1}-${c2}`]||PR[`${c2}-${c1}`]||null);
   const cond=code?(CD_FULL[code]||CD[code]||''):'';
   const fi=[...new Set([...(hA.fi||[]),...(hB.fi||[])])];
@@ -1927,10 +2088,10 @@ function rRes(e){
       <div class="rbi">${r==='RED'?'⛔':r==='YELLOW'?'⚠️':'✅'}</div>
       <div style="flex:1">
         <div class="rbt">${r==='RED'?'ไม่ปลอดภัย — ห้ามเก็บร่วม':r==='YELLOW'?'เก็บร่วมได้ (ต้องมีเงื่อนไข)':'ปลอดภัย เก็บร่วมกันได้'}</div>
-        <div class="rbs">${sr?'แยกเก็บตาม SDS (สารคู่นี้เข้ากันไม่ได้)':r==='RED'?'DANGER : ห้ามเก็บร่วม':r==='YELLOW'?'CONDITIONAL STORAGE':'SAFE TO STORE TOGETHER'}</div>
+        <div class="rbs">${sr?'แยกเก็บ — ICSC ระบุว่าสารคู่นี้เข้ากันไม่ได้':r==='RED'?'DANGER : ห้ามเก็บร่วม':r==='YELLOW'?'CONDITIONAL STORAGE':'SAFE TO STORE TOGETHER'}</div>
       </div>
       <div style="text-align:right;flex-shrink:0">
-        <div style="font-size:9.5px;font-weight:900;color:${badgeCol};padding:4px 10px;background:${badgeBg};border-radius:6px;letter-spacing:.04em">${sr?'SDS':'DIW Matrix'}</div>
+        <div style="font-size:9.5px;font-weight:900;color:${badgeCol};padding:4px 10px;background:${badgeBg};border-radius:6px;letter-spacing:.04em">${sr?'ICSC':'DIW Matrix'}</div>
         <div class="rds" style="justify-content:flex-end;margin-top:7px">${dots}</div>
       </div>
     </div>
@@ -1963,781 +2124,119 @@ function rRes(e){
     <div style="font-size:9px;color:var(--tx3);line-height:1.6">อ้างอิง: ตารางการจัดเก็บ คู่มือการเก็บรักษาสารเคมีและวัตถุอันตราย กรมโรงงานอุตสาหกรรม พ.ศ. 2550 หน้า 24–25 · คำแนะนำเป็นแนวปฏิบัติทั่วไป ให้ยึด SDS และกฎหมายที่เกี่ยวข้องเป็นหลัก</div>
   </div>
 
-  <!-- FIREFIGHTING & PPE -->
-  ${fi.length?`<div class="ib lm" style="margin-top:10px;flex-direction:column;gap:7px">
-    <div style="display:flex;align-items:center;gap:7px;width:100%"><i class="ph ph-fire-extinguisher" style="font-size:17px;color:var(--lime)"></i><div class="ibt" style="margin-bottom:0">วิธีดับเพลิง</div></div>
-    <div style="display:flex;gap:5px;flex-wrap:wrap">${fi.map(f=>`<span class="chip cr">${f}</span>`).join('')}</div>
-  </div>`:''}
-  ${pp.length?`<div class="ib lm" style="margin-top:7px;flex-direction:column;gap:7px">
-    <div style="display:flex;align-items:center;gap:7px;width:100%"><i class="ph ph-shield-check" style="font-size:17px;color:var(--lime)"></i><div class="ibt" style="margin-bottom:0">อุปกรณ์ป้องกัน PPE</div></div>
-    <div style="display:flex;gap:5px;flex-wrap:wrap">${pp.map(p=>`<span class="chip cl">${p}</span>`).join('')}</div>
-  </div>`:''}
+  <!-- PPE + ถ้าเกิดเหตุ ของแต่ละสาร -->
+  <div class="sl" style="margin-top:12px">PPE และวิธีรับมือเหตุ ของแต่ละสาร</div>
+  <div class="res-pair">
+    ${[a,b].map(n=>`<div class="res-pair-i"><div class="res-pair-n">${esc(n)}</div><div class="res-pair-b"><button onclick="sDet('${jsq(n)}','tp')"><i class="ph ph-shield-check"></i>PPE</button><button onclick="sDet('${jsq(n)}','te')"><i class="ph ph-warning-octagon"></i>ถ้าเกิดเหตุ</button></div></div>`).join('')}
+  </div>
 
   <!-- ACTION BUTTONS -->
   <div class="res-actions">
     <a href="#" class="res-act-btn" style="background:var(--rb);border:1px solid var(--rbd);color:#ff7070" onclick="go('emergency');return false"><i class="ph ph-warning-octagon" style="font-size:16px"></i>ฉุกเฉิน</a>
-    <a href="#" class="res-act-btn" style="background:var(--s2);border:1px solid var(--bd);color:var(--tx2)" onclick="go('spill');return false"><i class="ph ph-warning-diamond" style="font-size:16px"></i>Spill Sim</a>
-    <a href="#" class="res-act-btn" style="background:var(--lb);border:1px solid var(--lbd);color:var(--lime)" onclick="go('sds');return false"><i class="ph ph-file-text" style="font-size:16px"></i>สร้าง SDS</a>
     <a href="#" class="res-act-btn" style="background:rgba(184,255,58,.1);border:1px solid var(--lbd);color:var(--lime)" onclick="exportPDF();return false"><i class="ph ph-printer" style="font-size:16px"></i>PDF Report</a>
   </div>
 
-  <div class="crd" style="margin-top:14px"><strong>ธุรกิจพันธุ์กุ้งขาว 2</strong>ChemNexus AI 4.0 • DIW Matrix</div>
+  <div class="crd" style="margin-top:14px"><strong>ธุรกิจพันธุ์กุ้งขาว 2</strong>ChemNexus AI 4.1 • DIW Matrix</div>
   `;
 }
 
-const PI=[
-  {ic:'🥽',nm:'แว่นตากันสาร',en:'Safety Goggles',detail:'ป้องกันการกระเซ็นของสารเคมีเข้าตา',req:['8B','8A','5.1A','5.1B','5.1C','5.2','3A','3B','6.1A','6.1B','4.3'],rec:['12','13','4.1A']},
-  {ic:'😷',nm:'หน้ากากกันไอ',en:'Respirator / Mask',detail:'ป้องกันการสูดดมไอระเหยและฝุ่นสารเคมี',req:['6.1A','6.1B','8A','4.3','3A'],rec:['8B','5.1A','5.1B','3B']},
-  {ic:'🧤',nm:'ถุงมือทนสาร',en:'Chemical-Resistant Gloves',detail:'ป้องกันการสัมผัสสารเคมีทางผิวหนัง',req:['8B','8A','5.1A','5.1B','3A','4.3','6.1A','6.1B'],rec:['12','13','5.1C','3B']},
-  {ic:'🥼',nm:'เสื้อคลุมป้องกัน',en:'Lab Coat / Protective Clothing',detail:'ป้องกันร่างกายจากการกระเซ็นและสัมผัส',req:['8A','8B','6.1A'],rec:['5.1A','5.1B','3A','12','13']},
-  {ic:'👔',nm:'ผ้ากันเปื้อนทนกรด',en:'Acid-Resistant Apron',detail:'สำหรับสารกัดกร่อนรุนแรงหรือสารออกซิไดซ์',req:['8A','5.1A'],rec:['8B','5.1B']},
-  {ic:'👢',nm:'รองเท้ากันสาร',en:'Chemical-Resistant Boots',detail:'ป้องกันเท้าจากการหกรั่วของสารเคมี',req:['8B','8A','3A','4.3'],rec:['5.1A','5.1B','4.2']},
-  {ic:'😮‍💨',nm:'SCBA / ชุดหายใจ',en:'Self-Contained Breathing Apparatus',detail:'สำหรับพื้นที่อับอากาศหรือสารพิษสูง',req:['6.1A'],rec:['6.1B','4.3','8A']},
-  {ic:'🦺',nm:'ชุดป้องกันสารเคมี',en:'Chemical Protective Suit',detail:'ชุดเต็มตัวสำหรับสารอันตรายสูง',req:['6.1A'],rec:['6.1B','8A','4.3']},
-];
-
+// ══════════════════════════════════════════
+//  PPE — รายการอุปกรณ์ → สารที่ต้องใช้ (ค้นย้อนกลับ)
+// ══════════════════════════════════════════
+let ppeSel=null;
+function chemList(){return liveDB().map(x=>({...x,n:x.n||x.name,c:x.c||x.cls,cs:x.cs||x.cas,u:x.u||x.un}));}
+function ppeGo(id){
+  ppeSel=id;
+  if(cp!=='ppe')go('ppe');else rPPE();
+  setTimeout(()=>document.getElementById('pf-'+id)?.scrollIntoView({block:'center',behavior:'smooth'}),350);
+}
+function ppeToggle(id){ppeSel=ppeSel===id?null:id;rPPE();}
+function chemOptions(sel){
+  return chemList().map(x=>`<option value="${esc(x.n)}"${x.n===sel?' selected':''}>${esc(x.n)}</option>`).join('');
+}
 function rPPE(){
   const c=document.getElementById('pb');
-  const us=new Set([sA?.c,sB?.c].filter(Boolean));
-  const chemNames=[sA?.n,sB?.n].filter(Boolean);
-
-  // Split into required and recommended based on selected classes
-  const required=PI.filter(p=>!us.size||p.req.some(x=>us.has(x)));
-  const recommended=PI.filter(p=>us.size&&!p.req.some(x=>us.has(x))&&p.rec.some(x=>us.has(x)));
-
-  const ppeCard=(p,tier)=>`
-    <div style="display:flex;align-items:flex-start;gap:11px;padding:11px 14px;border-bottom:1px solid var(--bd)">
-      <div style="width:42px;height:42px;border-radius:11px;background:${tier==='req'?'rgba(184,255,58,.1)':'var(--s2)'};border:1px solid ${tier==='req'?'var(--lbd)':'var(--bd)'};display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0">${p.ic}</div>
-      <div style="flex:1;min-width:0">
-        <div style="font-size:12.5px;font-weight:800;color:var(--tx)">${p.nm}</div>
-        <div style="font-size:10px;color:var(--tx3);font-weight:600;margin-top:1px">${p.en}</div>
-        <div style="font-size:11px;color:var(--tx2);margin-top:4px;line-height:1.5">${p.detail}</div>
-      </div>
-      <span style="font-size:8.5px;font-weight:900;padding:3px 8px;border-radius:5px;flex-shrink:0;${tier==='req'?'background:var(--gb);color:var(--grn)':'background:var(--s2);color:var(--tx3)'}">${tier==='req'?'จำเป็น':'แนะนำ'}</span>
+  const db=chemList();
+  const users={};Object.keys(PPE_CAT).forEach(k=>users[k]=[]);
+  const none=[];
+  db.forEach(ch=>{const s=safeOf(ch);if(!s){none.push(ch);return;}(s.ppe||[]).forEach(id=>users[id]&&users[id].push(ch));});
+  const groups=['มือ','ตา/หน้า','ทางหายใจ','ร่างกาย','จุดทำงาน'];
+  const item=id=>{
+    const p=PPE_CAT[id],u=users[id];
+    if(!u.length)return'';
+    const open=ppeSel===id;
+    return `<div class="pf-item${open?' open':''}" id="pf-${id}">
+      <div class="pf-head" onclick="ppeToggle('${id}')">${ppeIcon(id)}<div class="pf-t">${p.t}</div><span class="pf-n">${u.length} สาร</span><i class="ph-bold ph-caret-${open?'up':'down'}" style="color:var(--tx3)"></i></div>
+      ${open?`<div class="pf-users">${u.map(ch=>`<button class="pf-u" onclick="sDet('${jsq(ch.n)}','tp')">${esc(ch.n)}<i class="ph ph-caret-right"></i></button>`).join('')}</div>`:''}
     </div>`;
-
-  // Context banner
-  const banner=us.size
-    ?`<div style="margin:10px 16px 0;padding:10px 13px;background:var(--lb);border:1px solid var(--lbd);border-radius:var(--rs);display:flex;align-items:center;gap:9px">
-        <i class="ph ph-info" style="font-size:17px;color:var(--lime);flex-shrink:0"></i>
-        <div><div style="font-size:11px;font-weight:800;color:var(--lime)">PPE ตามสารที่วิเคราะห์</div><div style="font-size:10px;color:var(--tx2);margin-top:2px">${chemNames.join(' + ')}</div></div>
-      </div>`
-    :`<div style="margin:10px 16px 0;padding:10px 13px;background:var(--s2);border:1px solid var(--bd);border-radius:var(--rs);font-size:10.5px;color:var(--tx3)">
-        <i class="ph ph-info" style="margin-right:6px"></i>วิเคราะห์สารก่อนเพื่อดู PPE เฉพาะสาร — ตอนนี้แสดง PPE อ้างอิงทั้งหมด
-      </div>`;
-
-  c.innerHTML=banner+`
-
-    <div class="sl" style="margin-top:13px">🟢 จำเป็นต้องสวม${us.size?' (Required)':' ทั้งหมด'}</div>
-    <div class="card" style="margin:0 16px">
-      ${(us.size?required:PI).map(p=>ppeCard(p,'req')).join('')}
+  };
+  c.innerHTML=`
+    <div class="sl" style="margin-top:12px">ดู PPE ของสาร</div>
+    <div style="margin:0 16px">
+      <select class="fi" onchange="if(this.value)sDet(this.value,'tp')" style="cursor:pointer"><option value="">— เลือกสารเคมี —</option>${chemOptions('')}</select>
     </div>
-
-    ${us.size&&recommended.length?`
-    <div class="sl" style="margin-top:11px">⚪ แนะนำเพิ่มเติม (Recommended)</div>
-    <div class="card" style="margin:0 16px">
-      ${recommended.map(p=>ppeCard(p,'rec')).join('')}
-    </div>`:''}
-
-    <div style="margin:12px 16px 0;padding:10px 13px;background:var(--ab);border:1px solid var(--abd);border-radius:var(--rs);font-size:10.5px;color:var(--amb);line-height:1.7">
-      <strong>⚠ หมายเหตุ:</strong> เลือก PPE ให้เหมาะสมกับความเข้มข้น ปริมาณ และลักษณะงานจริง ปรึกษาผู้เชี่ยวชาญก่อนเข้าพื้นที่อันตราย
-    </div>
-    <div class="crd"><strong>ธุรกิจพันธุ์กุ้งขาว 2</strong>ChemNexus AI 4.0 • PPE Guide</div>
+    <div class="sl" style="margin-top:14px">อุปกรณ์นี้ใช้กับสารไหน — กดเพื่อดู</div>
+    ${groups.map(g=>{
+      const ids=Object.keys(PPE_CAT).filter(k=>PPE_CAT[k].grp===g&&users[k].length);
+      return ids.length?`<div class="pf-grp">${g}</div><div class="card" style="margin:0 16px 8px;overflow:hidden">${ids.map(item).join('')}</div>`:'';
+    }).join('')}
+    <div class="sf-note" style="margin-top:6px"><b>สีไส้กรอง (EN 14387):</b> A น้ำตาล = ไอสารอินทรีย์ (น้ำมัน แอลกอฮอล์ กรดอะซิติก) · B เทา = ก๊าซอนินทรีย์ (คลอรีน) · E เหลือง = ก๊าซกรด (กรดเกลือ) · P ขาว = ฝุ่น/ละออง · ไส้กรองไม่เติมออกซิเจน ห้ามใช้ในที่อับอากาศ</div>
+    ${none.length?`<div class="sf-note">ยังไม่มีข้อมูล PPE ที่ตรวจแล้ว: ${none.map(x=>esc(x.n)).join(', ')} — ดู SDS ผู้ผลิต หัวข้อ 8</div>`:''}
+    <div class="sf-src"><i class="ph ph-book-open-text"></i> ที่มา: บัตร ICSC (ILO/WHO) · NIOSH Pocket Guide · <a href="https://www.osha.gov/sites/default/files/publications/osha3151.pdf" target="_blank" rel="noopener">OSHA 3151 ตาราง 4 (วัสดุถุงมือ)</a> · เลือก PPE ตามงานจริงและคำแนะนำของผู้ผลิต</div>
+    <div class="crd"><strong>ธุรกิจพันธุ์กุ้งขาว 2</strong>ChemNexus AI 4.1 • PPE</div>
   `;
 }
 
+// ══════════════════════════════════════════
+//  ฉุกเฉิน — โทร · เลือกสารที่เกิดเหตุ · ข้อห้าม
+// ══════════════════════════════════════════
+let emgSel=null;
+function localTel(){try{return JSON.parse(localStorage.getItem('cnx_local_tel')||'null');}catch(e){return null;}}
+function editLocalTel(){
+  const cur=localTel()||{};
+  const name=prompt('ชื่อผู้ติดต่อฉุกเฉินของหน่วยงาน (เช่น หัวหน้าเวร / จป.)',cur.name||'');
+  if(name===null)return;
+  const tel=prompt('เบอร์โทร',cur.tel||'');
+  if(tel===null)return;
+  try{
+    if(!name.trim()&&!tel.trim())localStorage.removeItem('cnx_local_tel');
+    else localStorage.setItem('cnx_local_tel',JSON.stringify({name:name.trim(),tel:tel.replace(/[^\d+]/g,'')}));
+  }catch(e){}
+  rEMG();
+}
+function emgPick(nm){emgSel=nm||null;rEMG();if(nm)setTimeout(()=>document.getElementById('emg-chem')?.scrollIntoView({behavior:'smooth',block:'start'}),60);}
 function rEMG(){
   const c=document.getElementById('eb');
-  let nm='สารเคมี', chemList=[];
-  if(sA&&sB){nm=sA.n+' / '+sB.n;chemList=[sA,sB];}
-  else if(sA){nm=sA.n;chemList=[sA];}
-  else if(sB){nm=sB.n;chemList=[sB];}
-
-  // Collect classes
-  const classes=chemList.map(x=>x.c);
-  const hasFlam=classes.some(c=>['3A','3B','4.1A','4.1B','4.2','2A','2B'].includes(c));
-  const hasCorr=classes.some(c=>['8A','8B'].includes(c));
-  const hasTox=classes.some(c=>['6.1A','6.1B'].includes(c));
-  const hasOx=classes.some(c=>['5.1A','5.1B','5.1C','5.2'].includes(c));
-  const hasWater=classes.some(c=>['4.3'].includes(c));
-  const hasExp=classes.some(c=>['1','5.2'].includes(c));
-
-  // Context-aware steps
-  const steps=[
-    {ic:'🚨',t:'อพยพบุคคลออกจากพื้นที่ทันที',s:'ออกทางเหนือลม ห้ามวิ่งฝ่าสารเคมี',bg:'var(--rb)',col:'var(--red)'},
-    {ic:'📢',t:'แจ้งหัวหน้าและทีมฉุกเฉิน',s:'ระบุสาร: '+nm,bg:'var(--ab)',col:'var(--amb)'},
-  ];
-  if(hasFlam) steps.push({ic:'🔥',t:'ห้ามจุดไฟหรือใช้อุปกรณ์ไฟฟ้า',s:'ปิดสวิทช์ไฟในบริเวณ กำจัดแหล่งจุดระเบิดทั้งหมด',bg:'var(--rb)',col:'var(--red)'});
-  if(hasCorr) steps.push({ic:'🥼',t:'สวม PPE สำหรับสารกัดกร่อน',s:'ถุงมือยาง แว่นตา Face Shield ชุดป้องกัน',bg:'var(--ab)',col:'var(--amb)'});
-  if(hasTox) steps.push({ic:'😷',t:'สวม SCBA หรือหน้ากาก P100',s:'ห้ามสูดดมไอระเหย — สวมอุปกรณ์ป้องกันทางเดินหายใจทันที',bg:'var(--rb)',col:'var(--red)'});
-  if(hasWater) steps.push({ic:'💧',t:'ห้ามใช้น้ำดับไฟหรือล้างสาร',s:'ใช้ทรายแห้ง วัสดุดูดซับแห้ง หรือ Class D เท่านั้น',bg:'var(--rb)',col:'var(--red)'});
-  if(hasExp) steps.push({ic:'💥',t:'อพยพรัศมีอย่างน้อย 300 เมตร',s:'เรียกทีมระเบิด — ห้ามสัมผัสหรือเคลื่อนย้ายสารด้วยตัวเอง',bg:'var(--rb)',col:'var(--red)'});
-  steps.push({ic:'🛢',t:'กักเก็บสารด้วยวัสดุดูดซับ',s:(hasWater?'ทรายแห้ง Vermiculite':'ทราย Vermiculite หรือวัสดุเฉื่อย')+' — ห้ามระบายลงท่อน้ำ',bg:'rgba(0,180,255,.1)',col:'#60d0ff'});
-  steps.push({ic:'♻️',t:'เก็บกวาดใส่ภาชนะปิดมิดชิด',s:'ส่งกำจัดโดยผู้รับใบอนุญาตตามกฎหมาย',bg:'var(--gb)',col:'var(--grn)'});
-
+  if(emgSel===null&&(sA||sB))emgSel=(sA||sB).n;
+  const ch=emgSel?chemList().find(x=>x.n===emgSel):null;
+  const lt=localTel();
+  const call=(tel,num,t,s,cls)=>`<a href="tel:${tel}" class="ec ${cls||''}"><div class="ec-n">${num}</div><div class="ec-t">${t}<span>${s}</span></div><i class="ph-bold ph-phone-call"></i></a>`;
+  const pair=[sA,sB].filter(Boolean);
   c.innerHTML=`
-    <div class="emb"><i class="ph-fill ph-warning-octagon" style="font-size:24px;color:#ff7070;flex-shrink:0"></i>
-      <div>
-        <div style="font-size:12px;font-weight:900;color:#fff">ขั้นตอนฉุกเฉิน</div>
-        <div style="font-size:10px;color:rgba(255,255,255,.6);margin-top:2px">${nm}</div>
-      </div>
+    <div class="sl" style="margin-top:12px">โทรทันที — กดเพื่อโทร</div>
+    <div class="ec-grid">
+      ${call('1669','1669','การแพทย์ฉุกเฉิน','คนบาดเจ็บ/หมดสติ','red')}
+      ${call('199','199','ดับเพลิง','ไฟไหม้ สารรั่วไหล','amb')}
+      ${call('1367','1367','ศูนย์พิษวิทยา รามาธิบดี','ปรึกษาเรื่องได้รับพิษ 24 ชม.','')}
+      ${call('1650','1650 กด 3','สายด่วนมลพิษ คพ.','แจ้งสารเคมีรั่วไหล','')}
+      ${lt&&lt.tel?call(lt.tel,esc(lt.tel),esc(lt.name||'ผู้ติดต่อของหน่วยงาน'),'<span onclick="event.preventDefault();editLocalTel()" style="text-decoration:underline">แก้ไข</span>',''):`<button class="ec ec-add" onclick="editLocalTel()"><div class="ec-n">+</div><div class="ec-t">เพิ่มเบอร์ของหน่วยงาน<span>หัวหน้าเวร / จป. (เก็บในเครื่องนี้)</span></div></button>`}
     </div>
 
-    <!-- Context tags -->
-    <div style="margin:8px 16px;display:flex;flex-wrap:wrap;gap:5px">
-      ${hasFlam?`<span style="padding:3px 9px;border-radius:5px;background:var(--ab);color:var(--amb);font-size:9px;font-weight:800">🔥 สารไวไฟ</span>`:''}
-      ${hasCorr?`<span style="padding:3px 9px;border-radius:5px;background:var(--rb);color:var(--red);font-size:9px;font-weight:800">⚗️ สารกัดกร่อน</span>`:''}
-      ${hasTox?`<span style="padding:3px 9px;border-radius:5px;background:var(--rb);color:var(--red);font-size:9px;font-weight:800">☠️ สารพิษ</span>`:''}
-      ${hasOx?`<span style="padding:3px 9px;border-radius:5px;background:var(--ab);color:var(--amb);font-size:9px;font-weight:800">⭕ ออกซิไดซ์</span>`:''}
-      ${hasWater?`<span style="padding:3px 9px;border-radius:5px;background:var(--rb);color:var(--red);font-size:9px;font-weight:800">💧 ทำปฏิกิริยากับน้ำ</span>`:''}
-      ${!hasFlam&&!hasCorr&&!hasTox&&!hasOx&&!hasWater?`<span style="padding:3px 9px;border-radius:5px;background:var(--s2);color:var(--tx3);font-size:9px;font-weight:800">⚠ ทั่วไป</span>`:''}
+    <div class="sl" style="margin-top:14px" id="emg-chem">สารที่เกิดเหตุ</div>
+    <div style="margin:0 16px">
+      <select class="fi" onchange="emgPick(this.value)" style="cursor:pointer"><option value="">— เลือกสารเคมี —</option>${chemOptions(emgSel)}</select>
+      ${pair.length?`<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:7px">${pair.map(x=>`<button class="fc${x.n===emgSel?' active':''}" onclick="emgPick('${jsq(x.n)}')">${esc(x.n)}</button>`).join('')}</div>`:''}
     </div>
+    ${ch?`<div class="sf-chem">${(HC[ch.c]||{}).ic||'🧪'} ${esc(ch.n)} <span>Class ${ch.c}${ch.u&&ch.u!=='-'?' · UN '+ch.u:''}</span></div>${emgHTML(ch,true)}`:''}
 
-    <div class="sl">ขั้นตอนที่ต้องทำทันที</div>
+    <div class="sl" style="margin-top:14px">⛔ ห้ามทำ</div>
     <div class="card" style="margin:0 16px">
-      ${steps.map((s,i)=>`<div class="emg-step">
-        <div class="emg-step-n" style="background:${s.bg};color:${s.col}">${s.ic}</div>
-        <div><div class="emg-step-t">${s.t}</div><div class="emg-step-s">${s.s}</div></div>
-      </div>`).join('')}
+      ${DONTS.map(d=>`<div class="dn"><div class="dn-t">${d.t}</div><div class="dn-s">${d.s} <em>${d.src}</em></div></div>`).join('')}
     </div>
-
-    <div class="sl" style="margin-top:12px">เบอร์ฉุกเฉิน — กดเพื่อโทรทันที</div>
-    <div style="padding:0 16px 8px;display:flex;flex-direction:column;gap:7px">
-      <a href="tel:199" class="emg-call" style="background:var(--rb);border:1.5px solid var(--rbd)">
-        <div class="emg-call-ic" style="background:var(--rb);border:1px solid var(--rbd)">🚒</div>
-        <div><div class="emg-call-t">ดับเพลิง 199</div><div class="emg-call-s">Fire Department • แจ้งชื่อสาร: ${nm}</div></div>
-        <i class="ph-bold ph-phone-call" style="color:var(--red);font-size:20px;margin-left:auto"></i>
-      </a>
-      <a href="tel:1669" class="emg-call" style="background:rgba(0,180,255,.08);border:1.5px solid rgba(0,180,255,.25)">
-        <div class="emg-call-ic" style="background:rgba(0,180,255,.1);border:1px solid rgba(0,180,255,.3)">🚑</div>
-        <div><div class="emg-call-t">การแพทย์ฉุกเฉิน 1669</div><div class="emg-call-s">Medical Emergency • กดโทรทันที</div></div>
-        <i class="ph-bold ph-phone-call" style="color:#60d0ff;font-size:20px;margin-left:auto"></i>
-      </a>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px">
-        <a href="tel:1650" class="emg-call" style="background:var(--ab);border:1.5px solid var(--abd)">
-          <div class="emg-call-ic" style="background:var(--ab);border:1px solid var(--abd);width:34px;height:34px">🏭</div>
-          <div><div style="font-size:12px;font-weight:900;color:var(--tx)">1650</div><div class="emg-call-s">กรมโรงงาน</div></div>
-        </a>
-        <a href="tel:191" class="emg-call" style="background:var(--s2);border:1.5px solid var(--bd)">
-          <div class="emg-call-ic" style="background:var(--s2);border:1px solid var(--bd);width:34px;height:34px">🚔</div>
-          <div><div style="font-size:12px;font-weight:900;color:var(--tx)">191</div><div class="emg-call-s">ตำรวจ</div></div>
-        </a>
-      </div>
-    </div>
-    <div class="crd"><strong>ธุรกิจพันธุ์กุ้งขาว 2</strong>ChemNexus AI 4.0 • ERG Guide</div>
+    <div class="sf-note">ล้างตาและผิวด้วยน้ำไหลทันที — ICSC ให้ล้างอย่างน้อย 15 นาที · ERG 2024 ให้ล้างสารกัดกร่อนอย่างน้อย 30 นาที</div>
+    <div class="sf-src"><i class="ph ph-book-open-text"></i> ที่มา: ERG 2024 · บัตร ICSC (ILO/WHO) · เบอร์ 1367 ศูนย์พิษวิทยารามาธิบดี · 1650 กรมควบคุมมลพิษ</div>
+    <div class="crd"><strong>ธุรกิจพันธุ์กุ้งขาว 2</strong>ChemNexus AI 4.1 • ฉุกเฉิน</div>
   `;
-}
-
-
-// ══════════════════════════════════════════
-// ══════════════════════════════════════════
-//  SDS GENERATOR
-// ══════════════════════════════════════════
-let sdsChem = null;
-
-function renderSdsSearch(q) {
-  const dd = document.getElementById('sds-dd');
-  if (!q || q.length < 1) { dd.style.display = 'none'; return; }
-  const lq = q.toLowerCase();
-  const all = liveDB().map(x => ({...x, n: x.n||x.name, c: x.c||x.cls}));
-  const filtered = all.filter(x => x.n.toLowerCase().includes(lq) || (x.cs && x.cs.includes(lq))).slice(0, 6);
-  dd.innerHTML = filtered.length ? filtered.map(x => {
-    const h = HC[x.c]||{};
-    return `<div style="padding:9px 12px;cursor:pointer;border-bottom:1px solid var(--bd);display:flex;align-items:center;gap:8px;transition:background .1s"
-      onmousedown="selectSdsChem('${x.n.replace(/'/g,"\\'")}','${x.c}')"
-      onmouseover="this.style.background='rgba(184,255,58,.05)'" onmouseout="this.style.background='none'">
-      <span style="font-size:16px">${h.ic||'🧪'}</span>
-      <span style="font-size:12px;font-weight:600;flex:1">${x.n}</span>
-      <span style="font-size:9px;color:var(--lime);font-weight:800">${x.c}</span>
-    </div>`;
-  }).join('') : `<div style="padding:12px;text-align:center;color:var(--tx3);font-size:11px">ไม่พบ</div>`;
-  dd.style.display = 'block';
-}
-document.addEventListener('click', e => {
-  if (!e.target.closest('#sds-search') && !e.target.closest('#sds-dd'))
-    document.getElementById('sds-dd').style.display = 'none';
-});
-
-function selectSdsChem(name, cls) {
-  const all = liveDB().map(x => ({...x, n: x.n||x.name, c: x.c||x.cls, cs: x.cs||x.cas, u: x.u||x.un}));
-  sdsChem = all.find(x => x.n === name) || { n: name, c: cls };
-  document.getElementById('sds-search').value = '';
-  document.getElementById('sds-dd').style.display = 'none';
-  const h = HC[cls]||{};
-  document.getElementById('sds-selected').innerHTML = `<div style="display:flex;align-items:center;gap:8px;padding:10px 12px;background:var(--lb);border:1px solid var(--lbd);border-radius:var(--rs)">
-    <span style="font-size:20px">${h.ic||'🧪'}</span>
-    <div style="flex:1"><div style="font-size:12px;font-weight:700">${name}</div><div style="font-size:9px;color:var(--tx3)">Class ${cls} · ${h.t||''}</div></div>
-    <button onclick="sdsChem=null;document.getElementById('sds-selected').innerHTML=''" style="background:none;border:none;color:var(--red);font-size:16px;cursor:pointer;font-weight:800">×</button>
-  </div>`;
-}
-
-function generateSDS() {
-  if (!sdsChem) { toast('กรุณาเลือกสารเคมีก่อน'); return; }
-  const ch = sdsChem;
-  const h = HC[ch.c]||{};
-  const p = getProps(ch.n);
-  const ghsList = Array.isArray(p.ghs) ? p.ghs : [];
-  const now = new Date().toLocaleString('th-TH', { dateStyle: 'full', timeStyle: 'short' });
-
-  // Find incompatible classes
-  const ci = CO.indexOf(ch.c);
-  const redClasses = CO.filter((c2, j) => {
-    if (c2 === ch.c) return false;
-    return mxVal(ch.c, c2) === '0';
-  });
-
-  // First aid measures based on class
-  const firstAid = [];
-  if (['8A','8B'].includes(ch.c)) {
-    firstAid.push({ title: 'ผิวหนัง', text: 'ล้างด้วยน้ำปริมาณมากอย่างน้อย 15 นาที ถอดเสื้อผ้าที่เปื้อน' });
-    firstAid.push({ title: 'ตา', text: 'ล้างตาด้วยน้ำสะอาดอย่างน้อย 15 นาที เปิดเปลือกตาขณะล้าง พบแพทย์ทันที' });
-  }
-  if (['3A','6.1A','6.1B','2A','4.3'].includes(ch.c)) {
-    firstAid.push({ title: 'สูดดม', text: 'นำผู้ป่วยออกไปที่อากาศบริสุทธิ์ทันที หากหยุดหายใจให้ช่วยหายใจ พบแพทย์' });
-  }
-  if (['6.1A','6.1B','8A','8B'].includes(ch.c)) {
-    firstAid.push({ title: 'กลืน', text: 'ห้ามทำให้อาเจียน ให้ดื่มน้ำเล็กน้อยหากยังมีสติ นำส่งแพทย์ทันที' });
-  }
-  if (!firstAid.length) {
-    firstAid.push({ title: 'ทั่วไป', text: 'ถอดเสื้อผ้าที่เปื้อน ล้างบริเวณสัมผัสด้วยน้ำสะอาด หากมีอาการผิดปกติ พบแพทย์' });
-  }
-
-  // Build SDS card
-  document.getElementById('sds-result').innerHTML = `
-    <div style="background:var(--s1);border:1px solid var(--bd2);border-radius:12px;overflow:hidden">
-      <!-- SDS Header -->
-      <div style="padding:14px;background:linear-gradient(135deg,rgba(184,255,58,.08),transparent);border-bottom:1px solid var(--bd)">
-        <div style="display:flex;justify-content:space-between;align-items:flex-start">
-          <div>
-            <div style="font-size:9px;color:var(--lime);font-weight:800;text-transform:uppercase;letter-spacing:.1em">เอกสารข้อมูลความปลอดภัย (SDS)</div>
-            <div style="font-size:16px;font-weight:900;margin-top:4px">${ch.n}</div>
-            <div style="font-size:10px;color:var(--tx3);margin-top:2px">${p.f||''} ${p.mw?'· '+p.mw:''}</div>
-          </div>
-          <span style="font-size:28px">${h.ic||'🧪'}</span>
-        </div>
-      </div>
-
-      <!-- Section 1: Identification -->
-      <div style="padding:12px 14px;border-bottom:1px solid var(--bd)">
-        <div style="font-size:9px;font-weight:800;color:var(--lime);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">1. ข้อมูลทั่วไป</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;font-size:11px">
-          <div><span style="color:var(--tx3)">CAS: </span><strong>${ch.cs||'-'}</strong></div>
-          <div><span style="color:var(--tx3)">UN: </span><strong>${ch.u||'-'}</strong></div>
-          <div><span style="color:var(--tx3)">DIW Class: </span><strong>${ch.c}</strong></div>
-          <div><span style="color:var(--tx3)">ประเภท: </span><strong>${h.t||'-'}</strong></div>
-        </div>
-      </div>
-
-      <!-- Section 2: GHS -->
-      ${ghsList.length ? `<div style="padding:12px 14px;border-bottom:1px solid var(--bd)">
-        <div style="font-size:9px;font-weight:800;color:var(--lime);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">2. สัญลักษณ์ GHS</div>
-        <div style="display:flex;gap:6px;flex-wrap:wrap">${ghsList.map(g => ghsIcon(g, true)).join('')}</div>
-      </div>` : ''}
-
-      <!-- Section 3: Physical properties -->
-      <div style="padding:12px 14px;border-bottom:1px solid var(--bd)">
-        <div style="font-size:9px;font-weight:800;color:var(--lime);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">3. สมบัติทางกายภาพ</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;font-size:11px">
-          ${p.st?`<div style="padding:4px 0;border-bottom:1px solid var(--bd)"><span style="color:var(--tx3)">ลักษณะ: </span>${p.st}</div>`:''}
-          ${p.cn?`<div style="padding:4px 0;border-bottom:1px solid var(--bd)"><span style="color:var(--tx3)">ความเข้มข้น: </span><strong>${p.cn}</strong></div>`:''}
-          ${p.bp?`<div style="padding:4px 0;border-bottom:1px solid var(--bd)"><span style="color:var(--tx3)">จุดเดือด: </span><strong>${p.bp}</strong></div>`:''}
-          ${p.mp?`<div style="padding:4px 0;border-bottom:1px solid var(--bd)"><span style="color:var(--tx3)">จุดหลอมเหลว: </span><strong>${p.mp}</strong></div>`:''}
-          ${p.flash?`<div style="padding:4px 0;border-bottom:1px solid var(--bd)"><span style="color:var(--tx3)">จุดวาบไฟ: </span><strong style="color:${p.flash==='-'?'var(--grn)':'var(--amb)'}">${p.flash}</strong></div>`:''}
-          ${p.d?`<div style="padding:4px 0;border-bottom:1px solid var(--bd)"><span style="color:var(--tx3)">ความหนาแน่น: </span><strong>${p.d}</strong></div>`:''}
-        </div>
-      </div>
-
-      <!-- Section 4: First Aid -->
-      <div style="padding:12px 14px;border-bottom:1px solid var(--bd)">
-        <div style="font-size:9px;font-weight:800;color:var(--lime);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">4. มาตรการปฐมพยาบาล</div>
-        ${firstAid.map(fa => `<div style="margin-bottom:6px;font-size:11px;line-height:1.6">
-          <strong style="color:var(--tx)">${fa.title}:</strong> <span style="color:var(--tx2)">${fa.text}</span>
-        </div>`).join('')}
-      </div>
-
-      <!-- Section 5: Fire Fighting -->
-      <div style="padding:12px 14px;border-bottom:1px solid var(--bd)">
-        <div style="font-size:9px;font-weight:800;color:var(--lime);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">5. มาตรการดับเพลิง</div>
-        <div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:6px">${(h.fi||[]).map(f => `<span class="chip cr">${f}</span>`).join('')}</div>
-        <div style="font-size:11px;color:var(--tx2);line-height:1.6">${h.eg||'-'}</div>
-      </div>
-
-      <!-- Section 6: PPE -->
-      <div style="padding:12px 14px;border-bottom:1px solid var(--bd)">
-        <div style="font-size:9px;font-weight:800;color:var(--lime);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">6. อุปกรณ์ป้องกัน (PPE)</div>
-        <div style="display:flex;gap:5px;flex-wrap:wrap">${(h.pp||[]).map(p => `<span class="chip cl">${p}</span>`).join('')}</div>
-      </div>
-
-      <!-- Section 7: Storage -->
-      <div style="padding:12px 14px;border-bottom:1px solid var(--bd)">
-        <div style="font-size:9px;font-weight:800;color:var(--lime);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">7. การจัดเก็บ</div>
-        <div style="font-size:11px;color:var(--tx2);line-height:1.6;margin-bottom:8px">เก็บในสถานที่เย็น แห้ง ระบายอากาศดี ห่างจากแหล่งความร้อนและประกายไฟ</div>
-        ${redClasses.length ? `<div style="font-size:10px;color:var(--red);font-weight:700;margin-bottom:4px">⛔ ห้ามเก็บร่วมกับ Class:</div>
-        <div style="display:flex;gap:4px;flex-wrap:wrap">${redClasses.slice(0, 8).map(c => `<span class="chip cr">${(HC[c]||{}).ic||'🧪'} ${c}</span>`).join('')}</div>` : ''}
-      </div>
-
-      <!-- Footer -->
-      <div style="padding:10px 14px;background:rgba(0,0,0,.2);display:flex;justify-content:space-between;align-items:center">
-        <div style="font-size:10px;font-weight:800;color:var(--tx3)">Generated by ChemNexus AI 4.0</div>
-        <div style="font-size:9px;color:var(--tx3)">${now}</div>
-      </div>
-
-      <!-- Export button -->
-      <div style="padding:12px 14px">
-        <button class="btn" style="font-size:12px;padding:11px" onclick="printSDS()">
-          <i class="ph-bold ph-printer" style="font-size:14px"></i>
-          พิมพ์ / บันทึก PDF
-        </button>
-      </div>
-    </div>
-  `;
-  toast('📋 สร้าง SDS เสร็จแล้ว');
-}
-
-function printSDS() {
-  if (!sdsChem) return;
-  const content = document.getElementById('sds-result').innerHTML;
-  const html = `<!DOCTYPE html><html lang="th"><head><meta charset="UTF-8">
-  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <title>SDS — ${sdsChem.n}</title>
-  <style>*{box-sizing:border-box;margin:0;padding:0;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
-  body{font-family:'Sarabun',sans-serif;background:#fff;color:#111;padding:24px;max-width:700px;margin:0 auto}
-  .chip{display:inline-flex;padding:2px 8px;border-radius:4px;font-size:9px;font-weight:700;background:#f3f3f3;border:1px solid #ddd;color:#333;margin:2px}
-  .cr{background:#fff0f0;border-color:#ffaaaa;color:#c00}
-  .cl{background:#f0fff8;border-color:#aaddcc;color:#006633}
-  @media print{button{display:none!important}}</style></head><body>${content}</body></html>`;
-  const old=document.getElementById('print-frame');
-  if(old)old.remove();
-  const f=document.createElement('iframe');
-  f.id='print-frame';
-  f.style.cssText='position:fixed;right:0;bottom:0;width:0;height:0;border:0;visibility:hidden';
-  document.body.appendChild(f);
-  f.onload=function(){
-    try{
-      const fw=f.contentWindow;
-      const doPrint=function(){try{fw.focus();fw.print();}catch(err){toast('⚠ พิมพ์ไม่สำเร็จ');}};
-      if(fw.document.fonts){fw.document.fonts.ready.then(()=>setTimeout(doPrint,150));}
-      else{setTimeout(doPrint,700);}
-    }catch(err){toast('⚠ ไม่สามารถสร้าง SDS ได้');}
-  };
-  const d=f.contentWindow.document;
-  d.open();d.write(html);d.close();
-}
-
-// ══════════════════════════════════════════
-
-// ── ERG REFERENCE (Emergency Response Guidebook 2020) ──
-// isolate = ระยะกั้นทันทีรอบจุดหก (ม.), guide = หมายเลข Guide สีส้ม
-// ⚠ ค่าอ้างอิงจากตาราง ERG 2020 — ผู้ใช้ต้องตรวจทานกับฉบับพิมพ์ล่าสุดก่อนใช้ปฏิบัติจริง
-const ERG_DATA={
-"1791":{guide:"154",iso:50,form:"ของเหลว",note:"สารกัดกร่อน — อยู่เหนือลม หลีกเลี่ยงไอระเหย"},
-"1748":{guide:"140",iso:25,form:"ของแข็ง",note:"ออกซิไดเซอร์ — แยกจากวัสดุติดไฟ ไฟไหม้ถังให้อพยพ 800 ม."},
-"1823":{guide:"154",iso:25,form:"ของแข็ง",note:"สารกัดกร่อน — ระวังฝุ่น ห้ามสัมผัสโดยตรง"},
-"1170":{guide:"127",iso:50,form:"ของเหลวไวไฟ",note:"ตัดแหล่งจุดติดไฟทุกชนิด ไฟไหม้ถังให้อพยพ 800 ม."},
-"2014":{guide:"140",iso:50,form:"ของเหลว",note:"ออกซิไดเซอร์ — ห้ามให้สัมผัสสารอินทรีย์/เชื้อเพลิง"},
-"1789":{guide:"157",iso:50,form:"ของเหลว",note:"กรดควัน — อยู่เหนือลม ไอกัดกร่อนทางเดินหายใจ"},
-"1500":{guide:"140",iso:25,form:"ของแข็ง",note:"ออกซิไดเซอร์+พิษ — ห้ามลงแหล่งน้ำเด็ดขาด"},
-"2790":{guide:"153",iso:50,form:"ของเหลว",note:"กรดกัดกร่อน — ระวังไอระคายเคือง"},
-"1830":{guide:"137",iso:50,form:"ของเหลว",note:"ห้ามฉีดน้ำใส่กรดโดยตรง — เกิดความร้อนรุนแรง"},
-"1075":{guide:"115",iso:100,form:"ก๊าซไวไฟ",note:"ตัดไฟทุกแหล่ง ไฟไหม้ถังให้อพยพ 1,600 ม."},
-"1072":{guide:"122",iso:100,form:"ก๊าซออกซิไดส์",note:"ห้ามน้ำมัน/จาระบีสัมผัสวาล์ว ไฟไหม้ถังอพยพ 800 ม."},
-"1203":{guide:"128",iso:50,form:"ของเหลวไวไฟ",note:"ไอหนักกว่าอากาศ ไหลตามพื้น — ตัดแหล่งจุดติดไฟ"},
-"1202":{guide:"128",iso:50,form:"ของเหลวติดไฟ",note:"กันการไหลลงท่อระบายน้ำ"},
-"2031":{guide:"157",iso:50,form:"ของเหลว",note:"กรดออกซิไดส์ — ห้ามสัมผัสวัสดุอินทรีย์"}};
-
-//  SPILL SIMULATOR
-// ══════════════════════════════════════════
-let spChem = null;
-
-function renderSpSearch(q) {
-  const dd = document.getElementById('sp-dd');
-  if (!q || q.length < 1) { dd.style.display = 'none'; return; }
-  const lq = q.toLowerCase();
-  const all = liveDB().map(x => ({...x, n: x.n||x.name, c: x.c||x.cls}));
-  const filtered = all.filter(x => x.n.toLowerCase().includes(lq) || (x.cs && x.cs.includes(lq))).slice(0, 6);
-  if (!filtered.length) { dd.innerHTML = `<div style="padding:12px;text-align:center;color:var(--tx3);font-size:11px">ไม่พบ</div>`; }
-  else {
-    dd.innerHTML = filtered.map(x => {
-      const h = HC[x.c]||{};
-      return `<div style="padding:9px 12px;cursor:pointer;border-bottom:1px solid var(--bd);display:flex;align-items:center;gap:8px;transition:background .1s"
-        onmousedown="selectSpChem('${x.n.replace(/'/g,"\\'")}','${x.c}')"
-        onmouseover="this.style.background='rgba(255,56,56,.05)'" onmouseout="this.style.background='none'">
-        <span style="font-size:16px">${h.ic||'🧪'}</span>
-        <span style="font-size:12px;font-weight:600;flex:1">${x.n}</span>
-        <span style="font-size:9px;color:var(--red);font-weight:800">${x.c}</span>
-      </div>`;
-    }).join('');
-  }
-  dd.style.display = 'block';
-}
-document.addEventListener('click', e => {
-  if (!e.target.closest('#sp-search') && !e.target.closest('#sp-dd'))
-    document.getElementById('sp-dd').style.display = 'none';
-});
-
-function selectSpChem(name, cls) {
-  spChem = { n: name, c: cls };
-  document.getElementById('sp-search').value = '';
-  document.getElementById('sp-dd').style.display = 'none';
-  const h = HC[cls]||{};
-  document.getElementById('sp-selected').innerHTML = `<div style="display:flex;align-items:center;gap:8px;padding:10px 12px;background:var(--rb);border:1px solid var(--rbd);border-radius:var(--rs)">
-    <span style="font-size:20px">${h.ic||'🧪'}</span>
-    <div style="flex:1"><div style="font-size:12px;font-weight:700">${name}</div><div style="font-size:9px;color:var(--tx3)">Class ${cls} · ${h.t||''}</div></div>
-    <button onclick="spChem=null;document.getElementById('sp-selected').innerHTML=''" style="background:none;border:none;color:var(--red);font-size:16px;cursor:pointer;font-weight:800">×</button>
-  </div>`;
-}
-
-function runSpill() {
-  if (!spChem) { toast('กรุณาเลือกสารเคมีก่อน'); return; }
-  const amount = parseFloat(document.getElementById('sp-amount').value) || 10;
-  const unit = document.getElementById('sp-unit').value;
-  const indoor = document.getElementById('sp-indoor').checked;
-  const full = liveDB().map(x=>({...x,n:x.n||x.name})).find(x=>x.n===spChem.n);
-  const ergUN = full && full.u && full.u!=='-' ? full.u : null;
-  const erg = ergUN ? ERG_DATA[ergUN] : null;
-  const h = HC[spChem.c] || {};
-  const p = getProps(spChem.n);
-  const cls = spChem.c;
-
-  // ── ZONE CALCULATIONS ──
-  let liters = amount;
-  if (unit === 'kg') liters = amount / (parseFloat(p.d) || 1.0);
-  if (unit === 'mL') liters = amount / 1000;
-  const riskMult = h.r==='EXTREME'?4:h.r==='HIGH'?2.5:h.r==='MEDIUM'?1.5:1;
-  const base = Math.sqrt(liters) * riskMult;
-  const hotR  = Math.max(3,  Math.round(base * (indoor?2:1)));
-  const warmR = Math.max(10, Math.round(base * (indoor?5:3)));
-  const safeR = Math.max(25, Math.round(base * (indoor?10:8)));
-
-  // ── RISK SCORE (computed from class + amount + location) ──
-  const sev = h.r==='EXTREME'?5:h.r==='HIGH'?4:h.r==='MEDIUM'?3:2;
-  const amtScore = liters>100?5:liters>20?4:liters>5?3:liters>1?2:1;
-  const locMult = indoor?1.2:1.0;
-  const rawScore = Math.min(10, ((sev*2 + amtScore) / 3 * locMult).toFixed(1));
-  const likelihood = Math.min(5, Math.round(amtScore * (indoor?1.3:1.0)));
-
-  // ── RISK CLASSIFICATION ──
-  const riskClass = rawScore>=8?{lbl:'CRITICAL',col:'var(--red)',bg:'var(--rb)'}:rawScore>=6?{lbl:'HIGH',col:'#ff7070',bg:'rgba(255,80,80,.08)'}:rawScore>=4?{lbl:'MEDIUM',col:'var(--amb)',bg:'var(--ab)'}:{lbl:'LOW',col:'var(--grn)',bg:'var(--gb)'};
-
-  // ── RISKS ──
-  const risks = [];
-  if (['3A','3B','2A','2B','4.1A','4.1B','4.2'].includes(cls)) risks.push({ic:'ph-fire',col:'var(--amb)',t:'เสี่ยงเพลิงไหม้',s:'สารติดไฟ/ไวไฟ'});
-  if (['1','5.2'].includes(cls)) risks.push({ic:'ph-bomb',col:'var(--red)',t:'เสี่ยงระเบิด',s:'ความดันสูง/ไม่เสถียร'});
-  if (['6.1A','6.1B'].includes(cls)) risks.push({ic:'ph-skull',col:'var(--red)',t:'ไอพิษฟุ้งกระจาย',s:'เป็นพิษต่อระบบหายใจ'});
-  if (['8A','8B'].includes(cls)) risks.push({ic:'ph-drop',col:'#ff7070',t:'กัดกร่อนผิวหนัง',s:'อันตรายต่อผิว/ตา'});
-  if (['5.1A','5.1B','5.1C'].includes(cls)) risks.push({ic:'ph-circles-three-plus',col:'var(--amb)',t:'เร่งการเผาไหม้',s:'ออกซิไดซ์ เพิ่มความรุนแรงไฟ'});
-  if (['4.3'].includes(cls)) risks.push({ic:'ph-wave-sawtooth',col:'var(--amb)',t:'ทำปฏิกิริยากับน้ำ',s:'ก่อก๊าซไวไฟเมื่อสัมผัสน้ำ'});
-  if (['7'].includes(cls)) risks.push({ic:'ph-radioactive',col:'var(--red)',t:'กัมมันตรังสี',s:'อันตรายถึงชีวิต'});
-  if (!risks.length) risks.push({ic:'ph-warning',col:'var(--amb)',t:'ระวังการสัมผัส',s:'ตรวจสอบ SDS ก่อนรับมือ'});
-
-  // ── HEALTH IMPACT (by class) ──
-  const healthMap = {
-    '3A':[{ic:'🔥',t:'แผลไหม้จากไฟ',s:'ผิวหนังและเนื้อเยื่อถูกทำลายจากความร้อน'},{ic:'😶‍🌫️',t:'สูดดมไอระเหย',s:'ระคายเคืองทางเดินหายใจ วิงเวียน'},{ic:'👁️',t:'ระคายเคืองตา',s:'แสบตา น้ำตาไหล'}],
-    '3B':[{ic:'😶‍🌫️',t:'สูดดมไอระเหย',s:'ทำให้มึนงง ปวดหัว'},{ic:'👁️',t:'ระคายเคืองตา',s:'แสบตา'}],
-    '5.1A':[{ic:'🫁',t:'ระคายเคืองทางเดินหายใจ',s:'ไอ แน่นหน้าอก หากสูดดมในปริมาณมาก'},{ic:'🔥',t:'เพิ่มความรุนแรงไฟ',s:'สัมผัสวัสดุติดไฟทำให้ลุกติดทันที'}],
-    '5.1B':[{ic:'🫁',t:'ระคายเคืองทางเดินหายใจ',s:'ระคายเคืองเยื่อเมือก'},{ic:'☠️',t:'เป็นพิษต่อเซลล์',s:'หากกลืนกินหรือสัมผัสในปริมาณมาก'}],
-    '6.1A':[{ic:'☠️',t:'เป็นพิษสูง',s:'อันตรายถึงชีวิตหากสูดดมหรือสัมผัส'},{ic:'🫁',t:'ทำลายระบบหายใจ',s:'ปอดอักเสบ ขาดอากาศหายใจ'},{ic:'👁️',t:'ทำลายดวงตา',s:'อาจสูญเสียการมองเห็น'}],
-    '6.1B':[{ic:'☠️',t:'เป็นพิษปานกลาง-สูง',s:'ระวังการสัมผัสผิวหนังและการสูดดม'},{ic:'🫁',t:'ระคายเคืองทางเดินหายใจ',s:'ไอ แน่นหน้าอก'}],
-    '8A':[{ic:'🔥',t:'แผลไหม้รุนแรง',s:'กัดผิวหนังและเนื้อเยื่อในทันที'},{ic:'👁️',t:'ทำลายดวงตาถาวร',s:'สัมผัสตาต้องล้างน้ำทันที 15 นาที'},{ic:'🫁',t:'ไอกัดกร่อน',s:'ทำลายเยื่อบุทางเดินหายใจ'}],
-    '8B':[{ic:'🔥',t:'แผลไหม้จากสารกัดกร่อน',s:'ผิวหนังแดง พุพอง อาจลึกถึงกระดูก'},{ic:'👁️',t:'ทำลายดวงตา',s:'อาจถาวรหากไม่รีบล้าง'},{ic:'🫁',t:'ระคายเคืองทางเดินหายใจ',s:'ไอ แสบจมูกและลำคอ'}],
-    '4.3':[{ic:'🔥',t:'อันตรายจากก๊าซไวไฟ',s:'ก่อก๊าซ H₂ ซึ่งระเบิดได้เมื่อสัมผัสน้ำ'},{ic:'🫁',t:'ก๊าซอาจสูดดม',s:'ก๊าซไฮโดรเจนทำให้ขาดอากาศ'}],
-  };
-  const health = healthMap[cls] || [{ic:'⚠️',t:'อาจระคายเคือง',s:'ตรวจสอบ SDS สำหรับข้อมูลเพิ่มเติม'},{ic:'🫁',t:'หลีกเลี่ยงการสูดดม',s:'ใช้ในที่ระบายอากาศดี'}];
-
-  // ── ENVIRONMENTAL IMPACT ──
-  const noWater = ['8A','8B','6.1A','6.1B','5.1A','5.1B','4.3'].includes(cls);
-  const envItems = [
-    {ic:'💧',t:noWater?'ห้ามระบายลงแหล่งน้ำ':'จำกัดการไหลลงแหล่งน้ำ',s:'อาจเป็นพิษต่อสิ่งมีชีวิตในน้ำ',col:'#60d0ff'},
-    {ic:'🐟',t:'เป็นพิษต่อสิ่งมีชีวิตทางน้ำ',s:'ห้ามทิ้งลงท่อระบายน้ำโดยตรง',col:'var(--amb)'},
-    {ic:'🌱',t:'อาจปนเปื้อนดิน',s:'ต้องกำจัดอย่างถูกต้องตามกฎหมาย',col:'var(--grn)'},
-    {ic:'♻️',t:'ต้องกำจัดโดยผู้รับใบอนุญาต',s:'ห้ามทิ้งในถังขยะทั่วไป',col:'var(--tx3)'},
-  ];
-
-  // ── PPE ──
-  const ppeFull = (h.pp||[]).map(pp=>{
-    const icMap = {'SCBA':'😮‍💨','Face Shield':'🥽','ชุดกรด':'🥼','ชุดเคมี':'🥼','ชุดทนไฟ':'🧥','ชุด Biohazard':'🦺','Lead Shield':'🛡️','ถุงมือ':'🧤','ถุงมือยาง':'🧤','ถุงมือแห้ง':'🧤','แว่นตา':'🥽','หน้ากาก':'😷','หน้ากาก P100':'😷','หน้ากากกรอง':'😷','Face Shield':'🥽','Dosimeter':'📟','ระยะปลอดภัย':'📏','หมวก':'⛑️','เสื้อคลุม':'🥼'};
-    return {ic:icMap[pp]||'🛡️',t:pp};
-  });
-  if (!ppeFull.length) ppeFull.push({ic:'🧤',t:'ถุงมือ'},{ic:'🥽',t:'แว่นตา'},{ic:'😷',t:'หน้ากาก'});
-
-  // ── FIREFIGHTING ──
-  const avoid4Water = ['4.3'].includes(cls);
-  const fi = h.fi||[];
-  const avoidFi = avoid4Water?['น้ำทุกชนิด']:['ฉีดน้ำแรง'];
-
-  // ── ROLE ACTIONS ──
-  const operatorActs = ['หยุดงานทันที แจ้งหัวหน้า','อพยพบุคคลออกจากพื้นที่ทั้งหมด','ปิดกั้นเส้นทางเข้า-ออก','ออกทางเหนือลม ห้ามวิ่งฝ่าสารเคมี'];
-  const sheActs = ['ประเมินความเสี่ยงและขอบเขตสาร','ยืนยันชุด PPE ที่ถูกต้องสำหรับทีม','กำหนด Hot/Warm/Safe Zone','ประสานงานกับทีมฉุกเฉินและแพทย์'];
-  const emergActs = ['กักเก็บสารด้วยวัสดุดูดซับเฉื่อย'+(avoid4Water?' ห้ามใช้น้ำ!':''),'เก็บสารที่หกในภาชนะปิดมิดชิด','Decontaminate พื้นที่ด้วย'+(avoid4Water?'ทรายแห้ง':'น้ำปริมาณมาก'),'ส่งกำจัดโดยผู้รับใบอนุญาต ตามกฎหมาย'];
-
-  // ── STARS RENDER ──
-  const stars = (filled,total=5) => Array.from({length:total},(_,i)=>
-    `<div class="sp-rs-star" style="background:${i<filled?'var(--amb)':'var(--s3)'}"></div>`).join('');
-
-  const res = document.getElementById('sp-result');
-
-  // ── RENDER ──
-  res.innerHTML = `
-<div style="display:flex;flex-direction:column;gap:0">
-
-<!-- 1. INCIDENT SUMMARY -->
-<div class="sp-banner">
-  <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
-    <span style="font-size:22px">🚨</span>
-    <div>
-      <div class="sp-banner-t">ผลจำลองเหตุการณ์</div>
-      <div class="sp-banner-sub">${spChem.n} · ${amount} ${unit} · ${indoor?'ในอาคาร':'นอกอาคาร'}</div>
-    </div>
-  </div>
-  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-top:8px">
-    <div style="padding:8px;background:rgba(0,0,0,.25);border-radius:8px;text-align:center">
-      <div style="font-size:17px;font-weight:900;color:#ff7070;font-family:'Sarabun'">${amount} ${unit}</div>
-      <div style="font-size:8px;color:var(--tx3);font-weight:700;margin-top:2px">ปริมาณ</div>
-    </div>
-    <div style="padding:8px;background:rgba(0,0,0,.25);border-radius:8px;text-align:center">
-      <div style="font-size:13px;font-weight:900;color:#ff7070">${spChem.c}</div>
-      <div style="font-size:8px;color:var(--tx3);font-weight:700;margin-top:2px">Class</div>
-    </div>
-    <div style="padding:8px;background:rgba(0,0,0,.25);border-radius:8px;text-align:center">
-      <div style="font-size:13px;font-weight:900;color:${riskClass.col}">${riskClass.lbl}</div>
-      <div style="font-size:8px;color:var(--tx3);font-weight:700;margin-top:2px">ระดับความเสี่ยง</div>
-    </div>
-  </div>
-</div>
-
-${erg?`
-<!-- 2. ERG REFERENCE -->
-<div class="sp-sec" style="border-color:var(--lbd)">
-  <div class="sp-sec-hdr">
-    <i class="ph ph-book-open-text" style="color:var(--lime)"></i>
-    <div><div class="sp-sec-hdr-t">ระยะอ้างอิง ERG 2020</div><div class="sp-sec-hdr-s">Emergency Response Guidebook · UN ${ergUN} · Guide ${erg.guide}</div></div>
-  </div>
-  <div class="sp-sec-body">
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
-      <div style="padding:10px;background:var(--s1);border:1px solid var(--bd);border-radius:8px;text-align:center">
-        <div style="font-size:20px;font-weight:900;color:var(--lime)">≥ ${erg.iso} ม.</div>
-        <div style="font-size:8.5px;color:var(--tx3);font-weight:700;margin-top:3px">กั้นพื้นที่ทันทีรอบจุดหก (ทุกทิศ)</div>
-      </div>
-      <div style="padding:10px;background:var(--s1);border:1px solid var(--bd);border-radius:8px;text-align:center">
-        <div style="font-size:14px;font-weight:900;color:var(--tx)">Guide ${erg.guide}</div>
-        <div style="font-size:8.5px;color:var(--tx3);font-weight:700;margin-top:3px">${erg.form}</div>
-      </div>
-    </div>
-    <div style="font-size:10px;color:var(--tx2);line-height:1.6;padding:8px 10px;background:var(--s1);border-radius:8px">📖 ${erg.note}</div>
-    <div style="font-size:8.5px;color:var(--tx3);margin-top:6px;line-height:1.5">ค่าจากตาราง ERG 2020 (แนวทางกั้นพื้นที่เบื้องต้นกรณีหกปริมาณน้อย) — โปรดตรวจทานกับ ERG ฉบับพิมพ์ล่าสุดก่อนใช้ปฏิบัติจริง หกปริมาณมาก/เกิดเพลิงไหม้ ระยะเพิ่มขึ้นมาก</div>
-  </div>
-</div>`:`
-<div style="padding:9px 12px;background:var(--s1);border:1px solid var(--bd);border-radius:var(--rs);font-size:9.5px;color:var(--tx3);margin-bottom:2px">ℹ️ สารนี้ไม่มี UN Number กำกับ — ไม่มีระยะ ERG อ้างอิง ให้ยึด SDS ของผลิตภัณฑ์</div>`}
-
-<!-- 3. RISK ASSESSMENT -->
-<div class="sp-sec">
-  <div class="sp-sec-hdr">
-    <i class="ph ph-chart-bar" style="color:var(--red)"></i>
-    <div><div class="sp-sec-hdr-t">Risk Assessment</div><div class="sp-sec-hdr-s">การประเมินความเสี่ยง</div></div>
-  </div>
-  <div class="sp-sec-body">
-    <div class="sp-risk-score">
-      <div class="sp-rs-main">
-        <div class="sp-rs-n" style="color:${riskClass.col}">${rawScore}</div>
-        <div style="font-size:8px;color:var(--tx3);font-weight:700;margin-top:2px">/10.0</div>
-        <div style="margin-top:8px;font-size:11px;font-weight:900;color:${riskClass.col};padding:3px 10px;background:${riskClass.bg};border-radius:6px">${riskClass.lbl}</div>
-      </div>
-      <div class="sp-rs-side">
-        <div class="sp-rs-row">
-          <div class="sp-rs-rl">Severity</div>
-          <div class="sp-rs-stars">${stars(sev)}</div>
-        </div>
-        <div class="sp-rs-row">
-          <div class="sp-rs-rl">Likelihood</div>
-          <div class="sp-rs-stars">${stars(likelihood)}</div>
-        </div>
-        <div class="sp-rs-row">
-          <div class="sp-rs-rl">Location</div>
-          <div style="font-size:11px;font-weight:800;color:${indoor?'var(--red)':'var(--amb)'};margin-top:2px">${indoor?'⚠ ในอาคาร (เสี่ยงสูงกว่า)':'นอกอาคาร'}</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- 4. EMERGENCY ZONES -->
-<div class="sp-sec">
-  <div class="sp-sec-hdr">
-    <i class="ph ph-map-pin" style="color:var(--red)"></i>
-    <div><div class="sp-sec-hdr-t">Emergency Response Zones</div><div class="sp-sec-hdr-s">เขตฉุกเฉินและระยะปลอดภัย</div></div>
-  </div>
-  <div class="sp-sec-body">
-    <!-- Visual concentric circles -->
-    <div style="display:flex;justify-content:center;margin-bottom:14px">
-      <svg width="220" height="220" viewBox="0 0 220 220">
-        <circle cx="110" cy="110" r="100" fill="rgba(0,232,122,.06)" stroke="rgba(0,232,122,.4)" stroke-width="2" stroke-dasharray="6 4"/>
-        <text x="110" y="22" text-anchor="middle" font-size="9" fill="#00e87a" font-weight="700" font-family="Sarabun">SAFE ZONE</text>
-        <text x="110" y="34" text-anchor="middle" font-size="9" fill="#00e87a" font-family="Sarabun">${safeR}m</text>
-        <circle cx="110" cy="110" r="65" fill="rgba(255,170,0,.08)" stroke="rgba(255,170,0,.5)" stroke-width="2" stroke-dasharray="6 4"/>
-        <text x="110" y="57" text-anchor="middle" font-size="9" fill="#ffaa00" font-weight="700" font-family="Sarabun">WARM ZONE</text>
-        <text x="110" y="69" text-anchor="middle" font-size="9" fill="#ffaa00" font-family="Sarabun">${warmR}m</text>
-        <circle cx="110" cy="110" r="35" fill="rgba(255,56,56,.2)" stroke="#ff3838" stroke-width="2.5"/>
-        <text x="110" y="98" text-anchor="middle" font-size="8" fill="#ff7070" font-weight="700" font-family="Sarabun">HOT ZONE</text>
-        <text x="110" y="110" text-anchor="middle" font-size="14" fill="white">☠️</text>
-        <text x="110" y="128" text-anchor="middle" font-size="9" fill="#ff7070" font-family="Sarabun">${hotR}m</text>
-      </svg>
-    </div>
-    <!-- Zone cards -->
-    <div class="sp-zones">
-      <div class="sp-zone" style="background:var(--rb);border:1px solid var(--rbd)">
-        <div class="sp-zone-ic" style="background:var(--rb);color:var(--red)"><i class="ph-bold ph-warning-octagon"></i></div>
-        <div class="sp-zone-info">
-          <div class="sp-zone-name" style="color:var(--red)">🔴 HOT ZONE</div>
-          <div class="sp-zone-desc">อันตรายทันที — ห้ามเข้าโดยไม่มี PPE เต็มรูปแบบ</div>
-        </div>
-        <div class="sp-zone-dist" style="color:var(--red)">${hotR}m</div>
-      </div>
-      <div class="sp-zone" style="background:var(--ab);border:1px solid var(--abd)">
-        <div class="sp-zone-ic" style="background:var(--ab);color:var(--amb)"><i class="ph-bold ph-shield-warning"></i></div>
-        <div class="sp-zone-info">
-          <div class="sp-zone-name" style="color:var(--amb)">🟠 WARM ZONE</div>
-          <div class="sp-zone-desc">พื้นที่ควบคุม — ทีมฉุกเฉินที่มี PPE เท่านั้น</div>
-        </div>
-        <div class="sp-zone-dist" style="color:var(--amb)">${warmR}m</div>
-      </div>
-      <div class="sp-zone" style="background:var(--gb);border:1px solid var(--gbd)">
-        <div class="sp-zone-ic" style="background:var(--gb);color:var(--grn)"><i class="ph-bold ph-check-circle"></i></div>
-        <div class="sp-zone-info">
-          <div class="sp-zone-name" style="color:var(--grn)">🟢 SAFE ZONE</div>
-          <div class="sp-zone-desc">พื้นที่ปลอดภัย — จุดรวมพลและบัญชาการ</div>
-        </div>
-        <div class="sp-zone-dist" style="color:var(--grn)">${safeR}m</div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- 5. HEALTH IMPACT -->
-<div class="sp-sec">
-  <div class="sp-sec-hdr">
-    <i class="ph ph-person" style="color:#60d0ff"></i>
-    <div><div class="sp-sec-hdr-t">Human Health Impact</div><div class="sp-sec-hdr-s">ผลกระทบต่อสุขภาพ</div></div>
-  </div>
-  <div class="sp-sec-body">
-    ${health.map(it=>`<div class="sp-imp-row">
-      <div class="sp-imp-ic" style="background:rgba(0,180,255,.1)">${it.ic}</div>
-      <div><div class="sp-imp-t">${it.t}</div><div class="sp-imp-s">${it.s}</div></div>
-    </div>`).join('')}
-  </div>
-</div>
-
-<!-- 6. ENVIRONMENTAL IMPACT -->
-<div class="sp-sec">
-  <div class="sp-sec-hdr">
-    <i class="ph ph-plant" style="color:var(--grn)"></i>
-    <div><div class="sp-sec-hdr-t">Environmental Impact</div><div class="sp-sec-hdr-s">ผลกระทบต่อสิ่งแวดล้อม</div></div>
-  </div>
-  <div class="sp-sec-body">
-    ${envItems.map(it=>`<div class="sp-imp-row">
-      <div class="sp-imp-ic" style="background:var(--gb)">${it.ic}</div>
-      <div><div class="sp-imp-t">${it.t}</div><div class="sp-imp-s">${it.s}</div></div>
-    </div>`).join('')}
-  </div>
-</div>
-
-<!-- 7. PPE -->
-<div class="sp-sec">
-  <div class="sp-sec-hdr">
-    <i class="ph ph-shield-check" style="color:var(--lime)"></i>
-    <div><div class="sp-sec-hdr-t">Required PPE</div><div class="sp-sec-hdr-s">อุปกรณ์ป้องกันส่วนบุคคลที่จำเป็น</div></div>
-  </div>
-  <div class="sp-sec-body">
-    <div class="sp-ppe-grid">
-      ${ppeFull.map(pp=>`<div class="sp-ppe-item">
-        <div class="sp-ppe-ic">${pp.ic}</div>
-        <div class="sp-ppe-t">${pp.t}</div>
-      </div>`).join('')}
-    </div>
-  </div>
-</div>
-
-<!-- 8. RESPONSE ACTIONS BY ROLE -->
-<div class="sp-sec">
-  <div class="sp-sec-hdr">
-    <i class="ph ph-users" style="color:var(--amb)"></i>
-    <div><div class="sp-sec-hdr-t">Response Actions by Role</div><div class="sp-sec-hdr-s">ขั้นตอนรับมือตามบทบาท</div></div>
-  </div>
-  <div class="sp-sec-body" style="padding:10px 14px">
-    <div class="sp-role">
-      <div class="sp-role-hdr" style="background:var(--rb);color:#ff7070"><i class="ph ph-hard-hat" style="font-size:16px"></i>👷 Operator / ผู้ปฏิบัติงาน</div>
-      <div class="sp-role-body" style="background:rgba(255,56,56,.04);border:1px solid rgba(255,56,56,.15);border-top:none">
-        ${operatorActs.map((a,i)=>`<div class="sp-act"><div style="width:20px;height:20px;border-radius:5px;background:var(--rb);border:1px solid var(--rbd);color:var(--red);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:900;flex-shrink:0">${i+1}</div><div class="sp-act-n">${a}</div></div>`).join('')}
-      </div>
-    </div>
-    <div class="sp-role">
-      <div class="sp-role-hdr" style="background:var(--ab);color:var(--amb)"><i class="ph ph-clipboard-text" style="font-size:16px"></i>🧑‍💼 SHE Officer</div>
-      <div class="sp-role-body" style="background:rgba(255,170,0,.04);border:1px solid rgba(255,170,0,.15);border-top:none">
-        ${sheActs.map((a,i)=>`<div class="sp-act"><div style="width:20px;height:20px;border-radius:5px;background:var(--ab);border:1px solid var(--abd);color:var(--amb);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:900;flex-shrink:0">${i+1}</div><div class="sp-act-n">${a}</div></div>`).join('')}
-      </div>
-    </div>
-    <div class="sp-role" style="margin-bottom:0">
-      <div class="sp-role-hdr" style="background:rgba(0,180,255,.1);color:#60d0ff"><i class="ph ph-first-aid-kit" style="font-size:16px"></i>🚒 Emergency Team</div>
-      <div class="sp-role-body" style="background:rgba(0,180,255,.04);border:1px solid rgba(0,180,255,.15);border-top:none">
-        ${emergActs.map((a,i)=>`<div class="sp-act"><div style="width:20px;height:20px;border-radius:5px;background:rgba(0,180,255,.1);border:1px solid rgba(0,180,255,.3);color:#60d0ff;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:900;flex-shrink:0">${i+1}</div><div class="sp-act-n">${a}</div></div>`).join('')}
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- 9. FIREFIGHTING -->
-<div class="sp-sec">
-  <div class="sp-sec-hdr">
-    <i class="ph ph-fire-extinguisher" style="color:var(--red)"></i>
-    <div><div class="sp-sec-hdr-t">Fire Fighting Guidance</div><div class="sp-sec-hdr-s">วิธีการดับเพลิง</div></div>
-  </div>
-  <div class="sp-sec-body">
-    <div style="font-size:9px;font-weight:800;color:var(--grn);text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px">✓ สื่อดับเพลิงที่เหมาะสม</div>
-    <div class="sp-ff-row" style="margin-bottom:12px">
-      ${fi.map(f=>`<div class="sp-ff-ok"><i class="ph ph-check-circle" style="color:var(--grn);font-size:16px"></i><div class="sp-ff-t" style="color:var(--grn)">${f}</div></div>`).join('')}
-    </div>
-    <div style="font-size:9px;font-weight:800;color:var(--red);text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px">✗ ห้ามใช้</div>
-    <div class="sp-ff-row">
-      ${avoidFi.map(f=>`<div class="sp-ff-no"><i class="ph ph-x-circle" style="color:var(--red);font-size:16px"></i><div class="sp-ff-t" style="color:#ff7070">${f}</div></div>`).join('')}
-    </div>
-    ${h.eg?`<div style="margin-top:12px;padding:10px 12px;background:var(--ab);border:1px solid var(--abd);border-radius:var(--rs);font-size:11px;color:var(--amb);line-height:1.6"><strong>คำแนะนำฉุกเฉิน:</strong> ${h.eg}</div>`:''}
-  </div>
-</div>
-
-<!-- 10. EMERGENCY CONTACTS -->
-<div class="sp-sec">
-  <div class="sp-sec-hdr">
-    <i class="ph ph-phone-call" style="color:#ff7070"></i>
-    <div><div class="sp-sec-hdr-t">Emergency Contacts</div><div class="sp-sec-hdr-s">หมายเลขฉุกเฉิน — กดเพื่อโทรทันที</div></div>
-  </div>
-  <div style="padding:10px">
-    <a href="tel:199" class="sp-call-btn" style="background:var(--rb);border:1.5px solid var(--rbd);margin-bottom:7px">
-      <div class="sp-call-ic" style="background:var(--rb);border:1px solid var(--rbd)">🚒</div>
-      <div><div class="sp-call-t">ดับเพลิง 199</div><div class="sp-call-s">Fire Department • กดโทรทันที</div></div>
-      <i class="ph-bold ph-phone-call" style="color:var(--red);font-size:20px;margin-left:auto"></i>
-    </a>
-    <a href="tel:1669" class="sp-call-btn" style="background:rgba(0,180,255,.08);border:1.5px solid rgba(0,180,255,.25);margin-bottom:7px">
-      <div class="sp-call-ic" style="background:rgba(0,180,255,.1);border:1px solid rgba(0,180,255,.3)">🚑</div>
-      <div><div class="sp-call-t">การแพทย์ฉุกเฉิน 1669</div><div class="sp-call-s">Medical Emergency • กดโทรทันที</div></div>
-      <i class="ph-bold ph-phone-call" style="color:#60d0ff;font-size:20px;margin-left:auto"></i>
-    </a>
-    <a href="tel:1650" class="sp-call-btn" style="background:var(--ab);border:1.5px solid var(--abd)">
-      <div class="sp-call-ic" style="background:var(--ab);border:1px solid var(--abd)">🏭</div>
-      <div><div class="sp-call-t">กรมโรงงาน 1650</div><div class="sp-call-s">Department of Industrial Works</div></div>
-      <i class="ph-bold ph-phone-call" style="color:var(--amb);font-size:20px;margin-left:auto"></i>
-    </a>
-  </div>
-</div>
-
-<!-- 11. DISCLAIMER -->
-<div style="padding:10px 14px;background:var(--ab);border:1px solid var(--abd);border-radius:var(--rs)">
-  <div style="font-size:9.5px;color:var(--amb);line-height:1.7"><strong>⚠ ข้อจำกัดความรับผิดชอบ:</strong> ผลจำลองนี้เป็นการประมาณเบื้องต้นเพื่อการศึกษาและวางแผนฉุกเฉินเท่านั้น ไม่ใช่แบบจำลองทางวิศวกรรม ควรปรึกษาผู้เชี่ยวชาญด้านความปลอดภัยสารเคมีในสถานการณ์จริง</div>
-</div>
-
-</div>
-  `;
-
-  document.getElementById('sp-result').scrollIntoView({ behavior: 'smooth', block: 'start' });
-  toast('🚨 จำลองเสร็จแล้ว');
 }
 
 // ══════════════════════════════════════════
@@ -2824,416 +2323,6 @@ function showMxDetail(classA, classB, val) {
 }
 
 // ══════════════════════════════════════════
-//  LAYOUT PLANNER
-// ══════════════════════════════════════════
-let lyChems = [];
-
-function renderLySearch(q) {
-  const dd = document.getElementById('ly-dd');
-  if (!q || q.length < 1) { dd.style.display = 'none'; return; }
-  const lq = q.toLowerCase();
-  const all = liveDB().map(x => ({...x, n: x.n||x.name, c: x.c||x.cls}));
-  const filtered = all.filter(x =>
-    x.n.toLowerCase().includes(lq) || (x.cs && x.cs.includes(lq))
-  ).filter(x => !lyChems.find(s => s.n === x.n)).slice(0, 8);
-
-  if (!filtered.length) {
-    dd.innerHTML = `<div style="padding:12px;text-align:center;color:var(--tx3);font-size:11px">ไม่พบ</div>`;
-  } else {
-    dd.innerHTML = filtered.map(x => {
-      const h = HC[x.c] || {};
-      return `<div style="padding:9px 12px;cursor:pointer;border-bottom:1px solid var(--bd);display:flex;align-items:center;gap:8px;transition:background .1s"
-        onmousedown="addLyChem('${x.n.replace(/'/g,"\\'")}','${x.c}')"
-        onmouseover="this.style.background='rgba(184,255,58,.05)'" onmouseout="this.style.background='none'">
-        <span style="font-size:16px">${h.ic||'🧪'}</span>
-        <span style="font-size:12px;font-weight:600;flex:1">${x.n}</span>
-        <span style="font-size:9px;color:var(--lime);font-weight:800">Class ${x.c}</span>
-      </div>`;
-    }).join('');
-  }
-  dd.style.display = 'block';
-}
-
-function addLyChem(name, cls) {
-  if (lyChems.find(x => x.n === name)) return;
-  lyChems.push({ n: name, c: cls });
-  document.getElementById('ly-search').value = '';
-  document.getElementById('ly-dd').style.display = 'none';
-  renderLySelected();
-}
-function removeLyChem(idx) { lyChems.splice(idx, 1); renderLySelected(); }
-function renderLySelected() {
-  const el = document.getElementById('ly-selected');
-  if (!lyChems.length) { el.innerHTML = `<div style="color:var(--tx3);font-size:11px;padding:8px 0">ยังไม่ได้เลือกสารเคมี</div>`; return; }
-  el.innerHTML = lyChems.map((x, i) => {
-    const h = HC[x.c] || {};
-    return `<div style="display:inline-flex;align-items:center;gap:5px;padding:5px 10px;background:var(--s2);border:1px solid var(--bd2);border-radius:6px;font-size:11px;font-weight:600">
-      <span>${h.ic||'🧪'}</span><span>${x.n}</span><span style="font-size:8px;color:var(--lime)">${x.c}</span>
-      <button onclick="removeLyChem(${i})" style="background:none;border:none;color:var(--red);cursor:pointer;font-size:13px;padding:0 2px;font-weight:800">×</button>
-    </div>`;
-  }).join('');
-}
-
-document.addEventListener('click', e => {
-  if (!e.target.closest('#ly-search') && !e.target.closest('#ly-dd'))
-    document.getElementById('ly-dd').style.display = 'none';
-});
-
-function generateLayout() {
-  if (lyChems.length < 2) { toast('กรุณาเลือกสารเคมีอย่างน้อย 2 ชนิด'); return; }
-  const roomW  = parseFloat(document.getElementById('ly-w').value) || 8;
-  const roomH  = parseFloat(document.getElementById('ly-h').value) || 6;
-  const roomNm = document.getElementById('ly-name').value || 'ห้องเก็บสารเคมี';
-  const n      = lyChems.length;
-  const roomArea = roomW * roomH;
-
-  // ── COMPATIBILITY MATRIX ──
-  const cm = [];
-  for (let i=0;i<n;i++) {
-    cm[i]=[];
-    for (let j=0;j<n;j++) {
-      if (i===j){cm[i][j]='G';continue;}
-      const val=mxVal(lyChems[i].c, lyChems[j].c);
-      cm[i][j]=(!val||val==='0')?'R':val==='00'?'G':'Y';
-    }
-  }
-
-  // ── ZONE ASSIGNMENT (greedy) ──
-  const zones=[];
-  for (let i=0;i<n;i++){
-    let placed=false;
-    for (let z=0;z<zones.length;z++){
-      if (!zones[z].some(j=>cm[i][j]==='R')){zones[z].push(i);placed=true;break;}
-    }
-    if (!placed) zones.push([i]);
-  }
-  const zColors=['#10b981','#3b82f6','#f59e0b','#ef4444','#8b5cf6','#ec4899'];
-  const zData=zones.map((chems,idx)=>{
-    let warn=false;
-    for (let a=0;a<chems.length;a++)
-      for (let b=a+1;b<chems.length;b++)
-        if (cm[chems[a]][chems[b]]==='Y') warn=true;
-    const highRisk=chems.some(ci=>{const r=HC[lyChems[ci].c]?.r;return r==='EXTREME'||r==='HIGH';});
-    return {chems,label:String.fromCharCode(65+idx),color:zColors[idx%6],warn,highRisk};
-  });
-
-  // ── CONFLICTS ──
-  const conflicts=[];
-  for (let a=0;a<zData.length;a++)
-    for (let b=a+1;b<zData.length;b++){
-      let red=false;
-      zData[a].chems.forEach(i=>zData[b].chems.forEach(j=>{if(cm[i][j]==='R')red=true;}));
-      if (red) conflicts.push([a,b]);
-    }
-  const totalConflicts=conflicts.length;
-
-  // ── SEPARATION DISTANCE (estimated from room width / zone count) ──
-  const zCount=zData.length;
-  const walkwayW=1.2;
-  const estSep=zCount>1?Math.max(1,((roomW-(zCount*2))*0.5)).toFixed(1):null;
-  const reqSep=3.0; // DIW minimum recommended
-  const sepOk=estSep && parseFloat(estSep)>=reqSep;
-
-  // ── CAPACITY ANALYSIS ──
-  const safetyMargin=0.3;
-  const walkwayArea=roomW*(walkwayW+0.8);
-  const equippedArea=4.0;
-  const usableArea=Math.max(0,roomArea-walkwayArea-equippedArea);
-  const zoneAreaEach=usableArea/Math.max(1,zCount);
-  const estUsed=Math.min(usableArea,n*2.5);
-  const utilPct=Math.round(estUsed/usableArea*100);
-  const capOk=utilPct<=75;
-
-  // ── SAFETY SCORE (0–100, computed from real data) ──
-  let score=100;
-  score -= totalConflicts*12;                        // -12 per zone conflict
-  score -= zData.filter(z=>z.warn).length*5;        // -5 per yellow-warning zone
-  if (!sepOk) score-=8;                             // -8 if separation insufficient
-  if (!capOk) score-=7;                             // -7 if over capacity
-  if (n>8) score-=5;                                // -5 if too many chemicals
-  score=Math.max(0,Math.min(100,score));
-  const scoreGrade=score>=85?{lbl:'GOOD',col:'var(--grn)',bg:'var(--gb)'}:score>=65?{lbl:'FAIR',col:'var(--amb)',bg:'var(--ab)'}:{lbl:'POOR',col:'var(--red)',bg:'var(--rb)'};
-
-  // ── COMPLIANCE CHECKS ──
-  const compItems=[
-    {ok:totalConflicts===0, t:'DIW Compatibility Matrix', s:totalConflicts===0?'ไม่มีคู่สารที่ห้ามเก็บร่วมกัน':`พบ ${totalConflicts} คู่โซนที่ขัดแย้งกัน`},
-    {ok:sepOk, t:'ระยะแยกโซน (≥3 ม.)', s:estSep?`ระยะประมาณ ${estSep} ม. ${sepOk?'✓ เพียงพอ':'⚠ ต่ำกว่ามาตรฐาน'}`:'ไม่สามารถประเมินได้'},
-    {ok:capOk, t:'ความจุห้องเก็บ (≤75%)', s:`ใช้งาน ~${utilPct}% ${capOk?'✓ อยู่ในเกณฑ์':'⚠ เกินความจุแนะนำ'}`},
-    {ok:!zData.some(z=>z.warn), t:'ความเข้ากันได้ภายในโซน', s:zData.some(z=>z.warn)?'บางโซนมีสารเงื่อนไข (YELLOW)':'ทุกโซนเก็บร่วมกันได้โดยไม่มีเงื่อนไข'},
-    {ok:roomArea>=16, t:'ขนาดห้องขั้นต่ำ', s:roomArea>=16?`${roomArea} ม² (เพียงพอ)`:`${roomArea} ม² (แนะนำ ≥16 ม²)`},
-    {ok:false, t:'อุปกรณ์ฉุกเฉิน', s:'ยังไม่ได้ตรวจสอบในระบบ — ดูคำแนะนำด้านล่าง',warn:true},
-  ];
-  const compScore=Math.round(compItems.filter(c=>c.ok).length/compItems.length*100);
-
-  // ── EMERGENCY EQUIPMENT ──
-  const hasCorr=lyChems.some(x=>['8A','8B'].includes(x.c));
-  const hasFlam=lyChems.some(x=>['3A','3B','4.1A','4.1B','4.2','2A'].includes(x.c));
-  const hasOx  =lyChems.some(x=>['5.1A','5.1B','5.1C','5.2'].includes(x.c));
-  const hasTox =lyChems.some(x=>['6.1A','6.1B'].includes(x.c));
-  const equipment=[
-    {ic:'🧯',t:'ถังดับเพลิง',s:`${hasFlam||hasOx?'⚠ จำเป็นเร่งด่วน (สารไวไฟ/ออกซิไดซ์)':'แนะนำ'} • ใกล้ทางเข้า`,bg:'var(--rb)',border:'var(--rbd)'},
-    {ic:'🚿',t:'Eye Wash Station',s:`${hasCorr||hasTox?'⚠ จำเป็น (สารกัดกร่อน/พิษ)':'แนะนำ'} • ใกล้โซนสารกัดกร่อน`,bg:hasCorr?'var(--ab)':'var(--s2)',border:hasCorr?'var(--abd)':'var(--bd)'},
-    {ic:'🛢',t:'Spill Kit',s:`แนะนำ 1 ชุด • ใกล้พื้นที่จัดเก็บ`,bg:'var(--s2)',border:'var(--bd)'},
-    {ic:'🚪',t:'ทางออกฉุกเฉิน',s:`ต้องมีทุก ${Math.ceil(roomArea/50)} จุด • ห้ามบล็อกทางออก`,bg:'var(--gb)',border:'var(--gbd)'},
-  ];
-
-  // ── RECOMMENDATIONS ──
-  const recs=[];
-  if (totalConflicts>0) recs.push({pri:'high',t:`แยกโซนที่ขัดแย้ง ${totalConflicts} คู่ให้ชัดเจน`,s:'ใช้ผนังกั้นหรือระยะห่างอย่างน้อย 3 เมตร พร้อมป้ายเตือน'});
-  if (!sepOk) recs.push({pri:'high',t:'เพิ่มระยะแยกโซนให้ถึง 3 เมตร',s:`ปัจจุบันประมาณ ${estSep} ม. — ต่ำกว่ามาตรฐาน DIW`});
-  if (!capOk) recs.push({pri:'med',t:'ลดปริมาณสารหรือขยายพื้นที่',s:`ความจุอยู่ที่ ~${utilPct}% — แนะนำไม่เกิน 75%`});
-  if (hasCorr) recs.push({pri:'high',t:'ติดตั้ง Eye Wash Station ใกล้โซนสารกัดกร่อน',s:'บังคับตามมาตรฐาน OSHA/DIW สำหรับสาร Class 8'});
-  if (hasFlam) recs.push({pri:'high',t:'ห้ามมีแหล่งจุดระเบิดในบริเวณ',s:'ไฟฟ้าสถิต สวิทช์ไฟ และอุปกรณ์ความร้อนต้องอยู่นอกพื้นที่'});
-  if (zData.some(z=>z.warn)) recs.push({pri:'med',t:'ตรวจสอบเงื่อนไขสารภายในโซนที่มีสัญลักษณ์ ⚠',s:'สารบางคู่เก็บร่วมได้แต่มีเงื่อนไข เช่น ต้องใช้ภาชนะแยก'});
-  recs.push({pri:'low',t:'ติดป้ายชื่อและคลาส GHS ทุกโซน',s:'ตามมาตรฐานการจัดเก็บสารเคมี DIW และ GHS'});
-  if (!recs.length) recs.push({pri:'low',t:'ระบบผ่านการตรวจสอบเบื้องต้น',s:'แนะนำให้ตรวจสอบกับผู้เชี่ยวชาญด้านความปลอดภัยอย่างสม่ำเสมอ'});
-
-  // ── SCORE RING MATH ──
-  const scoreCirc=2*Math.PI*36; // r=36
-  const scoreDash=(score/100)*scoreCirc;
-
-  // ── SVG ROOM VISUALIZATION ──
-  const svgW=360, svgH=220;
-  const margin=22, doorW=30;
-  const rW=svgW-margin*2, rH=svgH-margin*2;
-  const walkW=Math.round(rW*0.12);
-  const zoneW=Math.round((rW-walkW)/Math.max(1,zCount));
-
-  let svgZones='';
-  zData.forEach((z,idx)=>{
-    const x=margin+idx*zoneW+(idx>Math.floor(zCount/2)?walkW:0);
-    const zoneColor=z.color;
-    const risk=z.highRisk?'var(--red)':z.warn?'var(--amb)':'var(--grn)';
-    svgZones+=`
-      <rect x="${x}" y="${margin}" width="${zoneW-4}" height="${rH-4}" rx="6"
-        fill="${zoneColor}18" stroke="${zoneColor}" stroke-width="1.5" stroke-dasharray="${z.warn?'5 3':'none'}"/>
-      <text x="${x+zoneW/2-2}" y="${margin+16}" text-anchor="middle" class="ly-room-label" fill="${zoneColor}">ZONE ${z.label}</text>
-      <circle cx="${x+zoneW-10}" cy="${margin+10}" r="4" fill="${risk}" opacity=".9"/>
-      ${z.chems.slice(0,3).map((ci,ii)=>`
-        <text x="${x+8}" y="${margin+30+ii*14}" class="ly-room-label" fill="rgba(255,255,255,.7)" font-size="6.5">${lyChems[ci].n.slice(0,14)}</text>
-      `).join('')}
-      ${z.chems.length>3?`<text x="${x+8}" y="${margin+30+3*14}" class="ly-room-label" fill="rgba(255,255,255,.4)" font-size="6">+${z.chems.length-3} อื่นๆ</text>`:''}
-    `;
-  });
-  // walkway
-  const walkX=margin+Math.floor(zCount/2)*zoneW;
-  svgZones+=`
-    <rect x="${walkX}" y="${margin}" width="${walkW}" height="${rH}" rx="3" fill="rgba(255,255,255,.03)" stroke="rgba(255,255,255,.1)" stroke-width="1" stroke-dasharray="3 3"/>
-    <text x="${walkX+walkW/2}" y="${margin+rH/2}" text-anchor="middle" class="ly-room-label" fill="rgba(255,255,255,.35)" transform="rotate(-90,${walkX+walkW/2},${margin+rH/2})">ทางเดิน</text>
-  `;
-  // equipment icons on SVG
-  const eqIcons=[{ic:'🧯',x:margin+8,y:margin+rH-14},{ic:'🚿',x:margin+rW-20,y:margin+16},{ic:'🛢',x:margin+8,y:margin+16}];
-  const eqSvg=eqIcons.map(e=>`<text x="${e.x}" y="${e.y}" font-size="11">${e.ic}</text>`).join('');
-  // door
-  const doorSvg=`
-    <rect x="${margin+rW/2-doorW/2}" y="${margin+rH-2}" width="${doorW}" height="5" rx="2" fill="var(--lime)"/>
-    <text x="${margin+rW/2}" y="${margin+rH+14}" text-anchor="middle" class="ly-room-label" fill="var(--lime)">🚪 ทางออก</text>
-  `;
-  // conflict arrows
-  let conflictArrows='';
-  conflicts.forEach(([a,b])=>{
-    const ax=margin+a*zoneW+zoneW/2+(a>Math.floor(zCount/2)?walkW:0);
-    const bx=margin+b*zoneW+zoneW/2+(b>Math.floor(zCount/2)?walkW:0);
-    conflictArrows+=`<line x1="${ax}" y1="${margin+rH/2}" x2="${bx}" y2="${margin+rH/2}" stroke="var(--red)" stroke-width="1.5" stroke-dasharray="4 3" opacity=".7"/>`;
-  });
-  // dimension labels
-  const dimSvg=`
-    <text x="${margin+rW/2}" y="${svgH-4}" text-anchor="middle" class="ly-room-label" fill="rgba(255,255,255,.4)">${roomW} ม.</text>
-    <text x="8" y="${margin+rH/2}" text-anchor="middle" class="ly-room-label" fill="rgba(255,255,255,.4)" transform="rotate(-90,8,${margin+rH/2})">${roomH} ม.</text>
-  `;
-
-  const roomSVG=`<svg class="ly-room-svg" viewBox="0 0 ${svgW} ${svgH}" xmlns="http://www.w3.org/2000/svg" style="height:200px">
-    <rect x="0" y="0" width="${svgW}" height="${svgH}" fill="#05080f"/>
-    <!-- Room boundary -->
-    <rect x="${margin}" y="${margin}" width="${rW}" height="${rH}" rx="8" fill="rgba(255,255,255,.02)" stroke="rgba(255,255,255,.2)" stroke-width="2"/>
-    ${svgZones}${conflictArrows}${eqSvg}${doorSvg}${dimSvg}
-    <!-- Legend -->
-    <circle cx="${margin+6}" cy="${svgH-16}" r="4" fill="var(--grn)"/>
-    <text x="${margin+14}" y="${svgH-12}" class="ly-room-label" fill="rgba(255,255,255,.5)">ปลอดภัย</text>
-    <circle cx="${margin+60}" cy="${svgH-16}" r="4" fill="var(--amb)"/>
-    <text x="${margin+68}" y="${svgH-12}" class="ly-room-label" fill="rgba(255,255,255,.5)">เงื่อนไข</text>
-    <circle cx="${margin+108}" cy="${svgH-16}" r="4" fill="var(--red)"/>
-    <text x="${margin+116}" y="${svgH-12}" class="ly-room-label" fill="rgba(255,255,255,.5)">ขัดแย้ง</text>
-  </svg>`;
-
-  // ── RENDER ──
-  document.getElementById('ly-result').innerHTML = `
-<div style="display:flex;flex-direction:column;gap:0">
-
-<!-- SUMMARY BANNER -->
-<div class="ly-sum">
-  <div style="display:flex;align-items:center;justify-content:space-between">
-    <div>
-      <div style="font-size:14px;font-weight:900">${roomNm}</div>
-      <div style="font-size:10px;color:var(--tx3);margin-top:3px">${roomW}×${roomH} ม. · ${n} สาร · ${zCount} โซน</div>
-    </div>
-    <div style="font-size:24px;font-weight:900;font-family:'Sarabun';color:${scoreGrade.col}">${score}<span style="font-size:10px;color:var(--tx3);font-weight:700">/100</span></div>
-  </div>
-  <div class="ly-sum-grid">
-    <div class="ly-sum-cell"><div class="ly-sum-n" style="color:${totalConflicts?'var(--red)':'var(--grn)'}">${totalConflicts}</div><div class="ly-sum-l">Zone Conflicts</div></div>
-    <div class="ly-sum-cell"><div class="ly-sum-n" style="color:var(--lime)">${compScore}%</div><div class="ly-sum-l">Compliance</div></div>
-    <div class="ly-sum-cell"><div class="ly-sum-n" style="color:${scoreGrade.col}">${scoreGrade.lbl}</div><div class="ly-sum-l">Risk Level</div></div>
-  </div>
-</div>
-
-<!-- 4. SAFETY SCORE -->
-<div class="ly-sec">
-  <div class="ly-sec-hdr"><i class="ph ph-shield-check" style="color:var(--lime)"></i><div><div class="ly-sec-hdr-t">Storage Safety Score</div><div class="ly-sec-hdr-s">คะแนนความปลอดภัยการจัดเก็บ</div></div></div>
-  <div class="ly-sec-body">
-    <div class="ly-score-wrap">
-      <div class="ly-score-ring">
-        <svg width="88" height="88" viewBox="0 0 88 88">
-          <circle cx="44" cy="44" r="36" fill="none" stroke="var(--s3)" stroke-width="9"/>
-          <circle cx="44" cy="44" r="36" fill="none" stroke="${scoreGrade.col}" stroke-width="9"
-            stroke-linecap="round" stroke-dasharray="${scoreDash.toFixed(1)} ${(scoreCirc-scoreDash).toFixed(1)}"
-            style="transition:stroke-dasharray .6s ease"/>
-        </svg>
-        <div class="ly-score-c">
-          <div class="ly-score-n" style="color:${scoreGrade.col}">${score}</div>
-          <div class="ly-score-d">/100</div>
-        </div>
-      </div>
-      <div class="ly-score-side">
-        <div class="ly-score-lbl" style="color:${scoreGrade.col}">${scoreGrade.lbl}</div>
-        <div class="ly-score-sub">
-          ${totalConflicts?`⛔ ${totalConflicts} คู่โซนขัดแย้ง<br>`:'✅ ไม่มีโซนขัดแย้ง<br>'}
-          ${compScore>=80?'✅':'⚠'} Compliance ${compScore}%<br>
-          ${capOk?'✅':'⚠'} ความจุ ~${utilPct}% ${capOk?'(ปกติ)':'(เกินแนะนำ)'}
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- 1. ROOM VISUALIZATION -->
-<div class="ly-sec">
-  <div class="ly-sec-hdr"><i class="ph ph-blueprint" style="color:#60d0ff"></i><div><div class="ly-sec-hdr-t">Storage Room Visualization</div><div class="ly-sec-hdr-s">แผนผังห้องจัดเก็บสารเคมี</div></div></div>
-  <div class="ly-sec-body" style="padding:10px">
-    <div class="ly-room-wrap">${roomSVG}</div>
-    ${conflicts.length?`<div style="margin-top:8px;padding:8px 10px;background:var(--rb);border:1px solid var(--rbd);border-radius:var(--rs);font-size:10.5px;color:#ff7070;font-weight:700">⛔ เส้นประสีแดง = โซนที่ต้องแยกออกจากกัน (${conflicts.map(([a,b])=>`Zone ${zData[a].label}–${zData[b].label}`).join(', ')})</div>`:''}
-  </div>
-</div>
-
-<!-- 7. RISK HEATMAP LEGEND -->
-<div class="ly-sec">
-  <div class="ly-sec-hdr"><i class="ph ph-map-trifold" style="color:var(--amb)"></i><div><div class="ly-sec-hdr-t">Risk Heatmap</div><div class="ly-sec-hdr-s">ระดับความเสี่ยงแต่ละโซน</div></div></div>
-  <div class="ly-sec-body">
-    ${zData.map(z=>{
-      const riskLvl=conflicts.some(([a,b])=>a===zData.indexOf(z)||b===zData.indexOf(z))?{lbl:'CONFLICT',col:'var(--red)',bg:'var(--rb)',ic:'ph-warning-octagon'}:z.warn?{lbl:'CAUTION',col:'var(--amb)',bg:'var(--ab)',ic:'ph-warning'}:{lbl:'SAFE',col:'var(--grn)',bg:'var(--gb)',ic:'ph-check-circle'};
-      return`<div class="ly-zone-row">
-        <div style="width:10px;height:10px;border-radius:3px;background:${z.color};flex-shrink:0"></div>
-        <div class="ly-zone-badge" style="background:${z.color}">Zone ${z.label}</div>
-        <div class="ly-zone-chems">${z.chems.map(i=>lyChems[i].n).join(', ')}</div>
-        <span class="ly-comp-badge" style="background:${riskLvl.bg};color:${riskLvl.col}">${riskLvl.lbl}</span>
-      </div>`;
-    }).join('')}
-  </div>
-</div>
-
-<!-- 2. SEPARATION DISTANCE -->
-<div class="ly-sec">
-  <div class="ly-sec-hdr"><i class="ph ph-arrows-out-line-horizontal" style="color:var(--amb)"></i><div><div class="ly-sec-hdr-t">Separation Distance</div><div class="ly-sec-hdr-s">การตรวจสอบระยะแยกโซน</div></div></div>
-  <div class="ly-sec-body">
-    <div class="ly-dist-row" style="background:${sepOk?'var(--gb)':'var(--rb)'};border-color:${sepOk?'var(--gbd)':'var(--rbd)'}">
-      <i class="ph ${sepOk?'ph-check-circle':'ph-warning'}" style="color:${sepOk?'var(--grn)':'var(--red)'};font-size:18px;flex-shrink:0"></i>
-      <div style="flex:1">
-        <div style="font-size:11.5px;font-weight:700">ระยะแยกโซนประมาณ ${estSep} ม.</div>
-        <div style="font-size:9.5px;color:var(--tx3);margin-top:2px">มาตรฐาน DIW กำหนด ≥ ${reqSep} ม.</div>
-      </div>
-      <span class="ly-comp-badge" style="background:${sepOk?'var(--gb)':'var(--rb)'};color:${sepOk?'var(--grn)':'var(--red)'}">${sepOk?'✅ PASS':'⚠ WARN'}</span>
-    </div>
-    <div style="font-size:10px;color:var(--tx3);margin-top:6px;line-height:1.6">หมายเหตุ: ระยะนี้เป็นการประมาณจากขนาดห้องและจำนวนโซน (${roomW} ม. ÷ ${zCount} โซน) ควรวัดจริงในพื้นที่</div>
-  </div>
-</div>
-
-<!-- 6. CAPACITY ANALYSIS -->
-<div class="ly-sec">
-  <div class="ly-sec-hdr"><i class="ph ph-chart-pie" style="color:#c084fc"></i><div><div class="ly-sec-hdr-t">Storage Capacity Analysis</div><div class="ly-sec-hdr-s">การวิเคราะห์ความจุห้อง</div></div></div>
-  <div class="ly-sec-body">
-    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;margin-bottom:11px">
-      <div style="background:var(--s2);border:1px solid var(--bd);border-radius:var(--rs);padding:9px;text-align:center">
-        <div style="font-size:17px;font-weight:900;font-family:'Sarabun';color:var(--tx)">${roomArea}</div>
-        <div style="font-size:8.5px;color:var(--tx3);font-weight:700;margin-top:2px">พื้นที่ทั้งหมด ม²</div>
-      </div>
-      <div style="background:${capOk?'var(--gb)':'var(--rb)'};border:1px solid ${capOk?'var(--gbd)':'var(--rbd)'};border-radius:var(--rs);padding:9px;text-align:center">
-        <div style="font-size:17px;font-weight:900;font-family:'Sarabun';color:${capOk?'var(--grn)':'var(--red)'}">${utilPct}%</div>
-        <div style="font-size:8.5px;color:var(--tx3);font-weight:700;margin-top:2px">ใช้งานโดยประมาณ</div>
-      </div>
-      <div style="background:var(--s2);border:1px solid var(--bd);border-radius:var(--rs);padding:9px;text-align:center">
-        <div style="font-size:17px;font-weight:900;font-family:'Sarabun';color:var(--lime)">${Math.round(usableArea-estUsed)}</div>
-        <div style="font-size:8.5px;color:var(--tx3);font-weight:700;margin-top:2px">พื้นที่คงเหลือ ม²</div>
-      </div>
-    </div>
-    <div class="ly-cap-bar">
-      <div class="ly-cap-fill" style="width:${utilPct}%;background:${utilPct>75?'var(--red)':utilPct>50?'var(--amb)':'var(--grn)'}"></div>
-    </div>
-    <div style="display:flex;justify-content:space-between;margin-top:4px">
-      <span style="font-size:8.5px;color:var(--tx3)">0%</span>
-      <span style="font-size:8.5px;color:var(--amb);font-weight:700">⚠ 75%</span>
-      <span style="font-size:8.5px;color:var(--tx3)">100%</span>
-    </div>
-    <div style="font-size:9.5px;color:var(--tx3);margin-top:7px;line-height:1.6">การประมาณใช้: พื้นที่ทางเดิน ${walkwayArea.toFixed(0)} ม² + อุปกรณ์ฉุกเฉิน ${equippedArea} ม²</div>
-  </div>
-</div>
-
-<!-- 5. COMPLIANCE -->
-<div class="ly-sec">
-  <div class="ly-sec-hdr"><i class="ph ph-clipboard-text" style="color:var(--lime)"></i><div><div class="ly-sec-hdr-t">Compliance Dashboard</div><div class="ly-sec-hdr-s">ตรวจสอบความสอดคล้องมาตรฐาน • ${compScore}% ผ่าน</div></div></div>
-  <div class="ly-sec-body">
-    ${compItems.map(c=>`<div class="ly-comp-row">
-      <div class="ly-comp-ic" style="background:${c.ok?'var(--gb)':c.warn?'var(--ab)':'var(--rb)'}">${c.ok?'✅':c.warn?'⚠':'❌'}</div>
-      <div><div class="ly-comp-t">${c.t}</div><div class="ly-comp-s">${c.s}</div></div>
-      <span class="ly-comp-badge" style="background:${c.ok?'var(--gb)':c.warn?'var(--ab)':'var(--rb)'};color:${c.ok?'var(--grn)':c.warn?'var(--amb)':'var(--red)'}">${c.ok?'PASS':c.warn?'WARN':'FAIL'}</span>
-    </div>`).join('')}
-  </div>
-</div>
-
-<!-- 8. EMERGENCY EQUIPMENT -->
-<div class="ly-sec">
-  <div class="ly-sec-hdr"><i class="ph ph-first-aid-kit" style="color:var(--red)"></i><div><div class="ly-sec-hdr-t">Emergency Equipment Placement</div><div class="ly-sec-hdr-s">อุปกรณ์ฉุกเฉินที่แนะนำ</div></div></div>
-  <div class="ly-sec-body">
-    <div class="ly-eq-grid">
-      ${equipment.map(e=>`<div class="ly-eq-item" style="background:${e.bg};border-color:${e.border}">
-        <div class="ly-eq-ic">${e.ic}</div>
-        <div><div class="ly-eq-t">${e.t}</div><div class="ly-eq-s">${e.s}</div></div>
-      </div>`).join('')}
-    </div>
-  </div>
-</div>
-
-<!-- 9. RECOMMENDATIONS -->
-<div class="ly-sec">
-  <div class="ly-sec-hdr"><i class="ph ph-lightbulb" style="color:var(--amb)"></i><div><div class="ly-sec-hdr-t">Recommendations</div><div class="ly-sec-hdr-s">คำแนะนำเพื่อปรับปรุงความปลอดภัย</div></div></div>
-  <div class="ly-sec-body">
-    ${recs.map((r,i)=>`<div class="ly-rec-row">
-      <div class="ly-rec-num" style="background:${r.pri==='high'?'var(--rb)':r.pri==='med'?'var(--ab)':'var(--s2)'};color:${r.pri==='high'?'var(--red)':r.pri==='med'?'var(--amb)':'var(--tx3)'}">${i+1}</div>
-      <div><div class="ly-rec-t">${r.t}</div><div class="ly-rec-s">${r.s}</div></div>
-    </div>`).join('')}
-  </div>
-</div>
-
-<!-- ZONE SUMMARY -->
-<div class="ly-sec">
-  <div class="ly-sec-hdr"><i class="ph ph-list-dashes" style="color:var(--tx2)"></i><div><div class="ly-sec-hdr-t">Zone Summary</div><div class="ly-sec-hdr-s">สรุปการจัดโซนสารเคมี</div></div></div>
-  <div class="ly-sec-body">
-    ${zData.map(z=>`<div class="ly-zone-row">
-      <div class="ly-zone-badge" style="background:${z.color}">${z.label}</div>
-      <div class="ly-zone-chems">${z.chems.map(i=>`${lyChems[i].n} <span style="color:var(--tx3);font-size:9px">${lyChems[i].c}</span>`).join(', ')}</div>
-      ${z.warn?`<i class="ph ph-warning" style="color:var(--amb);font-size:14px"></i>`:`<i class="ph ph-check-circle" style="color:var(--grn);font-size:14px"></i>`}
-    </div>`).join('')}
-  </div>
-</div>
-
-<!-- DISCLAIMER -->
-<div style="padding:10px 12px;background:var(--ab);border:1px solid var(--abd);border-radius:var(--rs)">
-  <div style="font-size:9.5px;color:var(--amb);line-height:1.7"><strong>⚠ หมายเหตุ:</strong> แผนผังและคะแนนนี้เป็นคำแนะนำเบื้องต้นจาก DIW Compatibility Matrix ไม่ใช่แบบแปลนวิศวกรรม ควรปรึกษาผู้เชี่ยวชาญก่อนนำไปใช้จริง</div>
-</div>
-
-</div>`;
-
-  document.getElementById('ly-result').scrollIntoView({behavior:'smooth',block:'start'});
-  toast(`✅ สร้างแผนผัง ${zCount} โซน • คะแนน ${score}/100`);
-}
 
 //  ADMIN + ข้อมูลสารเคมี (v4 — ไม่แยกฟาร์ม · ไม่มีล็อกอิน)
 // ══════════════════════════════════════════
@@ -3253,7 +2342,7 @@ let userDB = [], hiddenBase = []; // คงไว้ให้โค้ดส่�
 
 function saveDraft() { try { localStorage.setItem('cnx4_draft', JSON.stringify(DRAFT)); } catch (e) {} }
 function entryKey(e) {
-  return JSON.stringify({ n: e.n, c: e.c, cs: e.cs || '-', u: e.u || '-', note: e.note || '', props: e.props || null, sds: e.sds || '', ref: e.ref || null, hidden: !!e.hidden });
+  return JSON.stringify({ n: e.n, c: e.c, cs: e.cs || '-', u: e.u || '-', note: e.note || '', props: e.props || null, sds: e.sds || '', ref: e.ref || null, safe: e.safe || null, hidden: !!e.hidden });
 }
 function applyEdits(list, edits) {
   const map = new Map(list.map(d => [d.n, d]));
@@ -3402,7 +2491,7 @@ function rAdmin() {
               <div class="ai-name">${esc(x.n)}${tag}</div>
               <div class="ai-sub">Class ${esc(x.c)} · CAS: ${esc(x.cs || '-')}</div>
             </div>
-            <div style="font-size:7px;font-weight:900;color:${rc(h.r)};text-transform:uppercase;margin-right:5px">${h.r || ''}</div>
+            <div style="font-size:7px;font-weight:900;color:${safeOf(x) ? 'var(--grn)' : 'var(--tx3)'};margin-right:5px">${safeOf(x) ? 'PPE ✓' : 'PPE —'}</div>
             <div class="ai-actions">
               <button class="ai-btn edit" onclick="openEditForm('${jsq(x.n)}')" title="แก้ไข"><i class="ph ph-pencil"></i></button>
               <button class="ai-btn del" onclick="openDelModal('${jsq(x.n)}')" title="ซ่อนจากระบบ"><i class="ph ph-eye-slash"></i></button>
@@ -3421,7 +2510,7 @@ function rAdmin() {
       </div>`).join('')}
     </div>` : ''}
 
-    <div class="crd"><strong>${APP_ORG}</strong>ChemNexus AI 4.0 · หน้าผู้ดูแล</div>
+    <div class="crd"><strong>${APP_ORG}</strong>ChemNexus AI 4.1 · หน้าผู้ดูแล</div>
   `;
 }
 
@@ -3441,12 +2530,48 @@ function updateClassPreview(cls) {
   const h = HC[cls] || {};
   document.getElementById('cpv-icon').textContent = h.ic || '🧪';
   document.getElementById('cpv-cls').textContent = cls ? `Class ${cls} — ${h.t || ''}` : 'ยังไม่ได้เลือก Class';
-  const rc = h.r === 'HIGH' || h.r === 'EXTREME' ? '#ff7070' : h.r === 'MEDIUM' ? '#ffcc55' : '#33ff99';
-  document.getElementById('cpv-risk').innerHTML = `<span style="color:${rc};font-weight:800">${h.r || ''} RISK</span>`;
+  document.getElementById('cpv-risk').textContent = '';
+}
+
+// ── ช่อง PPE + ถ้าเกิดเหตุ ในฟอร์มผู้ดูแล ──
+const SAFE_FIELDS = ['f-s-src','f-s-glove','f-s-eye','f-s-resp','f-s-body','f-s-react','f-s-sd','f-s-sx','f-s-fd','f-s-fx','f-s-ae','f-s-as','f-s-ai','f-s-ag'];
+let safeBase = 'null', safeCarry = {};
+function renderSafePick(sel) {
+  document.getElementById('f-s-ppe').innerHTML = Object.keys(PPE_CAT).map(id =>
+    `<label class="pf-pk"><input type="checkbox" value="${id}"${sel.includes(id) ? ' checked' : ''}>${ppeIcon(id)}<span>${PPE_CAT[id].t}</span></label>`).join('');
+}
+function fillSafe(s) {
+  s = s || {};
+  const a = s.aid || {};
+  const set = (id, v) => { document.getElementById(id).value = Array.isArray(v) ? v.join('\n') : (v && v !== '—' ? v : ''); };
+  set('f-s-src', [s.icsc ? 'ICSC ' + s.icsc : '', s.src || ''].filter(Boolean).join(' · '));
+  set('f-s-glove', s.glove); set('f-s-eye', s.eye); set('f-s-resp', s.resp); set('f-s-body', s.body); set('f-s-react', s.react);
+  set('f-s-sd', s.sd || []); set('f-s-sx', s.sx || []); set('f-s-fd', s.fd || []); set('f-s-fx', s.fx || []);
+  set('f-s-ae', a.e); set('f-s-as', a.s); set('f-s-ai', a.i); set('f-s-ag', a.g);
+  renderSafePick(s.ppe || []);
+  safeCarry = { niosh: s.niosh, g: s.g, note: s.note };
+  safeBase = JSON.stringify(readSafe());
+}
+function readSafe() {
+  const v = id => document.getElementById(id).value.trim();
+  const lines = id => v(id).split('\n').map(x => x.trim()).filter(Boolean);
+  const s = { glove: v('f-s-glove'), eye: v('f-s-eye'), resp: v('f-s-resp'), body: v('f-s-body'), react: v('f-s-react'),
+    ppe: [...document.querySelectorAll('#f-s-ppe input:checked')].map(x => x.value),
+    sd: lines('f-s-sd'), sx: lines('f-s-sx'), fd: lines('f-s-fd'), fx: lines('f-s-fx'),
+    aid: { e: v('f-s-ae'), s: v('f-s-as'), i: v('f-s-ai'), g: v('f-s-ag') } };
+  let src = v('f-s-src');
+  const m = src.match(/ICSC\s*(\d{4})/i);
+  if (m) { s.icsc = m[1]; src = src.replace(m[0], '').replace(/^[\s·,]+|[\s·,]+$/g, ''); }
+  if (src) s.src = src;
+  Object.keys(s.aid).forEach(k => { if (!s.aid[k]) delete s.aid[k]; });
+  const filled = s.glove || s.eye || s.resp || s.body || s.react || s.ppe.length || s.sd.length || s.sx.length || s.fd.length || s.fx.length || Object.keys(s.aid).length;
+  return filled ? s : null;
 }
 
 function resetForm() {
   FORM_FIELDS.forEach(id => { const e = document.getElementById(id); if (e) e.value = ''; });
+  fillSafe(null);
+  document.getElementById('f-safe-box').open = false;
   document.getElementById('f-ref-src').value = '';
   document.getElementById('pubchem-dd').style.display = 'none';
   document.getElementById('pubchem-status').style.display = 'none';
@@ -3491,7 +2616,8 @@ function openEditForm(nm) {
   set('f-name', x.n); set('f-cas', x.cs); set('f-un', x.u); set('f-note', x.note);
   set('f-formula', p.f); set('f-mw', p.mw); set('f-state', p.st); set('f-conc', p.cn);
   set('f-bp', p.bp); set('f-mp', p.mp); set('f-flash', p.flash); set('f-density', p.d);
-  set('f-sds', x.sds);
+  set('f-sds', /^https?:\/\//.test(x.sds || '') ? x.sds : '');
+  fillSafe(x.safe || SAFE[x.cs]);
   if (x.ref) { document.getElementById('f-ref-src').value = x.ref.src || ''; set('f-ref-url', x.ref.url); }
   document.getElementById('f-class').value = x.c;
   updateClassPreview(x.c);
@@ -3511,6 +2637,12 @@ function refLookup(kind) {
   let url;
   if (kind === 'merck') url = 'https://www.google.com/search?q=' + encodeURIComponent(q + ' "Storage class" site:sigmaaldrich.com');
   else if (kind === 'sds') url = 'https://www.google.com/search?q=' + encodeURIComponent('SDS ' + q + ' filetype:pdf');
+  else if (kind === 'icsc') url = 'https://chemicalsafety.ilo.org/dyn/icsc/showcard.listCards3?p_lang=en&' + (cas ? 'p_cas_number=' + encodeURIComponent(cas) : 'p_synonym=' + encodeURIComponent(nm));
+  else if (kind === 'erg') {
+    const un = document.getElementById('f-un').value.trim();
+    if (!/^\d{4}$/.test(un)) { toast('กรอกเลข UN 4 หลักก่อน'); return; }
+    url = 'https://cameochemicals.noaa.gov/unna/' + un;
+  }
   else url = 'https://pubchem.ncbi.nlm.nih.gov/#query=' + encodeURIComponent(q);
   window.open(url, '_blank');
 }
@@ -3750,8 +2882,13 @@ function saveForm() {
     ref: { src: refSrc, url: v('f-ref-url'), date: new Date().toISOString().slice(0, 10) },
   };
   if (Object.keys(props).length) entry.props = props;
-  const sds = v('f-sds') || (old && old.sds) || '';
-  if (sds) entry.sds = sds;
+  const sds = v('f-sds');
+  if (/^https?:\/\//.test(sds)) entry.sds = sds;
+  // PPE + ถ้าเกิดเหตุ: บันทึกเมื่อแก้จากค่าเดิม หรือสารนี้มีข้อมูลของตัวเองอยู่แล้ว
+  const sf = readSafe();
+  if (JSON.stringify(sf) !== safeBase) { if (sf) entry.safe = { ...safeCarry, ...sf }; }
+  else if (old && old.safe) entry.safe = old.safe;
+  if (entry.safe) Object.keys(entry.safe).forEach(k => entry.safe[k] === undefined && delete entry.safe[k]);
   if (old && old.ghs) entry.ghs = old.ghs;
 
   // เปลี่ยนชื่อ → ซ่อนชื่อเดิม
@@ -3868,6 +3005,14 @@ function toast(msg){
 // ══════════════════════════════════════════
 //  EXPORT PDF
 // ══════════════════════════════════════════
+function pdfSafe(n){
+  const ch=chemList().find(x=>x.n===n);
+  const s=safeOf(ch);
+  if(!s)return 'ยังไม่มีข้อมูล PPE ที่ตรวจแล้ว — ดู SDS ผู้ผลิต หัวข้อ 8';
+  const k=(lbl,v)=>v&&v!=='—'?`${lbl}: ${esc(v)}<br>`:'';
+  const src=[s.icsc?'ICSC '+s.icsc:'',s.niosh?'NIOSH':'',s.g?'ERG 2024 Guide '+s.g:''].filter(Boolean).join(' · ');
+  return k('ถุงมือ',s.glove)+k('ตา/หน้า',s.eye)+k('ทางหายใจ',s.resp)+k('อย่าให้สัมผัส',s.react)+(src?`<span style="color:#999">ที่มา: ${src}</span>`:'');
+}
 let lastResult=null;
 
 function exportPDF(){
@@ -3875,7 +3020,7 @@ function exportPDF(){
   const e=lastResult;
   const{a,b,cA,cB,c1,c2,r,code,tm}=e;
   const hA=HC[cA]||{},hB=HC[cB]||{};
-  const pr=(e.sr?{g:e.sr.g+' (ตาม SDS)',rx:e.sr.rx}:null)||PR[`${c1}-${c2}`]||PR[`${c2}-${c1}`]||null;
+  const pr=(e.sr?{g:e.sr.g+' (ตาม ICSC)',rx:e.sr.rx}:null)||PR[`${c1}-${c2}`]||PR[`${c2}-${c1}`]||null;
   const cond=code?(CD_FULL[code]||CD[code]||''):'';
   const pA=getProps(a),pB=getProps(b);
   let bt,bs,rn,rc;
@@ -3916,11 +3061,10 @@ function exportPDF(){
       <div><div style="font-size:9px;font-weight:800;margin-bottom:3px;color:#555">${a.slice(0,16)}</div>${prow('สูตร',pA.f)}${prow('จุดเดือด',pA.bp)}${prow('จุดวาบไฟ',pA.flash)}${prow('ความหนาแน่น',pA.d)}</div>
       <div><div style="font-size:9px;font-weight:800;margin-bottom:3px;color:#555">${b.slice(0,16)}</div>${prow('สูตร',pB.f)}${prow('จุดเดือด',pB.bp)}${prow('จุดวาบไฟ',pB.flash)}${prow('ความหนาแน่น',pB.d)}</div>
     </div>`:''}
-    <div class="prsec-t">มาตรการฉุกเฉิน</div>
-    <div style="margin-bottom:5px"><div style="font-size:8px;font-weight:800;color:#888;margin-bottom:3px">วิธีดับเพลิง</div><div class="prchips">${fi.map(f=>`<span class="prchip">🔥 ${f}</span>`).join('')}</div></div>
-    <div style="margin-bottom:9px"><div style="font-size:8px;font-weight:800;color:#888;margin-bottom:3px">อุปกรณ์ป้องกัน (PPE)</div><div class="prchips">${pp.map(p=>`<span class="prchip">🛡️ ${p}</span>`).join('')}</div></div>
-    <div style="font-size:9px;color:#666;background:#f8f8f8;border-radius:6px;padding:8px 10px;margin-bottom:12px"><strong>เบอร์ฉุกเฉิน:</strong> 199 (ดับเพลิง) · 1669 (EMS) · 1650 (กรมโรงงาน) · 191 (ตำรวจ)</div>
-    <div class="prfooter"><div class="prfoot-l">ChemNexus AI 4.0</div><div class="prfoot-r">อ้างอิง: คู่มือการเก็บรักษาสารเคมีฯ กรมโรงงานอุตสาหกรรม 2550<br>ธุรกิจพันธุ์กุ้งขาว 2 · ${now}</div></div>
+    <div class="prsec-t">PPE และข้อห้ามของแต่ละสาร</div>
+    ${[a,b].map(n=>`<div style="font-size:9px;line-height:1.6;margin-bottom:7px"><b>${esc(n)}</b><br>${pdfSafe(n)}</div>`).join('')}
+    <div style="font-size:9px;color:#666;background:#f8f8f8;border-radius:6px;padding:8px 10px;margin-bottom:12px"><strong>เบอร์ฉุกเฉิน:</strong> 1669 (การแพทย์ฉุกเฉิน) · 199 (ดับเพลิง) · 1367 (ศูนย์พิษวิทยารามาธิบดี) · 1650 กด 3 (สายด่วนมลพิษ คพ.)</div>
+    <div class="prfooter"><div class="prfoot-l">ChemNexus AI 4.1</div><div class="prfoot-r">อ้างอิง: คู่มือการเก็บรักษาสารเคมีฯ กรมโรงงานอุตสาหกรรม 2550<br>ธุรกิจพันธุ์กุ้งขาว 2 · ${now}</div></div>
     <div style="margin-top:12px;display:flex;gap:8px">
       <button onclick="printReport()" style="flex:1;padding:12px;background:#111;border:none;border-radius:7px;color:#b8ff3a;font-family:'Sarabun',sans-serif;font-size:13px;font-weight:800;cursor:pointer">🖨️ พิมพ์ / บันทึก PDF</button>
       <button onclick="closePDF()" style="padding:12px 18px;background:#f0f0f0;border:none;border-radius:7px;color:#333;font-family:'Sarabun',sans-serif;font-size:13px;font-weight:700;cursor:pointer">ปิด</button>
@@ -3935,7 +3079,7 @@ function printReport(){
   const e=lastResult;
   const{a,b,cA,cB,c1,c2,r,code,tm}=e;
   const hA=HC[cA]||{},hB=HC[cB]||{};
-  const pr=(e.sr?{g:e.sr.g+' (ตาม SDS)',rx:e.sr.rx}:null)||PR[`${c1}-${c2}`]||PR[`${c2}-${c1}`]||null;
+  const pr=(e.sr?{g:e.sr.g+' (ตาม ICSC)',rx:e.sr.rx}:null)||PR[`${c1}-${c2}`]||PR[`${c2}-${c1}`]||null;
   const cond=code?(CD_FULL[code]||CD[code]||''):'';
   const pA=getProps(a),pB=getProps(b);
   let bt,bs,rn,rc,bgc,bdc;
@@ -3997,7 +3141,7 @@ table{width:100%;border-collapse:collapse}
 <body>
 <div class="hdr">
   <div>
-    <h1>⚗️ ChemNexus AI 4.0</h1>
+    <h1>⚗️ ChemNexus AI 4.1</h1>
     <div class="sub">รายงานวิเคราะห์ความเข้ากันได้ของสารเคมี</div>
   </div>
   <div class="meta">วันที่: ${tm}<br>อ้างอิง: ตารางการจัดเก็บ คู่มือ DIW 2550<br>พัฒนาโปรแกรมโดย ธุรกิจพันธุ์กุ้งขาว 2</div>
@@ -4048,21 +3192,16 @@ ${(pA.mw||pB.mw)?`
   </div>
 </div>`:''}
 
-<div class="sec-t">มาตรการฉุกเฉิน</div>
-<div class="sec" style="margin-bottom:8px">
-  <div style="font-size:10px;font-weight:800;color:#888;margin-bottom:5px">วิธีดับเพลิง</div>
-  <div class="chips">${fi.map(f=>`<span class="chip">🔥 ${f}</span>`).join('')}</div>
+<div class="sec-t">PPE และข้อห้ามของแต่ละสาร</div>
+<div class="sec" style="margin-bottom:10px;font-size:11px;line-height:1.7">
+  ${[a,b].map(n=>`<div style="margin-bottom:8px"><b>${esc(n)}</b><br>${pdfSafe(n)}</div>`).join('')}
 </div>
-<div class="sec" style="margin-bottom:10px">
-  <div style="font-size:10px;font-weight:800;color:#888;margin-bottom:5px">อุปกรณ์ป้องกัน (PPE)</div>
-  <div class="chips">${pp.map(p=>`<span class="chip">🛡️ ${p}</span>`).join('')}</div>
-</div>
-<div class="emg"><strong>เบอร์ฉุกเฉิน:</strong> 199 (ดับเพลิง) · 1669 (EMS) · 1650 (กรมโรงงาน) · 191 (ตำรวจ)</div>
+<div class="emg"><strong>เบอร์ฉุกเฉิน:</strong> 1669 (การแพทย์ฉุกเฉิน) · 199 (ดับเพลิง) · 1367 (ศูนย์พิษวิทยารามาธิบดี) · 1650 กด 3 (สายด่วนมลพิษ คพ.)</div>
 
 <div class="footer">
-  <div class="foot-l">ChemNexus AI 4.0<br><span style="font-size:10px;font-weight:400;color:#888">Chemical Safety Report</span></div>
+  <div class="foot-l">ChemNexus AI 4.1<br><span style="font-size:10px;font-weight:400;color:#888">Chemical Safety Report</span></div>
   <div style="display:flex;align-items:center;gap:12px">
-    <div class="foot-r">อ้างอิง: คู่มือการเก็บรักษาสารเคมีฯ กรมโรงงานอุตสาหกรรม 2550<br>พัฒนาโปรแกรมโดย ธุรกิจพันธุ์กุ้งขาว 2 · ${now}<br><span style="color:#bbb">Generated by ChemNexus AI · Version 4.0.0</span></div>
+    <div class="foot-r">อ้างอิง: คู่มือการเก็บรักษาสารเคมีฯ กรมโรงงานอุตสาหกรรม 2550<br>พัฒนาโปรแกรมโดย ธุรกิจพันธุ์กุ้งขาว 2 · ${now}<br><span style="color:#bbb">Generated by ChemNexus AI · Version 4.1.0</span></div>
     <div style="text-align:center">
       <img src="https://api.qrserver.com/v1/create-qr-code/?size=64x64&data=${encodeURIComponent('https://atit1912.github.io/chem-ai/')}&bgcolor=ffffff&color=111111&margin=2" width="64" height="64" style="border-radius:4px;border:1px solid #ddd" alt="QR">
       <div style="font-size:7px;color:#bbb;margin-top:3px">สแกนเพื่อเปิดแอป</div>
@@ -4104,10 +3243,10 @@ function closePDF(){
 //  ONBOARDING
 // ══════════════════════════════════════════
 const OB_STEPS=[
-  {icon:'⚗️',title:'ยินดีต้อนรับสู่ ChemNexus AI 4.0',desc:'เลือกสาร 2 ชนิด แล้วดูว่าเก็บด้วยกันได้ไหม มีเงื่อนไขอะไร ตามตารางของกรมโรงงานอุตสาหกรรม (DIW)\nพัฒนาโปรแกรมโดย ธุรกิจพันธุ์กุ้งขาว 2'},
+  {icon:'⚗️',title:'ยินดีต้อนรับสู่ ChemNexus AI 4.1',desc:'เลือกสาร 2 ชนิด แล้วดูว่าเก็บด้วยกันได้ไหม มีเงื่อนไขอะไร ตามตารางของกรมโรงงานอุตสาหกรรม (DIW)\nพัฒนาโปรแกรมโดย ธุรกิจพันธุ์กุ้งขาว 2'},
   {icon:'🔬',title:'วิเคราะห์ความเข้ากันได้',desc:'เลือกสารเคมี 2 ชนิด กดวิเคราะห์ — ระบบจะตรวจสอบจาก DIW Compatibility Matrix 23×23 class ทันที'},
   {icon:'⛔',title:'RED / YELLOW / GREEN',desc:'RED = ห้ามเก็บร่วมกัน\nYELLOW = มีเงื่อนไข\nGREEN = ปลอดภัย พร้อมบอกก๊าซที่เกิดและเหตุผลทางวิทยาศาสตร์'},
-  {icon:'🛡️',title:'PPE & ฉุกเฉิน',desc:'ระบบแนะนำอุปกรณ์ป้องกันที่เหมาะสมและแนวทางกรณีฉุกเฉินตามสารที่คุณเลือก'},
+  {icon:'🛡️',title:'PPE & ถ้าเกิดเหตุ รายสาร',desc:'กดสารเคมี → แท็บ PPE บอกถุงมือ แว่น ไส้กรอง · แท็บ "ถ้าเกิดเหตุ" บอกสิ่งที่ต้องทำ/ห้ามทำเมื่อหก ไฟไหม้ หรือโดนตัว\nอ้างอิงบัตร ICSC (ILO/WHO) · NIOSH · ERG 2024'},
   {icon:'🖨️',title:'Export รายงาน PDF',desc:'หลังวิเคราะห์แล้ว กด "Export PDF" เพื่อสร้างรายงานฉบับเต็มสำหรับส่งฝ่ายความปลอดภัยหรือโรงงาน'},
 ];
 let obStep=0;
@@ -4429,7 +3568,7 @@ function edExport(){
   ${mitig.length?`<div class="sec" style="background:#fff3e0;border:1px solid #fb2"><b>🟠 คู่ห้ามคละที่แยกบริเวณภายในห้องแล้ว ${mitig.length} คู่:</b><br>${mitig.map(p=>`• ${p.a.n} × ${p.b.n} — ${p.walled?'มีกำแพงกั้น':p.buffer?'มี '+p.buffer+' วางคั่น (ไม่ติดไฟ เข้ากันได้ทั้งสองฝั่ง)':'ระยะ '+p.dist.toFixed(1)+' ม.'}`).join('<br>')}</div>`:''}
   ${warns.length?`<div class="sec amb"><b>⚠️ คู่ที่เก็บร่วมได้แบบมีเงื่อนไข ${warns.length} คู่:</b><br>${warns.map(x=>`• ${x.a.n} × ${x.b.n} — เงื่อนไขข้อ ${x.v}: ${CD[x.v]||''} (ห่าง ${x.dist.toFixed(1)} ม.)`).join('<br>')}</div>`:''}
   ${!probs.length&&!warns.length&&chems.length>1?`<div class="sec grn"><b>✅ ทุกคู่เก็บร่วมกันได้ตาม DIW Matrix</b></div>`:''}
-  <div style="margin-top:20px;font-size:10.5px;color:#888">อ้างอิง: ตารางการจัดเก็บสารเคมีและวัตถุอันตราย กรมโรงงานอุตสาหกรรม (DIW) · พัฒนาโปรแกรมโดย ธุรกิจพันธุ์กุ้งขาว 2 · ChemNexus AI 4.0</div>
+  <div style="margin-top:20px;font-size:10.5px;color:#888">อ้างอิง: ตารางการจัดเก็บสารเคมีและวัตถุอันตราย กรมโรงงานอุตสาหกรรม (DIW) · พัฒนาโปรแกรมโดย ธุรกิจพันธุ์กุ้งขาว 2 · ChemNexus AI 4.1</div>
   <button class="np" onclick="window.print()" style="margin-top:16px;padding:10px 22px;font-size:14px;cursor:pointer">🖨 พิมพ์ / บันทึก PDF</button>
   </body></html>`);
   w.document.close();
@@ -4447,37 +3586,6 @@ function edLoadPreset(key){
   toast('โหลดผัง "'+key+'" — ขนาดห้องเป็นค่าประมาณ แก้ให้ตรงจริงได้เลย');
 }
 
-const SDS_LIB=[{no:1,th:"คลอรีนน้ำ",en:"Sodium hypochlorite 10%"},{no:2,th:"คลอรีนผง",en:"Calcium hypochlorite 65%"},{no:3,th:"โซดาไฟ",en:"Sodium hydroxide"},{no:4,th:"โพวิโดน-ไอโอดีน",en:"Povidone iodine 1%"},{no:5,th:"เอทิลแอลกอฮอล์ 95%",en:"Ethanol 95%"},{no:6,th:"แคลเซียม คลอไรด์",en:"Calcium chloride"},{no:7,th:"กรดเกลือ",en:"Hydrochloric acid"},{no:8,th:"โซเดียมไนไตรท์",en:"Sodium nitrite"},{no:9,th:"กรดอะซิติก",en:"Acetic Acid"},{no:10,th:"กรดซัลฟิวริก",en:"Sulfuric Acid"},{no:11,th:"แก๊ส LPG",en:"LPG"},{no:12,th:"ออกซิเจน",en:"Oxygen"},{no:13,th:"น้ำมันเบนซิน",en:"Gasoline"},{no:14,th:"น้ำมันดีเซล",en:"Diesel Fuel"},{no:15,th:"โซเดียม ไทโอซัลเฟต",en:"Sodium Thiosulfate"},{no:16,th:"โซเดียมไบคาร์บอเนต",en:"Sodium bicarbonate"},{no:17,th:"ฟอร์มาลิน",en:"formaldehyde"},{no:18,th:"ปูนขาว",en:"calcium hydroxide"},{no:19,th:"แมกนีเซียมคลอไรด์",en:"Magnesium chloride"},{no:20,th:"ไฮโดรเจนเปอร์ออกไซด์",en:"Hydrogen peroxide"},{no:21,th:"ไบโอซอล 300",en:"Biosol300"},{no:22,th:"อีดีทีเอ",en:"EDTA"},{no:23,th:"อะควาบราว",en:"AQUA BROWN"},{no:24,th:"ผลิตภัณฑ์ล้างจาน สูตรน้ำ",en:"Dishwashing Liquid"},{no:25,th:"ทินเนอร์",en:"Thinner"},{no:26,th:"จาระบี",en:"Grease"},{no:27,th:"สีกันสนิม",en:"Anti-rust Paint"},{no:28,th:"สเปรย์สี",en:"Spray Paint"},{no:30,th:"น้ำมันเครื่อง",en:"Engine Oil"},{no:31,th:"สารละลายแอมโมเนีย",en:"Ammonia Solution"},{no:32,th:"แอมโมเนียมคลอไรด์",en:"Ammonium Chloride"},{no:33,th:"แอมโมเนียมโมลิบเดต",en:"Ammonium Molybdate"},{no:34,th:"แอมโมเนียมเปอร์ซัลเฟต",en:"Ammonium Persulfate"},{no:35,th:"แบเรียมคลอไรด์ ไดไฮเดรต",en:"Barium Chloride Dihydrate"},{no:36,th:"โบรมครีซอลกรีน",en:"Bromocresol Green"},{no:37,th:"โบรมฟีนอลบลู",en:"Bromophenol Blue"},{no:38,th:"บรูซีนซัลเฟต",en:"Brucine Sulfate"},{no:39,th:"แคลเซียมคาร์บอเนต",en:"Calcium Carbonate"},{no:41,th:"คลอโรฟอร์ม",en:"Chloroform"},{no:42,th:"กรดไนตริก",en:"Nitric Acid"},{no:43,th:"ฟีนอล",en:"Phenol"},{no:44,th:"กรดฟอร์มิก",en:"Formic Acid"},{no:45,th:"โพแทสเซียมไนเตรต",en:"Potassium Nitrate"},{no:46,th:"โพแทสเซียมไดไฮโดรเจนฟอสเฟต",en:"Potassium Dihydrogen Phosphate"},{no:47,th:"โพแทสเซียมแอนติโมนิลทาร์เทรต",en:"Potassium Antimonyl Tartrate"},{no:48,th:"โพแทสเซียมเปอร์แมงกาเนต",en:"Potassium Permanganate"},{no:49,th:"โซเดียมคลอไรด์",en:"Sodium Chloride"},{no:50,th:"โซเดียมดีออกซีโคเลต",en:"Sodium Deoxycholate"},{no:51,th:"โซเดียมเมตาซิลิเกต",en:"Sodium Metasilicate"},{no:52,th:"โซเดียมไฮโดรเจนฟอสเฟต",en:"Sodium Hydrogenphosphate"},{no:53,th:"กาวประสานท่อ",en:"Pipe Cement"},{no:54,th:"ปรอทไนเตรต โมโนไฮเดรต",en:"Mercuric Nitrate Monohydrate"},{no:55,th:"เมทานอล",en:"Methanol"},{no:56,th:"เป็ด โปร",en:"Duck Pro"},{no:57,th:"เดทตอล น้ำยาฆ่าเชื้อโรค",en:"Dettol Antiseptic Disinfectant"}];
-// ── คลัง SDS: render รายการ 55 ไฟล์ เรียงตามเลข ──
-function sdsGhs(en){
-  const s=en.toLowerCase();
-  if(/hypochlorite|permanganate|persulfate|peroxide|nitrate|nitrite/.test(s))return '⭕';
-  if(/acid|hydroxide|hydrochloric|sulfuric|nitric|formic|metasilicate/.test(s))return '🧪';
-  if(/ethanol|methanol|thinner|gasoline|diesel|spray|lpg|acetone/.test(s))return '🔥';
-  if(/mercuric|phenol|chloroform|brucine|barium|ammonia/.test(s))return '☠️';
-  if(/oxygen/.test(s))return '💨';
-  return '📄';
-}
-function renderSdsLib(q){
-  q=(q||'').trim().toLowerCase();
-  const list=SDS_LIB.filter(s=>!q||s.th.toLowerCase().includes(q)||s.en.toLowerCase().includes(q)||String(s.no).includes(q)||('sds-'+s.no).includes(q));
-  const el=document.getElementById('sds-lib-list');
-  document.getElementById('sds-count').textContent=SDS_LIB.length;
-  if(!list.length){el.innerHTML=`<div style="padding:20px;text-align:center;color:var(--tx3);font-size:11px">ไม่พบ "${q}"</div>`;return;}
-  el.innerHTML=`<div class="card" style="overflow:hidden">`+list.map(s=>{
-    const file='sds/sds-'+String(s.no).padStart(2,'0')+'.html';
-    return `<div onclick="window.open('${file}','_blank')" style="display:flex;align-items:center;gap:11px;padding:11px 13px;border-bottom:1px solid var(--bd);cursor:pointer;transition:background .12s" onmouseover="this.style.background='rgba(184,255,58,.05)'" onmouseout="this.style.background='none'">
-      <div style="font-size:9px;font-weight:900;color:var(--lime);background:var(--lb);border:1px solid var(--lbd);border-radius:6px;min-width:32px;text-align:center;padding:5px 4px;flex-shrink:0">${String(s.no).padStart(2,'0')}</div>
-      <div style="font-size:17px;flex-shrink:0">${sdsGhs(s.en)}</div>
-      <div style="flex:1;min-width:0">
-        <div style="font-size:12.5px;font-weight:800;color:var(--tx);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${s.th||s.en}</div>
-        <div style="font-size:9.5px;color:var(--tx3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${s.en}</div>
-      </div>
-      <i class="ph-bold ph-arrow-square-out" style="font-size:16px;color:var(--tx3);flex-shrink:0"></i>
-    </div>`;
-  }).join('')+`</div>`;
-}
-function openSdsGen(){go('sdsgen');}
 
 </script>
 </body>
