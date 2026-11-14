@@ -3689,7 +3689,7 @@ function edExport(){
   }).join('');
   const mkL=(p,c)=>{const x1=(p.a.x+0.7)*S,y1=(p.a.y+0.45)*S,x2=(p.b.x+0.7)*S,y2=(p.b.y+0.45)*S;
     return `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${c}" stroke-width="3" stroke-dasharray="8 5"/>`;};
-  const lines=probs.map(p=>mkL(p,'#e11')).concat(mitig.map(p=>mkL(p,'#f90'))).join('');
+  const lines=probs.map(p=>mkL(p,'#e11')).join(''); // เหมือนผังในแอป: เส้นเฉพาะคู่ที่ยังไม่ผ่าน
   const now=new Date().toLocaleString('th-TH',{dateStyle:'full',timeStyle:'short'});
   const w=window.open('','_blank');
   w.document.write(`<!DOCTYPE html><html><head><meta charset="utf-8"><title>แผนผัง ${edState.name}</title>
@@ -3701,13 +3701,15 @@ function edExport(){
   .sw{width:22px;height:14px;border-radius:4px;display:inline-block}
   .sec{margin-top:14px;padding:12px;border-radius:8px;font-size:12.5px;line-height:1.8}
   .red{background:#fee;border:1px solid #fbb}.amb{background:#fff8e1;border:1px solid #fd6}.grn{background:#e8f8ee;border:1px solid #9d9}
-  @media print{.np{display:none}}</style></head><body>
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  @page{size:A4;margin:12mm}
+  @media print{.np{display:none}body{padding:0}}</style></head><body>
   <h1>แผนผังห้องจัดเก็บสารเคมี — ${edState.name}</h1>
   <div class="sub">${f.name||''} · ขนาดจริง ${edState.w} × ${edState.h} เมตร · สร้าง ${now}</div>
   <div class="room" style="width:${edState.w*S}px;height:${edState.h*S}px">
     <svg style="position:absolute;inset:0;width:100%;height:100%">${lines}</svg>
     ${blocks}<div class="door"></div></div>
-  <div style="font-size:11px;color:#666">⬆ ประตูห้องสารเคมี · เส้นประแดง = คู่ที่ห้ามเก็บร่วม</div>
+  <div style="font-size:11px;color:#666">▬ ด้านล่าง = ประตูห้อง · 🧱 แถบลายน้ำตาล = กำแพงกั้น · เส้นประแดง = คู่ห้ามเก็บร่วมที่ระยะยังไม่พอ (คู่ที่แยกแล้วดูรายการด้านล่าง)</div>
   <div class="lg">${uniq.map(c=>`<span class="lgi"><span class="sw" style="background:${edColor(c.n)}"></span>${c.c} ${c.n}</span>`).join('')}</div>
   ${probs.length?`<div class="sec red"><b>⛔ ยังไม่ผ่าน ${probs.length} คู่ — ต้องเพิ่มระยะ ≥ ${edSepDist()} ม. หรือกำแพงกั้น:</b><br>${probs.map(p=>`• ${p.a.n} (${p.a.c}) × ${p.b.n} (${p.b.c}) — ระยะปัจจุบัน ${p.dist.toFixed(1)} ม.`).join('<br>')}</div>`:''}
   ${mitig.length?`<div class="sec" style="background:#fff3e0;border:1px solid #fb2"><b>🟠 คู่ห้ามคละที่แยกบริเวณภายในห้องแล้ว ${mitig.length} คู่:</b><br>${mitig.map(p=>`• ${p.a.n} × ${p.b.n} — ${p.walled?'มีกำแพงกั้น':p.buffer?'มี '+p.buffer+' วางคั่น (ไม่ติดไฟ เข้ากันได้ทั้งสองฝั่ง)':'ระยะ '+p.dist.toFixed(1)+' ม.'}`).join('<br>')}</div>`:''}
