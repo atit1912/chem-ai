@@ -1,8 +1,8 @@
-// ChemNexus AI 4.1 — Service Worker
+// ChemNexus AI 4.2 — Service Worker
 // พัฒนาโปรแกรมโดย ธุรกิจพันธุ์กุ้งขาว 2
 // Strategy: หน้าแอป + chemicals.json = network-first (อัปโหลดแล้วเห็นทันที, ออฟไลน์ใช้ของในแคช)
 //           ไฟล์อื่นของเว็บ = cache-first
-const CACHE_NAME = 'chemnexus-v4.1.0';
+const CACHE_NAME = 'chemnexus-v4.2.0';
 const CACHE_URLS = [
   './index.html',
   './manifest.json',
