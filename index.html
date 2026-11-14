@@ -10,7 +10,8 @@
 <meta name="description" content="ตรวจการจัดเก็บสารเคมีร่วมกันตามตารางกรมโรงงานอุตสาหกรรม (DIW) — พัฒนาโปรแกรมโดย ธุรกิจพันธุ์กุ้งขาว 2">
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icon-192.png">
-<title>ChemNexus AI 4.2</title>
+<title>ChemNexus AI</title>
+<script>/* v4.3 ตั้งโหมดสี ก่อนวาดหน้า กันจอกระพริบ */(function(){try{var t=localStorage.getItem('cnx_theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
 <link href="https://fonts.googleapis.com/css2?family=Sarabun:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/@phosphor-icons/web"></script>
 <style>
@@ -23,12 +24,46 @@
   --amb:#ffaa00;--ab:rgba(255,170,0,0.09);--abd:rgba(255,170,0,0.26);
   --grn:#00e87a;--gb:rgba(0,232,122,0.09);--gbd:rgba(0,232,122,0.26);
   --nav:72px;--hdr:64px;--r:14px;--rs:10px;
+  --fg:#ffffff;--blue:#00b4ff;--pink:#ff64c8;--purple:#a855f7;
+  --vr-red:linear-gradient(135deg,rgba(150,18,18,.85),rgba(80,0,0,.7));--vr-amb:linear-gradient(135deg,rgba(130,75,0,.85),rgba(75,45,0,.7));--vr-grn:linear-gradient(135deg,rgba(0,90,55,.85),rgba(0,55,32,.7));
+  --vrt-red:#ffffff;--vrt-amb:#ffffff;--vrt-grn:#ffffff;
+  --red-tx:#ff7070;--amb-tx:#ffcc55;--grn-tx:#33ff99;--blue-tx:#60d0ff;--pink-tx:#ff64c8;--purple-tx:#c084fc;
+  color-scheme:dark;
+}
+/* v4.3 โหมดสว่าง — data-theme="light" หรือเครื่องตั้งสว่าง (ถ้าไม่ได้บังคับมืด) */
+:root[data-theme="light"]{
+  --bg:#f3f5f8;--bg2:#ffffff;--s1:rgba(15,23,42,0.035);--s2:rgba(15,23,42,0.06);--s3:rgba(15,23,42,0.1);
+  --bd:rgba(15,23,42,0.1);--bd2:rgba(15,23,42,0.18);
+  --tx:#0f172a;--tx2:#334155;--tx3:#5b6b82;
+  --lime:#3d7a0a;--lime2:#336808;--lb:rgba(61,122,10,0.08);--lbd:rgba(61,122,10,0.3);
+  --red:#d32f2f;--rb:rgba(211,47,47,0.08);--rbd:rgba(211,47,47,0.3);
+  --amb:#b26a00;--ab:rgba(178,106,0,0.09);--abd:rgba(178,106,0,0.32);
+  --grn:#0a8a47;--gb:rgba(10,138,71,0.08);--gbd:rgba(10,138,71,0.3);
+  --fg:#0f172a;--blue:#0284c7;--pink:#db2777;--purple:#9333ea;
+  --vr-red:rgba(211,47,47,0.1);--vr-amb:rgba(178,106,0,0.12);--vr-grn:rgba(10,138,71,0.1);--vrt-red:#b71c1c;--vrt-amb:#8a5200;--vrt-grn:#0a6b36;
+  --red-tx:#c62828;--amb-tx:#9a5c00;--grn-tx:#0b7a3e;--blue-tx:#0369a1;--pink-tx:#be185d;--purple-tx:#7e22ce;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: light){
+  :root:not([data-theme="dark"]):not([data-theme="light"]){
+    --bg:#f3f5f8;--bg2:#ffffff;--s1:rgba(15,23,42,0.035);--s2:rgba(15,23,42,0.06);--s3:rgba(15,23,42,0.1);
+    --bd:rgba(15,23,42,0.1);--bd2:rgba(15,23,42,0.18);
+    --tx:#0f172a;--tx2:#334155;--tx3:#5b6b82;
+    --lime:#3d7a0a;--lime2:#336808;--lb:rgba(61,122,10,0.08);--lbd:rgba(61,122,10,0.3);
+    --red:#d32f2f;--rb:rgba(211,47,47,0.08);--rbd:rgba(211,47,47,0.3);
+    --amb:#b26a00;--ab:rgba(178,106,0,0.09);--abd:rgba(178,106,0,0.32);
+    --grn:#0a8a47;--gb:rgba(10,138,71,0.08);--gbd:rgba(10,138,71,0.3);
+    --fg:#0f172a;--blue:#0284c7;--pink:#db2777;--purple:#9333ea;
+  --vr-red:rgba(211,47,47,0.1);--vr-amb:rgba(178,106,0,0.12);--vr-grn:rgba(10,138,71,0.1);--vrt-red:#b71c1c;--vrt-amb:#8a5200;--vrt-grn:#0a6b36;
+    --red-tx:#c62828;--amb-tx:#9a5c00;--grn-tx:#0b7a3e;--blue-tx:#0369a1;--pink-tx:#be185d;--purple-tx:#7e22ce;
+    color-scheme:light;
+  }
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html,body{height:100%;overflow:hidden;background:var(--bg);font-family:'Sarabun',sans-serif;color:var(--tx)}
 
 #app{width:100%;max-width:430px;height:100dvh;margin:0 auto;position:relative;overflow:hidden;background:var(--bg)}
-#app::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(184,255,58,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(184,255,58,0.025) 1px,transparent 1px);background-size:44px 44px;pointer-events:none;z-index:0}
+#app::before{content:'';position:absolute;inset:0;background-image:linear-gradient(color-mix(in srgb,var(--lime) 2.5%,transparent) 1px,transparent 1px),linear-gradient(90deg,color-mix(in srgb,var(--lime) 2.5%,transparent) 1px,transparent 1px);background-size:44px 44px;pointer-events:none;z-index:0}
 
 .page{position:absolute;inset:0;bottom:var(--nav);overflow-y:auto;overflow-x:hidden;display:none;flex-direction:column;background:var(--bg);scrollbar-width:none;z-index:1}
 .page::-webkit-scrollbar{display:none}
@@ -40,19 +75,19 @@ html,body{height:100%;overflow:hidden;background:var(--bg);font-family:'Sarabun'
 .er{animation:sR .26s cubic-bezier(.4,0,.2,1) forwards}
 .el{animation:sL .26s cubic-bezier(.4,0,.2,1) forwards}
 
-.hdr{height:var(--hdr);display:flex;align-items:center;padding:0 16px;gap:10px;background:rgba(5,8,15,0.94);backdrop-filter:blur(20px);border-bottom:1px solid var(--bd2);position:sticky;top:0;z-index:10;flex-shrink:0}
+.hdr{height:var(--hdr);display:flex;align-items:center;padding:0 16px;gap:10px;background:color-mix(in srgb,var(--bg) 94%,transparent);backdrop-filter:blur(20px);border-bottom:1px solid var(--bd2);position:sticky;top:0;z-index:10;flex-shrink:0}
 .hdr-t{font-size:16px;font-weight:800;flex:1;letter-spacing:-.02em}
 .ib2{width:33px;height:33px;border-radius:7px;background:var(--s2);border:1px solid var(--bd2);color:var(--tx2);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;transition:background .15s}
 .ib2:active{background:var(--s3)}
 .bb{width:33px;height:33px;border-radius:7px;background:var(--s2);border:1px solid var(--bd2);color:var(--tx2);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px}
 
-#nav{position:absolute;bottom:0;left:0;right:0;height:var(--nav);background:rgba(5,8,15,0.97);backdrop-filter:blur(24px);border-top:1px solid var(--bd2);display:flex;align-items:center;justify-content:space-around;padding:0 4px;z-index:100}
+#nav{position:absolute;bottom:0;left:0;right:0;height:var(--nav);background:color-mix(in srgb,var(--bg) 97%,transparent);backdrop-filter:blur(24px);border-top:1px solid var(--bd2);display:flex;align-items:center;justify-content:space-around;padding:0 4px;z-index:100}
 .nb{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:6px 0;cursor:pointer;border-radius:9px;transition:all .2s;color:var(--tx3)}
 .nb i{font-size:23px;transition:all .2s}
 .nb span{font-size:10.5px;font-weight:700;letter-spacing:.02em}
 .nb.active{color:var(--lime)}
-.nb.active i{filter:drop-shadow(0 0 4px rgba(184,255,58,.4))}
-.nb.cx{flex:0 0 56px;height:56px;border-radius:16px;margin-top:-16px;background:var(--lime);color:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 6px 16px rgba(184,255,58,.35);border:none;gap:2px}
+.nb.active i{filter:drop-shadow(0 0 4px color-mix(in srgb,var(--lime) 40%,transparent))}
+.nb.cx{flex:0 0 56px;height:56px;border-radius:16px;margin-top:-16px;background:var(--lime);color:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 6px 16px color-mix(in srgb,var(--lime) 35%,transparent);border:none;gap:2px}
 .nb.cx i{font-size:24px;color:var(--bg)}
 .nb.cx span{font-size:9.5px;color:var(--bg);font-weight:900}
 .nb.cx.active{background:var(--lime);color:var(--bg)}
@@ -61,9 +96,9 @@ html,body{height:100%;overflow:hidden;background:var(--bg);font-family:'Sarabun'
 .card{background:var(--s1);border:1px solid var(--bd);border-radius:var(--r);overflow:hidden}
 .chip{display:inline-flex;align-items:center;gap:3px;padding:3px 10px;border-radius:5px;font-size:11px;font-weight:800;letter-spacing:.05em;text-transform:uppercase}
 .cl{background:var(--lb);border:1px solid var(--lbd);color:var(--lime)}
-.cr{background:var(--rb);border:1px solid var(--rbd);color:#ff7070}
-.ca{background:var(--ab);border:1px solid var(--abd);color:#ffcc55}
-.cg{background:var(--gb);border:1px solid var(--gbd);color:#33ff99}
+.cr{background:var(--rb);border:1px solid var(--rbd);color:var(--red-tx)}
+.ca{background:var(--ab);border:1px solid var(--abd);color:var(--amb-tx)}
+.cg{background:var(--gb);border:1px solid var(--gbd);color:var(--grn-tx)}
 .cgr{background:var(--s2);border:1px solid var(--bd2);color:var(--tx2)}
 
 .sl{padding:14px 16px 8px;font-size:10px;font-weight:800;color:var(--tx3);text-transform:uppercase;letter-spacing:.14em}
@@ -76,13 +111,13 @@ html,body{height:100%;overflow:hidden;background:var(--bg);font-family:'Sarabun'
 .sw{position:relative;margin:12px 16px}
 .sw .il{position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:16px;color:var(--lime);pointer-events:none}
 .si{width:100%;padding:11px 13px 11px 40px;background:var(--s2);border:1px solid var(--bd2);border-radius:var(--rs);color:var(--tx);font-family:'Sarabun',sans-serif;font-size:13px;outline:none;transition:border-color .2s,box-shadow .2s}
-.si:focus{border-color:var(--lbd);box-shadow:0 0 0 3px rgba(184,255,58,.05)}
+.si:focus{border-color:var(--lbd);box-shadow:0 0 0 3px color-mix(in srgb,var(--lime) 5%,transparent)}
 .si::placeholder{color:var(--tx3)}
-.dd{position:absolute;top:calc(100% + 4px);left:0;right:0;background:#090e1c;border:1px solid var(--bd2);border-radius:var(--rs);max-height:220px;overflow-y:auto;z-index:200;display:none;scrollbar-width:none;box-shadow:0 18px 44px rgba(0,0,0,.85)}
+.dd{position:absolute;top:calc(100% + 4px);left:0;right:0;background:var(--bg2);border:1px solid var(--bd2);border-radius:var(--rs);max-height:220px;overflow-y:auto;z-index:200;display:none;scrollbar-width:none;box-shadow:0 18px 44px rgba(0,0,0,.85)}
 .dd.open{display:block}
 .ddi{padding:9px 13px;cursor:pointer;display:flex;align-items:center;gap:9px;border-bottom:1px solid var(--bd);transition:background .1s}
 .ddi:last-child{border-bottom:none}
-.ddi:active,.ddi:hover{background:rgba(184,255,58,.04)}
+.ddi:active,.ddi:hover{background:color-mix(in srgb,var(--lime) 4%,transparent)}
 .dic{font-size:18px;width:28px;text-align:center;flex-shrink:0}
 .dn{font-size:12px;font-weight:700;color:var(--tx)}
 .dc{font-size:8px;color:var(--tx3);font-family:'Sarabun',monospace;margin-top:1px}
@@ -94,7 +129,7 @@ html,body{height:100%;overflow:hidden;background:var(--bg);font-family:'Sarabun'
 .fc.active{background:var(--lb);border-color:var(--lbd);color:var(--lime)}
 
 .cli{display:flex;align-items:center;gap:11px;padding:11px 16px;border-bottom:1px solid var(--bd);cursor:pointer;transition:background .1s}
-.cli:active{background:rgba(184,255,58,.03)}
+.cli:active{background:color-mix(in srgb,var(--lime) 3%,transparent)}
 .clic{font-size:19px;width:34px;height:34px;display:flex;align-items:center;justify-content:center;background:var(--s2);border-radius:7px;flex-shrink:0}
 .clin{font-size:14px;font-weight:700}
 .clis{font-size:10px;color:var(--tx3);font-family:'Sarabun',monospace;margin-top:2px}
@@ -102,17 +137,17 @@ html,body{height:100%;overflow:hidden;background:var(--bg);font-family:'Sarabun'
 .sln{font-size:10px;font-weight:800;color:var(--tx3);text-transform:uppercase;letter-spacing:.1em;padding:13px 16px 6px;display:flex;align-items:center;gap:6px}
 .snn{width:16px;height:16px;border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:900}
 .sna{background:var(--lb);border:1px solid var(--lbd);color:var(--lime)}
-.snb{background:rgba(255,100,200,.09);border:1px solid rgba(255,100,200,.22);color:#ff64c8}
+.snb{background:color-mix(in srgb,var(--pink) 9%,transparent);border:1px solid color-mix(in srgb,var(--pink) 22%,transparent);color:var(--pink-tx)}
 
 .se{margin:0 16px;background:var(--s1);border:1.5px dashed var(--bd2);border-radius:var(--r);padding:18px;display:flex;flex-direction:column;align-items:center;gap:7px;cursor:pointer;transition:border-color .2s,background .2s}
-.se:active{background:rgba(184,255,58,.03);border-color:var(--lbd)}
+.se:active{background:color-mix(in srgb,var(--lime) 3%,transparent);border-color:var(--lbd)}
 .se i{font-size:20px;color:var(--tx3)}
 .se span{font-size:11px;color:var(--tx3);font-weight:500}
 .ss{margin:0 16px;background:var(--s2);border:1px solid var(--bd2);border-radius:var(--r);padding:13px;display:flex;align-items:center;gap:11px;position:relative}
 .ssic{font-size:24px;width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.3);border-radius:8px;flex-shrink:0}
 .ssnm{font-size:12px;font-weight:800}
 .sssb{font-size:8px;color:var(--tx3);font-family:'Sarabun',monospace;margin-top:2px}
-.sx{position:absolute;top:9px;right:9px;width:20px;height:20px;border-radius:4px;background:rgba(255,255,255,.06);border:none;color:var(--tx3);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:10px}
+.sx{position:absolute;top:9px;right:9px;width:20px;height:20px;border-radius:4px;background:color-mix(in srgb,var(--fg) 6%,transparent);border:none;color:var(--tx3);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:10px}
 
 .vr{display:flex;align-items:center;gap:9px;padding:7px 16px}
 .vl{flex:1;height:1px;background:var(--bd)}
@@ -123,15 +158,15 @@ html,body{height:100%;overflow:hidden;background:var(--bg);font-family:'Sarabun'
 .rbi{font-size:30px;flex-shrink:0}
 .rbt{font-size:14px;font-weight:900;letter-spacing:-.01em}
 .rbs{font-size:10px;margin-top:2px;opacity:.7;font-weight:800;text-transform:uppercase;letter-spacing:.09em}
-.rb.red .rbh{background:linear-gradient(135deg,rgba(150,18,18,.85),rgba(80,0,0,.7));border:1px solid rgba(255,56,56,.32)}
-.rb.amb .rbh{background:linear-gradient(135deg,rgba(130,75,0,.85),rgba(75,45,0,.7));border:1px solid rgba(255,170,0,.32)}
-.rb.grn .rbh{background:linear-gradient(135deg,rgba(0,90,55,.85),rgba(0,55,32,.7));border:1px solid rgba(0,232,122,.32)}
+.rb.red .rbh{background:var(--vr-red);color:var(--vrt-red);border:1px solid color-mix(in srgb,var(--red) 32%,transparent)}
+.rb.amb .rbh{background:var(--vr-amb);color:var(--vrt-amb);border:1px solid color-mix(in srgb,var(--amb) 32%,transparent)}
+.rb.grn .rbh{background:var(--vr-grn);color:var(--vrt-grn);border:1px solid color-mix(in srgb,var(--grn) 32%,transparent)}
 
 .rds{display:flex;gap:3px}
-.rd{width:8px;height:8px;border-radius:2px;background:rgba(255,255,255,.07)}
-.rd.on.red{background:var(--red);box-shadow:0 0 5px rgba(255,56,56,.65)}
-.rd.on.amb{background:var(--amb);box-shadow:0 0 5px rgba(255,170,0,.65)}
-.rd.on.grn{background:var(--grn);box-shadow:0 0 5px rgba(0,232,122,.65)}
+.rd{width:8px;height:8px;border-radius:2px;background:color-mix(in srgb,var(--fg) 7%,transparent)}
+.rd.on.red{background:var(--red);box-shadow:0 0 5px color-mix(in srgb,var(--red) 65%,transparent)}
+.rd.on.amb{background:var(--amb);box-shadow:0 0 5px color-mix(in srgb,var(--amb) 65%,transparent)}
+.rd.on.grn{background:var(--grn);box-shadow:0 0 5px color-mix(in srgb,var(--grn) 65%,transparent)}
 
 .ib{margin:0 16px 9px;padding:12px;border-radius:var(--rs);display:flex;gap:9px;align-items:flex-start}
 .ib.red{background:var(--rb);border:1px solid var(--rbd)}
@@ -139,15 +174,15 @@ html,body{height:100%;overflow:hidden;background:var(--bg);font-family:'Sarabun'
 .ib.grn{background:var(--gb);border:1px solid var(--gbd)}
 .ib.lm{background:var(--lb);border:1px solid var(--lbd)}
 .ib i{font-size:17px;flex-shrink:0;margin-top:1px}
-.ib.red i{color:#ff7070}.ib.amb i{color:#ffcc55}.ib.grn i{color:#33ff99}.ib.lm i{color:var(--lime)}
+.ib.red i{color:var(--red-tx)}.ib.amb i{color:var(--amb-tx)}.ib.grn i{color:var(--grn-tx)}.ib.lm i{color:var(--lime)}
 .ibt{font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px}
-.ib.red .ibt{color:#ff7070}.ib.amb .ibt{color:#ffcc55}.ib.grn .ibt{color:#33ff99}.ib.lm .ibt{color:var(--lime)}
+.ib.red .ibt{color:var(--red-tx)}.ib.amb .ibt{color:var(--amb-tx)}.ib.grn .ibt{color:var(--grn-tx)}.ib.lm .ibt{color:var(--lime)}
 .ibb{font-size:12px;color:var(--tx2);line-height:1.65}
 
 /* ── RESULT v3 ── */
 .res-pair{display:grid;grid-template-columns:1fr 40px 1fr;margin:13px 16px 0;border-radius:var(--r);overflow:hidden;border:1px solid var(--bd2)}
-.res-pair-a{background:rgba(184,255,58,.06);padding:13px 10px;text-align:center}
-.res-pair-b{background:rgba(255,100,200,.06);padding:13px 10px;text-align:center}
+.res-pair-a{background:color-mix(in srgb,var(--lime) 6%,transparent);padding:13px 10px;text-align:center}
+.res-pair-b{background:color-mix(in srgb,var(--pink) 6%,transparent);padding:13px 10px;text-align:center}
 .res-pair-vs{background:var(--s1);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px}
 .res-chem-ic{font-size:28px;margin-bottom:5px}
 .res-chem-nm{font-size:11.5px;font-weight:800;color:var(--tx);line-height:1.3}
@@ -180,7 +215,33 @@ html,body{height:100%;overflow:hidden;background:var(--bg);font-family:'Sarabun'
 
 
 .tbb{display:flex;border-bottom:1px solid var(--bd)}
-.tbtn{flex:1;padding:12px 8px;font-size:12px;font-weight:700;color:var(--tx3);background:none;border:none;cursor:pointer;border-bottom:2px solid transparent;font-family:'Sarabun',sans-serif;transition:all .2s;text-align:center;text-transform:uppercase;letter-spacing:.05em}
+#ask-fab{position:absolute;right:14px;bottom:calc(var(--nav) + 14px);z-index:95;display:flex;align-items:center;gap:6px;padding:10px 14px;border-radius:24px;background:var(--lime);color:var(--bg);border:none;font-family:'Sarabun',sans-serif;font-size:12px;font-weight:800;cursor:pointer;box-shadow:0 4px 16px rgba(0,0,0,.45)}
+#ask-fab i{font-size:17px}
+#ask-fab.hide{display:none}
+.ask-subt{font-size:9.5px;color:var(--tx3);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ask-emg{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;padding:10px 16px 4px}
+.ask-sit{padding:9px 4px;border-radius:var(--rs);background:var(--rb);border:1px solid var(--rbd);color:var(--red-tx);font-family:'Sarabun',sans-serif;font-size:11.5px;font-weight:700;cursor:pointer}
+.ask-log{display:flex;flex-direction:column;gap:10px;padding:10px 16px 16px}
+.ask-me{align-self:flex-end;max-width:85%;background:var(--lb);border:1px solid var(--lbd);color:var(--lime);padding:8px 12px;border-radius:14px 14px 4px 14px;font-size:12.5px;line-height:1.5}
+.ask-card{background:var(--s1);border:1px solid var(--bd2);border-radius:var(--r);overflow:hidden}
+.ask-card.ask-red{border-color:var(--rbd)}.ask-card.ask-red .ask-ct{background:var(--rb);color:var(--red-tx)}
+.ask-card.ask-amb{border-color:var(--abd)}.ask-card.ask-amb .ask-ct{background:var(--ab);color:var(--amb)}
+.ask-card.ask-grn{border-color:var(--gbd)}.ask-card.ask-grn .ask-ct{background:var(--gb);color:var(--grn)}
+.ask-ct{padding:9px 12px;font-size:12.5px;font-weight:800}
+.ask-cb{padding:8px 12px;font-size:12px;line-height:1.65;color:var(--tx2)}
+.ask-cb:empty{display:none}
+.ask-row{padding:5px 0;border-bottom:1px solid var(--bd)}.ask-row:last-child{border-bottom:none}
+.ask-row b{display:block;font-size:11px;color:var(--tx);margin-bottom:1px}
+.ask-note{margin-top:6px;font-size:10.5px;color:var(--amb);line-height:1.55}
+.ask-calls{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px}
+.ask-src{padding:0 12px 8px;font-size:9.5px;color:var(--tx3);line-height:1.5}.ask-src a{color:var(--lime)}
+.ask-chips{display:flex;flex-wrap:wrap;gap:6px;padding:0 12px 10px}
+.ask-chip{padding:6px 10px;border-radius:8px;background:var(--s2);border:1px solid var(--bd2);color:var(--tx2);font-family:'Sarabun',sans-serif;font-size:11px;font-weight:700;cursor:pointer;text-align:left}
+.ask-chip:active{background:var(--s3)}
+.ask-bar{position:sticky;bottom:0;display:flex;gap:8px;padding:10px 16px;background:color-mix(in srgb,var(--bg) 96%,transparent);border-top:1px solid var(--bd2);z-index:5}
+.ask-bar .fi{flex:1;margin:0}
+.ask-send{width:42px;flex-shrink:0;border-radius:var(--rs);background:var(--lime);border:none;color:var(--bg);font-size:17px;cursor:pointer}
+.tbtn{flex:1;padding:12px 3px;font-size:11.5px;white-space:nowrap;font-weight:700;color:var(--tx3);background:none;border:none;cursor:pointer;border-bottom:2px solid transparent;font-family:'Sarabun',sans-serif;transition:all .2s;text-align:center;text-transform:uppercase;letter-spacing:.05em}
 .tbtn.active{color:var(--lime);border-bottom-color:var(--lime)}
 .tp{display:none}.tp.active{display:block}
 
@@ -199,12 +260,12 @@ html,body{height:100%;overflow:hidden;background:var(--bg);font-family:'Sarabun'
 .qmi:active{transform:scale(.95);background:var(--s2)}
 .qmic{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
 .qmt{font-size:10.5px;font-weight:700;color:var(--tx2);text-align:center;line-height:1.25;letter-spacing:-.01em}
-.qm-blue .qmic{background:rgba(0,180,255,.12);color:#60d0ff}
-.qm-blue:active{border-color:rgba(0,180,255,.35)}
-.qm-purple .qmic{background:rgba(168,85,247,.12);color:#c084fc}
-.qm-purple:active{border-color:rgba(168,85,247,.35)}
-.qm-red .qmic{background:rgba(255,56,56,.12);color:#ff7070}
-.qm-red:active{border-color:rgba(255,56,56,.35)}
+.qm-blue .qmic{background:color-mix(in srgb,var(--blue) 12%,transparent);color:var(--blue-tx)}
+.qm-blue:active{border-color:color-mix(in srgb,var(--blue) 35%,transparent)}
+.qm-purple .qmic{background:color-mix(in srgb,var(--purple) 12%,transparent);color:var(--purple-tx)}
+.qm-purple:active{border-color:color-mix(in srgb,var(--purple) 35%,transparent)}
+.qm-red .qmic{background:color-mix(in srgb,var(--red) 12%,transparent);color:var(--red-tx)}
+.qm-red:active{border-color:color-mix(in srgb,var(--red) 35%,transparent)}
 .qm-lime .qmic{background:var(--lb);color:var(--lime)}
 .qm-lime:active{border-color:var(--lbd)}
 .qm-grey .qmic{background:var(--s3);color:var(--tx2)}
@@ -212,7 +273,7 @@ html,body{height:100%;overflow:hidden;background:var(--bg);font-family:'Sarabun'
 
 .sl-row{display:flex;align-items:center;justify-content:space-between}
 .sl-clear{font-size:9.5px;font-weight:800;color:var(--tx3);text-transform:uppercase;letter-spacing:.05em;cursor:pointer;display:flex;align-items:center;gap:4px;padding:4px 8px;margin-right:10px;border-radius:6px;transition:background .15s,color .15s}
-.sl-clear:active{background:var(--rb);color:#ff7070}
+.sl-clear:active{background:var(--rb);color:var(--red-tx)}
 
 /* ── v3 HEADER SUMMARY ── */
 .hsum{display:flex;align-items:center;gap:7px;margin-top:5px;justify-content:center}
@@ -222,14 +283,14 @@ html,body{height:100%;overflow:hidden;background:var(--bg);font-family:'Sarabun'
 .hsum-sep{width:1px;height:11px;background:var(--bd2)}
 
 /* ── v3 PRIMARY ACTION ── */
-.pact{margin:14px 16px 0;background:linear-gradient(135deg,var(--lime),var(--lime2));border-radius:var(--r);padding:16px 17px;display:flex;align-items:center;gap:14px;cursor:pointer;position:relative;overflow:hidden;box-shadow:0 10px 30px -8px rgba(184,255,58,.4);transition:transform .15s}
+.pact{margin:14px 16px 0;background:linear-gradient(135deg,var(--lime),var(--lime2));border-radius:var(--r);padding:16px 17px;display:flex;align-items:center;gap:14px;cursor:pointer;position:relative;overflow:hidden;box-shadow:0 10px 30px -8px color-mix(in srgb,var(--lime) 40%,transparent);transition:transform .15s}
 .pact:active{transform:scale(.98)}
-.pact::after{content:'';position:absolute;right:-30px;top:-30px;width:130px;height:130px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.18),transparent 70%);pointer-events:none}
-.pact-ic{width:46px;height:46px;border-radius:13px;background:rgba(5,8,15,.16);display:flex;align-items:center;justify-content:center;font-size:24px;color:var(--bg);flex-shrink:0}
+.pact::after{content:'';position:absolute;right:-30px;top:-30px;width:130px;height:130px;border-radius:50%;background:radial-gradient(circle,color-mix(in srgb,var(--fg) 18%,transparent),transparent 70%);pointer-events:none}
+.pact-ic{width:46px;height:46px;border-radius:13px;background:color-mix(in srgb,var(--bg) 16%,transparent);display:flex;align-items:center;justify-content:center;font-size:24px;color:var(--bg);flex-shrink:0}
 .pact-main{flex:1;min-width:0}
 .pact-t{font-size:16px;font-weight:900;color:var(--bg);letter-spacing:-.02em;line-height:1.1}
-.pact-s{font-size:10.5px;font-weight:700;color:rgba(5,8,15,.62);margin-top:2px}
-.pact-go{width:30px;height:30px;border-radius:9px;background:rgba(5,8,15,.16);display:flex;align-items:center;justify-content:center;font-size:17px;color:var(--bg);flex-shrink:0}
+.pact-s{font-size:10.5px;font-weight:700;color:color-mix(in srgb,var(--bg) 62%,transparent);margin-top:2px}
+.pact-go{width:30px;height:30px;border-radius:9px;background:color-mix(in srgb,var(--bg) 16%,transparent);display:flex;align-items:center;justify-content:center;font-size:17px;color:var(--bg);flex-shrink:0}
 .pact-chips{display:flex;gap:6px;margin:8px 16px 0}
 .pact-chip{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:9px 4px;background:var(--s1);border:1px solid var(--bd);border-radius:var(--rs);cursor:pointer;transition:background .15s,border-color .15s}
 .pact-chip:active{background:var(--s2);border-color:var(--lbd)}
@@ -247,11 +308,11 @@ html,body{height:100%;overflow:hidden;background:var(--bg);font-family:'Sarabun'
 .kc-grn .kc-ic{background:var(--gb);color:var(--grn)}
 .kc-grn .kc-n{color:var(--grn)}
 .kc-red .kc-ic{background:var(--rb);color:var(--red)}
-.kc-red .kc-n{color:#ff7070}
+.kc-red .kc-n{color:var(--red-tx)}
 .kc-amb .kc-ic{background:var(--ab);color:var(--amb)}
 .kc-amb .kc-n{color:var(--amb)}
-.kc-blue .kc-ic{background:rgba(0,180,255,.1);color:#60d0ff}
-.kc-blue .kc-n{color:#60d0ff}
+.kc-blue .kc-ic{background:color-mix(in srgb,var(--blue) 10%,transparent);color:var(--blue-tx)}
+.kc-blue .kc-n{color:var(--blue-tx)}
 
 /* ── v3 RISK DONUT ── */
 .rcard{margin:0 16px;background:var(--s1);border:1px solid var(--bd);border-radius:var(--r);padding:15px}
@@ -275,7 +336,7 @@ html,body{height:100%;overflow:hidden;background:var(--bg);font-family:'Sarabun'
 /* ── v3 RECENT ANALYSIS ── */
 .ra{display:flex;align-items:center;gap:11px;padding:11px 14px;border-bottom:1px solid var(--bd);cursor:pointer;transition:background .12s}
 .ra:last-child{border-bottom:none}
-.ra:active{background:rgba(184,255,58,.04)}
+.ra:active{background:color-mix(in srgb,var(--lime) 4%,transparent)}
 .ra-ic{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;font-weight:900}
 .ra-main{flex:1;min-width:0}
 .ra-n{font-size:13px;font-weight:700;color:var(--tx);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -298,8 +359,8 @@ html,body{height:100%;overflow:hidden;background:var(--bg);font-family:'Sarabun'
 
 .hi{display:flex;align-items:center;gap:9px;padding:10px 16px;border-bottom:1px solid var(--bd);cursor:pointer;transition:background .12s}
 .hi:last-child{border-bottom:none}
-.hi:active{background:rgba(184,255,58,.04)}
-.hi:active{background:rgba(184,255,58,.025)}
+.hi:active{background:color-mix(in srgb,var(--lime) 4%,transparent)}
+.hi:active{background:color-mix(in srgb,var(--lime) 2.5%,transparent)}
 .hd{width:7px;height:7px;border-radius:1px;flex-shrink:0}
 
 /* Swipe to delete */
@@ -315,17 +376,17 @@ html,body{height:100%;overflow:hidden;background:var(--bg);font-family:'Sarabun'
 .pin{font-size:10px;font-weight:800;color:var(--tx2);text-align:center;line-height:1.4;text-transform:uppercase;letter-spacing:.03em}
 .pck{position:absolute;top:4px;right:4px;width:14px;height:14px;border-radius:2px;background:var(--lime);display:flex;align-items:center;justify-content:center;font-size:7px;color:var(--bg);font-weight:900}
 
-.emb{margin:11px 16px;background:linear-gradient(135deg,rgba(150,18,18,.7),rgba(80,0,0,.5));border:1px solid rgba(255,56,56,.32);border-radius:var(--r);padding:13px 15px;display:flex;align-items:center;gap:11px}
+.emb{margin:11px 16px;background:var(--vr-red);color:var(--vrt-red);border:1px solid color-mix(in srgb,var(--red) 32%,transparent);border-radius:var(--r);padding:13px 15px;display:flex;align-items:center;gap:11px}
 .sti{display:flex;align-items:flex-start;gap:11px;padding:10px 16px;border-bottom:1px solid var(--bd)}
 .stn{width:22px;height:22px;border-radius:4px;background:var(--lb);border:1px solid var(--lbd);color:var(--lime);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900;flex-shrink:0;font-family:'Sarabun',sans-serif}
 .stt{font-size:13px;color:var(--tx2);line-height:1.55;padding-top:3px}
 .cb{margin:9px 16px;background:linear-gradient(135deg,#be1515,#780000);border:none;border-radius:var(--r);padding:15px;display:flex;align-items:center;justify-content:center;gap:9px;cursor:pointer;width:calc(100% - 32px);color:#fff;font-family:'Sarabun',sans-serif;font-size:19px;font-weight:900;box-shadow:0 4px 22px rgba(190,21,21,.42);transition:all .2s}
 .cb:active{transform:scale(.97)}
 
-#toast{position:absolute;bottom:calc(var(--nav) + 9px);left:50%;transform:translateX(-50%);background:rgba(8,12,22,.98);border:1px solid var(--bd2);border-radius:6px;padding:6px 15px;font-size:10px;font-weight:700;color:var(--tx);z-index:9999;opacity:0;transition:opacity .22s;white-space:nowrap;backdrop-filter:blur(16px);pointer-events:none}
+#toast{position:absolute;bottom:calc(var(--nav) + 9px);left:50%;transform:translateX(-50%);background:color-mix(in srgb,var(--bg2) 98%,transparent);border:1px solid var(--bd2);border-radius:6px;padding:6px 15px;font-size:10px;font-weight:700;color:var(--tx);z-index:9999;opacity:0;transition:opacity .22s;white-space:nowrap;backdrop-filter:blur(16px);pointer-events:none}
 #toast.show{opacity:1}
 
-.dh{padding:18px 16px;background:linear-gradient(160deg,rgba(184,255,58,.055),transparent);display:flex;align-items:center;gap:15px;border-bottom:1px solid var(--bd)}
+.dh{padding:18px 16px;background:linear-gradient(160deg,color-mix(in srgb,var(--lime) 5.5%,transparent),transparent);display:flex;align-items:center;gap:15px;border-bottom:1px solid var(--bd)}
 .dhic{font-size:42px}
 .dhnm{font-size:16px;font-weight:900;letter-spacing:-.02em}
 .dhlat{font-size:10px;color:var(--tx3);margin-top:2px;font-family:'Sarabun',monospace}
@@ -341,21 +402,21 @@ html,body{height:100%;overflow:hidden;background:var(--bg);font-family:'Sarabun'
 .crd{padding:16px 16px 4px;text-align:center;font-size:8px;color:var(--tx3);letter-spacing:.06em;text-transform:uppercase}
 .crd strong{color:var(--lime);font-weight:900;font-size:9px;display:block;margin-bottom:2px;letter-spacing:.14em}
 .vt{display:inline-flex;align-items:center;gap:3px;padding:1px 6px;border-radius:3px;background:var(--lb);border:1px solid var(--lbd);color:var(--lime);font-size:8px;font-weight:900;letter-spacing:.06em;text-transform:uppercase}
-.gt{background:linear-gradient(90deg,var(--lime),#e0ff8a,var(--lime));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.gt{background:linear-gradient(90deg,var(--lime),var(--lime),var(--lime));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 /* ── ADMIN ── */
 .fi{width:100%;padding:10px 12px;background:var(--s2);border:1px solid var(--bd2);border-radius:var(--rs);color:var(--tx);font-family:'Sarabun',sans-serif;font-size:13px;outline:none;transition:border-color .2s,box-shadow .2s}
-.fi:focus{border-color:var(--lbd);box-shadow:0 0 0 3px rgba(184,255,58,.05)}
+.fi:focus{border-color:var(--lbd);box-shadow:0 0 0 3px color-mix(in srgb,var(--lime) 5%,transparent)}
 .fi::placeholder{color:var(--tx3)}
-select.fi option{background:#0c1120;color:var(--tx)}
+select.fi option{background:var(--bg2);color:var(--tx)}
 
 .pkey{padding:14px;background:var(--s2);border:1px solid var(--bd2);border-radius:var(--rs);color:var(--tx);font-family:'Sarabun',sans-serif;font-size:18px;font-weight:700;cursor:pointer;transition:all .15s}
 .pkey:active{background:var(--lime);color:var(--bg);transform:scale(.94)}
 .pkdel{font-size:14px}
 .pdot{width:10px;height:10px;border-radius:2px;background:var(--s3);transition:background .15s}
-.pdot.filled{background:var(--lime);box-shadow:0 0 8px rgba(184,255,58,.6)}
+.pdot.filled{background:var(--lime);box-shadow:0 0 8px color-mix(in srgb,var(--lime) 60%,transparent)}
 
 .admin-item{display:flex;align-items:center;gap:11px;padding:11px 16px;border-bottom:1px solid var(--bd);transition:background .1s}
-.admin-item:active{background:rgba(184,255,58,.02)}
+.admin-item:active{background:color-mix(in srgb,var(--lime) 2%,transparent)}
 .ai-icon{font-size:18px;width:32px;height:32px;display:flex;align-items:center;justify-content:center;background:var(--s2);border-radius:6px;flex-shrink:0}
 .ai-name{font-size:12px;font-weight:700}
 .ai-sub{font-size:8px;color:var(--tx3);font-family:'Sarabun',monospace;margin-top:1px}
@@ -363,7 +424,7 @@ select.fi option{background:#0c1120;color:var(--tx)}
 .ai-btn{width:28px;height:28px;border-radius:5px;border:1px solid var(--bd2);background:var(--s2);color:var(--tx2);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:13px;transition:all .15s}
 .ai-btn:active{transform:scale(.9)}
 .ai-btn.edit:active{background:var(--lb);border-color:var(--lbd);color:var(--lime)}
-.ai-btn.del:active{background:var(--rb);border-color:var(--rbd);color:#ff7070}
+.ai-btn.del:active{background:var(--rb);border-color:var(--rbd);color:var(--red-tx)}
 
 .admin-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:0 16px}
 .ast{background:var(--s2);border:1px solid var(--bd);border-radius:var(--rs);padding:10px;text-align:center}
@@ -375,13 +436,13 @@ select.fi option{background:#0c1120;color:var(--tx)}
 /* ── SPLASH ── */
 #splash{position:fixed;inset:0;background:var(--bg);z-index:10000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;transition:opacity .5s ease,transform .5s ease}
 #splash.hide{opacity:0;transform:scale(1.04);pointer-events:none}
-.sp-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(184,255,58,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(184,255,58,0.04) 1px,transparent 1px);background-size:40px 40px}
-.sp-glow{width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(184,255,58,.18),transparent 70%);position:absolute;top:50%;left:50%;transform:translate(-50%,-60%);pointer-events:none}
+.sp-grid{position:absolute;inset:0;background-image:linear-gradient(color-mix(in srgb,var(--lime) 4%,transparent) 1px,transparent 1px),linear-gradient(90deg,color-mix(in srgb,var(--lime) 4%,transparent) 1px,transparent 1px);background-size:40px 40px}
+.sp-glow{width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,color-mix(in srgb,var(--lime) 18%,transparent),transparent 70%);position:absolute;top:50%;left:50%;transform:translate(-50%,-60%);pointer-events:none}
 .sp-logo{font-size:52px;margin-bottom:14px;position:relative;z-index:1;animation:spPop .6s cubic-bezier(.34,1.56,.64,1) forwards}
-.sp-title{font-size:26px;font-weight:900;letter-spacing:-.03em;position:relative;z-index:1;background:linear-gradient(90deg,var(--lime),#e8ff9a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.sp-title{font-size:26px;font-weight:900;letter-spacing:-.03em;position:relative;z-index:1;background:linear-gradient(90deg,var(--lime),var(--lime));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .sp-sub{font-size:10px;color:var(--tx3);font-weight:600;letter-spacing:.12em;text-transform:uppercase;margin-top:6px;position:relative;z-index:1}
 .sp-ver{margin-top:10px;padding:3px 10px;border-radius:4px;background:var(--lb);border:1px solid var(--lbd);color:var(--lime);font-size:9px;font-weight:900;letter-spacing:.08em;position:relative;z-index:1}
-.sp-bar{width:160px;height:3px;background:rgba(255,255,255,.07);border-radius:99px;margin-top:32px;overflow:hidden;position:relative;z-index:1}
+.sp-bar{width:160px;height:3px;background:color-mix(in srgb,var(--fg) 7%,transparent);border-radius:99px;margin-top:32px;overflow:hidden;position:relative;z-index:1}
 .sp-fill{height:100%;background:linear-gradient(90deg,var(--lime2),var(--lime));border-radius:99px;animation:spLoad 1.6s ease forwards}
 .sp-by{position:absolute;bottom:28px;font-size:8px;color:var(--tx3);font-weight:700;letter-spacing:.1em;text-transform:uppercase;z-index:1}
 .sp-by strong{color:var(--lime)}
@@ -390,14 +451,14 @@ select.fi option{background:#0c1120;color:var(--tx)}
 
 /* ── ONBOARDING ── */
 #onboard{position:fixed;inset:0;background:rgba(0,0,0,.92);backdrop-filter:blur(16px);z-index:9000;display:none;flex-direction:column;align-items:center;justify-content:flex-end;padding:0 0 28px}
-.ob-card{width:calc(100% - 32px);max-width:398px;background:#0c1120;border:1px solid var(--bd2);border-radius:20px 20px 16px 16px;overflow:hidden}
+.ob-card{width:calc(100% - 32px);max-width:398px;background:var(--bg2);border:1px solid var(--bd2);border-radius:20px 20px 16px 16px;overflow:hidden}
 .ob-img{padding:28px 24px 0;text-align:center}
 .ob-icon{font-size:52px;margin-bottom:10px}
 .ob-title{font-size:17px;font-weight:900;color:var(--tx);margin-bottom:6px;letter-spacing:-.02em}
 .ob-desc{font-size:12px;color:var(--tx2);line-height:1.65;padding:0 4px}
 .ob-dots{display:flex;gap:6px;justify-content:center;padding:18px 0 4px}
 .ob-dot{width:6px;height:6px;border-radius:2px;background:var(--s3);transition:all .2s}
-.ob-dot.active{width:20px;background:var(--lime);box-shadow:0 0 6px rgba(184,255,58,.5)}
+.ob-dot.active{width:20px;background:var(--lime);box-shadow:0 0 6px color-mix(in srgb,var(--lime) 50%,transparent)}
 .ob-actions{display:flex;gap:8px;padding:14px 16px 16px;border-top:1px solid var(--bd)}
 .ob-skip{padding:12px 16px;background:none;border:1px solid var(--bd2);border-radius:var(--rs);color:var(--tx3);font-family:'Sarabun',sans-serif;font-size:12px;font-weight:700;cursor:pointer;flex-shrink:0}
 .ob-next{flex:1;padding:12px;background:var(--lime);border:none;border-radius:var(--rs);color:var(--bg);font-family:'Sarabun',sans-serif;font-size:13px;font-weight:900;cursor:pointer;transition:all .2s}
@@ -451,7 +512,7 @@ select.fi option{background:#0c1120;color:var(--tx)}
 .sf-src{margin:8px 16px 0;font-size:9.5px;color:var(--tx3);line-height:1.6}
 .sf-src a{color:var(--lime)}
 .sf-react{margin:10px 16px 0;padding:10px 12px;background:var(--rb);border:1px solid var(--rbd);border-radius:var(--rs);font-size:11px;color:var(--tx);line-height:1.6}
-.sf-react b{color:#ff7070}
+.sf-react b{color:var(--red-tx)}
 .sf-erg{margin:10px 16px 0;padding:11px 12px;background:var(--ab);border:1px solid var(--abd);border-radius:var(--rs)}
 .sf-erg-h{font-size:10px;font-weight:800;color:var(--amb);margin-bottom:8px}
 .sf-erg-g{display:grid;grid-template-columns:1fr 1fr;gap:8px}
@@ -465,19 +526,19 @@ select.fi option{background:#0c1120;color:var(--tx)}
 .sf-list li{position:relative;padding:4px 0 4px 22px;font-size:11.5px;line-height:1.55;color:var(--tx)}
 .sf-list.do li:before{content:'✅';position:absolute;left:0;top:4px;font-size:11px}
 .sf-list.no li:before{content:'⛔';position:absolute;left:0;top:4px;font-size:11px}
-.sf-list.no li{color:#ffb3b3}
+.sf-list.no li{color:var(--red-tx)}
 .sf-aid{padding:6px 0;border-top:1px solid var(--bd)}
 .sf-aid:first-of-type{border-top:none}
 .sf-aid-k{font-size:10.5px;font-weight:800;color:var(--tx2)}
 .sf-aid-v{font-size:11.5px;color:var(--tx);line-height:1.55;margin-top:2px}
 .sf-calls{display:flex;gap:6px;margin:12px 16px 0}
 .sf-call{flex:1;text-align:center;padding:9px 4px;border-radius:var(--rs);background:var(--s2);border:1px solid var(--bd);color:var(--tx);font-size:11px;font-weight:800;text-decoration:none}
-.sf-call.red{background:var(--rb);border-color:var(--rbd);color:#ff8080}
+.sf-call.red{background:var(--rb);border-color:var(--rbd);color:var(--red-tx)}
 .sf-chem{margin:12px 16px 0;font-size:13px;font-weight:900;color:var(--tx)}
 .sf-chem span{display:block;font-size:10px;font-weight:600;color:var(--tx3)}
 .pf-chips{display:flex;flex-wrap:wrap;gap:6px;margin:0 16px}
 .pf-chip{display:flex;align-items:center;gap:6px;padding:6px 10px 6px 6px;border-radius:20px;background:var(--s2);border:1px solid var(--bd);color:var(--tx);font-size:10.5px;font-weight:700;font-family:inherit;cursor:pointer;text-align:left}
-.pf-sw{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;font-size:11px;font-weight:900;flex-shrink:0;border:1px solid rgba(255,255,255,.25)}
+.pf-sw{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;font-size:11px;font-weight:900;flex-shrink:0;border:1px solid color-mix(in srgb,var(--fg) 25%,transparent)}
 .pf-em{font-size:17px;width:22px;text-align:center;flex-shrink:0}
 .pf-grp{font-size:9px;font-weight:800;color:var(--tx3);text-transform:uppercase;letter-spacing:.08em;margin:10px 16px 5px}
 .pf-item{border-bottom:1px solid var(--bd)}
@@ -503,7 +564,7 @@ textarea.fi{resize:vertical;font-family:inherit}
 .ec-add{border-style:dashed}
 .dn{padding:10px 13px;border-bottom:1px solid var(--bd)}
 .dn:last-child{border-bottom:none}
-.dn-t{font-size:12px;font-weight:800;color:#ff8080}
+.dn-t{font-size:12px;font-weight:800;color:var(--red-tx)}
 .dn-s{font-size:10.5px;color:var(--tx2);margin-top:2px;line-height:1.5}
 .dn-s em{font-style:normal;color:var(--tx3);font-size:9px}
 .res-pair{display:flex;flex-direction:column;gap:7px;margin:0 16px}
@@ -520,7 +581,7 @@ textarea.fi{resize:vertical;font-family:inherit}
 .sp-sec-body{padding:13px 14px}
 
 /* Incident banner */
-.sp-banner{background:linear-gradient(135deg,rgba(255,56,56,.18),rgba(180,0,0,.1));border:2px solid var(--rbd);border-radius:var(--r);padding:14px;margin-bottom:12px}
+.sp-banner{background:linear-gradient(135deg,color-mix(in srgb,var(--red) 18%,transparent),rgba(180,0,0,.1));border:2px solid var(--rbd);border-radius:var(--r);padding:14px;margin-bottom:12px}
 .sp-banner-t{font-size:15px;font-weight:900;color:#ff5050;letter-spacing:-.02em}
 .sp-banner-sub{font-size:11px;color:var(--tx2);margin-top:4px;line-height:1.5}
 
@@ -556,7 +617,7 @@ textarea.fi{resize:vertical;font-family:inherit}
 .sp-role{margin-bottom:9px}
 .sp-role-hdr{display:flex;align-items:center;gap:7px;padding:8px 11px;border-radius:8px 8px 0 0;font-size:10.5px;font-weight:800}
 .sp-role-body{border-radius:0 0 8px 8px;overflow:hidden}
-.sp-act{display:flex;align-items:center;gap:9px;padding:8px 11px;border-bottom:1px solid rgba(255,255,255,.06)}
+.sp-act{display:flex;align-items:center;gap:9px;padding:8px 11px;border-bottom:1px solid color-mix(in srgb,var(--fg) 6%,transparent)}
 .sp-act:last-child{border-bottom:none}
 .sp-act-n{font-size:11.5px;font-weight:600;color:var(--tx2)}
 .sp-act i{font-size:14px;flex-shrink:0}
@@ -570,7 +631,7 @@ textarea.fi{resize:vertical;font-family:inherit}
 /* PPE grid */
 .sp-ppe-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
 .sp-ppe-item{display:flex;flex-direction:column;align-items:center;gap:5px;padding:10px 4px;background:var(--s2);border:1px solid var(--bd);border-radius:var(--rs);text-align:center}
-.sp-ppe-ic{width:36px;height:36px;border-radius:10px;background:rgba(184,255,58,.1);border:1px solid var(--lbd);display:flex;align-items:center;justify-content:center;font-size:18px}
+.sp-ppe-ic{width:36px;height:36px;border-radius:10px;background:color-mix(in srgb,var(--lime) 10%,transparent);border:1px solid var(--lbd);display:flex;align-items:center;justify-content:center;font-size:18px}
 .sp-ppe-t{font-size:9.5px;font-weight:700;color:var(--tx2);line-height:1.2}
 
 /* ── LAYOUT v3 COMPONENTS ── */
@@ -589,7 +650,7 @@ textarea.fi{resize:vertical;font-family:inherit}
 .ly-sec-body{padding:12px 13px}
 
 /* Summary banner */
-.ly-sum{background:linear-gradient(135deg,rgba(184,255,58,.08),rgba(0,0,0,0));border:1.5px solid var(--lbd);border-radius:var(--r);padding:13px;margin-bottom:10px}
+.ly-sum{background:linear-gradient(135deg,color-mix(in srgb,var(--lime) 8%,transparent),rgba(0,0,0,0));border:1.5px solid var(--lbd);border-radius:var(--r);padding:13px;margin-bottom:10px}
 .ly-sum-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:9px}
 .ly-sum-cell{background:rgba(0,0,0,.25);border-radius:8px;padding:8px;text-align:center}
 .ly-sum-n{font-size:20px;font-weight:900;font-family:'Sarabun',sans-serif;line-height:1}
@@ -660,7 +721,7 @@ textarea.fi{resize:vertical;font-family:inherit}
 .fp-box{background:var(--bg2);border:1px solid var(--bd2);border-radius:20px;padding:28px 22px;width:288px;text-align:center}
 .fp-pin-row{display:flex;justify-content:center;gap:14px;margin:18px 0 8px}
 .fp-dot{width:13px;height:13px;border-radius:50%;background:var(--s3);border:1.5px solid var(--bd2);transition:all .15s}
-.fp-dot.on{background:var(--lime);border-color:var(--lime);box-shadow:0 0 6px rgba(184,255,58,.5)}
+.fp-dot.on{background:var(--lime);border-color:var(--lime);box-shadow:0 0 6px color-mix(in srgb,var(--lime) 50%,transparent)}
 .fp-keys{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px}
 .fp-key{padding:14px 8px;background:var(--s2);border:1px solid var(--bd2);border-radius:10px;color:var(--tx);font-family:'Sarabun',sans-serif;font-size:17px;font-weight:700;cursor:pointer;transition:all .15s}
 .fp-key:active{background:var(--lb);border-color:var(--lbd)}
@@ -672,14 +733,14 @@ textarea.fi{resize:vertical;font-family:inherit}
 /* v4.2 */
 .pf-spec{display:block;font-size:8.5px;font-weight:600;color:var(--tx3);margin-top:2px;line-height:1.4}
 .emg-step{display:flex;align-items:center;gap:8px;margin:16px 16px 8px;font-size:11.5px;font-weight:900;color:var(--tx)}
-.emg-step span{width:20px;height:20px;border-radius:50%;background:var(--lime);color:#0a0f0a;display:inline-flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0}
+.emg-step span{width:20px;height:20px;border-radius:50%;background:var(--lime);color:var(--bg2);display:inline-flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0}
 .emg-sel{display:flex;align-items:center;gap:10px;margin:0 16px;padding:10px 12px;background:var(--s1);border:1.5px solid var(--lime);border-radius:var(--rs)}
 .emg-sel-ic{font-size:24px}
 .emg-sel-n{font-size:13px;font-weight:900;color:var(--tx);line-height:1.35}
 .emg-sel-s{font-size:10px;color:var(--tx3);margin-top:2px}
-.emg-x{display:inline-flex;align-items:center;gap:4px;padding:7px 10px;border-radius:8px;border:1px solid var(--bd);background:var(--s2,rgba(255,255,255,.06));color:var(--tx2);font-size:10px;font-weight:800;cursor:pointer;flex-shrink:0;font-family:inherit}
+.emg-x{display:inline-flex;align-items:center;gap:4px;padding:7px 10px;border-radius:8px;border:1px solid var(--bd);background:var(--s2,color-mix(in srgb,var(--fg) 6%,transparent));color:var(--tx2);font-size:10px;font-weight:800;cursor:pointer;flex-shrink:0;font-family:inherit}
 .emg-dn{margin-top:14px}
-.emg-dn summary{margin:0 16px;padding:10px 12px;border-radius:var(--rs);background:var(--rb);border:1px solid var(--rbd);color:#ff7070;font-size:11px;font-weight:900;cursor:pointer}
+.emg-dn summary{margin:0 16px;padding:10px 12px;border-radius:var(--rs);background:var(--rb);border:1px solid var(--rbd);color:var(--red-tx);font-size:11px;font-weight:900;cursor:pointer}
 .ed-pick{margin:0 16px 4px;display:flex;flex-wrap:wrap;gap:6px}
 .ed-pk{display:inline-flex;align-items:center;gap:6px;padding:7px 10px;border-radius:9px;border:1px solid var(--bd);background:var(--s1);color:var(--tx2);font-size:10.5px;font-weight:700;cursor:pointer;font-family:inherit;text-align:left;line-height:1.3}
 .ed-pk b{font-size:9px;color:var(--tx3);font-weight:900}
@@ -705,18 +766,16 @@ textarea.fi{resize:vertical;font-family:inherit}
     <div style="width:36px;flex-shrink:0"></div>
     <div style="text-align:center">
       <div style="display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:1px">
-        <span class="vt">v4.2</span>
+        <span class="vt">v<span class="appv"></span></span>
       </div>
       <div class="hdr-t gt" style="font-size:20px;font-weight:900;letter-spacing:-.03em">ChemNexus AI</div>
       <div class="hsum" id="hdr-summary">
         <div class="hsum-i"><span class="hsum-dot" style="background:var(--grn)"></span><b id="hs-total">21</b> สาร</div>
         <div class="hsum-sep"></div>
-        <div class="hsum-i"><span class="hsum-dot" style="background:var(--red)"></span><b id="hs-risk" style="color:#ff7070">8</b> มีข้อมูลฉุกเฉิน</div>
+        <div class="hsum-i"><span class="hsum-dot" style="background:var(--red)"></span><b id="hs-risk" style="color:var(--red-tx)">8</b> มีข้อมูลฉุกเฉิน</div>
       </div>
     </div>
-    <div class="ib2" style="position:relative" onclick="go('request')" title="ขอเพิ่มสารเคมี">
-      <i class="ph ph-plus-circle"></i>
-    </div>
+    <button class="ib2" id="theme-btn" onclick="cycleTheme()" title="สลับโหมดสว่าง / มืด" aria-label="สลับโหมดสว่าง / มืด"><i class="ph ph-circle-half"></i></button>
   </div>
   <div class="pc">
 
@@ -733,6 +792,7 @@ textarea.fi{resize:vertical;font-family:inherit}
       <div class="pact-chip" onclick="go('analyze')"><i class="ph ph-magnifying-glass"></i><span>เลือกคู่สาร</span></div>
       <div class="pact-chip" onclick="go('search')"><i class="ph ph-flask"></i><span>คลังสารเคมี</span></div>
       <div class="pact-chip" onclick="go('emergency')"><i class="ph ph-warning-octagon"></i><span>ฉุกเฉิน</span></div>
+      <div class="pact-chip" onclick="askOpen()"><i class="ph ph-chat-circle-dots"></i><span>ผู้ช่วยสารเคมี</span></div>
     </div>
 
     <!-- KPI CARDS -->
@@ -799,9 +859,9 @@ textarea.fi{resize:vertical;font-family:inherit}
         <div class="qmic"><i class="ph ph-warning-octagon"></i></div>
         <div class="qmt">ถ้าเกิด<br>เหตุ</div>
       </div>
-      <div class="qmi qm-grey" onclick="go('request')">
-        <div class="qmic"><i class="ph ph-plus-circle"></i></div>
-        <div class="qmt">ขอเพิ่ม<br>สารเคมี</div>
+      <div class="qmi qm-grey" onclick="askOpen()">
+        <div class="qmic"><i class="ph ph-chat-circle-dots"></i></div>
+        <div class="qmt">ผู้ช่วย<br>สารเคมี</div>
       </div>
     </div>
 
@@ -825,7 +885,7 @@ textarea.fi{resize:vertical;font-family:inherit}
       <div class="fc" onclick="fCls(this,'13')">13</div>
     </div>
     <div id="clc"></div>
-    <div class="crd"><strong>ธุรกิจพันธุ์กุ้งขาว 2</strong>พัฒนาโดย Atit Chimnan · ChemNexus AI 4.2 • DIW</div>
+    <div class="crd"><strong>ธุรกิจพันธุ์กุ้งขาว 2</strong>พัฒนาโดย Atit Chimnan · ChemNexus AI <span class="appv"></span> • DIW</div>
   </div>
 </div>
 
@@ -845,7 +905,7 @@ textarea.fi{resize:vertical;font-family:inherit}
     <div id="sBe" class="se" onclick="oSSO('B')"><i class="ph ph-plus-circle"></i><span>เลือกหรือค้นหาสาร B</span></div>
     <div id="sBs" class="ss" style="display:none">
       <div class="ssic" id="sBic"></div>
-      <div style="flex:1;min-width:0"><div class="ssnm" id="sBnm"></div><div class="sssb" id="sBsb"></div><div style="margin-top:5px"><span class="chip" style="background:rgba(255,100,200,.08);border:1px solid rgba(255,100,200,.22);color:#ff64c8" id="sBcl"></span></div></div>
+      <div style="flex:1;min-width:0"><div class="ssnm" id="sBnm"></div><div class="sssb" id="sBsb"></div><div style="margin-top:5px"><span class="chip" style="background:color-mix(in srgb,var(--pink) 8%,transparent);border:1px solid color-mix(in srgb,var(--pink) 22%,transparent);color:var(--pink-tx)" id="sBcl"></span></div></div>
       <button class="sx" onclick="cSl('B')"><i class="ph-bold ph-x"></i></button>
     </div>
     <div id="abw" style="margin:15px 16px 7px;display:none"><button class="btn" onclick="doAna()"><i class="ph-bold ph-atom" style="font-size:16px"></i>วิเคราะห์ความเข้ากันได้</button></div>
@@ -857,7 +917,7 @@ textarea.fi{resize:vertical;font-family:inherit}
       </div>
       <div style="font-size:9px;color:var(--lime);font-weight:800;letter-spacing:.1em;text-transform:uppercase" class="pls">กำลังเทียบตาราง DIW...</div>
     </div>
-    <div class="crd"><strong>ธุรกิจพันธุ์กุ้งขาว 2</strong>พัฒนาโดย Atit Chimnan · ChemNexus AI 4.2</div>
+    <div class="crd"><strong>ธุรกิจพันธุ์กุ้งขาว 2</strong>พัฒนาโดย Atit Chimnan · ChemNexus AI <span class="appv"></span></div>
   </div>
 </div>
 
@@ -884,6 +944,17 @@ textarea.fi{resize:vertical;font-family:inherit}
   <div class="hdr"><button class="bb" onclick="back()"><i class="ph-bold ph-caret-left"></i></button><div class="hdr-t" style="color:var(--red)">⚠ กรณีฉุกเฉิน</div></div>
   <div class="pc" id="eb"></div>
 </div>
+
+<!-- ASK — ผู้ช่วยสารเคมี (v4.3) -->
+<div id="page-ask" class="page">
+  <div class="hdr"><button class="bb" onclick="back()"><i class="ph-bold ph-caret-left"></i></button><div style="flex:1;min-width:0"><div class="hdr-t">ผู้ช่วยสารเคมี</div><div class="ask-subt" id="ask-sub"></div></div></div>
+  <div class="pc">
+    <div class="ask-emg" id="ask-emg"></div>
+    <div class="ask-log" id="ask-log"></div>
+  </div>
+  <div class="ask-bar"><input class="fi" id="ask-in" placeholder="เช่น คลอรีนผงเก็บกับกรดเกลือได้ไหม" onkeydown="if(event.key==='Enter')askSend()" autocomplete="off"><button class="ask-send" onclick="askSend()" aria-label="ส่งคำถาม"><i class="ph-bold ph-paper-plane-tilt"></i></button></div>
+</div>
+<button id="ask-fab" onclick="askOpen()" aria-label="ผู้ช่วยสารเคมี"><i class="ph-bold ph-chat-circle-dots"></i><span>ผู้ช่วย</span></button>
 
 <!-- NAV -->
 <div id="nav">
@@ -957,7 +1028,7 @@ textarea.fi{resize:vertical;font-family:inherit}
     <div style="margin:0 16px 8px;padding:10px 12px;background:var(--ab);border:1px solid var(--abd);border-radius:var(--rs);font-size:10px;color:var(--amb);line-height:1.6">
       <strong>⚠ หมายเหตุ:</strong> ผังอัตโนมัติจัดตามตาราง DIW (ห้ามเก็บร่วม/เงื่อนไข) และระยะห่างเท่านั้น — ผนังทนไฟ การระบายอากาศ ทางหนีไฟ ความสูงการวางซ้อน ต้องตรวจโดยผู้รับผิดชอบหน้างาน · 1 บล็อก = พื้นที่วางสาร 1.4 × 0.9 ม. (ชั้นวาง/พาเลท)
     </div>
-    <div class="crd"><strong>ธุรกิจพันธุ์กุ้งขาว 2</strong>พัฒนาโดย Atit Chimnan · ChemNexus AI 4.2 · จำลองผังห้อง</div>
+    <div class="crd"><strong>ธุรกิจพันธุ์กุ้งขาว 2</strong>พัฒนาโดย Atit Chimnan · ChemNexus AI <span class="appv"></span> · จำลองผังห้อง</div>
   </div>
 </div>
 
@@ -972,16 +1043,16 @@ textarea.fi{resize:vertical;font-family:inherit}
       ตาราง 23×23 class ตามมาตรฐานกรมโรงงานอุตสาหกรรม กดเซลล์เพื่อดูรายละเอียด
     </div>
     <div style="margin:0 16px 8px;display:flex;gap:8px;flex-wrap:wrap">
-      <span style="display:flex;align-items:center;gap:4px;font-size:9px;color:#ff7070"><span style="width:12px;height:12px;border-radius:2px;background:#ff3838"></span>RED ห้าม</span>
-      <span style="display:flex;align-items:center;gap:4px;font-size:9px;color:#ffcc55"><span style="width:12px;height:12px;border-radius:2px;background:#ffaa00"></span>YELLOW เงื่อนไข</span>
-      <span style="display:flex;align-items:center;gap:4px;font-size:9px;color:#33ff99"><span style="width:12px;height:12px;border-radius:2px;background:#00e87a"></span>GREEN ปลอดภัย</span>
+      <span style="display:flex;align-items:center;gap:4px;font-size:9px;color:var(--red-tx)"><span style="width:12px;height:12px;border-radius:2px;background:#ff3838"></span>RED ห้าม</span>
+      <span style="display:flex;align-items:center;gap:4px;font-size:9px;color:var(--amb-tx)"><span style="width:12px;height:12px;border-radius:2px;background:#ffaa00"></span>YELLOW เงื่อนไข</span>
+      <span style="display:flex;align-items:center;gap:4px;font-size:9px;color:var(--grn-tx)"><span style="width:12px;height:12px;border-radius:2px;background:#00e87a"></span>GREEN ปลอดภัย</span>
       <span style="display:flex;align-items:center;gap:4px;font-size:9px;color:var(--tx3)"><span style="width:12px;height:12px;border-radius:2px;background:var(--s3)"></span>Diagonal</span>
     </div>
     <!-- Matrix table container -->
     <div id="mx-table" style="margin:0 16px 12px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none"></div>
     <!-- Cell detail popup -->
     <div id="mx-detail" style="display:none;margin:0 16px 12px"></div>
-    <div class="crd"><strong>ธุรกิจพันธุ์กุ้งขาว 2</strong>พัฒนาโดย Atit Chimnan · ChemNexus AI 4.2 · DIW Matrix</div>
+    <div class="crd"><strong>ธุรกิจพันธุ์กุ้งขาว 2</strong>พัฒนาโดย Atit Chimnan · ChemNexus AI <span class="appv"></span> · DIW Matrix</div>
   </div>
 </div>
 
@@ -995,33 +1066,11 @@ textarea.fi{resize:vertical;font-family:inherit}
   <div class="pc" id="admin-body"></div>
 </div>
 
-<!-- REQUEST PAGE (ผู้ใช้ทั่วไปขอเพิ่มสาร) -->
-<div id="page-request" class="page">
-  <div class="hdr"><button class="bb" onclick="back()"><i class="ph-bold ph-caret-left"></i></button><div class="hdr-t">ขอเพิ่มสารเคมี</div></div>
-  <div class="pc">
-    <div class="card" style="margin:12px 16px 0;padding:12px 14px;font-size:11px;line-height:1.7;color:var(--tx2)">
-      ไม่พบสารที่ใช้อยู่? กรอกข้อมูลแล้วส่งให้ผู้ดูแลตรวจ — ผู้ดูแลจะตรวจ Class จาก SDS แล้วเพิ่มเข้าระบบให้ทุกคนใช้
-    </div>
-    <div style="padding:12px 16px 0;display:flex;flex-direction:column;gap:10px">
-      <div><div class="rq-l">ชื่อสารเคมี <span style="color:var(--red)">*</span></div><input class="fi" id="rq-name" placeholder="เช่น โพแทสเซียมเปอร์แมงกาเนต 99% (ผง) — ใส่ความเข้มข้น"></div>
-      <div><div class="rq-l">ชื่อการค้า / ผู้ผลิต</div><input class="fi" id="rq-trade" placeholder="ชื่อบนฉลาก"></div>
-      <div><div class="rq-l">CAS Number (ถ้ามี — ดูใน SDS หัวข้อ 3)</div><input class="fi" id="rq-cas" placeholder="เช่น 7722-64-7"></div>
-      <div><div class="rq-l">ลิงก์ SDS (ถ้ามี)</div><input class="fi" id="rq-sds" placeholder="https://..."></div>
-      <div><div class="rq-l">ใช้ทำอะไร</div><input class="fi" id="rq-use" placeholder="เช่น ฆ่าเชื้อในบ่อ"></div>
-      <div><div class="rq-l">ผู้ขอ / หน่วยงาน <span style="color:var(--red)">*</span></div><input class="fi" id="rq-who" placeholder="ชื่อ - หน่วยงาน"></div>
-      <div id="rq-err" style="font-size:10px;color:var(--red);min-height:14px;font-weight:700"></div>
-      <button class="btn" style="background:#06c755;color:#fff" onclick="sendReqLine()"><i class="ph-bold ph-paper-plane-tilt" style="font-size:16px"></i>ส่งคำขอทาง LINE</button>
-      <button class="btn bg" onclick="copyReq()"><i class="ph ph-copy" style="font-size:14px"></i>คัดลอกข้อความ</button>
-      <div style="font-size:9.5px;color:var(--tx3);line-height:1.6">มีไฟล์ SDS เป็นรูป/PDF? ส่งแนบในแชตเดียวกันต่อท้ายข้อความได้เลย</div>
-    </div>
-    <div class="crd"><strong>ธุรกิจพันธุ์กุ้งขาว 2</strong>พัฒนาโดย Atit Chimnan · ChemNexus AI 4.2 · ขอเพิ่มสาร</div>
-  </div>
-</div>
 
 <!-- ADD / EDIT FORM MODAL -->
 <div id="form-modal" style="display:none;position:absolute;inset:0;background:rgba(0,0,0,0.85);backdrop-filter:blur(12px);z-index:800;align-items:flex-end;justify-content:center">
-  <div style="width:100%;max-width:430px;background:#0c1120;border:1px solid var(--bd2);border-radius:16px 16px 0 0;padding:0 0 20px;max-height:90dvh;overflow-y:auto;scrollbar-width:none">
-    <div style="padding:16px 16px 12px;border-bottom:1px solid var(--bd2);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:#0c1120;z-index:2">
+  <div style="width:100%;max-width:430px;background:var(--bg2);border:1px solid var(--bd2);border-radius:16px 16px 0 0;padding:0 0 20px;max-height:90dvh;overflow-y:auto;scrollbar-width:none">
+    <div style="padding:16px 16px 12px;border-bottom:1px solid var(--bd2);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:var(--bg2);z-index:2">
       <div style="font-size:14px;font-weight:900;color:var(--tx)" id="form-title">เพิ่มสารเคมีใหม่</div>
       <button class="ib2" onclick="closeFormModal()"><i class="ph-bold ph-x"></i></button>
     </div>
@@ -1039,7 +1088,7 @@ textarea.fi{resize:vertical;font-family:inherit}
       </div>
 
       <!-- PubChem Smart Search -->
-      <div style="margin-bottom:14px;padding:12px;background:linear-gradient(135deg,rgba(184,255,58,.06),transparent);border:1px solid var(--lbd);border-radius:10px">
+      <div style="margin-bottom:14px;padding:12px;background:linear-gradient(135deg,color-mix(in srgb,var(--lime) 6%,transparent),transparent);border:1px solid var(--lbd);border-radius:10px">
         <div style="font-size:9px;font-weight:800;color:var(--lime);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px;display:flex;align-items:center;gap:5px">
           <i class="ph ph-magnifying-glass" style="font-size:12px"></i>
           ค้นหาจาก PubChem (NIH)
@@ -1049,7 +1098,7 @@ textarea.fi{resize:vertical;font-family:inherit}
           <input class="fi" id="f-pubchem-search" placeholder="เช่น HCl, Sodium Hydroxide, 67-56-1, H2SO4..." oninput="pubChemAutocomplete(this.value)" autocomplete="off" style="padding-right:40px">
           <div id="pubchem-loading" style="display:none;position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:12px" class="pls">⏳</div>
           <!-- Autocomplete dropdown -->
-          <div id="pubchem-dd" style="display:none;position:absolute;top:calc(100% + 4px);left:0;right:0;background:#0c1120;border:1px solid var(--bd2);border-radius:var(--rs);max-height:220px;overflow-y:auto;z-index:300;box-shadow:0 12px 36px rgba(0,0,0,.8);scrollbar-width:none"></div>
+          <div id="pubchem-dd" style="display:none;position:absolute;top:calc(100% + 4px);left:0;right:0;background:var(--bg2);border:1px solid var(--bd2);border-radius:var(--rs);max-height:220px;overflow-y:auto;z-index:300;box-shadow:0 12px 36px rgba(0,0,0,.8);scrollbar-width:none"></div>
         </div>
       </div>
 
@@ -1159,6 +1208,46 @@ textarea.fi{resize:vertical;font-family:inherit}
         <input class="fi fs" id="f-s-ag" placeholder="ปฐมพยาบาล: กลืน">
       </details>
 
+      <!-- สุขภาพ (v4.3) -->
+      <details id="f-hl-box" style="margin-bottom:14px;padding:12px;background:var(--s1);border:1px solid var(--bd);border-radius:10px">
+        <summary style="font-size:9px;font-weight:800;color:var(--lime);text-transform:uppercase;letter-spacing:.1em;cursor:pointer">สุขภาพ + กฎหมาย (ประกาศกรมสวัสดิการฯ / NIOSH / ICSC)</summary>
+        <div style="font-size:9.5px;color:var(--tx3);line-height:1.6;margin:8px 0">กรอกเฉพาะที่ต้นฉบับเขียนไว้ · เขียนอาการเป็นภาษาไทยเอง ไม่คัดลอกข้อความจากแอปอื่น · ช่องที่ไม่มีข้อมูลเว้นว่าง</div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px">
+          <button type="button" class="fc" onclick="window.open(TH_LIM_URL,'_blank')">📄 ค่าขีดจำกัดไทย 2560</button>
+          <button type="button" class="fc" onclick="window.open(TH_HC_URL,'_blank')">📄 รายชื่อตรวจสุขภาพ 2564</button>
+          <button type="button" class="fc" onclick="refLookup('niosh')">🔎 NIOSH (ตาม CAS)</button>
+          <button type="button" class="fc" onclick="refLookup('icsc')">🔎 ICSC (ตาม CAS)</button>
+        </div>
+        <div class="rq-l">ค่าขีดจำกัด (เว้นว่างถ้าไม่มี)</div>
+        <input class="fi fs" id="f-h-th" placeholder="กฎหมายไทย (ประกาศ 2560) เช่น 10 ppm (เฉลี่ยตลอดเวลาทำงาน)">
+        <input class="fi fs" id="f-h-rel" placeholder="NIOSH REL เช่น TWA 10 ppm (25 mg/m³)">
+        <input class="fi fs" id="f-h-pel" placeholder="OSHA PEL เช่น TWA 10 ppm (25 mg/m³)">
+        <input class="fi fs" id="f-h-idlh" placeholder="IDLH (NIOSH) เช่น 50 ppm">
+        <input class="fi fs" id="f-h-tlv" placeholder="TLV ที่บัตร ICSC ยกมา">
+        <input class="fi fs" id="f-h-conv" placeholder="แปลงหน่วย เช่น 1 ppm = 2.46 mg/m³">
+        <div class="rq-l" style="margin-top:6px">อาการ (ICSC ช่อง Symptoms)</div>
+        <input class="fi fs" id="f-h-si" placeholder="สูดดม">
+        <input class="fi fs" id="f-h-ss" placeholder="โดนผิว">
+        <input class="fi fs" id="f-h-se" placeholder="โดนตา">
+        <input class="fi fs" id="f-h-sg" placeholder="กลืน">
+        <label class="pf-pk"><input type="checkbox" id="f-h-absorb"><span>ซึมผ่านผิวได้ (ICSC: MAY BE ABSORBED)</span></label>
+        <label class="pf-pk"><input type="checkbox" id="f-h-delayed"><span>อาการอาจเกิดช้า / ต้องให้แพทย์เฝ้าดู (ICSC: effects may be delayed)</span></label>
+        <textarea class="fi fs" id="f-h-short" rows="2" placeholder="ผลระยะสั้น (Effects of short-term exposure)"></textarea>
+        <input class="fi fs" id="f-h-inh" placeholder="ความเสี่ยงทางหายใจ (Inhalation risk)">
+        <textarea class="fi fs" id="f-h-long" rows="2" placeholder="สัมผัสซ้ำหรือนาน (Effects of long-term exposure)"></textarea>
+        <input class="fi fs" id="f-h-organs" placeholder="อวัยวะเป้าหมาย (NIOSH Target Organs)">
+        <input class="fi fs" id="f-h-syn" placeholder="ชื่อพ้อง (NIOSH Synonyms)">
+        <div class="rq-l" style="margin-top:6px">ตรวจสุขภาพลูกจ้าง (ประกาศกรมสวัสดิการฯ 2564)</div>
+        <select class="fi fs" id="f-h-hck" style="appearance:none;cursor:pointer">
+          <option value="">ไม่อยู่ในรายชื่อ</option>
+          <option value="hc">อยู่ในรายชื่อ</option>
+          <option value="hcMay">อาจเข้าข่าย (ให้ จป./แพทย์พิจารณา)</option>
+        </select>
+        <input class="fi fs" id="f-h-hct" placeholder="ข้อ/ลำดับในประกาศ เช่น ข้อ 2 (4)(ก) กรดซัลฟูริก">
+        <input class="fi fs" id="f-h-src" placeholder="แหล่งอื่นที่ใช้ (ถ้ามี)">
+        <input class="fi fs" id="f-h-note" placeholder="หมายเหตุ เช่น บัตร ICSC เป็นของความเข้มข้นอื่น">
+      </details>
+
       <div style="margin-bottom:16px">
         <div style="font-size:8px;font-weight:800;color:var(--tx3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:5px">หมายเหตุ (optional)</div>
         <input class="fi" id="f-note" placeholder="ข้อมูลเพิ่มเติม...">
@@ -1185,7 +1274,7 @@ textarea.fi{resize:vertical;font-family:inherit}
 
 <!-- CONFIRM DELETE MODAL -->
 <div id="del-modal" style="display:none;position:absolute;inset:0;background:rgba(0,0,0,0.85);backdrop-filter:blur(12px);z-index:810;align-items:center;justify-content:center;padding:24px">
-  <div style="width:100%;max-width:300px;background:#0c1120;border:1px solid var(--rbd);border-radius:14px;padding:24px;text-align:center">
+  <div style="width:100%;max-width:300px;background:var(--bg2);border:1px solid var(--rbd);border-radius:14px;padding:24px;text-align:center">
     <div style="font-size:28px;margin-bottom:10px">🗑️</div>
     <div style="font-size:13px;font-weight:900;color:var(--tx);margin-bottom:6px">ซ่อนสารเคมี?</div>
     <div id="del-name" style="font-size:11px;color:var(--tx3);margin-bottom:20px"></div>
@@ -1218,7 +1307,7 @@ textarea.fi{resize:vertical;font-family:inherit}
   <div class="sp-logo">⚗️</div>
   <div class="sp-title">ChemNexus AI</div>
   <div class="sp-sub">Chemical Safety System</div>
-  <div class="sp-ver">v4.2</div>
+  <div class="sp-ver">v<span class="appv"></span></div>
   <div class="sp-bar"><div class="sp-fill"></div></div>
   <div class="sp-by">พัฒนาโปรแกรมโดย <strong>ธุรกิจพันธุ์กุ้งขาว 2</strong><br><span style="font-size:.85em;opacity:.6">ผู้พัฒนา Atit Chimnan</span></div>
 </div>
@@ -1241,6 +1330,21 @@ textarea.fi{resize:vertical;font-family:inherit}
 
 <script>
 const APP_ORG='ธุรกิจพันธุ์กุ้งขาว 2';
+const APP_VERSION='4.3'; // ← เปลี่ยนเลขเวอร์ชันที่นี่ที่เดียว (และ CACHE_NAME ใน sw.js)
+document.title='ChemNexus AI '+APP_VERSION;document.querySelectorAll('.appv').forEach(e=>e.textContent=APP_VERSION);
+// v4.3 โหมดสี: ตามเครื่อง → สว่าง → มืด (จำไว้ในเครื่อง)
+const THEME_IC={auto:'ph-circle-half',light:'ph-sun',dark:'ph-moon'},THEME_TX={auto:'ตามเครื่อง',light:'โหมดสว่าง',dark:'โหมดมืด'};
+function themeMode(){let t='auto';try{t=localStorage.getItem('cnx_theme')||'auto';}catch(e){}return ['light','dark'].includes(t)?t:'auto';}
+function applyTheme(t){
+  const r=document.documentElement;
+  if(t==='auto')r.removeAttribute('data-theme');else r.setAttribute('data-theme',t);
+  const dark=t==='dark'||(t==='auto'&&!(window.matchMedia&&matchMedia('(prefers-color-scheme: light)').matches));
+  const m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('content',dark?'#05080f':'#f3f5f8');
+  const b=document.getElementById('theme-btn');if(b){b.innerHTML=`<i class="ph ${THEME_IC[t]}"></i>`;b.title='โหมดสี: '+THEME_TX[t]+' (กดเพื่อสลับ)';}
+}
+function cycleTheme(){const n={auto:'light',light:'dark',dark:'auto'}[themeMode()];try{localStorage.setItem('cnx_theme',n);}catch(e){}applyTheme(n);if(typeof toast==='function')toast('โหมดสี: '+THEME_TX[n]);}
+applyTheme(themeMode());
+try{matchMedia('(prefers-color-scheme: light)').addEventListener('change',()=>{if(themeMode()==='auto')applyTheme('auto');});}catch(e){}
 // DATA
 // ตาราง MX + เงื่อนไข CD: คู่มือการเก็บรักษาสารเคมีและวัตถุอันตราย กรมโรงงานอุตสาหกรรม พ.ศ. 2550 หน้า 24–25
 // MX[คอลัมน์][แถว] · "0" = ห้ามเก็บคละ (แดง) · "00" = เก็บคละได้ (เขียว) · ตัวเลข = เก็บได้ตามเงื่อนไขข้อนั้น (เหลือง)
@@ -1297,6 +1401,9 @@ const CD_FULL={
 // สรุปสั้น (ใช้ในตาราง/รายงาน)
 const CD={"1":"ของเหลวไวไฟ+ก๊าซสเปรย์ เก็บได้โดยต้องมีระบายอากาศ ปริมาณไม่เกิน 60% และรวมไม่เกิน 100,000 ลิตร","2":"ก๊าซสเปรย์+สารพิษ ต้องการ: ผนังทนไฟ พื้นที่ ≤60ม² ปริมาณ ≤60% อุณหภูมิ ≤50°C ระบายอากาศ ทางออกฉุกเฉิน 2 ทาง","3":"วัสดุลุกไฟได้เร็ว ควรแยกออกจากสารพิษหรือของเหลวไวไฟ","4":"สามารถเก็บคละได้โดยการแยกห่าง: กำแพงกั้น เว้นระยะ หรือบ่อแยก","5":"ก๊าซอัด ≤50 ท่อ (ก๊าซไวไฟ/ออกซิไดส์/พิษ รวมกัน ≤25 ท่อ) สารติดไฟได้ (ประเภท 8A และ 11 ยกเว้นของเหลวไวไฟ) เก็บรวมได้โดยแยกห่างจากก๊าซด้วยผนังวัสดุไม่ติดไฟ สูง ≥2ม. และห่างจากผนัง ≥5ม.","6":"เก็บคละได้ตามข้อกำหนดประเภท 2B","7":"เก็บกับของเหลวไวไฟ จุดวาบไฟ >60°C ได้ หากไม่ก่อปฏิกิริยาอันตราย (ลุกไฟ/ให้ความร้อน/ก๊าซไวไฟ/ก๊าซพิษ/กัดกร่อน/สารไม่เสถียร/เพิ่มความดัน) หากมีโอกาสเกิดอันตราย ให้เว้นระยะห่างปลอดภัย 5 ม.","8":"สารติดไฟ+พิษ เก็บกับของแข็งไวไฟ 4.1B ได้","9":"ห้ามเก็บ 3A คละกับสารกัดกร่อนในภาชนะแตกง่าย ยกเว้นมีมาตรการป้องกัน","10":"เก็บคละได้ ยกเว้นก๊าซไวไฟ","11":"ต้องมีมาตรการเพิ่มเติม รับความเห็นชอบจากกรมโรงงานอุตสาหกรรม","12":"4.1A อาจเก็บคละได้หากระยะห่างปลอดภัยรอบคลังเพียงพอ ตรวจสอบแต่ละกรณี","13":"5.2 เก็บกับ 4.1B ได้","14":"เก็บกับ propellants และ initiators ได้หากไม่มีโลหะหนัก","15":"5.1B กับ 6.1A/6.1B ≤20 ตัน โดยต้องมีระบบเตือนไฟไหม้ ดับเพลิงอัตโนมัติ และทีมดับเพลิงกึ่งมืออาชีพของบริษัท (ถ้ามีสารไม่ถึง 1 ตัน ไม่ต้องมีมาตรการเสริมดังกล่าว)","16":"5.2 กับสารอื่น ต้องตรวจสอบระยะห่างปลอดภัยรอบคลังแต่ละกรณี","17":"พิจารณาตามข้อกำหนดเฉพาะของวัตถุอันตรายแต่ละประเภท","18":"กัมมันตรังสี แยกจัดเก็บตามข้อกำหนด IAEA และได้รับอนุมัติจากหน่วยงานรัฐ"};
 const PR={
+  // 5.1A — ตาราง DIW 2550: แยกบริเวณจากทุกประเภท ยกเว้น 5.1A และ 5.1B
+  "5.1A-12": {g:"สารออกซิไดซ์แรงต้องแยกบริเวณ", rx:"ตาราง DIW กำหนดให้ประเภท 5.1A (เช่น คลอรีนผง) แยกบริเวณจากสารทุกประเภท ยกเว้น 5.1A และ 5.1B · บัตร ICSC 0638: คลอรีนผงเป็นสารออกซิไดซ์แรง ทำปฏิกิริยารุนแรงกับสารติดไฟ สารรีดิวซ์ แอมโมเนีย เอมีน และสารประกอบไนโตรเจนหลายชนิด — ของเหลวประเภท 12 ในระบบนี้ เช่น โพวิโดนไอโอดีน มีพอลิเมอร์อินทรีย์ที่มีไนโตรเจน (โพวิโดน) และไอโอไดด์ที่เป็นสารรีดิวซ์"},
+  "5.1A-13": {g:"สารออกซิไดซ์แรงต้องแยกบริเวณ", rx:"ตาราง DIW กำหนดให้ประเภท 5.1A (เช่น คลอรีนผง) แยกบริเวณจากสารทุกประเภท ยกเว้น 5.1A และ 5.1B — รวมถึงของแข็งไม่ติดไฟประเภท 13 · บัตร ICSC 0638: คลอรีนผงทำปฏิกิริยารุนแรงกับสารติดไฟ สารรีดิวซ์ และสารอื่นหลายชนิด ให้เก็บแยก"},
   // Class 8B (กรด/เบส) คู่
   "8B-5.1A": {g:"ก๊าซคลอรีน (Cl₂)",         rx:"กรด เช่น HCl ทำปฏิกิริยากับคลอรีนผง Ca(OCl)₂ ปล่อยก๊าซ Cl₂ พิษร้ายแรง ทำลายระบบทางเดินหายใจ LD50 ต่ำมาก"},
   "8B-5.1B": {g:"ก๊าซพิษ / ความร้อน",        rx:"H₂O₂ หรือ NaNO₂ กับกรด/เบส เกิดปฏิกิริยา exothermic รุนแรง ปล่อย O₂ เสริมการเผาไหม้ หรือเกิด NOₓ พิษ"},
@@ -1381,7 +1488,7 @@ const PPE_CAT={
   fA:{ic:'A',t:'ไส้กรอง A (สีน้ำตาล) — ไอสารอินทรีย์',grp:'ทางหายใจ',col:'#8b5a2b',spec:'EN 14387 · ใช้กับหน้ากากครึ่งหน้า EN 140 หรือเต็มหน้า EN 136'},
   fB:{ic:'B',t:'ไส้กรอง B (สีเทา) — ก๊าซอนินทรีย์ เช่น คลอรีน',grp:'ทางหายใจ',col:'#8f98a3',spec:'EN 14387 · ใช้กับหน้ากากครึ่งหน้า EN 140 หรือเต็มหน้า EN 136'},
   fE:{ic:'E',t:'ไส้กรอง E (สีเหลือง) — ก๊าซกรด',grp:'ทางหายใจ',col:'#e8b600',spec:'EN 14387 · ใช้กับหน้ากากครึ่งหน้า EN 140 หรือเต็มหน้า EN 136'},
-  fP:{ic:'P',t:'ไส้กรองฝุ่น P (สีขาว)',grp:'ทางหายใจ',col:'#f2f2f2',spec:'EN 143 P2/P3 · เทียบ NIOSH N95/P100'},
+  fP:{ic:'P',t:'ไส้กรองฝุ่น/ละออง P (สีขาว) — ผงฟุ้ง หรือละอองของเหลว',grp:'ทางหายใจ',col:'#f2f2f2',spec:'EN 143 P2/P3 · เทียบ NIOSH N95/P100'},
   scba:{ic:'🫁',t:'SCBA ถังอากาศ — หกมาก/ที่อับ (ทีมที่ผ่านการฝึกเท่านั้น)',grp:'ทางหายใจ',spec:'EN 137'},
   suit:{ic:'🦺',t:'ชุดหรือผ้ากันเปื้อนกันสารเคมี',grp:'ร่างกาย',spec:'กระเด็นเล็กน้อย EN 13034 Type 6 · ของเหลวพุ่ง/ฉีด EN 14605 Type 3/4'},
   eyewash:{ic:'🚿',t:'ที่ล้างตา / ฝักบัวฉุกเฉิน ใกล้จุดใช้',grp:'จุดทำงาน',spec:'ANSI Z358.1 — เดินถึงภายใน 10 วินาที'},
@@ -1405,7 +1512,7 @@ const ERG_UN={'1791':'154','1748':'140','1823':'154','1170':'127','2014':'140','
 const SAFE={
 "7681-52-9":{gestis:"001410",icsc:"1119",g:"154",
   glove:"ไนไตรล์ ≥0.35 มม. · นีโอพรีน / บิวทิล / PVC / ยางธรรมชาติ 0.5 มม. · FKM 0.4 มม. — ทนซึม ≥8 ชม. (GESTIS ทดสอบสารละลายคลอรีน 13%)",eye:"กระบังหน้า หรือแว่นครอบตาร่วมกับหน้ากาก",
-  resp:"ไส้กรอง B (ก๊าซอนินทรีย์) ตาม ICSC 0482 · หกมาก/เข้มข้นเกิน 10%: ชุดกันสารเคมี + SCBA ตาม ICSC 1119",body:"ชุดหรือผ้ากันเปื้อนกันสารเคมี",
+  resp:"งานปกติ (เท ผสม เติมบ่อ): ไม่ต้องใช้หน้ากาก — ทำในที่อากาศถ่ายเท หรือมีพัดลมดูดอากาศ (ICSC) · มีกลิ่นคลอรีนฉุนหรือละอองฟุ้ง: หน้ากากไส้กรอง B สีเทา (ICSC 0482) · หกปริมาณมาก หรือโดนกรดจนเกิดก๊าซคลอรีน: ชุดกันสารเคมี + SCBA (ICSC 1119 สำหรับคลอรีนใช้ได้เกิน 10%)",body:"ชุดหรือผ้ากันเปื้อนกันสารเคมี",
   ppe:["g_nit","g_neo","shield","fB","suit","scba"],
   react:"กรดทุกชนิด (เกิดก๊าซคลอรีนพิษ) · สารติดไฟและสารรีดิวซ์ · ความร้อนและแสงแดด (สลายตัว) · ทองแดงและโลหะเบา",
   sd:["เปิดระบายอากาศ","ตักหรือดูดสารใส่ภาชนะที่ไม่ใช่โลหะ มีฝาปิด","ส่วนที่เหลือล้างด้วยน้ำปริมาณมาก โดยกั้นไม่ให้ไหลลงบ่อหรือทางน้ำ"],
@@ -1415,7 +1522,7 @@ const SAFE={
   note:"ICSC 1119 = คลอรีนออกฤทธิ์เกิน 10% · ICSC 0482 = ต่ำกว่า 10%"},
 "7778-54-3":{gestis:"005630",icsc:"0638",g:"140",
   glove:"ไนไตรล์ ≥0.35 มม. · นีโอพรีน / บิวทิล / PVC / ยางธรรมชาติ 0.5 มม. · FKM 0.4 มม. — ทนซึม ≥8 ชม. (GESTIS ทดสอบสารละลายอิ่มตัว) · ผงแห้งห้ามโดนถุงมือที่เปื้อนน้ำมัน",eye:"กระบังหน้า หรือแว่นครอบตาร่วมกับหน้ากาก",
-  resp:"ฝุ่นผง: ไส้กรอง P · ได้กลิ่นคลอรีน: ไส้กรอง B ตามชนิดก๊าซ (EN 14387) · ICSC: เก็บสารหกให้สวมชุดกันสารเคมี กระบังหน้า และหน้ากากไส้กรอง",body:"ชุดกันสารเคมี",
+  resp:"งานปกติ: ตักหรือละลายใต้พัดลมดูดอากาศ หรือใส่หน้ากาก (ICSC 0638) · ผงฟุ้ง: ไส้กรองฝุ่น P · ได้กลิ่นคลอรีน: ไส้กรอง B สีเทา — ไส้กรองรวม B-P ใช้ได้ทั้งสองกรณี (EN 14387) · เก็บสารหก: ชุดกันสารเคมี กระบังหน้า และหน้ากากไส้กรอง (ICSC)",body:"ชุดกันสารเคมี",
   ppe:["g_nit","g_neo","shield","fP","fB","suit"],
   react:"กรด (สลายตัวเร็ว ให้คลอรีนและออกซิเจน — ไฟ/ระเบิด) · สารติดไฟและสารรีดิวซ์ · แอมโมเนีย เอมีน · ความร้อนเกิน 175°C · กัดโลหะและพลาสติก",
   sd:["กวาดใส่ภาชนะแห้ง ปิดสนิท","กำจัดตามระเบียบท้องถิ่น"],
@@ -1424,7 +1531,7 @@ const SAFE={
   aid:{i:"อากาศบริสุทธิ์ นั่งครึ่งนั่งครึ่งนอน อาจต้องผายปอด พบแพทย์",s:"ถอดเสื้อผ้าที่เปื้อน ล้างผิวด้วยน้ำมากๆ หรืออาบน้ำ",e:"ล้างตาด้วยน้ำหลายนาที (ถอดคอนแทคเลนส์ถ้าง่าย) แล้วพบแพทย์",g:"บ้วนปาก ดื่มน้ำ 1–2 แก้ว ห้ามทำให้อาเจียน พบแพทย์"}},
 "1310-73-2":{gestis:"001270",icsc:"0360",niosh:"0565",g:"154",
   glove:"ไนไตรล์ ≥0.35 มม. · นีโอพรีน / บิวทิล / PVC / ยางธรรมชาติ 0.5 มม. · FKM 0.4 มม. — ทนซึม ≥8 ชม. ที่ 10% และ 50% (GESTIS)",eye:"กระบังหน้า หรือแว่นครอบตาร่วมกับหน้ากาก",
-  resp:"ฝุ่น/ละออง: ไส้กรองอนุภาค P (NIOSH: N100/P100) · หกมาก: ชุดกันสารเคมี + SCBA (ICSC)",body:"ชุดกันสารเคมี",
+  resp:"โซดาไฟไม่ระเหยเป็นไอ — อันตรายทางหายใจมาจากฝุ่นตอนตักเกล็ด และละอองร้อนตอนละลายน้ำ จึงใช้ไส้กรองฝุ่น/ละออง P (NIOSH: N100/P100) · งานปกติ: ใช้พัดลมดูดอากาศ หรือใส่หน้ากาก (ICSC 0360) · หกมาก: ชุดกันสารเคมี + SCBA (ICSC)",body:"ชุดกันสารเคมี",
   ppe:["g_nit","g_neo","shield","fP","suit","scba"],
   react:"กรด (รุนแรง) · น้ำและความชื้น (ร้อนจัด อาจจุดไฟวัสดุข้างเคียง) · อะลูมิเนียม ดีบุก ตะกั่ว สังกะสี (เกิดไฮโดรเจน) · เกลือแอมโมเนียม",
   sd:["กวาดเกล็ดใส่ภาชนะพลาสติกมีฝา","เก็บส่วนที่เหลืออย่างระวัง กำจัดตามระเบียบ"],
@@ -1448,7 +1555,7 @@ const SAFE={
   aid:{i:"อากาศบริสุทธิ์ พัก",s:"ถอดเสื้อผ้าที่เปื้อน ล้างน้ำหรืออาบน้ำ",e:"ล้างตาด้วยน้ำหลายนาที แล้วพบแพทย์",g:"บ้วนปาก ดื่มน้ำ 1–2 แก้ว ส่งแพทย์ทันที"}},
 "7722-84-1":{gestis:"536372",icsc:"0164",niosh:"0335",g:"140",
   glove:"30%: ไนไตรล์ ≥0.35 มม. · นีโอพรีน / บิวทิล / PVC / ยางธรรมชาติ 0.5 มม. · FKM 0.4 มม. ทนซึม ≥8 ชม. · 35–50%: บิวทิล ยางธรรมชาติ ไนไตรล์ (GESTIS อ้าง ECHA ไม่ระบุความหนา)",eye:"แว่นครอบตา หรือกระบังหน้า",
-  resp:"งานปกติ: ระบายอากาศ · หกมาก: ชุดกันสารเคมี + SCBA (ICSC)",body:"ชุดกันสารเคมี",
+  resp:"งานปกติ: ระบายอากาศ (ICSC) · อย่าใช้หน้ากากไส้กรอง — NIOSH แนะนำเฉพาะหน้ากากแบบส่งอากาศหรือ SCBA สำหรับสารนี้ · หกมาก: ชุดกันสารเคมี + SCBA (ICSC)",body:"ชุดกันสารเคมี",
   ppe:["g_nit","g_but","goggle","shield","suit","scba"],
   react:"สารติดไฟและสารรีดิวซ์ (ไฟ/ระเบิด โดยเฉพาะเมื่อมีโลหะ) · ความร้อนและแสง (สลายตัวให้ออกซิเจน) · ผ้า กระดาษ",
   sd:["ซับด้วยทรายหรือวัสดุเฉื่อย","เก็บใส่ภาชนะ กำจัดตามระเบียบ"],
@@ -1521,7 +1628,7 @@ const SAFE={
   aid:{i:"พบแพทย์ (ICSC)"}},
 "86290-81-5":{icsc:"1400",niosh:"0299",g:"128",
   glove:"ไนไตรล์ (ดีมาก) · นีโอพรีน (ดี) · ห้ามใช้ยางธรรมชาติ (แย่) — OSHA",eye:"แว่นนิรภัย หรือแว่นร่วมกับหน้ากาก",
-  resp:"ไส้กรองไอสารอินทรีย์ A สีน้ำตาล (NIOSH: organic vapor) · หกมาก: SCBA",body:"ชุดป้องกัน",
+  resp:"งานปกติ (เติมเครื่องยนต์ในที่โล่ง): ไม่ต้องใช้หน้ากาก — ระบายอากาศ (ICSC 1400) · ไอหนาแน่นในที่ปิด: ออกจากพื้นที่ — NIOSH ให้ใช้หน้ากากเต็มหน้าไส้กรอง A สีน้ำตาลเพื่อหนีออกเท่านั้น เพราะเป็นสารที่อาจก่อมะเร็ง · หกมาก: SCBA (ICSC)",body:"ชุดป้องกัน",
   ppe:["g_nit","spect","fA","suit","scba"],
   react:"สารออกซิไดซ์ · ประกายไฟ ไฟฟ้าสถิต",
   sd:["อพยพ ตัดแหล่งประกายไฟทั้งหมด","คลุมด้วยดินแห้ง ทราย หรือวัสดุไม่ติดไฟ","เก็บด้วยเครื่องมือที่ไม่เกิดประกายไฟ (ERG 128)"],
@@ -1530,7 +1637,7 @@ const SAFE={
   aid:{i:"อากาศบริสุทธิ์ พัก พบแพทย์",s:"ถอดเสื้อผ้าที่เปื้อน ล้างน้ำแล้วล้างด้วยสบู่",e:"ล้างตาด้วยน้ำหลายนาที แล้วพบแพทย์",g:"บ้วนปาก ห้ามทำให้อาเจียน ดื่มน้ำ 1–2 แก้ว พบแพทย์"}},
 "68334-30-5":{icsc:"1561",g:"128",
   glove:"ไนไตรล์ (ดีมาก) · นีโอพรีน (ดี) · ห้ามใช้ยางธรรมชาติหรือบิวทิล (แย่) — OSHA",eye:"แว่นครอบตา หรือแว่นร่วมกับหน้ากาก",
-  resp:"ไส้กรองไอสารอินทรีย์ A สีน้ำตาล (ICSC)",body:"—",
+  resp:"งานปกติ: ระบายอากาศ (ICSC 1561) · เก็บสารหกหรือมีละอองฟุ้ง: หน้ากากไส้กรองไอสารอินทรีย์ A สีน้ำตาล (ICSC)",body:"—",
   ppe:["g_nit","goggle","fA"],
   react:"สารออกซิไดซ์ · เกิน 52°C ไอผสมอากาศระเบิดได้",
   sd:["ตัดแหล่งประกายไฟ (ERG 128)","ตักใส่ภาชนะปิดได้","ส่วนที่เหลือซับด้วยทรายหรือวัสดุเฉื่อย"],
@@ -1589,6 +1696,138 @@ const SAFE={
   sd:["กวาดใส่ภาชนะที่ไม่ใช่โลหะ มีฝา","เก็บส่วนที่เหลือ กำจัดตามระเบียบ"],sx:["ห้ามให้ฝุ่นสะสมหรือฟุ้ง (ICSC)"],
   fd:["น้ำฝอย โฟม CO₂ หรือผงเคมีแห้ง"],fx:["ห้ามเปลวไฟใกล้ฝุ่น"],
   aid:{i:"อากาศบริสุทธิ์ พัก",s:"ล้างน้ำมากๆ",e:"ล้างตาด้วยน้ำมากๆ",g:"บ้วนปาก ดื่มน้ำ 1–2 แก้ว"}},
+};
+// ══ สุขภาพ (v4.3) — ค่าขีดจำกัด + อาการ · เขียนจากต้นฉบับ ICSC (ILO/WHO), NIOSH Pocket Guide และประกาศกรมสวัสดิการฯ 2560 ══
+// th = ประกาศกรมสวัสดิการและคุ้มครองแรงงาน เรื่อง ขีดจำกัดความเข้มข้นของสารเคมีอันตราย (ราชกิจจาฯ เล่ม 134 ตอนพิเศษ 198 ง, 3 ส.ค. 2560)
+// rel/pel/idlh/conv/organs/syn = NIOSH Pocket Guide · tlv = ค่าที่บัตร ICSC ยกมา · sym/short/inh/long = บัตร ICSC
+// sym: i=สูดดม s=ผิว e=ตา g=กลืน · absorb = ซึมผ่านผิวได้ · delayed = ICSC ระบุว่าอาการอาจเกิดช้า/ต้องให้แพทย์เฝ้าดู
+const TH_LIM_URL='https://www.shecu.chula.ac.th/data/boards/549/'+encodeURIComponent('ประกาศ กรมสวัสดิ์ ความเข้นข้นของสารเคมีอันตราย 2560.PDF');
+// หน้าที่ตามกฎหมาย (v4.3): ตรวจวัด = ประกาศ 2559 (ราชกิจจาฯ เล่ม 133 ตอนพิเศษ 308 ง) + ฉบับที่ 2 พ.ศ. 2565 (เล่ม 139 ตอนพิเศษ 82 ง)
+//   ตรวจสุขภาพ = ประกาศ 2564 (เล่ม 138 ตอนพิเศษ 231 ง) — hc = อยู่ในรายชื่อ · hcMay = อาจเข้าข่าย ให้ จป./แพทย์พิจารณา
+const TH_MEAS_URL='https://www.shecu.chula.ac.th/data/boards/675/'+encodeURIComponent('ประกาศ กรมสวัสดิ์ หลักเกณฑ์ วิธีการตรวจวัดระดับความเข้มข้นสารเคมีอันตราย 2559.pdf');
+const TH_MEAS2_URL='https://www.shecu.chula.ac.th/data/boards/740/'+encodeURIComponent('ประกาศกรมสวัสดิ์ เรื่อง หลักเกณฑ์ วิธีการตรวจวัด การวิเคราะห์ผลการตรวจวัดระดับความเข้มข้น สารเคมีอันตราย ฉบับที่ 2 2565.pdf');
+const TH_HC_URL='https://www.shecu.chula.ac.th/data/boards/669/'+encodeURIComponent('ประกาศกรมสวัสดิ์ กำหนดงานลูกจ้างที่ทำงานสารเคมี ที่ต้องจัดให้มีการตรวจสุขภาพลูกจ้าง 2564.pdf');
+function lawHTML(h){
+  const a=(u,t)=>`<a href="${u}" target="_blank" rel="noopener" style="color:var(--lime)">${t}</a>`;
+  const row=(k,v)=>`<div class="sf-aid"><div class="sf-aid-k">${k}</div><div class="sf-aid-v">${v}</div></div>`;
+  const rows=[];
+  rows.push(h.th
+    ? row('📏 ต้องตรวจวัดในอากาศ',`มีค่าขีดจำกัดตามประกาศ 2560 — นายจ้างต้องตรวจวัดในบรรยากาศที่ทำงานและที่เก็บอย่างน้อยปีละ 1 ครั้ง ถ้าเกินค่าต้องแก้ไขแล้ววัดซ้ำภายใน 30 วัน (${a(TH_MEAS_URL,'ประกาศ 2559 ข้อ 4')}) · ส่งรายงาน สอ.3 ภายใน 15 วันนับแต่ทราบผล (${a(TH_MEAS2_URL,'ฉบับที่ 2 พ.ศ. 2565')})`)
+    : row('📏 ตรวจวัดในอากาศ','ไม่มีค่าขีดจำกัดในประกาศ 2560 จึงไม่มีเกณฑ์ตามกฎหมายไทยให้เทียบผล'));
+  if(h.hc)rows.push(row('🩺 ต้องจัดตรวจสุขภาพลูกจ้าง',`อยู่ในรายชื่อ ${esc(h.hc)} ของ${a(TH_HC_URL,'ประกาศกรมสวัสดิการฯ 2564')} — ลูกจ้างที่ทำงานกับสารนี้ต้องได้รับการตรวจสุขภาพตามปัจจัยเสี่ยง`));
+  else if(h.hcMay)rows.push(row('🩺 อาจต้องตรวจสุขภาพลูกจ้าง',`อาจเข้าข่าย ${esc(h.hcMay)} ของ${a(TH_HC_URL,'ประกาศกรมสวัสดิการฯ 2564')} — ให้ จป.วิชาชีพ หรือแพทย์อาชีวเวชศาสตร์พิจารณา`));
+  else rows.push(row('🩺 ตรวจสุขภาพลูกจ้าง',`ไม่อยู่ในรายชื่อสารของ${a(TH_HC_URL,'ประกาศกรมสวัสดิการฯ 2564')}`));
+  return `<div class="sf-card" style="margin-top:12px"><div class="sf-card-h">⚖️ หน้าที่นายจ้างตามกฎหมายไทย</div>${rows.join('')}</div>`;
+}
+const HL={
+"7681-52-9":{hcMay:"ข้อ 2 (2)(ก) คลอรีนหรือสารประกอบของคลอรีน (กลุ่มก๊าซ) — สารนี้ปล่อยก๊าซคลอรีนได้",delayed:1,
+  sym:{i:"แสบร้อน ไอ หายใจลำบาก หอบ เจ็บคอ — อาการอาจเกิดช้า",s:"ผิวแดง ไหม้ ปวด พุพอง",e:"ตาแดง ปวด ไหม้รุนแรง",g:"แสบร้อน ปวดท้อง อาเจียน ช็อก หมดสติ"},
+  short:"กัดกร่อนตา ผิว ทางเดินหายใจ และทางเดินอาหาร · สูดดมอาจทำให้ปอดบวมน้ำ ซึ่งเกิดตามหลังอาการระคายเคืองตาหรือทางหายใจ",
+  inh:"บัตร ICSC ไม่ได้ระบุว่าไอระเหยถึงระดับอันตรายเร็วแค่ไหน",
+  long:"สัมผัสผิวซ้ำๆ หรือนานอาจทำให้ผิวหนังอักเสบ",
+  note:"บัตร ICSC 1119 เป็นของสารละลายคลอรีนใช้ได้เกิน 10%"},
+"7778-54-3":{hcMay:"ข้อ 2 (2)(ก) คลอรีนหรือสารประกอบของคลอรีน (กลุ่มก๊าซ) — สารนี้ปล่อยก๊าซคลอรีนได้",delayed:1,
+  sym:{i:"แสบร้อน เจ็บคอ หายใจมีเสียงหวีด หายใจลำบาก หอบ",s:"ผิวแดง ปวด ไหม้รุนแรง พุพอง",e:"ตาแดง ปวด ตาพร่า ไหม้ลึกรุนแรง",g:"ปวดท้อง แสบร้อน ช็อก"},
+  short:"กัดกร่อนตา ผิว และทางเดินหายใจ กลืนแล้วกัดกร่อน · สูดควันที่เกิดจากการสลายตัวอาจทำให้ปอดบวมน้ำ",
+  inh:"ฝุ่นฟุ้งในอากาศถึงระดับอันตรายได้เร็ว โดยเฉพาะชนิดผง"},
+"1310-73-2":{th:"2 mg/m³ (เฉลี่ยตลอดเวลาทำงาน)",rel:"C 2 mg/m³",pel:"TWA 2 mg/m³",idlh:"10 mg/m³",tlv:"2 mg/m³ (ค่าสูงสุด)",
+  sym:{i:"ไอ เจ็บคอ แสบร้อน หอบ",s:"ผิวแดง ปวด ไหม้รุนแรง พุพอง",e:"ตาแดง ปวด ตาพร่า ไหม้รุนแรง",g:"ปวดท้อง ปากและคอไหม้ แสบร้อนในคอและอก คลื่นไส้ อาเจียน ช็อก"},
+  short:"กัดกร่อนตา ผิว และทางเดินหายใจ กลืนแล้วกัดกร่อน",
+  inh:"ฝุ่นฟุ้งในอากาศถึงระดับอันตรายได้เร็ว",
+  long:"สัมผัสผิวซ้ำๆ หรือนานอาจทำให้ผิวหนังอักเสบ",
+  organs:"ตา ผิวหนัง ระบบทางเดินหายใจ",syn:"Caustic soda, Lye, Soda lye, Sodium hydrate"},
+"25655-41-8":{
+  long:"สัมผัสผิวซ้ำๆ หรือนานอาจทำให้ผิวหนังอักเสบ",
+  note:"บัตร ICSC 1471 มีข้อมูลน้อย · SDS หน่วยงาน (SDS-04) จัดเป็นระคายเคืองผิวและตา (GHS07)"},
+"64-17-5":{th:"1000 ppm (เฉลี่ยตลอดเวลาทำงาน)",rel:"TWA 1000 ppm (1900 mg/m³)",pel:"TWA 1000 ppm (1900 mg/m³)",idlh:"3300 ppm (กำหนดจาก 10% ของขีดจำกัดการติดไฟ)",conv:"1 ppm = 1.89 mg/m³",tlv:"STEL 1000 ppm",
+  sym:{i:"ไอ ปวดหัว อ่อนเพลีย ง่วงซึม",s:"ผิวแห้ง",e:"ตาแดง ปวด แสบ",g:"แสบร้อน ปวดหัว สับสน เวียนหัว หมดสติ"},
+  short:"ระคายเคืองตารุนแรง · ไอระเหยเข้มข้นระคายเคืองตาและทางเดินหายใจ · อาจกดระบบประสาทส่วนกลาง",
+  inh:"ไอระเหยถึงระดับอันตรายค่อนข้างช้าที่ 20°C",
+  long:"ล้างไขมันผิว ทำให้ผิวแห้งแตก · อาจมีผลต่อทางเดินหายใจส่วนบนและระบบประสาท: ระคายเคือง ปวดหัว อ่อนล้า ขาดสมาธิ",
+  organs:"ตา ผิวหนัง ระบบทางเดินหายใจ ระบบประสาทส่วนกลาง ตับ เลือด ระบบสืบพันธุ์",syn:"Alcohol, Ethanol, EtOH, Grain alcohol"},
+"7722-84-1":{th:"1 ppm (เฉลี่ยตลอดเวลาทำงาน)",rel:"TWA 1 ppm (1.4 mg/m³)",pel:"TWA 1 ppm (1.4 mg/m³)",idlh:"75 ppm",conv:"1 ppm = 1.39 mg/m³",tlv:"TWA 1 ppm",absorb:1,
+  sym:{i:"เจ็บคอ ไอ เวียนหัว ปวดหัว คลื่นไส้ หอบ",s:"ผิวซีดขาว บวม แดง ปวด ไหม้",e:"ตาแดง ปวด ตาพร่า กระจกตาเสียหาย ไหม้",g:"เจ็บคอ ปวดท้อง ท้องอืด ช็อก — เกิดฟองมาก เสี่ยงสำลักเข้าปอด"},
+  short:"กัดกร่อนตา ผิว และทางเดินหายใจ กลืนแล้วกัดกร่อน · ไอระเหยระคายเคืองทางหายใจรุนแรง · กลืนแล้วเกิดฟองมาก เสี่ยงขาดอากาศและสำลัก · อาจเกิดฟองออกซิเจนในหลอดเลือดจนช็อก",
+  inh:"ไอระเหยถึงระดับอันตรายค่อนข้างเร็วที่ 20°C",
+  long:"สูดไอซ้ำๆ อาจทำให้ทางเดินหายใจส่วนบนอักเสบเรื้อรัง และมีผลต่อปอด · ทำให้ผมซีดขาว",
+  organs:"ตา ผิวหนัง ระบบทางเดินหายใจ",syn:"Hydrogen dioxide, Peroxide",
+  note:"บัตร ICSC 0164 เป็นของความเข้มข้นเกิน 60%"},
+"10043-52-4":{
+  sym:{i:"ไอ เจ็บคอ แสบร้อน",s:"ผิวแดง แห้ง ไหม้",e:"ตาแดง ปวด ไหม้",g:"ปากและคอไหม้ คลื่นไส้ อาเจียน"},
+  short:"กัดกร่อนตา · ระคายเคืองรุนแรงต่อผิว ทางเดินหายใจส่วนบน และทางเดินอาหาร",
+  inh:"ฝุ่นฟุ้งในอากาศถึงระดับอันตรายได้เร็ว",
+  long:"สัมผัสผิวซ้ำๆ อาจทำให้ผิวหนังอักเสบ · อาจทำลายเยื่อบุจมูก",
+  note:"บัตร ICSC 1184 เป็นของชนิดไม่มีน้ำผลึก"},
+"7647-01-0":{hc:"ข้อ 2 (4)(ข) กรดแร่ — กรดไฮโดรคลอริกเป็นกรดแร่",th:"ห้ามเกิน 5 ppm ตลอดเวลาทำงาน (ค่าสูงสุด)",rel:"C 5 ppm (7 mg/m³)",pel:"C 5 ppm (7 mg/m³)",idlh:"50 ppm",conv:"1 ppm = 1.49 mg/m³",tlv:"STEL 2 ppm",delayed:1,
+  sym:{i:"ไอ เจ็บคอ แสบร้อน หอบ หายใจลำบาก",s:"ผิวแดง ปวด ไหม้รุนแรง",e:"ตาแดง ปวด ตาพร่า ไหม้รุนแรง"},
+  short:"กัดกร่อนตา ผิว และทางเดินหายใจ · อาจเกิดอาการคล้ายหอบหืด (RADS) · คอบวมจนขาดอากาศได้ · สูดเข้มข้นอาจเกิดปอดบวมน้ำตามหลังอาการระคายเคือง",
+  inh:"ก๊าซถึงระดับอันตรายเร็วมากเมื่อรั่วออกจากภาชนะ",
+  long:"สูดซ้ำๆ ทำให้ฟันกร่อน ทางเดินหายใจอักเสบเรื้อรัง ปอดทำงานลดลง · ละอองกรดอนินทรีย์แก่จัดเป็นสารก่อมะเร็งในคน",
+  organs:"ตา ผิวหนัง ระบบทางเดินหายใจ",syn:"Hydrochloric acid, Muriatic acid, Aqueous hydrogen chloride",
+  note:"บัตร ICSC 0163 เป็นของก๊าซ HCl — NIOSH ระบุว่าสารละลายเข้าทางการกลืนได้ด้วย"},
+"7632-00-0":{delayed:1,
+  sym:{i:"ริมฝีปาก เล็บ และผิวเขียวคล้ำ สับสน ชัก เวียนหัว ปวดหัว คลื่นไส้ หมดสติ",e:"ตาแดง ปวด",g:"หัวใจเต้นเร็ว และอาการแบบเดียวกับสูดดม"},
+  short:"ระคายเคืองตา · มีผลต่อหัวใจ หลอดเลือด และเลือด: ความดันต่ำ เกิดเมทฮีโมโกลบิน (เลือดนำออกซิเจนไม่ได้ ผิวเขียวคล้ำ) อาจเสียชีวิต",
+  inh:"ไม่ระเหย แต่ฝุ่นฟุ้งถึงระดับอันตรายได้เร็ว"},
+"64-19-7":{th:"10 ppm (เฉลี่ยตลอดเวลาทำงาน)",rel:"TWA 10 ppm (25 mg/m³) · STEL 15 ppm (37 mg/m³)",pel:"TWA 10 ppm (25 mg/m³)",idlh:"50 ppm",conv:"1 ppm = 2.46 mg/m³",tlv:"TWA 10 ppm · STEL 15 ppm",
+  sym:{i:"เจ็บคอ ไอ แสบร้อน ปวดหัว เวียนหัว หอบ หายใจลำบาก",s:"ปวด ผิวแดง ไหม้ พุพอง",e:"ตาแดง ปวด ไหม้รุนแรง สูญเสียการมองเห็น",g:"เจ็บคอ แสบร้อน ปวดท้อง อาเจียน ช็อก"},
+  short:"กัดกร่อนตา ผิว และทางเดินหายใจ กลืนแล้วกัดกร่อน · สูดดมอาจทำให้ปอดบวมน้ำ ตามหลังอาการระคายเคืองตาหรือทางหายใจ",
+  inh:"ไอระเหยถึงระดับอันตรายค่อนข้างเร็วที่ 20°C",
+  long:"สัมผัสผิวซ้ำๆ อาจทำให้ผิวหนังอักเสบ · สูดละอองซ้ำๆ อาจมีผลต่อปอดและทำให้ฟันกร่อน",
+  organs:"ตา ผิวหนัง ระบบทางเดินหายใจ ฟัน",syn:"Glacial acetic acid, Ethanoic acid, Methanecarboxylic acid"},
+"7664-93-9":{hc:"ข้อ 2 (4)(ก) กรดซัลฟูริก",th:"1 mg/m³ (เฉลี่ยตลอดเวลาทำงาน)",rel:"TWA 1 mg/m³",pel:"TWA 1 mg/m³",idlh:"15 mg/m³",tlv:"TWA 0.2 mg/m³ · A2 สงสัยว่าก่อมะเร็งในคน",delayed:1,
+  sym:{i:"ไอ เจ็บคอ แสบร้อน หอบ หายใจลำบาก",s:"ผิวแดง ปวด พุพอง ไหม้รุนแรง",e:"ตาแดง ปวด ไหม้รุนแรง",g:"ปากและคอไหม้ แสบร้อนหลังกระดูกหน้าอก ปวดท้อง อาเจียน ช็อก"},
+  short:"กัดกร่อนรุนแรงมากต่อตา ผิว และทางเดินหายใจ กลืนแล้วกัดกร่อน · คอบวมจนขาดอากาศได้ · สูดเข้มข้นอาจเกิดปอดบวมน้ำ · อาการคล้ายหอบหืด (RADS)",
+  inh:"แทบไม่ระเหยที่ 20°C แต่ละอองที่ฟุ้งถึงระดับอันตรายได้เร็ว",
+  long:"สัมผัสผิวซ้ำๆ อาจทำให้ผิวหนังอักเสบ · สูดซ้ำๆ มีผลต่อปอด ฟันกร่อน · ละอองกรดอนินทรีย์แก่จัดเป็นสารก่อมะเร็งในคน",
+  organs:"ตา ผิวหนัง ระบบทางเดินหายใจ ฟัน",syn:"Battery acid, Oil of vitriol, Hydrogen sulfate"},
+"68476-85-7":{hcMay:"ข้อ 2 (1)(ฎ) โพรเพน — LPG มีโพรเพนเป็นส่วนประกอบหลัก",th:"1000 ppm (เฉลี่ยตลอดเวลาทำงาน)",rel:"TWA 1000 ppm (1800 mg/m³)",pel:"TWA 1000 ppm (1800 mg/m³)",idlh:"2000 ppm (กำหนดจาก 10% ของขีดจำกัดการติดไฟ)",conv:"1 ppm = 1.72–2.37 mg/m³",
+  sym:{i:"ง่วงซึม หมดสติ",s:"ของเหลวโดนผิว: ผิวไหม้จากความเย็น",e:"ของเหลวโดนตา: ไหม้จากความเย็น"},
+  short:"ของเหลวระเหยเร็วทำให้ผิวไหม้จากความเย็น · อาจกดระบบประสาทส่วนกลาง",
+  inh:"รั่วในที่อับ ทำให้ออกซิเจนในอากาศลดลงจนขาดอากาศหายใจ",
+  organs:"ระบบทางเดินหายใจ ระบบประสาทส่วนกลาง",syn:"Bottled gas, Liquefied petroleum gas (โพรเพน โพรพิลีน บิวเทน บิวทิลีน)",
+  note:"อาการจากบัตร ICSC 0319 (โพรเพน) · ค่าขีดจำกัดจาก NIOSH หัวข้อ L.P.G."},
+"7782-44-7":{
+  sym:{i:"ไอ เวียนหัว เจ็บคอ การมองเห็นผิดปกติ (เมื่อหายใจออกซิเจนเข้มข้นสูงมาก)"},
+  short:"ออกซิเจนเข้มข้นสูงมากระคายเคืองทางเดินหายใจ · อาจมีผลต่อระบบประสาท ปอด และตา",
+  long:"สูดความเข้มข้นสูงซ้ำๆ หรือนาน อาจมีผลต่อปอด"},
+"86290-81-5":{hcMay:"ข้อ 2 (1)(จ) แนพธา และ (1)(ช) เบนซีนและอนุพันธ์ — น้ำมันเบนซินเป็นส่วนผสมไฮโดรคาร์บอนที่มีสารอะโรมาติก (NIOSH)",rel:"Ca — NIOSH ถือเป็นสารที่อาจก่อมะเร็งจากการทำงาน ให้สัมผัสน้อยที่สุด",pel:"ไม่มีค่ากำหนด",idlh:"ไม่ได้กำหนด (สารก่อมะเร็ง)",conv:"1 ppm ≈ 4.5 mg/m³",tlv:"TWA 300 ppm · STEL 500 ppm",absorb:1,
+  sym:{i:"สับสน ไอ เวียนหัว ง่วงซึม เฉื่อยชา ปวดหัว",s:"ผิวแห้ง แดง",e:"ตาแดง ปวด",g:"คลื่นไส้ อาเจียน และอาการแบบเดียวกับสูดดม"},
+  short:"ระคายเคืองตา ผิว และทางเดินหายใจ · กลืนแล้วอาจสำลักเข้าปอด เกิดปอดอักเสบจากสารเคมี · กดระบบประสาทส่วนกลาง",
+  inh:"ไอระเหยถึงระดับอันตรายเร็วมากที่ 20°C",
+  long:"ล้างไขมันผิว ทำให้ผิวแห้งแตก · อาจมีผลต่อระบบประสาทและตับ · อาจก่อมะเร็งในคน",
+  organs:"ตา ผิวหนัง ระบบทางเดินหายใจ ระบบประสาทส่วนกลาง ตับ ไต",syn:"Petrol, Motor fuel, Motor spirits"},
+"68334-30-5":{tlv:"TWA 100 mg/m³ (ระวังการซึมผ่านผิว)",
+  sym:{i:"เวียนหัว ปวดหัว คลื่นไส้",s:"ผิวแห้ง แดง",e:"ตาแดง ปวด",g:"อาการแบบเดียวกับสูดดม"},
+  short:"ระคายเคืองตา ผิว และทางเดินหายใจ · อาจกดระบบประสาทส่วนกลาง · กลืนแล้วอาจสำลักเข้าปอด เกิดปอดอักเสบจากสารเคมี",
+  inh:"ระเหยช้ามากที่ 20°C — อันตรายทางหายใจมาจากละอองที่ฟุ้ง",
+  long:"ล้างไขมันผิว ทำให้ผิวแห้งแตก"},
+"7697-37-2":{hc:"ข้อ 2 (4)(ค) กรดไนตริก",th:"2 ppm (เฉลี่ยตลอดเวลาทำงาน)",rel:"TWA 2 ppm (5 mg/m³) · STEL 4 ppm (10 mg/m³)",pel:"TWA 2 ppm (5 mg/m³)",idlh:"25 ppm",conv:"1 ppm = 2.58 mg/m³",tlv:"TWA 2 ppm · STEL 4 ppm",delayed:1,
+  sym:{i:"ไอ เจ็บคอ แสบร้อน หอบ หายใจลำบาก",s:"ปวด ผิวเป็นคราบสีเหลือง ไหม้รุนแรง",e:"ตาแดง ปวด ไหม้รุนแรง",g:"ปากและคอไหม้ แสบร้อนหลังกระดูกหน้าอก ปวดท้อง อาเจียน ช็อก"},
+  short:"กัดกร่อนตา ผิว และทางเดินหายใจ กลืนแล้วกัดกร่อน · อาการคล้ายหอบหืด (RADS) · คอบวมจนขาดอากาศได้ · สูดเข้มข้นอาจเกิดปอดอักเสบและปอดบวมน้ำ ซึ่ง NIOSH ระบุว่าเกิดช้าได้",
+  inh:"ไอระเหยถึงระดับอันตรายเร็วมากที่ 20°C",
+  long:"สูดซ้ำๆ ทำให้ฟันกร่อน ทางเดินหายใจอักเสบเรื้อรัง ปอดทำงานลดลง · ละอองกรดอนินทรีย์แก่จัดเป็นสารก่อมะเร็งในคน",
+  organs:"ตา ผิวหนัง ระบบทางเดินหายใจ ฟัน",syn:"Aqua fortis, Hydrogen nitrate",
+  note:"บัตร ICSC 0183 เป็นของความเข้มข้นเกิน 70%"},
+"111-30-8":{hc:"ข้อ 2 (1)(ข) กลูตารัลดีไฮด์ — สารออกฤทธิ์ของไบโอซอล 300",rel:"C 0.2 ppm (0.8 mg/m³)",pel:"ไม่มีค่ากำหนด",idlh:"ไม่ได้กำหนด",conv:"1 ppm = 4.09 mg/m³",tlv:"ค่าสูงสุด 0.05 ppm · ทำให้แพ้ทางผิวและทางหายใจ",absorb:1,
+  sym:{i:"ไอ เจ็บคอ เลือดกำเดาไหล หายใจลำบาก",s:"ผิวแดง ปวด แสบ",e:"ตาแดง ปวด แสบ",g:"ปวดท้อง คลื่นไส้ ท้องเสีย อาเจียน"},
+  short:"ระคายเคืองตา ผิว และทางเดินหายใจ",
+  inh:"ไอระเหยถึงระดับอันตรายค่อนข้างช้าที่ 20°C",
+  long:"สัมผัสผิวซ้ำๆ ทำให้ผิวหนังอักเสบและแพ้ · สูดซ้ำๆ อาจทำให้เป็นหอบหืด",
+  organs:"ตา ผิวหนัง ระบบทางเดินหายใจ",syn:"Glutaric dialdehyde, 1,5-Pentanedial",
+  note:"ข้อมูลของกลูตารัลดีไฮด์ (บัตร ICSC 0352 สารละลาย 50%) — ไบโอซอลมี 15% ผสมเบนซัลโคเนียมคลอไรด์ ดูฉลากผู้ผลิตประกอบ"},
+"1305-62-0":{th:"ฝุ่นทุกขนาด 15 mg/m³ · ฝุ่นขนาดเล็ก 5 mg/m³ (เฉลี่ยตลอดเวลาทำงาน)",rel:"TWA 5 mg/m³",pel:"TWA 15 mg/m³ (ฝุ่นรวม) · 5 mg/m³ (ฝุ่นขนาดเล็ก)",idlh:"ไม่ได้กำหนด",tlv:"TWA 5 mg/m³",delayed:1,
+  sym:{i:"เจ็บคอ ไอ แสบร้อน",s:"ผิวแดง หยาบ ปวด แห้ง ไหม้ พุพอง",e:"ตาแดง ปวด ไหม้ลึกรุนแรง",g:"แสบร้อน ปวดท้อง ตะคริวท้อง อาเจียน"},
+  short:"กัดกร่อนตาและผิว · ระคายเคืองทางเดินหายใจ",
+  inh:"แทบไม่ระเหย แต่ฝุ่นฟุ้งถึงระดับอันตรายได้เร็ว",
+  long:"สัมผัสผิวซ้ำๆ อาจทำให้ผิวหนังอักเสบ · สูดฝุ่นซ้ำๆ อาจมีผลต่อปอด",
+  organs:"ตา ผิวหนัง ระบบทางเดินหายใจ",syn:"Hydrated lime, Slaked lime, Caustic lime"},
+"7772-98-7":{sym:{e:"ตาแดง"},inh:"ฝุ่นฟุ้งถึงระดับที่ก่อความรำคาญได้เร็ว"},
+"7791-18-6":{sym:{i:"ไอ",e:"ตาแดง"},short:"ระคายเคืองตาและทางเดินหายใจเล็กน้อย",inh:"ฝุ่นฟุ้งถึงระดับที่ก่อความรำคาญได้เร็ว",note:"บัตร ICSC 0764 เป็นของชนิดไม่มีน้ำผลึก"},
+"144-55-8":{sym:{i:"ไอ",e:"ตาแดง",g:"ไม่คาดว่าจะมีอาการเฉียบพลัน"},short:"ระคายเคืองตาเล็กน้อย",inh:"ฝุ่นฟุ้งถึงระดับที่ก่อความรำคาญได้เร็ว"},
+"6381-92-6":{sym:{i:"ไอ",e:"ตาแดง ปวด",g:"ปวดท้อง ท้องเสีย"},short:"ระคายเคืองตา",inh:"ฝุ่นฟุ้งถึงระดับที่ก่อความรำคาญได้เร็ว",
+  long:"Merck จัดว่าสูดซ้ำๆ อาจทำลายทางเดินหายใจ (H373)",
+  note:"อาการจากบัตร ICSC 0886 ของ EDTA (กรด) · ผลระยะยาวจากหน้าสินค้า Merck 108418 (เกลือไดโซเดียม)"},
 };
 // ข้อห้ามที่พบบ่อย — ใช้ในหน้าฉุกเฉิน
 const DONTS=[
@@ -1732,7 +1971,7 @@ const ALERT_IC={
   conflict:  {ic:'ph-warning-diamond', bg:'var(--rb)', col:'var(--red)'},
   expired:   {ic:'ph-calendar-x',      bg:'var(--ab)', col:'var(--amb)'},
   ppe:       {ic:'ph-shield-warning',  bg:'var(--ab)', col:'var(--amb)'},
-  inspection:{ic:'ph-clipboard-text',  bg:'rgba(0,180,255,.1)', col:'#60d0ff'},
+  inspection:{ic:'ph-clipboard-text',  bg:'color-mix(in srgb,var(--blue) 10%,transparent)', col:'var(--blue-tx)'},
   highrisk:  {ic:'ph-warning-octagon', bg:'var(--rb)', col:'var(--red)'},
 };
 
@@ -1783,6 +2022,7 @@ function go(pg,dr='right'){
   if(pg==='emergency')rEMG();
   if(pg==='dashboard')uDash();
   if(pg==='editor')edInit();
+  const fab=document.getElementById('ask-fab');if(fab)fab.classList.toggle('hide',['ask','admin','editor','result'].includes(pg));
 }
 function back(){go(pv.pop()||'dashboard','left');}
 function uNB(pg){document.querySelectorAll('.nb').forEach(b=>b.classList.remove('active'));const a=document.getElementById('nb-'+pg);if(a)a.classList.add('active');}
@@ -1886,7 +2126,7 @@ function ppeIcon(id){
   return p.col?`<span class="pf-sw" style="background:${p.col};color:${id==='fP'?'#333':'#fff'}">${p.ic}</span>`:`<span class="pf-em">${p.ic}</span>`;
 }
 function noSafeHTML(ch,what){
-  return `<div class="ib amb" style="margin-top:12px"><i class="ph-fill ph-info"></i><div><div class="ibt">ยังไม่มีข้อมูล${what}ที่ตรวจแล้ว</div><div class="ibb">ดู SDS ของผู้ผลิต ${what==='PPE'?'หัวข้อ 8':'หัวข้อ 4–6'} · ถ้าต้องการให้เพิ่ม แจ้งผู้ดูแลผ่าน "ขอเพิ่มสารเคมี"</div></div></div>
+  return `<div class="ib amb" style="margin-top:12px"><i class="ph-fill ph-info"></i><div><div class="ibt">ยังไม่มีข้อมูล${what}ที่ตรวจแล้ว</div><div class="ibb">ดู SDS ของผู้ผลิต ${what==='PPE'?'หัวข้อ 8':what==='ด้านสุขภาพ'?'หัวข้อ 8 และ 11':'หัวข้อ 4–6'}</div></div></div>
   <button class="btn bg" style="margin:10px 16px;width:calc(100% - 32px)" onclick="window.open('https://www.google.com/search?q='+encodeURIComponent('SDS ${jsq(ch.n)}'),'_blank')"><i class="ph ph-magnifying-glass" style="font-size:14px"></i>ค้นหา SDS ผู้ผลิต</button>`;
 }
 function ppeHTML(ch){
@@ -1931,6 +2171,409 @@ function emgHTML(ch,noCalls){
     ${s.note?`<div class="sf-note">${esc(s.note)}</div>`:''}
     ${safeSrc(s,ch)}`;
 }
+const NPG_EXTRA={'68476-85-7':'0679','111-30-8':'0301','1305-62-0':'0092'};
+function healthHTML(ch){
+  const h=ch.hl||HL[ch.cs||''];
+  if(!h)return noSafeHTML(ch,'ด้านสุขภาพ');
+  const s=safeOf(ch)||{};const a=s.aid||{};
+  const lim=[['🇹🇭','กฎหมายไทย',h.th],['🇺🇸','NIOSH REL',h.rel],['🇺🇸','OSHA PEL',h.pel],['⚠️','IDLH',h.idlh],['📘','TLV (ตามบัตร ICSC)',h.tlv],['🔁','แปลงหน่วย',h.conv]].filter(x=>x[2]);
+  const limBox=lim.length
+    ? `<div class="card" style="margin:10px 16px 0">${lim.map(x=>`<div class="pr"><span class="prk">${x[0]} ${x[1]}</span><span class="prv"${x[1]==='IDLH'?' style="color:var(--red)"':''}>${esc(x[2])}</span></div>`).join('')}
+        ${h.th?'':`<div style="padding:8px 16px;font-size:9.5px;color:var(--tx3)">ไม่มีในประกาศกรมสวัสดิการฯ เรื่อง ขีดจำกัดความเข้มข้นของสารเคมีอันตราย 2560</div>`}</div>
+       <div class="sf-note">TWA = เฉลี่ยตลอดเวลาทำงาน 8 ชม. · STEL = สัมผัสช่วงสั้น 15 นาที · C = ค่าสูงสุดห้ามเกินตลอดเวลา · <b>IDLH = อันตรายต่อชีวิตทันที เกินค่านี้ต้องใช้ SCBA เท่านั้น</b></div>`
+    : `<div class="sf-note" style="margin-top:10px">ไม่มีค่าขีดจำกัดการสัมผัสในประกาศกรมสวัสดิการฯ 2560 และ NIOSH Pocket Guide</div>`;
+  const sy=h.sym||{};
+  const rows=[['🌬️','สูดดม','i'],['✋','โดนผิว','s'],['👁️','โดนตา','e'],['👄','กลืน','g']].filter(r=>sy[r[2]]);
+  const symBox=rows.length?`<div class="sf-card"><div class="sf-card-h">🩺 อาการ → ทำอะไร</div>${rows.map(r=>`<div class="sf-aid"><div class="sf-aid-k">${r[0]} ${r[1]}${r[2]==='s'&&h.absorb?' <span style="color:var(--red);font-size:9px">· ซึมผ่านผิวได้</span>':''}</div><div class="sf-aid-v">${esc(sy[r[2]])}${a[r[2]]?`<div style="margin-top:4px;color:var(--grn)">➜ ${esc(a[r[2]])}</div>`:''}</div></div>`).join('')}</div>`:'';
+  const txt=(ic,t,v)=>v?`<div class="sf-card"><div class="sf-card-h">${ic} ${t}</div><div style="padding:0 12px 10px;font-size:11px;line-height:1.7;color:var(--tx2)">${esc(v)}</div></div>`:'';
+  const npg=s.niosh||NPG_EXTRA[ch.cs];
+  const src=[];
+  if(h.th)src.push(`<a href="${TH_LIM_URL}" target="_blank" rel="noopener">ประกาศกรมสวัสดิการฯ 2560 (ราชกิจจาฯ เล่ม 134 ตอนพิเศษ 198 ง)</a>`);
+  if(npg)src.push(`<a href="https://www.cdc.gov/niosh/npg/npgd${npg}.html" target="_blank" rel="noopener">NIOSH Pocket Guide</a>`);
+  if(s.icsc)src.push(`<a href="https://chemicalsafety.ilo.org/dyn/icsc/showcard.display?p_card_id=${s.icsc}&p_version=2&p_lang=en" target="_blank" rel="noopener">ICSC ${s.icsc}</a>`);
+  if(h.src)src.push(esc(h.src));
+  return `
+    ${lawHTML(h)}
+    ${h.delayed?`<div class="ib amb" style="margin-top:12px"><i class="ph-fill ph-clock-countdown"></i><div><div class="ibt">อาการอาจเกิดช้า</div><div class="ibb">คนที่โดนสารนี้ต้องให้แพทย์ดูอาการต่อ แม้ตอนแรกจะดูปกติ (ICSC)</div></div></div>`:''}
+    <div class="sl" style="margin-top:12px">ค่าขีดจำกัดการสัมผัสในอากาศ</div>
+    ${limBox}
+    ${symBox}
+    ${txt('⚡','ผลระยะสั้น',h.short)}
+    ${txt('💨','ความเสี่ยงทางหายใจ',h.inh)}
+    ${txt('📅','สัมผัสซ้ำหรือนาน',h.long)}
+    ${h.organs?`<div class="card" style="margin:10px 16px 0"><div class="pr"><span class="prk">อวัยวะเป้าหมาย</span><span class="prv">${esc(h.organs)}</span></div>${h.syn?`<div class="pr"><span class="prk">ชื่อพ้อง</span><span class="prv" style="font-size:10px">${esc(h.syn)}</span></div>`:''}</div>`:''}
+    ${h.note?`<div class="sf-note">${esc(h.note)}</div>`:''}
+    <div class="sf-src"><i class="ph ph-book-open-text"></i> ที่มา: ${src.join(' · ')||'-'} · เรียบเรียงภาษาไทยโดยผู้พัฒนา · หัวข้อและการตรวจเทียบค่าบางสารอ้างอิงแอป T-OSH ChemSafe</div>`;
+}
+// ══════════════════════════════════════════
+//  ผู้ช่วยสารเคมี (v4.3) — ตอบจากข้อมูลในแอปเท่านั้น ไม่ใช้ AI/อินเทอร์เน็ต
+//  จับ "ชื่อสาร" + "เจตนา" จากคำถาม แล้วประกอบคำตอบจาก DB / SAFE / HL / ตาราง DIW
+// ══════════════════════════════════════════
+const ASK_VAR=[['ซัลฟูริค','ซัลฟิวริก'],['ไฮโดรคลอริค','ไฮโดรคลอริก'],['ซัลฟูริก','ซัลฟิวริก'],['ซัลฟิวริค','ซัลฟิวริก'],['อะซิติค','อะซิติก'],['อะซีติก','อะซิติก'],['ไนตริค','ไนตริก'],['ไนไตรต์','ไนไตรท์'],['คลอไรท์','คลอไรต์'],['แก๊ส','ก๊าซ'],['อัลกอฮอล์','แอลกอฮอล์'],['ซันไลต์','ซันไล'],['ซันไลท์','ซันไล'],['ไฮดรอกไซ','ไฮดรอกไซด์'],['ไฮดรอกไซด์ด์','ไฮดรอกไซด์']];
+function askNorm(s){
+  let t=String(s||'').toLowerCase().replace(/[₀-₉]/g,c=>String(c.charCodeAt(0)-8320)).replace(/[\s​]+/g,'').replace(/[?!.,;:'"“”‘’()\[\]{}·•\-–—\/\\%≥≤~]/g,'');
+  ASK_VAR.forEach(([a,b])=>{t=t.split(a).join(b);});
+  return t;
+}
+// ชื่อเรียกอื่น (คีย์ = CAS หรือชื่อสารถ้าไม่มี CAS)
+const ASK_ALIAS={
+ '7681-52-9':['คลอรีนน้ำ','คลอรีนเหลว','น้ำยาฟอกขาว','ไฮเตอร์','sodium hypochlorite','naocl','โซเดียมไฮโปคลอไรต์'],
+ '7778-54-3':['คลอรีนผง','คลอรีนเม็ด','ผงคลอรีน','คลอรีน65','แคลเซียมไฮโปคลอไรต์','calcium hypochlorite','hth'],
+ '1310-73-2':['โซดาไฟ','คอสติกโซดา','caustic','naoh','โซเดียมไฮดรอกไซด์','sodium hydroxide'],
+ '25655-41-8':['โพวิโดนไอโอดีน','โพวิโดน','ไอโอดีน','เบตาดีน','betadine','pvpi','povidone'],
+ '64-17-5':['เอทานอล','เอทิลแอลกอฮอล์','แอลกอฮอล์','ethanol','alcohol','etoh'],
+ '7722-84-1':['ไฮโดรเจนเปอร์ออกไซด์','เปอร์ออกไซด์','h2o2','hydrogen peroxide','peroxide'],
+ '10043-52-4':['แคลเซียมคลอไรด์','cacl2','calcium chloride'],
+ '7647-01-0':['กรดเกลือ','กรดไฮโดรคลอริก','hcl','hydrochloric','muriatic'],
+ '7632-00-0':['โซเดียมไนไตรท์','ไนไตรท์','nano2','sodium nitrite','nitrite'],
+ '64-19-7':['กรดอะซิติก','อะซิติก','กรดน้ำส้ม','acetic','glacial'],
+ '7664-93-9':['กรดซัลฟิวริก','ซัลฟิวริก','กรดกำมะถัน','กรดแบตเตอรี่','น้ำกรดแบต','h2so4','sulfuric','sulphuric'],
+ '68476-85-7':['lpg','ก๊าซหุงต้ม','ถังก๊าซ','ก๊าซlpg','โพรเพน','propane'],
+ '7782-44-7':['ออกซิเจน','ท่อออกซิเจน','oxygen'],
+ '86290-81-5':['น้ำมันเบนซิน','เบนซิน','ก๊าซโซฮอล์','gasoline','petrol'],
+ '68334-30-5':['น้ำมันดีเซล','ดีเซล','โซล่า','โซลาร์','diesel'],
+ '7697-37-2':['กรดไนตริก','ไนตริก','กรดดินประสิว','hno3','nitric'],
+ '111-30-8':['ไบโอซอล','biosol','กลูตารัลดีไฮด์','glutaraldehyde'],
+ '1305-62-0':['ปูนขาว','แคลเซียมไฮดรอกไซด์','caoh2','calcium hydroxide','slaked lime'],
+ '7772-98-7':['โซเดียมไทโอซัลเฟต','ไทโอซัลเฟต','ไฮโป','thiosulfate'],
+ '7791-18-6':['แมกนีเซียมคลอไรด์','mgcl2','magnesium chloride'],
+ '144-55-8':['โซเดียมไบคาร์บอเนต','ไบคาร์บอเนต','เบกกิ้งโซดา','ผงฟู','nahco3','bicarbonate'],
+ '6381-92-6':['na2edta','edta','อีดีทีเอ'],
+ 'ซันไล (น้ำยาล้างจาน)':['ซันไล','น้ำยาล้างจาน','sunlight'],
+ 'อควา บราวน์':['อควาบราวน์','aquabrown'],
+};
+const ASK_SHORT={'7681-52-9':'คลอรีนน้ำ','7778-54-3':'คลอรีนผง','1310-73-2':'โซดาไฟ','7647-01-0':'กรดเกลือ','68476-85-7':'LPG','111-30-8':'ไบโอซอล 300','1305-62-0':'ปูนขาว','6381-92-6':'Na₂EDTA'};
+// คำกว้างๆ ที่หมายถึงได้หลายสาร → ถามกลับ
+const ASK_AMBIG=[['คลอรีน',c=>/คลอรีน/.test(c.n)],['กรด',c=>/^กรด/.test(c.n)],['แคลเซียม',c=>/แคลเซียม|ปูนขาว/.test(c.n)],['โซเดียม',c=>/^โซเดียม/.test(c.n)],['น้ำมัน',c=>/^น้ำมัน/.test(c.n)],['ก๊าซ',c=>/ก๊าซ/.test(c.n)]];
+// ชื่อสารที่พบบ่อยแต่ยังไม่มีในแอป → ตอบว่า "ยังไม่มีในแอป" แทน "ไม่เข้าใจ"
+const ASK_OTHER=['เมทานอล','methanol','ฟอร์มาลีน','ฟอร์มาลดีไฮด์','formalin','ด่างทับทิม','โพแทสเซียมเปอร์แมงกาเนต','เปอร์แมงกาเนต','kmno4','ทินเนอร์','thinner','แอมโมเนีย','ammonia','ฟีนอล','phenol','คลอโรฟอร์ม','กรดฟอร์มิก','กรดมด','จาระบี','น้ำมันเครื่อง','สีกันสนิม','สเปรย์สี','โซเดียมคลอไรด์','เกลือ','เดทตอล','dettol','เป็ดโปร','กาวประสานท่อ','ปรอท','ซีโอไลท์','zeolite','ปูนมาร์ล','โดโลไมท์','แคลเซียมคาร์บอเนต','อะซีโตน','acetone','โทลูอีน','ไซลีน','คลอรีนไดออกไซด์','กรดซิตริก','กรดมะนาว','ไอโอโดฟอร์','บีเคซี','bkc','ไตรฟลูราลิน','ฟอร์มาลิน','จุนสี','คอปเปอร์ซัลเฟต','ซัลเฟตทองแดง'];
+const ASK_PAT=/(กรด|โซเดียม|โพแทสเซียม|แคลเซียม|แมกนีเซียม|แอมโมเนียม|คอปเปอร์)[ก-๙a-z0-9]{2,}/;
+const ASK_FILL=['ทำยังไง','ทำไง','ได้ไหม','ได้มั้ย','ไหม','มั้ย','ยังไง','อย่างไร','อะไร','ครับ','ค่ะ','คะ','หน่อย','บ้าง','เป็น','คือ','ของ','กับ','และ','แล้ว','ล่ะ','ต้อง','ควร','เท่าไหร่','ไหน','จะ','ถ้า','เมื่อ','ให้','ใส่','ใช้','ที่','ได้','มี','ตัว','สาร','เคมี','ทำ','ไง','ดี','อันตราย','วิธี','เรื่อง','ถาม','ขอ','ช่วย'];
+const ASK_KW={
+  emerg:['ช่วยด้วย','หมดสติ','ไม่หายใจ','หายใจไม่ออก','ชัก','ฉุกเฉิน','คนเป็นลม','เป็นลม'],
+  call:['เบอร์','โทรหา','โทรเบอร์','สายด่วน'],
+  outscope:['ราคา','ซื้อที่ไหน','ขายที่ไหน','สั่งซื้อ','ร้านไหน','ใบอนุญาต','ยี่ห้อไหนดี','ยี่ห้อ'],
+  dose:['ใส่กี่ppm','ใช้กี่ppm','ลงกี่ppm','ppmใส่','อัตราใช้','อัตราส่วน','ขนาดใช้','ใส่บ่อ','ลงบ่อ','ผสมน้ำ','กี่กรัม','กี่ลิตร','กี่ซีซี','กี่cc','ใช้เท่าไหร่','ใส่เท่าไหร่','ใช้เท่าไร','ใส่เท่าไร','กี่ส่วน','เจือจาง','ความเข้มข้นที่ใช้','กี่กิโล','กี่ช้อน'],
+  medical:['กินยา','ใช้ยา','ยาแก้','รักษา','ถึงตาย','ตายไหม','ตายมั้ย','เสียชีวิต','หาหมอ'],
+  eye:['เข้าตา','โดนตา','กระเด็นเข้าตา','ล้างตา','ตาแดง','ที่ตา','แสบตา','ใส่ตา'],
+  skin:['โดนผิว','ผิวหนัง','โดนมือ','เปื้อนมือ','ติดมือ','ถูกผิว','โดนตัว','ผิวไหม้','โดนขา','โดนแขน','ไหม้มือ','มือไหม้','ไหม้ผิว','แสบมือ','คันมือ','ผิว'],
+  inh:['สูด','ดมกลิ่น','ได้กลิ่น','หายใจเข้า','สำลักไอ','ไอระเหย','เวียนหัว'],
+  ing:['กลืน','กินเข้าไป','ดื่ม','เข้าปาก','กินไป','เผลอกิน'],
+  aid:['ปฐมพยาบาล','โดน','ถูกสาร'],
+  sym:['อาการ'],
+  spill:['หก','รั่ว','ไหลออก','เลอะพื้น','กระจาย','เก็บกวาด','ทำความสะอาด','เช็ด'],
+  fire:['ไฟไหม้','ดับไฟ','ไฟลุก','เพลิง','ระเบิด','ถังดับเพลิง','ติดไฟ','ลุกไหม้','ดับยังไง','ดับไง'],
+  ppe:['ถุงมือ','หน้ากาก','ไส้กรอง','แว่น','กระบังหน้า','ชุดป้องกัน','ชุดกัน','รองเท้า','ppe','ใส่อะไร','ป้องกันตัว','อุปกรณ์ป้องกัน','scba','ผ้ากันเปื้อน','ใส่ชุด'],
+  limits:['ppm','idlh','tlv','pel','rel','ขีดจำกัด','ค่ามาตรฐาน','mgm3','ความเข้มข้นในอากาศ','ค่าสัมผัส'],
+  law:['ตรวจสุขภาพ','ตรวจวัด','สอ3','กฎหมาย','ประกาศ','ต้องตรวจ','ต้องรายงาน'],
+  store:['เก็บ','ร่วม','ด้วยกัน','ใกล้','ข้างกัน','วางคู่','ติดกัน','ชั้นเดียว','ห้องเดียว','ผสม','รวมกัน','คู่กัน'],
+  cls:['class','คลาส','ประเภท','diw','อยู่กลุ่ม','หมวดไหน'],
+  info:['cas','เลขun','สูตรเคมี','สูตร','จุดวาบไฟ','จุดเดือด','จุดหลอม','ความหนาแน่น','คุณสมบัติ','ghs','สัญลักษณ์'],
+  list:['สารไหน','ตัวไหน','อะไรบ้าง','มีอะไร','รายชื่อ','ทั้งหมด','กี่ตัว','กี่ชนิด','มีสารอะไร','สารอะไรบ้าง'],
+  hello:['สวัสดี','หวัดดี','hello','hi','ขอบคุณ'],
+};
+const ASK_GENERIC=['เข้มข้น','glacial','ผง','เกล็ด','ผลึก','ก๊าซเหลวในถัง','ก๊าซอัดท่อ','น้ำยาล้างจาน'];
+const ASK={last:null,hist:[]};
+try{ASK.hist=JSON.parse(localStorage.getItem('cnx_ask_hist')||'[]');}catch(e){ASK.hist=[];}
+function askDB(){return liveDB().filter(x=>!x.hidden).map(x=>({...x,n:x.n||x.name,c:x.c||x.cls,cs:x.cs||x.cas,u:x.u||x.un}));}
+function askShort(ch){return ASK_SHORT[ch.cs]||ch.n.replace(/\s*\(.*$/,'').replace(/\s*[≥≤]?\d.*$/,'').trim()||ch.n;}
+function askIndex(){
+  const out=[];
+  askDB().forEach(ch=>{
+    const set=new Set();
+    const add=a=>{const k=askNorm(a);if(k.length>=2&&!ASK_GENERIC.includes(k))set.add(k);};
+    add(ch.n.replace(/\s*\(.*$/,'').replace(/\s*[≥≤]?\d.*$/,''));
+    (ch.n.match(/\(([^)]+)\)/g)||[]).forEach(p=>p.slice(1,-1).split('/').forEach(x=>{if(!/\d/.test(x))add(x);}));
+    add(askShort(ch));
+    (ASK_ALIAS[ch.cs]||ASK_ALIAS[ch.n]||[]).forEach(add);
+    const sm=(typeof SMART_DB!=='undefined'?SMART_DB:[]).find(s=>s.cs===ch.cs&&ch.cs!=='-');
+    if(sm)(sm.al||[]).forEach(add);
+    set.forEach(k=>out.push({k,ch}));
+  });
+  return out.sort((a,b)=>b.k.length-a.k.length);
+}
+const askHas=(t,list)=>list.some(w=>t.includes(askNorm(w)));
+// แยกคำถาม → {chems, ambig, unknown, rest, intents}
+function askParse(q){
+  const raw=String(q||'');
+  let t=askNorm(raw);
+  const chems=[];
+  const casM=raw.match(/\b\d{2,7}-\d{2}-\d\b/g)||[];
+  const db=askDB();
+  let unknown=null;
+  const pos=new Map();
+  const blank=k=>{t=t.split(k).join(' '.repeat(k.length));}; // คงตำแหน่งไว้ เพื่อเรียงสารตามลำดับในคำถาม
+  casM.forEach(c=>{const k=askNorm(c);const ch=db.find(x=>x.cs===c);if(ch){if(!chems.includes(ch)){chems.push(ch);pos.set(ch,t.indexOf(k));}}else unknown=unknown||{name:c,cas:c};blank(k);});
+  for(const {k,ch} of askIndex()){
+    const i=t.indexOf(k);
+    if(i>=0){if(!chems.some(x=>x.n===ch.n)){chems.push(ch);pos.set(ch,i);}blank(k);}
+  }
+  chems.sort((a,b)=>(pos.get(a)??0)-(pos.get(b)??0));
+  // ชื่อสารที่รู้จักแต่ยังไม่มีในแอป (ยาวก่อน)
+  if(!unknown){
+    const o=ASK_OTHER.slice().sort((a,b)=>b.length-a.length).find(w=>t.includes(askNorm(w)));
+    if(o){unknown={name:o};t=t.split(askNorm(o)).join(' ');}
+  }
+  const rest=t;
+  const I={};Object.keys(ASK_KW).forEach(k=>{I[k]=askHas(rest,ASK_KW[k]);});
+  // ตัดคำเจตนา + คำเชื่อมออก แล้วดูว่าเหลือชื่อสารที่ไม่รู้จัก หรือคำกว้างๆ ไหม
+  let t2=t;
+  Object.values(ASK_KW).flat().concat(ASK_FILL).map(askNorm).sort((a,b)=>b.length-a.length).forEach(w=>{if(w)t2=t2.split(w).join(' ');});
+  t2=t2.replace(/\s+/g,'');
+  let ambig=null;
+  if(!unknown){const m=t2.match(ASK_PAT);if(m&&!chems.length)unknown={name:m[0]};}
+  if(!unknown){
+    for(const [w,fn] of ASK_AMBIG){
+      if(t2.includes(askNorm(w))){const opts=db.filter(fn).filter(c=>!chems.includes(c));if(opts.length===1)chems.push(opts[0]);else if(opts.length>1&&!ambig)ambig={word:w,opts};}
+    }
+  }
+  I.mix=rest.includes('ผสม');
+  I.route=I.eye?'e':I.skin?'s':I.inh?'i':I.ing?'g':null;
+  return {raw,chems,ambig,unknown,rest,I};
+}
+// ── ตัวช่วยสร้างการ์ด ──
+const AQ=s=>String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');
+function askCard(tone,title,body,src,chips){
+  return {tone,title,body,src:src||'',chips:chips||[]};
+}
+function askCalls(){return `<div class="ask-calls"><a href="tel:1669" class="sf-call red">🚑 1669</a><a href="tel:1367" class="sf-call">☎️ 1367 ศูนย์พิษ</a><a href="tel:199" class="sf-call">🚒 199</a></div>`;}
+function askLinks(arr){return arr.filter(Boolean).map(([u,t])=>`<a href="${u}" target="_blank" rel="noopener">${esc(t)}</a>`).join(' · ');}
+// ที่มาตามประเภทคำตอบ: aid = ICSC · ppe = ICSC + GESTIS/OSHA/NIOSH ตามที่ข้อความอ้าง · spill/fire = ICSC + ERG
+function askSrcSafe(s,kind,ch){
+  const icsc=s.icsc&&[`https://chemicalsafety.ilo.org/dyn/icsc/showcard.display?p_card_id=${s.icsc}&p_version=2&p_lang=en`,'ICSC '+s.icsc];
+  const L=[icsc];
+  if(kind==='ppe'){
+    const txt=[s.glove,s.resp,s.eye,s.body].join(' ');
+    if(/GESTIS/.test(txt))L.push(['https://gestis-database.dguv.de/','GESTIS']);
+    if(/OSHA/.test(txt))L.push(['https://www.osha.gov/sites/default/files/publications/osha3151.pdf','OSHA 3151']);
+    if(/NIOSH/.test(txt)&&s.niosh)L.push([`https://www.cdc.gov/niosh/npg/npgd${s.niosh}.html`,'NIOSH']);
+  }
+  if(kind==='spill'||kind==='fire'){const g=s.g||(ch&&ERG_UN[ch.u||'']);if(g)L.push([`https://cameochemicals.noaa.gov/erg_guides/en/Guide_${g}.pdf`,'ERG 2024 Guide '+g]);}
+  return askLinks(L)||(s.src?esc(s.src):'');
+}
+function askNext(ch,skip){
+  const sn=askShort(ch);const s=safeOf(ch);const h=ch.hl||HL[ch.cs];
+  const c=[];
+  if(skip!=='ppe'&&s&&(s.glove||s.resp))c.push(['PPE',sn+' ใส่ PPE อะไร']);
+  if(skip!=='spill'&&s&&(s.sd||[]).length)c.push(['ถ้าหก',sn+' หกทำยังไง']);
+  if(skip!=='aid'&&s&&s.aid&&s.aid.e)c.push(['โดนตา',sn+' เข้าตาทำไง']);
+  if(skip!=='limits'&&h&&(h.th||h.rel||h.idlh))c.push(['ค่าขีดจำกัด','ค่าขีดจำกัด '+sn]);
+  if(skip!=='store')c.push(['เก็บกับสารอื่น',sn+' เก็บกับอะไรไม่ได้']);
+  c.push(['เปิดหน้าสาร','#det:'+ch.n]);
+  return c;
+}
+function askNoData(ch,what,sec){
+  return askCard('amb',`ยังไม่มีข้อมูล${what}ที่ตรวจแล้ว`,`${esc(ch.n)} ยังไม่มีข้อมูล${what}ในแอป — ดู SDS ของผู้ผลิต ${sec}`,'',[['ค้น SDS ผู้ผลิต','#sds:'+ch.n]].concat(askNext(ch,'')));
+}
+// ── คำตอบแต่ละเจตนา ──
+function askCompat(a,b,mix){
+  if(a.n===b.n)return askCard('','สารเดียวกัน',`${esc(a.n)} ทั้งสองชื่อเป็นสารเดียวกัน`,'',askNext(a,''));
+  let c1=a.c,c2=b.c;if(CO.indexOf(c1)>CO.indexOf(c2))[c1,c2]=[c2,c1];
+  const val=mxVal(c1,c2);const diw=(!val||val==='0')?'RED':val==='00'?'GREEN':'YELLOW';
+  const sr=sdsRule(a,b);const r=sr?'RED':diw;
+  const pr=sr||PR[`${c1}-${c2}`]||PR[`${c2}-${c1}`]||null;
+  const code=diw==='YELLOW'?val:null;
+  const title=sr?'ต้องแยกเก็บ — ICSC ระบุว่าเข้ากันไม่ได้':r==='RED'?'ต้องแยกเก็บ (แยกบริเวณ)':r==='YELLOW'?`เก็บร่วมได้ ตามเงื่อนไข DIW ข้อ ${code}`:'เก็บร่วมกันได้';
+  let body=`${esc(askShort(a))} (Class ${a.c}) กับ ${esc(askShort(b))} (Class ${b.c})`;
+  if(pr)body+=`<div style="margin-top:6px"><b>${esc(pr.g)}</b> — ${pr.rx}</div>`;
+  if(code)body+=`<div style="margin-top:6px">เงื่อนไขข้อ ${code}: ${esc(CD_FULL[code]||CD[code]||'')}</div>`;
+  if(mix)body+=`<div style="margin-top:6px;color:var(--amb)">ผู้ช่วยตอบเรื่องความปลอดภัยในการเก็บ ไม่มีข้อมูลวิธีผสม — ดูขั้นตอนจากฉลากหรือผู้ผลิต</div>`;
+  const src=askLinks([['https://coshem.mahidol.ac.th/wp-content/uploads/2021/law/Chemical/chem_pk2550_1.pdf','ตาราง DIW 2550'],sr&&[sr.url,'ICSC']]);
+  return askCard(r==='RED'?'red':r==='YELLOW'?'amb':'grn',title,body,src,[['ผลวิเคราะห์เต็ม','#ana:'+a.n+'|'+b.n],['PPE '+askShort(a),askShort(a)+' ใส่ PPE อะไร'],['PPE '+askShort(b),askShort(b)+' ใส่ PPE อะไร']]);
+}
+function askCompatList(a){
+  const g={RED:[],YELLOW:[],GREEN:[]};
+  askDB().filter(x=>x.n!==a.n).forEach(b=>{let c1=a.c,c2=b.c;if(CO.indexOf(c1)>CO.indexOf(c2))[c1,c2]=[c2,c1];const v=mxVal(c1,c2);const r=sdsRule(a,b)?'RED':(!v||v==='0')?'RED':v==='00'?'GREEN':'YELLOW';g[r].push(b);});
+  const li=arr=>arr.map(x=>esc(askShort(x))).join(' · ')||'-';
+  const body=`<div><b style="color:var(--red)">⛔ ต้องแยกเก็บ (${g.RED.length}):</b> ${li(g.RED)}</div><div style="margin-top:6px"><b style="color:var(--amb)">⚠ มีเงื่อนไข (${g.YELLOW.length}):</b> ${li(g.YELLOW)}</div><div style="margin-top:6px"><b style="color:var(--grn)">✅ เก็บร่วมได้ (${g.GREEN.length}):</b> ${li(g.GREEN)}</div>`;
+  return askCard('',`${askShort(a)} (Class ${a.c}) เก็บกับสารในแอปได้ไหม`,body,'ตาราง DIW 2550 + ข้อห้ามจากบัตร ICSC',g.RED.slice(0,3).map(b=>[askShort(b)+' ทำไม?',askShort(a)+' เก็บกับ '+askShort(b)+' ได้ไหม']));
+}
+function askPPE(ch,rest){
+  const s=safeOf(ch);if(!s)return askNoData(ch,' PPE','หัวข้อ 8');
+  const f={glove:askHas(rest,['ถุงมือ']),resp:askHas(rest,['หน้ากาก','ไส้กรอง','scba','ทางหายใจ']),eye:askHas(rest,['แว่น','กระบังหน้า','ตา']),body:askHas(rest,['ชุด','ผ้ากันเปื้อน','รองเท้า'])};
+  const any=f.glove||f.resp||f.eye||f.body;
+  const rows=[['🧤','ถุงมือ',s.glove,f.glove],['😷','ทางหายใจ',s.resp,f.resp],['🥽','ตา / หน้า',s.eye,f.eye],['🦺','ร่างกาย',s.body,f.body]].filter(r=>r[2]&&r[2]!=='—'&&(!any||r[3]));
+  if(!rows.length)return askNoData(ch,' PPE ส่วนนี้','หัวข้อ 8');
+  const body=rows.map(r=>`<div class="ask-row"><b>${r[0]} ${r[1]}</b><div>${esc(r[2])}</div></div>`).join('');
+  return askCard('',`PPE — ${askShort(ch)}`,body,askSrcSafe(s,'ppe'),askNext(ch,'ppe'));
+}
+function askAid(ch,route,medical){
+  const s=safeOf(ch);const h=ch.hl||HL[ch.cs]||{};const a=(s&&s.aid)||{};const sy=h.sym||{};
+  const R=[['e','👁️','โดนตา'],['s','✋','โดนผิว'],['i','🌬️','สูดดม'],['g','👄','กลืน']].filter(r=>(!route||r[0]===route)&&(a[r[0]]||sy[r[0]]));
+  if(!R.length)return askNoData(ch,'ปฐมพยาบาล','หัวข้อ 4');
+  let body=askCalls();
+  if(medical)body+=`<div class="ask-note">ผู้ช่วยไม่ตอบเรื่องยาหรือการรักษา — ด้านล่างคือการปฐมพยาบาลเบื้องต้นจากบัตร ICSC แล้วโทรปรึกษา 1367 หรือ 1669</div>`;
+  body+=R.map(r=>`<div class="ask-row"><b>${r[1]} ${r[2]}</b>${sy[r[0]]?`<div style="color:var(--tx3)">อาการ: ${esc(sy[r[0]])}</div>`:''}${a[r[0]]?`<div style="color:var(--grn)">➜ ${esc(a[r[0]])}</div>`:''}</div>`).join('');
+  if(h.delayed)body+=`<div class="ask-note">⏱ อาการอาจเกิดช้า — ต้องให้แพทย์ดูอาการต่อแม้ตอนแรกดูปกติ (ICSC)</div>`;
+  return askCard('amb',`${route?R[0][2]:'โดนสาร'} — ${askShort(ch)}`,body,askSrcSafe(s||{},'aid'),askNext(ch,'aid'));
+}
+function askSpillFire(ch,kind){
+  const s=safeOf(ch);if(!s)return askNoData(ch,kind==='spill'?'วิธีจัดการสารหก':'วิธีดับไฟ',kind==='spill'?'หัวข้อ 6':'หัวข้อ 5');
+  const g=s.g||ERG_UN[ch.u||''];const e=g?ERG_G[g]:null;
+  const dos=kind==='spill'?s.sd:s.fd,donts=kind==='spill'?s.sx:s.fx;
+  let body=askCalls();
+  if(e)body+=`<div class="ask-row"><b>📏 ระยะกั้น (ERG ${g})</b><div>${kind==='spill'?'กั้นทันที '+e.iso+' · หกมาก: '+e.big:'ถัง/ภาชนะใหญ่ถูกไฟไหม้: กั้น '+e.fire+' ทุกทิศ'}</div></div>`;
+  if(s.react&&kind==='spill')body+=`<div class="ask-row"><b>⛔ อย่าให้สัมผัส</b><div>${esc(s.react)}</div></div>`;
+  if((dos||[]).length)body+=`<div class="ask-row"><b>✅ ทำ</b><div>${dos.map(esc).join('<br>')}</div></div>`;
+  if((donts||[]).length)body+=`<div class="ask-row"><b>⛔ ห้ามทำ</b><div>${donts.map(esc).join('<br>')}</div></div>`;
+  return askCard('red',`${kind==='spill'?'หก / รั่ว':'ไฟไหม้'} — ${askShort(ch)}`,body,askSrcSafe(s,kind,ch),askNext(ch,kind==='spill'?'spill':''));
+}
+function askLimits(ch){
+  const h=ch.hl||HL[ch.cs];if(!h)return askNoData(ch,'ค่าขีดจำกัด','หัวข้อ 8');
+  const L=[['🇹🇭 กฎหมายไทย',h.th],['NIOSH REL',h.rel],['OSHA PEL',h.pel],['⚠️ IDLH',h.idlh],['TLV (ICSC)',h.tlv],['แปลงหน่วย',h.conv]].filter(x=>x[1]);
+  const body=L.length?L.map(x=>`<div class="ask-row"><b>${x[0]}</b><div>${esc(x[1])}</div></div>`).join('')+`<div class="ask-note">TWA = เฉลี่ย 8 ชม. · STEL = 15 นาที · C = ห้ามเกินตลอดเวลา · IDLH = อันตรายต่อชีวิตทันที</div>`:'ไม่มีค่าขีดจำกัดในประกาศกรมสวัสดิการฯ 2560 และ NIOSH Pocket Guide';
+  return askCard('',`ค่าขีดจำกัด — ${askShort(ch)}`,body,askLinks([h.th&&[TH_LIM_URL,'ประกาศกรมสวัสดิการฯ 2560'],(safeOf(ch)||{}).niosh&&[`https://www.cdc.gov/niosh/npg/npgd${safeOf(ch).niosh}.html`,'NIOSH']]),askNext(ch,'limits'));
+}
+function askLaw(ch){
+  const h=ch.hl||HL[ch.cs];if(!h)return askNoData(ch,'ด้านกฎหมาย/สุขภาพ','หัวข้อ 15');
+  return askCard('',`หน้าที่ตามกฎหมาย — ${askShort(ch)}`,lawHTML(h).replace('style="margin-top:12px"',''),'',askNext(ch,''));
+}
+function askSym(ch){
+  const h=ch.hl||HL[ch.cs];if(!h)return askNoData(ch,'อาการ','หัวข้อ 11');
+  const sy=h.sym||{};
+  const body=[['🌬️ สูดดม',sy.i],['✋ ผิว',sy.s],['👁️ ตา',sy.e],['👄 กลืน',sy.g]].filter(x=>x[1]).map(x=>`<div class="ask-row"><b>${x[0]}</b><div>${esc(x[1])}</div></div>`).join('')+(h.short?`<div class="ask-row"><b>ผลระยะสั้น</b><div>${esc(h.short)}</div></div>`:'')+(h.long?`<div class="ask-row"><b>สัมผัสซ้ำหรือนาน</b><div>${esc(h.long)}</div></div>`:'');
+  return askCard('',`อาการ — ${askShort(ch)}`,body||'ไม่มีข้อมูลอาการในบัตร ICSC',askSrcSafe(safeOf(ch)||{},'aid'),askNext(ch,'aid'));
+}
+function askClass(ch){
+  const hc=HC[ch.c]||{};const r=ch.ref;
+  const body=`<div class="ask-row"><b>DIW Class ${esc(ch.c)}</b><div>${esc(hc.t||'')}</div></div>${ch.u&&ch.u!=='-'?`<div class="ask-row"><b>UN</b><div>${esc(ch.u)}</div></div>`:''}${ch.note?`<div class="ask-note">${esc(ch.note)}</div>`:''}`;
+  return askCard('',`ประเภทการจัดเก็บ — ${askShort(ch)}`,body,r?(r.url?askLinks([[r.url,r.src]]):esc(r.src)):'ยังไม่ได้ระบุแหล่งอ้างอิง',askNext(ch,''));
+}
+function askInfo(ch){
+  const p=getProps(ch.n)||{};
+  const L=[['CAS',ch.cs],['UN',ch.u],['สูตร',p.f],['ความเข้มข้น',p.cn],['ลักษณะ',p.st],['จุดวาบไฟ',p.flash],['จุดเดือด',p.bp],['ความหนาแน่น',p.d]].filter(x=>x[1]&&x[1]!=='-');
+  return askCard('',`ข้อมูลสาร — ${askShort(ch)}`,L.map(x=>`<div class="ask-row"><b>${x[0]}</b><div>${esc(x[1])}</div></div>`).join('')||'ไม่มีข้อมูล','',askNext(ch,''));
+}
+function askSummary(ch){
+  const hc=HC[ch.c]||{};const s=safeOf(ch);const h=ch.hl||HL[ch.cs];
+  let body=`<div class="ask-row"><b>DIW Class ${esc(ch.c)}</b><div>${esc(hc.t||'')}</div></div>`;
+  if(s&&s.react)body+=`<div class="ask-row"><b>⛔ อย่าให้สัมผัส</b><div>${esc(s.react)}</div></div>`;
+  if(h&&h.short)body+=`<div class="ask-row"><b>อันตราย</b><div>${esc(h.short)}</div></div>`;
+  return askCard('',askShort(ch)+' — อยากรู้เรื่องไหน',body,'',askNext(ch,''));
+}
+function askList(rest){
+  const db=askDB();const P=c=>(getProps(c.n)||{}).ghs||[];const H=c=>c.hl||HL[c.cs]||{};const S=c=>safeOf(c)||{};
+  const F=[
+    [['ไวไฟ','ติดไฟ','ไฟลุก'],'สารไวไฟ / ติดไฟได้ (GHS เปลวไฟ)',c=>P(c).includes('flame')],
+    [['ออกซิไดซ์','ออกซิไดเซอร์'],'สารออกซิไดซ์ (GHS)',c=>P(c).includes('oxidizer')],
+    [['กัดกร่อน'],'สารกัดกร่อน (GHS)',c=>P(c).includes('corrosion')],
+    [['พิษ','หัวกะโหลก'],'สารพิษเฉียบพลัน (GHS หัวกะโหลก)',c=>P(c).includes('skull')],
+    [['ตรวจสุขภาพ'],'ต้องจัดตรวจสุขภาพลูกจ้าง (ประกาศ 2564)',c=>!!H(c).hc,c=>!!H(c).hcMay],
+    [['ตรวจวัด','สอ3','ขีดจำกัด','กฎหมาย'],'มีค่าขีดจำกัดตามกฎหมายไทย → ต้องตรวจวัดในอากาศ',c=>!!H(c).th],
+    [['scba'],'ใช้ SCBA เมื่อหกมาก',c=>(S(c).ppe||[]).includes('scba')],
+    [['ไส้กรองa'],'ใช้ไส้กรอง A (ไอสารอินทรีย์)',c=>(S(c).ppe||[]).includes('fA')],
+    [['ไส้กรองb'],'ใช้ไส้กรอง B (ก๊าซอนินทรีย์)',c=>(S(c).ppe||[]).includes('fB')],
+    [['ไส้กรองe'],'ใช้ไส้กรอง E (ก๊าซกรด)',c=>(S(c).ppe||[]).includes('fE')],
+    [['ไส้กรองp','ไส้กรองฝุ่น'],'ใช้ไส้กรองฝุ่น/ละออง P',c=>(S(c).ppe||[]).includes('fP')],
+    [['กรด'],'กรด',c=>/^กรด/.test(c.n)],
+  ];
+  const f=F.find(x=>askHas(rest,x[0]));
+  if(!f){
+    return askCard('',`สารในแอป ${db.length} ชนิด`,db.map(c=>esc(askShort(c))).join(' · '),'',[['สารไหนไวไฟ','สารไหนไวไฟบ้าง'],['สารไหนต้องตรวจสุขภาพ','สารไหนต้องตรวจสุขภาพลูกจ้าง'],['สารไหนต้องตรวจวัด','สารไหนต้องตรวจวัดในอากาศ']]);
+  }
+  const yes=db.filter(f[2]),may=f[3]?db.filter(c=>!f[2](c)&&f[3](c)):[];
+  let body=yes.length?yes.map(c=>esc(askShort(c))).join(' · '):'ไม่มีในแอป';
+  if(may.length)body+=`<div style="margin-top:6px"><b>อาจเข้าข่าย:</b> ${may.map(c=>esc(askShort(c))).join(' · ')} — ให้ จป./แพทย์พิจารณา</div>`;
+  return askCard('',f[1]+` (${yes.length})`,body,'',yes.slice(0,4).map(c=>[askShort(c),askShort(c)]));
+}
+function askPick(intentPhrase,title,filter){
+  const db=askDB().filter(filter||(()=>true));
+  return askCard('',title,'เลือกสาร:',db.length?'':'',db.map(c=>[askShort(c),askShort(c)+' '+intentPhrase]));
+}
+const ASK_SITU=[['e','👁️ โดนตา','เข้าตาทำไง'],['s','✋ โดนผิว','โดนผิวทำไง'],['i','🌬️ สูดดม','สูดดมทำไง'],['g','👄 กลืน','กลืนเข้าไปทำไง'],['spill','🧯 หก/รั่ว','หกทำยังไง'],['fire','🔥 ไฟไหม้','ไฟไหม้ทำยังไง']];
+const ASK_EX=['คลอรีนผงเก็บกับกรดเกลือได้ไหม','กรดซัลฟิวริกใช้ถุงมืออะไร','กรดเกลือหกทำยังไง','ค่าขีดจำกัดของกรดอะซิติก','สารไหนต้องตรวจสุขภาพลูกจ้าง','สารไหนไวไฟบ้าง'];
+// ── ตัวตัดสินหลัก: คำถาม → การ์ดคำตอบ (pure — ทดสอบได้ใน Node) ──
+function askAnswer(q){
+  const p=askParse(q);const I=p.I;
+  const has1=c=>c&&true;
+  if(askNorm(q).length<2)return {kind:'short',...askCard('','พิมพ์ชื่อสารกับเรื่องที่อยากรู้','เช่น "โซดาไฟเข้าตาทำไง" หรือกดตัวอย่างด้านล่าง','',ASK_EX.slice(0,3).map(x=>[x,x]))};
+  if(I.hello&&!p.chems.length&&!p.unknown)return {kind:'hello',...askCard('','ผู้ช่วยสารเคมี','ถามได้เรื่อง เก็บร่วม · PPE · ถ้าหก/ไฟไหม้ · ปฐมพยาบาล · ค่าขีดจำกัด · กฎหมาย ของสารในแอป','',ASK_EX.map(x=>[x,x]))};
+  if(I.call&&!p.chems.length&&!I.route)return {kind:'call',...askCard('red','เบอร์ฉุกเฉิน',askCalls()+'<div class="ask-note">1650 กด 3 = สายด่วนมลพิษ กรมควบคุมมลพิษ · เบอร์ของหน่วยงานเพิ่มได้ที่หน้าฉุกเฉิน</div>','',[['หน้าฉุกเฉิน','#go:emergency']])};
+  if(I.emerg&&!p.chems.length)return {kind:'emerg',...askCard('red','โทรขอความช่วยเหลือก่อน',askCalls()+'<div class="ask-note">ถ้ารู้ว่าโดนสารอะไร เลือกสารเพื่อดูวิธีปฐมพยาบาล</div>','',[['หน้าฉุกเฉิน','#go:emergency']].concat(askDB().filter(c=>safeOf(c)).slice(0,24).map(c=>[askShort(c),askShort(c)+' โดนสารทำไง'])))};
+  if(I.dose)return {kind:'dose',...askCard('amb','ผู้ช่วยไม่มีข้อมูลอัตราใช้','แอปมีเฉพาะข้อมูลความปลอดภัย ไม่มีขนาด/อัตราการใช้ลงบ่อหรือการเจือจาง — ดูฉลากผู้ผลิต หรือถามหัวหน้างาน/ผู้เชี่ยวชาญ','',p.chems[0]?askNext(p.chems[0],''):[])};
+  if(p.ambig&&!(p.chems.length>=2)){
+    return {kind:'ambig',...askCard('',`"${p.ambig.word}" หมายถึงตัวไหน`,'เลือกสาร:','',p.ambig.opts.map(c=>[askShort(c),p.raw.split(p.ambig.word).join(askShort(c)+' ')]))};
+  }
+  let chems=p.chems.slice();
+  const needChem=I.route||I.aid||I.sym||I.spill||I.fire||I.ppe||I.limits||I.cls||I.info||I.medical;
+  if(!chems.length&&!p.unknown&&needChem&&!I.list&&ASK.last)chems=[ASK.last];
+  if(!chems.length){
+    if(p.unknown)return {kind:'unknown',...askCard('amb',`ยังไม่มี "${p.unknown.name}" ในแอป`,`ผู้ช่วยตอบได้เฉพาะสาร ${askDB().length} ชนิดที่ตรวจข้อมูลแล้ว — ดูข้อมูลความปลอดภัยใน SDS ของผู้ผลิต${(I.route||I.aid||I.emerg||I.spill||I.fire)?askCalls():''}`,'',[['ค้น SDS ผู้ผลิต','#sds:'+p.unknown.name],['ดูรายชื่อสารในแอป','มีสารอะไรบ้าง']])};
+    if(I.list||(I.law&&!needChem))return {kind:'list',...askList(p.rest)};
+    if(I.outscope)return {kind:'outscope',...askCard('','อยู่นอกขอบเขตของผู้ช่วย',`ผู้ช่วยตอบได้เฉพาะเรื่องความปลอดภัยของสาร ${askDB().length} ชนิดในแอป: เก็บร่วม · PPE · ถ้าหก/ไฟไหม้ · ปฐมพยาบาล · ค่าขีดจำกัด · กฎหมาย`,'',ASK_EX.slice(0,3).map(x=>[x,x]))};
+    if(I.route||I.aid||I.medical){const r=I.route;const ph=ASK_SITU.find(x=>x[0]===r);return {kind:'pick',...askPick(ph?ph[2]:'โดนสารทำไง',`${ph?ph[1].slice(3):'โดนสาร'} — สารอะไร`,c=>!!safeOf(c))};}
+    if(I.spill)return {kind:'pick',...askPick('หกทำยังไง','หก/รั่ว — สารอะไร',c=>!!safeOf(c))};
+    if(I.fire)return {kind:'pick',...askPick('ไฟไหม้ทำยังไง','ไฟไหม้ — สารอะไร',c=>!!safeOf(c))};
+    if(I.ppe)return {kind:'pick',...askPick('ใส่ PPE อะไร','PPE ของสารอะไร',c=>!!safeOf(c))};
+    if(I.limits)return {kind:'pick',...askPick('ค่าขีดจำกัด','ค่าขีดจำกัดของสารอะไร',c=>!!(c.hl||HL[c.cs]))};
+    return {kind:'fallback',...askCard('','ยังไม่เข้าใจคำถาม',`ผู้ช่วยตอบได้เฉพาะเรื่องความปลอดภัยของสาร ${askDB().length} ชนิดในแอป — พิมพ์ชื่อสารกับเรื่องที่อยากรู้ เช่น "โซดาไฟเข้าตาทำไง"`,'',[['ดูรายชื่อสารในแอป','มีสารอะไรบ้าง']].concat(ASK_EX.slice(0,3).map(x=>[x,x])))};
+  }
+  const single=I.route||I.aid||I.medical||I.sym||I.spill||I.fire||I.ppe||I.limits||I.law||I.cls||I.info;
+  if(chems.length>=2&&(I.store||I.mix||!single)){ASK.last=chems[1];return {kind:'compat',chems,...askCompat(chems[0],chems[1],I.mix)};}
+  const ch=chems[0];ASK.last=ch;
+  let r,kind;
+  if(I.medical){r=askAid(ch,I.route,true);kind='aid';}
+  else if(I.route){r=askAid(ch,I.route);kind='aid';}
+  else if(I.spill){r=askSpillFire(ch,'spill');kind='spill';}
+  else if(I.fire){r=askSpillFire(ch,'fire');kind='fire';}
+  else if(I.ppe){r=askPPE(ch,p.rest);kind='ppe';}
+  else if(I.limits){r=askLimits(ch);kind='limits';}
+  else if(I.law){r=askLaw(ch);kind='law';}
+  else if(I.sym){r=askSym(ch);kind='sym';}
+  else if(I.aid){r=askAid(ch,null);kind='aid';}
+  else if(I.store||I.mix){r=askCompatList(ch);kind='compatList';}
+  else if(I.cls){r=askClass(ch);kind='class';}
+  else if(I.info){r=askInfo(ch);kind='info';}
+  else if(I.outscope){r=askCard('','อยู่นอกขอบเขตของผู้ช่วย',`ผู้ช่วยตอบได้เฉพาะเรื่องความปลอดภัยของ ${esc(askShort(ch))}`,'',askNext(ch,''));kind='outscope';}
+  else{r=askSummary(ch);kind='summary';}
+  return {kind,chems:[ch],...r};
+}
+// ── หน้าจอ ──
+function askRenderCard(r){
+  const tone=r.tone?' ask-'+r.tone:'';
+  const chips=(r.chips||[]).map(([l,q])=>`<button class="ask-chip" onclick="askChip('${jsq(q)}')">${esc(l)}</button>`).join('');
+  return `<div class="ask-card${tone}"><div class="ask-ct">${esc(r.title)}</div><div class="ask-cb">${r.body}</div>${r.src?`<div class="ask-src">ที่มา: ${r.src}</div>`:''}${chips?`<div class="ask-chips">${chips}</div>`:''}</div>`;
+}
+function askWelcome(){
+  const db=askDB();
+  document.getElementById('ask-sub').textContent=`ตอบจากข้อมูลที่ตรวจแล้วในแอป ${db.length} สาร · ใช้ได้ออฟไลน์`;
+  document.getElementById('ask-emg').innerHTML=ASK_SITU.map(([k,l,ph])=>`<button class="ask-sit" onclick="askSit('${k}')">${l}</button>`).join('');
+  const recent=ASK.hist.slice(0,3);
+  document.getElementById('ask-log').innerHTML=askRenderCard({title:'ถามเรื่องอะไรได้บ้าง',body:'เก็บร่วม · PPE · ถ้าหก/ไฟไหม้ · ปฐมพยาบาล · ค่าขีดจำกัด · กฎหมาย ของสารในแอป — ผู้ช่วยไม่เดาคำตอบ ถ้าไม่มีข้อมูลจะบอกตรงๆ',chips:ASK_EX.map(x=>[x,x]).concat([['ดูรายชื่อสารในแอป','มีสารอะไรบ้าง']])})+(recent.length?askRenderCard({title:'ถามล่าสุด',body:'',chips:recent.map(x=>[x,x])}):'');
+}
+function askOpen(chName){
+  if(cp!=='ask')go('ask');
+  askWelcome();
+  if(chName){const ch=askDB().find(x=>x.n===chName);if(ch){ASK.last=ch;askPush('',askRenderCard({kind:'summary',...askSummary(ch)}));}}
+}
+function askPush(q,html){
+  const log=document.getElementById('ask-log');
+  if(q)log.insertAdjacentHTML('beforeend',`<div class="ask-me">${esc(q)}</div>`);
+  log.insertAdjacentHTML('beforeend',html);
+  const pg=document.getElementById('page-ask');setTimeout(()=>{pg.scrollTop=pg.scrollHeight;},30);
+}
+function askSend(){
+  const inp=document.getElementById('ask-in');const q=inp.value.trim();if(!q)return;inp.value='';
+  askRun(q);
+}
+function askRun(q){
+  const r=askAnswer(q);
+  askPush(q,askRenderCard(r));
+  ASK.hist=[q].concat(ASK.hist.filter(x=>x!==q)).slice(0,10);
+  try{localStorage.setItem('cnx_ask_hist',JSON.stringify(ASK.hist));}catch(e){}
+}
+function askChip(q){
+  if(q.startsWith('#det:')){sDet(q.slice(5));return;}
+  if(q.startsWith('#ana:')){const [a,b]=q.slice(5).split('|');rplay(a,b);return;}
+  if(q.startsWith('#go:')){go(q.slice(4));return;}
+  if(q.startsWith('#sds:')){window.open('https://www.google.com/search?q='+encodeURIComponent('SDS '+q.slice(5)),'_blank');return;}
+  askRun(q);
+}
+function askSit(k){
+  const s=ASK_SITU.find(x=>x[0]===k);
+  const r=askPick(s[2],s[1]+' — สารอะไร',c=>!!safeOf(c));
+  askPush('',askRenderCard({...r,body:askCalls()+'เลือกสาร:'}));
+}
 function sDet(nm,tab){
   const all=liveDB().map(x=>({...x,n:x.n||x.name,c:x.c||x.cls,cs:x.cs||x.cas,u:x.u||x.un}));
   const ch=all.find(x=>x.n===canonName(nm));if(!ch)return;nm=ch.n;
@@ -1941,7 +2584,9 @@ function sDet(nm,tab){
   const sdsUrl=/^https?:\/\//.test(ch.sds||'')?ch.sds:'';
   document.getElementById('db').innerHTML=`
     <div class="dh"><div class="dhic">${h.ic||'🧪'}</div><div><div class="dhnm">${nm}</div><div class="dhlat">${p.f||''}</div><div class="dhbd"><span class="chip cl">Class ${ch.c}</span>${ch.u&&ch.u!=='-'?`<span class="chip">UN ${ch.u}</span>`:''}</div></div></div>
-    <div class="tbb">${tb('tt','การจัดเก็บ')}${tb('tp','PPE')}${tb('te','ถ้าเกิดเหตุ')}${tb('ti','ข้อมูล')}</div>
+    <button class="ask-chip" style="margin:0 16px 8px;width:calc(100% - 32px);text-align:center" onclick="askOpen('${jsq(nm)}')"><i class="ph ph-chat-circle-dots"></i> ถามผู้ช่วยเรื่องสารนี้</button>
+    <div class="tbb">${tb('tt','จัดเก็บ')}${tb('tp','PPE')}${tb('th','สุขภาพ')}${tb('te','ถ้าเกิดเหตุ')}${tb('ti','ข้อมูล')}</div>
+    <div id="th" class="tp${t==='th'?' active':''}">${healthHTML(ch)}</div>
     <div id="ti" class="tp${t==='ti'?' active':''}">
       <div class="pr"><span class="prk">CAS</span><span class="prv">${ch.cs||'-'}</span></div>
       <div class="pr"><span class="prk">UN</span><span class="prv">${ch.u||'-'}</span></div>
@@ -1993,7 +2638,7 @@ function sDet(nm,tab){
         <div style="padding:0 16px 10px;font-size:9px;color:var(--tx3)">อ้างอิง: ตารางการจัดเก็บ คู่มือการเก็บรักษาสารเคมีและวัตถุอันตราย กรมโรงงานอุตสาหกรรม 2550 · ดูรายละเอียดคู่สารได้ที่ "เก็บด้วยกันได้ไหม?"</div>`;
       })()}
     </div>
-    <div class="crd"><strong>ธุรกิจพันธุ์กุ้งขาว 2</strong>พัฒนาโดย Atit Chimnan · ChemNexus AI 4.2 • DIW Standard</div>
+    <div class="crd"><strong>ธุรกิจพันธุ์กุ้งขาว 2</strong>พัฒนาโดย Atit Chimnan · ChemNexus AI ${APP_VERSION} • DIW Standard</div>
   `;
   go('detail');
 }
@@ -2149,7 +2794,7 @@ function rRes(e){
     <div class="res-pair-b">
       <div class="res-chem-ic">${hB.ic||'🧪'}</div>
       <div class="res-chem-nm">${b}</div>
-      <div class="res-chem-cls" style="color:#ff64c8">Class ${cB}</div>
+      <div class="res-chem-cls" style="color:var(--pink-tx)">Class ${cB}</div>
       <div class="res-chem-type">${hB.t||''}</div>
       ${tagsB.map(t=>`<span style="display:inline-block;margin-top:4px;padding:2px 7px;border-radius:4px;background:${t.col}22;color:${t.col};font-size:8.5px;font-weight:800">${t.t}</span>`).join('')}
       ${ghsB.length?`<div style="display:flex;justify-content:center;gap:3px;margin-top:7px;flex-wrap:wrap">${ghsB.map(g=>ghsIcon(g,false)).join('')}</div>`:''}
@@ -2206,11 +2851,11 @@ function rRes(e){
 
   <!-- ACTION BUTTONS -->
   <div class="res-actions">
-    <a href="#" class="res-act-btn" style="background:var(--rb);border:1px solid var(--rbd);color:#ff7070" onclick="go('emergency');return false"><i class="ph ph-warning-octagon" style="font-size:16px"></i>ฉุกเฉิน</a>
-    <a href="#" class="res-act-btn" style="background:rgba(184,255,58,.1);border:1px solid var(--lbd);color:var(--lime)" onclick="exportPDF();return false"><i class="ph ph-printer" style="font-size:16px"></i>PDF Report</a>
+    <a href="#" class="res-act-btn" style="background:var(--rb);border:1px solid var(--rbd);color:var(--red-tx)" onclick="go('emergency');return false"><i class="ph ph-warning-octagon" style="font-size:16px"></i>ฉุกเฉิน</a>
+    <a href="#" class="res-act-btn" style="background:color-mix(in srgb,var(--lime) 10%,transparent);border:1px solid var(--lbd);color:var(--lime)" onclick="exportPDF();return false"><i class="ph ph-printer" style="font-size:16px"></i>PDF Report</a>
   </div>
 
-  <div class="crd" style="margin-top:14px"><strong>ธุรกิจพันธุ์กุ้งขาว 2</strong>พัฒนาโดย Atit Chimnan · ChemNexus AI 4.2 • DIW Matrix</div>
+  <div class="crd" style="margin-top:14px"><strong>ธุรกิจพันธุ์กุ้งขาว 2</strong>พัฒนาโดย Atit Chimnan · ChemNexus AI ${APP_VERSION} • DIW Matrix</div>
   `;
 }
 
@@ -2257,7 +2902,7 @@ function rPPE(){
     <div class="sf-note" style="margin-top:6px"><b>สีไส้กรอง (EN 14387):</b> A น้ำตาล = ไอสารอินทรีย์ (น้ำมัน แอลกอฮอล์ กรดอะซิติก) · B เทา = ก๊าซอนินทรีย์ (คลอรีน) · E เหลือง = ก๊าซกรด (กรดเกลือ) · P ขาว = ฝุ่น/ละออง · ไส้กรองไม่เติมออกซิเจน ห้ามใช้ในที่อับอากาศ</div>
     ${none.length?`<div class="sf-note">ยังไม่มีข้อมูล PPE ที่ตรวจแล้ว: ${none.map(x=>esc(x.n)).join(', ')} — ดู SDS ผู้ผลิต หัวข้อ 8</div>`:''}
     <div class="sf-src"><i class="ph ph-book-open-text"></i> ที่มา: บัตร ICSC (ILO/WHO) · NIOSH Pocket Guide · <a href="https://www.osha.gov/sites/default/files/publications/osha3151.pdf" target="_blank" rel="noopener">OSHA 3151 ตาราง 4 (วัสดุถุงมือ)</a> · เลือก PPE ตามงานจริงและคำแนะนำของผู้ผลิต</div>
-    <div class="crd"><strong>ธุรกิจพันธุ์กุ้งขาว 2</strong>พัฒนาโดย Atit Chimnan · ChemNexus AI 4.2 • PPE</div>
+    <div class="crd"><strong>ธุรกิจพันธุ์กุ้งขาว 2</strong>พัฒนาโดย Atit Chimnan · ChemNexus AI ${APP_VERSION} • PPE</div>
   `;
 }
 
@@ -2316,7 +2961,7 @@ function rEMG(){
     </details>
     <div class="sf-note">ล้างตาและผิวด้วยน้ำไหลทันที — ICSC ให้ล้างอย่างน้อย 15 นาที · ERG 2024 ให้ล้างสารกัดกร่อนอย่างน้อย 30 นาที</div>
     <div class="sf-src"><i class="ph ph-book-open-text"></i> ที่มา: ERG 2024 · บัตร ICSC (ILO/WHO) · เบอร์ 1367 ศูนย์พิษวิทยารามาธิบดี · 1650 กรมควบคุมมลพิษ</div>
-    <div class="crd"><strong>ธุรกิจพันธุ์กุ้งขาว 2</strong>พัฒนาโดย Atit Chimnan · ChemNexus AI 4.2 • ฉุกเฉิน</div>
+    <div class="crd"><strong>ธุรกิจพันธุ์กุ้งขาว 2</strong>พัฒนาโดย Atit Chimnan · ChemNexus AI ${APP_VERSION} • ฉุกเฉิน</div>
   `;
 }
 
@@ -2341,15 +2986,15 @@ function renderMatrix() {
       const val = MX[r]?.[ci] || '?';
       let bg, tx, label, cursor, click, hover;
       if (val === '0') {
-        bg = 'rgba(255,56,56,.25)'; tx = '#ff7070'; label = '✕'; cursor = 'pointer';
+        bg = 'color-mix(in srgb,var(--red) 25%,transparent)'; tx = 'var(--red-tx)'; label = '✕'; cursor = 'pointer';
         click = `onclick="showMxDetail('${r}','${c}','${val}')"`;
         hover = `onmouseover="this.style.filter='brightness(1.3)'" onmouseout="this.style.filter='none'"`;
       } else if (val === '00') {
-        bg = 'rgba(0,232,122,.2)'; tx = '#33ff99'; label = '✓'; cursor = 'pointer';
+        bg = 'color-mix(in srgb,var(--grn) 20%,transparent)'; tx = 'var(--grn-tx)'; label = '✓'; cursor = 'pointer';
         click = `onclick="showMxDetail('${r}','${c}','${val}')"`;
         hover = `onmouseover="this.style.filter='brightness(1.3)'" onmouseout="this.style.filter='none'"`;
       } else {
-        bg = 'rgba(255,170,0,.2)'; tx = '#ffcc55'; label = val; cursor = 'pointer';
+        bg = 'color-mix(in srgb,var(--amb) 20%,transparent)'; tx = 'var(--amb-tx)'; label = val; cursor = 'pointer';
         click = `onclick="showMxDetail('${r}','${c}','${val}')"`;
         hover = `onmouseover="this.style.filter='brightness(1.3)'" onmouseout="this.style.filter='none'"`;
       }
@@ -2366,9 +3011,9 @@ function showMxDetail(classA, classB, val) {
   const hA = HC[classA] || {}, hB = HC[classB] || {};
 
   let result, resultColor, resultBg, resultBd;
-  if (val === '0') { result = '⛔ RED — ห้ามเก็บร่วมกัน'; resultColor = '#ff7070'; resultBg = 'var(--rb)'; resultBd = 'var(--rbd)'; }
-  else if (val === '00') { result = '✅ GREEN — เก็บร่วมกันได้'; resultColor = '#33ff99'; resultBg = 'var(--gb)'; resultBd = 'var(--gbd)'; }
-  else { result = '⚠ YELLOW — มีเงื่อนไข (ข้อ ' + val + ')'; resultColor = '#ffcc55'; resultBg = 'var(--ab)'; resultBd = 'var(--abd)'; }
+  if (val === '0') { result = '⛔ RED — ห้ามเก็บร่วมกัน'; resultColor = 'var(--red-tx)'; resultBg = 'var(--rb)'; resultBd = 'var(--rbd)'; }
+  else if (val === '00') { result = '✅ GREEN — เก็บร่วมกันได้'; resultColor = 'var(--grn-tx)'; resultBg = 'var(--gb)'; resultBd = 'var(--gbd)'; }
+  else { result = '⚠ YELLOW — มีเงื่อนไข (ข้อ ' + val + ')'; resultColor = 'var(--amb-tx)'; resultBg = 'var(--ab)'; resultBd = 'var(--abd)'; }
 
   // normalize for PR lookup
   let c1 = classA, c2 = classB;
@@ -2423,7 +3068,7 @@ let userDB = [], hiddenBase = []; // คงไว้ให้โค้ดส่�
 
 function saveDraft() { try { localStorage.setItem('cnx4_draft', JSON.stringify(DRAFT)); } catch (e) {} }
 function entryKey(e) {
-  return JSON.stringify({ n: e.n, c: e.c, cs: e.cs || '-', u: e.u || '-', note: e.note || '', props: e.props || null, sds: e.sds || '', ref: e.ref || null, safe: e.safe || null, hidden: !!e.hidden });
+  return JSON.stringify({ n: e.n, c: e.c, cs: e.cs || '-', u: e.u || '-', note: e.note || '', props: e.props || null, sds: e.sds || '', ref: e.ref || null, safe: e.safe || null, hl: e.hl || null, hidden: !!e.hidden });
 }
 function applyEdits(list, edits) {
   const map = new Map(list.map(d => [d.n, d]));
@@ -2537,13 +3182,13 @@ function rAdmin() {
     <div class="sl" style="margin-top:12px">สถานะข้อมูล</div>
     <div class="admin-stats">
       <div class="ast"><div class="ast-n" style="color:var(--lime)">${all.length}</div><div class="ast-l">สารที่ใช้งาน</div></div>
-      <div class="ast"><div class="ast-n" style="color:#60d0ff">${PUBLISHED.length}</div><div class="ast-l">แก้แล้วบน GitHub</div></div>
-      <div class="ast"><div class="ast-n" style="color:${DRAFT.length ? '#ffcc55' : 'var(--tx3)'}">${DRAFT.length}</div><div class="ast-l">ร่างยังไม่อัปโหลด</div></div>
+      <div class="ast"><div class="ast-n" style="color:var(--blue-tx)">${PUBLISHED.length}</div><div class="ast-l">แก้แล้วบน GitHub</div></div>
+      <div class="ast"><div class="ast-n" style="color:${DRAFT.length ? 'var(--amb-tx)' : 'var(--tx3)'}">${DRAFT.length}</div><div class="ast-l">ร่างยังไม่อัปโหลด</div></div>
     </div>
 
     <div style="margin:10px 16px 2px;display:flex;flex-direction:column;gap:7px">
       <button class="btn" onclick="openAddForm()"><i class="ph-bold ph-plus-circle" style="font-size:16px"></i>เพิ่มสารเคมีใหม่</button>
-      <button class="btn ${DRAFT.length ? '' : 'bg'}" style="${DRAFT.length ? 'background:#ffcc55;color:#1a1200' : ''}" onclick="exportJSON()">
+      <button class="btn ${DRAFT.length ? '' : 'bg'}" style="${DRAFT.length ? 'background:var(--amb-tx);color:#1a1200' : ''}" onclick="exportJSON()">
         <i class="ph-bold ph-download-simple" style="font-size:16px"></i>ดาวน์โหลด chemicals.json${DRAFT.length ? ' (มีร่าง ' + DRAFT.length + ')' : ''}</button>
       ${DRAFT.length ? `<button class="btn bg" onclick="clearDraft()"><i class="ph ph-arrow-counter-clockwise" style="font-size:14px"></i>ทิ้งร่างทั้งหมด</button>` : ''}
     </div>
@@ -2565,7 +3210,7 @@ function rAdmin() {
         : filtered.map(x => {
           const h = HC[x.c] || {};
           const tag = draftNames.has(x.n)
-            ? '<span style="color:#1a1200;font-size:7px;font-weight:800;background:#ffcc55;padding:1px 5px;border-radius:3px;margin-left:3px">ร่าง</span>'
+            ? '<span style="color:#1a1200;font-size:7px;font-weight:800;background:var(--amb-tx);padding:1px 5px;border-radius:3px;margin-left:3px">ร่าง</span>'
             : (x.ref ? '' : '<span style="color:var(--amb);font-size:7px;font-weight:800;border:1px solid var(--abd);padding:0 4px;border-radius:3px;margin-left:3px">ยังไม่มีอ้างอิง</span>');
           return `<div class="admin-item">
             <div class="ai-icon">${h.ic || '🧪'}</div>
@@ -2587,12 +3232,12 @@ function rAdmin() {
     <div class="card" style="margin:0 16px">
       ${hid.map(x => `<div class="admin-item">
         <div class="ai-icon" style="opacity:.4">${(HC[x.c] || {}).ic || '🧪'}</div>
-        <div style="flex:1;min-width:0"><div class="ai-name" style="color:var(--tx3)">${esc(x.n)}${draftNames.has(x.n) ? ' <span style="color:#ffcc55;font-size:8px">(ร่าง)</span>' : ''}</div><div class="ai-sub">Class ${esc(x.c || '-')}</div></div>
+        <div style="flex:1;min-width:0"><div class="ai-name" style="color:var(--tx3)">${esc(x.n)}${draftNames.has(x.n) ? ' <span style="color:var(--amb-tx);font-size:8px">(ร่าง)</span>' : ''}</div><div class="ai-sub">Class ${esc(x.c || '-')}</div></div>
         <button class="ai-btn edit" onclick="restoreChem('${jsq(x.n)}')" title="กู้คืน"><i class="ph ph-arrow-counter-clockwise"></i></button>
       </div>`).join('')}
     </div>` : ''}
 
-    <div class="crd"><strong>${APP_ORG}</strong>ChemNexus AI 4.2 · หน้าผู้ดูแล</div>
+    <div class="crd"><strong>${APP_ORG}</strong>ChemNexus AI ${APP_VERSION} · หน้าผู้ดูแล</div>
   `;
 }
 
@@ -2650,10 +3295,40 @@ function readSafe() {
   return filled ? s : null;
 }
 
+// ── ช่องสุขภาพ + กฎหมาย ในฟอร์มผู้ดูแล (v4.3) — โครงเดียวกับ HL ──
+const HL_TXT = { th:'f-h-th', rel:'f-h-rel', pel:'f-h-pel', idlh:'f-h-idlh', tlv:'f-h-tlv', conv:'f-h-conv', short:'f-h-short', inh:'f-h-inh', long:'f-h-long', organs:'f-h-organs', syn:'f-h-syn', src:'f-h-src', note:'f-h-note' };
+let hlBase = 'null';
+function fillHL(h) {
+  h = h || {};
+  const sy = h.sym || {};
+  Object.entries(HL_TXT).forEach(([k, id]) => { document.getElementById(id).value = h[k] || ''; });
+  [['f-h-si','i'],['f-h-ss','s'],['f-h-se','e'],['f-h-sg','g']].forEach(([id, k]) => { document.getElementById(id).value = sy[k] || ''; });
+  document.getElementById('f-h-absorb').checked = !!h.absorb;
+  document.getElementById('f-h-delayed').checked = !!h.delayed;
+  document.getElementById('f-h-hck').value = h.hc ? 'hc' : (h.hcMay ? 'hcMay' : '');
+  document.getElementById('f-h-hct').value = h.hc || h.hcMay || '';
+  hlBase = JSON.stringify(readHL());
+}
+function readHL() {
+  const v = id => document.getElementById(id).value.trim();
+  const h = {};
+  Object.entries(HL_TXT).forEach(([k, id]) => { if (v(id)) h[k] = v(id); });
+  const sym = {};
+  [['f-h-si','i'],['f-h-ss','s'],['f-h-se','e'],['f-h-sg','g']].forEach(([id, k]) => { if (v(id)) sym[k] = v(id); });
+  if (Object.keys(sym).length) h.sym = sym;
+  if (document.getElementById('f-h-absorb').checked) h.absorb = 1;
+  if (document.getElementById('f-h-delayed').checked) h.delayed = 1;
+  const hk = v('f-h-hck');
+  if (hk) h[hk] = v('f-h-hct') || 'ดูประกาศกรมสวัสดิการฯ 2564';
+  return Object.keys(h).length ? h : null;
+}
+
 function resetForm() {
   FORM_FIELDS.forEach(id => { const e = document.getElementById(id); if (e) e.value = ''; });
   fillSafe(null);
+  fillHL(null);
   document.getElementById('f-safe-box').open = false;
+  document.getElementById('f-hl-box').open = false;
   document.getElementById('f-ref-src').value = '';
   document.getElementById('pubchem-dd').style.display = 'none';
   document.getElementById('pubchem-status').style.display = 'none';
@@ -2700,6 +3375,7 @@ function openEditForm(nm) {
   set('f-bp', p.bp); set('f-mp', p.mp); set('f-flash', p.flash); set('f-density', p.d);
   set('f-sds', /^https?:\/\//.test(x.sds || '') ? x.sds : '');
   fillSafe(x.safe || SAFE[x.cs]);
+  fillHL(x.hl || HL[x.cs]);
   if (x.ref) { document.getElementById('f-ref-src').value = x.ref.src || ''; set('f-ref-url', x.ref.url); }
   document.getElementById('f-class').value = x.c;
   updateClassPreview(x.c);
@@ -2719,6 +3395,7 @@ function refLookup(kind) {
   let url;
   if (kind === 'merck') url = 'https://www.google.com/search?q=' + encodeURIComponent(q + ' "Storage class" site:sigmaaldrich.com');
   else if (kind === 'sds') url = 'https://www.google.com/search?q=' + encodeURIComponent('SDS ' + q + ' filetype:pdf');
+  else if (kind === 'niosh') url = 'https://www.google.com/search?q=' + encodeURIComponent(q + ' site:cdc.gov/niosh/npg');
   else if (kind === 'icsc') url = 'https://chemicalsafety.ilo.org/dyn/icsc/showcard.listCards3?p_lang=en&' + (cas ? 'p_cas_number=' + encodeURIComponent(cas) : 'p_synonym=' + encodeURIComponent(nm));
   else if (kind === 'erg') {
     const un = document.getElementById('f-un').value.trim();
@@ -2756,7 +3433,7 @@ function pubChemAutocomplete(query) {
       const h = HC[s.c] || {};
       return `<div style="padding:10px 14px;cursor:pointer;border-bottom:1px solid var(--bd);font-size:12px;font-weight:600;color:var(--tx);display:flex;align-items:center;gap:8px;transition:background .1s"
            onmousedown="selectSmartResult(${i})" ontouchstart="selectSmartResult(${i})"
-           onmouseover="this.style.background='rgba(184,255,58,.06)'" onmouseout="this.style.background='none'">
+           onmouseover="this.style.background='color-mix(in srgb,var(--lime) 6%,transparent)'" onmouseout="this.style.background='none'">
         <span style="font-size:16px;flex-shrink:0">${h.ic||'🧪'}</span>
         <div style="flex:1;min-width:0"><div>${s.n}</div>
         <div style="font-size:9px;color:var(--tx3)">CAS ${s.cs} · UN ${s.u}</div></div>
@@ -2790,7 +3467,7 @@ function pubChemAutocomplete(query) {
           `<div style="padding:10px 14px;cursor:pointer;border-bottom:1px solid var(--bd);font-size:12px;font-weight:600;color:var(--tx);display:flex;align-items:center;gap:8px;transition:background .1s"
                onmousedown="selectPubChemResult('${name.replace(/'/g, "\\'")}')"
                ontouchstart="selectPubChemResult('${name.replace(/'/g, "\\'")}')"
-               onmouseover="this.style.background='rgba(184,255,58,.06)'"
+               onmouseover="this.style.background='color-mix(in srgb,var(--lime) 6%,transparent)'"
                onmouseout="this.style.background='none'">
             <i class="ph ph-flask" style="font-size:16px;color:var(--lime);flex-shrink:0"></i>
             <span>${name}</span>
@@ -2972,6 +3649,10 @@ function saveForm() {
   if (JSON.stringify(sf) !== safeBase) { if (sf) entry.safe = { ...safeCarry, ...sf }; }
   else if (old && old.safe) entry.safe = old.safe;
   if (entry.safe) Object.keys(entry.safe).forEach(k => entry.safe[k] === undefined && delete entry.safe[k]);
+  // สุขภาพ + กฎหมาย: บันทึกเมื่อแก้จากค่าเดิม หรือสารนี้มีข้อมูลของตัวเองอยู่แล้ว
+  const hl = readHL();
+  if (JSON.stringify(hl) !== hlBase) { if (hl) entry.hl = hl; }
+  else if (old && old.hl) entry.hl = old.hl;
   if (old && old.ghs) entry.ghs = old.ghs;
 
   // เปลี่ยนชื่อ → ซ่อนชื่อเดิม
@@ -3021,40 +3702,7 @@ function restoreChem(nm) {
   uDash();
 }
 
-// ══════════════════════════════════════════
-//  ขอเพิ่มสาร (ผู้ใช้ทั่วไป) → ส่ง LINE ถึงผู้ดูแล
-// ══════════════════════════════════════════
-function buildReq() {
-  const v = id => document.getElementById(id).value.trim();
-  const req = { name: v('rq-name'), trade: v('rq-trade'), cas: v('rq-cas'), sds: v('rq-sds'), use: v('rq-use'), who: v('rq-who') };
-  const errEl = document.getElementById('rq-err');
-  if (!req.name) { errEl.textContent = '⚠ กรอกชื่อสารเคมี'; return null; }
-  if (!req.who) { errEl.textContent = '⚠ กรอกชื่อผู้ขอ / หน่วยงาน'; return null; }
-  errEl.textContent = '';
-  Object.keys(req).forEach(k => { if (!req[k]) delete req[k]; });
-  const link = location.origin + location.pathname + '#admin&req=' + encodeURIComponent(JSON.stringify(req));
-  const lines = [
-    '📨 ขอเพิ่มสารเคมีใน ChemNexus AI',
-    'ชื่อสาร: ' + req.name,
-    req.trade ? 'ชื่อการค้า/ผู้ผลิต: ' + req.trade : '',
-    req.cas ? 'CAS: ' + req.cas : '',
-    req.use ? 'ใช้ทำอะไร: ' + req.use : '',
-    req.sds ? 'SDS: ' + req.sds : '',
-    'ผู้ขอ: ' + req.who,
-    '',
-    'ผู้ดูแลกดตรวจ/อนุญาต: ' + link,
-  ].filter((l, i) => l !== '' || i === 7);
-  return lines.join('\n');
-}
-function sendReqLine() {
-  const t = buildReq(); if (!t) return;
-  window.open('https://line.me/R/share?text=' + encodeURIComponent(t), '_blank');
-}
-async function copyReq() {
-  const t = buildReq(); if (!t) return;
-  try { await navigator.clipboard.writeText(t); toast('📋 คัดลอกแล้ว — วางส่งให้ผู้ดูแล'); }
-  catch (e) { prompt('คัดลอกข้อความนี้ส่งให้ผู้ดูแล', t); }
-}
+// v4.3: ตัดหน้า "ขอเพิ่มสารเคมี" — เพิ่ม/แก้สารได้เฉพาะผู้ดูแลที่หน้า #admin
 
 // ลิงก์ #admin / #admin&req=... → เปิดหน้าผู้ดูแล (+ คำขอ)
 function handleHash() {
@@ -3147,7 +3795,7 @@ function exportPDF(){
     <div class="prsec-t">PPE และข้อห้ามของแต่ละสาร</div>
     ${[a,b].map(n=>`<div style="font-size:9px;line-height:1.6;margin-bottom:7px"><b>${esc(n)}</b><br>${pdfSafe(n)}</div>`).join('')}
     <div style="font-size:9px;color:#666;background:#f8f8f8;border-radius:6px;padding:8px 10px;margin-bottom:12px"><strong>เบอร์ฉุกเฉิน:</strong> 1669 (การแพทย์ฉุกเฉิน) · 199 (ดับเพลิง) · 1367 (ศูนย์พิษวิทยารามาธิบดี) · 1650 กด 3 (สายด่วนมลพิษ คพ.)</div>
-    <div class="prfooter"><div class="prfoot-l">ChemNexus AI 4.2</div><div class="prfoot-r">อ้างอิง: คู่มือการเก็บรักษาสารเคมีฯ กรมโรงงานอุตสาหกรรม 2550<br>ธุรกิจพันธุ์กุ้งขาว 2 · ${now}</div></div>
+    <div class="prfooter"><div class="prfoot-l">ChemNexus AI ${APP_VERSION}</div><div class="prfoot-r">อ้างอิง: คู่มือการเก็บรักษาสารเคมีฯ กรมโรงงานอุตสาหกรรม 2550<br>ธุรกิจพันธุ์กุ้งขาว 2 · ${now}</div></div>
     <div style="margin-top:12px;display:flex;gap:8px">
       <button onclick="printReport()" style="flex:1;padding:12px;background:#111;border:none;border-radius:7px;color:#b8ff3a;font-family:'Sarabun',sans-serif;font-size:13px;font-weight:800;cursor:pointer">🖨️ พิมพ์ / บันทึก PDF</button>
       <button onclick="closePDF()" style="padding:12px 18px;background:#f0f0f0;border:none;border-radius:7px;color:#333;font-family:'Sarabun',sans-serif;font-size:13px;font-weight:700;cursor:pointer">ปิด</button>
@@ -3224,7 +3872,7 @@ table{width:100%;border-collapse:collapse}
 <body>
 <div class="hdr">
   <div>
-    <h1>⚗️ ChemNexus AI 4.2</h1>
+    <h1>⚗️ ChemNexus AI ${APP_VERSION}</h1>
     <div class="sub">รายงานวิเคราะห์ความเข้ากันได้ของสารเคมี</div>
   </div>
   <div class="meta">วันที่: ${tm}<br>อ้างอิง: ตารางการจัดเก็บ คู่มือ DIW 2550<br>พัฒนาโปรแกรมโดย ธุรกิจพันธุ์กุ้งขาว 2 · ผู้พัฒนา Atit Chimnan</div>
@@ -3282,9 +3930,9 @@ ${(pA.mw||pB.mw)?`
 <div class="emg"><strong>เบอร์ฉุกเฉิน:</strong> 1669 (การแพทย์ฉุกเฉิน) · 199 (ดับเพลิง) · 1367 (ศูนย์พิษวิทยารามาธิบดี) · 1650 กด 3 (สายด่วนมลพิษ คพ.)</div>
 
 <div class="footer">
-  <div class="foot-l">ChemNexus AI 4.2<br><span style="font-size:10px;font-weight:400;color:#888">Chemical Safety Report</span></div>
+  <div class="foot-l">ChemNexus AI ${APP_VERSION}<br><span style="font-size:10px;font-weight:400;color:#888">Chemical Safety Report</span></div>
   <div style="display:flex;align-items:center;gap:12px">
-    <div class="foot-r">อ้างอิง: คู่มือการเก็บรักษาสารเคมีฯ กรมโรงงานอุตสาหกรรม 2550<br>พัฒนาโปรแกรมโดย ธุรกิจพันธุ์กุ้งขาว 2 · ผู้พัฒนา Atit Chimnan · ${now}<br><span style="color:#bbb">Generated by ChemNexus AI · Version 4.2.0</span></div>
+    <div class="foot-r">อ้างอิง: คู่มือการเก็บรักษาสารเคมีฯ กรมโรงงานอุตสาหกรรม 2550<br>พัฒนาโปรแกรมโดย ธุรกิจพันธุ์กุ้งขาว 2 · ผู้พัฒนา Atit Chimnan · ${now}<br><span style="color:#bbb">Generated by ChemNexus AI · Version ${APP_VERSION}</span></div>
     <div style="text-align:center">
       <img src="https://api.qrserver.com/v1/create-qr-code/?size=64x64&data=${encodeURIComponent('https://atit1912.github.io/chem-ai/')}&bgcolor=ffffff&color=111111&margin=2" width="64" height="64" style="border-radius:4px;border:1px solid #ddd" alt="QR">
       <div style="font-size:7px;color:#bbb;margin-top:3px">สแกนเพื่อเปิดแอป</div>
@@ -3326,7 +3974,7 @@ function closePDF(){
 //  ONBOARDING
 // ══════════════════════════════════════════
 const OB_STEPS=[
-  {icon:'⚗️',title:'ยินดีต้อนรับสู่ ChemNexus AI 4.2',desc:'เลือกสาร 2 ชนิด แล้วดูว่าเก็บด้วยกันได้ไหม มีเงื่อนไขอะไร ตามตารางของกรมโรงงานอุตสาหกรรม (DIW)\nพัฒนาโปรแกรมโดย ธุรกิจพันธุ์กุ้งขาว 2'},
+  {icon:'⚗️',title:'ยินดีต้อนรับสู่ ChemNexus AI '+APP_VERSION,desc:'เลือกสาร 2 ชนิด แล้วดูว่าเก็บด้วยกันได้ไหม มีเงื่อนไขอะไร ตามตารางของกรมโรงงานอุตสาหกรรม (DIW)\nพัฒนาโปรแกรมโดย ธุรกิจพันธุ์กุ้งขาว 2'},
   {icon:'🔬',title:'วิเคราะห์ความเข้ากันได้',desc:'เลือกสารเคมี 2 ชนิด กดวิเคราะห์ — ระบบจะตรวจสอบจาก DIW Compatibility Matrix 23×23 class ทันที'},
   {icon:'⛔',title:'RED / YELLOW / GREEN',desc:'RED = ห้ามเก็บร่วมกัน\nYELLOW = มีเงื่อนไข\nGREEN = ปลอดภัย พร้อมบอกก๊าซที่เกิดและเหตุผลทางวิทยาศาสตร์'},
   {icon:'🛡️',title:'PPE & ถ้าเกิดเหตุ รายสาร',desc:'กดสารเคมี → แท็บ PPE บอกถุงมือ แว่น ไส้กรอง · แท็บ "ถ้าเกิดเหตุ" บอกสิ่งที่ต้องทำ/ห้ามทำเมื่อหก ไฟไหม้ หรือโดนตัว\nอ้างอิงบัตร ICSC (ILO/WHO) · NIOSH · ERG 2024'},
@@ -3654,17 +4302,17 @@ function edRender(){
   const cp=document.getElementById('ed-check');
   let h='';
   if(probs.length)h+=`<div style="padding:10px 12px;background:var(--rb);border:1px solid var(--rbd);border-radius:var(--rs);margin-bottom:8px">
-    <div style="font-size:11px;font-weight:900;color:#ff7070;margin-bottom:5px">⛔ ยังไม่ผ่าน — ต้องแยกบริเวณ ${probs.length} คู่</div>
-    ${probs.map(p=>`<div style="font-size:10px;color:var(--tx2);line-height:1.7">• <b>${p.a.n}</b> (${p.a.c}) × <b>${p.b.n}</b> (${p.b.c}) — ห่าง ${p.dist.toFixed(1)} ม. <span style="color:#ff7070;font-weight:700">ต้อง ≥ ${p.need} ม. หรือวาง 🧱 กำแพงกั้นคั่น</span></div>`).join('')}</div>`;
+    <div style="font-size:11px;font-weight:900;color:var(--red-tx);margin-bottom:5px">⛔ ยังไม่ผ่าน — ต้องแยกบริเวณ ${probs.length} คู่</div>
+    ${probs.map(p=>`<div style="font-size:10px;color:var(--tx2);line-height:1.7">• <b>${p.a.n}</b> (${p.a.c}) × <b>${p.b.n}</b> (${p.b.c}) — ห่าง ${p.dist.toFixed(1)} ม. <span style="color:var(--red-tx);font-weight:700">ต้อง ≥ ${p.need} ม. หรือวาง 🧱 กำแพงกั้นคั่น</span></div>`).join('')}</div>`;
   if(mitig.length)h+=`<details style="padding:10px 12px;background:rgba(255,145,0,.1);border:1px solid rgba(255,145,0,.4);border-radius:var(--rs);margin-bottom:8px">
     <summary style="font-size:11px;font-weight:900;color:#ffab40;cursor:pointer">🟠 คู่ห้ามเก็บร่วม ที่แยกบริเวณแล้ว ${mitig.length} คู่ — แตะดูรายการ (แตะบล็อกในผังเพื่อดูเส้น)</summary>
     ${mitig.map(p=>`<div style="font-size:10px;color:var(--tx2);line-height:1.7">• <b>${p.a.n}</b> × <b>${p.b.n}</b> — ${p.walled?'มีกำแพงกั้น 🧱':p.buffer?'มี <b>'+p.buffer+'</b> (ไม่ติดไฟ/เข้ากันได้) วางคั่น 📦':'ระยะ '+p.dist.toFixed(1)+' ม. ≥ เกณฑ์'} — ดูแลเส้นทางหกไหลไม่ให้ถึงกัน${p.buffer?' และรักษาแนวสารคั่นให้อยู่ตำแหน่งเดิมเสมอ':''}</div>`).join('')}</details>`;
   if(warns.length)h+=`<div style="padding:10px 12px;background:var(--ab);border:1px solid var(--abd);border-radius:var(--rs);margin-bottom:8px">
     <div style="font-size:11px;font-weight:900;color:var(--amb);margin-bottom:5px">⚠️ เก็บร่วมได้แบบมีเงื่อนไข ${warns.length} คู่</div>
-    ${warns.map(w=>`<div style="font-size:10px;color:var(--tx2);line-height:1.7">• <b>${w.a.n}</b> × <b>${w.b.n}</b> — เงื่อนไข ${w.v}: ${CD[w.v]||''} <span style="color:${w.sepOK?'var(--tx3)':'#ff7070'}">(ห่าง ${w.dist.toFixed(1)} ม.${(w.v==='4'||w.v==='7')?(w.sepOK?' — แยกห่างแล้ว ✓':' — ควรแยกห่าง/มีกำแพงกั้น!'):''})</span></div>`).join('')}</div>`;
+    ${warns.map(w=>`<div style="font-size:10px;color:var(--tx2);line-height:1.7">• <b>${w.a.n}</b> × <b>${w.b.n}</b> — เงื่อนไข ${w.v}: ${CD[w.v]||''} <span style="color:${w.sepOK?'var(--tx3)':'var(--red-tx)'}">(ห่าง ${w.dist.toFixed(1)} ม.${(w.v==='4'||w.v==='7')?(w.sepOK?' — แยกห่างแล้ว ✓':' — ควรแยกห่าง/มีกำแพงกั้น!'):''})</span></div>`).join('')}</div>`;
   const chems=edState.items.filter(i=>i.t==='chem');
-  if(!probs.length&&!warns.length&&!mitig.length&&chems.length>1)h=`<div style="padding:10px 12px;background:var(--gb);border:1px solid var(--gbd);border-radius:var(--rs);font-size:11px;font-weight:800;color:#33ff99">✅ ทุกคู่เก็บร่วมกันได้ ไม่มีข้อขัดแย้ง</div>`;
-  else if(!probs.length&&chems.length>1&&(mitig.length||warns.length))h+=`<div style="padding:8px 12px;background:var(--gb);border:1px solid var(--gbd);border-radius:var(--rs);font-size:10.5px;font-weight:800;color:#33ff99">✅ ผังนี้ผ่านเกณฑ์แยกบริเวณภายในห้องเดียว</div>`;
+  if(!probs.length&&!warns.length&&!mitig.length&&chems.length>1)h=`<div style="padding:10px 12px;background:var(--gb);border:1px solid var(--gbd);border-radius:var(--rs);font-size:11px;font-weight:800;color:var(--grn-tx)">✅ ทุกคู่เก็บร่วมกันได้ ไม่มีข้อขัดแย้ง</div>`;
+  else if(!probs.length&&chems.length>1&&(mitig.length||warns.length))h+=`<div style="padding:8px 12px;background:var(--gb);border:1px solid var(--gbd);border-radius:var(--rs);font-size:10.5px;font-weight:800;color:var(--grn-tx)">✅ ผังนี้ผ่านเกณฑ์แยกบริเวณภายในห้องเดียว</div>`;
   cp.innerHTML=h;
   // แถบเลือก + ปุ่ม
   const sel=edState.items[edSel];
@@ -3748,7 +4396,7 @@ function edExport(){
   ${mitig.length?`<div class="sec" style="background:#fff3e0;border:1px solid #fb2"><b>🟠 คู่ห้ามคละที่แยกบริเวณภายในห้องแล้ว ${mitig.length} คู่:</b><br>${mitig.map(p=>`• ${p.a.n} × ${p.b.n} — ${p.walled?'มีกำแพงกั้น':p.buffer?'มี '+p.buffer+' วางคั่น (ไม่ติดไฟ เข้ากันได้ทั้งสองฝั่ง)':'ระยะ '+p.dist.toFixed(1)+' ม.'}`).join('<br>')}</div>`:''}
   ${warns.length?`<div class="sec amb"><b>⚠️ คู่ที่เก็บร่วมได้แบบมีเงื่อนไข ${warns.length} คู่:</b><br>${warns.map(x=>`• ${x.a.n} × ${x.b.n} — เงื่อนไขข้อ ${x.v}: ${CD[x.v]||''} (ห่าง ${x.dist.toFixed(1)} ม.)`).join('<br>')}</div>`:''}
   ${!probs.length&&!warns.length&&chems.length>1?`<div class="sec grn"><b>✅ ทุกคู่เก็บร่วมกันได้ตาม DIW Matrix</b></div>`:''}
-  <div style="margin-top:20px;font-size:10.5px;color:#888">อ้างอิง: ตารางการจัดเก็บสารเคมีและวัตถุอันตราย กรมโรงงานอุตสาหกรรม (DIW) · พัฒนาโปรแกรมโดย ธุรกิจพันธุ์กุ้งขาว 2 · ผู้พัฒนา Atit Chimnan · ChemNexus AI 4.2</div>
+  <div style="margin-top:20px;font-size:10.5px;color:#888">อ้างอิง: ตารางการจัดเก็บสารเคมีและวัตถุอันตราย กรมโรงงานอุตสาหกรรม (DIW) · พัฒนาโปรแกรมโดย ธุรกิจพันธุ์กุ้งขาว 2 · ผู้พัฒนา Atit Chimnan · ChemNexus AI ${APP_VERSION}</div>
   <button class="np" onclick="window.print()" style="margin-top:16px;padding:10px 22px;font-size:14px;cursor:pointer">🖨 พิมพ์ / บันทึก PDF</button>
   </body></html>`);
   w.document.close();
