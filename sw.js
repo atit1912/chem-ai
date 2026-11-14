@@ -1,12 +1,14 @@
-// ChemNexus AI 3.0 — Service Worker
-// Developed by Atit Chimnan
-// Strategy: Cache-first for app shell, network-first for external resources
-const CACHE_NAME = 'chemnexus-v3.9.0';
+// ChemNexus AI 4.0 — Service Worker
+// พัฒนาโปรแกรมโดย ธุรกิจพันธุ์กุ้งขาว 2
+// Strategy: หน้าแอป + chemicals.json = network-first (อัปโหลดแล้วเห็นทันที, ออฟไลน์ใช้ของในแคช)
+//           ไฟล์อื่นของเว็บ = cache-first
+const CACHE_NAME = 'chemnexus-v4.0.0';
 const CACHE_URLS = [
   './index.html',
   './manifest.json',
-  './firebase-config.js',
 ];
+const NETWORK_FIRST = (url) =>
+  url.pathname.endsWith('/') || url.pathname.endsWith('/index.html') || url.pathname.endsWith('/chemicals.json');
 // External resources to cache when available
 const EXTERNAL_CACHE = [
   'https://fonts.googleapis.com/css2?family=Sarabun',
@@ -47,6 +49,23 @@ self.addEventListener('fetch', event => {
   if (request.method !== 'GET') return;
   // Skip chrome-extension and other non-http
   if (!request.url.startsWith('http')) return;
+  // หน้าแอป + chemicals.json: network-first
+  if (url.origin === self.location.origin && NETWORK_FIRST(url)) {
+    event.respondWith(
+      fetch(request).then(response => {
+        if (response && response.status === 200) {
+          const copy = response.clone();
+          const key = url.pathname.endsWith('/chemicals.json') ? './chemicals.json' : request;
+          caches.open(CACHE_NAME).then(cache => cache.put(key, copy));
+        }
+        return response;
+      }).catch(() =>
+        caches.match(url.pathname.endsWith('/chemicals.json') ? './chemicals.json' : request)
+          .then(r => r || caches.match('./index.html'))
+      )
+    );
+    return;
+  }
   // App shell + known externals: cache-first
   if (
     url.origin === self.location.origin ||

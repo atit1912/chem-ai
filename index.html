@@ -7,17 +7,12 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="ChemNexus">
-<meta name="description" content="ระบบวิเคราะห์การจัดเก็บสารเคมีตามมาตรฐาน DIW — พัฒนาโดย Atit Chimnan">
+<meta name="description" content="ตรวจการจัดเก็บสารเคมีร่วมกันตามตารางกรมโรงงานอุตสาหกรรม (DIW) — พัฒนาโปรแกรมโดย ธุรกิจพันธุ์กุ้งขาว 2">
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icon-192.png">
-<title>ChemNexus AI 3.0</title>
+<title>ChemNexus AI 4.0</title>
 <link href="https://fonts.googleapis.com/css2?family=Sarabun:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/@phosphor-icons/web"></script>
-<!-- Firebase SDK (compat v10) -->
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics-compat.js"></script>
-<script src="firebase-config.js"></script>
 <style>
 :root{
   --bg:#05080f;--bg2:#080c16;--s1:rgba(255,255,255,0.04);--s2:rgba(255,255,255,0.08);--s3:rgba(255,255,255,0.13);
@@ -590,6 +585,7 @@ select.fi option{background:#0c1120;color:var(--tx)}
 .farm-card:active{background:var(--lb);border-color:var(--lbd);transform:scale(.97)}
 .farm-card-icon{font-size:28px;margin-bottom:7px}
 .farm-card-name{font-size:11px;font-weight:700;color:var(--tx2);line-height:1.4}
+.rq-l{font-size:9px;font-weight:800;color:var(--tx3);letter-spacing:.06em;margin-bottom:5px}
 /* Farm PIN Modal */
 #farm-pin-modal{display:none;position:fixed;inset:0;z-index:10000;background:rgba(0,0,0,.88);backdrop-filter:blur(10px);align-items:center;justify-content:center}
 .fp-box{background:var(--bg2);border:1px solid var(--bd2);border-radius:20px;padding:28px 22px;width:288px;text-align:center}
@@ -607,75 +603,28 @@ select.fi option{background:#0c1120;color:var(--tx)}
 </head>
 <body>
 
-<!-- ══ FARM SELECTOR ══ -->
-<div id="farm-selector" style="display:none">
-  <div style="text-align:center;margin-bottom:28px">
-    <div style="font-size:44px;margin-bottom:8px">⚗️</div>
-    <div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:2px">
-      <div style="font-size:22px;font-weight:900;letter-spacing:-.03em">ChemNexus AI</div>
-      <span style="font-size:10px;font-weight:800;color:var(--lime);background:var(--lb);border:1px solid var(--lbd);padding:2px 7px;border-radius:5px">v3.0</span>
-    </div>
-    <div style="font-size:11px;color:var(--tx3);margin-top:2px">พัฒนาโดย <span style="color:var(--tx2);font-weight:700">Atit Chimnan</span></div>
-    <div style="font-size:11px;color:var(--tx3);margin-top:6px">เลือกศูนย์วิจัยเพื่อเข้าใช้งาน</div>
-  </div>
-  <div class="farm-grid" id="farm-grid"></div>
-</div>
-
-<!-- ══ FARM PIN MODAL ══ -->
-<div id="farm-pin-modal">
-  <div class="fp-box">
-    <div style="font-size:28px;margin-bottom:6px" id="fp-icon">🔑</div>
-    <div style="font-size:13px;font-weight:800;color:var(--tx)" id="fp-name">ศูนย์วิจัย</div>
-    <div style="font-size:11px;color:var(--tx3);margin-top:4px">กรอก PIN 4 หลัก</div>
-    <div class="fp-pin-row">
-      <div class="fp-dot" id="fpd0"></div>
-      <div class="fp-dot" id="fpd1"></div>
-      <div class="fp-dot" id="fpd2"></div>
-      <div class="fp-dot" id="fpd3"></div>
-    </div>
-    <div style="font-size:11px;color:var(--red);height:16px;margin-bottom:6px" id="fp-err"></div>
-    <div class="fp-keys">
-      <button class="fp-key" onclick="fpk('1')">1</button>
-      <button class="fp-key" onclick="fpk('2')">2</button>
-      <button class="fp-key" onclick="fpk('3')">3</button>
-      <button class="fp-key" onclick="fpk('4')">4</button>
-      <button class="fp-key" onclick="fpk('5')">5</button>
-      <button class="fp-key" onclick="fpk('6')">6</button>
-      <button class="fp-key" onclick="fpk('7')">7</button>
-      <button class="fp-key" onclick="fpk('8')">8</button>
-      <button class="fp-key" onclick="fpk('9')">9</button>
-      <button class="fp-key" onclick="fpCancel()" style="font-size:11px;color:var(--tx3)">ยกเลิก</button>
-      <button class="fp-key" onclick="fpk('0')">0</button>
-      <button class="fp-key" onclick="fpDel()"><i class="ph ph-backspace" style="font-size:16px"></i></button>
-    </div>
-  </div>
-</div>
-
 <div id="app">
 
 <!-- DASHBOARD -->
 <div id="page-dashboard" class="page active">
   <div class="hdr" style="justify-content:space-between">
-    <div class="farm-badge-btn" onclick="showFarmSelector()">
-      <i class="ph ph-map-pin" style="font-size:13px;color:var(--lime)"></i>
-      <div class="farm-badge-txt" id="farm-badge">เลือกฟาร์ม</div>
+    <div class="farm-badge-btn" style="cursor:default" title="พัฒนาโปรแกรมโดย ธุรกิจพันธุ์กุ้งขาว 2">
+      <span style="font-size:12px">🦐</span>
+      <div class="farm-badge-txt">พันธุ์กุ้งขาว 2</div>
     </div>
     <div style="text-align:center">
       <div style="display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:1px">
-        <span class="vt">v3.0</span>
+        <span class="vt">v4.0</span>
       </div>
       <div class="hdr-t gt" style="font-size:20px;font-weight:900;letter-spacing:-.03em">ChemNexus AI</div>
       <div class="hsum" id="hdr-summary">
         <div class="hsum-i"><span class="hsum-dot" style="background:var(--grn)"></span><b id="hs-total">21</b> สาร</div>
         <div class="hsum-sep"></div>
         <div class="hsum-i"><span class="hsum-dot" style="background:var(--red)"></span><b id="hs-risk" style="color:#ff7070">8</b> เสี่ยงสูง</div>
-        <div class="hsum-sep"></div>
-        <div class="hsum-i"><span class="hsum-dot" style="background:var(--amb)"></span><b id="hs-alert" style="color:var(--amb)">3</b> เตือน</div>
       </div>
     </div>
-    <div class="ib2" style="position:relative" onclick="go('dashboard');document.getElementById('alert-center').scrollIntoView({behavior:'smooth'})">
-      <i class="ph ph-bell"></i>
-      <div id="alert-badge" style="position:absolute;top:4px;right:4px;width:6px;height:6px;border-radius:1px;background:var(--red);border:1.5px solid var(--bg)"></div>
+    <div class="ib2" style="position:relative" onclick="go('request')" title="ขอเพิ่มสารเคมี">
+      <i class="ph ph-plus-circle"></i>
     </div>
   </div>
   <div class="pc">
@@ -684,8 +633,8 @@ select.fi option{background:#0c1120;color:var(--tx)}
     <div class="pact" onclick="go('analyze')">
       <div class="pact-ic"><i class="ph-bold ph-atom"></i></div>
       <div class="pact-main">
-        <div class="pact-t">วิเคราะห์สารเคมีด้วย AI</div>
-        <div class="pact-s">ตรวจความเข้ากันได้ • มาตรฐาน DIW</div>
+        <div class="pact-t">เก็บด้วยกันได้ไหม?</div>
+        <div class="pact-s">เลือกสาร 2 ชนิด • ตรวจตามตาราง DIW</div>
       </div>
       <div class="pact-go"><i class="ph-bold ph-arrow-right"></i></div>
     </div>
@@ -706,9 +655,9 @@ select.fi option{background:#0c1120;color:var(--tx)}
         <div class="kc-ic"><i class="ph ph-warning"></i></div>
         <div class="kc-main"><div class="kc-n" id="kpi-risk">8</div><div class="kc-l">สารเสี่ยงสูง</div></div>
       </div>
-      <div class="kc kc-amb" onclick="document.getElementById('alert-center').scrollIntoView({behavior:'smooth'})">
-        <div class="kc-ic"><i class="ph ph-bell-ringing"></i></div>
-        <div class="kc-main"><div class="kc-n" id="kpi-alert">3</div><div class="kc-l">การแจ้งเตือน</div></div>
+      <div class="kc kc-amb" onclick="go('sds')">
+        <div class="kc-ic"><i class="ph ph-books"></i></div>
+        <div class="kc-main"><div class="kc-n" id="kpi-sdsn">0</div><div class="kc-l">มี SDS ฉบับเต็ม</div></div>
       </div>
       <div class="kc kc-blue" onclick="go('search')">
         <div class="kc-ic"><i class="ph ph-check-circle"></i></div>
@@ -761,11 +710,16 @@ select.fi option{background:#0c1120;color:var(--tx)}
       <div style="padding:22px;text-align:center;color:var(--tx3);font-size:10px"><i class="ph ph-clock-counter-clockwise" style="font-size:22px;display:block;margin-bottom:7px;opacity:.22"></i>ยังไม่มีประวัติ</div>
     </div>
 
-    <!-- ALERT CENTER -->
-    <div class="sl-row" id="alert-center" style="margin-top:15px">
-      <div class="sl">ศูนย์การแจ้งเตือน <span id="alert-count-badge" style="color:var(--red);background:var(--rb);padding:1px 6px;border-radius:3px;font-size:8px;margin-left:3px;border:1px solid var(--rbd)">3</span></div>
+    <!-- REFERENCE -->
+    <div class="sl" style="margin-top:15px">อ้างอิงกฎการจัดเก็บ</div>
+    <div class="card" style="margin:0 16px;padding:12px 14px;font-size:11px;line-height:1.7;color:var(--tx2)">
+      <div style="display:flex;gap:9px;align-items:flex-start">
+        <i class="ph ph-book-open-text" style="font-size:18px;color:var(--lime);flex-shrink:0;margin-top:2px"></i>
+        <div>ตารางการจัดเก็บและเงื่อนไขข้อ 1–18 จาก <b style="color:var(--tx)">คู่มือการเก็บรักษาสารเคมีและวัตถุอันตราย กรมโรงงานอุตสาหกรรม พ.ศ. 2550</b> (หน้า 24–25)
+          <div style="font-size:9.5px;color:var(--tx3);margin-top:4px">ประเภท (Class) ของสารแต่ละตัวตรวจโดยแอดมินจาก SDS ผู้ผลิต — กดดูแหล่งอ้างอิงได้ในหน้ารายละเอียดสาร</div>
+        </div>
+      </div>
     </div>
-    <div class="card" style="margin:0 16px" id="alert-list"></div>
 
     <!-- QUICK ACCESS MENU -->
     <div class="sl" style="margin-top:15px">เครื่องมือทั้งหมด</div>
@@ -790,13 +744,13 @@ select.fi option{background:#0c1120;color:var(--tx)}
         <div class="qmic"><i class="ph ph-warning-diamond"></i></div>
         <div class="qmt">Spill<br>Simulator</div>
       </div>
-      <div class="qmi qm-grey" onclick="openAdmin()">
-        <div class="qmic"><i class="ph ph-shield-star"></i></div>
-        <div class="qmt">Admin<br>Panel</div>
+      <div class="qmi qm-grey" onclick="go('request')">
+        <div class="qmic"><i class="ph ph-plus-circle"></i></div>
+        <div class="qmt">ขอเพิ่ม<br>สารเคมี</div>
       </div>
     </div>
 
-    <div class="crd"><strong>DEVELOPED BY ATIT CHIMNAN</strong>ระบบวิเคราะห์การจัดเก็บสารเคมี • DIW Standard</div>
+    <div class="crd"><strong>พัฒนาโปรแกรมโดย ธุรกิจพันธุ์กุ้งขาว 2</strong>ระบบตรวจการจัดเก็บสารเคมี • ตาราง DIW</div>
   </div>
 </div>
 
@@ -816,7 +770,7 @@ select.fi option{background:#0c1120;color:var(--tx)}
       <div class="fc" onclick="fCls(this,'13')">13</div>
     </div>
     <div id="clc"></div>
-    <div class="crd"><strong>ATIT CHIMNAN</strong>ChemNexus AI 3.0 • DIW</div>
+    <div class="crd"><strong>ธุรกิจพันธุ์กุ้งขาว 2</strong>ChemNexus AI 4.0 • DIW</div>
   </div>
 </div>
 
@@ -846,9 +800,9 @@ select.fi option{background:#0c1120;color:var(--tx)}
         <i class="ph-duotone ph-atom spn" style="font-size:26px;color:var(--lime)"></i>
         <div id="fib" style="font-size:32px"></div>
       </div>
-      <div style="font-size:9px;color:var(--lime);font-weight:800;letter-spacing:.1em;text-transform:uppercase" class="pls">กำลังวิเคราะห์ปฏิกิริยา...</div>
+      <div style="font-size:9px;color:var(--lime);font-weight:800;letter-spacing:.1em;text-transform:uppercase" class="pls">กำลังเทียบตาราง DIW...</div>
     </div>
-    <div class="crd"><strong>ATIT CHIMNAN</strong>ChemNexus AI 3.0</div>
+    <div class="crd"><strong>ธุรกิจพันธุ์กุ้งขาว 2</strong>ChemNexus AI 4.0</div>
   </div>
 </div>
 
@@ -943,7 +897,7 @@ select.fi option{background:#0c1120;color:var(--tx)}
       <strong>⚠ หมายเหตุ:</strong> แผนผังนี้เป็นคำแนะนำเบื้องต้นจาก DIW Compatibility Matrix เท่านั้น ไม่ใช่แบบแปลนวิศวกรรม ควรปรึกษาผู้เชี่ยวชาญก่อนนำไปใช้งานจริง
     </div>
 
-    <div class="crd"><strong>ATIT CHIMNAN</strong>ChemNexus AI 3.0 · Layout Planner</div>
+    <div class="crd"><strong>ธุรกิจพันธุ์กุ้งขาว 2</strong>ChemNexus AI 4.0 · Layout Planner</div>
   </div>
 </div>
 
@@ -1001,7 +955,7 @@ select.fi option{background:#0c1120;color:var(--tx)}
     <div style="margin:0 16px 8px;padding:10px 12px;background:var(--ab);border:1px solid var(--abd);border-radius:var(--rs);font-size:10px;color:var(--amb);line-height:1.6">
       <strong>⚠ หมายเหตุ:</strong> ระบบตรวจความเข้ากันได้และระยะห่างตาม DIW Matrix — เงื่อนไขเชิงกายภาพ (ผนังทนไฟ ระบายอากาศ ฯลฯ) ต้องตรวจรับรองโดยผู้รับผิดชอบหน้างาน
     </div>
-    <div class="crd"><strong>ATIT CHIMNAN</strong>ChemNexus AI 3.0 · Layout Editor</div>
+    <div class="crd"><strong>ธุรกิจพันธุ์กุ้งขาว 2</strong>ChemNexus AI 4.0 · Layout Editor</div>
   </div>
 </div>
 
@@ -1024,7 +978,7 @@ select.fi option{background:#0c1120;color:var(--tx)}
     <div style="margin:0 16px 14px">
       <button class="btn bg" onclick="openSdsGen()"><i class="ph-bold ph-file-plus" style="font-size:16px"></i>สร้าง SDS จากระบบ (ฉบับย่อ)</button>
     </div>
-    <div class="crd"><strong>ATIT CHIMNAN</strong>ChemNexus AI 3.0 · คลัง SDS</div>
+    <div class="crd"><strong>ธุรกิจพันธุ์กุ้งขาว 2</strong>ChemNexus AI 4.0 · คลัง SDS</div>
   </div>
 </div>
 
@@ -1049,7 +1003,7 @@ select.fi option{background:#0c1120;color:var(--tx)}
       <button class="btn" onclick="generateSDS()"><i class="ph-bold ph-file-text" style="font-size:16px"></i>สร้างเอกสาร SDS</button>
     </div>
     <div id="sds-result" style="margin:0 16px 12px"></div>
-    <div class="crd"><strong>ATIT CHIMNAN</strong>ChemNexus AI 3.0 · SDS Generator</div>
+    <div class="crd"><strong>ธุรกิจพันธุ์กุ้งขาว 2</strong>ChemNexus AI 4.0 · SDS Generator</div>
   </div>
 </div>
 
@@ -1117,7 +1071,7 @@ select.fi option{background:#0c1120;color:var(--tx)}
     <div style="margin:0 16px 8px;padding:10px 12px;background:var(--rb);border:1px solid var(--rbd);border-radius:var(--rs);font-size:10px;color:#ff9a9a;line-height:1.7">
       <strong>⚠ ใช้เพื่อการฝึกอบรมเท่านั้น:</strong> คะแนนความเสี่ยงและรัศมีโซนคำนวณจากสูตรประมาณภายในแอป (class × ปริมาณ × สถานที่) ไม่ใช่แบบจำลองการแพร่กระจายทางวิศวกรรม — <strong>ในเหตุการณ์จริงให้ยึดระยะจาก ERG ฉบับพิมพ์ล่าสุดและ SDS ของสารเป็นหลัก</strong> และปฏิบัติตามแผนฉุกเฉินขององค์กร
     </div>
-    <div class="crd"><strong>ATIT CHIMNAN</strong>ChemNexus AI 3.0 · Spill Simulator</div>
+    <div class="crd"><strong>ธุรกิจพันธุ์กุ้งขาว 2</strong>ChemNexus AI 4.0 · Spill Simulator</div>
   </div>
 </div>
 
@@ -1141,7 +1095,7 @@ select.fi option{background:#0c1120;color:var(--tx)}
     <div id="mx-table" style="margin:0 16px 12px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none"></div>
     <!-- Cell detail popup -->
     <div id="mx-detail" style="display:none;margin:0 16px 12px"></div>
-    <div class="crd"><strong>ATIT CHIMNAN</strong>ChemNexus AI 3.0 · DIW Matrix</div>
+    <div class="crd"><strong>ธุรกิจพันธุ์กุ้งขาว 2</strong>ChemNexus AI 4.0 · DIW Matrix</div>
   </div>
 </div>
 
@@ -1149,30 +1103,32 @@ select.fi option{background:#0c1120;color:var(--tx)}
 <div id="page-admin" class="page">
   <div class="hdr">
     <button class="bb" onclick="back()"><i class="ph-bold ph-caret-left"></i></button>
-    <div class="hdr-t" style="color:var(--lime)">Admin Panel</div>
+    <div class="hdr-t" style="color:var(--lime)">หน้าผู้ดูแล</div>
     <button class="ib2" onclick="openAddForm()" id="admin-add-btn" title="เพิ่มสาร"><i class="ph ph-plus"></i></button>
   </div>
   <div class="pc" id="admin-body"></div>
 </div>
 
-<!-- PIN MODAL -->
-<div id="pin-modal" style="display:none;position:absolute;inset:0;background:rgba(0,0,0,0.85);backdrop-filter:blur(12px);z-index:800;align-items:center;justify-content:center;padding:24px">
-  <div style="width:100%;max-width:320px;background:#0c1120;border:1px solid var(--lbd);border-radius:16px;padding:28px 24px;text-align:center">
-    <div style="font-size:32px;margin-bottom:12px">🔐</div>
-    <div style="font-size:15px;font-weight:900;color:var(--tx);margin-bottom:4px">Admin Access</div>
-    <div style="font-size:10px;color:var(--tx3);margin-bottom:20px;letter-spacing:.04em">กรอก PIN เพื่อเข้าสู่ระบบจัดการ</div>
-    <div id="pin-dots" style="display:flex;justify-content:center;gap:10px;margin-bottom:20px">
-      <div class="pdot"></div><div class="pdot"></div><div class="pdot"></div><div class="pdot"></div>
+<!-- REQUEST PAGE (ผู้ใช้ทั่วไปขอเพิ่มสาร) -->
+<div id="page-request" class="page">
+  <div class="hdr"><button class="bb" onclick="back()"><i class="ph-bold ph-caret-left"></i></button><div class="hdr-t">ขอเพิ่มสารเคมี</div></div>
+  <div class="pc">
+    <div class="card" style="margin:12px 16px 0;padding:12px 14px;font-size:11px;line-height:1.7;color:var(--tx2)">
+      ไม่พบสารที่ใช้อยู่? กรอกข้อมูลแล้วส่งให้ผู้ดูแลตรวจ — ผู้ดูแลจะตรวจ Class จาก SDS แล้วเพิ่มเข้าระบบให้ทุกคนใช้
     </div>
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px">
-      <button class="pkey" onclick="pinKey('1')">1</button><button class="pkey" onclick="pinKey('2')">2</button><button class="pkey" onclick="pinKey('3')">3</button>
-      <button class="pkey" onclick="pinKey('4')">4</button><button class="pkey" onclick="pinKey('5')">5</button><button class="pkey" onclick="pinKey('6')">6</button>
-      <button class="pkey" onclick="pinKey('7')">7</button><button class="pkey" onclick="pinKey('8')">8</button><button class="pkey" onclick="pinKey('9')">9</button>
-      <button class="pkey pkdel" onclick="pinDel()" style="grid-column:1">⌫</button>
-      <button class="pkey" onclick="pinKey('0')">0</button>
-      <button class="pkey pkdel" onclick="closePinModal()" style="background:var(--rb);border-color:var(--rbd);color:#ff7070">✕</button>
+    <div style="padding:12px 16px 0;display:flex;flex-direction:column;gap:10px">
+      <div><div class="rq-l">ชื่อสารเคมี <span style="color:var(--red)">*</span></div><input class="fi" id="rq-name" placeholder="เช่น โพแทสเซียมเปอร์แมงกาเนต"></div>
+      <div><div class="rq-l">ชื่อการค้า / ผู้ผลิต</div><input class="fi" id="rq-trade" placeholder="ชื่อบนฉลาก"></div>
+      <div><div class="rq-l">CAS Number (ถ้ามี — ดูใน SDS หัวข้อ 3)</div><input class="fi" id="rq-cas" placeholder="เช่น 7722-64-7"></div>
+      <div><div class="rq-l">ลิงก์ SDS (ถ้ามี)</div><input class="fi" id="rq-sds" placeholder="https://..."></div>
+      <div><div class="rq-l">ใช้ทำอะไร</div><input class="fi" id="rq-use" placeholder="เช่น ฆ่าเชื้อในบ่อ"></div>
+      <div><div class="rq-l">ผู้ขอ / หน่วยงาน <span style="color:var(--red)">*</span></div><input class="fi" id="rq-who" placeholder="ชื่อ - หน่วยงาน"></div>
+      <div id="rq-err" style="font-size:10px;color:var(--red);min-height:14px;font-weight:700"></div>
+      <button class="btn" style="background:#06c755;color:#fff" onclick="sendReqLine()"><i class="ph-bold ph-paper-plane-tilt" style="font-size:16px"></i>ส่งคำขอทาง LINE</button>
+      <button class="btn bg" onclick="copyReq()"><i class="ph ph-copy" style="font-size:14px"></i>คัดลอกข้อความ</button>
+      <div style="font-size:9.5px;color:var(--tx3);line-height:1.6">มีไฟล์ SDS เป็นรูป/PDF? ส่งแนบในแชตเดียวกันต่อท้ายข้อความได้เลย</div>
     </div>
-    <div id="pin-err" style="font-size:10px;color:var(--red);min-height:14px;font-weight:700"></div>
+    <div class="crd"><strong>ธุรกิจพันธุ์กุ้งขาว 2</strong>ChemNexus AI 4.0 · ขอเพิ่มสาร</div>
   </div>
 </div>
 
@@ -1267,6 +1223,30 @@ select.fi option{background:#0c1120;color:var(--tx)}
         </div>
       </div>
 
+      <!-- แหล่งอ้างอิง Class -->
+      <div style="margin-bottom:14px;padding:12px;background:var(--s1);border:1px solid var(--abd);border-radius:10px">
+        <div style="font-size:9px;font-weight:800;color:var(--amb);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px">แหล่งอ้างอิง Class <span style="color:var(--red)">*</span></div>
+        <div style="font-size:9.5px;color:var(--tx3);line-height:1.6;margin-bottom:8px">หา "Storage class (TRGS 510)" ใน SDS ของ Merck/Sigma — รหัสตรงกับตาราง DIW เกือบทั้งหมด ยกเว้นคลาส 3 (ของเหลวไวไฟ) ที่ DIW แยก 3A/3B ต้องดูจุดวาบไฟเทียบคู่มือ DIW</div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px">
+          <button type="button" class="fc" onclick="refLookup('merck')">🔎 Storage class (Merck)</button>
+          <button type="button" class="fc" onclick="refLookup('sds')">🔎 SDS ผู้ผลิต</button>
+          <button type="button" class="fc" onclick="refLookup('pubchem')">🔎 PubChem</button>
+        </div>
+        <select class="fi" id="f-ref-src" style="appearance:none;cursor:pointer;margin-bottom:8px">
+          <option value="">— เลือกแหล่งที่ใช้ตัดสิน Class —</option>
+          <option>SDS ผู้ผลิต</option>
+          <option>Merck/Sigma-Aldrich (TRGS 510)</option>
+          <option>คู่มือ DIW 2550 (แผนผังจำแนกประเภท)</option>
+          <option>อื่นๆ (ระบุในหมายเหตุ)</option>
+        </select>
+        <input class="fi" id="f-ref-url" placeholder="ลิงก์แหล่งอ้างอิง (วางลิงก์ SDS / หน้าเว็บ)">
+      </div>
+
+      <div style="margin-bottom:12px">
+        <div style="font-size:8px;font-weight:800;color:var(--tx3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:5px">ไฟล์ SDS ในคลัง (ถ้ามี)</div>
+        <input class="fi" id="f-sds" placeholder="เช่น sds-58.html (อัปโหลดไว้ในโฟลเดอร์ sds)">
+      </div>
+
       <div style="margin-bottom:16px">
         <div style="font-size:8px;font-weight:800;color:var(--tx3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:5px">หมายเหตุ (optional)</div>
         <input class="fi" id="f-note" placeholder="ข้อมูลเพิ่มเติม...">
@@ -1295,12 +1275,12 @@ select.fi option{background:#0c1120;color:var(--tx)}
 <div id="del-modal" style="display:none;position:absolute;inset:0;background:rgba(0,0,0,0.85);backdrop-filter:blur(12px);z-index:810;align-items:center;justify-content:center;padding:24px">
   <div style="width:100%;max-width:300px;background:#0c1120;border:1px solid var(--rbd);border-radius:14px;padding:24px;text-align:center">
     <div style="font-size:28px;margin-bottom:10px">🗑️</div>
-    <div style="font-size:13px;font-weight:900;color:var(--tx);margin-bottom:6px">ลบสารเคมี?</div>
+    <div style="font-size:13px;font-weight:900;color:var(--tx);margin-bottom:6px">ซ่อนสารเคมี?</div>
     <div id="del-name" style="font-size:11px;color:var(--tx3);margin-bottom:20px"></div>
     <div style="display:flex;gap:8px">
       <button class="btn bg" style="flex:1;padding:11px" onclick="closeDelModal()">ยกเลิก</button>
       <button class="btn bd3" style="flex:1;padding:11px" onclick="confirmDel()">
-        <i class="ph-bold ph-trash" style="font-size:14px"></i>ลบ
+        <i class="ph-bold ph-eye-slash" style="font-size:14px"></i>ซ่อน
       </button>
     </div>
   </div>
@@ -1326,9 +1306,9 @@ select.fi option{background:#0c1120;color:var(--tx)}
   <div class="sp-logo">⚗️</div>
   <div class="sp-title">ChemNexus AI</div>
   <div class="sp-sub">Chemical Safety System</div>
-  <div class="sp-ver">v3.0</div>
+  <div class="sp-ver">v4.0</div>
   <div class="sp-bar"><div class="sp-fill"></div></div>
-  <div class="sp-by">Developed by <strong>Atit Chimnan</strong></div>
+  <div class="sp-by">พัฒนาโปรแกรมโดย <strong>ธุรกิจพันธุ์กุ้งขาว 2</strong><br><span style="font-size:.85em;opacity:.6">ผู้พัฒนา Atit Chimnan</span></div>
 </div>
 
 <!-- ONBOARDING -->
@@ -1348,10 +1328,14 @@ select.fi option{background:#0c1120;color:var(--tx)}
 </div>
 
 <script>
+const APP_ORG='ธุรกิจพันธุ์กุ้งขาว 2';
 // DATA
+// ตาราง MX + เงื่อนไข CD: คู่มือการเก็บรักษาสารเคมีและวัตถุอันตราย กรมโรงงานอุตสาหกรรม พ.ศ. 2550 หน้า 24–25
+// MX[คอลัมน์][แถว] · "0" = ห้ามเก็บคละ (แดง) · "00" = เก็บคละได้ (เขียว) · ตัวเลข = เก็บได้ตามเงื่อนไขข้อนั้น (เหลือง)
+// ตรวจทานกับ PDF ทีละช่อง 14 พ.ย. 2569 — แก้ 2 ช่อง: 8A×5.1B = 11 · 4.1B×5.1B = ห้าม
 const CO=["1","2A","2B","3A","3B","4.1A","4.1B","4.2","4.3","5.1A","5.1B","5.1C","5.2","6.1A","6.1B","6.2","7","8A","8B","10","11","12","13"];
 const HC={"1":{t:"วัตถุระเบิด",ic:"💥",r:"EXTREME",fi:["Water (Large)"],pp:["ระยะปลอดภัย","หมวก"],eg:"อพยพทันที ห้ามดับไฟ"},"2A":{t:"ก๊าซอัด",ic:"💨",r:"MEDIUM",fi:["Dry Chem","CO2"],pp:["แว่นตา","ถุงมือ"],eg:"หล่อเย็นถัง ปิดวาล์ว"},"2B":{t:"ก๊าซสเปรย์",ic:"💨",r:"LOW",fi:["Dry Chem"],pp:["แว่นตา"],eg:"เคลื่อนออกจากความร้อน"},"3A":{t:"ของเหลวไวไฟ(ต่ำ)",ic:"🔥",r:"HIGH",fi:["Foam","CO2"],pp:["ชุดทนไฟ","แว่นตา","ถุงมือ"],eg:"กำจัดประกายไฟ ใช้ทราย"},"3B":{t:"ของเหลวไวไฟ(สูง)",ic:"🔥",r:"MEDIUM",fi:["Foam"],pp:["ถุงมือ","แว่นตา"],eg:"ปิดกั้นน้ำ ใช้โฟม"},"4.1A":{t:"ของแข็งไวไฟ-ระเบิด",ic:"🔥",r:"HIGH",fi:["Water Spray"],pp:["หน้ากาก","แว่นตา"],eg:"หลีกเลี่ยงการเสียดสี"},"4.1B":{t:"ของแข็งไวไฟ",ic:"🔥",r:"MEDIUM",fi:["Water"],pp:["หน้ากากกรอง","แว่นตา"],eg:"กวาดเก็บระวังฝุ่น"},"4.2":{t:"สารลุกไหม้เอง",ic:"🔥",r:"HIGH",fi:["Dry Sand"],pp:["ชุดป้องกัน","ถุงมือ"],eg:"ห้ามใช้น้ำ ระวังอากาศ"},"4.3":{t:"สัมผัสน้ำ→ก๊าซไวไฟ",ic:"💧",r:"HIGH",fi:["Class D"],pp:["แว่นตา","ถุงมือแห้ง"],eg:"ห้ามใช้น้ำเด็ดขาด!"},"5.1A":{t:"สารออกซิไดซ์แรง",ic:"⭕",r:"HIGH",fi:["Water (Large)"],pp:["Face Shield","ถุงมือ"],eg:"แยกจากสารติดไฟทันที"},"5.1B":{t:"สารออกซิไดซ์",ic:"⭕",r:"MEDIUM",fi:["Water Spray"],pp:["ถุงมือ","แว่นตา"],eg:"ป้องกันสารอินทรีย์"},"5.1C":{t:"สารออกซิไดซ์อื่นๆ",ic:"⭕",r:"LOW",fi:["Water Spray"],pp:["แว่นตา"],eg:"กวาดด้วยวัสดุไม่ติดไฟ"},"5.2":{t:"เปอร์ออกไซด์อินทรีย์",ic:"⭕",r:"HIGH",fi:["Water Spray"],pp:["ชุดเคมี","Face Shield"],eg:"เก็บเย็น ระวังระเบิด"},"6.1A":{t:"สารพิษ(ติดไฟ)",ic:"☣️",r:"HIGH",fi:["Foam"],pp:["SCBA","ชุดป้องกัน"],eg:"อพยพเหนือลม"},"6.1B":{t:"สารพิษ(ไม่ติดไฟ)",ic:"☣️",r:"MEDIUM",fi:["เหมาะสม"],pp:["หน้ากาก P100","ถุงมือ"],eg:"ระบายอากาศ กั้นพื้นที่"},"6.2":{t:"สารติดเชื้อ",ic:"☣️",r:"HIGH",fi:["เหมาะสม"],pp:["ชุด Biohazard"],eg:"ห้ามสัมผัส น้ำยาฆ่าเชื้อ"},"7":{t:"กัมมันตรังสี",ic:"☢️",r:"EXTREME",fi:["เหมาะสม"],pp:["Dosimeter","Lead Shield"],eg:"กันเขต แจ้งเจ้าหน้าที่"},"8A":{t:"สารกัดกร่อน(ติดไฟ)",ic:"🧪",r:"HIGH",fi:["Dry Chem"],pp:["ชุดกรด","Face Shield"],eg:"ระวังกระเด็น สารสะเทิน"},"8B":{t:"สารกัดกร่อน",ic:"🧪",r:"MEDIUM",fi:["เหมาะสม"],pp:["ถุงมือยาง","แว่นตา","เสื้อคลุม"],eg:"ซับเฉื่อย ล้างน้ำมาก"},"10":{t:"ของเหลวติดไฟอื่น",ic:"🛢️",r:"LOW",fi:["Foam"],pp:["ถุงมือ"],eg:"กวาดด้วยวัสดุดูดซับ"},"11":{t:"ของแข็งติดไฟ",ic:"📦",r:"LOW",fi:["Water"],pp:["หน้ากากกรอง"],eg:"กวาดระวังฝุ่น"},"12":{t:"ของเหลวไม่ติดไฟ",ic:"💧",r:"LOW",fi:["เหมาะสม"],pp:["ถุงมือ"],eg:"เช็ดทำความสะอาด"},"13":{t:"ของแข็งไม่ติดไฟ",ic:"📦",r:"LOW",fi:["เหมาะสม"],pp:["มาตรฐาน"],eg:"กวาดทิ้งตามระเบียบ"}};
-const MX={"1":["17","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0"],"2A":["0","17","4","0","0","0","0","0","0","0","0","10","0","0","0","0","18","5","00","0","5","00","00"],"2B":["0","4","00","1","1","0","0","0","0","0","0","10","0","2","2","0","18","4","4","6","6","6","6"],"3A":["0","0","1","17","00","0","0","0","0","0","0","0","0","00","0","0","18","9","9","00","3","00","00"],"3B":["0","0","1","00","00","12","4","0","4","0","0","0","7","00","00","0","18","00","00","00","00","00","00"],"4.1A":["0","0","0","0","12","17","12","0","0","0","0","0","14","0","0","0","0","12","12","12","12","12","12"],"4.1B":["0","0","0","0","4","12","00","4","4","0","13","0","13","8","0","0","18","00","00","00","00","00","00"],"4.2":["0","0","0","0","0","0","4","00","4","0","0","0","0","0","0","0","18","4","4","4","4","00","00"],"4.3":["0","0","0","0","4","0","4","4","00","0","0","0","0","0","0","0","18","4","4","4","4","4","00"],"5.1A":["0","0","0","0","0","0","0","0","0","00","00","0","0","0","0","0","0","0","0","0","0","0","0"],"5.1B":["0","0","0","0","0","0","0","0","0","00","00","10","0","15","15","0","18","11","00","11","11","00","00"],"5.1C":["0","10","10","0","0","0","0","0","0","0","10","17","0","0","0","0","18","10","10","10","10","10","10"],"5.2":["0","0","0","0","7","14","13","0","0","0","0","0","17","0","0","0","0","0","0","16","16","16","16"],"6.1A":["0","0","2","00","00","0","8","0","0","0","15","0","0","00","00","0","18","00","00","00","3","00","00"],"6.1B":["0","0","2","0","00","0","0","0","0","0","15","0","0","00","00","0","18","00","00","00","3","00","00"],"6.2":["0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","00","0","0","0","0","0","0","0"],"7":["0","18","18","18","18","0","18","18","18","0","18","18","0","18","18","0","00","18","18","18","18","18","18"],"8A":["0","5","4","9","00","12","00","4","4","0","0","10","0","00","00","0","18","00","00","00","00","00","00"],"8B":["0","00","4","9","00","12","00","4","4","0","00","10","0","00","00","0","18","00","00","00","00","00","00"],"10":["0","0","6","00","00","12","00","4","4","0","11","10","16","00","00","0","18","00","00","00","00","00","00"],"11":["0","5","6","3","00","12","00","4","4","0","11","10","16","3","3","0","18","00","00","00","00","00","00"],"12":["0","00","6","00","00","12","00","00","4","0","00","10","16","00","00","0","18","00","00","00","00","00","00"],"13":["0","00","6","00","00","12","00","00","00","0","00","10","16","00","00","0","18","00","00","00","00","00","00"]};
+const MX={"1":["17","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0"],"2A":["0","17","4","0","0","0","0","0","0","0","0","10","0","0","0","0","18","5","00","0","5","00","00"],"2B":["0","4","00","1","1","0","0","0","0","0","0","10","0","2","2","0","18","4","4","6","6","6","6"],"3A":["0","0","1","17","00","0","0","0","0","0","0","0","0","00","0","0","18","9","9","00","3","00","00"],"3B":["0","0","1","00","00","12","4","0","4","0","0","0","7","00","00","0","18","00","00","00","00","00","00"],"4.1A":["0","0","0","0","12","17","12","0","0","0","0","0","14","0","0","0","0","12","12","12","12","12","12"],"4.1B":["0","0","0","0","4","12","00","4","4","0","0","0","13","8","0","0","18","00","00","00","00","00","00"],"4.2":["0","0","0","0","0","0","4","00","4","0","0","0","0","0","0","0","18","4","4","4","4","00","00"],"4.3":["0","0","0","0","4","0","4","4","00","0","0","0","0","0","0","0","18","4","4","4","4","4","00"],"5.1A":["0","0","0","0","0","0","0","0","0","00","00","0","0","0","0","0","0","0","0","0","0","0","0"],"5.1B":["0","0","0","0","0","0","0","0","0","00","00","10","0","15","15","0","18","11","00","11","11","00","00"],"5.1C":["0","10","10","0","0","0","0","0","0","0","10","17","0","0","0","0","18","10","10","10","10","10","10"],"5.2":["0","0","0","0","7","14","13","0","0","0","0","0","17","0","0","0","0","0","0","16","16","16","16"],"6.1A":["0","0","2","00","00","0","8","0","0","0","15","0","0","00","00","0","18","00","00","00","3","00","00"],"6.1B":["0","0","2","0","00","0","0","0","0","0","15","0","0","00","00","0","18","00","00","00","3","00","00"],"6.2":["0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","00","0","0","0","0","0","0","0"],"7":["0","18","18","18","18","0","18","18","18","0","18","18","0","18","18","0","00","18","18","18","18","18","18"],"8A":["0","5","4","9","00","12","00","4","4","0","11","10","0","00","00","0","18","00","00","00","00","00","00"],"8B":["0","00","4","9","00","12","00","4","4","0","00","10","0","00","00","0","18","00","00","00","00","00","00"],"10":["0","0","6","00","00","12","00","4","4","0","11","10","16","00","00","0","18","00","00","00","00","00","00"],"11":["0","5","6","3","00","12","00","4","4","0","11","10","16","3","3","0","18","00","00","00","00","00","00"],"12":["0","00","6","00","00","12","00","00","4","0","00","10","16","00","00","0","18","00","00","00","00","00","00"],"13":["0","00","6","00","00","12","00","00","00","0","00","10","16","00","00","0","18","00","00","00","00","00","00"]};
 // ── Safety resolver: อ่านค่าทั้งสองทิศทาง เลือกค่าที่เข้มงวดกว่า (แดง > เหลือง > เขียว)
 // ใช้สำหรับตรรกะวิเคราะห์/จัดวางทั้งหมด — การแสดงผลตาราง DIW ใช้ MX ตรงตามต้นฉบับ PDF
 function mxVal(a,b){
@@ -1361,7 +1345,45 @@ function mxVal(a,b){
   if(v2===undefined)return v1; if(v1===undefined)return v2;
   return rank(v1)<=rank(v2)?v1:v2;
 }
-const CD={"1":"ของเหลวไวไฟ+ก๊าซสเปรย์ เก็บได้โดยต้องมีระบายอากาศ และปริมาณไม่เกิน 60%","2":"ก๊าซสเปรย์+สารพิษ ต้องการ: ผนังทนไฟ พื้นที่ ≤60ม² ปริมาณ ≤60% อุณหภูมิ ≤50°C ระบายอากาศ ทางออกฉุกเฉิน 2 ทาง","3":"วัสดุลุกไฟได้เร็ว ควรแยกออกจากสารพิษหรือของเหลวไวไฟ","4":"สามารถเก็บคละได้โดยการแยกห่าง: กำแพงกั้น เว้นระยะ หรือบ่อแยก","5":"ก๊าซอัด ≤50 ท่อ (ก๊าซไวไฟ/ออกซิไดส์/พิษ รวมกัน ≤25 ท่อ) สารติดไฟได้ (ประเภท 8A และ 11 ยกเว้นของเหลวไวไฟ) เก็บรวมได้โดยแยกห่างจากก๊าซด้วยผนังวัสดุไม่ติดไฟ สูง ≥2ม. และห่างจากผนัง ≥5ม.","6":"เก็บคละได้ตามข้อกำหนดประเภท 2B","7":"เก็บกับของเหลวไวไฟ จุดวาบไฟ >60°C ได้ หากไม่ก่อปฏิกิริยาอันตราย (ลุกไฟ/ให้ความร้อน/ก๊าซไวไฟ/ก๊าซพิษ/กัดกร่อน/สารไม่เสถียร/เพิ่มความดัน) หากมีโอกาสเกิดอันตราย ให้เว้นระยะห่างปลอดภัย 5 ม.","8":"สารติดไฟ+พิษ เก็บกับของแข็งไวไฟ 4.1B ได้","9":"ห้ามเก็บ 3A คละกับสารกัดกร่อนในภาชนะแตกง่าย ยกเว้นมีมาตรการป้องกัน","10":"เก็บคละได้ ยกเว้นก๊าซไวไฟ","11":"ต้องมีมาตรการเพิ่มเติม รับความเห็นชอบจากกรมโรงงานอุตสาหกรรม","12":"4.1A อาจเก็บคละได้หากระยะห่างปลอดภัยรอบคลังเพียงพอ ตรวจสอบแต่ละกรณี","13":"5.2 เก็บกับ 4.1B ได้","14":"เก็บกับ propellants และ initiators ได้หากไม่มีโลหะหนัก","15":"5.1B กับ 6.1A/6.1B ≤20 ตัน โดยต้องมีระบบเตือนไฟไหม้ ดับเพลิงอัตโนมัติ และทีมดับเพลิงกึ่งมืออาชีพของบริษัท (ถ้ามีสารไม่ถึง 1 ตัน ไม่ต้องมีมาตรการเสริมดังกล่าว)","16":"5.2 กับสารอื่น ต้องตรวจสอบระยะห่างปลอดภัยรอบคลังแต่ละกรณี","17":"พิจารณาตามข้อกำหนดเฉพาะของวัตถุอันตรายแต่ละประเภท","18":"กัมมันตรังสี แยกจัดเก็บตามข้อกำหนด IAEA และได้รับอนุมัติจากหน่วยงานรัฐ"};
+// ── คู่สารที่ต้องแยกแม้ตาราง DIW (เทียบระดับคลาส) จะให้เก็บร่วมได้ ──
+// ที่มา: SDS หัวข้อ 10 "สารที่เข้ากันไม่ได้" ของสารในคลัง (ตรวจ 14 พ.ย. 2569)
+// จับคู่ด้วยเลข CAS → สารที่แอดมินเพิ่มใหม่ ถ้า CAS ตรงก็โดนกฎเดียวกัน
+const SDS_GROUPS={
+  hypo:{cas:["7681-52-9","7778-54-3"],t:"สารไฮโปคลอไรต์ (คลอรีน)"},
+  acid:{cas:["7647-01-0","7664-93-9","64-19-7","7697-37-2"],t:"กรด"},
+  base:{cas:["1310-73-2"],t:"ด่างแก่ (โซดาไฟ)"},
+};
+const SDS_RULES=[
+  {a:"hypo",b:"acid",g:"ก๊าซคลอรีน (Cl₂) — พิษ",rx:"ไฮโปคลอไรต์สัมผัสกรดจะปล่อยก๊าซคลอรีนซึ่งเป็นพิษ (EUH031) — SDS คลอรีนน้ำ/คลอรีนผง หัวข้อ 10 ระบุกรดเป็นสารที่เข้ากันไม่ได้",sds:"sds-01.html"},
+  {a:"acid",b:"base",g:"ปฏิกิริยารุนแรง คายความร้อน",rx:"กรดกับด่างแก่ทำปฏิกิริยารุนแรง คายความร้อนสูง อาจเดือดและกระเด็น — SDS โซดาไฟ หัวข้อ 10 ระบุกรดเป็นสารที่เข้ากันไม่ได้",sds:"sds-03.html"},
+];
+function sdsGroupOf(ch){return Object.keys(SDS_GROUPS).filter(k=>SDS_GROUPS[k].cas.includes((ch&&ch.cs)||''));}
+function sdsRule(a,b){
+  const ga=sdsGroupOf(a),gb=sdsGroupOf(b);
+  return SDS_RULES.find(r=>(ga.includes(r.a)&&gb.includes(r.b))||(ga.includes(r.b)&&gb.includes(r.a)))||null;
+}
+// เงื่อนไขข้อ 1–18 ข้อความเต็มตามคู่มือ DIW 2550 หน้า 25
+const CD_FULL={
+"1":"การจัดเก็บของเหลวไวไฟ และก๊าซภายใต้ความดันในภาชนะบรรจุขนาดเล็ก (กระป๋องสเปรย์) สามารถจัดเก็บได้โดยมีเงื่อนไขดังนี้ ต้องจัดให้มีการระบายอากาศ และปริมาณการจัดเก็บสารต้องไม่เกิน 60 เปอร์เซ็นต์ของปริมาณการจัดเก็บทั้งหมด ทั้งนี้ปริมาณรวมของของเหลวไวไฟและก๊าซภายใต้ความดันในภาชนะบรรจุขนาดเล็ก (กระป๋องสเปรย์) ต้องไม่เกิน 100,000 ลิตร",
+"2":"ก๊าซภายใต้ความดันในภาชนะบรรจุขนาดเล็ก (กระป๋องสเปรย์) เก็บคละกับสารพิษได้ โดยมีเงื่อนไขต่อไปนี้ ห้องที่มีผนังทนไฟขนาดพื้นที่ต้องไม่เกิน 60 ตารางเมตร และปริมาณการจัดเก็บสารไม่เกิน 60 เปอร์เซ็นต์ ของปริมาณการจัดเก็บทั้งหมด อุณหภูมิของห้องต้องไม่เกิน 50 องศาเซลเซียส ต้องมีการระบายอากาศและต้องมีทางออกฉุกเฉิน 2 ทาง ทางออกฉุกเฉินทั้งสองทางต้องมีอุปกรณ์ดับเพลิงประเภทผงเคมีแห้ง ABC ขนาด 6 กิโลกรัม แห่งละ 1 เครื่อง ถ้าห้องเก็บมีขนาดใหญ่กว่า 60 ตารางเมตร การเก็บวัตถุอันตรายเหล่านี้ต้องจัดเก็บแบบแยกห่างด้วยวิธีการที่เหมาะสมหรือแยกบริเวณ",
+"3":"วัสดุที่เป็นสาเหตุให้เกิดการลุกติดไฟหรือลุกลามได้อย่างรวดเร็ว เช่น วัสดุที่ใช้ทำบรรจุภัณฑ์ ควรจัดเก็บแยกบริเวณออกจากสารพิษหรือของเหลวไวไฟ",
+"4":"ผลิตภัณฑ์ที่ไม่ทำปฏิกิริยากับสารอื่นในขณะเกิดอุบัติเหตุ สามารถเก็บคละกันได้โดยการจัดเก็บแบบแยกห่าง เช่น แยกออกจากกันโดยมีกำแพงกั้น เว้นระยะปลอดภัยให้ห่าง เก็บในบ่อแยกจากกัน หรือในตู้เก็บที่ปลอดภัย",
+"5":"ห้องเก็บรักษาให้จัดเก็บก๊าซภายใต้ความดันได้ไม่เกิน 50 ท่อ ในจำนวนดังกล่าวอนุญาตให้เก็บเป็นก๊าซภายใต้ความดันที่มีคุณสมบัติไวไฟ ออกซิไดส์ หรือก๊าซพิษ เก็บรวมกันได้ไม่เกิน 25 ท่อ สารติดไฟได้ (ประเภท 8A และ 11) (ยกเว้นของเหลวไวไฟ) อาจนำมาเก็บรวมได้ โดยจัดเก็บแบบแยกห่างจากก๊าซภายใต้ความดันด้วยผนังที่ทำจากวัสดุที่ไม่ติดไฟ ที่มีความสูงอย่างน้อย 2 เมตร และมีระยะห่างจากผนังอย่างน้อย 5 เมตร",
+"6":"อนุญาตให้เก็บคละได้ ถ้ามีข้อกำหนดความปลอดภัยสำหรับสินค้าคงคลังทั้งหมดโดยให้เป็นไปตามข้อกำหนดการจัดเก็บวัตถุอันตรายประเภท 2B",
+"7":"อนุญาตให้เก็บคละกับของเหลวไวไฟที่มีจุดวาบไฟสูงกว่า 60 องศาเซลเซียส ถ้าการเก็บคละกันนี้ไม่ทำให้เกิดปฏิกิริยาที่เป็นอันตราย (การลุกติดไฟและ/หรือให้ความร้อนออกมา หรือให้ก๊าซไวไฟ หรือให้ก๊าซที่ทำให้เกิดภาวะการขาดออกซิเจน หรือให้ก๊าซพิษ หรือทำให้เกิดบรรยากาศของการกัดกร่อน หรือทำให้เกิดสารที่ไม่เสถียร หรือเพิ่มความดันจนเป็นอันตราย) หากพบว่ามีโอกาสเกิดอันตรายตามที่กล่าว ให้จัดเก็บโดยเว้นระยะห่างที่ปลอดภัย (5 เมตร)",
+"8":"สารติดไฟที่มีคุณสมบัติความเป็นพิษ (ประเภท 6.1A) เก็บคละกับของแข็งไวไฟ (ประเภท 4.1B) ได้",
+"9":"ห้ามเก็บของเหลวไวไฟ (ประเภท 3A) คละกับสารกัดกร่อนที่บรรจุในภาชนะที่แตกง่าย ยกเว้นมีมาตรการป้องกันไม่ให้สารทำปฏิกิริยากันได้ ในกรณีที่เกิดอุบัติเหตุขึ้น",
+"10":"อนุญาตให้เก็บคละกันได้ ยกเว้นก๊าซไวไฟ",
+"11":"ต้องจัดทำมาตรการป้องกันเพิ่มเติมเพื่อให้เกิดความปลอดภัยในการเก็บรักษาโดยได้รับความเห็นชอบจากกรมโรงงานอุตสาหกรรม",
+"12":"ของแข็งไวไฟ (ประเภท 4.1A) ที่มีคุณสมบัติการระเบิดอาจเก็บคละกับสารอื่นคือ ประเภท 3B 4.1B 8A 8B 10 11 12 หรือ 13 ได้ถ้าระยะห่างที่ปลอดภัยซึ่งจัดไว้เพื่อป้องกันอันตรายที่จะมีต่อบริเวณโดยรอบอาคารคลังสินค้ามีเพียงพอหรืออาจต้องกำหนดให้มากขึ้น ซึ่งต้องตรวจสอบเป็นกรณี ๆ ไป",
+"13":"อนุญาตให้เก็บสารเปอร์ออกไซด์อินทรีย์ (ประเภท 5.2) คละกับของแข็งไวไฟ (ประเภท 4.1B) ได้",
+"14":"อนุญาตให้เก็บคละกับดินขับ (propellants) และตัวจุดชนวน (radical initiators) ถ้าสารนั้นไม่มีส่วนผสมของโลหะหนัก",
+"15":"การเก็บสารออกซิไดซ์ (ประเภท 5.1B) อาจอนุญาตให้เก็บคละกับสารติดไฟที่มีคุณสมบัติความเป็นพิษ (ประเภท 6.1A) และสารไม่ติดไฟที่มีคุณสมบัติความเป็นพิษ (ประเภท 6.1B) ได้ซึ่งสามารถเก็บได้ปริมาณสูงถึง 20 เมตริกตัน โดยต้องมีมาตรการความปลอดภัยดังนี้ อาคารคลังสินค้าต้องมีระบบเตือนภัยไฟไหม้ ระบบดับเพลิงอัตโนมัติ และทีมผจญเพลิงระดับกึ่งมืออาชีพของบริษัท (พนักงานบริษัททำหน้าที่ดับเพลิงอย่างเดียวพร้อมมีรถดับเพลิงของบริษัท) ถ้ามีสารไม่ถึง 1 เมตริกตัน ไม่ต้องมีมาตรการเสริมดังกล่าว",
+"16":"การเก็บสารเปอร์ออกไซด์อินทรีย์รวมกับสารเคมีและวัตถุอันตรายอื่นๆ จำเป็นต้องออกแบบและตรวจสอบแต่ละกรณีว่าระยะห่างปลอดภัย (ระหว่างอาคารคลังสินค้าและชุมชน) ที่กำหนดขึ้นโดยรอบอาคารคลังสินค้ามีเพียงพอหรือต้องกำหนดให้มากขึ้น เพื่อป้องกันโอกาสที่จะเกิดอันตราย",
+"17":"ให้พิจารณาตามข้อกำหนดด้านความปลอดภัยเฉพาะของสารแต่ละประเภท",
+"18":"วัสดุกัมมันตรังสี ควรแยกจัดเก็บตามข้อกำหนดด้านความปลอดภัยของหน่วยงาน IAEA และได้รับการอนุมัติจากหน่วยงานของรัฐที่เกี่ยวข้อง"};
+// สรุปสั้น (ใช้ในตาราง/รายงาน)
+const CD={"1":"ของเหลวไวไฟ+ก๊าซสเปรย์ เก็บได้โดยต้องมีระบายอากาศ ปริมาณไม่เกิน 60% และรวมไม่เกิน 100,000 ลิตร","2":"ก๊าซสเปรย์+สารพิษ ต้องการ: ผนังทนไฟ พื้นที่ ≤60ม² ปริมาณ ≤60% อุณหภูมิ ≤50°C ระบายอากาศ ทางออกฉุกเฉิน 2 ทาง","3":"วัสดุลุกไฟได้เร็ว ควรแยกออกจากสารพิษหรือของเหลวไวไฟ","4":"สามารถเก็บคละได้โดยการแยกห่าง: กำแพงกั้น เว้นระยะ หรือบ่อแยก","5":"ก๊าซอัด ≤50 ท่อ (ก๊าซไวไฟ/ออกซิไดส์/พิษ รวมกัน ≤25 ท่อ) สารติดไฟได้ (ประเภท 8A และ 11 ยกเว้นของเหลวไวไฟ) เก็บรวมได้โดยแยกห่างจากก๊าซด้วยผนังวัสดุไม่ติดไฟ สูง ≥2ม. และห่างจากผนัง ≥5ม.","6":"เก็บคละได้ตามข้อกำหนดประเภท 2B","7":"เก็บกับของเหลวไวไฟ จุดวาบไฟ >60°C ได้ หากไม่ก่อปฏิกิริยาอันตราย (ลุกไฟ/ให้ความร้อน/ก๊าซไวไฟ/ก๊าซพิษ/กัดกร่อน/สารไม่เสถียร/เพิ่มความดัน) หากมีโอกาสเกิดอันตราย ให้เว้นระยะห่างปลอดภัย 5 ม.","8":"สารติดไฟ+พิษ เก็บกับของแข็งไวไฟ 4.1B ได้","9":"ห้ามเก็บ 3A คละกับสารกัดกร่อนในภาชนะแตกง่าย ยกเว้นมีมาตรการป้องกัน","10":"เก็บคละได้ ยกเว้นก๊าซไวไฟ","11":"ต้องมีมาตรการเพิ่มเติม รับความเห็นชอบจากกรมโรงงานอุตสาหกรรม","12":"4.1A อาจเก็บคละได้หากระยะห่างปลอดภัยรอบคลังเพียงพอ ตรวจสอบแต่ละกรณี","13":"5.2 เก็บกับ 4.1B ได้","14":"เก็บกับ propellants และ initiators ได้หากไม่มีโลหะหนัก","15":"5.1B กับ 6.1A/6.1B ≤20 ตัน โดยต้องมีระบบเตือนไฟไหม้ ดับเพลิงอัตโนมัติ และทีมดับเพลิงกึ่งมืออาชีพของบริษัท (ถ้ามีสารไม่ถึง 1 ตัน ไม่ต้องมีมาตรการเสริมดังกล่าว)","16":"5.2 กับสารอื่น ต้องตรวจสอบระยะห่างปลอดภัยรอบคลังแต่ละกรณี","17":"พิจารณาตามข้อกำหนดเฉพาะของวัตถุอันตรายแต่ละประเภท","18":"กัมมันตรังสี แยกจัดเก็บตามข้อกำหนด IAEA และได้รับอนุมัติจากหน่วยงานรัฐ"};
 const PR={
   // Class 8B (กรด/เบส) คู่
   "8B-5.1A": {g:"ก๊าซคลอรีน (Cl₂)",         rx:"กรด เช่น HCl ทำปฏิกิริยากับคลอรีนผง Ca(OCl)₂ ปล่อยก๊าซ Cl₂ พิษร้ายแรง ทำลายระบบทางเดินหายใจ LD50 ต่ำมาก"},
@@ -1403,11 +1425,11 @@ const PR={
 };
 const DB=[
 {n:"โซเดียมไฮโปคลอไรต์ (คลอรีนน้ำ)",c:"8B",cs:"7681-52-9",u:"1791",sds:"sds-01.html"},
-{n:"แคลเซียมไฮโปคลอไรต์ (คลอรีนผง 65%)",c:"5.1A",cs:"7778-54-3",u:"1748",sds:"sds-02.html"},
+{n:"แคลเซียมไฮโปคลอไรต์ (คลอรีนผง 65%)",c:"5.1A",cs:"7778-54-3",u:"1748",sds:"sds-02.html",ref:{src:"Merck/Sigma-Aldrich (TRGS 510)",url:"https://www.merckmillipore.com/GT/en/product/Calcium-hypochlorite,MDA_CHEM-841799",date:"2026-11-14"}},
 {n:"โซเดียมไฮดรอกไซด์ (โซดาไฟ)",c:"8B",cs:"1310-73-2",u:"1823",sds:"sds-03.html"},
 {n:"โพวิโดนไอโอดีน",c:"12",cs:"25655-41-8",u:"-",sds:"sds-04.html"},
 {n:"เอทิลแอลกอฮอล์ (เอทานอล)",c:"3A",cs:"64-17-5",u:"1170",sds:"sds-05.html"},
-{n:"ไฮโดรเจนเปอร์ออกไซด์",c:"5.1B",cs:"7722-84-1",u:"2014",sds:"sds-20.html"},
+{n:"ไฮโดรเจนเปอร์ออกไซด์",c:"5.1B",cs:"7722-84-1",u:"2014",sds:"sds-20.html",ref:{src:"Merck/Sigma-Aldrich (TRGS 510)",url:"https://www.sigmaaldrich.com/VN/en/product/sigald/31642",date:"2026-11-14"}},
 {n:"แคลเซียมคลอไรด์",c:"13",cs:"10043-52-4",u:"-",sds:"sds-06.html"},
 {n:"กรดไฮโดรคลอริก (กรดเกลือ)",c:"8B",cs:"7647-01-0",u:"1789",sds:"sds-07.html"},
 {n:"โซเดียมไนไตรท์",c:"5.1B",cs:"7632-00-0",u:"1500",sds:"sds-08.html"},
@@ -1417,7 +1439,7 @@ const DB=[
 {n:"ออกซิเจน (ท่ออัด)",c:"2A",cs:"7782-44-7",u:"1072",sds:"sds-12.html"},
 {n:"น้ำมันเบนซิน",c:"3A",cs:"86290-81-5",u:"1203",sds:"sds-13.html"},
 {n:"น้ำมันดีเซล",c:"3B",cs:"68334-30-5",u:"1202",sds:"sds-14.html"},
-{n:"กรดไนตริก (≤70%)",c:"8B",cs:"7697-37-2",u:"2031",sds:"sds-42.html"},
+{n:"กรดไนตริก (≤70%)",c:"5.1B",cs:"7697-37-2",u:"2031",sds:"sds-42.html",note:"v4: เปลี่ยนจาก 8B เป็น 5.1B ตาม Merck (กรดไนตริก 65% = Storage class 5.1B สารออกซิไดซ์)",ref:{src:"Merck/Sigma-Aldrich (TRGS 510)",url:"https://sigmaaldrich.com/DE/de/sds/mm/1.00441",date:"2026-11-14"}},
 {n:"ไบโอซอล 300",c:"8B",cs:"111-30-8",u:"1903",sds:"sds-21.html"},
 {n:"ปูนขาว",c:"13",cs:"1305-62-0",u:"-",sds:"sds-18.html"},
 {n:"โซเดียมไทโอซัลเฟต",c:"13",cs:"7772-98-7",u:"-",sds:"sds-15.html"},
@@ -1426,25 +1448,6 @@ const DB=[
 {n:"EDTA",c:"13",cs:"60-00-4",u:"-",sds:"sds-22.html"},
 {n:"ซันไล (น้ำยาล้างจาน)",c:"12",cs:"-",u:"-",sds:"sds-24.html"},
 {n:"อควา บราวน์",c:"13",cs:"-",u:"-",sds:"sds-23.html"}];
-
-// ── สารเคมีประจำแต่ละศูนย์ (จาก สอ.1 + แผนผังจริง) ──
-const FARM_CHEMS={
-"สัตว์น้ำ":["โซเดียมไฮโปคลอไรต์ (คลอรีนน้ำ)","แคลเซียมไฮโปคลอไรต์ (คลอรีนผง 65%)","โซเดียมไฮดรอกไซด์ (โซดาไฟ)","โพวิโดนไอโอดีน","เอทิลแอลกอฮอล์ (เอทานอล)","ไฮโดรเจนเปอร์ออกไซด์","แคลเซียมคลอไรด์","กรดไฮโดรคลอริก (กรดเกลือ)","โซเดียมไนไตรท์","กรดอะซิติก (≤80%)","กรดซัลฟิวริก","ก๊าซหุงต้ม (LPG)","ออกซิเจน (ท่ออัด)","น้ำมันเบนซิน","น้ำมันดีเซล","โซเดียมไบคาร์บอเนต","แมกนีเซียมคลอไรด์","ซันไล (น้ำยาล้างจาน)","โซเดียมไทโอซัลเฟต"],
-"หัวกุญแจ":["โซเดียมไฮโปคลอไรต์ (คลอรีนน้ำ)","แคลเซียมไฮโปคลอไรต์ (คลอรีนผง 65%)","โซเดียมไฮดรอกไซด์ (โซดาไฟ)","โพวิโดนไอโอดีน","น้ำมันดีเซล","แคลเซียมคลอไรด์","กรดไฮโดรคลอริก (กรดเกลือ)","โซเดียมไนไตรท์","ก๊าซหุงต้ม (LPG)","ออกซิเจน (ท่ออัด)","น้ำมันเบนซิน","ไบโอซอล 300","ปูนขาว","โซเดียมไทโอซัลเฟต","โซเดียมไบคาร์บอเนต"],
-"ไร่สาม":["โซเดียมไฮโปคลอไรต์ (คลอรีนน้ำ)","แคลเซียมไฮโปคลอไรต์ (คลอรีนผง 65%)","โซเดียมไฮดรอกไซด์ (โซดาไฟ)","โพวิโดนไอโอดีน","เอทิลแอลกอฮอล์ (เอทานอล)","ไฮโดรเจนเปอร์ออกไซด์","แคลเซียมคลอไรด์","กรดไฮโดรคลอริก (กรดเกลือ)","โซเดียมไนไตรท์","กรดอะซิติก (≤80%)","กรดซัลฟิวริก","ก๊าซหุงต้ม (LPG)","ออกซิเจน (ท่ออัด)","น้ำมันเบนซิน","น้ำมันดีเซล","กรดไนตริก (≤70%)","แมกนีเซียมคลอไรด์","โซเดียมไบคาร์บอเนต","โซเดียมไทโอซัลเฟต"],
-"วิจัยหาดเจ้า":["โซเดียมไฮโปคลอไรต์ (คลอรีนน้ำ)","แคลเซียมไฮโปคลอไรต์ (คลอรีนผง 65%)","โซเดียมไฮดรอกไซด์ (โซดาไฟ)","โพวิโดนไอโอดีน","เอทิลแอลกอฮอล์ (เอทานอล)","ไฮโดรเจนเปอร์ออกไซด์","แคลเซียมคลอไรด์","กรดไฮโดรคลอริก (กรดเกลือ)","โซเดียมไนไตรท์","กรดอะซิติก (≤80%)","กรดซัลฟิวริก","ก๊าซหุงต้ม (LPG)","ออกซิเจน (ท่ออัด)","น้ำมันเบนซิน","น้ำมันดีเซล","EDTA","อควา บราวน์","แมกนีเซียมคลอไรด์","โซเดียมไทโอซัลเฟต","โซเดียมไบคาร์บอเนต"],
-"เพชรบุรี":["โซเดียมไฮโปคลอไรต์ (คลอรีนน้ำ)","แคลเซียมไฮโปคลอไรต์ (คลอรีนผง 65%)","โซเดียมไฮดรอกไซด์ (โซดาไฟ)","โพวิโดนไอโอดีน","เอทิลแอลกอฮอล์ (เอทานอล)","แคลเซียมคลอไรด์","กรดไฮโดรคลอริก (กรดเกลือ)","โซเดียมไนไตรท์","กรดอะซิติก (≤80%)","กรดซัลฟิวริก","ก๊าซหุงต้ม (LPG)","ออกซิเจน (ท่ออัด)","น้ำมันเบนซิน","น้ำมันดีเซล","ไบโอซอล 300","โซเดียมไทโอซัลเฟต","โซเดียมไบคาร์บอเนต","แมกนีเซียมคลอไรด์"]};
-function farmChemKey(){
-  const f=(typeof getCurrentFarm==='function'&&getCurrentFarm())||null;
-  if(!f)return null;
-  const s=((f.name||'')+' '+(f.id||'')).toLowerCase();
-  if(s.includes('สัตว์น้ำ'))return 'สัตว์น้ำ';
-  if(s.includes('หัวกุญแจ')||s.includes('kunjae')||s.includes('hkj'))return 'หัวกุญแจ';
-  if(s.includes('ไร่สาม')||s.includes('raisam')||s.includes('rs'))return 'ไร่สาม';
-  if(s.includes('เพชรบุรี')||s.includes('phetchaburi')||s.includes('pb'))return 'เพชรบุรี';
-  if(s.includes('หาดเจ้า')||s.includes('hadchao')||s.includes('hjs'))return 'วิจัยหาดเจ้า';
-  return null;
-}
 
 // ── SMART-ADD DICTIONARY: พิมพ์ชื่อไทย/อังกฤษ/ชื่อสามัญ → เติมข้อมูลครบในคลิกเดียว ──
 const SMART_DB=[
@@ -1463,7 +1466,7 @@ const SMART_DB=[
 {n:"ออกซิเจน (ท่ออัด)",c:"2A",cs:"7782-44-7",u:"1072",f:"O2",st:"ก๊าซอัดท่อ",al:["oxygen","ออกซิเจน","o2","ท่อออกซิเจน","oxygen cylinder"]},
 {n:"น้ำมันเบนซิน",c:"3A",cs:"86290-81-5",u:"1203",f:"-",st:"ของเหลวไวไฟ",al:["gasoline","เบนซิน","น้ำมันเบนซิน","แก๊สโซฮอล์","gasohol","petrol","91","95"]},
 {n:"น้ำมันดีเซล",c:"3B",cs:"68334-30-5",u:"1202",f:"-",st:"ของเหลว",al:["diesel","ดีเซล","น้ำมันดีเซล","โซล่า","b7","diesel fuel"]},
-{n:"กรดไนตริก (≤70%)",c:"8B",cs:"7697-37-2",u:"2031",f:"HNO3",st:"ของเหลว (ควันกรด)",al:["nitric acid","กรดไนตริก","กรดดินประสิว","hno3","nitric"]}];
+{n:"กรดไนตริก (≤70%)",c:"5.1B",cs:"7697-37-2",u:"2031",f:"HNO3",st:"ของเหลว (ควันกรด)",al:["nitric acid","กรดไนตริก","กรดดินประสิว","hno3","nitric"]}];
 const PP={
   "โซเดียมไฮโปคลอไรต์ (คลอรีนน้ำ)":   {f:"NaOCl",        mw:"74.44 g/mol",  st:"ของเหลว สีเหลืองอ่อน กลิ่นคลอรีน", cn:"10%",     bp:"101°C (สลายตัว)", mp:"-",       d:"1.10 g/cm³",  flash:"-",       ghs:["corrosion","environment","exclamation"]},
   "แคลเซียมไฮโปคลอไรต์ (คลอรีนผง 65%)":{f:"Ca(OCl)₂",    mw:"142.98 g/mol", st:"ของแข็ง ผง/เม็ดสีขาว กลิ่นคลอรีนแรง", cn:"65%",  bp:"-",        mp:"สลายตัว >100°C", d:"2.35 g/cm³", flash:"-",     ghs:["oxidizer","corrosion","skull","environment"]},
@@ -1560,11 +1563,7 @@ function initSwipe(el, onDelete) {
 // ══════════════════════════════════════════
 //  ALERTS STATE
 // ══════════════════════════════════════════
-let alerts=JSON.parse(localStorage.getItem('cn2_alerts')||'null')||[
-  {id:1,type:'expired',color:'var(--red)',title:'SDS ใกล้หมดอายุ',sub:'กรดเกลือ (HCl) • Class 8B • ภายใน 30 วัน',time:'2 ชม.'},
-  {id:2,type:'conflict',color:'var(--amb)',title:'ตรวจพบการจัดเก็บไม่ปลอดภัย',sub:'โซเดียมไฮโปคลอไรต์ ใกล้ กรดเกลือ',time:'5 ชม.'},
-  {id:3,type:'inspection',color:'var(--amb)',title:'ยังไม่ได้ตรวจสอบสต็อก',sub:'ถึงกำหนดตรวจสอบรายสัปดาห์',time:'1 วัน'},
-];
+let alerts=[]; // v4: ตัดการแจ้งเตือนตัวอย่างออก (ไม่ได้มาจากข้อมูลจริง)
 function saveAlerts(){localStorage.setItem('cn2_alerts',JSON.stringify(alerts));}
 
 const ALERT_IC={
@@ -1645,12 +1644,11 @@ function uDash(){
   // ── HEADER SUMMARY ──
   setTxt('hs-total',total);
   setTxt('hs-risk',high);
-  setTxt('hs-alert',alerts.length);
 
   // ── KPI CARDS ──
   setTxt('kpi-total',total);
   setTxt('kpi-risk',high);
-  setTxt('kpi-alert',alerts.length);
+  setTxt('kpi-sdsn',db.filter(d=>d.sds).length);
   setTxt('kpi-sds',dataPct+'%');
 
   // ── RISK DONUT ──
@@ -1765,23 +1763,33 @@ function sDet(nm){
       <div style="padding:9px 16px;font-size:10px;color:var(--tx2);line-height:1.7">เก็บในสถานที่เย็น แห้ง ระบายอากาศดี ห่างจากแหล่งความร้อน ตรวจสอบความเข้ากันได้ก่อนเก็บร่วมกัน</div>
 
       ${(()=>{
-        // หาคู่ที่อันตราย (RED) กับ class นี้จาก matrix
+        // แหล่งอ้างอิง Class ของสารนี้
+        const r=ch.ref;
+        return r
+          ? `<div style="padding:0 16px 8px;font-size:9.5px;color:var(--tx3);line-height:1.6"><i class="ph ph-seal-check" style="color:var(--grn)"></i> อ้างอิง Class: ${esc(r.src||'-')}${r.url?` · <a href="${esc(r.url)}" target="_blank" rel="noopener" style="color:var(--lime)">เปิดแหล่งอ้างอิง</a>`:''}${r.date?` · ตรวจ ${esc(r.date)}`:''}</div>`
+          : `<div style="padding:0 16px 8px;font-size:9.5px;color:var(--amb);line-height:1.6"><i class="ph ph-warning"></i> Class นี้เป็นข้อมูลตั้งต้นของระบบ ยังไม่ได้ระบุแหล่งอ้างอิง — ตรวจกับ SDS ผู้ผลิตก่อนใช้</div>`;
+      })()}
+      ${ch.note?`<div style="padding:0 16px 8px;font-size:9.5px;color:var(--tx3)">หมายเหตุ: ${esc(ch.note)}</div>`:''}
+      ${(()=>{
+        // คลาสที่ห้ามเก็บร่วม / เก็บได้แบบมีเงื่อนไข (จากตาราง DIW)
         const cls = ch.c;
-        const ci = CO.indexOf(cls);
-        const dangerCls = CO.filter((c2,j)=>{
-          if(c2===cls)return false;
-          return mxVal(cls,c2)==='0';
-        }).slice(0,4);
-        if(!dangerCls.length)return '';
-        return `<div class="sl" style="padding-top:4px">⛔ ห้ามเก็บร่วมกับ</div>
-        <div style="padding:0 16px 10px;display:flex;gap:5px;flex-wrap:wrap">
-          ${dangerCls.map(c=>`<span class="chip cr" style="cursor:pointer" onclick="go('analyze')">${(HC[c]||{}).ic||'🧪'} Class ${c}</span>`).join('')}
-        </div>`;
+        const others = CO.filter(c2=>c2!==cls);
+        const dangerCls = others.filter(c2=>mxVal(cls,c2)==='0');
+        const condCls = others.filter(c2=>{const v=mxVal(cls,c2);return v&&v!=='0'&&v!=='00';});
+        const okCls = others.filter(c2=>mxVal(cls,c2)==='00');
+        const chips=(list,k)=>list.map(c=>`<span class="chip ${k}" title="${esc((HC[c]||{}).t||'')}">${(HC[c]||{}).ic||'🧪'} ${c}</span>`).join('');
+        return `${dangerCls.length?`<div class="sl" style="padding-top:4px">⛔ ห้ามเก็บร่วมกับ Class</div>
+        <div style="padding:0 16px 10px;display:flex;gap:5px;flex-wrap:wrap">${chips(dangerCls,'cr')}</div>`:''}
+        ${condCls.length?`<div class="sl" style="padding-top:4px">⚠️ เก็บร่วมได้แบบมีเงื่อนไข</div>
+        <div style="padding:0 16px 10px;display:flex;gap:5px;flex-wrap:wrap">${chips(condCls,'ca')}</div>`:''}
+        ${okCls.length?`<div class="sl" style="padding-top:4px">✅ เก็บร่วมได้</div>
+        <div style="padding:0 16px 10px;display:flex;gap:5px;flex-wrap:wrap">${chips(okCls,'cg')}</div>`:''}
+        <div style="padding:0 16px 10px;font-size:9px;color:var(--tx3)">อ้างอิง: ตารางการจัดเก็บ คู่มือการเก็บรักษาสารเคมีและวัตถุอันตราย กรมโรงงานอุตสาหกรรม 2550 · ดูรายละเอียดคู่สารได้ที่ "เก็บด้วยกันได้ไหม?"</div>`;
       })()}
 
       <button class="btn bg" style="margin:7px 16px;width:calc(100% - 32px)" onclick="${ch.sds?`window.open('sds/${ch.sds}','_blank')`:`window.open('https://www.google.com/search?q=SDS+${encodeURIComponent(nm)}','_blank')`}"><i class="ph ph-file-text" style="font-size:14px"></i>${ch.sds?'ดู SDS ฉบับองค์กร (MSBRC2)':'ค้นหา SDS จากผู้ผลิต'}</button>
     </div>
-    <div class="crd"><strong>ATIT CHIMNAN</strong>ChemNexus AI 3.0 • DIW Standard</div>
+    <div class="crd"><strong>ธุรกิจพันธุ์กุ้งขาว 2</strong>ChemNexus AI 4.0 • DIW Standard</div>
   `;
   go('detail');
 }
@@ -1833,21 +1841,22 @@ function doAna(){
   let c1=sA.c,c2=sB.c;
   if(CO.indexOf(c1)>CO.indexOf(c2))[c1,c2]=[c2,c1];
   const val=mxVal(c1,c2);
-  const r=(!val||val==='0')?'RED':val==='00'?'GREEN':'YELLOW';
-  const code=r==='YELLOW'?val:null;
+  const diw=(!val||val==='0')?'RED':val==='00'?'GREEN':'YELLOW';
+  const sr=sdsRule(sA,sB);
+  const r=sr?'RED':diw;
+  const code=diw==='YELLOW'?val:null;
   document.getElementById('fus').style.display='block';
   document.getElementById('fia').textContent=(HC[sA.c]||{}).ic||'🧪';
   document.getElementById('fib').textContent=(HC[sB.c]||{}).ic||'🧪';
   document.getElementById('abw').style.display='none';
   setTimeout(()=>{
     document.getElementById('fus').style.display='none';
-    const e={a:sA.n,b:sB.n,cA:sA.c,cB:sB.c,c1,c2,r,code,tm:new Date().toLocaleString('th-TH',{hour:'2-digit',minute:'2-digit',day:'numeric',month:'short'})};
+    const e={a:sA.n,b:sB.n,cA:sA.c,cB:sB.c,c1,c2,r,diw,sr,code,tm:new Date().toLocaleString('th-TH',{hour:'2-digit',minute:'2-digit',day:'numeric',month:'short'})};
     hs.unshift(e);if(hs.length>20)hs=hs.slice(0,20);
     localStorage.setItem('cn2h',JSON.stringify(hs));
-    if(getCurrentFarm())logAudit({chemA:sA.n,clsA:sA.c,chemB:sB.n,clsB:sB.c,result:r}).catch(()=>{});
     lastResult=e;
     rRes(e);go('result');
-  },1800);
+  },450);
 }
 function rplay(a,b){
   const all=liveDB().map(x=>({...x,n:x.n||x.name,c:x.c||x.cls,cs:x.cs||x.cas,u:x.u||x.un}));
@@ -1857,10 +1866,12 @@ function rplay(a,b){
 
 function rRes(e){
   const{a,b,cA,cB,c1,c2,r,code}=e;
+  const sr=e.sr||null, diw=e.diw||r;
   const hA=HC[cA]||{},hB=HC[cB]||{};
   const pA=getProps(a),pB=getProps(b);
-  const pr=PR[`${c1}-${c2}`]||PR[`${c2}-${c1}`]||null;
-  const cond=code?(CD[code]||''):'';
+  const pr=sr?{g:sr.g,rx:sr.rx+`<div style="margin-top:6px;font-size:10.5px;color:var(--tx3)">ตาราง DIW (เทียบระดับ Class ${c1}–${c2}) = ${diw==='GREEN'?'เก็บร่วมได้':'เก็บร่วมได้แบบมีเงื่อนไข'} แต่ SDS ของสารคู่นี้ระบุว่าเข้ากันไม่ได้ จึงให้แยกเก็บ · <a href="sds/${sr.sds}" target="_blank" style="color:var(--lime)">เปิด SDS</a></div>`}
+    :(PR[`${c1}-${c2}`]||PR[`${c2}-${c1}`]||null);
+  const cond=code?(CD_FULL[code]||CD[code]||''):'';
   const fi=[...new Set([...(hA.fi||[]),...(hB.fi||[])])];
   const pp=[...new Set([...(hA.pp||[]),...(hB.pp||[])])];
   const ghsA=Array.isArray(pA.ghs)?pA.ghs:[];
@@ -1916,10 +1927,10 @@ function rRes(e){
       <div class="rbi">${r==='RED'?'⛔':r==='YELLOW'?'⚠️':'✅'}</div>
       <div style="flex:1">
         <div class="rbt">${r==='RED'?'ไม่ปลอดภัย — ห้ามเก็บร่วม':r==='YELLOW'?'เก็บร่วมได้ (ต้องมีเงื่อนไข)':'ปลอดภัย เก็บร่วมกันได้'}</div>
-        <div class="rbs">${r==='RED'?'DANGER : ห้ามเก็บร่วม':r==='YELLOW'?'CONDITIONAL STORAGE':'SAFE TO STORE TOGETHER'}</div>
+        <div class="rbs">${sr?'แยกเก็บตาม SDS (สารคู่นี้เข้ากันไม่ได้)':r==='RED'?'DANGER : ห้ามเก็บร่วม':r==='YELLOW'?'CONDITIONAL STORAGE':'SAFE TO STORE TOGETHER'}</div>
       </div>
       <div style="text-align:right;flex-shrink:0">
-        <div style="font-size:9.5px;font-weight:900;color:${badgeCol};padding:4px 10px;background:${badgeBg};border-radius:6px;letter-spacing:.04em">DIW Matrix</div>
+        <div style="font-size:9.5px;font-weight:900;color:${badgeCol};padding:4px 10px;background:${badgeBg};border-radius:6px;letter-spacing:.04em">${sr?'SDS':'DIW Matrix'}</div>
         <div class="rds" style="justify-content:flex-end;margin-top:7px">${dots}</div>
       </div>
     </div>
@@ -1930,16 +1941,27 @@ function rRes(e){
     <div class="rxn-hdr">
       <i class="ph ${r==='RED'?'ph-warning-octagon':r==='YELLOW'?'ph-info':'ph-check-circle'}" style="font-size:17px;color:${badgeCol}"></i>
       <div>
-        <div style="font-size:11.5px;font-weight:800">${r==='RED'?'เหตุผลอันตราย':r==='YELLOW'?`เงื่อนไข DIW ข้อที่ ${code}`:'ผลการตรวจสอบ'}</div>
+        <div style="font-size:11.5px;font-weight:800">${r==='RED'?'เหตุผลอันตราย':r==='YELLOW'?`เงื่อนไข DIW ข้อที่ ${code}`:(pr?'ข้อควรระวัง':'ผลการตรวจสอบ')}</div>
         <div style="font-size:9.5px;color:var(--tx3)">${r==='RED'?'Chemical Reaction Hazard':r==='YELLOW'?'DIW Condition Code':'Compatibility Result'}</div>
       </div>
     </div>
     <div class="rxn-body">
       ${pr?`<div style="font-size:12.5px;font-weight:800;color:${badgeCol};margin-bottom:6px">${pr.g}</div><div style="font-size:12px;color:var(--tx2);line-height:1.7">${pr.rx}</div>`:''}
       ${cond?`<div style="font-size:12px;color:var(--tx2);line-height:1.7">${cond}</div>`:''}
-      ${r==='GREEN'&&!pr?`<div style="font-size:12px;color:var(--tx2);line-height:1.7">สารทั้งสองชนิดสามารถจัดเก็บร่วมกันได้ตามมาตรฐาน DIW โดยไม่เกิดปฏิกิริยาอันตรายต่อกัน อย่างไรก็ตามควรปฏิบัติตามข้อกำหนดทั่วไปของการจัดเก็บสารเคมี</div>`:''}
+      ${r==='GREEN'&&!pr?`<div style="font-size:12px;color:var(--tx2);line-height:1.7">ตารางของกรมโรงงานฯ ให้เก็บคละกันได้ อย่างไรก็ตามยังต้องปฏิบัติตามข้อกำหนดทั่วไปของการจัดเก็บ และข้อควรระวังใน SDS ของสารแต่ละตัว</div>`:''}
     </div>
   </div>`:''}
+
+  <!-- ADVICE -->
+  <div class="ib ${r==='RED'?'red':r==='YELLOW'?'amb':'grn'}" style="margin-top:10px;flex-direction:column;gap:6px">
+    <div style="display:flex;align-items:center;gap:7px;width:100%"><i class="ph ph-lightbulb"></i><div class="ibt" style="margin-bottom:0">คำแนะนำ</div></div>
+    <div class="ibb" style="line-height:1.75">${r==='RED'
+      ? '• ห้ามเก็บในพื้นที่เดียวกัน — แยกห้อง หรือแยกพื้นที่ให้ชัดเจน<br>• ห้ามวางชั้นเดียวกัน/ถาดรองรับเดียวกัน กันหกแล้วไหลมาเจอกัน<br>• ติดป้ายบอกประเภทที่ตำแหน่งจัดเก็บ'
+      : r==='YELLOW'
+      ? `• เก็บร่วมได้เมื่อทำตามเงื่อนไขข้อ ${code} ด้านบนครบ<br>• ถ้าทำตามเงื่อนไขไม่ได้ ให้แยกเก็บเหมือนกรณีห้ามเก็บร่วม<br>• ใช้ถาดรองรับแยกกันสำหรับสารแต่ละชนิด`
+      : '• เก็บพื้นที่เดียวกันได้ ควรใช้ถาดรองรับแยกตามชนิด<br>• ปิดฝาภาชนะ ติดฉลาก และเก็บตามที่ SDS กำหนด (อุณหภูมิ แสง ความชื้น)'}</div>
+    <div style="font-size:9px;color:var(--tx3);line-height:1.6">อ้างอิง: ตารางการจัดเก็บ คู่มือการเก็บรักษาสารเคมีและวัตถุอันตราย กรมโรงงานอุตสาหกรรม พ.ศ. 2550 หน้า 24–25 · คำแนะนำเป็นแนวปฏิบัติทั่วไป ให้ยึด SDS และกฎหมายที่เกี่ยวข้องเป็นหลัก</div>
+  </div>
 
   <!-- FIREFIGHTING & PPE -->
   ${fi.length?`<div class="ib lm" style="margin-top:10px;flex-direction:column;gap:7px">
@@ -1959,7 +1981,7 @@ function rRes(e){
     <a href="#" class="res-act-btn" style="background:rgba(184,255,58,.1);border:1px solid var(--lbd);color:var(--lime)" onclick="exportPDF();return false"><i class="ph ph-printer" style="font-size:16px"></i>PDF Report</a>
   </div>
 
-  <div class="crd" style="margin-top:14px"><strong>ATIT CHIMNAN</strong>ChemNexus AI 3.0 • DIW Matrix</div>
+  <div class="crd" style="margin-top:14px"><strong>ธุรกิจพันธุ์กุ้งขาว 2</strong>ChemNexus AI 4.0 • DIW Matrix</div>
   `;
 }
 
@@ -2020,7 +2042,7 @@ function rPPE(){
     <div style="margin:12px 16px 0;padding:10px 13px;background:var(--ab);border:1px solid var(--abd);border-radius:var(--rs);font-size:10.5px;color:var(--amb);line-height:1.7">
       <strong>⚠ หมายเหตุ:</strong> เลือก PPE ให้เหมาะสมกับความเข้มข้น ปริมาณ และลักษณะงานจริง ปรึกษาผู้เชี่ยวชาญก่อนเข้าพื้นที่อันตราย
     </div>
-    <div class="crd"><strong>ATIT CHIMNAN</strong>ChemNexus AI 3.0 • PPE Guide</div>
+    <div class="crd"><strong>ธุรกิจพันธุ์กุ้งขาว 2</strong>ChemNexus AI 4.0 • PPE Guide</div>
   `;
 }
 
@@ -2102,7 +2124,7 @@ function rEMG(){
         </a>
       </div>
     </div>
-    <div class="crd"><strong>ATIT CHIMNAN</strong>ChemNexus AI 3.0 • ERG Guide</div>
+    <div class="crd"><strong>ธุรกิจพันธุ์กุ้งขาว 2</strong>ChemNexus AI 4.0 • ERG Guide</div>
   `;
 }
 
@@ -2256,7 +2278,7 @@ function generateSDS() {
 
       <!-- Footer -->
       <div style="padding:10px 14px;background:rgba(0,0,0,.2);display:flex;justify-content:space-between;align-items:center">
-        <div style="font-size:10px;font-weight:800;color:var(--tx3)">Generated by ChemNexus AI 3.0</div>
+        <div style="font-size:10px;font-weight:800;color:var(--tx3)">Generated by ChemNexus AI 4.0</div>
         <div style="font-size:9px;color:var(--tx3)">${now}</div>
       </div>
 
@@ -3213,279 +3235,284 @@ function generateLayout() {
   toast(`✅ สร้างแผนผัง ${zCount} โซน • คะแนน ${score}/100`);
 }
 
-//  ADMIN — STATE
+//  ADMIN + ข้อมูลสารเคมี (v4 — ไม่แยกฟาร์ม · ไม่มีล็อกอิน)
 // ══════════════════════════════════════════
-const ADMIN_PIN = '2025';
-let pinBuf = '';
-let adminUnlocked = false;
-let delTargetIdx = -1;
+// ข้อมูลสาร 3 ชั้น
+//   1) DB         — สารตั้งต้นในโค้ด
+//   2) PUBLISHED  — chemicals.json บน GitHub: ผู้ดูแลแก้แล้วอัปโหลด → ทุกเครื่องเห็น
+//   3) DRAFT      — ร่างของผู้ดูแลในเครื่องนี้ (localStorage) ยังไม่ขึ้นเครื่องอื่น
+// ผู้ดูแลเข้าหน้าแก้ไขด้วยลิงก์ .../chem-ai/#admin (ไม่มีปุ่มบนหน้าแอป)
+let PUBLISHED = [];
+let DRAFT = (() => { try { return JSON.parse(localStorage.getItem('cnx4_draft') || '[]'); } catch (e) { return []; } })();
+let editingName = null;
 let delTargetName = '';
-let delTargetBase = false;
-let editingIdx = -1;
 let adminFilter = 'all';
-let adminSort = 'name'; // name | class | date
+let adminSort = 'name';
+let pendingReq = null;
+let userDB = [], hiddenBase = []; // คงไว้ให้โค้ดส่วนอื่นที่อ้างถึงไม่พัง
 
-// userDB = custom chemicals stored in localStorage (layered on top of DB)
-let userDB = JSON.parse(localStorage.getItem('cn2_udb') || '[]');
-let hiddenBase = JSON.parse(localStorage.getItem('cn2_hidden') || '[]');
-let firestoreDB = []; // chemicals loaded from Firestore
-
-// combined live DB — Firestore takes priority over local DB
-function liveDB() {
-  const fk = farmChemKey();
-  const farmFilter = d => !fk || !FARM_CHEMS[fk] || FARM_CHEMS[fk].includes(d.n);
-  if (firestoreDB.length > 0) {
-    const base = firestoreDB.filter(d => !hiddenBase.includes(d.n)).filter(farmFilter);
-    // local userDB ที่ไม่ซ้ำกับ Firestore
-    const fsNames = new Set(firestoreDB.map(d => d.n));
-    return [...base, ...userDB.filter(u => !fsNames.has(u.n))];
-  }
-  const base = DB.filter(d => !hiddenBase.includes(d.n)).filter(farmFilter);
-  return [...base, ...userDB];
+function saveDraft() { try { localStorage.setItem('cnx4_draft', JSON.stringify(DRAFT)); } catch (e) {} }
+function entryKey(e) {
+  return JSON.stringify({ n: e.n, c: e.c, cs: e.cs || '-', u: e.u || '-', note: e.note || '', props: e.props || null, sds: e.sds || '', ref: e.ref || null, hidden: !!e.hidden });
 }
-
-function saveUserDB() {
-  localStorage.setItem('cn2_udb', JSON.stringify(userDB));
-}
-function saveHidden() {
-  localStorage.setItem('cn2_hidden', JSON.stringify(hiddenBase));
-}
-
-// ── PIN MODAL ──
-function openAdmin() {
-  if (adminUnlocked) { go('admin'); rAdmin(); return; }
-  pinBuf = '';
-  updatePinDots();
-  document.getElementById('pin-err').textContent = '';
-  document.getElementById('pin-modal').style.display = 'flex';
-}
-function closePinModal() {
-  document.getElementById('pin-modal').style.display = 'none';
-  pinBuf = '';
-  updatePinDots();
-}
-function pinKey(k) {
-  if (pinBuf.length >= 4) return;
-  pinBuf += k;
-  updatePinDots();
-  if (pinBuf.length === 4) setTimeout(checkPin, 120);
-}
-function pinDel() {
-  pinBuf = pinBuf.slice(0, -1);
-  updatePinDots();
-  document.getElementById('pin-err').textContent = '';
-}
-function updatePinDots() {
-  document.querySelectorAll('.pdot').forEach((d, i) => {
-    d.classList.toggle('filled', i < pinBuf.length);
+function applyEdits(list, edits) {
+  const map = new Map(list.map(d => [d.n, d]));
+  edits.forEach(e => {
+    if (!e || !e.n) return;
+    if (e.hidden) { map.delete(e.n); return; }
+    const base = map.get(e.n) || DB.find(d => d.n === e.n) || {};
+    map.set(e.n, { ...base, ...e, _custom: !DB.some(d => d.n === e.n) });
   });
+  return [...map.values()];
 }
-function checkPin() {
-  if (pinBuf === ADMIN_PIN) {
-    adminUnlocked = true;
-    closePinModal();
-    go('admin');
-    rAdmin();
-  } else {
-    document.getElementById('pin-err').textContent = '❌ PIN ไม่ถูกต้อง';
-    pinBuf = '';
-    updatePinDots();
-    // shake animation
-    const dots = document.getElementById('pin-dots');
-    dots.style.animation = 'none';
-    dots.offsetHeight;
-    dots.style.animation = 'shake .3s ease';
+function liveDB() { return applyEdits(applyEdits(DB, PUBLISHED), DRAFT); }
+function allEdits() {
+  const m = new Map(PUBLISHED.map(e => [e.n, e]));
+  DRAFT.forEach(e => m.set(e.n, e));
+  return [...m.values()];
+}
+function hiddenList() { return allEdits().filter(e => e.hidden); }
+function putDraft(entry) {
+  DRAFT = DRAFT.filter(e => e.n !== entry.n);
+  DRAFT.push(entry);
+  saveDraft();
+}
+
+async function loadPublished() {
+  try {
+    const r = await fetch('chemicals.json?v=' + Date.now(), { cache: 'no-store' });
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    const j = await r.json();
+    PUBLISHED = Array.isArray(j) ? j : (Array.isArray(j.chemicals) ? j.chemicals : []);
+  } catch (e) {
+    PUBLISHED = [];
   }
+  // ร่างที่ขึ้น GitHub แล้ว (ข้อมูลตรงกัน) → ลบออกจากร่างอัตโนมัติ
+  const pub = new Map(PUBLISHED.map(e => [e.n, entryKey(e)]));
+  const before = DRAFT.length;
+  DRAFT = DRAFT.filter(e => pub.get(e.n) !== entryKey(e));
+  if (DRAFT.length !== before) saveDraft();
+  uDash();
+  if (cp === 'search') rCL('');
+  if (cp === 'admin') rAdmin();
 }
+
+function exportJSON() {
+  const data = {
+    app: 'ChemNexus AI',
+    org: APP_ORG,
+    updated: new Date().toISOString().slice(0, 10),
+    note: 'ไฟล์นี้สร้างจากหน้าผู้ดูแล — อัปโหลดทับไฟล์เดิมใน GitHub แล้วทุกเครื่องจะเห็นภายใน 1-2 นาที',
+    chemicals: allEdits(),
+  };
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'chemicals.json';
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 3000);
+  toast('📥 ดาวน์โหลด chemicals.json แล้ว — นำไปอัปโหลดทับใน GitHub');
+}
+
+function clearDraft() {
+  if (!DRAFT.length) return;
+  if (!confirm('ทิ้งร่างที่ยังไม่ได้อัปโหลด ' + DRAFT.length + ' รายการ?')) return;
+  DRAFT = []; saveDraft();
+  rAdmin(); uDash();
+  toast('ทิ้งร่างแล้ว');
+}
+
+function openAdmin() {
+  if (cp !== 'admin') go('admin');
+  rAdmin();
+}
+
+function esc(s) {
+  return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+function jsq(s) { return String(s).replace(/\\/g, '\\\\').replace(/'/g, "\\'"); }
 
 // ── ADMIN PAGE RENDER ──
 function rAdmin() {
   const body = document.getElementById('admin-body');
   const all = liveDB();
-  const custom = userDB.length;
-  const base = DB.length;
-
-  // stats
-  const highRisk = all.filter(x => (HC[x.c || x.cls] || {}).r === 'HIGH' || (HC[x.c || x.cls] || {}).r === 'EXTREME').length;
-
-  let filtered = all;
-  if (adminFilter !== 'all') filtered = filtered.filter(x => (x.c || x.cls) === adminFilter);
-
-  // sort
-  filtered = [...filtered].sort((a, b) => {
-    if (adminSort === 'class') return CO.indexOf(a.c || a.cls) - CO.indexOf(b.c || b.cls);
-    return (a.n || a.name).localeCompare(b.n || b.name, 'th');
-  });
-
+  const hid = hiddenList();
+  let filtered = adminFilter === 'all' ? all : all.filter(x => x.c === adminFilter);
+  filtered = [...filtered].sort((a, b) => adminSort === 'class'
+    ? CO.indexOf(a.c) - CO.indexOf(b.c) || a.n.localeCompare(b.n, 'th')
+    : a.n.localeCompare(b.n, 'th'));
+  const draftNames = new Set(DRAFT.map(e => e.n));
+  const classesInUse = CO.filter(c => all.some(x => x.c === c));
   const rc = r => r === 'EXTREME' || r === 'HIGH' ? 'var(--red)' : r === 'MEDIUM' ? 'var(--amb)' : 'var(--grn)';
 
   body.innerHTML = `
-    <!-- Stats -->
-    <div class="sl" style="margin-top:12px">สถิติฐานข้อมูล</div>
-    <div class="admin-stats">
-      <div class="ast"><div class="ast-n" style="color:var(--lime)">${all.length}</div><div class="ast-l">ทั้งหมด</div></div>
-      <div class="ast"><div class="ast-n" style="color:#ff7070">${highRisk}</div><div class="ast-l">เสี่ยงสูง</div></div>
-      <div class="ast"><div class="ast-n" style="color:#ffcc55">${custom}</div><div class="ast-l">กำหนดเอง</div></div>
+    <div class="card" style="margin:12px 16px 0;padding:12px 14px;font-size:10.5px;line-height:1.75;color:var(--tx2)">
+      <div style="font-weight:800;color:var(--lime);margin-bottom:4px"><i class="ph ph-info"></i> ผู้ดูแลแก้ข้อมูลอย่างไร</div>
+      ① เพิ่ม/แก้/ซ่อนสารในหน้านี้ (เป็นร่างในเครื่องนี้)<br>
+      ② กด <b>ดาวน์โหลด chemicals.json</b><br>
+      ③ อัปโหลดไฟล์ทับใน GitHub (repo chem-ai) → ทุกเครื่องเห็นภายใน 1–2 นาที
     </div>
 
-    <!-- Sort & Filter -->
+    ${pendingReq ? `
+    <div class="ib amb" style="margin-top:10px"><i class="ph-fill ph-envelope-simple"></i><div style="flex:1">
+      <div class="ibt">คำขอเพิ่มสาร: ${esc(pendingReq.name)}</div>
+      <div class="ibb">จาก ${esc(pendingReq.who || '-')}${pendingReq.cas ? ' · CAS ' + esc(pendingReq.cas) : ''}${pendingReq.use ? ' · ใช้: ' + esc(pendingReq.use) : ''}</div>
+      <div style="display:flex;gap:6px;margin-top:8px">
+        <button class="btn" style="padding:8px;font-size:11px" onclick="openAddForm(pendingReq)"><i class="ph-bold ph-check"></i>ตรวจสอบ + อนุญาต</button>
+        <button class="btn bg" style="padding:8px;font-size:11px" onclick="pendingReq=null;rAdmin()">ปฏิเสธ</button>
+      </div>
+    </div></div>` : ''}
+
+    <div class="sl" style="margin-top:12px">สถานะข้อมูล</div>
+    <div class="admin-stats">
+      <div class="ast"><div class="ast-n" style="color:var(--lime)">${all.length}</div><div class="ast-l">สารที่ใช้งาน</div></div>
+      <div class="ast"><div class="ast-n" style="color:#60d0ff">${PUBLISHED.length}</div><div class="ast-l">แก้แล้วบน GitHub</div></div>
+      <div class="ast"><div class="ast-n" style="color:${DRAFT.length ? '#ffcc55' : 'var(--tx3)'}">${DRAFT.length}</div><div class="ast-l">ร่างยังไม่อัปโหลด</div></div>
+    </div>
+
+    <div style="margin:10px 16px 2px;display:flex;flex-direction:column;gap:7px">
+      <button class="btn" onclick="openAddForm()"><i class="ph-bold ph-plus-circle" style="font-size:16px"></i>เพิ่มสารเคมีใหม่</button>
+      <button class="btn ${DRAFT.length ? '' : 'bg'}" style="${DRAFT.length ? 'background:#ffcc55;color:#1a1200' : ''}" onclick="exportJSON()">
+        <i class="ph-bold ph-download-simple" style="font-size:16px"></i>ดาวน์โหลด chemicals.json${DRAFT.length ? ' (มีร่าง ' + DRAFT.length + ')' : ''}</button>
+      ${DRAFT.length ? `<button class="btn bg" onclick="clearDraft()"><i class="ph ph-arrow-counter-clockwise" style="font-size:14px"></i>ทิ้งร่างทั้งหมด</button>` : ''}
+    </div>
+
     <div class="sort-row" style="margin-top:10px">
       <span style="font-size:8px;color:var(--tx3);font-weight:800;text-transform:uppercase;white-space:nowrap">เรียง:</span>
-      <button class="fc ${adminSort === 'name' ? 'active' : ''}" onclick="setAdminSort('name')">ชื่อ A-Z</button>
+      <button class="fc ${adminSort === 'name' ? 'active' : ''}" onclick="setAdminSort('name')">ชื่อ ก-ฮ</button>
       <button class="fc ${adminSort === 'class' ? 'active' : ''}" onclick="setAdminSort('class')">Class</button>
     </div>
     <div class="fr" style="padding-top:4px">
       <div class="fc ${adminFilter === 'all' ? 'active' : ''}" onclick="setAdminFilter('all')">ทั้งหมด</div>
-      <div class="fc ${adminFilter === '8B' ? 'active' : ''}" onclick="setAdminFilter('8B')">8B</div>
-      <div class="fc ${adminFilter === '3A' ? 'active' : ''}" onclick="setAdminFilter('3A')">3A</div>
-      <div class="fc ${adminFilter === '5.1A' ? 'active' : ''}" onclick="setAdminFilter('5.1A')">5.1A</div>
-      <div class="fc ${adminFilter === '5.1B' ? 'active' : ''}" onclick="setAdminFilter('5.1B')">5.1B</div>
-      <div class="fc ${adminFilter === '2A' ? 'active' : ''}" onclick="setAdminFilter('2A')">2A</div>
-      <div class="fc ${adminFilter === '12' ? 'active' : ''}" onclick="setAdminFilter('12')">12</div>
-      <div class="fc ${adminFilter === '13' ? 'active' : ''}" onclick="setAdminFilter('13')">13</div>
+      ${classesInUse.map(c => `<div class="fc ${adminFilter === c ? 'active' : ''}" onclick="setAdminFilter('${c}')">${c}</div>`).join('')}
     </div>
 
-    <!-- Add button prominent -->
-    <div style="margin:10px 16px 2px">
-      <button class="btn" onclick="openAddForm()">
-        <i class="ph-bold ph-plus-circle" style="font-size:16px"></i>
-        เพิ่มสารเคมีใหม่
-      </button>
-    </div>
-
-    <!-- List -->
     <div class="sl">รายการสารเคมี <span style="color:var(--tx3)">(${filtered.length})</span></div>
     <div class="card" style="margin:0 16px">
       ${filtered.length === 0
         ? '<div style="padding:24px;text-align:center;color:var(--tx3);font-size:11px">ไม่พบสารในหมวดนี้</div>'
-        : filtered.map((x, i) => {
-          const nm = x.n || x.name;
-          const cls = x.c || x.cls;
-          const cas = x.cs || x.cas || '-';
-          const h = HC[cls] || {};
-          const isCustom = x._custom === true;
-          // find real index in userDB if custom
-          const customIdx = isCustom ? userDB.findIndex(u => u.n === nm && u.c === cls) : -1;
+        : filtered.map(x => {
+          const h = HC[x.c] || {};
+          const tag = draftNames.has(x.n)
+            ? '<span style="color:#1a1200;font-size:7px;font-weight:800;background:#ffcc55;padding:1px 5px;border-radius:3px;margin-left:3px">ร่าง</span>'
+            : (x.ref ? '' : '<span style="color:var(--amb);font-size:7px;font-weight:800;border:1px solid var(--abd);padding:0 4px;border-radius:3px;margin-left:3px">ยังไม่มีอ้างอิง</span>');
           return `<div class="admin-item">
             <div class="ai-icon">${h.ic || '🧪'}</div>
             <div style="flex:1;min-width:0">
-              <div class="ai-name">${nm} ${isCustom ? '<span style="color:var(--lime);font-size:7px;font-weight:800;background:var(--lb);padding:1px 5px;border-radius:3px;margin-left:3px">+</span>' : ''}</div>
-              <div class="ai-sub">Class ${cls} · CAS: ${cas}</div>
+              <div class="ai-name">${esc(x.n)}${tag}</div>
+              <div class="ai-sub">Class ${esc(x.c)} · CAS: ${esc(x.cs || '-')}</div>
             </div>
             <div style="font-size:7px;font-weight:900;color:${rc(h.r)};text-transform:uppercase;margin-right:5px">${h.r || ''}</div>
             <div class="ai-actions">
-              <button class="ai-btn edit" onclick="openEditForm(${isCustom ? customIdx : -1},'${nm.replace(/'/g, "\\'")}','${cls}','${cas}','${x.u || x.un || '-'}','${x.note || ''}')" title="แก้ไข"><i class="ph ph-pencil"></i></button>
-              ${isCustom
-                ? `<button class="ai-btn del" onclick="openDelModal(${customIdx},'${nm.replace(/'/g, "\\'")}',false)"><i class="ph ph-trash"></i></button>`
-                : `<button class="ai-btn del" onclick="openDelModal(-1,'${nm.replace(/'/g, "\\'")}',true)" title="ลบสารพื้นฐาน (ซ่อนจากระบบ)"><i class="ph ph-trash"></i></button>`
-              }
+              <button class="ai-btn edit" onclick="openEditForm('${jsq(x.n)}')" title="แก้ไข"><i class="ph ph-pencil"></i></button>
+              <button class="ai-btn del" onclick="openDelModal('${jsq(x.n)}')" title="ซ่อนจากระบบ"><i class="ph ph-eye-slash"></i></button>
             </div>
           </div>`;
-        }).join('')
-      }
+        }).join('')}
     </div>
 
-    ${custom > 0 ? `
-    <div style="margin:12px 16px 3px">
-      <button class="btn" style="background:var(--rb);border:1px solid var(--rbd);color:#ff7070" onclick="confirmResetAll()">
-        <i class="ph ph-trash" style="font-size:14px"></i>
-        ลบสารเคมีที่กำหนดเองทั้งหมด (${custom} รายการ)
-      </button>
+    ${hid.length ? `
+    <div class="sl">ซ่อนอยู่ <span style="color:var(--tx3)">(${hid.length})</span></div>
+    <div class="card" style="margin:0 16px">
+      ${hid.map(x => `<div class="admin-item">
+        <div class="ai-icon" style="opacity:.4">${(HC[x.c] || {}).ic || '🧪'}</div>
+        <div style="flex:1;min-width:0"><div class="ai-name" style="color:var(--tx3)">${esc(x.n)}${draftNames.has(x.n) ? ' <span style="color:#ffcc55;font-size:8px">(ร่าง)</span>' : ''}</div><div class="ai-sub">Class ${esc(x.c || '-')}</div></div>
+        <button class="ai-btn edit" onclick="restoreChem('${jsq(x.n)}')" title="กู้คืน"><i class="ph ph-arrow-counter-clockwise"></i></button>
+      </div>`).join('')}
     </div>` : ''}
 
-    ${hiddenBase.length > 0 ? `
-    <div style="margin:8px 16px 3px">
-      <button class="btn" style="background:var(--s2);border:1px solid var(--bd2);color:var(--tx2)" onclick="restoreHidden()">
-        <i class="ph ph-arrow-counter-clockwise" style="font-size:14px"></i>
-        กู้คืนสารพื้นฐานที่ลบไป (${hiddenBase.length} รายการ)
-      </button>
-    </div>` : ''}
-
-    <div style="margin:8px 16px 3px">
-      <button class="btn bg" onclick="adminLogout()">
-        <i class="ph ph-sign-out" style="font-size:14px"></i>
-        ออกจากระบบ Admin
-      </button>
-    </div>
-    <div class="crd"><strong>ATIT CHIMNAN</strong>ChemNexus AI 3.0 · Admin Panel</div>
+    <div class="crd"><strong>${APP_ORG}</strong>ChemNexus AI 4.0 · หน้าผู้ดูแล</div>
   `;
 }
 
 function setAdminFilter(f) { adminFilter = f; rAdmin(); }
 function setAdminSort(s) { adminSort = s; rAdmin(); }
-function adminLogout() { adminUnlocked = false; back(); toast('ออกจากระบบ Admin แล้ว'); }
 
 // ── ADD / EDIT FORM ──
+const FORM_FIELDS = ['f-name','f-cas','f-un','f-note','f-formula','f-mw','f-state','f-conc','f-bp','f-mp','f-flash','f-density','f-pubchem-search','f-ref-url','f-sds'];
+
 function initFormClassSelect() {
   const sel = document.getElementById('f-class');
-  sel.innerHTML = CO.map(c => `<option value="${c}">${c} — ${(HC[c] || {}).t || ''}</option>`).join('');
+  sel.innerHTML = '<option value="">— เลือก Class (ตาม SDS) —</option>' + CO.map(c => `<option value="${c}">${c} — ${(HC[c] || {}).t || ''}</option>`).join('');
   sel.onchange = () => updateClassPreview(sel.value);
 }
 
 function updateClassPreview(cls) {
   const h = HC[cls] || {};
   document.getElementById('cpv-icon').textContent = h.ic || '🧪';
-  document.getElementById('cpv-cls').textContent = `Class ${cls} — ${h.t || ''}`;
+  document.getElementById('cpv-cls').textContent = cls ? `Class ${cls} — ${h.t || ''}` : 'ยังไม่ได้เลือก Class';
   const rc = h.r === 'HIGH' || h.r === 'EXTREME' ? '#ff7070' : h.r === 'MEDIUM' ? '#ffcc55' : '#33ff99';
   document.getElementById('cpv-risk').innerHTML = `<span style="color:${rc};font-weight:800">${h.r || ''} RISK</span>`;
 }
 
-function openAddForm() {
-  editingIdx = -1;
-  document.getElementById('form-title').textContent = '+ เพิ่มสารเคมีใหม่';
-  document.getElementById('save-btn').innerHTML = '<i class="ph-bold ph-floppy-disk" style="font-size:16px"></i>บันทึกข้อมูล';
-  document.getElementById('f-name').value = '';
-  document.getElementById('f-cas').value = '';
-  document.getElementById('f-un').value = '';
-  document.getElementById('f-note').value = '';
-  document.getElementById('f-formula').value = '';
-  document.getElementById('f-mw').value = '';
-  document.getElementById('f-state').value = '';
-  document.getElementById('f-conc').value = '';
-  document.getElementById('f-bp').value = '';
-  document.getElementById('f-mp').value = '';
-  document.getElementById('f-flash').value = '';
-  document.getElementById('f-density').value = '';
-  document.getElementById('f-pubchem-search').value = '';
+function resetForm() {
+  FORM_FIELDS.forEach(id => { const e = document.getElementById(id); if (e) e.value = ''; });
+  document.getElementById('f-ref-src').value = '';
   document.getElementById('pubchem-dd').style.display = 'none';
-  document.getElementById('form-err').textContent = '';
   document.getElementById('pubchem-status').style.display = 'none';
+  document.getElementById('form-err').textContent = '';
   initFormClassSelect();
-  updateClassPreview(CO[0]);
+}
+
+// req = คำขอจากผู้ใช้ (ถ้ามี) — เติมข้อมูลให้ผู้ดูแลตรวจต่อ
+function openAddForm(req) {
+  editingName = null;
+  resetForm();
+  document.getElementById('form-title').textContent = req ? '📨 ตรวจคำขอเพิ่มสาร' : '+ เพิ่มสารเคมีใหม่';
+  document.getElementById('save-btn').innerHTML = req
+    ? '<i class="ph-bold ph-check" style="font-size:16px"></i>อนุญาต + บันทึกเป็นร่าง'
+    : '<i class="ph-bold ph-floppy-disk" style="font-size:16px"></i>บันทึกเป็นร่าง';
+  document.getElementById('f-class').value = '';
+  updateClassPreview('');
+  if (req && req.name) {
+    document.getElementById('f-name').value = req.name;
+    document.getElementById('f-cas').value = req.cas || '';
+    document.getElementById('f-pubchem-search').value = req.cas || req.name;
+    if (req.sds) { document.getElementById('f-ref-url').value = req.sds; document.getElementById('f-ref-src').value = 'SDS ผู้ผลิต'; }
+    const bits = [];
+    if (req.trade) bits.push('ชื่อการค้า/ผู้ผลิต: ' + req.trade);
+    if (req.use) bits.push('ใช้: ' + req.use);
+    if (req.who) bits.push('ขอโดย: ' + req.who);
+    document.getElementById('f-note').value = bits.join(' · ');
+  }
   document.getElementById('form-modal').style.display = 'flex';
   setTimeout(() => document.getElementById('f-name').focus(), 100);
 }
 
-function openEditForm(customIdx, nm, cls, cas, un, note) {
-  editingIdx = customIdx;
+function openEditForm(nm) {
+  const x = liveDB().find(d => d.n === nm);
+  if (!x) return;
+  editingName = nm;
+  resetForm();
   document.getElementById('form-title').textContent = '✏️ แก้ไขสารเคมี';
-  document.getElementById('save-btn').innerHTML = '<i class="ph-bold ph-check" style="font-size:16px"></i>บันทึกการแก้ไข';
-  document.getElementById('f-name').value = nm;
-  document.getElementById('f-cas').value = cas === '-' ? '' : cas;
-  document.getElementById('f-un').value = un === '-' ? '' : un;
-  document.getElementById('f-note').value = note || '';
-  // Load existing props if available
-  const existing = editingIdx >= 0 ? userDB[editingIdx] : null;
-  document.getElementById('f-formula').value = existing?.props?.f || '';
-  document.getElementById('f-mw').value = existing?.props?.mw || '';
-  document.getElementById('f-state').value = existing?.props?.st || '';
-  document.getElementById('f-conc').value = existing?.props?.cn || '';
-  document.getElementById('f-bp').value = existing?.props?.bp || '';
-  document.getElementById('f-mp').value = existing?.props?.mp || '';
-  document.getElementById('f-flash').value = existing?.props?.flash || '';
-  document.getElementById('f-density').value = existing?.props?.d || '';
-  document.getElementById('form-err').textContent = '';
-  document.getElementById('pubchem-status').style.display = 'none';
-  document.getElementById('f-pubchem-search').value = '';
-  document.getElementById('pubchem-dd').style.display = 'none';
-  initFormClassSelect();
-  document.getElementById('f-class').value = cls;
-  updateClassPreview(cls);
+  document.getElementById('save-btn').innerHTML = '<i class="ph-bold ph-check" style="font-size:16px"></i>บันทึกเป็นร่าง';
+  const p = x.props || PP[nm] || {};
+  const set = (id, v) => { document.getElementById(id).value = (v && v !== '-') ? v : ''; };
+  set('f-name', x.n); set('f-cas', x.cs); set('f-un', x.u); set('f-note', x.note);
+  set('f-formula', p.f); set('f-mw', p.mw); set('f-state', p.st); set('f-conc', p.cn);
+  set('f-bp', p.bp); set('f-mp', p.mp); set('f-flash', p.flash); set('f-density', p.d);
+  set('f-sds', x.sds);
+  if (x.ref) { document.getElementById('f-ref-src').value = x.ref.src || ''; set('f-ref-url', x.ref.url); }
+  document.getElementById('f-class').value = x.c;
+  updateClassPreview(x.c);
   document.getElementById('form-modal').style.display = 'flex';
 }
 
 function closeFormModal() {
   document.getElementById('form-modal').style.display = 'none';
+}
+
+// ปุ่มลัดหาแหล่งอ้างอิงคลาสการจัดเก็บ
+function refLookup(kind) {
+  const cas = document.getElementById('f-cas').value.trim();
+  const nm = document.getElementById('f-name').value.trim();
+  const q = cas || nm;
+  if (!q) { toast('กรอกชื่อสารหรือ CAS ก่อน'); return; }
+  let url;
+  if (kind === 'merck') url = 'https://www.google.com/search?q=' + encodeURIComponent(q + ' "Storage class" site:sigmaaldrich.com');
+  else if (kind === 'sds') url = 'https://www.google.com/search?q=' + encodeURIComponent('SDS ' + q + ' filetype:pdf');
+  else url = 'https://pubchem.ncbi.nlm.nih.gov/#query=' + encodeURIComponent(q);
+  window.open(url, '_blank');
 }
 
 // ══════════════════════════════════════════
@@ -3521,7 +3548,7 @@ function pubChemAutocomplete(query) {
         <div style="font-size:9px;color:var(--tx3)">CAS ${s.cs} · UN ${s.u}</div></div>
         <span style="font-size:9px;font-weight:800;color:var(--lime);background:var(--lb);border:1px solid var(--lbd);padding:2px 7px;border-radius:5px;flex-shrink:0">${s.c}</span>
       </div>`;
-    }).join('') + `<div style="padding:7px 14px;font-size:8.5px;color:var(--tx3);border-bottom:1px solid var(--bd)">⚡ ข้อมูลฟาร์ม — คลิกเพื่อเติมทุกช่องอัตโนมัติ</div>`;
+    }).join('') + `<div style="padding:7px 14px;font-size:8.5px;color:var(--tx3);border-bottom:1px solid var(--bd)">⚡ ข้อมูลในระบบ — คลิกเพื่อเติมทุกช่องอัตโนมัติ</div>`;
     dd.style.display = 'block';
   }
   if (query.length < 2) return;
@@ -3559,7 +3586,7 @@ function pubChemAutocomplete(query) {
       }
     } catch (e) {
       if (e.name !== 'AbortError' && !smartMatch(query).length) {
-        dd.innerHTML = `<div style="padding:14px;text-align:center;color:var(--red);font-size:11px">⚠ เชื่อมต่อ PubChem ไม่ได้ (ยังใช้ข้อมูลฟาร์มด้านบนได้)</div>`;
+        dd.innerHTML = `<div style="padding:14px;text-align:center;color:var(--red);font-size:11px">⚠ เชื่อมต่อ PubChem ไม่ได้ (ยังใช้ข้อมูลในระบบด้านบนได้)</div>`;
         dd.style.display = 'block';
       }
     } finally {
@@ -3580,7 +3607,7 @@ function selectSmartResult(idx) {
   document.getElementById('f-class').value = s.c;
   updateClassPreview(s.c);
   const h = HC[s.c] || {};
-  showPubChemStatus(`⚡ เติมข้อมูล "${s.n}" ครบแล้ว — Class ${s.c} ${h.t||''} (จากฐานข้อมูลฟาร์ม โปรดตรวจสอบก่อนบันทึก)`, 'green');
+  showPubChemStatus(`⚡ เติมข้อมูล "${s.n}" ครบแล้ว — Class ${s.c} ${h.t||''} (จากข้อมูลในระบบ โปรดตรวจสอบกับ SDS ก่อนบันทึก)`, 'green');
 }
 
 async function selectPubChemResult(name) {
@@ -3702,97 +3729,126 @@ function showPubChemStatus(msg, color) {
 }
 
 function saveForm() {
-  const nm = document.getElementById('f-name').value.trim();
+  const v = id => document.getElementById(id).value.trim();
+  const nm = v('f-name');
   const cls = document.getElementById('f-class').value;
-  const cas = document.getElementById('f-cas').value.trim() || '-';
-  const un = document.getElementById('f-un').value.trim() || '-';
-  const note = document.getElementById('f-note').value.trim();
+  const err = t => { document.getElementById('form-err').textContent = t; };
 
-  // Collect properties
-  const props = {
-    f: document.getElementById('f-formula').value.trim() || null,
-    mw: document.getElementById('f-mw').value.trim() || null,
-    st: document.getElementById('f-state').value.trim() || null,
-    cn: document.getElementById('f-conc').value.trim() || null,
-    bp: document.getElementById('f-bp').value.trim() || null,
-    mp: document.getElementById('f-mp').value.trim() || null,
-    flash: document.getElementById('f-flash').value.trim() || null,
-    d: document.getElementById('f-density').value.trim() || null,
-  };
-  // Clean nulls
+  if (!nm) return err('⚠ กรุณากรอกชื่อสาร');
+  if (!cls) return err('⚠ กรุณาเลือก Class');
+  const refSrc = document.getElementById('f-ref-src').value;
+  if (!refSrc) return err('⚠ เลือกแหล่งอ้างอิงที่ใช้ตัดสิน Class (เช่น SDS ผู้ผลิต)');
+  if (nm !== editingName && liveDB().some(x => x.n.toLowerCase() === nm.toLowerCase()))
+    return err('⚠ มีสารชื่อนี้ในระบบแล้ว');
+
+  const props = { f: v('f-formula'), mw: v('f-mw'), st: v('f-state'), cn: v('f-conc'), bp: v('f-bp'), mp: v('f-mp'), flash: v('f-flash'), d: v('f-density') };
   Object.keys(props).forEach(k => { if (!props[k]) delete props[k]; });
 
-  if (!nm) { document.getElementById('form-err').textContent = '⚠ กรุณากรอกชื่อสาร'; return; }
-  if (!cls) { document.getElementById('form-err').textContent = '⚠ กรุณาเลือก Hazard Class'; return; }
+  const old = editingName ? liveDB().find(x => x.n === editingName) : null;
+  const entry = {
+    n: nm, c: cls, cs: v('f-cas') || '-', u: v('f-un') || '-', note: v('f-note'),
+    ref: { src: refSrc, url: v('f-ref-url'), date: new Date().toISOString().slice(0, 10) },
+  };
+  if (Object.keys(props).length) entry.props = props;
+  const sds = v('f-sds') || (old && old.sds) || '';
+  if (sds) entry.sds = sds;
+  if (old && old.ghs) entry.ghs = old.ghs;
 
-  if (editingIdx === -1) {
-    const dup = DB.find(x => (x.n || x.name).toLowerCase() === nm.toLowerCase());
-    if (dup) { document.getElementById('form-err').textContent = '⚠ มีสารนี้ในฐานข้อมูลพื้นฐานแล้ว'; return; }
-    const dupU = userDB.find(x => x.n.toLowerCase() === nm.toLowerCase());
-    if (dupU) { document.getElementById('form-err').textContent = '⚠ มีสารนี้ในรายการกำหนดเองแล้ว'; return; }
-  }
+  // เปลี่ยนชื่อ → ซ่อนชื่อเดิม
+  if (old && editingName !== nm) putDraft({ ...stripRuntime(old), hidden: true });
+  putDraft(entry);
 
-  const entry = { n: nm, c: cls, cs: cas, u: un, note, _custom: true };
-  if (Object.keys(props).length > 0) entry.props = props;
-
-  if (editingIdx >= 0) {
-    userDB[editingIdx] = entry;
-    toast('✅ แก้ไขข้อมูลแล้ว');
-  } else {
-    userDB.unshift(entry);
-    toast('✅ เพิ่ม ' + nm + ' แล้ว');
-  }
-
-  saveUserDB();
+  if (pendingReq && pendingReq.name && (pendingReq.name === nm || pendingReq.cas === entry.cs)) pendingReq = null;
+  toast(editingName ? '✅ แก้ไขแล้ว (ร่าง) — อย่าลืมดาวน์โหลด chemicals.json' : '✅ เพิ่ม ' + nm + ' แล้ว (ร่าง) — อย่าลืมดาวน์โหลด chemicals.json');
+  editingName = null;
   closeFormModal();
   rAdmin();
   uDash();
 }
 
-// ── DELETE ──
-function openDelModal(idx, nm, isBase) {
-  delTargetIdx = idx;
+function stripRuntime(x) {
+  const o = { ...x };
+  delete o._custom; delete o._id; delete o._src;
+  return o;
+}
+
+// ── ซ่อน / กู้คืน ──
+function openDelModal(nm) {
   delTargetName = nm;
-  delTargetBase = isBase === true;
-  document.getElementById('del-name').textContent = nm;
+  document.getElementById('del-name').textContent = nm + ' — จะไม่แสดงในแอป (กู้คืนได้)';
   document.getElementById('del-modal').style.display = 'flex';
 }
 function closeDelModal() {
   document.getElementById('del-modal').style.display = 'none';
 }
 function confirmDel() {
-  if (delTargetBase) {
-    // base chemical: hide it
-    if (!hiddenBase.includes(delTargetName)) hiddenBase.push(delTargetName);
-    saveHidden();
-  } else {
-    if (delTargetIdx < 0) return;
-    userDB.splice(delTargetIdx, 1);
-    saveUserDB();
-  }
+  const x = liveDB().find(d => d.n === delTargetName);
+  if (x) putDraft({ ...stripRuntime(x), hidden: true });
   closeDelModal();
-  toast('🗑️ ลบ ' + delTargetName + ' แล้ว');
+  toast('ซ่อน ' + delTargetName + ' แล้ว (ร่าง)');
+  rAdmin();
+  uDash();
+}
+function restoreChem(nm) {
+  const x = hiddenList().find(e => e.n === nm);
+  if (!x) return;
+  const base = DB.find(d => d.n === nm);
+  // สารตั้งต้นที่ไม่เคยแก้ → เอาค่าในโค้ด, สารที่เพิ่มเอง → เอาข้อมูลเดิมกลับมา
+  const e = { ...(base || {}), ...stripRuntime(x), hidden: false };
+  putDraft(e);
+  toast('กู้คืน ' + nm + ' แล้ว (ร่าง)');
   rAdmin();
   uDash();
 }
 
-function confirmResetAll() {
-  if (!confirm('ลบสารเคมีที่กำหนดเองทั้งหมด ' + userDB.length + ' รายการ?')) return;
-  userDB = [];
-  saveUserDB();
-  toast('🗑️ ลบข้อมูลกำหนดเองทั้งหมดแล้ว');
-  rAdmin();
-  uDash();
+// ══════════════════════════════════════════
+//  ขอเพิ่มสาร (ผู้ใช้ทั่วไป) → ส่ง LINE ถึงผู้ดูแล
+// ══════════════════════════════════════════
+function buildReq() {
+  const v = id => document.getElementById(id).value.trim();
+  const req = { name: v('rq-name'), trade: v('rq-trade'), cas: v('rq-cas'), sds: v('rq-sds'), use: v('rq-use'), who: v('rq-who') };
+  const errEl = document.getElementById('rq-err');
+  if (!req.name) { errEl.textContent = '⚠ กรอกชื่อสารเคมี'; return null; }
+  if (!req.who) { errEl.textContent = '⚠ กรอกชื่อผู้ขอ / หน่วยงาน'; return null; }
+  errEl.textContent = '';
+  Object.keys(req).forEach(k => { if (!req[k]) delete req[k]; });
+  const link = location.origin + location.pathname + '#admin&req=' + encodeURIComponent(JSON.stringify(req));
+  const lines = [
+    '📨 ขอเพิ่มสารเคมีใน ChemNexus AI',
+    'ชื่อสาร: ' + req.name,
+    req.trade ? 'ชื่อการค้า/ผู้ผลิต: ' + req.trade : '',
+    req.cas ? 'CAS: ' + req.cas : '',
+    req.use ? 'ใช้ทำอะไร: ' + req.use : '',
+    req.sds ? 'SDS: ' + req.sds : '',
+    'ผู้ขอ: ' + req.who,
+    '',
+    'ผู้ดูแลกดตรวจ/อนุญาต: ' + link,
+  ].filter((l, i) => l !== '' || i === 7);
+  return lines.join('\n');
+}
+function sendReqLine() {
+  const t = buildReq(); if (!t) return;
+  window.open('https://line.me/R/share?text=' + encodeURIComponent(t), '_blank');
+}
+async function copyReq() {
+  const t = buildReq(); if (!t) return;
+  try { await navigator.clipboard.writeText(t); toast('📋 คัดลอกแล้ว — วางส่งให้ผู้ดูแล'); }
+  catch (e) { prompt('คัดลอกข้อความนี้ส่งให้ผู้ดูแล', t); }
 }
 
-function restoreHidden() {
-  if (!confirm('กู้คืนสารพื้นฐานที่ลบไป ' + hiddenBase.length + ' รายการ?')) return;
-  hiddenBase = [];
-  saveHidden();
-  toast('✅ กู้คืนสารพื้นฐานแล้ว');
-  rAdmin();
-  uDash();
+// ลิงก์ #admin / #admin&req=... → เปิดหน้าผู้ดูแล (+ คำขอ)
+function handleHash() {
+  const h = location.hash || '';
+  if (!h.startsWith('#admin')) return false;
+  const m = h.match(/[&#]req=([^&]+)/);
+  if (m) { try { pendingReq = JSON.parse(decodeURIComponent(m[1])); } catch (e) { pendingReq = null; } }
+  // ลบคำขอออกจาก URL กันเปิดซ้ำตอนรีโหลด (ยังอยู่ในหน้าผู้ดูแล)
+  try { history.replaceState(null, '', location.pathname + location.search + '#admin'); } catch (e) {}
+  openAdmin();
+  if (pendingReq) setTimeout(() => openAddForm(pendingReq), 400);
+  return true;
 }
+window.addEventListener('hashchange', handleHash);
 
 // inject shake keyframe
 const shakeStyle = document.createElement('style');
@@ -3819,8 +3875,8 @@ function exportPDF(){
   const e=lastResult;
   const{a,b,cA,cB,c1,c2,r,code,tm}=e;
   const hA=HC[cA]||{},hB=HC[cB]||{};
-  const pr=PR[`${c1}-${c2}`]||PR[`${c2}-${c1}`]||null;
-  const cond=code?(CD[code]||''):'';
+  const pr=(e.sr?{g:e.sr.g+' (ตาม SDS)',rx:e.sr.rx}:null)||PR[`${c1}-${c2}`]||PR[`${c2}-${c1}`]||null;
+  const cond=code?(CD_FULL[code]||CD[code]||''):'';
   const pA=getProps(a),pB=getProps(b);
   let bt,bs,rn,rc;
   if(r==='RED'){bt='ห้ามจัดเก็บร่วมกันเด็ดขาด';bs='DO NOT STORE TOGETHER';rn=5;rc='red';}
@@ -3840,7 +3896,7 @@ function exportPDF(){
       <div class="prlogo">ChemNexus AI
         <span>รายงานวิเคราะห์ความเข้ากันได้ของสารเคมี</span>
       </div>
-      <div class="prmeta">วันที่: ${tm}<br>อ้างอิง: DIW Compatibility Matrix<br>Atit Chimnan</div>
+      <div class="prmeta">วันที่: ${tm}<br>อ้างอิง: ตารางการจัดเก็บ คู่มือ DIW 2550<br>พัฒนาโปรแกรมโดย ธุรกิจพันธุ์กุ้งขาว 2</div>
     </div>
     <div class="prsec-t">สารเคมีที่วิเคราะห์</div>
     <div class="prpair">
@@ -3864,7 +3920,7 @@ function exportPDF(){
     <div style="margin-bottom:5px"><div style="font-size:8px;font-weight:800;color:#888;margin-bottom:3px">วิธีดับเพลิง</div><div class="prchips">${fi.map(f=>`<span class="prchip">🔥 ${f}</span>`).join('')}</div></div>
     <div style="margin-bottom:9px"><div style="font-size:8px;font-weight:800;color:#888;margin-bottom:3px">อุปกรณ์ป้องกัน (PPE)</div><div class="prchips">${pp.map(p=>`<span class="prchip">🛡️ ${p}</span>`).join('')}</div></div>
     <div style="font-size:9px;color:#666;background:#f8f8f8;border-radius:6px;padding:8px 10px;margin-bottom:12px"><strong>เบอร์ฉุกเฉิน:</strong> 199 (ดับเพลิง) · 1669 (EMS) · 1650 (กรมโรงงาน) · 191 (ตำรวจ)</div>
-    <div class="prfooter"><div class="prfoot-l">ChemNexus AI 3.0</div><div class="prfoot-r">อ้างอิง: กรมโรงงานอุตสาหกรรม (DIW)<br>Atit Chimnan · ${now}</div></div>
+    <div class="prfooter"><div class="prfoot-l">ChemNexus AI 4.0</div><div class="prfoot-r">อ้างอิง: คู่มือการเก็บรักษาสารเคมีฯ กรมโรงงานอุตสาหกรรม 2550<br>ธุรกิจพันธุ์กุ้งขาว 2 · ${now}</div></div>
     <div style="margin-top:12px;display:flex;gap:8px">
       <button onclick="printReport()" style="flex:1;padding:12px;background:#111;border:none;border-radius:7px;color:#b8ff3a;font-family:'Sarabun',sans-serif;font-size:13px;font-weight:800;cursor:pointer">🖨️ พิมพ์ / บันทึก PDF</button>
       <button onclick="closePDF()" style="padding:12px 18px;background:#f0f0f0;border:none;border-radius:7px;color:#333;font-family:'Sarabun',sans-serif;font-size:13px;font-weight:700;cursor:pointer">ปิด</button>
@@ -3879,8 +3935,8 @@ function printReport(){
   const e=lastResult;
   const{a,b,cA,cB,c1,c2,r,code,tm}=e;
   const hA=HC[cA]||{},hB=HC[cB]||{};
-  const pr=PR[`${c1}-${c2}`]||PR[`${c2}-${c1}`]||null;
-  const cond=code?(CD[code]||''):'';
+  const pr=(e.sr?{g:e.sr.g+' (ตาม SDS)',rx:e.sr.rx}:null)||PR[`${c1}-${c2}`]||PR[`${c2}-${c1}`]||null;
+  const cond=code?(CD_FULL[code]||CD[code]||''):'';
   const pA=getProps(a),pB=getProps(b);
   let bt,bs,rn,rc,bgc,bdc;
   if(r==='RED'){bt='ห้ามจัดเก็บร่วมกันเด็ดขาด';bs='DO NOT STORE TOGETHER';rn=5;rc='red';bgc='#fff0f0';bdc='#ff3838';}
@@ -3941,10 +3997,10 @@ table{width:100%;border-collapse:collapse}
 <body>
 <div class="hdr">
   <div>
-    <h1>⚗️ ChemNexus AI 3.0</h1>
+    <h1>⚗️ ChemNexus AI 4.0</h1>
     <div class="sub">รายงานวิเคราะห์ความเข้ากันได้ของสารเคมี</div>
   </div>
-  <div class="meta">วันที่: ${tm}<br>อ้างอิง: DIW Compatibility Matrix<br>พัฒนาโดย: Atit Chimnan</div>
+  <div class="meta">วันที่: ${tm}<br>อ้างอิง: ตารางการจัดเก็บ คู่มือ DIW 2550<br>พัฒนาโปรแกรมโดย ธุรกิจพันธุ์กุ้งขาว 2</div>
 </div>
 
 <div class="sec-t">สารเคมีที่วิเคราะห์</div>
@@ -4004,9 +4060,9 @@ ${(pA.mw||pB.mw)?`
 <div class="emg"><strong>เบอร์ฉุกเฉิน:</strong> 199 (ดับเพลิง) · 1669 (EMS) · 1650 (กรมโรงงาน) · 191 (ตำรวจ)</div>
 
 <div class="footer">
-  <div class="foot-l">ChemNexus AI 3.0<br><span style="font-size:10px;font-weight:400;color:#888">Chemical Safety Report</span></div>
+  <div class="foot-l">ChemNexus AI 4.0<br><span style="font-size:10px;font-weight:400;color:#888">Chemical Safety Report</span></div>
   <div style="display:flex;align-items:center;gap:12px">
-    <div class="foot-r">อ้างอิง: กรมโรงงานอุตสาหกรรม (DIW)<br>พัฒนาโดย Atit Chimnan · ${now}<br><span style="color:#bbb">Generated by ChemNexus AI · Version 3.0.0</span></div>
+    <div class="foot-r">อ้างอิง: คู่มือการเก็บรักษาสารเคมีฯ กรมโรงงานอุตสาหกรรม 2550<br>พัฒนาโปรแกรมโดย ธุรกิจพันธุ์กุ้งขาว 2 · ${now}<br><span style="color:#bbb">Generated by ChemNexus AI · Version 4.0.0</span></div>
     <div style="text-align:center">
       <img src="https://api.qrserver.com/v1/create-qr-code/?size=64x64&data=${encodeURIComponent('https://atit1912.github.io/chem-ai/')}&bgcolor=ffffff&color=111111&margin=2" width="64" height="64" style="border-radius:4px;border:1px solid #ddd" alt="QR">
       <div style="font-size:7px;color:#bbb;margin-top:3px">สแกนเพื่อเปิดแอป</div>
@@ -4048,7 +4104,7 @@ function closePDF(){
 //  ONBOARDING
 // ══════════════════════════════════════════
 const OB_STEPS=[
-  {icon:'⚗️',title:'ยินดีต้อนรับสู่ ChemNexus AI 3.0',desc:'ระบบวิเคราะห์การจัดเก็บสารเคมีตามมาตรฐานกรมโรงงานอุตสาหกรรม (DIW) พัฒนาโดย Atit Chimnan'},
+  {icon:'⚗️',title:'ยินดีต้อนรับสู่ ChemNexus AI 4.0',desc:'เลือกสาร 2 ชนิด แล้วดูว่าเก็บด้วยกันได้ไหม มีเงื่อนไขอะไร ตามตารางของกรมโรงงานอุตสาหกรรม (DIW)\nพัฒนาโปรแกรมโดย ธุรกิจพันธุ์กุ้งขาว 2'},
   {icon:'🔬',title:'วิเคราะห์ความเข้ากันได้',desc:'เลือกสารเคมี 2 ชนิด กดวิเคราะห์ — ระบบจะตรวจสอบจาก DIW Compatibility Matrix 23×23 class ทันที'},
   {icon:'⛔',title:'RED / YELLOW / GREEN',desc:'RED = ห้ามเก็บร่วมกัน\nYELLOW = มีเงื่อนไข\nGREEN = ปลอดภัย พร้อมบอกก๊าซที่เกิดและเหตุผลทางวิทยาศาสตร์'},
   {icon:'🛡️',title:'PPE & ฉุกเฉิน',desc:'ระบบแนะนำอุปกรณ์ป้องกันที่เหมาะสมและแนวทางกรณีฉุกเฉินตามสารที่คุณเลือก'},
@@ -4082,268 +4138,23 @@ function skipOnboard(){
 }
 
 // ══════════════════════════════════════════
-//  FARM SELECTOR
-// ══════════════════════════════════════════
-// กุ้งแต่ละบุคลิก — 5 ฟาร์ม
-const FARM_SVGS = {
-  farm_hk: `<svg viewBox="0 0 80 90" xmlns="http://www.w3.org/2000/svg">
-    <path d="M28 84 Q22 94 34 90 Q38 85 40 84 Q42 85 46 90 Q58 94 52 84" fill="#d4613a"/>
-    <path d="M36 84 Q40 92 44 84" fill="#b8461e"/>
-    <ellipse cx="40" cy="76" rx="10" ry="6" fill="#f4845f"/>
-    <ellipse cx="40" cy="66" rx="12" ry="7" fill="#ffb08a"/>
-    <ellipse cx="40" cy="56" rx="11" ry="6" fill="#f4845f"/>
-    <ellipse cx="40" cy="47" rx="10" ry="6" fill="#ffb08a"/>
-    <circle cx="40" cy="31" r="18" fill="#f4845f"/>
-    <ellipse cx="40" cy="17" rx="22" ry="3.5" fill="#1a1a2e"/>
-    <rect x="24" y="5" width="32" height="13" rx="5" fill="#16213e"/>
-    <rect x="24" y="14" width="32" height="3" fill="#b8ff3a" rx="1"/>
-    <circle cx="34" cy="28" r="6" fill="white"/><circle cx="46" cy="28" r="6" fill="white"/>
-    <circle cx="35" cy="28" r="3.5" fill="#111"/><circle cx="47" cy="28" r="3.5" fill="#111"/>
-    <circle cx="36" cy="26.5" r="1.2" fill="white"/><circle cx="48" cy="26.5" r="1.2" fill="white"/>
-    <path d="M34 37 Q40 42 46 37" stroke="#c24422" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-    <line x1="34" y1="15" x2="18" y2="3" stroke="#e8754a" stroke-width="1.5" stroke-linecap="round"/>
-    <line x1="46" y1="15" x2="62" y2="3" stroke="#e8754a" stroke-width="1.5" stroke-linecap="round"/>
-    <circle cx="63" cy="53" r="5" fill="none" stroke="#FFD700" stroke-width="2"/>
-    <line x1="68" y1="53" x2="76" y2="53" stroke="#FFD700" stroke-width="2" stroke-linecap="round"/>
-    <line x1="73" y1="53" x2="73" y2="57" stroke="#FFD700" stroke-width="2" stroke-linecap="round"/>
-    <line x1="76" y1="53" x2="76" y2="56" stroke="#FFD700" stroke-width="2" stroke-linecap="round"/>
-    <line x1="30" y1="58" x2="19" y2="66" stroke="#e8754a" stroke-width="1.2" stroke-linecap="round"/>
-    <line x1="29" y1="68" x2="18" y2="75" stroke="#e8754a" stroke-width="1.2" stroke-linecap="round"/>
-    <line x1="50" y1="58" x2="61" y2="66" stroke="#e8754a" stroke-width="1.2" stroke-linecap="round"/>
-    <line x1="51" y1="68" x2="62" y2="75" stroke="#e8754a" stroke-width="1.2" stroke-linecap="round"/>
-  </svg>`,
-  farm_rs: `<svg viewBox="0 0 80 90" xmlns="http://www.w3.org/2000/svg">
-    <path d="M28 84 Q22 94 34 90 Q38 85 40 84 Q42 85 46 90 Q58 94 52 84" fill="#d4613a"/>
-    <path d="M36 84 Q40 92 44 84" fill="#b8461e"/>
-    <ellipse cx="40" cy="76" rx="10" ry="6" fill="#f4845f"/>
-    <ellipse cx="40" cy="66" rx="12" ry="7" fill="#ffb08a"/>
-    <ellipse cx="40" cy="56" rx="11" ry="6" fill="#f4845f"/>
-    <ellipse cx="40" cy="47" rx="10" ry="6" fill="#ffb08a"/>
-    <circle cx="40" cy="31" r="18" fill="#f4845f"/>
-    <ellipse cx="40" cy="18" rx="26" ry="4" fill="#c8933a"/>
-    <path d="M20 18 Q25 4 40 3 Q55 4 60 18Z" fill="#dba832"/>
-    <path d="M20 18 Q40 14 60 18" stroke="#8B5E0A" stroke-width="2" fill="none"/>
-    <path d="M28 18 Q32 8 38 4" stroke="#c8933a" stroke-width="0.8" fill="none" opacity="0.6"/>
-    <path d="M47 18 Q44 8 40 4" stroke="#c8933a" stroke-width="0.8" fill="none" opacity="0.6"/>
-    <path d="M52 18 Q48 8 42 4" stroke="#c8933a" stroke-width="0.8" fill="none" opacity="0.6"/>
-    <circle cx="34" cy="28" r="6" fill="white"/><circle cx="46" cy="28" r="6" fill="white"/>
-    <circle cx="35" cy="28" r="3.5" fill="#111"/><circle cx="47" cy="28" r="3.5" fill="#111"/>
-    <circle cx="36" cy="26.5" r="1.2" fill="white"/><circle cx="48" cy="26.5" r="1.2" fill="white"/>
-    <path d="M33 37 Q40 43 47 37" stroke="#c24422" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-    <line x1="34" y1="15" x2="18" y2="3" stroke="#e8754a" stroke-width="1.5" stroke-linecap="round"/>
-    <line x1="46" y1="15" x2="62" y2="3" stroke="#e8754a" stroke-width="1.5" stroke-linecap="round"/>
-    <line x1="66" y1="72" x2="66" y2="46" stroke="#8B6914" stroke-width="1.5" stroke-linecap="round"/>
-    <ellipse cx="66" cy="43" rx="3" ry="5" fill="#dba832"/>
-    <ellipse cx="62" cy="49" rx="2.5" ry="4" fill="#dba832" transform="rotate(-25 62 49)"/>
-    <ellipse cx="70" cy="49" rx="2.5" ry="4" fill="#dba832" transform="rotate(25 70 49)"/>
-    <line x1="30" y1="58" x2="19" y2="66" stroke="#e8754a" stroke-width="1.2" stroke-linecap="round"/>
-    <line x1="29" y1="68" x2="18" y2="75" stroke="#e8754a" stroke-width="1.2" stroke-linecap="round"/>
-    <line x1="50" y1="58" x2="61" y2="66" stroke="#e8754a" stroke-width="1.2" stroke-linecap="round"/>
-    <line x1="51" y1="68" x2="62" y2="75" stroke="#e8754a" stroke-width="1.2" stroke-linecap="round"/>
-  </svg>`,
-  farm_hj: `<svg viewBox="0 0 80 90" xmlns="http://www.w3.org/2000/svg">
-    <path d="M28 84 Q22 94 34 90 Q38 85 40 84 Q42 85 46 90 Q58 94 52 84" fill="#d4613a"/>
-    <path d="M36 84 Q40 92 44 84" fill="#b8461e"/>
-    <ellipse cx="40" cy="76" rx="10" ry="6" fill="#f4845f"/>
-    <ellipse cx="40" cy="66" rx="12" ry="7" fill="#ffb08a"/>
-    <ellipse cx="40" cy="56" rx="11" ry="6" fill="#f4845f"/>
-    <ellipse cx="40" cy="47" rx="10" ry="6" fill="#ffb08a"/>
-    <circle cx="40" cy="31" r="18" fill="#f4845f"/>
-    <path d="M16 18 Q22 10 28 16 Q34 22 40 14 Q46 6 52 14 Q58 22 64 18"
-          stroke="#1a9be8" stroke-width="3" fill="none" stroke-linecap="round"/>
-    <rect x="24" y="26" width="11" height="8" rx="3" fill="#0055bb" opacity="0.9"/>
-    <rect x="39" y="26" width="11" height="8" rx="3" fill="#0055bb" opacity="0.9"/>
-    <line x1="35" y1="30" x2="39" y2="30" stroke="#003a88" stroke-width="2"/>
-    <path d="M24 28 Q18 25 14 27" stroke="#003a88" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-    <path d="M50 28 Q56 25 60 27" stroke="#003a88" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-    <ellipse cx="28" cy="28" rx="3" ry="2" fill="white" opacity="0.35"/>
-    <ellipse cx="43" cy="28" rx="3" ry="2" fill="white" opacity="0.35"/>
-    <path d="M34 39 Q40 44 46 39" stroke="#c24422" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-    <line x1="34" y1="15" x2="18" y2="3" stroke="#e8754a" stroke-width="1.5" stroke-linecap="round"/>
-    <line x1="46" y1="15" x2="62" y2="3" stroke="#e8754a" stroke-width="1.5" stroke-linecap="round"/>
-    <line x1="30" y1="58" x2="19" y2="66" stroke="#e8754a" stroke-width="1.2" stroke-linecap="round"/>
-    <line x1="29" y1="68" x2="18" y2="75" stroke="#e8754a" stroke-width="1.2" stroke-linecap="round"/>
-    <line x1="50" y1="58" x2="61" y2="66" stroke="#e8754a" stroke-width="1.2" stroke-linecap="round"/>
-    <line x1="51" y1="68" x2="62" y2="75" stroke="#e8754a" stroke-width="1.2" stroke-linecap="round"/>
-  </svg>`,
-  farm_pb: `<svg viewBox="0 0 80 90" xmlns="http://www.w3.org/2000/svg">
-    <path d="M28 84 Q22 94 34 90 Q38 85 40 84 Q42 85 46 90 Q58 94 52 84" fill="#d4613a"/>
-    <path d="M36 84 Q40 92 44 84" fill="#b8461e"/>
-    <ellipse cx="40" cy="76" rx="10" ry="6" fill="#f4845f"/>
-    <ellipse cx="40" cy="66" rx="12" ry="7" fill="#ffb08a"/>
-    <ellipse cx="40" cy="56" rx="11" ry="6" fill="#f4845f"/>
-    <ellipse cx="40" cy="47" rx="10" ry="6" fill="#ffb08a"/>
-    <circle cx="40" cy="31" r="18" fill="#f4845f"/>
-    <path d="M18 22 L24 9 L31 18 L40 5 L49 18 L56 9 L62 22 L62 26 L18 26 Z" fill="#FFD700"/>
-    <rect x="18" y="23" width="44" height="5" rx="1.5" fill="#f0c000"/>
-    <circle cx="40" cy="12" r="3.5" fill="#ff3838"/>
-    <circle cx="28" cy="19" r="2.5" fill="#44aaff"/>
-    <circle cx="52" cy="19" r="2.5" fill="#44aaff"/>
-    <path d="M18 26 L24 9 L31 18 L40 5 L49 18 L56 9 L62 26" fill="none" stroke="#cc9900" stroke-width="1"/>
-    <circle cx="34" cy="29" r="6" fill="white"/><circle cx="46" cy="29" r="6" fill="white"/>
-    <circle cx="35" cy="29" r="3.5" fill="#111"/><circle cx="47" cy="29" r="3.5" fill="#111"/>
-    <circle cx="36" cy="27.5" r="1.2" fill="white"/><circle cx="48" cy="27.5" r="1.2" fill="white"/>
-    <path d="M34 38 Q40 43 46 38" stroke="#c24422" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-    <line x1="34" y1="15" x2="18" y2="3" stroke="#e8754a" stroke-width="1.5" stroke-linecap="round"/>
-    <line x1="46" y1="15" x2="62" y2="3" stroke="#e8754a" stroke-width="1.5" stroke-linecap="round"/>
-    <path d="M66 47 L68 43 L70 47 L66 49 L70 49 L68 53" fill="none" stroke="#44aaff" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-    <line x1="30" y1="58" x2="19" y2="66" stroke="#e8754a" stroke-width="1.2" stroke-linecap="round"/>
-    <line x1="29" y1="68" x2="18" y2="75" stroke="#e8754a" stroke-width="1.2" stroke-linecap="round"/>
-    <line x1="50" y1="58" x2="61" y2="66" stroke="#e8754a" stroke-width="1.2" stroke-linecap="round"/>
-    <line x1="51" y1="68" x2="62" y2="75" stroke="#e8754a" stroke-width="1.2" stroke-linecap="round"/>
-  </svg>`,
-  farm_pps: `<svg viewBox="0 0 80 90" xmlns="http://www.w3.org/2000/svg">
-    <path d="M28 84 Q22 94 34 90 Q38 85 40 84 Q42 85 46 90 Q58 94 52 84" fill="#d4613a"/>
-    <path d="M36 84 Q40 92 44 84" fill="#b8461e"/>
-    <ellipse cx="40" cy="76" rx="10" ry="6" fill="#f4845f"/>
-    <ellipse cx="40" cy="66" rx="12" ry="7" fill="#ffb08a"/>
-    <ellipse cx="40" cy="56" rx="11" ry="6" fill="#f4845f"/>
-    <ellipse cx="40" cy="47" rx="10" ry="6" fill="#ffb08a"/>
-    <path d="M30 47 Q32 41 36 43 L40 44 L44 43 Q48 41 50 47" fill="white" stroke="#ddd" stroke-width="0.8"/>
-    <circle cx="40" cy="31" r="18" fill="#f4845f"/>
-    <path d="M16 30 Q18 22 27 25" stroke="#999" stroke-width="2" fill="none" stroke-linecap="round"/>
-    <path d="M64 30 Q62 22 53 25" stroke="#999" stroke-width="2" fill="none" stroke-linecap="round"/>
-    <ellipse cx="32" cy="29" rx="8" ry="6.5" fill="#d4eeff" stroke="#3388cc" stroke-width="2"/>
-    <ellipse cx="48" cy="29" rx="8" ry="6.5" fill="#d4eeff" stroke="#3388cc" stroke-width="2"/>
-    <line x1="40" y1="27" x2="40" y2="31" stroke="#3388cc" stroke-width="2"/>
-    <ellipse cx="29" cy="26" rx="2" ry="1.5" fill="white" opacity="0.7"/>
-    <ellipse cx="45" cy="26" rx="2" ry="1.5" fill="white" opacity="0.7"/>
-    <path d="M34 39 Q40 44 46 39" stroke="#c24422" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-    <line x1="34" y1="15" x2="18" y2="3" stroke="#e8754a" stroke-width="1.5" stroke-linecap="round"/>
-    <line x1="46" y1="15" x2="62" y2="3" stroke="#e8754a" stroke-width="1.5" stroke-linecap="round"/>
-    <path d="M65 48 Q71 53 65 58 Q71 63 65 68 Q71 73 65 78" stroke="#b8ff3a" stroke-width="1.8" fill="none" stroke-linecap="round"/>
-    <path d="M71 48 Q65 53 71 58 Q65 63 71 68 Q65 73 71 78" stroke="#44aacc" stroke-width="1.8" fill="none" stroke-linecap="round"/>
-    <line x1="65" y1="53" x2="71" y2="53" stroke="#888" stroke-width="1" stroke-linecap="round"/>
-    <line x1="65" y1="63" x2="71" y2="63" stroke="#888" stroke-width="1" stroke-linecap="round"/>
-    <line x1="65" y1="73" x2="71" y2="73" stroke="#888" stroke-width="1" stroke-linecap="round"/>
-    <line x1="30" y1="58" x2="19" y2="66" stroke="#e8754a" stroke-width="1.2" stroke-linecap="round"/>
-    <line x1="29" y1="68" x2="18" y2="75" stroke="#e8754a" stroke-width="1.2" stroke-linecap="round"/>
-    <line x1="50" y1="58" x2="61" y2="66" stroke="#e8754a" stroke-width="1.2" stroke-linecap="round"/>
-    <line x1="51" y1="68" x2="62" y2="75" stroke="#e8754a" stroke-width="1.2" stroke-linecap="round"/>
-  </svg>`
-};
-
-let pendingFarmId = null;
-let fpBuf = '';
-
-function renderFarmGrid() {
-  const grid = document.getElementById('farm-grid');
-  if (!grid || typeof FARMS === 'undefined') return;
-  grid.innerHTML = FARMS.map(f => `
-    <div class="farm-card" onclick="openFarmPin('${f.id}','${f.name}','${f.icon}')">
-      <div style="width:68px;height:68px;margin:0 auto 8px">${FARM_SVGS[f.id]||f.icon}</div>
-      <div class="farm-card-name">${f.name}</div>
-    </div>
-  `).join('');
-}
-
-function openFarmPin(id, name, icon) {
-  pendingFarmId = id;
-  fpBuf = '';
-  updFpDots();
-  document.getElementById('fp-icon').textContent = icon;
-  document.getElementById('fp-name').textContent = name;
-  document.getElementById('fp-err').textContent = '';
-  document.getElementById('farm-pin-modal').style.display = 'flex';
-}
-
-function updFpDots() {
-  for (let i = 0; i < 4; i++) {
-    const d = document.getElementById('fpd'+i);
-    if (d) d.className = 'fp-dot' + (i < fpBuf.length ? ' on' : '');
-  }
-}
-
-function fpk(k) {
-  if (fpBuf.length >= 4) return;
-  fpBuf += k;
-  updFpDots();
-  if (fpBuf.length === 4) setTimeout(submitFarmPin, 120);
-}
-
-function fpDel() { fpBuf = fpBuf.slice(0,-1); updFpDots(); }
-
-function fpCancel() {
-  document.getElementById('farm-pin-modal').style.display = 'none';
-  pendingFarmId = null; fpBuf = '';
-}
-
-async function submitFarmPin() {
-  const ok = await verifyFarmPIN(pendingFarmId, fpBuf);
-  if (ok) {
-    setCurrentFarm(pendingFarmId);
-    document.getElementById('farm-pin-modal').style.display = 'none';
-    document.getElementById('farm-selector').style.display = 'none';
-    updateFarmBadge();
-    syncFirestoreChemicals();
-    trackVisit().catch(()=>{});
-    if (!localStorage.getItem('cn2_ob')) { obStep=0; showOnboard(); }
-  } else {
-    document.getElementById('fp-err').textContent = 'PIN ไม่ถูกต้อง';
-    fpBuf = ''; updFpDots();
-    setTimeout(() => { document.getElementById('fp-err').textContent=''; }, 2000);
-  }
-}
-
-function showFarmSelector() {
-  renderFarmGrid();
-  document.getElementById('farm-selector').style.display = 'flex';
-}
-
-function updateFarmBadge() {
-  const farm = getCurrentFarm();
-  const el = document.getElementById('farm-badge');
-  if (el) el.textContent = farm ? farm.icon + ' ' + farm.short : 'เลือกฟาร์ม';
-}
-
-// ── Firestore Chemical Sync ───────────────────────────────────
-async function syncFirestoreChemicals() {
-  try {
-    const farm = getCurrentFarm();
-    if (!farm || typeof loadChemicals === 'undefined') return;
-    const chems = await loadChemicals(farm.id);
-    firestoreDB = chems.map(c => ({
-      n: c.name, c: c.class, cs: c.cas||'-', u: c.hsNumbers||'',
-      _id: c._id, _src: c._src
-    }));
-    uDash();
-    if (cp==='search') rCL('');
-    if (cp==='admin') rAdmin();
-  } catch(e) {
-    console.warn('[CNX] syncFirestoreChemicals:', e);
-  }
-}
-
-// ══════════════════════════════════════════
 //  SPLASH + INIT
 // ══════════════════════════════════════════
 window.onload=()=>{
   uNB('dashboard');
-  renderAlerts();
   uDash();
-  renderFarmGrid();
-  updateFarmBadge();
-  // splash → farm selector / app
+  loadPublished(); // chemicals.json จาก GitHub (ถ้ามี)
+  // splash → app (v4: ไม่มีหน้าเลือกฟาร์ม ไม่มีล็อกอิน)
   setTimeout(()=>{
     const sp=document.getElementById('splash');
     sp.classList.add('hide');
-    setTimeout(async ()=>{
+    setTimeout(()=>{
       sp.style.display='none';
-      const farm = getCurrentFarm();
-      if (!farm) {
-        // ยังไม่ได้เลือกฟาร์ม → แสดง farm selector
-        showFarmSelector();
-        return;
-      }
-      // มีฟาร์มอยู่แล้ว → sync Firestore แล้วเข้าแอป
-      syncFirestoreChemicals();
-      trackVisit().catch(()=>{});
-      if(!localStorage.getItem('cn2_ob')){
-        obStep=0;
-        showOnboard();
-      }
+      if (handleHash()) return; // ลิงก์ผู้ดูแล #admin
+      let seen=null; try{seen=localStorage.getItem('cn2_ob');}catch(e){}
+      if(!seen){ obStep=0; showOnboard(); }
     },520);
-  },2000);
+  },1400);
   if('serviceWorker' in navigator){
     navigator.serviceWorker.register('sw.js')
       .then(()=>console.log('✅ SW registered'))
@@ -4365,7 +4176,7 @@ let edState={name:'ห้อง 1',w:8,h:6,items:[]}; // items: {t:'chem'|'icon'
 let edPPM=60; // px per meter (คำนวณใหม่ตามจอ)
 let edHold=null;
 
-function edStoreKey(){const f=(typeof getCurrentFarm==='function'&&getCurrentFarm())||{id:'default'};return 'cn_ed_'+(f.id||f);}
+function edStoreKey(){return 'cn_ed_all';}
 function edRooms(){try{return JSON.parse(localStorage.getItem(edStoreKey())||'{}')}catch(e){return{}}}
 function edSaveRoom(){
   const all=edRooms(); all[edState.name]=edState;
@@ -4581,7 +4392,7 @@ function edDragStart(e,idx,el){
 }
 
 function edExport(){
-  const f=(typeof getCurrentFarm==='function'&&getCurrentFarm())||{name:''};
+  const f={name:''};
   const {probs,mitig,warns}=edCheck();
   const chems=edState.items.filter(i=>i.t==='chem');
   const uniq=[...new Map(chems.map(c=>[c.n,c])).values()];
@@ -4618,113 +4429,14 @@ function edExport(){
   ${mitig.length?`<div class="sec" style="background:#fff3e0;border:1px solid #fb2"><b>🟠 คู่ห้ามคละที่แยกบริเวณภายในห้องแล้ว ${mitig.length} คู่:</b><br>${mitig.map(p=>`• ${p.a.n} × ${p.b.n} — ${p.walled?'มีกำแพงกั้น':p.buffer?'มี '+p.buffer+' วางคั่น (ไม่ติดไฟ เข้ากันได้ทั้งสองฝั่ง)':'ระยะ '+p.dist.toFixed(1)+' ม.'}`).join('<br>')}</div>`:''}
   ${warns.length?`<div class="sec amb"><b>⚠️ คู่ที่เก็บร่วมได้แบบมีเงื่อนไข ${warns.length} คู่:</b><br>${warns.map(x=>`• ${x.a.n} × ${x.b.n} — เงื่อนไขข้อ ${x.v}: ${CD[x.v]||''} (ห่าง ${x.dist.toFixed(1)} ม.)`).join('<br>')}</div>`:''}
   ${!probs.length&&!warns.length&&chems.length>1?`<div class="sec grn"><b>✅ ทุกคู่เก็บร่วมกันได้ตาม DIW Matrix</b></div>`:''}
-  <div style="margin-top:20px;font-size:10.5px;color:#888">อ้างอิง: ตารางการจัดเก็บสารเคมีและวัตถุอันตราย กรมโรงงานอุตสาหกรรม (DIW) · พัฒนาโดย Atit Chimnan · ChemNexus AI 3.0</div>
+  <div style="margin-top:20px;font-size:10.5px;color:#888">อ้างอิง: ตารางการจัดเก็บสารเคมีและวัตถุอันตราย กรมโรงงานอุตสาหกรรม (DIW) · พัฒนาโปรแกรมโดย ธุรกิจพันธุ์กุ้งขาว 2 · ChemNexus AI 4.0</div>
   <button class="np" onclick="window.print()" style="margin-top:16px;padding:10px 22px;font-size:14px;cursor:pointer">🖨 พิมพ์ / บันทึก PDF</button>
   </body></html>`);
   w.document.close();
 }
 
 
-// ── PRESET: ผังปัจจุบันของแต่ละศูนย์ (ถอดจากแผนผังจริง ก.ค. 2026) ──
-const ED_PRESETS={
-"หัวกุญแจ (ผังปัจจุบัน)":{name:"หัวกุญแจ (ผังปัจจุบัน)",w:8,h:7,items:[
- {t:"chem",n:"ไบโอซอล 300",c:"8B",x:0.4,y:0.4},
- {t:"chem",n:"แคลเซียมคลอไรด์",c:"13",x:0.4,y:1.5},
- {t:"chem",n:"โซเดียมไทโอซัลเฟต",c:"13",x:0.4,y:2.6},
- {t:"chem",n:"โซเดียมไนไตรท์",c:"5.1B",x:0.4,y:4.1},
- {t:"chem",n:"แคลเซียมไฮโปคลอไรต์ (คลอรีนผง 65%)",c:"5.1A",x:0.4,y:5.2},
- {t:"chem",n:"โซเดียมไบคาร์บอเนต",c:"13",x:0.4,y:6.0},
- {t:"chem",n:"ปูนขาว",c:"13",x:3.1,y:1.4},
- {t:"chem",n:"ปูนขาว",c:"13",x:4.6,y:1.4},
- {t:"chem",n:"ปูนขาว",c:"13",x:3.1,y:2.4},
- {t:"chem",n:"ปูนขาว",c:"13",x:4.6,y:2.4},
- {t:"chem",n:"โซเดียมไฮดรอกไซด์ (โซดาไฟ)",c:"8B",x:6.1,y:0.4},
- {t:"chem",n:"โพวิโดนไอโอดีน",c:"12",x:6.1,y:3.1},
- {t:"chem",n:"กรดไฮโดรคลอริก (กรดเกลือ)",c:"8B",x:6.1,y:4.1},
- {t:"chem",n:"โซเดียมไฮโปคลอไรต์ (คลอรีนน้ำ)",c:"8B",x:6.1,y:5.2},
- {t:"chem",n:"โซเดียมไฮโปคลอไรต์ (คลอรีนน้ำ)",c:"8B",x:6.1,y:6.0},
- {t:"icon",ic:"🚿",n:"อ่างล้างตา",x:0.2,y:6.6},
- {t:"icon",ic:"📄",n:"เอกสาร MSDS",x:5.2,y:6.6},
- {t:"icon",ic:"⚠️",n:"ป้ายเตือน",x:5.9,y:6.6},
- {t:"icon",ic:"🏖️",n:"ทรายดูดซับ",x:7.2,y:6.6},
- {t:"icon",ic:"🔺",n:"วัสดุดูดซับใช้แล้ว",x:7.2,y:0.3}
-]},
-"ไร่สาม (ผังปัจจุบัน)":{name:"ไร่สาม (ผังปัจจุบัน)",w:9,h:7,items:[
- {t:"chem",n:"โซเดียมไฮดรอกไซด์ (โซดาไฟ)",c:"8B",x:0.4,y:0.4},
- {t:"chem",n:"แมกนีเซียมคลอไรด์",c:"13",x:2.3,y:0.4},
- {t:"chem",n:"แมกนีเซียมคลอไรด์",c:"13",x:4.0,y:0.4},
- {t:"chem",n:"กรดไฮโดรคลอริก (กรดเกลือ)",c:"8B",x:7.1,y:0.4},
- {t:"chem",n:"โซเดียมไบคาร์บอเนต",c:"13",x:0.4,y:2.6},
- {t:"chem",n:"โซเดียมไทโอซัลเฟต",c:"13",x:0.4,y:4.4},
- {t:"chem",n:"โซเดียมไฮโปคลอไรต์ (คลอรีนน้ำ)",c:"8B",x:0.6,y:6.0},
- {t:"chem",n:"ไฮโดรเจนเปอร์ออกไซด์",c:"5.1B",x:7.1,y:2.3},
- {t:"chem",n:"โซเดียมไนไตรท์",c:"5.1B",x:7.1,y:4.0},
- {t:"chem",n:"แคลเซียมไฮโปคลอไรต์ (คลอรีนผง 65%)",c:"5.1A",x:7.1,y:5.7},
- {t:"icon",ic:"🚿",n:"อ่างล้างตา",x:2.6,y:6.5},
- {t:"icon",ic:"⚠️",n:"ป้ายเตือน",x:3.4,y:6.5},
- {t:"icon",ic:"🧯",n:"ถังดับเพลิง",x:4.2,y:6.5},
- {t:"icon",ic:"🏖️",n:"ทรายดูดซับ",x:5.9,y:6.3},
- {t:"icon",ic:"🔺",n:"วัสดุดูดซับใช้แล้ว",x:6.5,y:6.3},
- {t:"icon",ic:"📄",n:"เอกสาร MSDS",x:8.4,y:6.3}
-]},
-"เพชรบุรี ห้อง 1 (ผังปัจจุบัน)":{name:"เพชรบุรี ห้อง 1",w:8,h:6,items:[
- {t:"chem",n:"โซเดียมไทโอซัลเฟต",c:"13",x:0.4,y:0.5},
- {t:"chem",n:"ไบโอซอล 300",c:"8B",x:0.4,y:1.5},
- {t:"chem",n:"โซเดียมไบคาร์บอเนต",c:"13",x:0.4,y:2.9},
- {t:"chem",n:"โซเดียมไบคาร์บอเนต",c:"13",x:0.4,y:3.8},
- {t:"chem",n:"โพวิโดนไอโอดีน",c:"12",x:0.4,y:5.0},
- {t:"chem",n:"โซเดียมไนไตรท์",c:"5.1B",x:6.0,y:0.6},
- {t:"chem",n:"โซเดียมไฮดรอกไซด์ (โซดาไฟ)",c:"8B",x:6.0,y:3.0},
- {t:"chem",n:"โซเดียมไฮดรอกไซด์ (โซดาไฟ)",c:"8B",x:6.0,y:3.9},
- {t:"icon",ic:"🏖️",n:"ทรายดูดซับ",x:0.2,y:5.6},{t:"icon",ic:"🚿",n:"อ่างล้างตา",x:0.9,y:5.6},
- {t:"icon",ic:"📄",n:"เอกสาร MSDS",x:7.3,y:5.4},{t:"icon",ic:"⚠️",n:"ป้ายเตือน",x:4.6,y:5.6}]},
-"เพชรบุรี ห้อง 2 (ผังปัจจุบัน)":{name:"เพชรบุรี ห้อง 2",w:7,h:5,items:[
- {t:"chem",n:"แคลเซียมไฮโปคลอไรต์ (คลอรีนผง 65%)",c:"5.1A",x:0.6,y:0.4},
- {t:"chem",n:"โซเดียมไฮโปคลอไรต์ (คลอรีนน้ำ)",c:"8B",x:5.4,y:0.3},
- {t:"chem",n:"โซเดียมไฮโปคลอไรต์ (คลอรีนน้ำ)",c:"8B",x:5.4,y:1.2},
- {t:"chem",n:"โซเดียมไฮโปคลอไรต์ (คลอรีนน้ำ)",c:"8B",x:5.4,y:2.1},
- {t:"chem",n:"แมกนีเซียมคลอไรด์",c:"13",x:0.6,y:3.0},
- {t:"chem",n:"แมกนีเซียมคลอไรด์",c:"13",x:2.1,y:3.0},
- {t:"chem",n:"แคลเซียมคลอไรด์",c:"13",x:5.4,y:3.4},
- {t:"icon",ic:"🚿",n:"อ่างล้างตา",x:0.2,y:4.4},{t:"icon",ic:"📄",n:"เอกสาร MSDS",x:0.8,y:4.4},
- {t:"icon",ic:"🏖️",n:"ทรายดูดซับ",x:1.5,y:4.4},{t:"icon",ic:"⚠️",n:"ป้ายเตือน",x:5.6,y:4.4}]},
-"สัตว์น้ำหาดเจ้า ห้อง 1 (ผังปัจจุบัน)":{name:"สัตว์น้ำหาดเจ้า ห้อง 1",w:7,h:5.5,items:[
- {t:"chem",n:"โซเดียมไบคาร์บอเนต",c:"13",x:2.2,y:0.3},
- {t:"chem",n:"กรดไฮโดรคลอริก (กรดเกลือ)",c:"8B",x:0.7,y:1.4},
- {t:"chem",n:"แมกนีเซียมคลอไรด์",c:"13",x:4.9,y:1.4},
- {t:"chem",n:"แคลเซียมคลอไรด์",c:"13",x:0.9,y:2.9},
- {t:"chem",n:"แคลเซียมไฮโปคลอไรต์ (คลอรีนผง 65%)",c:"5.1A",x:4.9,y:2.9},
- {t:"icon",ic:"🔺",n:"วัสดุดูดซับใช้แล้ว",x:3.2,y:4.4},{t:"icon",ic:"🏖️",n:"ทรายดูดซับ",x:3.2,y:5.0},
- {t:"icon",ic:"📄",n:"เอกสาร MSDS",x:6.4,y:4.8},{t:"icon",ic:"⚠️",n:"ป้ายเตือน",x:5.0,y:5.0}]},
-"สัตว์น้ำหาดเจ้า ห้อง 2 (ผังปัจจุบัน)":{name:"สัตว์น้ำหาดเจ้า ห้อง 2",w:7,h:5.5,items:[
- {t:"chem",n:"ซันไล (น้ำยาล้างจาน)",c:"12",x:0.6,y:0.4},
- {t:"chem",n:"โซเดียมไนไตรท์",c:"5.1B",x:0.6,y:1.5},
- {t:"chem",n:"โซเดียมไทโอซัลเฟต",c:"13",x:0.6,y:2.6},
- {t:"chem",n:"โซเดียมไฮดรอกไซด์ (โซดาไฟ)",c:"8B",x:0.6,y:3.8},
- {t:"chem",n:"โพวิโดนไอโอดีน",c:"12",x:4.6,y:0.3},
- {t:"chem",n:"เอทิลแอลกอฮอล์ (เอทานอล)",c:"3A",x:5.0,y:2.5},
- {t:"icon",ic:"🔺",n:"วัสดุดูดซับใช้แล้ว",x:6.2,y:4.2},{t:"icon",ic:"📄",n:"เอกสาร MSDS",x:5.6,y:4.6},
- {t:"icon",ic:"🏖️",n:"ทรายดูดซับ",x:6.2,y:4.6},{t:"icon",ic:"⚠️",n:"ป้ายเตือน",x:5.0,y:5.0}]},
-"วิจัยหาดเจ้า ห้อง 1 (ผังปัจจุบัน)":{name:"วิจัยหาดเจ้า ห้อง 1",w:5,h:6.5,items:[
- {t:"chem",n:"ไฮโดรเจนเปอร์ออกไซด์",c:"5.1B",x:0.3,y:0.4},
- {t:"chem",n:"กรดไฮโดรคลอริก (กรดเกลือ)",c:"8B",x:0.3,y:1.5},
- {t:"chem",n:"โพวิโดนไอโอดีน",c:"12",x:0.3,y:2.6},
- {t:"chem",n:"โพวิโดนไอโอดีน",c:"12",x:0.3,y:3.7},
- {t:"chem",n:"เอทิลแอลกอฮอล์ (เอทานอล)",c:"3A",x:0.3,y:5.1},
- {t:"chem",n:"โซเดียมไบคาร์บอเนต",c:"13",x:3.2,y:0.5},
- {t:"chem",n:"แมกนีเซียมคลอไรด์",c:"13",x:3.2,y:1.6},
- {t:"chem",n:"โซเดียมไบคาร์บอเนต",c:"13",x:3.2,y:2.7},
- {t:"chem",n:"EDTA",c:"13",x:3.2,y:3.8},
- {t:"chem",n:"อควา บราวน์",c:"13",x:3.2,y:4.7},
- {t:"chem",n:"โซเดียมไทโอซัลเฟต",c:"13",x:3.2,y:5.6},
- {t:"icon",ic:"🧯",n:"ถังดับเพลิง",x:0.2,y:6.1},{t:"icon",ic:"⚠️",n:"ป้ายเตือน",x:1.4,y:6.1}]},
-"วิจัยหาดเจ้า ห้อง 2 (ผังปัจจุบัน)":{name:"วิจัยหาดเจ้า ห้อง 2",w:5,h:6.5,items:[
- {t:"chem",n:"โซเดียมไฮดรอกไซด์ (โซดาไฟ)",c:"8B",x:0.5,y:0.6},
- {t:"chem",n:"โซเดียมไฮโปคลอไรต์ (คลอรีนน้ำ)",c:"8B",x:0.5,y:4.8},
- {t:"chem",n:"แคลเซียมไฮโปคลอไรต์ (คลอรีนผง 65%)",c:"5.1A",x:3.2,y:0.6},
- {t:"icon",ic:"🔺",n:"วัสดุดูดซับใช้แล้ว",x:3.4,y:5.3},{t:"icon",ic:"🏖️",n:"ทรายดูดซับ",x:3.4,y:5.9},
- {t:"icon",ic:"🚿",n:"อ่างล้างตา",x:4.4,y:5.9},{t:"icon",ic:"📄",n:"เอกสาร MSDS",x:0.3,y:6.0},
- {t:"icon",ic:"⚠️",n:"ป้ายเตือน",x:1.0,y:6.0}]}};
+const ED_PRESETS={}; // v4: ไม่มีผังสำเร็จรูปของแต่ละศูนย์
 function edLoadPreset(key){
   const p=ED_PRESETS[key]; if(!p)return;
   edState=JSON.parse(JSON.stringify(p));
