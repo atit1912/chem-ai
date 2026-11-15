@@ -2394,7 +2394,7 @@ function askCompat(a,b,mix){
   const sr=sdsRule(a,b);const r=sr?'RED':diw;
   const pr=sr||PR[`${c1}-${c2}`]||PR[`${c2}-${c1}`]||null;
   const code=diw==='YELLOW'?val:null;
-  const title=sr?'ต้องแยกเก็บ — ICSC ระบุว่าเข้ากันไม่ได้':r==='RED'?'ต้องแยกเก็บ (แยกบริเวณ)':r==='YELLOW'?`เก็บร่วมได้ ตามเงื่อนไข DIW ข้อ ${code}`:'เก็บร่วมกันได้';
+  const title=sr?(diw==='RED'?'ห้ามเก็บร่วม — ตาราง DIW และ ICSC ตรงกัน':'ต้องแยกเก็บ — ICSC ระบุว่าเข้ากันไม่ได้'):r==='RED'?'ต้องแยกเก็บ (แยกบริเวณ)':r==='YELLOW'?`เก็บร่วมได้ ตามเงื่อนไข DIW ข้อ ${code}`:'เก็บร่วมกันได้';
   let body=`${esc(askShort(a))} (Class ${a.c}) กับ ${esc(askShort(b))} (Class ${b.c})`;
   if(pr)body+=`<div style="margin-top:6px"><b>${esc(pr.g)}</b> — ${pr.rx}</div>`;
   if(code)body+=`<div style="margin-top:6px">เงื่อนไขข้อ ${code}: ${esc(CD_FULL[code]||CD[code]||'')}</div>`;
@@ -2711,7 +2711,7 @@ function doAna(){
   let c1=sA.c,c2=sB.c;
   if(CO.indexOf(c1)>CO.indexOf(c2))[c1,c2]=[c2,c1];
   const val=mxVal(c1,c2);
-  const diw=(!val||val==='0')?'RED':val==='00'?'GREEN':'YELLOW';
+  const diw=diwOf(c1,c2);
   const sr=sdsRule(sA,sB);
   const r=sr?'RED':diw;
   const code=diw==='YELLOW'?val:null;
@@ -2728,6 +2728,8 @@ function doAna(){
     rRes(e);go('result');
   },450);
 }
+// ผลตามตาราง DIW ล้วน (คิดใหม่ทุกครั้ง — ประวัติเก่าที่ไม่มีช่อง diw ก็แสดงถูก)
+function diwOf(c1,c2){const v=mxVal(c1,c2);return (!v||v==='0')?'RED':v==='00'?'GREEN':'YELLOW';}
 function rplay(a,b){
   const all=liveDB().map(x=>({...x,n:x.n||x.name,c:x.c||x.cls,cs:x.cs||x.cas,u:x.u||x.un}));
   const ca=all.find(x=>x.n===canonName(a)),cb=all.find(x=>x.n===canonName(b));
@@ -2741,7 +2743,7 @@ function resText(e){
   const strip=h=>String(h||'').replace(/<[^>]*>/g,' ').replace(/&nbsp;/g,' ').replace(/\s+/g,' ').trim();
   const pr=sr?null:(PR[`${c1}-${c2}`]||PR[`${c2}-${c1}`]||null);
   const cond=code?(CD_FULL[code]||CD[code]||''):'';
-  const verdict=sr?'⛔ แยกเก็บ — บัตร ICSC ระบุว่าสารคู่นี้เข้ากันไม่ได้'
+  const verdict=sr?(diwOf(c1,c2)==='RED'?'⛔ ห้ามเก็บร่วม — ตาราง DIW และบัตร ICSC ตรงกัน':'⛔ แยกเก็บ — บัตร ICSC ระบุว่าสารคู่นี้เข้ากันไม่ได้')
     :r==='RED'?'⛔ ห้ามเก็บร่วม'
     :r==='YELLOW'?`⚠️ เก็บร่วมได้ ต้องทำตามเงื่อนไข DIW ข้อ ${code}`
     :'✅ เก็บร่วมกันได้';
@@ -2767,10 +2769,10 @@ async function shareRes(){
 function rRes(e){
   lastRes=e;
   const{a,b,cA,cB,c1,c2,r,code}=e;
-  const sr=e.sr||null, diw=e.diw||r;
+  const sr=e.sr||null, diw=diwOf(c1,c2);
   const hA=HC[cA]||{},hB=HC[cB]||{};
   const pA=getProps(a),pB=getProps(b);
-  const pr=sr?{g:sr.g,rx:sr.rx+`<div style="margin-top:6px;font-size:10.5px;color:var(--tx3)">ตาราง DIW (เทียบระดับ Class ${c1}–${c2}) = ${diw==='GREEN'?'เก็บร่วมได้':'เก็บร่วมได้แบบมีเงื่อนไข'} แต่บัตรข้อมูลความปลอดภัยของสารคู่นี้ระบุว่าเข้ากันไม่ได้ จึงให้แยกเก็บ · <a href="${sr.url}" target="_blank" rel="noopener" style="color:var(--lime)">เปิดแหล่งอ้างอิง</a></div>`}
+  const pr=sr?{g:sr.g,rx:sr.rx+`<div style="margin-top:6px;font-size:10.5px;color:var(--tx3)">ตาราง DIW (เทียบระดับ Class ${c1}–${c2}) = ${diw==='RED'?'ห้ามเก็บร่วม ต้องแยกบริเวณ และบัตรข้อมูลความปลอดภัยของสารคู่นี้ก็ระบุว่าเข้ากันไม่ได้':(diw==='GREEN'?'เก็บร่วมได้':'เก็บร่วมได้แบบมีเงื่อนไข')+' แต่บัตรข้อมูลความปลอดภัยของสารคู่นี้ระบุว่าเข้ากันไม่ได้ จึงให้แยกเก็บ'} · <a href="${sr.url}" target="_blank" rel="noopener" style="color:var(--lime)">เปิดแหล่งอ้างอิง</a></div>`}
     :(PR[`${c1}-${c2}`]||PR[`${c2}-${c1}`]||null);
   const cond=code?(CD_FULL[code]||CD[code]||''):'';
   const ghsA=Array.isArray(pA.ghs)?pA.ghs:[];
@@ -2826,10 +2828,10 @@ function rRes(e){
       <div class="rbi">${r==='RED'?'⛔':r==='YELLOW'?'⚠️':'✅'}</div>
       <div style="flex:1">
         <div class="rbt">${r==='RED'?'ไม่ปลอดภัย — ห้ามเก็บร่วม':r==='YELLOW'?'เก็บร่วมได้ (ต้องมีเงื่อนไข)':'ปลอดภัย เก็บร่วมกันได้'}</div>
-        <div class="rbs">${sr?'แยกเก็บ — ICSC ระบุว่าสารคู่นี้เข้ากันไม่ได้':r==='RED'?'DANGER : ห้ามเก็บร่วม':r==='YELLOW'?'CONDITIONAL STORAGE':'SAFE TO STORE TOGETHER'}</div>
+        <div class="rbs">${sr?(diw==='RED'?'แยกบริเวณ — ตาราง DIW และ ICSC ตรงกัน':'แยกเก็บ — ICSC ระบุว่าสารคู่นี้เข้ากันไม่ได้'):r==='RED'?'DANGER : ห้ามเก็บร่วม':r==='YELLOW'?'CONDITIONAL STORAGE':'SAFE TO STORE TOGETHER'}</div>
       </div>
       <div style="text-align:right;flex-shrink:0">
-        <div style="font-size:9.5px;font-weight:900;color:${badgeCol};padding:4px 10px;background:${badgeBg};border-radius:6px;letter-spacing:.04em">${sr?'ICSC':'DIW Matrix'}</div>
+        <div style="font-size:9.5px;font-weight:900;color:${badgeCol};padding:4px 10px;background:${badgeBg};border-radius:6px;letter-spacing:.04em">${sr?(diw==='RED'?'DIW + ICSC':'ICSC'):'DIW Matrix'}</div>
         <div class="rds" style="justify-content:flex-end;margin-top:7px">${dots}</div>
       </div>
     </div>
@@ -4107,10 +4109,11 @@ function edDelSel(){if(edSel<0||!edState.items[edSel])return;edSnap();edState.it
 function edRotSel(){const it=edState.items[edSel];if(!it||it.t!=='wall')return;edSnap();it.vert=!it.vert;edClamp(it);edRender();}
 function edSize(it){return it.t==='chem'?[1.4,0.9]:it.t==='wall'?(it.vert?[0.18,it.len]:[it.len,0.18]):[0.5,0.5];}
 function edClamp(it){const[w,h]=edSize(it);it.x=Math.max(0,Math.min(edState.w-w,it.x));it.y=Math.max(0,Math.min(edState.h-h,it.y));}
+// ชื่อสั้นบนบล็อก: ชื่อเรียกในวงเล็บ (คลอรีนผง) ถ้ามี · ไม่ใช้วงเล็บสูตร (OH)/ความเข้มข้น/ลักษณะ (ผง เกล็ด ก๊าซ…)
 function edShort(n){
-  const m=n.match(/\(([^)]+)\)/);
-  let t=m&&!/^[\d≥≤]/.test(m[1])&&!/%/.test(m[1])?m[1]:n.replace(/\s*\(.*\)\s*/,'');
-  return t;
+  const ms=[...n.matchAll(/\(([^()]+)\)/g)].map(x=>x[1]).filter(s=>/[ก-๙]/.test(s)&&!/^[\d≥≤]/.test(s)&&!/%/.test(s)&&!/^(ผง|เกล็ด|ผลึก|เข้มข้น|ก๊าซ)/.test(s));
+  if(ms.length)return ms[ms.length-1];
+  return n.replace(/\s*(\(|\s[\d≥≤]).*$/,'').replace(/\s+[A-Za-z][A-Za-z0-9₀-₉·]*$/,'');
 }
 // ── เลือกสาร (แตะ = ใส่/เอาออกจากห้อง) ──
 function edRenderPick(){
